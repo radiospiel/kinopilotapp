@@ -1,0 +1,150 @@
+[
+  {
+    "_type": "theaters",
+    "_uid": 267534162,
+    "address": "Revaler Straße 99, 10245 Berlin",
+    "latlng": [
+      52.5080655216414,
+      13.4528768062592
+    ],
+    "name": "Freiluftkino Insel",
+    "tel": "030 54713247",
+    "url": "http://www.freiluftkino-insel.de"
+  },
+  {
+    "_type": "theaters",
+    "_uid": 374391607,
+    "address": "Matthäikirchplatz 4/6, 10785 Berlin",
+    "latlng": [
+      52.50858,
+      13.3682
+    ],
+    "name": "Sommerkino Kulturforum/Potsdamer Platz",
+    "url": "http://www.yorck.de/kinos/detail/100048/"
+  },
+  {
+    "_type": "theaters",
+    "_uid": 624179285,
+    "address": "Adalbertstrasse 73, 12587 Berlin",
+    "latlng": [
+      52.503892587548,
+      13.4252500534058
+    ],
+    "name": "Freiluftkino Kreuzberg",
+    "tel": "030 29 36 16 28",
+    "url": "http://www.freiluftkino-kreuzberg.de/"
+  },
+  {
+    "_type": "theaters",
+    "_uid": 837728461,
+    "address": "Im Volkspark Friedrichshain, 10249 Berlin",
+    "latlng": [
+      52.5251710625458,
+      13.4361398220062
+    ],
+    "name": "Freiluftkino Friedrichshain",
+    "tel": "030 29361629",
+    "url": "http://www.freiluftkino-berlin.de/"
+  },
+  {
+    "_type": "theaters",
+    "_uid": 1223633946,
+    "address": "Rosenthaler Str. 39,10178 Berlin",
+    "latlng": [
+      52.5242702498118,
+      13.4025585651398
+    ],
+    "name": "Freiluftkino Mitte",
+    "url": "http://www.freiluftkino-mitte.de/"
+  },
+  {
+    "_type": "theaters",
+    "_uid": 1592415747,
+    "address": "Windhuker Straße 52a, 13351 Berlin",
+    "latlng": [
+      52.5531849462304,
+      13.3315658569336
+    ],
+    "name": "Freiluftkino Rehberge",
+    "tel": "030  29 36 16 20",
+    "url": "http://www.freiluftkino-rehberge.de/"
+  },
+  {
+    "_type": "theaters",
+    "_uid": 1600891278,
+    "address": "Lansstraße 8, 14195 Berlin-Dahlem",
+    "latlng": [
+      52.4573169,
+      13.2928777
+    ],
+    "name": "Freiluftkino Museen Dahlem",
+    "url": "http://www.yorck.de/kinos/detail/100049/"
+  },
+  {
+    "_type": "theaters",
+    "_uid": 1954940838,
+    "address": "Bölschestraße 69, 12587 Berlin",
+    "latlng": [
+      52.4576830465454,
+      13.6255896091461
+    ],
+    "name": "Freiluftkino Friedrichshagen",
+    "tel": "030 65013141",
+    "url": "http://www.kino-union.de"
+  },
+  {
+    "_type": "theaters",
+    "_uid": 2885852417,
+    "address": "Burgstraße, Potsdam",
+    "latlng": [
+      52.3961344694292,
+      13.069235086441
+    ],
+    "name": "Inselkino Potsdam",
+    "url": "http://www.inselkino-potsdam.de/"
+  },
+  {
+    "_type": "theaters",
+    "_uid": 2959148455,
+    "address": "Lehrter Str. 35, 10557 Berlin",
+    "latlng": [
+      52.5342042787458,
+      13.3596539497375
+    ],
+    "name": "Open-Air-Kino in der Kulturfabrik",
+    "url": "http://www.filmrausch.de/content/view/77/"
+  },
+  {
+    "_type": "theaters",
+    "_uid": 3190279602,
+    "address": "Columbiadamm, 10967 Berlin",
+    "latlng": [
+      52.4825057991268,
+      13.4169888496399
+    ],
+    "name": "Freiluftkino Hasenheide",
+    "url": "http://www.freiluftkino-hasenheide.de"
+  },
+  {
+    "_type": "theaters",
+    "_uid": 3619205751,
+    "address": "Carl-Schurz-Str. 13, Berlin",
+    "latlng": [
+      52.5360120042193,
+      13.2009637355804
+    ],
+    "name": "Open-Air-Kino Spandau",
+    "url": "http://www.openairkino-spandau.de/"
+  },
+  {
+    "_type": "theaters",
+    "_uid": 3937002055,
+    "address": "Cecilienplatz, Berlin",
+    "latlng": [
+      52.521482835423,
+      13.5895085334778
+    ],
+    "name": "Balkonkino auf dem Cecilienplatz",
+    "url": "http://www.cecilienplatz.de/balkonkino.html"
+  }
+]
