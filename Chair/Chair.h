@@ -41,18 +41,8 @@ If the record does not have a key, this method will calculate a key.
            
 @end
 
-@interface Chair(DefaultDatabase)
-
-+ (ChairDatabase*) db;
-
-+ (ChairDatabase*) import: (NSString*) path;
-
-+ (ChairDatabase*) load: (NSString*) path;
-+ (ChairDatabase*) save: (NSString*) path;
-
-@end
-
 #import "ChairDatabase.h"
 #import "ChairDictionary.h"
 #import "ChairTable.h"
 #import "ChairView.h"
+#import "ChairDynamicView.h"

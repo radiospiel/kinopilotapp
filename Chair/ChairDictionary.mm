@@ -47,7 +47,7 @@
 }
 
 + (id) dictionaryWithObjects: (NSArray*)objects andKeys: (NSArray*)keys {
-  return [[ ChairDictionary alloc ] initWithObjects: objects andKeys: keys ];
+  return AUTORELEASE([[ ChairDictionary alloc ] initWithObjects: objects andKeys: keys ]);
 }
 
 -(id)initWithKeyValueArray: (NSArray*)kvArray {

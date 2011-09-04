@@ -14,16 +14,24 @@
   self = [ super init ];
   if(!self) return nil;
    
-  tables_ = [ NSMutableDictionary dictionary ]; 
+  // TODO: This is probably a memory leak. 
+  tables_ = [[[ NSMutableDictionary alloc ] init ]retain]; 
   return self;
 }
 
-+(ChairDatabase*) database {
-  return AUTORELEASE([[ self alloc ] init ]);
+-(void)dealloc {
+  [tables_ release];
+  [super dealloc];
+}
+
++(ChairDatabase*) database 
+{
+  ChairDatabase* database = [[ self alloc ] init ];
+  return AUTORELEASE(database);
 }
 
 +(ChairTable*) tableForDictionary_: (NSMutableDictionary*) tables 
-                          andName: (NSString*) name 
+                           andName: (NSString*) name 
 {
   ChairTable* table = [ tables objectForKey: name ];
   if(!table) {
@@ -56,12 +64,12 @@
 
 -(void) import: (NSString*) path
 {
-  NSMutableDictionary* tables = [ NSMutableDictionary dictionary ]; 
-
   NSArray* entries = [ M3 readJSONFile: path ];
   if(![entries isKindOfClass: [ NSArray class]])
     _.raise("Cannot read file", path);
   
+  NSMutableDictionary* tables = [ NSMutableDictionary dictionary ]; 
+
   for(id entry in entries) {
     
     // Add dictionaries into the respective table.
@@ -69,7 +77,7 @@
       NSString* table_name = [ entry objectForKey: @"_type" ];
       ChairTable* table = [ ChairDatabase tableForDictionary_: tables 
                                                      andName: table_name ];
-      
+     
       [ table upsert: entry ];
       continue;
     }

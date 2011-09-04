@@ -12,11 +12,14 @@
 */
 
 @interface ChairView: NSObject {
-  NSUInteger revision_;
-  ChairView* source_view_;
-  NSUInteger source_revision_;
+  NSUInteger      revision_;
+  ChairView*      source_view_;
+  NSUInteger      source_revision_;
+  
+  NSMutableArray* dependant_objects_;
 }
 
+-(void) addDependantObject: (id) object;
 
 /**
   The revision number. 
@@ -26,6 +29,7 @@
   stemming from that view.
 */
 @property (nonatomic,assign) NSUInteger revision;
+@property (nonatomic,retain) ChairView* source_view;
 
 - (id) init;
 
@@ -103,14 +107,12 @@ typedef NSDictionary* (^SimpleReduceCallback)(NSArray* value, id key);
 
 @interface ChairView(Dynamic)
 
-+ (ChairView*) viewWithView: (ChairView*)view
-                     andMap: (MapCallback) map_func
-                  andReduce: (ReduceCallback) reduce_func;
+-(ChairView*) viewWithMap: (MapCallback)map_fun
+                andReduce: (ReduceCallback)reduce_fun;
 
-+ (ChairView*) viewWithView: (ChairView*)view
-                     andMap: (SimpleMapCallback) map_func        // change value
-                   andGroup: (SimpleMapCallback) group_func      // change key
-                   andReduce: (SimpleReduceCallback) reduce_func;   // reduce function, can be a name 
+-(ChairView*) viewWithMap: (SimpleMapCallback) map_func    // change value
+                 andGroup: (SimpleMapCallback) group_func  // change key
+                andReduce: (SimpleReduceCallback) reduce_func; // reduce function, can be a name 
 
 @end
 

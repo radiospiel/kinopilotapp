@@ -51,7 +51,6 @@
 		9D8B8B021413CA8B0066ECBB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8B8AEE1413CA8B0066ECBB /* Cocoa.framework */; };
 		9D8B8B051413CA8B0066ECBB /* libM3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8B8AEB1413CA8B0066ECBB /* libM3.a */; };
 		9D8B8B0B1413CA8B0066ECBB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D8B8B091413CA8B0066ECBB /* InfoPlist.strings */; };
-		9D8B8B0E1413CA8B0066ECBB /* M3Tests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B0D1413CA8B0066ECBB /* M3Tests.mm */; };
 		9D8B8B2A1413CAD90066ECBB /* M3+Comparison.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8B8B171413CAD90066ECBB /* M3+Comparison.h */; };
 		9D8B8B2B1413CAD90066ECBB /* M3+Comparison.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B181413CAD90066ECBB /* M3+Comparison.mm */; };
 		9D8B8B2C1413CAD90066ECBB /* M3+Comparison.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B181413CAD90066ECBB /* M3+Comparison.mm */; };
@@ -490,7 +489,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D8B8B0E1413CA8B0066ECBB /* M3Tests.mm in Sources */,
 				9D8B8B2C1413CAD90066ECBB /* M3+Comparison.mm in Sources */,
 				9D8B8B2F1413CAD90066ECBB /* M3+Crypto.mm in Sources */,
 				9D8B8B321413CAD90066ECBB /* M3+Enumeration.mm in Sources */,

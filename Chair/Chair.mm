@@ -115,36 +115,6 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
 
 @end
 
-@implementation Chair(DefaultDatabase)
-
-static ChairDatabase* db = 0;
-
-+(void) initialize; {
-  if(!db) 
-    db = [ ChairDatabase database ];
-}
-
-+ (ChairDatabase*) db {
-  return db;
-}
-
-+ (ChairDatabase*) import: (NSString*) path {
-  [ db import: path ];
-  return db;
-}
-
-+ (ChairDatabase*) load: (NSString*) path {
-  [ db load: path ];
-  return db;
-}
-
-+ (ChairDatabase*) save: (NSString*) path {
-  [ db save: path ];
-  return db;
-}
-
-@end
-
 @implementation Chair(Dynamic)
 
 + (SimpleMapCallback) groupBy: (NSString*) name;
@@ -156,7 +126,8 @@ static ChairDatabase* db = 0;
 + (SimpleReduceCallback) reduceBy: (NSString*) name;
 {
   if([name isEqualToString: @"count"]) {
-    return ^(NSArray* values, id key) { return _.hash("count", [ values count ]); };
+    id block = ^(NSArray* values, id key) { return _.hash("count", [ values count ]); };
+    return [[block copy]retain];
   }
   
   _.raise("Unsuppored reduce method", name);

@@ -16,7 +16,7 @@
 {
   self = [ super init ];
   if(self) {
-    dictionary_ = [ ChairDictionary dictionary ];
+    dictionary_ = [ [ChairDictionary alloc] init ];
   }
   
   return self;
@@ -32,8 +32,10 @@
   return self;
 }
 
-+(ChairMaterializedView*) viewWithDictionary: (ChairDictionary*) dictionary {
-  return AUTORELEASE([[ ChairMaterializedView alloc ] initWithDictionary: dictionary ]);
+-(void)dealloc
+{
+  self.dictionary = nil;
+  [super dealloc];
 }
 
 -(void)do_update {
@@ -50,8 +52,7 @@
   }
    ];
   
-  dictionary_ = nil;
-  dictionary_ = [ ChairDictionary dictionaryWithObjects: values andKeys: keys ];
+  self.dictionary = [ ChairDictionary dictionaryWithObjects: values andKeys: keys ];
   
   revision_ = old_revision + 1;
 }

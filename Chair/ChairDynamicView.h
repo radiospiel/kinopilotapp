@@ -12,13 +12,7 @@
   ReduceCallback  reduce_function_;
 }
 
-+(ChairView*) viewWithView: (ChairView*)view_
-                    andMap: (MapCallback)map_fun
-                 andReduce: (ReduceCallback)reduce_fun;
-
-+(ChairView*) viewWithView: (ChairView*)view
-                    andMap: (SimpleMapCallback) map_func     // change value
-                  andGroup: (SimpleMapCallback) group_func   // change key
-                 andReduce: (SimpleReduceCallback) reduce_func; // reduce function, can be a name 
+@property (retain,nonatomic) MapCallback map_function;
+@property (retain,nonatomic) ReduceCallback reduce_function;
 
 @end

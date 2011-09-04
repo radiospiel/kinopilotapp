@@ -11,16 +11,43 @@
 @implementation ChairView
 
 @synthesize revision = revision_;
+@synthesize source_view = source_view_;
 
 - (id) init {
   self = [ super init ];
   if(!self) return nil;
   
-  revision_ = 0;
-  source_view_ = nil;
+  self.revision = 0;
+  self.source_view = nil;
   source_revision_ = 0;
   
+  dependant_objects_ = [[[ NSMutableArray alloc ]init] retain];
+  
   return self;
+}
+
+-(void)dealloc 
+{
+  NSLog(@"ChairView dealloc: %ld", (long)self);
+
+  [dependant_objects_ release];
+  
+  self.revision = 0;
+  self.source_view = nil;
+
+  [super dealloc];
+}
+
+-(void) addDependantObject: (id) object;
+{
+  [ dependant_objects_ addObject: object ];
+}
+
+-(NSString*) description
+{
+  return [NSString stringWithFormat:  @"<%@: %ld dependants%>", 
+                                      NSStringFromClass ([self class]), 
+                                      dependant_objects_.count];
 }
 
 /**
@@ -63,7 +90,7 @@
   [ self each: ^(NSDictionary* value, id key) { r = value; }
           min: key max: key excludingEnd: NO ];
   
-  return r;
+  return [r autorelease];
 }
 
 /**
@@ -99,31 +126,6 @@
   
   [ self each: ^(NSDictionary* value, id key) { [values addObject: value ]; } ];
   return values;
-}
-
-@end
-
-
-@implementation ChairView(Dynamic)
-
-+ (ChairView*) viewWithView: (ChairView*)view
-                     andMap: (MapCallback) map_func
-                  andReduce: (ReduceCallback) reduce_func;
-{
-  return [ ChairDynamicView viewWithView: view
-                                  andMap: map_func
-                               andReduce: reduce_func ];
-}
-
-+ (ChairView*) viewWithView: (ChairView*)view
-                     andMap: (SimpleMapCallback) map_func          // change value
-                   andGroup: (SimpleMapCallback) group_func        // change key
-                  andReduce: (SimpleReduceCallback) reduce_func;  // reduce function, can be a name 
-{
-  return [ ChairDynamicView viewWithView: view
-                                  andMap: map_func        // change value
-                                andGroup: group_func      // change key
-                               andReduce: reduce_func ];
 }
 
 @end

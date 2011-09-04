@@ -8,8 +8,10 @@
 #import "ChairTests.h"
 
 #import "Chair.h"
-#import "LoggerClient.h"
 #import "Underscore.hh"
+#import "ChairDynamicView.h"
+
+// #import "LoggerClient.h"
 
 /* Test helper macros */
 
@@ -20,30 +22,28 @@
 
 @implementation ChairTests
 
-+(void)initialize
-{
-  LoggerInit(); // , but instead at close time to call: `LoggerStop(LoggerGetDefaultLogger());`
-  LogMessageCompat(@"*** starting logger");
-  LoggerFlush(LoggerGetDefaultLogger(), NO);
-  [ NSThread sleepForTimeInterval: 0.1 ];
-  LogMessageCompat(@"*** Initialized logger");
-}
+// +(void)initialize
+// {
+//   LoggerInit(); // , but instead at close time to call: `LoggerStop(LoggerGetDefaultLogger());`
+//   // LogMessageCompat(@"*** starting logger");
+//   LoggerFlush(LoggerGetDefaultLogger(), NO);
+//   // [ NSThread sleepForTimeInterval: 0.1 ];
+//   LogMessageCompat(@"*** Initialized logger");
+// }
 
-#if 0 
--(void)setUp
-{
-  NSLog(@"setUp: %@", [ self name ]);
-  
-  [super setUp];
-}
-
--(void)tearDown
-{
-  NSLog(@"tearDown: %@", [ self name ]);
-  [super tearDown];
-  // LoggerFlush(LoggerGetDefaultLogger(), NO);
-}
-#endif
+// -(void)setUp
+// {
+//   NSLog(@"setUp: %@", [ self name ]);
+//   
+//   [super setUp];
+// }
+// 
+// -(void)tearDown
+// {
+//   NSLog(@"tearDown: %@", [ self name ]);
+//   [super tearDown];
+//   // LoggerFlush(LoggerGetDefaultLogger(), NO);
+// }
 
 - (void)test_chair_array_additions_multiple_entries
 {
@@ -223,10 +223,10 @@ static NSMutableArray* enum_keys_descending(ChairDictionary* dictionary, T1 min,
 
 - (void)test_import_table
 {
-  return;
-  
-  [ [Chair db] import: @"fixtures/theaters.json" ];
-  ChairTable* theaters = [ [Chair db] tableForName: @"theaters" ];
+  ChairDatabase* db = [ ChairDatabase database ];
+
+  [ db import: @"fixtures/theaters.json" ];
+  ChairTable* theaters = [ db tableForName: @"theaters" ];
   assert_equal(13, [ theaters count ]);
 }
 
@@ -234,76 +234,104 @@ static NSMutableArray* enum_keys_descending(ChairDictionary* dictionary, T1 min,
 {
   return;
   
-  ChairDatabase* db = [ Chair db ];
+
+  ChairDatabase* db = [ ChairDatabase database ];
   
   [ db import: @"fixtures/flk.json" ];
   [ db save: @"tmp/" ];
-  [ db load: @"tmp" ];
+  
+  // [ db load: @"tmp" ];
 }
 
 -(void)test_import
 {
   return;
   
-  
-  ChairDatabase* db = [ Chair db ];
-  
-  [ db import: @"fixtures/flk.json" ];
 
-  ChairTable* theaters = [db tableForName: @"theaters" ];
-  assert_equal(13, [ theaters count ]);
+  @try {
+    ChairDatabase* db = [[ChairDatabase alloc ] init ];
+    
+    [ db import: @"fixtures/flk.json" ];
 
-  ChairTable* schedules = [db tableForName: @"schedules" ];
-  assert_equal(102, [ schedules count ]);
+    ChairTable* theaters = [db tableForName: @"theaters" ];
+    assert_equal(13, [ theaters count ]);
 
-  ChairTable* movies = [db tableForName: @"movies" ];
-  assert_equal(83, [ movies count ]);
+    ChairTable* schedules = [db tableForName: @"schedules" ];
+    assert_equal(102, [ schedules count ]);
+    
+    ChairTable* movies = [db tableForName: @"movies" ];
+    assert_equal(83, [ movies count ]);
+	} 
+	@catch (id theException) {
+		NSLog(@"Exception %@", theException);
+	} 
+}
+
+-(void)test_alloc_and_release
+{
+  @autoreleasepool {
+    ChairDatabase* db = [ ChairDatabase database ];
+    ChairTable* schedules = [db tableForName: @"schedules" ];
+
+    ChairView* view = [schedules viewWithMap:nil andReduce:nil];
+    view = [schedules viewWithMap: nil andReduce: nil ];
+
+    NSUInteger count = [view count];
+    NSLog(@"**** count: %ld", count);
+  }
+
+  NSLog(@"**** done");
 }
 
 -(void)test_group_and_view
 {
+  @autoreleasepool {
+
+    ChairDatabase* db = [ ChairDatabase database ];
+    [ db import: @"fixtures/flk.json" ];
+    
+    // --------------------------------------------------------
+    
+    ChairTable* schedules = [db tableForName: @"schedules" ];
+    assert_equal(102, [ schedules count ]);
+    
+    ChairView* schedules_ordered_by_theater_id = 
+      [ schedules viewWithMap: nil
+                     andGroup: ^(NSDictionary* value, id key) { return [ value objectForKey: @"theater_id" ]; }
+                    andReduce: nil ];
+    
+    // 
+    NSLog(@"Created schedules_ordered_by_theater_id"); 
+
+    assert_equal(102, [ schedules_ordered_by_theater_id count ]);
+    NSLog(@"Counted schedules_ordered_by_theater_id"); 
+  }
+
   return;
-  
-  ChairDatabase* db = [ Chair db ];
-  
-  [ db import: @"fixtures/flk.json" ];
 
-  // --------------------------------------------------------
-  
-  ChairTable* schedules = [db tableForName: @"schedules" ];
-  assert_equal(102, [ schedules count ]);
 
-  ChairView* schedules_ordered_by_theater_id;
-  schedules_ordered_by_theater_id = [ ChairView viewWithView: schedules
-                                                      andMap: nil
-                                                    andGroup: ^(NSDictionary* value, id key) { return [ value objectForKey: @"theater_id" ]; }
-                                                   andReduce: nil ];
-
-  assert_equal(102, [ schedules_ordered_by_theater_id count ]);
-  
-  ChairView* schedules_by_theater;
-  schedules_by_theater = [ ChairView viewWithView: schedules
-                                           andMap: nil
-                                         andGroup: ^(NSDictionary* value, id key) { return [ value objectForKey: @"theater_id" ]; }
-                                        andReduce: ^(NSArray* values, id key) { return _.hash("count", [ values count ]); } ];
-
-  // [ schedules_by_theater update ];
-  assert_equal([ schedules_by_theater keys ], _.array(
-    267534162, 374391607, 624179285, 837728461, 1223633946, 1592415747,
-    1600891278, 1954940838, 2885852417, 3190279602, 3619205751
-  ));
-
-  assert(![ schedules_by_theater get: _.object(1) ]);
-  assert_equal(_.hash("count", 8), [ schedules_by_theater get: _.object(267534162) ]);
-
-  assert_equal(11, [ schedules_by_theater count ]);
+//  
+//  ChairView* schedules_by_theater;
+//  schedules_by_theater = [ ChairView viewWithView: schedules
+//                                           andMap: nil
+//                                         andGroup: ^(NSDictionary* value, id key) { return [ value objectForKey: @"theater_id" ]; }
+//                                        andReduce: ^(NSArray* values, id key) { return _.hash("count", [ values count ]); } ];
+//
+//  // [ schedules_by_theater update ];
+//  assert_equal([ schedules_by_theater keys ], _.array(
+//    267534162, 374391607, 624179285, 837728461, 1223633946, 1592415747,
+//    1600891278, 1954940838, 2885852417, 3190279602, 3619205751
+//  ));
+//
+//  assert(![ schedules_by_theater get: _.object(1) ]);
+//  assert_equal(_.hash("count", 8), [ schedules_by_theater get: _.object(267534162) ]);
+//
+//  assert_equal(11, [ schedules_by_theater count ]);
 }
 
 -(void)test_group_by_name
 {
-  return;
-  
-  ChairDatabase* db = [ Chair db ];
+  ChairDatabase* db = [ ChairDatabase database ];
   
   [ db import: @"fixtures/flk.json" ];
 
@@ -312,11 +340,13 @@ static NSMutableArray* enum_keys_descending(ChairDictionary* dictionary, T1 min,
   ChairTable* schedules = [db tableForName: @"schedules" ];
   assert_equal(102, [ schedules count ]);
 
+  return;
+  
+
   ChairView* schedules_by_theater;
-  schedules_by_theater = [ ChairView viewWithView: schedules
-                                           andMap: nil
-                                         andGroup: [ Chair groupBy: @"theater_id" ]
-                                        andReduce: [ Chair reduceBy: @"count" ]
+  schedules_by_theater = [ schedules viewWithMap: nil
+                                        andGroup: [ Chair groupBy: @"theater_id" ]
+                                       andReduce: [ Chair reduceBy: @"count" ]
                          ];
 
   // [ schedules_by_theater update ];
@@ -360,17 +390,15 @@ static NSString* range(NSMutableArray* array, id minimum, id maximum) {
 
 -(void)test_table_count
 {
-  return;
-  
-  [ [Chair db] import: @"fixtures/theaters.json" ];
-  ChairTable* theaters = [ [Chair db] tableForName: @"theaters" ];
+  ChairDatabase* db = [ ChairDatabase database ];
+  [ db import: @"fixtures/theaters.json" ];
+  ChairTable* theaters = [ db tableForName: @"theaters" ];
 
   assert_equal(13, [ theaters count ]);
   assert_equal(13, [ theaters countFrom: nil to: nil excludingEnd: NO ]);
 
   [ theaters each: ^(id value, id key) {
                      NSLog(@">>>> key: %@", key); 
-                     LogMessageCompat(@"key, value: %@ %@", key, value); 
                    }
               min: nil
               max: _.object(267534163) 
@@ -380,7 +408,6 @@ static NSString* range(NSMutableArray* array, id minimum, id maximum) {
   
   [ theaters each: ^(id value, id key) {
                      // NSLog(@">>>> key: %@", key); 
-                     // NSLog(@"key, value: %@ %@", key, value); 
                    }
               min: nil
               max: nil

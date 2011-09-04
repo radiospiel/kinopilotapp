@@ -5,22 +5,27 @@
 @implementation M3 (FileIO)
 
 + (NSData*) readDataFromPath: (NSString*) path {
-  
+
   NSFileHandle* handle = [NSFileHandle fileHandleForReadingAtPath: path ];
   NSData* contents = [handle readDataToEndOfFile];
   if (!contents) {
-    NSString *curDir = [[NSFileManager defaultManager] currentDirectoryPath];
-    NSLog(@"I am in %@", curDir);
+//    NSString *curDir = [[NSFileManager defaultManager] currentDirectoryPath];
+//    NSLog(@"I am in %@", curDir);
+
     _.raise("Cannot read from", path);  
   }
-
-  return AUTORELEASE(contents);
+  
+  return contents;
 }
 
 +(NSString*) read: (NSString*) path
 {
-  return [[NSString alloc] initWithData: [ self readDataFromPath: path ] 
-                               encoding: NSUTF8StringEncoding];
+  NSLog(@"********* read: %@", path);
+  
+  NSString* r = [[NSString alloc] initWithData: [ self readDataFromPath: path ] 
+                                      encoding: NSUTF8StringEncoding];
+
+  return [r autorelease];
 }
 
 

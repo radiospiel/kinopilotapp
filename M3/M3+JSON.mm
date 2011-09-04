@@ -11,8 +11,11 @@
 + (id) readJSONFile:(NSString *)path 
 {
   NSData* data = [ M3 readDataFromPath: path ];
-  NSError* error = 0;
+
+  // id r = [ data objectFromJSONData ];
   
+  NSError* error = 0;
+
   id r = [ data mutableObjectFromJSONDataWithParseOptions: 0 error: &error ];
   if(!r) [ M3Exception raiseWithError: error ];
   
@@ -38,7 +41,7 @@
   JKFlags flags = 0;
   if(!compact) flags |= JKSerializeOptionPretty;
   
-  NSString* r = [ object JSONStringWithOptions: 0 error: &error ];
+  NSString* r = [ object JSONStringWithOptions: flags error: &error ];
   if(!r) [ M3Exception raiseWithError: error ];
   
   return r;
