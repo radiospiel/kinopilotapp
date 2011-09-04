@@ -1,3 +1,13 @@
+#define M3_MEMORY_LOGGED
+#ifndef M3_MEMORY_LOGGED
+  #define M3_MEMORY_LOGGED
+  #if __has_feature(objc_arc) 
+    #warning "Compiling for ARC"
+  #else
+    #warning "Compiling for non-ARC"
+  #endif
+#endif
+
 #if __has_feature(objc_arc) 
   #define START_AUTORELEASEPOOL @autoreleasepool {
   #define END_AUTORELEASEPOOL }

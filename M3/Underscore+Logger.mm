@@ -1,7 +1,5 @@
 #import "Underscore.hh"
 
-RS::UnderscoreAdapter _;
-
 #include <mach/mach.h>
 #include <mach/mach_time.h>
 
