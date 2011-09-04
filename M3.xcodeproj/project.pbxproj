@@ -19,13 +19,39 @@
 		9D0EF7211413D45C0051B8FA /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF71D1413D45C0051B8FA /* JSONKit.m */; };
 		9D0EF7221413D45C0051B8FA /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF71D1413D45C0051B8FA /* JSONKit.m */; };
 		9D0EF7231413D45C0051B8FA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9D0EF71E1413D45C0051B8FA /* README.md */; };
+		9D0EF7331413DBF90051B8FA /* Chair.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF7251413DBF90051B8FA /* Chair.h */; };
+		9D0EF7341413DBF90051B8FA /* Chair.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF7261413DBF90051B8FA /* Chair.mm */; };
+		9D0EF7351413DBF90051B8FA /* Chair.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF7261413DBF90051B8FA /* Chair.mm */; };
+		9D0EF7361413DBF90051B8FA /* ChairDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF7271413DBF90051B8FA /* ChairDatabase.h */; };
+		9D0EF7371413DBF90051B8FA /* ChairDatabase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF7281413DBF90051B8FA /* ChairDatabase.mm */; };
+		9D0EF7381413DBF90051B8FA /* ChairDatabase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF7281413DBF90051B8FA /* ChairDatabase.mm */; };
+		9D0EF7391413DBF90051B8FA /* ChairDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF7291413DBF90051B8FA /* ChairDictionary.h */; };
+		9D0EF73A1413DBF90051B8FA /* ChairDictionary.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF72A1413DBF90051B8FA /* ChairDictionary.mm */; };
+		9D0EF73B1413DBF90051B8FA /* ChairDictionary.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF72A1413DBF90051B8FA /* ChairDictionary.mm */; };
+		9D0EF73C1413DBF90051B8FA /* ChairDynamicView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF72B1413DBF90051B8FA /* ChairDynamicView.h */; };
+		9D0EF73D1413DBF90051B8FA /* ChairDynamicView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF72C1413DBF90051B8FA /* ChairDynamicView.mm */; };
+		9D0EF73E1413DBF90051B8FA /* ChairDynamicView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF72C1413DBF90051B8FA /* ChairDynamicView.mm */; };
+		9D0EF73F1413DBF90051B8FA /* ChairTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF72D1413DBF90051B8FA /* ChairTable.h */; };
+		9D0EF7401413DBF90051B8FA /* ChairTable.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF72E1413DBF90051B8FA /* ChairTable.mm */; };
+		9D0EF7411413DBF90051B8FA /* ChairTable.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF72E1413DBF90051B8FA /* ChairTable.mm */; };
+		9D0EF7421413DBF90051B8FA /* ChairTests.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF72F1413DBF90051B8FA /* ChairTests.h */; };
+		9D0EF7441413DBF90051B8FA /* ChairTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF7301413DBF90051B8FA /* ChairTests.mm */; };
+		9D0EF7451413DBF90051B8FA /* ChairView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF7311413DBF90051B8FA /* ChairView.h */; };
+		9D0EF7461413DBF90051B8FA /* ChairView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF7321413DBF90051B8FA /* ChairView.mm */; };
+		9D0EF7471413DBF90051B8FA /* ChairView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF7321413DBF90051B8FA /* ChairView.mm */; };
+		9D0EF74D1413DFF50051B8FA /* LoggerClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF74A1413DFF50051B8FA /* LoggerClient.h */; };
+		9D0EF74E1413DFF50051B8FA /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF74B1413DFF50051B8FA /* LoggerClient.m */; };
+		9D0EF74F1413DFF50051B8FA /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF74B1413DFF50051B8FA /* LoggerClient.m */; };
+		9D0EF7501413DFF50051B8FA /* LoggerCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF74C1413DFF50051B8FA /* LoggerCommon.h */; };
+		9D0EF7521413E0400051B8FA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */; };
+		9D0EF7531413E04F0051B8FA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */; };
 		9D8B8AEF1413CA8B0066ECBB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8B8AEE1413CA8B0066ECBB /* Cocoa.framework */; };
 		9D8B8AF91413CA8B0066ECBB /* M3.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8AF81413CA8B0066ECBB /* M3.m */; };
 		9D8B8B011413CA8B0066ECBB /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8B8B001413CA8B0066ECBB /* SenTestingKit.framework */; };
 		9D8B8B021413CA8B0066ECBB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8B8AEE1413CA8B0066ECBB /* Cocoa.framework */; };
 		9D8B8B051413CA8B0066ECBB /* libM3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8B8AEB1413CA8B0066ECBB /* libM3.a */; };
 		9D8B8B0B1413CA8B0066ECBB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D8B8B091413CA8B0066ECBB /* InfoPlist.strings */; };
-		9D8B8B0E1413CA8B0066ECBB /* M3Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B0D1413CA8B0066ECBB /* M3Tests.m */; };
+		9D8B8B0E1413CA8B0066ECBB /* M3Tests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B0D1413CA8B0066ECBB /* M3Tests.mm */; };
 		9D8B8B2A1413CAD90066ECBB /* M3+Comparison.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8B8B171413CAD90066ECBB /* M3+Comparison.h */; };
 		9D8B8B2B1413CAD90066ECBB /* M3+Comparison.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B181413CAD90066ECBB /* M3+Comparison.mm */; };
 		9D8B8B2C1413CAD90066ECBB /* M3+Comparison.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B181413CAD90066ECBB /* M3+Comparison.mm */; };
@@ -75,6 +101,24 @@
 		9D0EF71C1413D45C0051B8FA /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		9D0EF71D1413D45C0051B8FA /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		9D0EF71E1413D45C0051B8FA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		9D0EF7251413DBF90051B8FA /* Chair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chair.h; sourceTree = "<group>"; };
+		9D0EF7261413DBF90051B8FA /* Chair.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Chair.mm; sourceTree = "<group>"; };
+		9D0EF7271413DBF90051B8FA /* ChairDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChairDatabase.h; sourceTree = "<group>"; };
+		9D0EF7281413DBF90051B8FA /* ChairDatabase.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChairDatabase.mm; sourceTree = "<group>"; };
+		9D0EF7291413DBF90051B8FA /* ChairDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChairDictionary.h; sourceTree = "<group>"; };
+		9D0EF72A1413DBF90051B8FA /* ChairDictionary.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChairDictionary.mm; sourceTree = "<group>"; };
+		9D0EF72B1413DBF90051B8FA /* ChairDynamicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChairDynamicView.h; sourceTree = "<group>"; };
+		9D0EF72C1413DBF90051B8FA /* ChairDynamicView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChairDynamicView.mm; sourceTree = "<group>"; };
+		9D0EF72D1413DBF90051B8FA /* ChairTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChairTable.h; sourceTree = "<group>"; };
+		9D0EF72E1413DBF90051B8FA /* ChairTable.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChairTable.mm; sourceTree = "<group>"; };
+		9D0EF72F1413DBF90051B8FA /* ChairTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChairTests.h; path = ../Chair/ChairTests.h; sourceTree = "<group>"; };
+		9D0EF7301413DBF90051B8FA /* ChairTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ChairTests.mm; path = ../Chair/ChairTests.mm; sourceTree = "<group>"; };
+		9D0EF7311413DBF90051B8FA /* ChairView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChairView.h; sourceTree = "<group>"; };
+		9D0EF7321413DBF90051B8FA /* ChairView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChairView.mm; sourceTree = "<group>"; };
+		9D0EF74A1413DFF50051B8FA /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoggerClient.h; path = "vendor/NSLogger/Client Logger/iOS/LoggerClient.h"; sourceTree = "<group>"; };
+		9D0EF74B1413DFF50051B8FA /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoggerClient.m; path = "vendor/NSLogger/Client Logger/iOS/LoggerClient.m"; sourceTree = "<group>"; };
+		9D0EF74C1413DFF50051B8FA /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoggerCommon.h; path = "vendor/NSLogger/Client Logger/iOS/LoggerCommon.h"; sourceTree = "<group>"; };
+		9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9D8B8AEB1413CA8B0066ECBB /* libM3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libM3.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D8B8AEE1413CA8B0066ECBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9D8B8AF11413CA8B0066ECBB /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -88,7 +132,7 @@
 		9D8B8B081413CA8B0066ECBB /* M3Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "M3Tests-Info.plist"; sourceTree = "<group>"; };
 		9D8B8B0A1413CA8B0066ECBB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9D8B8B0C1413CA8B0066ECBB /* M3Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = M3Tests.h; sourceTree = "<group>"; };
-		9D8B8B0D1413CA8B0066ECBB /* M3Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = M3Tests.m; sourceTree = "<group>"; };
+		9D8B8B0D1413CA8B0066ECBB /* M3Tests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Tests.mm; sourceTree = "<group>"; };
 		9D8B8B171413CAD90066ECBB /* M3+Comparison.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Comparison.h"; sourceTree = "<group>"; };
 		9D8B8B181413CAD90066ECBB /* M3+Comparison.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+Comparison.mm"; sourceTree = "<group>"; };
 		9D8B8B191413CAD90066ECBB /* M3+Crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Crypto.h"; sourceTree = "<group>"; };
@@ -114,6 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D0EF7521413E0400051B8FA /* SystemConfiguration.framework in Frameworks */,
 				9D8B8AEF1413CA8B0066ECBB /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -122,6 +167,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D0EF7531413E04F0051B8FA /* SystemConfiguration.framework in Frameworks */,
 				9D8B8B011413CA8B0066ECBB /* SenTestingKit.framework in Frameworks */,
 				9D8B8B021413CA8B0066ECBB /* Cocoa.framework in Frameworks */,
 				9D8B8B051413CA8B0066ECBB /* libM3.a in Frameworks */,
@@ -143,10 +189,49 @@
 			path = vendor/JSONKit;
 			sourceTree = "<group>";
 		};
+		9D0EF7241413DBF90051B8FA /* Chair */ = {
+			isa = PBXGroup;
+			children = (
+				9D0EF7251413DBF90051B8FA /* Chair.h */,
+				9D0EF7261413DBF90051B8FA /* Chair.mm */,
+				9D0EF7271413DBF90051B8FA /* ChairDatabase.h */,
+				9D0EF7281413DBF90051B8FA /* ChairDatabase.mm */,
+				9D0EF7291413DBF90051B8FA /* ChairDictionary.h */,
+				9D0EF72A1413DBF90051B8FA /* ChairDictionary.mm */,
+				9D0EF72B1413DBF90051B8FA /* ChairDynamicView.h */,
+				9D0EF72C1413DBF90051B8FA /* ChairDynamicView.mm */,
+				9D0EF72D1413DBF90051B8FA /* ChairTable.h */,
+				9D0EF72E1413DBF90051B8FA /* ChairTable.mm */,
+				9D0EF7311413DBF90051B8FA /* ChairView.h */,
+				9D0EF7321413DBF90051B8FA /* ChairView.mm */,
+			);
+			path = Chair;
+			sourceTree = "<group>";
+		};
+		9D0EF7481413DFD40051B8FA /* vendor */ = {
+			isa = PBXGroup;
+			children = (
+				9D0EF7491413DFE10051B8FA /* NSLogger */,
+				9D0EF71A1413D45C0051B8FA /* JSONKit */,
+			);
+			name = vendor;
+			sourceTree = "<group>";
+		};
+		9D0EF7491413DFE10051B8FA /* NSLogger */ = {
+			isa = PBXGroup;
+			children = (
+				9D0EF74A1413DFF50051B8FA /* LoggerClient.h */,
+				9D0EF74B1413DFF50051B8FA /* LoggerClient.m */,
+				9D0EF74C1413DFF50051B8FA /* LoggerCommon.h */,
+			);
+			name = NSLogger;
+			sourceTree = "<group>";
+		};
 		9D8B8AE01413CA8B0066ECBB = {
 			isa = PBXGroup;
 			children = (
-				9D0EF71A1413D45C0051B8FA /* JSONKit */,
+				9D0EF7481413DFD40051B8FA /* vendor */,
+				9D0EF7241413DBF90051B8FA /* Chair */,
 				9D8B8AF41413CA8B0066ECBB /* M3 */,
 				9D8B8B061413CA8B0066ECBB /* M3Tests */,
 				9D8B8AED1413CA8B0066ECBB /* Frameworks */,
@@ -166,6 +251,7 @@
 		9D8B8AED1413CA8B0066ECBB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */,
 				9D8B8AEE1413CA8B0066ECBB /* Cocoa.framework */,
 				9D8B8B001413CA8B0066ECBB /* SenTestingKit.framework */,
 				9D8B8AF01413CA8B0066ECBB /* Other Frameworks */,
@@ -227,8 +313,10 @@
 		9D8B8B061413CA8B0066ECBB /* M3Tests */ = {
 			isa = PBXGroup;
 			children = (
+				9D0EF72F1413DBF90051B8FA /* ChairTests.h */,
+				9D0EF7301413DBF90051B8FA /* ChairTests.mm */,
 				9D8B8B0C1413CA8B0066ECBB /* M3Tests.h */,
-				9D8B8B0D1413CA8B0066ECBB /* M3Tests.m */,
+				9D8B8B0D1413CA8B0066ECBB /* M3Tests.mm */,
 				9D8B8B071413CA8B0066ECBB /* Supporting Files */,
 			);
 			path = M3Tests;
@@ -263,6 +351,15 @@
 				9D0EF7131413D1A60051B8FA /* NSArray+Globbing.h in Headers */,
 				9D0EF7161413D1A60051B8FA /* NSString+Regexp.h in Headers */,
 				9D0EF7201413D45C0051B8FA /* JSONKit.h in Headers */,
+				9D0EF7331413DBF90051B8FA /* Chair.h in Headers */,
+				9D0EF7361413DBF90051B8FA /* ChairDatabase.h in Headers */,
+				9D0EF7391413DBF90051B8FA /* ChairDictionary.h in Headers */,
+				9D0EF73C1413DBF90051B8FA /* ChairDynamicView.h in Headers */,
+				9D0EF73F1413DBF90051B8FA /* ChairTable.h in Headers */,
+				9D0EF7421413DBF90051B8FA /* ChairTests.h in Headers */,
+				9D0EF7451413DBF90051B8FA /* ChairView.h in Headers */,
+				9D0EF74D1413DFF50051B8FA /* LoggerClient.h in Headers */,
+				9D0EF7501413DFF50051B8FA /* LoggerCommon.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +476,13 @@
 				9D0EF7141413D1A60051B8FA /* NSArray+Globbing.m in Sources */,
 				9D0EF7171413D1A60051B8FA /* NSString+Regexp.m in Sources */,
 				9D0EF7211413D45C0051B8FA /* JSONKit.m in Sources */,
+				9D0EF7341413DBF90051B8FA /* Chair.mm in Sources */,
+				9D0EF7371413DBF90051B8FA /* ChairDatabase.mm in Sources */,
+				9D0EF73A1413DBF90051B8FA /* ChairDictionary.mm in Sources */,
+				9D0EF73D1413DBF90051B8FA /* ChairDynamicView.mm in Sources */,
+				9D0EF7401413DBF90051B8FA /* ChairTable.mm in Sources */,
+				9D0EF7461413DBF90051B8FA /* ChairView.mm in Sources */,
+				9D0EF74E1413DFF50051B8FA /* LoggerClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,7 +490,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D8B8B0E1413CA8B0066ECBB /* M3Tests.m in Sources */,
+				9D8B8B0E1413CA8B0066ECBB /* M3Tests.mm in Sources */,
 				9D8B8B2C1413CAD90066ECBB /* M3+Comparison.mm in Sources */,
 				9D8B8B2F1413CAD90066ECBB /* M3+Crypto.mm in Sources */,
 				9D8B8B321413CAD90066ECBB /* M3+Enumeration.mm in Sources */,
@@ -399,6 +503,14 @@
 				9D0EF7151413D1A60051B8FA /* NSArray+Globbing.m in Sources */,
 				9D0EF7181413D1A60051B8FA /* NSString+Regexp.m in Sources */,
 				9D0EF7221413D45C0051B8FA /* JSONKit.m in Sources */,
+				9D0EF7351413DBF90051B8FA /* Chair.mm in Sources */,
+				9D0EF7381413DBF90051B8FA /* ChairDatabase.mm in Sources */,
+				9D0EF73B1413DBF90051B8FA /* ChairDictionary.mm in Sources */,
+				9D0EF73E1413DBF90051B8FA /* ChairDynamicView.mm in Sources */,
+				9D0EF7411413DBF90051B8FA /* ChairTable.mm in Sources */,
+				9D0EF7441413DBF90051B8FA /* ChairTests.mm in Sources */,
+				9D0EF7471413DBF90051B8FA /* ChairView.mm in Sources */,
+				9D0EF74F1413DFF50051B8FA /* LoggerClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
