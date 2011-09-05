@@ -39,7 +39,7 @@
 
 - (void)test_underscore_helpers
 {
-  NSNumber* one = [ NSNumber numberWithInt: 1 ];
+  NSNumber* one = [NSNumber numberWithInt: 1];
   id o1 = _.object(1);
   _.join("actual is", o1, "but should be", one);
   
@@ -48,13 +48,13 @@
   NSArray* array, *expected;
   
   array = _.array(0, 11, 22, 33, 44);
-  expected = [ NSArray arrayWithObjects: _.object(0), _.object(11), 
+  expected = [NSArray arrayWithObjects: _.object(0), _.object(11), 
               _.object(22), _.object(33), 
-              _.object(44), nil ];
+              _.object(44), nil];
   
   assert_equals(array, expected);
   
-  assert_equals(_.array(), [NSArray array ]);
+  assert_equals(_.array(), [NSArray array]);
 }
 
 /*
@@ -67,8 +67,8 @@
   NSMutableArray* keys = _.array();
   
   _.each(_.array(), ^(id value, id key) {
-    [ values addObject: value ];
-    [ keys addObject: key ];
+    [values addObject: value];
+    [keys addObject: key];
   });
   
   assert_equals(values, _.array());
@@ -82,8 +82,8 @@
   
   _.each(_.array(0, 11, 22, 33, 44), 
          ^(id value, id key) {
-           [ values addObject: value ];
-           [ keys addObject: key ];
+           [values addObject: value];
+           [keys addObject: key];
          });
   
   assert_equals(values, _.array(0, 11, 22, 33, 44));
@@ -97,8 +97,8 @@
   
   _.each(_.array(0, 11, 22, 33, 44),
          ^(id value, NSUInteger key) {
-           [ values addObject: value ];
-           [ keys addObject: _.object(key) ];
+           [values addObject: value];
+           [keys addObject: _.object(key)];
          });
   
   assert_equals(values, _.array(0, 11, 22, 33, 44));
@@ -110,16 +110,16 @@
 {
   id sum = _.inject(_.array(0, 11, 22, 33, 44),
                     ^id(id memo, id value, id key) {
-                      int sum = memo ? [ memo intValue ] : 0;
-                      sum += [ value intValue ];
-                      return [NSNumber numberWithInt: sum ];
+                      int sum = memo ? [memo intValue] : 0;
+                      sum += [value intValue];
+                      return [NSNumber numberWithInt: sum];
                     });
   
   assert_equals(sum, 110);
   
   sum = _.inject(_.array(0, 11, 22, 33, 44), 0,
                  ^id(id memo, id value, id key) {
-                   int sum = [ memo intValue ] + [ value intValue ];
+                   int sum = [memo intValue] + [value intValue];
                    return _.object(sum);
                  });
   
@@ -131,7 +131,7 @@
 {
   id grouped = _.group_by(_.array(2.1, 1.3, 2.4),
                           ^(id value){ 
-                            return _.object(floor([ value doubleValue ])); 
+                            return _.object(floor([value doubleValue])); 
                           });
   
   id expected = _.hash(
@@ -147,8 +147,8 @@
 {
   id sum = _.inject(_.array(0, 11, 22, 33, 44),
                     ^id(id memo, id value, id key) {
-                      int sum = memo ? [ memo intValue ] : 0;
-                      sum += [ value intValue ];
+                      int sum = memo ? [memo intValue] : 0;
+                      sum += [value intValue];
                       return _.object(sum);
                     });
   
@@ -157,7 +157,7 @@
   sum = _.inject(_.array(0, 11, 22, 33, 44),
                  _.object(0),
                  ^id(id memo, id value, id key) {
-                   return _.object([ memo intValue ] + [ value intValue ]);
+                   return _.object([memo intValue] + [value intValue]);
                  });
   
   assert_equals(sum, 110);
@@ -187,10 +187,10 @@
 
 - (void) test_json 
 {
-  id obj = [ M3 parseJSON: @"[ \"Apple\", \"Banana\" ]" ];
+  id obj = [M3 parseJSON: @"[\"Apple\", \"Banana\"]"];
   assert_equals(obj, _.array("Apple", "Banana"));
   
-  NSString* json = [ M3 toJSON: obj compact: YES ];
+  NSString* json = [M3 toJSON: obj compact: YES];
   assert_equals(json, "[\"Apple\",\"Banana\"]");
 }
 

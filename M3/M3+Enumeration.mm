@@ -9,18 +9,18 @@
 #import "Underscore.hh"
 
 #define implemenation_missing(name) [NSException raise:@"Implementation missing" \
-                                       format:@"Not yet implemented: %s", name ]
+                                       format:@"Not yet implemented: %s", name]
 
 //
 // check object type.
 static BOOL is_array(id obj) {
-  if([ obj isKindOfClass: [NSArray class]]) return YES;
-  if([ obj isKindOfClass: [NSDictionary class]]) return NO;
+  if([obj isKindOfClass: [NSArray class]]) return YES;
+  if([obj isKindOfClass: [NSDictionary class]]) return NO;
   
-  [ NSException raise:  @"IllegalArgument"
+  [NSException raise:  @"IllegalArgument"
                 format: @"No M3 support for objects of class: %@", 
-                          NSStringFromClass([ obj class ])
-  ];
+                          NSStringFromClass([obj class])
+ ];
   
   return 0;
 }
@@ -33,13 +33,13 @@ static BOOL is_array(id obj) {
 + (id) each: (id) list 
   withIndex: (void (^)(id value, NSUInteger index)) iterator {
   if(is_array(list)) {
-    [ list enumerateObjectsUsingBlock: (void (^)(id value, NSUInteger index, BOOL*))iterator ];
+    [list enumerateObjectsUsingBlock: (void (^)(id value, NSUInteger index, BOOL*))iterator];
   }
   else {
     NSUInteger __block idx = 0;
-    [ list enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+    [list enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
       iterator(obj, idx++);
-    } ];
+    }];
   }
 
   return list;
@@ -48,17 +48,17 @@ static BOOL is_array(id obj) {
 + (id) each: (id) list 
        with: (void (^)(id value, id key))iterator {
   if(is_array(list)) {
-    [ list enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
-        id key = [ NSNumber numberWithUnsignedInteger: idx ];
+    [list enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
+        id key = [NSNumber numberWithUnsignedInteger: idx];
         iterator(obj, key);
       }
-    ];
+   ];
   }
   else {
-    [ list enumerateKeysAndObjectsUsingBlock: ^(id key, id obj, BOOL *stop) {
+    [list enumerateKeysAndObjectsUsingBlock: ^(id key, id obj, BOOL *stop) {
         iterator(obj, key);
       }
-    ];
+   ];
   }
   
   return list;
@@ -74,17 +74,17 @@ static BOOL is_array(id obj) {
   id __block r = memo;
   
   if(is_array(list)) {
-    [ list enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
-        id key = [ NSNumber numberWithUnsignedInteger: idx ];
+    [list enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
+        id key = [NSNumber numberWithUnsignedInteger: idx];
         r = iterator(r, obj, key);
       }
-    ];
+   ];
   }
   else {
-    [ list enumerateKeysAndObjectsUsingBlock: ^(id key, id obj, BOOL *stop) {
+    [list enumerateKeysAndObjectsUsingBlock: ^(id key, id obj, BOOL *stop) {
         r = iterator(r, obj, key);
       }
-    ];
+   ];
   }
   
   return r;
@@ -92,7 +92,7 @@ static BOOL is_array(id obj) {
 
 + (id) inject: (id) list
          with: (id (^)(id memo, id value, id key))iterator {
-   return [ self inject: list memo: nil with: iterator ];
+   return [self inject: list memo: nil with: iterator];
 }
 
 + (id) inject: (id) list 
@@ -102,17 +102,17 @@ static BOOL is_array(id obj) {
   id __block r = memo;
   
   if(is_array(list)) {
-    [ list enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
+    [list enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
         r = iterator(r, obj, idx);
       }
-    ];
+   ];
   }
   else {
     NSUInteger __block idx = 0;
-    [ list enumerateKeysAndObjectsUsingBlock: ^(id key, id obj, BOOL *stop) {
+    [list enumerateKeysAndObjectsUsingBlock: ^(id key, id obj, BOOL *stop) {
         r = iterator(r, obj, idx++);
       }
-    ];
+   ];
   }
   
   return r;
@@ -120,7 +120,7 @@ static BOOL is_array(id obj) {
 
 + (id) inject: (id) list
     withIndex: (id (^)(id memo, id value, NSUInteger key))iterator {
-   return [ self inject: list memo: nil withIndex: iterator ];
+   return [self inject: list memo: nil withIndex: iterator];
 }
 
 //
@@ -128,22 +128,22 @@ static BOOL is_array(id obj) {
 
 + (NSMutableArray*) map: (id) list 
                    with: (id (^)(id value, id key))iterator {
-  NSMutableArray* r = [NSMutableArray arrayWithCapacity: [ list count ]];
+  NSMutableArray* r = [NSMutableArray arrayWithCapacity: [list count]];
 
-  [ M3 each: list 
-               with:^(id value, id key) { [r addObject: iterator(value, key) ]; }
-  ];
+  [M3 each: list 
+               with:^(id value, id key) { [r addObject: iterator(value, key)]; }
+ ];
 
   return r;
 }
 
 + (NSMutableArray*) map: (id) list 
               withIndex: (id (^)(id value, NSUInteger idx))iterator {
-  NSMutableArray* r = [NSMutableArray arrayWithCapacity: [ list count ]];
+  NSMutableArray* r = [NSMutableArray arrayWithCapacity: [list count]];
   
-  [ M3 each: list 
-          withIndex:^(id value, NSUInteger idx) { [ r addObject: iterator(value, idx) ]; }
-  ];
+  [M3 each: list 
+          withIndex:^(id value, NSUInteger idx) { [r addObject: iterator(value, idx)]; }
+ ];
   
   return r;
 }
@@ -157,21 +157,21 @@ static BOOL is_array(id obj) {
   id __block r = nil;
   
   if(is_array(list)) {
-    [ list enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
-        id key = [ NSNumber numberWithUnsignedInteger: idx ];
+    [list enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
+        id key = [NSNumber numberWithUnsignedInteger: idx];
         if(iterator(obj, key)) {
           *stop = YES; r = obj;
         }
       }
-    ];
+   ];
   }
   else {
-    [ list enumerateKeysAndObjectsUsingBlock: ^(id key, id obj, BOOL *stop) {
+    [list enumerateKeysAndObjectsUsingBlock: ^(id key, id obj, BOOL *stop) {
         if(iterator(obj, key)) {
           *stop = YES; r = obj;
         }
       }
-    ];
+   ];
   }
 
   return r;
@@ -183,22 +183,22 @@ static BOOL is_array(id obj) {
   id __block r = nil;
   
   if(is_array(list)) {
-    [ list enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
+    [list enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
         if(iterator(obj, idx)) {
           *stop = YES; r = obj;
         }
       }
-    ];
+   ];
   }
   else {
     NSUInteger __block idx = 0;
     
-    [ list enumerateKeysAndObjectsUsingBlock: ^(id key, id obj, BOOL *stop) {
+    [list enumerateKeysAndObjectsUsingBlock: ^(id key, id obj, BOOL *stop) {
         if(iterator(obj, idx++)) {
           *stop = YES; r = obj;
         }
       }
-    ];
+   ];
   }
 
   return r;
@@ -209,30 +209,30 @@ static BOOL is_array(id obj) {
 
 + (NSMutableArray*) select: (id) list 
                       with: (BOOL (^)(id value, id key))iterator {
-  NSMutableArray* r = [ NSMutableArray array ];
+  NSMutableArray* r = [NSMutableArray array];
   
-  [ self each: list 
+  [self each: list 
          with: ^(id obj, id key) {
            if(iterator(obj, key)) {
-             [ r addObject: obj ];
+             [r addObject: obj];
            }
          }
-  ];
+ ];
   
   return r;
 }
 
 + (NSMutableArray*) select: (id) list 
                  withIndex: (BOOL (^)(id value, NSUInteger idx))iterator {
-  NSMutableArray* r = [ NSMutableArray array ];
+  NSMutableArray* r = [NSMutableArray array];
 
-  [ self each: list 
+  [self each: list 
     withIndex: ^(id obj, NSUInteger key) {
       if(iterator(obj, key)) {
-        [ r addObject: obj ];
+        [r addObject: obj];
       }
     }
-  ];
+ ];
 
   return r;
 }
@@ -242,30 +242,30 @@ static BOOL is_array(id obj) {
 
 + (NSMutableArray*) reject: (id) list 
                       with: (BOOL (^)(id value, id key))iterator {
-  NSMutableArray* r = [ NSMutableArray array ];
+  NSMutableArray* r = [NSMutableArray array];
   
-  [ self each: list 
+  [self each: list 
          with: ^(id obj, id key) {
            if(!iterator(obj, key)) {
-             [ r addObject: obj ];
+             [r addObject: obj];
            }
          }
-  ];
+ ];
   
   return r;
 }
 
 + (NSMutableArray*) reject: (id) list 
                  withIndex: (BOOL (^)(id value, NSUInteger idx))iterator {
-  NSMutableArray* r = [ NSMutableArray array ];
+  NSMutableArray* r = [NSMutableArray array];
 
-  [ self each: list 
+  [self each: list 
     withIndex: ^(id obj, NSUInteger key) {
       if(!iterator(obj, key)) {
-        [ r addObject: obj ];
+        [r addObject: obj];
       }
     }
-  ];
+ ];
 
   return r;
 }
@@ -275,22 +275,22 @@ static BOOL is_array(id obj) {
 
 + (BOOL) all: (id) list
         with: (BOOL (^)(id value, id key))iterator {
-  id failing = [ M3 detect: list 
+  id failing = [M3 detect: list 
                               with: ^(id value, id key) {
                                 return (BOOL)(iterator(value, key) == NO);
                               }
-               ];
+              ];
   
   return failing == nil;
 }
 
 + (BOOL) all: (id) list 
    withIndex: (BOOL (^)(id value, NSUInteger key))iterator {
-  id failing = [ M3 detect: list
+  id failing = [M3 detect: list
                          withIndex: ^(id value, NSUInteger key) {
                            return (BOOL)(iterator(value, key) == NO);
                          } 
-               ];
+              ];
   
   return failing == nil;
 }
@@ -301,14 +301,14 @@ static BOOL is_array(id obj) {
 + (BOOL) any: (id) list
         with: (BOOL (^)(id value, id key))iterator {
 
-  return [ M3 detect: list
+  return [M3 detect: list
                         with: iterator ] != nil;
 }
 
 + (BOOL) any: (id) list 
    withIndex: (BOOL (^)(id value, NSUInteger key))iterator {
 
-  return [ M3 detect: list
+  return [M3 detect: list
                    withIndex: iterator ] != nil;
 }
 
@@ -318,14 +318,14 @@ static BOOL is_array(id obj) {
 + (BOOL) include: (id) list 
            value: (id) value {
   if(is_array(list)) {
-    return [ list containsObject: value ]; 
+    return [list containsObject: value]; 
   }
 
-  return [ self any: list 
+  return [self any: list 
                with: ^(id value_in_hash, id key) {
-                 return [ value isEqual: value_in_hash ];
+                 return [value isEqual: value_in_hash];
                }
-  ];
+ ];
 }
 
 //
@@ -333,14 +333,14 @@ static BOOL is_array(id obj) {
 
 + (id) pluck: (id) list 
         name: (NSString*) propertyName {
-  NSMutableArray* r = [ NSMutableArray array ]; 
+  NSMutableArray* r = [NSMutableArray array]; 
 
-  [ M3 each: list
+  [M3 each: list
           withIndex: ^(id value, NSUInteger idx) {
-            id entry = [ value valueForKey: propertyName ];
+            id entry = [value valueForKey: propertyName];
             [r addObject: entry]; 
           }
-  ];
+ ];
   
   return r;
 }
@@ -355,7 +355,7 @@ static BOOL is_array(id obj) {
   id __block memo = nil;
   id __block memo_value = nil;
   
-  [ self each: list 
+  [self each: list 
          with: ^(id entry, id key){
            id value = iterator(entry, key);
            if(!memo_value) {
@@ -370,7 +370,7 @@ static BOOL is_array(id obj) {
              }
            }
          }
-  ];
+ ];
   
   return memo_value;
 }
@@ -382,7 +382,7 @@ static BOOL is_array(id obj) {
   id __block memo = nil;
   id __block memo_value = nil;
   
-  [ self each: list 
+  [self each: list 
     withIndex: ^(id entry, NSUInteger idx){
       id value = iterator(entry, idx);
       if(!memo_value) {
@@ -397,46 +397,46 @@ static BOOL is_array(id obj) {
         }
       }
     }
-  ];
+ ];
   
   return memo_value;
 }
 
 + (id) max: (id) list {
-  return [ M3 _minmax:list 
+  return [M3 _minmax:list 
                               max_mode: YES
-                          withIndex: ^(id value, NSUInteger key) { return value; } ];
+                          withIndex: ^(id value, NSUInteger key) { return value; }];
 }
 
 + (id) max: (id) list
       with: (id (^)(id value, id key))iterator {
-  return [ self _minmax: list max_mode: YES with: iterator ];
+  return [self _minmax: list max_mode: YES with: iterator];
 }
 
 + (id) max: (id) list 
  withIndex: (id (^)(id value, NSUInteger idx))iterator {
-  return [ self _minmax:list max_mode: YES withIndex: iterator ];
+  return [self _minmax:list max_mode: YES withIndex: iterator];
 }
 
 
 + (id) min: (id) list {
-  return [ M3 _minmax:list 
+  return [M3 _minmax:list 
                      max_mode: NO
-                    withIndex: ^(id value, NSUInteger key) { return value; } ];
+                    withIndex: ^(id value, NSUInteger key) { return value; }];
 }
 
 + (id) min: (id) list 
       with: (id (^)(id value, id key))iterator {
-  return [ self _minmax: list 
+  return [self _minmax: list 
                max_mode: NO 
-                   with: iterator ];
+                   with: iterator];
 }
 
 + (id) min: (id) list 
  withIndex: (id (^)(id value, NSUInteger idx))iterator {
-  return [ self _minmax: list 
+  return [self _minmax: list 
                max_mode: NO 
-              withIndex: iterator ];
+              withIndex: iterator];
 }
 
 // --- sorting 
@@ -450,22 +450,22 @@ static BOOL is_array(id obj) {
 
 + (id) sort: (id) list {
   if(!is_array(list))
-    list = [ list allValues ];
+    list = [list allValues];
   
-  return [ list sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+  return [list sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
     return _.compare(obj1, obj2);
-  } ];
+  }];
 }
 
 + (id) sort: (id) list 
          by: (id (^)(id value))iterator {
   if(!is_array(list))
-    list = [ list allValues ];
+    list = [list allValues];
   
-  return [ list sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+  return [list sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
     return _.compare(iterator(obj1), iterator(obj2)); 
   } 
-  ];
+ ];
 };
 
 //groupBy_.groupBy(list, iterator)
@@ -478,19 +478,19 @@ static BOOL is_array(id obj) {
 + (id) group: (id) list 
           by: (id (^)(id value))iterator {
   NSMutableDictionary* dictionary = [NSMutableDictionary dictionary];
-  [ M3 each: list
+  [M3 each: list
           withIndex:^(id value, NSUInteger idx) {
             id key = iterator(value);
             NSMutableArray* array = [dictionary objectForKey: key];
             if (array == nil) {
               array = [NSMutableArray arrayWithObject: value];
-              [ dictionary setObject: array forKey: key];
+              [dictionary setObject: array forKey: key];
             }
             else {
-              [ array addObject: value];
+              [array addObject: value];
             }
           }
-  ];
+ ];
   return dictionary;
 }
 

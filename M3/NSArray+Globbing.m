@@ -19,10 +19,10 @@
   const char* fullPattern = [[expandedDirectory stringByAppendingPathComponent: globPathComponent] UTF8String];
   
   if (glob(fullPattern, 0, NULL, &gt) == 0) {
-    NSFileManager* fileman = [ NSFileManager defaultManager];
+    NSFileManager* fileman = [NSFileManager defaultManager];
     for (int i=0; i<gt.gl_matchc; i++) {
       size_t len = strlen(gt.gl_pathv[i]);
-      NSString* filename = [ fileman stringWithFileSystemRepresentation: gt.gl_pathv[i] length: len];
+      NSString* filename = [fileman stringWithFileSystemRepresentation: gt.gl_pathv[i] length: len];
       [files addObject: filename];
     }
   }

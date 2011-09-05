@@ -16,7 +16,7 @@
 
 -(NSString*)description {
   if(message_)
-    return [ NSString stringWithFormat: @"%@: %@", error_, message_ ];
+    return [NSString stringWithFormat: @"%@: %@", error_, message_];
   else
     return AUTORELEASE(error_);
 }
@@ -25,20 +25,20 @@
   self.error = nil;
   self.message = nil;
 
-  [ super dealloc ];
+  [super dealloc];
 }
 
 +(void) raise: (NSString*) error {
-  @throw [[ M3Exception alloc ] initWithError: error andMessage: nil ];
+  @throw [[M3Exception alloc] initWithError: error andMessage: nil];
 }
 
 +(void) raise: (NSString*) error withMessage: (NSString*) message {
-  @throw [[ M3Exception alloc ] initWithError: error andMessage: message ];
+  @throw [[M3Exception alloc] initWithError: error andMessage: message];
 }
 
 +(void) raiseWithError: (NSError*) error {
-  @throw [[ M3Exception alloc ] initWithError: error.localizedDescription 
-                                   andMessage: error.localizedFailureReason ];
+  @throw [[M3Exception alloc] initWithError: error.localizedDescription 
+                                   andMessage: error.localizedFailureReason];
 }
 
 @end
@@ -51,7 +51,7 @@
 
 +(NSString*) errorStringWithErrno: (int) code
 {
-  return [ NSString stringWithFormat: @"%s", strerror(code) ];
+  return [NSString stringWithFormat: @"%s", strerror(code)];
 }
 
 -(id) initWithError: (NSString*) error 
@@ -59,10 +59,10 @@
            andErrno: (int) code 
 {
   if(!error)
-    error = [ M3FileException errorStringWithErrno: code ];
+    error = [M3FileException errorStringWithErrno: code];
   
-  self = [ super initWithError: [ NSString stringWithFormat: @"%@: %@", error, path ]
-                    andMessage: nil ];
+  self = [super initWithError: [NSString stringWithFormat: @"%@: %@", error, path]
+                    andMessage: nil];
   
   if(self) {
     self.code = code;
@@ -76,7 +76,7 @@
 {
   self.path = nil;
   
-  [ super dealloc ];
+  [super dealloc];
 }
 
 
@@ -87,9 +87,9 @@
       forPath: (NSString*) path 
      andErrno: (int) code
 {
-  @throw [[ M3FileException alloc ] initWithError: error 
+  @throw [[M3FileException alloc] initWithError: error 
                                           forPath: path
-                                         andErrno: code ];
+                                         andErrno: code];
 }
 
 /*
@@ -98,9 +98,9 @@
 +(void) raiseWithErrno: (int) code 
                forPath: (NSString*) path
 {
-  @throw [[ M3FileException alloc ] initWithError: nil
+  @throw [[M3FileException alloc] initWithError: nil
                                           forPath: path
-                                         andErrno: code ];
+                                         andErrno: code];
 }
 
 @end

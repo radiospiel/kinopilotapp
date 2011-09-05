@@ -16,14 +16,14 @@
 -(id) initWithView: (ChairView*)view_
             andMap: (MapCallback)map_fun
          andReduce: (ReduceCallback)reduce_fun {
-  self = [ super init ];
+  self = [super init];
   if(!self) return nil;
   
   source_view_ = view_;
   self.map_function = [[map_fun copy]retain];
   self.reduce_function = [[reduce_fun copy]retain];
 
-  [source_view_ addDependantObject: self ];
+  [source_view_ addDependantObject: self];
   return self;
 }
 
@@ -34,24 +34,24 @@
   self.map_function = nil;
   self.reduce_function = nil;
   
-  [ super dealloc ];
+  [super dealloc];
 }
 
 // --------------------------------------------------------------------
 
 - (ChairMultiDictionary*) do_map {
   
-  ChairMultiDictionary* stage1 = [ [ChairMultiDictionary alloc ] init ]; 
+  ChairMultiDictionary* stage1 = [[ChairMultiDictionary alloc] init]; 
 
   if(!map_function_) return stage1;
   
   EmitCallback emit = ^(id value, id key) {
-    [stage1 addObject:value forKey: key ];
+    [stage1 addObject:value forKey: key];
   };
     
-  [ source_view_ each:^(NSDictionary* value, id key) {
+  [source_view_ each:^(NSDictionary* value, id key) {
     map_function_(value, key, emit);
-  } ];
+  }];
 
   return stage1;
 }
@@ -60,18 +60,18 @@
 {
   if(!reduce_function_) return nil;
 
-  ChairMultiDictionary* stage2 = [ [ChairMultiDictionary alloc ] init ];
+  ChairMultiDictionary* stage2 = [[ChairMultiDictionary alloc] init];
   EmitCallback emit = ^(NSDictionary* value, id key) {
-    [stage2 addObject:value forKey: key ];
+    [stage2 addObject:value forKey: key];
   };
   
-  [ inp eachArray: ^(NSArray *values, id key) {
+  [inp eachArray: ^(NSArray *values, id key) {
                      reduce_function_(values, key, emit);
                    } 
               min: nil
               max: nil
      excludingEnd: NO
-  ];
+];
 
   return stage2;
 }
@@ -96,9 +96,9 @@
 -(ChairView*) viewWithMap: (MapCallback)map_fun
                 andReduce: (ReduceCallback)reduce_fun
 {
-  return [[ ChairDynamicView alloc ] initWithView: self
+  return [[ChairDynamicView alloc] initWithView: self
                                            andMap: map_fun
-                                        andReduce: reduce_fun ];
+                                        andReduce: reduce_fun];
 }
 
 -(ChairView*) viewWithMap: (SimpleMapCallback) map_func    // change value
@@ -108,8 +108,8 @@
   if(!map_func) map_func = ^(NSDictionary* value, id key) { return value; };
   if(!group_func) group_func = ^(NSDictionary* value, id key) { return key; };
 
-  map_func = AUTORELEASE([ map_func copy ]);
-  group_func = AUTORELEASE([ group_func copy ]);
+  map_func = AUTORELEASE([map_func copy]);
+  group_func = AUTORELEASE([group_func copy]);
   
   MapCallback map_fun = ^(NSDictionary* value, id key, EmitCallback emit) {
                           value = map_func(value, key);
@@ -121,11 +121,11 @@
                           emit(value, key);
                         };
 
-  map_fun = AUTORELEASE([ map_fun copy ]);
+  map_fun = AUTORELEASE([map_fun copy]);
 
   ReduceCallback reduce_fun = nil;
   if(reduce_func) {
-    reduce_func = AUTORELEASE([ reduce_func copy ]);
+    reduce_func = AUTORELEASE([reduce_func copy]);
     
     reduce_fun = ^(NSArray* values, id key, EmitCallback emit) {
                    id value = reduce_func(values, key);
@@ -134,9 +134,9 @@
     };
   };
   
-  return [[ ChairDynamicView alloc ] initWithView: self
+  return [[ChairDynamicView alloc] initWithView: self
                                            andMap: map_fun
-                                        andReduce: reduce_fun ];
+                                        andReduce: reduce_fun];
 }
 
 @end

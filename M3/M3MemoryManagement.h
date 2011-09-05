@@ -19,9 +19,9 @@
   #define RETAIN(obj)       underscore_arc_dummy_(obj)
 #else
   #define START_AUTORELEASEPOOL NSAutoreleasePool *__auto_release_pool__ = [[NSAutoreleasePool alloc] init]; {
-  #define END_AUTORELEASEPOOL }; [ __auto_release_pool__ release ]
+  #define END_AUTORELEASEPOOL }; [__auto_release_pool__ release]
 
-  #define AUTORELEASE(obj)  [ obj autorelease ]
-  #define RELEASE(obj)      [ obj release ]
-  #define RETAIN(obj)       [ obj retain ]
+  #define AUTORELEASE(obj)  [obj autorelease]
+  #define RELEASE(obj)      [obj release]
+  #define RETAIN(obj)       [obj retain]
 #endif

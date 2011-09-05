@@ -10,14 +10,14 @@
 
 + (id) readJSONFile:(NSString *)path 
 {
-  NSData* data = [ M3 readDataFromPath: path ];
+  NSData* data = [M3 readDataFromPath: path];
 
-  // id r = [ data objectFromJSONData ];
+  // id r = [data objectFromJSONData];
   
   NSError* error = 0;
 
-  id r = [ data mutableObjectFromJSONDataWithParseOptions: 0 error: &error ];
-  if(!r) [ M3Exception raiseWithError: error ];
+  id r = [data mutableObjectFromJSONDataWithParseOptions: 0 error: &error];
+  if(!r) [M3Exception raiseWithError: error];
   
   return r;
 }
@@ -26,12 +26,12 @@
 {
   NSData* jsonData = [object JSONData];
 
-  [ M3 writeData: jsonData toPath: path ];
+  [M3 writeData: jsonData toPath: path];
 }
 
 + (id) parseJSON:(NSString *)data;
 {
-  return [ data objectFromJSONString ];
+  return [data objectFromJSONString];
 }
 
 + (NSString*) toJSON: (id) object compact: (BOOL) compact 
@@ -41,8 +41,8 @@
   JKFlags flags = 0;
   if(!compact) flags |= JKSerializeOptionPretty;
   
-  NSString* r = [ object JSONStringWithOptions: flags error: &error ];
-  if(!r) [ M3Exception raiseWithError: error ];
+  NSString* r = [object JSONStringWithOptions: flags error: &error];
+  if(!r) [M3Exception raiseWithError: error];
   
   return r;
 }
@@ -54,7 +54,7 @@
   compact = NO;
 #endif
 
-  return [ self toJSON: object compact: compact ];
+  return [self toJSON: object compact: compact];
 }
 
 @end

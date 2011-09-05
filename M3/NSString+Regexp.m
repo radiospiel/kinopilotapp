@@ -5,7 +5,7 @@
 
 static NSRegularExpression* get_regexp(id regexp_or_string)
 {
-    if([ regexp_or_string isKindOfClass: [ NSRegularExpression class ]])
+    if([regexp_or_string isKindOfClass: [NSRegularExpression class]])
         return regexp_or_string;
         
     NSError *error = NULL;
@@ -28,9 +28,9 @@ static NSRegularExpression* get_regexp(id regexp_or_string)
 {
   NSRegularExpression* regexp = get_regexp(regexp_or_string);
   
-  return [ regexp numberOfMatchesInString: self 
+  return [regexp numberOfMatchesInString: self 
                                   options: 0
-                                    range: NSMakeRange(0, self.length) ];
+                                    range: NSMakeRange(0, self.length)];
                                                      
 }
 

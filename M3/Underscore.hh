@@ -14,26 +14,26 @@ namespace RS {
   // 
   // Convert types into objects
   inline id object(id n) {
-    return n; // ? n : [ NSNull null ];
+    return n; // ? n : [NSNull null];
   }
   
   inline id object(const char* s) {
-    return [ NSString stringWithUTF8String: s ];
+    return [NSString stringWithUTF8String: s];
   }
   
-  inline id object(char n)                { return [ NSNumber numberWithChar:n ]; }
-  inline id object(unsigned char n)       { return [ NSNumber numberWithUnsignedChar: n ]; }
-  inline id object(short n)               { return [ NSNumber numberWithShort:n ]; }
-  inline id object(unsigned short n)      { return [ NSNumber numberWithUnsignedShort: n ]; }
-  inline id object(int n)                 { return [ NSNumber numberWithInt: n ]; }
-  inline id object(unsigned int n)        { return [ NSNumber numberWithUnsignedInt: n ]; }
-  inline id object(long n)                { return [ NSNumber numberWithLong: n ]; }
-  inline id object(unsigned long n)       { return [ NSNumber numberWithUnsignedLong: n ]; }
-  inline id object(long long n)           { return [ NSNumber numberWithLongLong: n ]; }
-  inline id object(unsigned long long n)  { return [ NSNumber numberWithUnsignedLongLong: n ]; }
-  inline id object(float n)               { return [ NSNumber numberWithFloat: n ]; }
-  inline id object(double n)              { return [ NSNumber numberWithDouble: n ]; }
-  inline id object(bool n)                { return [ NSNumber numberWithBool: n ]; }
+  inline id object(char n)                { return [NSNumber numberWithChar:n]; }
+  inline id object(unsigned char n)       { return [NSNumber numberWithUnsignedChar: n]; }
+  inline id object(short n)               { return [NSNumber numberWithShort:n]; }
+  inline id object(unsigned short n)      { return [NSNumber numberWithUnsignedShort: n]; }
+  inline id object(int n)                 { return [NSNumber numberWithInt: n]; }
+  inline id object(unsigned int n)        { return [NSNumber numberWithUnsignedInt: n]; }
+  inline id object(long n)                { return [NSNumber numberWithLong: n]; }
+  inline id object(unsigned long n)       { return [NSNumber numberWithUnsignedLong: n]; }
+  inline id object(long long n)           { return [NSNumber numberWithLongLong: n]; }
+  inline id object(unsigned long long n)  { return [NSNumber numberWithUnsignedLongLong: n]; }
+  inline id object(float n)               { return [NSNumber numberWithFloat: n]; }
+  inline id object(double n)              { return [NSNumber numberWithDouble: n]; }
+  inline id object(bool n)                { return [NSNumber numberWithBool: n]; }
   
   /*
    * NSIntegers and NSUIntegers are typedef'ed to int or long types. 
@@ -41,8 +41,8 @@ namespace RS {
    * (as they duplicate already existing implementations) 
    */
   
-  // inline id object(NSInteger n)  { return [ NSNumber numberWithInteger: n ]; }
-  // inline id object(NSUInteger n) { return [ NSNumber numberWithUnsignedInteger: n ]; }
+  // inline id object(NSInteger n)  { return [NSNumber numberWithInteger: n]; }
+  // inline id object(NSUInteger n) { return [NSNumber numberWithUnsignedInteger: n]; }
   
   //
   // -- The VariadicFactory class helps building things off
@@ -54,12 +54,12 @@ namespace RS {
   class VariadicFactoryArguments {
   public:
     VariadicFactoryArguments() {
-      arguments_ = [ NSMutableArray array ];
+      arguments_ = [NSMutableArray array];
     }
     
     template <class T> 
     VariadicFactoryArguments& arg(T& arg) {
-      [ arguments_ addObject: object(arg) ];
+      [arguments_ addObject: object(arg)];
       return *this;
     };
     
@@ -179,7 +179,7 @@ namespace RS {
   struct JoinFactory: VariadicFactoryArguments {
     typedef NSString* Type;
     NSString* run() const {
-      return [ arguments_ componentsJoinedByString: @"" ];
+      return [arguments_ componentsJoinedByString: @""];
     }
   };
   
@@ -187,7 +187,7 @@ namespace RS {
   struct RaiseFactory: VariadicFactoryArguments {
     typedef NSString* Type;
     NSString* run() const {
-      NSString* msg = [ arguments_ componentsJoinedByString: @"" ];
+      NSString* msg = [arguments_ componentsJoinedByString: @""];
       NSLog(@"Throwing exception %@", msg);
       @throw msg;
     }
@@ -199,12 +199,12 @@ namespace RS {
   struct HashFactory: VariadicFactoryArguments {
     typedef NSMutableDictionary* Type;
     NSMutableDictionary* run() const {
-      NSMutableDictionary* dict = [ NSMutableDictionary dictionary ];
+      NSMutableDictionary* dict = [NSMutableDictionary dictionary];
       unsigned idx = 0;
-      while(idx < [ arguments_ count ]) {
-        id key = [ arguments_ objectAtIndex: idx++ ];
-        id val = [ arguments_ objectAtIndex: idx++ ]; 
-        [ dict setObject: val forKey: key ];
+      while(idx < arguments_.count) {
+        id key = [arguments_ objectAtIndex: idx++];
+        id val = [arguments_ objectAtIndex: idx++]; 
+        [dict setObject: val forKey: key];
       }
       
       return dict;
@@ -215,11 +215,11 @@ namespace RS {
   struct SetFactory: VariadicFactoryArguments {
     typedef NSMutableSet* Type;
     NSMutableSet* run() const {
-      NSMutableSet* set = [ NSMutableSet set ];
+      NSMutableSet* set = [NSMutableSet set];
       unsigned idx = 0;
-      while(idx < [ arguments_ count ]) {
-        id obj = [ arguments_ objectAtIndex: idx++ ];
-        [ set addObject: obj ];
+      while(idx < arguments_.count) {
+        id obj = [arguments_ objectAtIndex: idx++];
+        [set addObject: obj];
       }
       
       return set;
@@ -237,7 +237,7 @@ namespace RS {
       { return str; }
     
     inline NSString* string(const char* s) 
-      { return [ NSString stringWithUTF8String: s ]; }
+      { return [NSString stringWithUTF8String: s]; }
     
     // "Functions" to build strings, arrays, and hashes.  
     VariadicFactory<ArrayFactory> array;
@@ -248,67 +248,67 @@ namespace RS {
     
     // _.each
     id each(id list, void (^iterator)(id value, id key))
-      { return [ M3 each: list with: iterator ]; }
+      { return [M3 each: list with: iterator]; }
     id each(id list, void (^iterator)(id value, NSUInteger index))
-      { return [ M3 each: list withIndex: iterator ]; }
+      { return [M3 each: list withIndex: iterator]; }
     
     // _.inject
     template <class T>
     id inject(id list, T memo, id (^iterator)(id memo, id value, id key))
-      { return [ M3 inject: list memo: object(memo) with: iterator ]; }
+      { return [M3 inject: list memo: object(memo) with: iterator]; }
     template <class T>
     id inject(id list, T memo, id (^iterator)(id memo, id value, NSUInteger key))
-      { return [ M3 inject: list memo: object(memo) withIndex: iterator ]; }
+      { return [M3 inject: list memo: object(memo) withIndex: iterator]; }
     id inject(id list, id (^iterator)(id memo, id value, id key))
-      { return [ M3 inject: list with: iterator ]; }
+      { return [M3 inject: list with: iterator]; }
     id inject(id list, id (^iterator)(id memo, id value, NSUInteger key))
-      { return [ M3 inject: list withIndex: iterator ]; }
+      { return [M3 inject: list withIndex: iterator]; }
     
     // _.map
     NSMutableArray* map(id list, id (^iterator)(id value, id key))
-      { return [ M3 map: list with: iterator ]; }
+      { return [M3 map: list with: iterator]; }
     NSMutableArray* map(id list, id (^iterator)(id value, NSUInteger idx))
-      { return [ M3 map: list withIndex: iterator ]; }
+      { return [M3 map: list withIndex: iterator]; }
     
     // _.detect
     id detect(id list,  BOOL (^iterator)(id value, id key))
-      { return [ M3 detect: list with: iterator ]; }
+      { return [M3 detect: list with: iterator]; }
     id detect(id list,  BOOL (^iterator)(id value, NSUInteger key))
-      { return [ M3 detect: list withIndex: iterator ]; }
+      { return [M3 detect: list withIndex: iterator]; }
     
     // _.select
     NSMutableArray* select(id list, BOOL (^iterator)(id value, id key))
-      { return [ M3 select: list with: iterator ]; }
+      { return [M3 select: list with: iterator]; }
     NSMutableArray* select(id list, BOOL (^iterator)(id value, NSUInteger key))
-      { return [ M3 select: list withIndex: iterator ]; }
+      { return [M3 select: list withIndex: iterator]; }
     
     // _.reject
     NSMutableArray* reject(id list, BOOL (^iterator)(id value, id key))
-      { return [ M3 reject: list with: iterator ]; }
+      { return [M3 reject: list with: iterator]; }
     NSMutableArray* reject(id list, BOOL (^iterator)(id value, NSUInteger key))
-      { return [ M3 reject: list withIndex: iterator ]; }
+      { return [M3 reject: list withIndex: iterator]; }
     
     // _.all
     BOOL all(id list,  BOOL (^iterator)(id value, id key))
-      { return [ M3 all: list with: iterator ]; }
+      { return [M3 all: list with: iterator]; }
     BOOL all(id list,  BOOL (^iterator)(id value, NSUInteger key))
-      { return [ M3 all: list withIndex: iterator ]; }
+      { return [M3 all: list withIndex: iterator]; }
     
     // _.any
     BOOL any(id list,  BOOL (^iterator)(id value, id key))
-      { return [ M3 any: list with: iterator ]; }
+      { return [M3 any: list with: iterator]; }
     BOOL any(id list,  BOOL (^iterator)(id value, NSUInteger key))
-      { return [ M3 any: list withIndex: iterator ]; }
+      { return [M3 any: list withIndex: iterator]; }
     
     // _.include
     template <class T>
     BOOL include(id list, T value)
-      { return [ M3 include: list value: object(value) ]; }
+      { return [M3 include: list value: object(value)]; }
     
     // _.pluck
     template <class T>
     NSMutableArray* pluck(id list, T propertyName)
-      { return [ M3 pluck: list name: string(propertyName) ]; }
+      { return [M3 pluck: list name: string(propertyName)]; }
     
     // _.compare
     template <class T0, class T1>
@@ -321,23 +321,23 @@ namespace RS {
     
     // _.max
     id max(id list)
-      { return [ M3 max: list ]; }
+      { return [M3 max: list]; }
     id max(id list, id (^iterator)(id value, id key))
-      { return [ M3 max: list with: iterator ]; }
+      { return [M3 max: list with: iterator]; }
     id max(id list, id (^iterator)(id value, NSUInteger idx))
-      { return [ M3 max: list withIndex: iterator ]; }
+      { return [M3 max: list withIndex: iterator]; }
     
     // _.min
     id min(id list)
-      { return [ M3 min: list ]; }
+      { return [M3 min: list]; }
     id min(id list,  id (^iterator)(id value, id key))
-      { return [ M3 min: list with: iterator ]; }
+      { return [M3 min: list with: iterator]; }
     id min(id list,  id (^iterator)(id value, NSUInteger idx))
-      { return [ M3 min: list withIndex: iterator ]; }
+      { return [M3 min: list withIndex: iterator]; }
     
     // _.group_by
     id group_by(id list, id (^iterator)(id value))
-      { return [ M3 group: list by: iterator ]; }
+      { return [M3 group: list by: iterator]; }
   };
 };
 

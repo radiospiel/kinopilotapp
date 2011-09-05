@@ -15,18 +15,18 @@
 
 +(NSString*)uid: (NSDictionary*) record;
 {
-  id uid = [ record objectForKey: @"_uid" ];
+  id uid = [record objectForKey: @"_uid"];
   if(uid) return uid;
   
-  NSArray* keys = [ record.allKeys sortedArrayUsingSelector:@selector(localizedCompare:)];
-  NSArray* parts = [ M3 map: keys
+  NSArray* keys = [record.allKeys sortedArrayUsingSelector:@selector(localizedCompare:)];
+  NSArray* parts = [M3 map: keys
                   withIndex: ^(id key, NSUInteger idx) {
-                              id value = [ record objectForKey: key ];  
-                              return _.join( key, ":", [ value description ]);
+                              id value = [record objectForKey: key];  
+                              return _.join( key, ":", [value description]);
                             }
-                    ];
+                   ];
   
-  return [ M3 md5: _.join(parts, "/") ];
+  return [M3 md5: _.join(parts, "/")];
 }
 
 /*
@@ -41,7 +41,7 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
                     inArray: (NSMutableArray*) sortedArray;
 {
   NSUInteger index = 0;
-  NSUInteger topIndex = [sortedArray count];
+  NSUInteger topIndex = sortedArray.count;
   IMP objectAtIndexImp = [sortedArray methodForSelector:@selector(objectAtIndex:)];
   while (index < topIndex) {
     NSUInteger midIndex = (index + topIndex) / 2;
@@ -63,14 +63,14 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
 +(void)insertObject: (id)anObject 
           intoArray: (NSMutableArray*) sortedArray;
 {
-  NSUInteger index = [self indexForObject: anObject inArray: sortedArray ];
+  NSUInteger index = [self indexForObject: anObject inArray: sortedArray];
 
-  if(index == [ sortedArray count ]) {
+  if(index == sortedArray.count) {
     // append at end
     [sortedArray insertObject:anObject atIndex:index];
   }
   else {
-    NSComparisonResult diff = _.compare(anObject, [ sortedArray objectAtIndex:index ]);
+    NSComparisonResult diff = _.compare(anObject, [sortedArray objectAtIndex:index]);
     if (diff != 0) 
       [sortedArray insertObject:anObject atIndex:index];
   }
@@ -81,7 +81,7 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
 {
   NSUInteger index = [self indexForObject:anObject inArray: sortedArray];
   
-  NSComparisonResult diff = _.compare(anObject, [ sortedArray objectAtIndex:index ]);
+  NSComparisonResult diff = _.compare(anObject, [sortedArray objectAtIndex:index]);
   if (diff == 0) 
     [sortedArray removeObjectAtIndex:index];
 }
@@ -91,7 +91,7 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
                     max: (id)max 
            excludingEnd: (BOOL) excludingEnd;
 {
-  NSUInteger count = [ array count ];
+  NSUInteger count = array.count;
   NSUInteger start = !min ? 0 : [self indexForObject: min inArray: array];
   if(start >= count) return NSMakeRange(0, 0);
   
@@ -99,7 +99,7 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
 
   // Make end point to the item *after* max
   if(end < count && !excludingEnd) {
-    id end_obj = [ array objectAtIndex: end ];
+    id end_obj = [array objectAtIndex: end];
     if(_.compare(max, end_obj) == 0)
         end++;
   }
@@ -109,7 +109,7 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
 }
 
 +(void) sortArray: (NSMutableArray*) array {
-  [ array sortUsingFunction: RS::UnderscoreAdapter::compare context: 0 ];
+  [array sortUsingFunction: RS::UnderscoreAdapter::compare context: 0];
 } 
 
 
@@ -119,14 +119,14 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
 
 + (SimpleMapCallback) groupBy: (NSString*) name;
 {
-  id block = ^(NSDictionary* value, id key) { return [ value objectForKey: name ]; };
+  id block = ^(NSDictionary* value, id key) { return [value objectForKey: name]; };
   return AUTORELEASE([block copy]);
 }
 
 + (SimpleReduceCallback) reduceBy: (NSString*) name;
 {
   if([name isEqualToString: @"count"]) {
-    id block = ^(NSArray* values, id key) { return _.hash("count", [ values count ]); };
+    id block = ^(NSArray* values, id key) { return _.hash("count", values.count); };
     return [[block copy]retain];
   }
   

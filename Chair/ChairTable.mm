@@ -14,9 +14,9 @@
 
 -(id) init;
 {
-  self = [ super init ];
+  self = [super init];
   if(self) {
-    dictionary_ = [ [ChairDictionary alloc] init ];
+    dictionary_ = [[ChairDictionary alloc] init];
   }
   
   return self;
@@ -24,7 +24,7 @@
 
 -(id) initWithDictionary: (ChairDictionary*) dictionary;
 {
-  self = [ super init ];
+  self = [super init];
   if(self) {
     dictionary_ = dictionary;
   }
@@ -43,18 +43,18 @@
 -(void)do_update {
   if(!source_view_) return;
   
-  NSMutableArray* values = [ NSMutableArray array ];
-  NSMutableArray* keys = [ NSMutableArray array ];
+  NSMutableArray* values = [NSMutableArray array];
+  NSMutableArray* keys = [NSMutableArray array];
   
   NSUInteger old_revision = revision_;
   
-  [ source_view_ each:^(id value, id key) {
-    [values addObject: value ];
-    [keys addObject: key ];
+  [source_view_ each:^(id value, id key) {
+    [values addObject: value];
+    [keys addObject: key];
   }
-   ];
+ ];
   
-  self.dictionary = [ [ChairDictionary alloc ] initWithObjects: values andKeys: keys ];
+  self.dictionary = [[ChairDictionary alloc] initWithObjects: values andKeys: keys];
   
   revision_ = old_revision + 1;
 }
@@ -64,13 +64,13 @@
           max: (id)max
  excludingEnd: (BOOL)excludingEnd;
 {
-  [ super update ];
+  [super update];
   
-  [ dictionary_ each: iterator
+  [dictionary_ each: iterator
                  min: min
                  max: max 
         excludingEnd: excludingEnd 
-   ];
+ ];
 }
 
 /**
@@ -91,14 +91,14 @@
 @synthesize name = name_;
 
 - (id) initWithName: (NSString*) name {
-  if(!(self = [ super init ])) return nil;
+  if(!(self = [super init])) return nil;
   
   self.name = name;
   return self;
 }
 
 -(id)upsert:(NSDictionary *)record {
-  return [ self upsert:record withKey: nil ];
+  return [self upsert:record withKey: nil];
 }
 
 -(id)upsert:(NSDictionary *)record withKey:(NSString *)key {
@@ -106,9 +106,9 @@
     _.raise("Needs record OR key");
   
   if(record)
-    key = [ Chair uid: record ];
+    key = [Chair uid: record];
   
-  [dictionary_ setObject: record forKey: key ];
+  [dictionary_ setObject: record forKey: key];
   
   revision_ += 1;
   return record ? key : nil;
@@ -118,7 +118,7 @@
 // -- NSCoding --------------------------------------------------------
 
 -(void) encodeWithCoder: (NSCoder *)coder { 
-  [coder encodeObject: self.dictionary forKey: @"dictionary" ];
+  [coder encodeObject: self.dictionary forKey: @"dictionary"];
 } 
 
 -(id) initWithCoder: (NSCoder *)coder { 
@@ -131,7 +131,7 @@
 +(ChairTable*) tableWithFile:(NSString*) path {
   NSDictionary * rootObject = [NSKeyedUnarchiver unarchiveObjectWithFile:path]; 
   ChairTable* table = [rootObject valueForKey:@"table"];
-  table.name = [M3 basename_wo_ext: path ];
+  table.name = [M3 basename_wo_ext: path];
 
   return table;
 }

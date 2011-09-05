@@ -23,20 +23,20 @@ enum {
 static int comparison_category(id obj) {
   if(!obj) 
     return Category_Nil;
-  if([ obj isKindOfClass: [ NSNull class ]]) 
+  if([obj isKindOfClass: [NSNull class]]) 
     return Category_Nil;
-  if([ obj isKindOfClass: [ NSNumber class ]]) 
+  if([obj isKindOfClass: [NSNumber class]]) 
     return Category_Numbers;
-  if([ obj isKindOfClass: [ NSDate class ]]) 
+  if([obj isKindOfClass: [NSDate class]]) 
     return Category_Date;
-  if([ obj isKindOfClass: [ NSString class ]]) 
+  if([obj isKindOfClass: [NSString class]]) 
     return Category_Strings;
-  if([ obj isKindOfClass: [ NSArray class ]]) 
+  if([obj isKindOfClass: [NSArray class]]) 
     return Category_Array;
-  if([ obj isKindOfClass: [ NSObject class ]]) 
+  if([obj isKindOfClass: [NSObject class]]) 
     return Category_Objects;
   
-  _.raise("No comparison support for", NSStringFromClass([ obj class ]), "objects");
+  _.raise("No comparison support for", NSStringFromClass([obj class]), "objects");
   __builtin_unreachable();
 }
 
@@ -60,17 +60,17 @@ NSComparisonResult RS::UnderscoreAdapter::compare_(id value, id other) {
   
   switch(value_category) {
     case Category_Numbers:
-      return [ value compare: other ];
+      return [value compare: other];
     case Category_Strings:
-      return [ value compare: other ];  // or should we use localizedCompare?
+      return [value compare: other];  // or should we use localizedCompare?
 
     case Category_Array:
     {
-      NSUInteger value_count = [ value count ];
-      NSUInteger other_count = [ other count ];
+      NSUInteger value_count = [value count];
+      NSUInteger other_count = [other count];
 
       for(NSUInteger idx = 0; idx < (value_count < other_count ? value_count : other_count); ++idx) {
-        NSComparisonResult r = compare([ value objectAtIndex: idx ], [ other objectAtIndex: idx ]);
+        NSComparisonResult r = compare([value objectAtIndex: idx], [other objectAtIndex: idx]);
         if(r) return r;
       }
       
@@ -83,15 +83,15 @@ NSComparisonResult RS::UnderscoreAdapter::compare_(id value, id other) {
       // search order algorithm: we compare all entries that exist in one or
       // the other dictionary, in sorted order.
 
-      NSUInteger capacity = [ value count ] + [ other count ];
-      NSMutableArray* keys = [ NSMutableArray arrayWithCapacity: capacity ] ;
+      NSUInteger capacity = [value count] + [other count];
+      NSMutableArray* keys = [NSMutableArray arrayWithCapacity: capacity] ;
 
-      [ keys addObjectsFromArray: [ value allKeys ]];
-      [ keys addObjectsFromArray: [ other allKeys ]];
-      [ keys sortUsingSelector: @selector(compare:) ];
+      [keys addObjectsFromArray: [value allKeys]];
+      [keys addObjectsFromArray: [other allKeys]];
+      [keys sortUsingSelector: @selector(compare:)];
 
       for(NSString* key in keys) {
-        NSComparisonResult r = compare([ value valueForKey: key ], [ other valueForKey: key ]);
+        NSComparisonResult r = compare([value valueForKey: key], [other valueForKey: key]);
         if(r) return r;
       }
       

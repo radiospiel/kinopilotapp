@@ -6,7 +6,7 @@
 
 + (NSData*) readDataFromPath: (NSString*) path {
 
-  NSFileHandle* handle = [NSFileHandle fileHandleForReadingAtPath: path ];
+  NSFileHandle* handle = [NSFileHandle fileHandleForReadingAtPath: path];
   NSData* contents = [handle readDataToEndOfFile];
   if (!contents) {
 //    NSString *curDir = [[NSFileManager defaultManager] currentDirectoryPath];
@@ -22,7 +22,7 @@
 {
   NSLog(@"********* read: %@", path);
   
-  NSString* r = [[NSString alloc] initWithData: [ self readDataFromPath: path ] 
+  NSString* r = [[NSString alloc] initWithData: [self readDataFromPath: path] 
                                       encoding: NSUTF8StringEncoding];
 
   return [r autorelease];
@@ -30,14 +30,14 @@
 
 
 + (void) writeData: (NSData*) data toPath: (NSString*) path {
-  path = [ self expandPath: path ];
-  [ M3 mkdir_p: [ M3 dirname: path ] ];
+  path = [self expandPath: path];
+  [M3 mkdir_p: [M3 dirname: path]];
   
   NSFileManager* fileManager = [NSFileManager defaultManager];
   
-  BOOL fSuccess = [ fileManager createFileAtPath: path
+  BOOL fSuccess = [fileManager createFileAtPath: path
                                         contents: data
-                                      attributes: nil ];
+                                      attributes: nil];
   
   if(!fSuccess)
     _.raise("Cannot write to", path);
@@ -45,7 +45,7 @@
 
 +(void) write: (NSString*)string toPath: (NSString*) path 
 {
-  [ self writeData: [string dataUsingEncoding:NSUTF8StringEncoding] 
+  [self writeData: [string dataUsingEncoding:NSUTF8StringEncoding] 
             toPath: path];
 }
 
@@ -59,7 +59,7 @@
 
 
 +(NSString*) expandPath: (NSString*) path {
-  return [ path stringByExpandingTildeInPath]; 
+  return [path stringByExpandingTildeInPath]; 
 }
 
 // TODO: raise exception on error.

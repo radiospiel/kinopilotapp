@@ -16,10 +16,10 @@ objects: (value, key).
 This method treats arrays as dictionaries: arrays yield the iterator 
 block with NSNumber objects as keys, starting at 0 and counting up.
  
-    id list = [ NSArray arrayWithObjects: @"Nicola", @"Margherita", nil];
-    [ M3 each: list 
+    id list = [NSArray arrayWithObjects: @"Nicola", @"Margherita", nil];
+    [M3 each: list 
        with: ^(id value, id key){ NSLog(@"%@: %@", key, value); }
-    ];
+   ];
 
 @param list the array or dictionary to iterate over
 @param iterator the iterator function.
@@ -39,10 +39,10 @@ The iterator function will be invoked with two objects: (value, key).
 In contrast to each:with: this method does not convert the 
 array's indices into NSNumbers.
  
-    id list = [ NSArray arrayWithObjects: @"Nicola", @"Margherita", nil];
-    [ M3 each: list
+    id list = [NSArray arrayWithObjects: @"Nicola", @"Margherita", nil];
+    [M3 each: list
                 withIndex: ^(id value, NSUInteger key){ NSLog(@"%ld: %@", key, value); }
-    ];
+   ];
 
 @param list the array or dictionary to iterate over
 @param iterator the iterator function.
@@ -132,11 +132,11 @@ dictionary through a transformation function (iterator). The iterator's
 arguments will be (value, key).
 
 <pre>
-  id list = [ NSArray arrayWithObjects: @"Nicola", @"Margherita", nil];
-  [ M3 map: list
+  id list = [NSArray arrayWithObjects: @"Nicola", @"Margherita", nil];
+  [M3 map: list
       with: ^(id value, id key){ 
-        return [ NSString stringWithFormat: @"%@-%@", key, value ]; }
-  ];
+        return [NSString stringWithFormat: @"%@-%@", key, value]; }
+ ];
 </pre>
 */
 
@@ -296,7 +296,7 @@ the values that fail a truth test (iterator).
 @param list the array or dictionary to iterate over
 @param value the value to check for.
 @return true if the value is present in the list, using 
-  [ NSObject isEqual: ] to test equality. 
+  [NSObject isEqual: ] to test equality. 
 */
 
 + (BOOL) include: (id) list 
@@ -315,7 +315,7 @@ map: extracting a list of property values.
 
 <pre>
     var stooges = [{name : 'moe', age : 40}, {name : 'larry', age : 50}, {name : 'curly', age : 60}];
-    [ M3 pluck: stooges withPropertyName: @"name" ];
+    [M3 pluck: stooges withPropertyName: @"name"];
     // => [@"moe", @"larry", @"curly"]
 </pre>
 */
@@ -414,9 +414,9 @@ using compare:with:
  Splits a collection into sets, grouped by the result of running each 
  value through iterator.
  
-    [ M3 group: _.array(2.1, 1.3, 2.4)
-                    by: ^(id value){ return Math.floor([ value doubleValue ]); }
-    ];
+    [M3 group: _.array(2.1, 1.3, 2.4)
+                    by: ^(id value){ return Math.floor([value doubleValue ]); }
+   ];
     // => {1: [1.3], 2: [2.1, 2.4]}
 
 */

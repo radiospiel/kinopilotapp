@@ -14,21 +14,21 @@
 @synthesize source_view = source_view_;
 
 - (id) init {
-  self = [ super init ];
+  self = [super init];
   if(!self) return nil;
   
   self.revision = 0;
   self.source_view = nil;
   source_revision_ = 0;
   
-  dependant_objects_ = [[[ NSMutableArray alloc ]init] retain];
+  dependant_objects_ = [[[NSMutableArray alloc]init] retain];
   
   return self;
 }
 
 -(void)dealloc 
 {
-  NSLog(@"ChairView dealloc: %ld", (long)self);
+  NSLog(@"ChairView dealloc");
 
   [dependant_objects_ release];
   
@@ -40,7 +40,7 @@
 
 -(void) addDependantObject: (id) object;
 {
-  [ dependant_objects_ addObject: object ];
+  [dependant_objects_ addObject: object];
 }
 
 -(NSString*) description
@@ -63,7 +63,7 @@
   if(!source_view_) return;
   if(source_revision_ && source_revision_ == source_view_.revision) return;
 
-  [self do_update ];
+  [self do_update];
   source_revision_ = source_view_.revision;
 }
 
@@ -75,20 +75,20 @@
           max: (id)max
  excludingEnd: (BOOL)excludingEnd;
 {
-  [ self update ];
+  [self update];
 }
 
 - (void) each: (void (^)(NSDictionary* value, id key)) iterator;
 {
-  [ self each: iterator min: nil max: nil excludingEnd: nil ];
+  [self each: iterator min: nil max: nil excludingEnd: nil];
 }
 
 - (NSDictionary*) get: (id)key
 {
   NSDictionary* __block r = nil;
    
-  [ self each: ^(NSDictionary* value, id key) { r = value; }
-          min: key max: key excludingEnd: NO ];
+  [self each: ^(NSDictionary* value, id key) { r = value; }
+          min: key max: key excludingEnd: NO];
   
   return [r autorelease];
 }
@@ -98,7 +98,7 @@
  */
 - (NSUInteger) count {
   NSUInteger __block r = 0;
-  [ self each: ^(NSDictionary* value, id key) { r++; } ];
+  [self each: ^(NSDictionary* value, id key) { r++; }];
   return r;
 }
 
@@ -110,21 +110,21 @@
             excludingEnd: (BOOL)excludingEnd;
 {
   NSUInteger __block r = 0;
-  [ self each: ^(NSDictionary* value, id key) { r++; } min: min max: max excludingEnd: excludingEnd ];
+  [self each: ^(NSDictionary* value, id key) { r++; } min: min max: max excludingEnd: excludingEnd];
   return r;
 }
 
 -(NSArray*) keys {
-  NSMutableArray* keys = [ NSMutableArray array ];
+  NSMutableArray* keys = [NSMutableArray array];
   
-  [ self each: ^(NSDictionary* value, id key) { [keys addObject: key ]; } ];
+  [self each: ^(NSDictionary* value, id key) { [keys addObject: key]; }];
   return keys;
 }
 
 -(NSArray*) values {
-  NSMutableArray* values = [ NSMutableArray array ];
+  NSMutableArray* values = [NSMutableArray array];
   
-  [ self each: ^(NSDictionary* value, id key) { [values addObject: value ]; } ];
+  [self each: ^(NSDictionary* value, id key) { [values addObject: value]; }];
   return values;
 }
 

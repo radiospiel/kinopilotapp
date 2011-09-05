@@ -15,30 +15,30 @@
 
 - (id) init;
 {
-  self = [ super init ];
+  self = [super init];
   if(!self) return nil;
   
-  data_ = [ [ NSMutableDictionary alloc ] init ];
-  keys_ = [ [ NSMutableArray alloc ] init ];
+  data_ = [[NSMutableDictionary alloc] init];
+  keys_ = [[NSMutableArray alloc] init];
   
   return self;
 } 
 
 -(id)initWithObjects: (NSArray*)values andKeys: (NSArray*)keys {
-  self = [ super init ];
+  self = [super init];
   if(!self) return nil;
 
-  data_ = [ [ NSMutableDictionary alloc ] initWithCapacity: values.count ];
+  data_ = [[NSMutableDictionary alloc] initWithCapacity: values.count];
 
   NSUInteger idx = 0;
   
   for(id key in keys) {
-    [data_ setObject: [values objectAtIndex: idx++ ] forKey: key ];
+    [data_ setObject: [values objectAtIndex: idx++] forKey: key];
   }
 
-  keys_ = [ [ NSMutableArray alloc ] initWithArray: keys ];
+  keys_ = [[NSMutableArray alloc] initWithArray: keys];
 
-  [ Chair sortArray: keys_ ];
+  [Chair sortArray: keys_];
   
   return self;
 }
@@ -48,11 +48,11 @@
   [data_ release];
   [keys_ release];
   
-  [ super dealloc ];
+  [super dealloc];
 }
 
 + (id) dictionary {
-  return AUTORELEASE([[ ChairDictionary alloc ] init ]);
+  return AUTORELEASE([[ChairDictionary alloc] init]);
 }
 
 - (NSArray*) keys {
@@ -67,29 +67,29 @@
 - (void) setObject_: (id) object forKey: (id) key {
 
   if(object == nil) {
-    [Chair removeObject: key fromArray: keys_ ];
-    [data_ removeObjectForKey: key ];
+    [Chair removeObject: key fromArray: keys_];
+    [data_ removeObjectForKey: key];
   }
   else {
-    [Chair insertObject: key intoArray: keys_ ];
-    [data_ setObject: object forKey: key ];
+    [Chair insertObject: key intoArray: keys_];
+    [data_ setObject: object forKey: key];
   }
 }
 
 - (void) setObject: (NSDictionary*) object forKey: (id) key {
-  [ self setObject_: object forKey: key ];
+  [self setObject_: object forKey: key];
 }
 
 - (id) objectForKey_: (id) key {
-  return [data_ objectForKey: key ];
+  return [data_ objectForKey: key];
 }
 
 - (NSDictionary*) objectForKey: (id) key {
-  return [self objectForKey_: key ];
+  return [self objectForKey_: key];
 }
 
 //
-// yields each [ value, key ] pair all entries in the range minKey ..
+// yields each [value, key ] pair all entries in the range minKey ..
 // maxKey. If the maxKey entry exists, if will be yielded
 
 -(void) each_: (void(^)(id value, id key))yield 
@@ -98,18 +98,18 @@
  excludingEnd: (BOOL) excludingEnd
 {
 
-  NSRange range = [ Chair rangeInArray: keys_
+  NSRange range = [Chair rangeInArray: keys_
                                    min: min
                                    max: max
-                          excludingEnd: excludingEnd ];
+                          excludingEnd: excludingEnd];
 
-  [ keys_ enumerateObjectsAtIndexes: [NSIndexSet indexSetWithIndexesInRange: range ]
+  [keys_ enumerateObjectsAtIndexes: [NSIndexSet indexSetWithIndexesInRange: range]
                             options: /* descending ? NSEnumerationReverse : */ 0
                          usingBlock:^(id key, NSUInteger idx, BOOL *stop) {
-                                      id value = [ data_ objectForKey: key ];
+                                      id value = [data_ objectForKey: key];
                                       yield(value, key);
                                     } 
-  ];
+];
 }
 
 -(void) each: (void(^)(NSDictionary* value, id key))yield 
@@ -117,24 +117,24 @@
          max: (id) max
  excludingEnd: (BOOL) excludingEnd
 {
-  [ self  each_: yield
+  [self  each_: yield
             min: min
             max: max
    excludingEnd: excludingEnd
-  ];
+];
 }
 
 - (void) each: (void(^)(NSDictionary* value, id key))yield 
 {
-  [ self each: yield
+  [self each: yield
           min: nil
           max: nil
- excludingEnd: NO ];
+ excludingEnd: NO];
 }
 
 - (void) encodeWithCoder: (NSCoder *)coder { 
-  [coder encodeObject: keys_ forKey: @"keys" ];
-  [coder encodeObject: data_ forKey: @"data" ];
+  [coder encodeObject: keys_ forKey: @"keys"];
+  [coder encodeObject: data_ forKey: @"data"];
 } 
 
 - (id) initWithCoder: (NSCoder *)coder { 
@@ -150,18 +150,18 @@
 @implementation ChairMultiDictionary
 
 + (ChairMultiDictionary*) dictionary {
-  return AUTORELEASE([[ ChairMultiDictionary alloc ] init ]);
+  return AUTORELEASE([[ChairMultiDictionary alloc] init]);
 }
 
 - (void) addObject: (NSDictionary*) object forKey: (id) key
 {
-  NSMutableArray* objects = [ self objectForKey_: key ];
+  NSMutableArray* objects = [self objectForKey_: key];
   if(objects) {
     [objects addObject:key];
   }
   else {
-    objects = [ NSMutableArray arrayWithObject: object ];
-    [ self setObject_: objects forKey:key];
+    objects = [NSMutableArray arrayWithObject: object];
+    [self setObject_: objects forKey:key];
   }
 }
 
@@ -170,13 +170,13 @@
           max: (id) max
  excludingEnd: (BOOL) excludingEnd
 {
-  [ self eachArray: ^(NSArray* values, id key) {
+  [self eachArray: ^(NSArray* values, id key) {
                       for(NSDictionary* object in values)
                         yield(object, key);
                     }
                min: min
                max: max
-      excludingEnd: excludingEnd ];
+      excludingEnd: excludingEnd];
 }
 
 - (void) eachArray: (void(^)(NSArray* value, id key))yield
@@ -184,11 +184,11 @@
                max: (id) max
       excludingEnd: (BOOL) excludingEnd
 {
-  [ super each_: yield
+  [super each_: yield
             min: min
             max: max
    excludingEnd: excludingEnd
-  ];
+];
 };
 
 
