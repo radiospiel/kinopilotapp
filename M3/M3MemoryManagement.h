@@ -25,3 +25,6 @@
   #define RELEASE(obj)      [obj release]
   #define RETAIN(obj)       [obj retain]
 #endif
+
+// #define LOG_DEALLOC        NSLog(@"%@ dealloc", [self class])
+#define LOG_DEALLOC        (void)0

@@ -28,7 +28,7 @@
 
 -(void)dealloc 
 {
-  NSLog(@"ChairView dealloc");
+  LOG_DEALLOC;
 
   [dependant_objects_ release];
   

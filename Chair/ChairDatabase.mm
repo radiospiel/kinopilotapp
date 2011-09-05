@@ -23,8 +23,8 @@
 }
 
 -(void)dealloc {
-  NSLog(@"ChairDynamicView dealloc: %@", self);
-
+  LOG_DEALLOC;
+  
   [tables_ release];
   [super dealloc];
 }

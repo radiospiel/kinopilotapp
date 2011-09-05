@@ -29,7 +29,7 @@
 
 -(void)dealloc
 {
-  NSLog(@"ChairDynamicView dealloc");
+  LOG_DEALLOC;
   
   self.map_function = nil;
   self.reduce_function = nil;

@@ -34,7 +34,7 @@
 
 -(void)dealloc
 {
-  NSLog(@"ChairTable dealloc");
+  LOG_DEALLOC;
 
   self.dictionary = nil;
   [super dealloc];
