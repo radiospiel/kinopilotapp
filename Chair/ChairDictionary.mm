@@ -18,57 +18,41 @@
   self = [ super init ];
   if(!self) return nil;
   
-  data_ = [ NSMutableDictionary dictionary ];
-  keys_ = [ NSMutableArray array ];
+  data_ = [ [ NSMutableDictionary alloc ] init ];
+  keys_ = [ [ NSMutableArray alloc ] init ];
   
   return self;
 } 
-
-+ (id) dictionary {
-  return AUTORELEASE([[ ChairDictionary alloc ] init ]);
-}
 
 -(id)initWithObjects: (NSArray*)values andKeys: (NSArray*)keys {
   self = [ super init ];
   if(!self) return nil;
 
-  data_ = [ NSMutableDictionary dictionaryWithCapacity: values.count ];
-  
+  data_ = [ [ NSMutableDictionary alloc ] initWithCapacity: values.count ];
+
   NSUInteger idx = 0;
   
   for(id key in keys) {
     [data_ setObject: [values objectAtIndex: idx++ ] forKey: key ];
   }
 
-  keys_ = [NSMutableArray arrayWithArray: keys ];
+  keys_ = [ [ NSMutableArray alloc ] initWithArray: keys ];
+
   [ Chair sortArray: keys_ ];
   
   return self;
 }
 
-+ (id) dictionaryWithObjects: (NSArray*)objects andKeys: (NSArray*)keys {
-  return AUTORELEASE([[ ChairDictionary alloc ] initWithObjects: objects andKeys: keys ]);
+- (void)dealloc
+{
+  [data_ release];
+  [keys_ release];
+  
+  [ super dealloc ];
 }
 
--(id)initWithKeyValueArray: (NSArray*)kvArray {
-  self = [ super init ];
-  if(!self) return nil;
-
-  data_ = [ NSMutableDictionary dictionaryWithCapacity: kvArray.count ];
-  keys_ = [ NSMutableArray arrayWithCapacity: kvArray.count ];
-  
-  for(NSArray* kv in kvArray) {
-    id key = [ kv objectAtIndex: 0 ];
-    id value = [kv objectAtIndex: 1 ];
-    [keys_ addObject: key ];
-    [data_ setObject: value forKey: key ];
-  }
-  
-  return self;
-}
-
-+ (id) dictionaryWithKeyValueArray: (NSArray*) kvArray {
-  return AUTORELEASE([[ ChairDictionary alloc ] initWithKeyValueArray: kvArray ]);
++ (id) dictionary {
+  return AUTORELEASE([[ ChairDictionary alloc ] init ]);
 }
 
 - (NSArray*) keys {

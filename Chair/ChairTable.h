@@ -29,10 +29,11 @@
 
 @property (nonatomic,retain) NSString* name;
 
+-(id) initWithName: (NSString*)name;
+
 -(id) upsert: (NSDictionary*)record;
 -(id) upsert: (NSDictionary*)record withKey: (NSString*)key;
 
-+(ChairTable*) tableWithName: (NSString*)name;
 +(ChairTable*) tableWithFile: (NSString*)file;
 
 -(void) saveToFile: (NSString*) path;

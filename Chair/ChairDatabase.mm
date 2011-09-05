@@ -14,12 +14,17 @@
   self = [ super init ];
   if(!self) return nil;
    
-  // TODO: This is probably a memory leak. 
-  tables_ = [[[ NSMutableDictionary alloc ] init ]retain]; 
+  tables_ = [[ NSMutableDictionary alloc ] init ]; 
   return self;
 }
 
+-(NSString*)description {
+  return [ NSString stringWithFormat: @"<%@: %d table(s)>", [ self class ], tables_.count ];
+}
+
 -(void)dealloc {
+  NSLog(@"ChairDynamicView dealloc: %@", self);
+
   [tables_ release];
   [super dealloc];
 }
@@ -35,8 +40,9 @@
 {
   ChairTable* table = [ tables objectForKey: name ];
   if(!table) {
-    table = [ ChairTable tableWithName: name ]; 
+    table = [ [ChairTable alloc ] initWithName: name ]; 
     [ tables setObject: table forKey: name ];
+    [table release];
   }
   
   return table;
@@ -68,7 +74,7 @@
   if(![entries isKindOfClass: [ NSArray class]])
     _.raise("Cannot read file", path);
   
-  NSMutableDictionary* tables = [ NSMutableDictionary dictionary ]; 
+  NSMutableDictionary* tables = [[ NSMutableDictionary alloc ] init ]; 
 
   for(id entry in entries) {
     
@@ -95,6 +101,7 @@
   }
 
   [ self mergeTables: tables ];
+  [ tables release ];
 }
 
 -(void) export: (NSString*) path
@@ -130,7 +137,7 @@
 {
   basedir = [ M3 expandPath: basedir ];
   
-  NSMutableDictionary *tables = [ NSMutableDictionary dictionary ];
+  NSMutableDictionary *tables = [[NSMutableDictionary alloc ] init ];
   
   NSArray* dbfiles = [NSArray arrayWithFilesMatchingPattern: @"*.bin" inDirectory: basedir];
   
@@ -140,6 +147,7 @@
   }
   
   [ self mergeTables: tables ];
+  [ tables release ];
 }
 
 @end

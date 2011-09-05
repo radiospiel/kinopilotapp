@@ -17,12 +17,11 @@
   NSMutableDictionary* data_;
 };
 
-+ (id) dictionary;
-+ (id) dictionaryWithObjects: (NSArray*)objects 
-                     andKeys: (NSArray*)keys;
+-(id)init;
+-(id)initWithObjects: (NSArray*)values andKeys: (NSArray*)keys;
 
-+ (id) dictionaryWithKeyValueArray: (NSArray*) kvArray;
-                   
++ (id) dictionary;
+
 - (void) setObject: (NSDictionary*) object forKey: (id) key;
 
 - (void) each: (void(^)(NSDictionary* value, id key))yield 
@@ -49,4 +48,3 @@
       excludingEnd: (BOOL) excludingEnd;
 
 @end
-

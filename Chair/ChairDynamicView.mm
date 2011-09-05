@@ -62,7 +62,7 @@
 
   ChairMultiDictionary* stage2 = [ [ChairMultiDictionary alloc ] init ];
   EmitCallback emit = ^(NSDictionary* value, id key) {
-    [stage2 setObject:value forKey: key ];
+    [stage2 addObject:value forKey: key ];
   };
   
   [ inp eachArray: ^(NSArray *values, id key) {

@@ -277,10 +277,7 @@ static NSMutableArray* enum_keys_descending(ChairDictionary* dictionary, T1 min,
     view = [schedules viewWithMap: nil andReduce: nil ];
 
     NSUInteger count = [view count];
-    NSLog(@"**** count: %ld", count);
   }
-
-  NSLog(@"**** done");
 }
 
 -(void)test_group_and_view
@@ -301,32 +298,24 @@ static NSMutableArray* enum_keys_descending(ChairDictionary* dictionary, T1 min,
                     andReduce: nil ];
     
     // 
-    NSLog(@"Created schedules_ordered_by_theater_id"); 
-
     assert_equal(102, [ schedules_ordered_by_theater_id count ]);
-    NSLog(@"Counted schedules_ordered_by_theater_id"); 
+ 
+    ChairView* schedules_by_theater;
+    schedules_by_theater = [ schedules viewWithMap: nil 
+                                          andGroup: ^(NSDictionary* value, id key) { return [ value objectForKey: @"theater_id" ]; }
+                                         andReduce: ^(NSArray* values, id key) { return _.hash("count", [ values count ]); } ];
+
+    // [ schedules_by_theater update ];
+    assert_equal([ schedules_by_theater keys ], _.array(
+      267534162, 374391607, 624179285, 837728461, 1223633946, 1592415747,
+      1600891278, 1954940838, 2885852417, 3190279602, 3619205751
+    ));
+
+    assert(![ schedules_by_theater get: _.object(1) ]);
+    assert_equal(11, [ schedules_by_theater count ]);
+
+    assert_equal(_.hash("count", 8), [ schedules_by_theater get: _.object(267534162) ]);
   }
-
-  return;
-
-
-//  
-//  ChairView* schedules_by_theater;
-//  schedules_by_theater = [ ChairView viewWithView: schedules
-//                                           andMap: nil
-//                                         andGroup: ^(NSDictionary* value, id key) { return [ value objectForKey: @"theater_id" ]; }
-//                                        andReduce: ^(NSArray* values, id key) { return _.hash("count", [ values count ]); } ];
-//
-//  // [ schedules_by_theater update ];
-//  assert_equal([ schedules_by_theater keys ], _.array(
-//    267534162, 374391607, 624179285, 837728461, 1223633946, 1592415747,
-//    1600891278, 1954940838, 2885852417, 3190279602, 3619205751
-//  ));
-//
-//  assert(![ schedules_by_theater get: _.object(1) ]);
-//  assert_equal(_.hash("count", 8), [ schedules_by_theater get: _.object(267534162) ]);
-//
-//  assert_equal(11, [ schedules_by_theater count ]);
 }
 
 -(void)test_group_by_name
@@ -340,11 +329,7 @@ static NSMutableArray* enum_keys_descending(ChairDictionary* dictionary, T1 min,
   ChairTable* schedules = [db tableForName: @"schedules" ];
   assert_equal(102, [ schedules count ]);
 
-  return;
-  
-
-  ChairView* schedules_by_theater;
-  schedules_by_theater = [ schedules viewWithMap: nil
+  ChairView* schedules_by_theater = [ schedules viewWithMap: nil
                                         andGroup: [ Chair groupBy: @"theater_id" ]
                                        andReduce: [ Chair reduceBy: @"count" ]
                          ];
@@ -356,9 +341,9 @@ static NSMutableArray* enum_keys_descending(ChairDictionary* dictionary, T1 min,
   ));
 
   assert(![ schedules_by_theater get: _.object(1) ]);
-  assert_equal(_.hash("count", 8), [ schedules_by_theater get: _.object(267534162) ]);
-
   assert_equal(11, [ schedules_by_theater count ]);
+
+  assert_equal(_.hash("count", 8), [ schedules_by_theater get: _.object(267534162) ]);
 }
 
 - (void)test_complex_hash
@@ -367,7 +352,7 @@ static NSMutableArray* enum_keys_descending(ChairDictionary* dictionary, T1 min,
   id keys = _.array(  _.array(1), _.array(1, 2));
 
   // ChairDictionary* cd = 
-  [ChairDictionary dictionaryWithObjects: objects andKeys: keys ];
+  [[[ChairDictionary alloc ] initWithObjects: objects andKeys: keys ] autorelease];
 }
 
 static NSString* range(NSMutableArray* array, id minimum, id maximum) {
@@ -398,7 +383,7 @@ static NSString* range(NSMutableArray* array, id minimum, id maximum) {
   assert_equal(13, [ theaters countFrom: nil to: nil excludingEnd: NO ]);
 
   [ theaters each: ^(id value, id key) {
-                     NSLog(@">>>> key: %@", key); 
+                     // NSLog(@">>>> key: %@", key); 
                    }
               min: nil
               max: _.object(267534163) 

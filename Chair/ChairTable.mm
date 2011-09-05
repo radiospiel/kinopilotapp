@@ -34,6 +34,8 @@
 
 -(void)dealloc
 {
+  NSLog(@"ChairTable dealloc");
+
   self.dictionary = nil;
   [super dealloc];
 }
@@ -52,7 +54,7 @@
   }
    ];
   
-  self.dictionary = [ ChairDictionary dictionaryWithObjects: values andKeys: keys ];
+  self.dictionary = [ [ChairDictionary alloc ] initWithObjects: values andKeys: keys ];
   
   revision_ = old_revision + 1;
 }
@@ -88,12 +90,12 @@
 
 @synthesize name = name_;
 
-+ (ChairTable*) tableWithName: (NSString*) name {
-  ChairTable* table = AUTORELEASE([[ChairTable alloc ] init]);
-  table.name = name;
-  return table;
+- (id) initWithName: (NSString*) name {
+  if(!(self = [ super init ])) return nil;
+  
+  self.name = name;
+  return self;
 }
-
 
 -(id)upsert:(NSDictionary *)record {
   return [ self upsert:record withKey: nil ];
