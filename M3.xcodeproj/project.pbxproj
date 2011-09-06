@@ -78,6 +78,9 @@
 		9D8B8B491413CC010066ECBB /* Underscore.hh in Headers */ = {isa = PBXBuildFile; fileRef = 9D8B8B471413CC010066ECBB /* Underscore.hh */; };
 		9D8B8B4A1413CC010066ECBB /* Underscore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B481413CC010066ECBB /* Underscore.mm */; };
 		9D8B8B4B1413CC010066ECBB /* Underscore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B481413CC010066ECBB /* Underscore.mm */; };
+		9D99B2CF1416A3380040768E /* M3+Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D99B2CE1416A3380040768E /* M3+Events.h */; };
+		9D99B2D21416A4E50040768E /* M3+Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D99B2D11416A4E50040768E /* M3+Events.m */; };
+		9D99B2D31416A4E50040768E /* M3+Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D99B2D11416A4E50040768E /* M3+Events.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +153,8 @@
 		9D8B8B291413CAD90066ECBB /* Underscore+Logger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "Underscore+Logger.mm"; sourceTree = "<group>"; };
 		9D8B8B471413CC010066ECBB /* Underscore.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Underscore.hh; sourceTree = "<group>"; };
 		9D8B8B481413CC010066ECBB /* Underscore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Underscore.mm; sourceTree = "<group>"; };
+		9D99B2CE1416A3380040768E /* M3+Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Events.h"; sourceTree = "<group>"; };
+		9D99B2D11416A4E50040768E /* M3+Events.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "M3+Events.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +276,8 @@
 		9D8B8AF41413CA8B0066ECBB /* M3 */ = {
 			isa = PBXGroup;
 			children = (
+				9D99B2CE1416A3380040768E /* M3+Events.h */,
+				9D99B2D11416A4E50040768E /* M3+Events.m */,
 				9D8B8AF71413CA8B0066ECBB /* M3.h */,
 				9D0EF70D1413D1A60051B8FA /* M3+Additions.h */,
 				9D8B8B171413CAD90066ECBB /* M3+Comparison.h */,
@@ -359,6 +366,7 @@
 				9D0EF7451413DBF90051B8FA /* ChairView.h in Headers */,
 				9D0EF74D1413DFF50051B8FA /* LoggerClient.h in Headers */,
 				9D0EF7501413DFF50051B8FA /* LoggerCommon.h in Headers */,
+				9D99B2CF1416A3380040768E /* M3+Events.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +490,7 @@
 				9D0EF7401413DBF90051B8FA /* ChairTable.mm in Sources */,
 				9D0EF7461413DBF90051B8FA /* ChairView.mm in Sources */,
 				9D0EF74E1413DFF50051B8FA /* LoggerClient.m in Sources */,
+				9D99B2D21416A4E50040768E /* M3+Events.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,6 +518,7 @@
 				9D0EF7441413DBF90051B8FA /* ChairTests.mm in Sources */,
 				9D0EF7471413DBF90051B8FA /* ChairView.mm in Sources */,
 				9D0EF74F1413DFF50051B8FA /* LoggerClient.m in Sources */,
+				9D99B2D31416A4E50040768E /* M3+Events.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

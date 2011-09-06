@@ -1,4 +1,4 @@
-SUBREPOSITORIES=%w(JSONKit NSLogger)
+SUBREPOSITORIES=%w(JSONKit NSLogger MAZeroingWeakRef)
 task :default => :autotest
 
 task :subrepositories do
