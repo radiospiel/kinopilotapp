@@ -4,3 +4,6 @@
 [submodule "vendor/NSLogger"]
 	path = vendor/NSLogger
 	url = https://github.com/radiospiel/NSLoggerClient.git
+[submodule "vendor/MAZeroingWeakRef"]
+	path = vendor/MAZeroingWeakRef
+	url = https://github.com/mikeash/MAZeroingWeakRef.git
