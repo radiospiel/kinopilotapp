@@ -12,6 +12,8 @@
 #import "M3+FileIO.h"
 #import "M3+Filenames.h"
 #import "M3+JSON.h"
-
-#import "M3Exception.h"
 #import "M3+Additions.h"
+
+#import "M3StopWatch.h"
+#import "M3Exception.h"
+#import "M3Etest.h"
