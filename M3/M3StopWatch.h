@@ -5,7 +5,7 @@
 
 -(void)startWatch;
 -(uint64_t)nanoSeconds;
--(float)milliSeconds;
--(float)seconds;
+-(uint64_t)milliSeconds;
+-(double)seconds;
 
 @end

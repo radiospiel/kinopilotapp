@@ -35,14 +35,43 @@
   return (end - started_) * sTimebaseInfo.numer / sTimebaseInfo.denom;
 }
 
--(float) milliSeconds
+-(uint64_t) milliSeconds
 {
-  return 1e-6f * [ self nanoSeconds ];
+  return [ self nanoSeconds ] / 1000000;
 }
 
--(float)seconds
+-(double)seconds
 {
-  return 1e-9f * [ self nanoSeconds ];
+  return 1e-9 * [ self nanoSeconds ];
 }
 
 @end
+
+@interface M3StopWatchTests: M3ETest {
+  M3StopWatch* stop_watch;
+}
+
+@end
+
+
+@implementation M3StopWatchTests
+
+-(void)setUp
+{
+  stop_watch = [[ M3StopWatch alloc ] init];
+}
+
+-(void)tearDown
+{
+  [stop_watch release];
+  stop_watch=nil;
+}
+
+- (void)testAssertionFailed
+{
+  int milliSeconds = [stop_watch milliSeconds];
+  m3assert(milliSeconds >= 0);
+}
+
+@end
+
