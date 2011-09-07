@@ -7,4 +7,6 @@
 
 -(void)run;
 
++(void)runAll;
+
 @end

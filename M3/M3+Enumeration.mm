@@ -25,7 +25,7 @@ static BOOL is_array(id obj) {
   return 0;
 }
 
-@implementation M3
+@implementation M3(Enumeration)
 
 // 
 // -- each ------------------------------------------------------------

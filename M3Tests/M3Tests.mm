@@ -194,5 +194,9 @@
   assert_equals(json, "[\"Apple\",\"Banana\"]");
 }
 
-@end
+- (void) test_etest 
+{
+  [ M3ETest runAll ];
+}
 
+@end

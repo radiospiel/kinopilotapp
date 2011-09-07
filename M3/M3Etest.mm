@@ -87,6 +87,34 @@ static void reflectOnClass(Class inspectedClass,
   }
 }
 
+// http://cocoawithlove.com/2010/01/getting-subclasses-of-objective-c-class.html
+static NSArray *ClassGetSubclasses(Class parentClass)
+{
+  int numClasses = objc_getClassList(NULL, 0);
+  Class *classes = NULL;
+
+  classes = (Class*) malloc(sizeof(Class) * numClasses);
+  numClasses = objc_getClassList(classes, numClasses);
+   
+  NSMutableArray *result = [NSMutableArray array];
+  for (NSInteger i = 0; i < numClasses; i++)
+  {
+    Class superClass = classes[i];
+    do {
+      superClass = class_getSuperclass(superClass);
+    } while(superClass && superClass != parentClass);
+       
+    if (superClass == nil)
+      continue;
+       
+    [result addObject:classes[i]];
+  }
+
+  free(classes);
+   
+  return result;
+}
+
 @implementation M3ETest(testMethodsForClass)
 
 +(NSArray*) testMethodsForClass:(Class) klass
@@ -96,7 +124,7 @@ static void reflectOnClass(Class inspectedClass,
   
   NSMutableArray* testMethods = [ NSMutableArray array ]; 
   for(NSString* method in methods) {
-    if([method matches: @"^-test"])
+    if([method matches: @"^test"])
       [testMethods addObject: method];
   }
   
@@ -109,7 +137,6 @@ static void reflectOnClass(Class inspectedClass,
 @end
 
 @implementation M3ETestAssertionFailed
-
 @end
 
 @implementation M3ETest
@@ -147,6 +174,14 @@ static void reflectOnClass(Class inspectedClass,
   }
 }
 
++(void)runAll {
+  for(Class klass in ClassGetSubclasses([ M3ETest class ])) {
+    NSLog(@"Found class %@", klass);
+    id test = [[ klass alloc ] init ];
+    [ test run ];
+  }
+}
+
 @end
 
 //
@@ -160,8 +195,8 @@ static void reflectOnClass(Class inspectedClass,
  
 - (void)testEachWithEmptyArray
 {
-  // STFail(@"Hoho: intentional failure.");
+  NSLog(@"==== Hoho: intentional failure.");
 }
 
-
 @end
+
