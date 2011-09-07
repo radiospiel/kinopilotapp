@@ -1,17 +1,33 @@
 #import "M3.h"
 
-@interface M3ETestResults: M3StopWatch {
-  M3ETest* etest_;
-  NSString* current_test_;
+@interface M3ETestAssertionFailed: NSObject {
+  const char* expression;
+  const char* file;
+  int line;
 }
 
-@property (nonatomic,retain) NSString* current_test;
+@property (nonatomic,assign) const char* expression;
+@property (nonatomic,assign) const char* file;
+@property (nonatomic,assign) int line;
+
+@end
+
+@implementation M3ETestAssertionFailed
+
+@synthesize expression;
+@synthesize file;
+@synthesize line;
+
+@end
+
+
+@interface M3ETestResults: M3StopWatch {
+  M3ETest* etest_;
+}
 
 @end
 
 @implementation M3ETestResults
-
-@synthesize current_test = current_test_;
 
 -(id)initWithEtest: (M3ETest*)etest {
   if(!(self = [ super init ])) return nil;
@@ -20,34 +36,31 @@
   return self;
 }
 
--(void)dealloc
-{
-  self.current_test = nil;
-}
-
 -(void)startTest:(NSString*)name;
 {
   [self startWatch];
-  self.current_test = name;
 }
 
--(void)reportFailure:(NSString*)reason
+-(void)reportFailure:(M3ETestAssertionFailed*)exception
 {
-  NSLog(@"Test Case '-[%@ %@]' failed (%.3f seconds).", [ etest_ class ], current_test_, [self seconds]);
-  // NSLog(@"%@: Failure: after %.1f msecs", current_test_, [self milliSeconds]);
-  // NSLog(@"%@", reason);
+  NSLog(@"Test Case '%@' failed (%d msecs).", [ self testcase ], [self milliSeconds]);
+  NSLog(@"%s(%d): assertion %s failed.", exception.file, exception.line, exception.expression);
 }
 
 -(void)reportException:(NSString*)exception
 {
-  NSLog(@"Test Case '-[%@ %@]' failed (%.3f seconds).", [ etest_ class ], current_test_, [self seconds]);
-  // NSLog(@"%@: Exception: after %.1f msecs", current_test_, [self milliSeconds]);
-  // NSLog(@"%@", exception);
+  NSLog(@"ETest Case '%@' crashed (%d msecs).", [ self testcase ], [self milliSeconds]);
+  NSLog(@"Exception: %@", exception);
 }
 
--(void)reportSuccess;
+-(NSString*) testcase
 {
-  NSLog(@"Test Case '-[%@ %@]' passed (%.3f seconds).", [ etest_ class ], current_test_, [self seconds]);
+  return [NSString stringWithFormat: @"-[%@ %@]", [ etest_ class ], [ etest_ name ]];
+}
+
+-(void)reportSuccess
+{
+  NSLog(@"ETest Case '%@' passed after %d msecs", [ self testcase ], [ self milliSeconds]);
 }
 
 @end
@@ -133,13 +146,26 @@ static NSArray *ClassGetSubclasses(Class parentClass)
 
 @end
 
-@interface M3ETestAssertionFailed: NSException
-@end
-
-@implementation M3ETestAssertionFailed
-@end
+static M3ETest* currentEtest = nil;
 
 @implementation M3ETest
+
+@synthesize name = name_;
+
++(void) do_assert: (BOOL)expr 
+         asString: (const char*) expression
+           inFile: (const char*) file
+           atLine: (int)line;
+{
+  if(expr) return;
+  
+  M3ETestAssertionFailed* exception = [[ M3ETestAssertionFailed alloc]init];
+  exception.expression = expression;
+  exception.file = file;
+  exception.line = line;
+  
+  @throw exception;
+}
 
 // dummy setUp and tearDown implementations
 -(void) setUp { }
@@ -148,16 +174,19 @@ static NSArray *ClassGetSubclasses(Class parentClass)
 // perform a single test
 -(void) performTest: (NSString*)testName
 {
-  if(!results_) results_ = [[ M3ETestResults alloc ]init];
+  if(!results_) results_ = [[ M3ETestResults alloc ]initWithEtest: self];
 
+  currentEtest = self;
+  
   @try {
     name_ = testName;
     [self setUp];
     [self performSelector: NSSelectorFromString(testName)];
+    
     [ results_ reportSuccess ];
   }
   @catch(M3ETestAssertionFailed* exception) {
-    [ results_ reportFailure: [exception description] ];
+    [ results_ reportFailure: exception ];
   }
   @catch(id exception) {
     [ results_ reportException: exception ];
@@ -176,9 +205,9 @@ static NSArray *ClassGetSubclasses(Class parentClass)
 
 +(void)runAll {
   for(Class klass in ClassGetSubclasses([ M3ETest class ])) {
-    NSLog(@"Found class %@", klass);
     id test = [[ klass alloc ] init ];
-    [ test run ];
+    [test run];
+    [test release];
   }
 }
 
@@ -193,10 +222,15 @@ static NSArray *ClassGetSubclasses(Class parentClass)
 
 @implementation M3EventsTests
  
-- (void)testEachWithEmptyArray
+- (void)testWithFailedAssert
 {
-  NSLog(@"==== Hoho: intentional failure.");
+  m3assert(1 == 0);
+}
+
+- (void)testWithException
+{
+  NSLog(@"Throwing");
+  @throw @"Exception";
 }
 
 @end
-
