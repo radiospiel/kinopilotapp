@@ -67,10 +67,15 @@
   stop_watch=nil;
 }
 
-- (void)testAssertionFailed
+- (void)testStopWatch
 {
   int milliSeconds = [stop_watch milliSeconds];
   m3assert(milliSeconds >= 0);
+  
+  usleep(5000);
+  
+  milliSeconds = [stop_watch milliSeconds];
+  m3assert(milliSeconds >= 5);
 }
 
 @end

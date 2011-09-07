@@ -20,6 +20,20 @@
 
 @end
 
+static void m3puts(NSString *format, ...) {
+  va_list args;
+  va_start(args, format);
+  NSString *formattedString = [[NSString alloc] initWithFormat: format
+                                                arguments: args];
+  va_end(args);
+  [[NSFileHandle fileHandleWithStandardOutput]
+      writeData: [formattedString dataUsingEncoding: NSUTF8StringEncoding]];
+
+  [[NSFileHandle fileHandleWithStandardOutput]
+      writeData: [@"\n" dataUsingEncoding: NSUTF8StringEncoding]];
+
+  [formattedString release];
+}
 
 @interface M3ETestResults: M3StopWatch {
   M3ETest* etest_;
@@ -41,26 +55,26 @@
   [self startWatch];
 }
 
--(void)reportFailure:(M3ETestAssertionFailed*)exception
-{
-  NSLog(@"Test Case '%@' failed (%d msecs).", [ self testcase ], [self milliSeconds]);
-  NSLog(@"%s(%d): assertion %s failed.", exception.file, exception.line, exception.expression);
-}
-
--(void)reportException:(NSString*)exception
-{
-  NSLog(@"ETest Case '%@' crashed (%d msecs).", [ self testcase ], [self milliSeconds]);
-  NSLog(@"Exception: %@", exception);
-}
-
 -(NSString*) testcase
 {
   return [NSString stringWithFormat: @"-[%@ %@]", [ etest_ class ], [ etest_ name ]];
 }
 
+-(void)reportFailure:(M3ETestAssertionFailed*)exception
+{
+  m3puts(@"Test Case '%@' failed (%d msecs).", [ self testcase ], [self milliSeconds]);
+  m3puts(@"%s(%d): assertion %s failed.", exception.file, exception.line, exception.expression);
+}
+
+-(void)reportException:(NSString*)exception
+{
+  m3puts(@"ETest Case '%@' crashed (%d msecs).", [ self testcase ], [self milliSeconds]);
+  m3puts(@"Exception: %@", exception);
+}
+
 -(void)reportSuccess
 {
-  NSLog(@"ETest Case '%@' passed after %d msecs", [ self testcase ], [ self milliSeconds]);
+  m3puts(@"ETest Case '%@' passed after %d msecs", [ self testcase ], [ self milliSeconds]);
 }
 
 @end
@@ -214,13 +228,15 @@ static M3ETest* currentEtest = nil;
 @end
 
 //
-// Event Tests
+// ETest tests: they do fail intentionally, so they are disabled by default.
 
-@interface M3EventsTests: M3ETest
+#if 0 
+
+@interface M3ETestTests: M3ETest
 @end
 
 
-@implementation M3EventsTests
+@implementation M3ETestTests
  
 - (void)testWithFailedAssert
 {
@@ -234,3 +250,5 @@ static M3ETest* currentEtest = nil;
 }
 
 @end
+
+#endif
