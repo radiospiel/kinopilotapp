@@ -13,7 +13,8 @@ task :autotest => :subrepositories do
 end
 
 task :clean do
-  system "./xcodebuild -configuration Debug -target M3Tests clean"
+  require "ftools"
+  FileUtils.rm_rf "#{File.dirname(__FILE__)}/build"
 end
 
 task :doc do
