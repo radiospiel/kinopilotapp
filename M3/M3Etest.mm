@@ -34,7 +34,7 @@ static void m3print(NSString *format, ...) {
   va_end(args);
 
   [m3stderr writeData: [formattedString dataUsingEncoding: NSUTF8StringEncoding]];
-
+  [m3stderr synchronizeFile];
   [formattedString release];
 }
 
@@ -87,13 +87,13 @@ static void m3puts(NSString *format, ...) {
 
 -(void)reportFailure:(M3ETestAssertionFailed*)exception
 {
-  m3puts(@"Test Case '%@' failed (%d msecs).", [ self testcase ], [self milliSeconds]);
-  m3puts(@"%s(%d): assertion %s failed.", exception.file, exception.line, exception.msg);
+  m3puts(@"\n%s(%d): ETest Case '%@' failed (%d msecs).", exception.file, exception.line, [ self testcase ], [self milliSeconds]);
+  m3puts(@"%@", exception.msg);
 }
 
 -(void)reportException:(NSString*)exception
 {
-  m3puts(@"ETest Case '%@' crashed (%d msecs).", [ self testcase ], [self milliSeconds]);
+  m3puts(@"\nETest Case '%@' crashed (%d msecs).", [ self testcase ], [self milliSeconds]);
   m3puts(@"Exception: %@", exception);
 }
 
