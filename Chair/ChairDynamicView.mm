@@ -20,8 +20,8 @@
   if(!self) return nil;
   
   source_view_ = view_;
-  self.map_function = [[map_fun copy]retain];
-  self.reduce_function = [[reduce_fun copy]retain];
+  self.map_function = [[map_fun copy]autorelease];
+  self.reduce_function = [[reduce_fun copy]autorelease];
 
   [source_view_ addDependantObject: self];
   return self;
@@ -39,54 +39,45 @@
 
 // --------------------------------------------------------------------
 
-- (ChairMultiDictionary*) do_map {
-  
-  ChairMultiDictionary* stage1 = [[ChairMultiDictionary alloc] init]; 
+- (void) do_update {
 
-  if(!map_function_) return stage1;
+  /*
+   * === map stage =================================================== 
+   */
+  ChairMultiDictionary* mapped = [[ChairMultiDictionary alloc] init]; 
   
-  EmitCallback emit = ^(id value, id key) {
-    [stage1 addObject:value forKey: key];
+  if(map_function_) {
+    EmitCallback emit = ^(id value, id key) {
+      [mapped addObject:value forKey: key];
+    };
+    
+    [source_view_ each:^(NSDictionary* value, id key) {
+      map_function_(value, key, emit);
+    }];
+  }
+
+  if(!reduce_function_) {
+    self.dictionary = [mapped autorelease];
+    return;
+  }
+
+  /*
+   * === reduce stage =================================================== 
+   */
+  ChairMultiDictionary* reduced = [[ChairMultiDictionary alloc] init];
+  EmitCallback emit = ^(NSDictionary* value, id key) {
+    [reduced addObject:value forKey: key];
   };
     
-  [source_view_ each:^(NSDictionary* value, id key) {
-    map_function_(value, key, emit);
-  }];
-
-  return stage1;
-}
-
-- (ChairMultiDictionary*) do_reduce: (ChairMultiDictionary*) inp 
-{
-  if(!reduce_function_) return nil;
-
-  ChairMultiDictionary* stage2 = [[ChairMultiDictionary alloc] init];
-  EmitCallback emit = ^(NSDictionary* value, id key) {
-    [stage2 addObject:value forKey: key];
-  };
+  [mapped eachArray: ^(NSArray *values, id key) { reduce_function_(values, key, emit); } 
+                min: nil
+                max: nil
+       excludingEnd: NO
+  ];
   
-  [inp eachArray: ^(NSArray *values, id key) {
-                     reduce_function_(values, key, emit);
-                   } 
-              min: nil
-              max: nil
-     excludingEnd: NO
-];
-
-  return stage2;
-}
-
-- (void) do_update {
-  ChairMultiDictionary* mapped = [self do_map];
-  ChairMultiDictionary* reduced = [self do_reduce: mapped];
-
-  if(reduced) {
-    [mapped release];
-    self.dictionary = reduced;
-  }
-  else {
-    self.dictionary = mapped;
-  }
+  
+  [mapped release];
+  self.dictionary = [reduced autorelease];
 }
 
 @end
@@ -96,9 +87,10 @@
 -(ChairView*) viewWithMap: (MapCallback)map_fun
                 andReduce: (ReduceCallback)reduce_fun
 {
-  return [[ChairDynamicView alloc] initWithView: self
-                                           andMap: map_fun
-                                        andReduce: reduce_fun];
+  ChairView* r = [[ChairDynamicView alloc] initWithView: self
+                                                 andMap: map_fun
+                                              andReduce: reduce_fun];
+  return [r autorelease];
 }
 
 -(ChairView*) viewWithMap: (SimpleMapCallback) map_func    // change value
@@ -134,9 +126,11 @@
     };
   };
   
-  return [[ChairDynamicView alloc] initWithView: self
-                                           andMap: map_fun
-                                        andReduce: reduce_fun];
+  ChairView* r = [[ChairDynamicView alloc] initWithView: self
+                                                 andMap: map_fun
+                                              andReduce: reduce_fun];
+
+  return [r autorelease];
 }
 
 @end

@@ -8,25 +8,16 @@
 
 #import "iM3Tests.h"
 
+#import "M3.h"
+#import "M3+JSON.h"
+
+/* Test helper macros */
+
 @implementation iM3Tests
 
-- (void)setUp
+- (void) test_etest 
 {
-    [super setUp];
-    
-    // Set-up code here.
-}
-
-- (void)tearDown
-{
-    // Tear-down code here.
-    
-    [super tearDown];
-}
-
-- (void)testExample
-{
-    STFail(@"Unit tests are not implemented yet in iM3Tests");
+  [ M3ETest runAll ];
 }
 
 @end

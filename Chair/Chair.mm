@@ -127,7 +127,7 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
 {
   if([name isEqualToString: @"count"]) {
     id block = ^(NSArray* values, id key) { return _.hash("count", values.count); };
-    return [[block copy]retain];
+    return [block copy];
   }
   
   _.raise("Unsuppored reduce method", name);

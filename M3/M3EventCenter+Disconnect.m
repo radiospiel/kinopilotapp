@@ -14,16 +14,15 @@
 
   MAZeroingWeakRef *ref = [[MAZeroingWeakRef alloc] initWithTarget: object];
 
+  // Note: it is important not to use the object within the block, as
+  // this would magically retain the object one more time on some
+  // platforms, but not on others.
   [ref setCleanupBlock: ^(id target) {
-    [self disconnectAll: object];
+    NSLog(@"Cleaning up connection");
+    
+    [self disconnectAll: target];
     [ref autorelease];
   }];
-
-  // NSLog(@"retainCount is %d", (int)[object retainCount]);
-
-  // Creating the MAZeroingWeakRef increments the object's retain count. 
-  // As a quick fix we release the object here again.
-  [object release];
 }
 
 @end
