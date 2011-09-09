@@ -56,28 +56,40 @@ class M3EventCenterData {
   typedef std::multimap<M3Signal, M3Slot> SlotsBySignal; 
   SlotsBySignal slots_by_signals;
 
+  // The current sender
+  id sender_;
 public:
-  void fireEvent(id sender, SEL event)
+  M3EventCenterData(): sender_(0) { }
+  
+  void fireEvent(id sender, SEL event, id parameter=nil)
   {
+    sender_ = sender;
+    
     M3Signal m3signal = std::make_pair(sender, event);
     
     SlotsBySignal::const_iterator it = slots_by_signals.find(m3signal);
     SlotsBySignal::const_iterator end = slots_by_signals.end();
     
     while(it != end && it->first == m3signal) {
-      fireSlot(it->second);
+      fireSlot(it->second, parameter);
       ++it;
     }
+
+    sender_ = nil;
+  }
+  
+  id sender() const {
+    return sender_;
   }
   
 private:
   
-  static void fireSlot(const M3Slot& slot)
+  static void fireSlot(const M3Slot& slot, id parameter)
   {
     id observer = slot.first;
     SEL selector = slot.second;
 
-    [ observer performSelector: selector ];
+    [ observer performSelector: selector withObject: parameter];
   }
 
   public:
@@ -206,9 +218,19 @@ public:
   pimpl->disconnectAll(object);
 }
 
+-(id)sender
+{
+  return pimpl->sender();
+}
+
 -(void)fire: (id)sender event: (SEL)event 
 {
   pimpl->fireEvent(sender, event);
+}
+
+-(void)fire: (id)sender event: (SEL)event withParameter: (id)parameter
+{
+  pimpl->fireEvent(sender, event, parameter);
 }
 
 @end
@@ -217,31 +239,43 @@ public:
  * === Tests ============================================================
  */
 
+static M3EventCenter *eventCenter = 0;
+
 @interface TestClass2: NSObject {
   int count_;
+  int count2_;
+  NSString* parameter_;
+  id sender_;
 }
+
 @property (nonatomic,assign) int count;
+@property (nonatomic,assign) int count2;
+@property (nonatomic,retain) NSString* parameter;
+@property (nonatomic,retain) id testSender;
 @end
 
 @implementation TestClass2
-@synthesize count = count_;
+@synthesize count = count_, count2 = count2_, parameter = parameter_, testSender = sender_;
 
 -(void)dealloc {
+  self.parameter = nil;
   // NSLog(@"dealloc");
   [super dealloc];
 }
 
 -(void)on_ho {
-  // NSLog(@"on_ho");
-  
   count_ += 1;
+}
+
+-(void)on_ho: (id) parameter {
+  self.parameter = parameter;
+  self.testSender = [eventCenter sender];
+  count2_ += 1;
 }
 
 @end
 
 #undef pimpl
-
-static M3EventCenter *eventCenter = 0;
 
 #define pimpl [eventCenter eventCenterData]
 
@@ -253,6 +287,7 @@ ETest(M3EventCenter)
 
 -(void)tearDown {
   [eventCenter release];
+  eventCenter = nil;
 }
 
 -(void)_testDisconnectOnDealloc {
@@ -367,4 +402,44 @@ ETest(M3EventCenter)
   assert_equal("signals_by_receiver: 0,signals_by_sender: 0,slots_by_signals: 0", pimpl->stats());
 }
 
+-(void)testSlotsWithParameters {
+  @autoreleasepool {
+    TestClass2* obj1 = [[[TestClass2 alloc] init] autorelease];
+    TestClass2* obj2 = [[[TestClass2 alloc] init] autorelease];
+    
+    [ eventCenter connect: obj1 event: @selector(ho) to: obj2 selector: @selector(on_ho)];
+    [ eventCenter connect: obj1 event: @selector(ho) to: obj2 selector: @selector(on_ho:)];
+
+    [ eventCenter fire: obj1 event: @selector(ho) ];
+    assert_equal(1, obj2.count);
+    assert_equal(1, obj2.count2);
+
+    [ eventCenter fire: obj1 event: @selector(ho) withParameter: @"parameter" ];
+    assert_equal(2, obj2.count);
+    assert_equal(2, obj2.count2);
+    assert_equal(@"parameter", obj2.parameter);
+  }
+}
+
+-(void)testSender {
+  @autoreleasepool {
+    TestClass2* obj1 = [[[TestClass2 alloc] init] autorelease];
+    TestClass2* obj2 = [[[TestClass2 alloc] init] autorelease];
+
+    assert_true(!obj2.testSender);
+    
+    [ eventCenter connect: obj1 event: @selector(ho) to: obj2 selector: @selector(on_ho)];
+    [ eventCenter connect: obj1 event: @selector(ho) to: obj2 selector: @selector(on_ho:)];
+
+    [ eventCenter fire: obj1 event: @selector(ho) ];
+    assert_equal(1, obj2.count);
+    assert_equal(1, obj2.count2);
+
+    [ eventCenter fire: obj1 event: @selector(ho) withParameter: @"parameter" ];
+    assert_equal(2, obj2.count);
+    assert_equal(2, obj2.count2);
+    assert_equal(@"parameter", obj2.parameter);
+    assert_true(obj1 == obj2.testSender);
+  }
+}
 @end

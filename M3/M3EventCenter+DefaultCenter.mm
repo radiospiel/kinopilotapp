@@ -37,4 +37,9 @@
   [[self defaultCenter] fire: sender event: event];
 }
 
++(void)fire: (id)sender event: (SEL)event withParameter: (id)parameter;
+{
+  [[self defaultCenter] fire: sender event: event withParameter: parameter];
+}
+
 @end

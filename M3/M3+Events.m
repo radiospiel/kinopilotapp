@@ -14,4 +14,9 @@
   [[M3EventCenter defaultCenter] emit:event ];
 }
 
+- (id) sender
+{
+  return [[M3EventCenter defaultCenter] sender ];
+}
+
 @end
