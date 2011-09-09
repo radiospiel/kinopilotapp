@@ -113,3 +113,26 @@ NSComparisonResult RS::UnderscoreAdapter::compare_(id value, id other) {
 }
 
 @end
+
+ETest(M3Comparison)
+
+- (void)testComparison
+{
+  assert_equal(-1, _.compare(1, 2));
+  assert_equal(0,  _.compare(1, 1));
+  assert_equal(1,  _.compare(1, 0));
+  
+  assert_equal(-1, _.compare(1, "2"));
+  assert_equal(-1, _.compare(1, "1"));
+  assert_equal(-1, _.compare(1, "0"));
+  
+  assert_equal(-1, _.compare(1, @"2"));
+  assert_equal(-1, _.compare(1, @"1"));
+  assert_equal(-1, _.compare(1, @"0"));
+  
+  assert_equal(-1, _.compare("1", "2"));
+  assert_equal(0,  _.compare("1", "1"));
+  assert_equal(1,  _.compare("1", "0"));
+}
+
+@end

@@ -1,12 +1,12 @@
 #import "M3.h"
 
 @interface M3ETestAssertionFailed: NSObject {
-  const char* expression;
+  NSString* msg;
   const char* file;
   int line;
 }
 
-@property (nonatomic,assign) const char* expression;
+@property (nonatomic,retain) NSString* msg;
 @property (nonatomic,assign) const char* file;
 @property (nonatomic,assign) int line;
 
@@ -14,11 +14,38 @@
 
 @implementation M3ETestAssertionFailed
 
-@synthesize expression;
+@synthesize msg;
 @synthesize file;
 @synthesize line;
 
 @end
+
+static NSFileHandle* m3stderr() {
+  return [NSFileHandle fileHandleWithStandardError];
+}
+
+#define m3stderr m3stderr()
+
+static void m3print(NSString *format, ...) {
+  va_list args;
+  va_start(args, format);
+  NSString *formattedString = [[NSString alloc] initWithFormat: format
+                                                arguments: args];
+  va_end(args);
+
+  [m3stderr writeData: [formattedString dataUsingEncoding: NSUTF8StringEncoding]];
+
+  [formattedString release];
+}
+
+static void m3print(const char* s) {
+  [m3stderr writeData: [NSData dataWithBytes:s length:strlen(s)]];
+}
+
+static void m3puts(const char* s) {
+  [m3stderr writeData: [NSData dataWithBytes:s length:strlen(s)]];
+  [m3stderr writeData: [@"\n" dataUsingEncoding: NSUTF8StringEncoding]];
+}
 
 static void m3puts(NSString *format, ...) {
   va_list args;
@@ -26,13 +53,11 @@ static void m3puts(NSString *format, ...) {
   NSString *formattedString = [[NSString alloc] initWithFormat: format
                                                 arguments: args];
   va_end(args);
-  [[NSFileHandle fileHandleWithStandardOutput]
-      writeData: [formattedString dataUsingEncoding: NSUTF8StringEncoding]];
 
-  [[NSFileHandle fileHandleWithStandardOutput]
-      writeData: [@"\n" dataUsingEncoding: NSUTF8StringEncoding]];
-
+  [m3stderr writeData: [formattedString dataUsingEncoding: NSUTF8StringEncoding]];
   [formattedString release];
+
+  [m3stderr writeData: [@"\n" dataUsingEncoding: NSUTF8StringEncoding]];
 }
 
 @interface M3ETestResults: M3StopWatch {
@@ -63,7 +88,7 @@ static void m3puts(NSString *format, ...) {
 -(void)reportFailure:(M3ETestAssertionFailed*)exception
 {
   m3puts(@"Test Case '%@' failed (%d msecs).", [ self testcase ], [self milliSeconds]);
-  m3puts(@"%s(%d): assertion %s failed.", exception.file, exception.line, exception.expression);
+  m3puts(@"%s(%d): assertion %s failed.", exception.file, exception.line, exception.msg);
 }
 
 -(void)reportException:(NSString*)exception
@@ -74,7 +99,8 @@ static void m3puts(NSString *format, ...) {
 
 -(void)reportSuccess
 {
-  m3puts(@"ETest Case '%@' passed after %d msecs", [ self testcase ], [ self milliSeconds]);
+  m3print(".");
+  // m3puts(@"ETest Case '%@' passed after %d msecs", [ self testcase ], [ self milliSeconds]);
 }
 
 @end
@@ -138,7 +164,7 @@ static NSArray *ClassGetSubclasses(Class parentClass)
   }
 
   free(classes);
-   
+
   return result;
 }
 
@@ -162,24 +188,19 @@ static NSArray *ClassGetSubclasses(Class parentClass)
 
 static M3ETest* currentEtest = nil;
 
-@implementation M3ETest
-
-@synthesize name = name_;
-
-+(void) do_assert: (BOOL)expr 
-         asString: (const char*) expression
-           inFile: (const char*) file
-           atLine: (int)line;
+extern "C" void m3_etest_failed(NSString* msg, const char* file, int line)
 {
-  if(expr) return;
-  
   M3ETestAssertionFailed* exception = [[ M3ETestAssertionFailed alloc]init];
-  exception.expression = expression;
+  exception.msg = msg;
   exception.file = file;
   exception.line = line;
   
   @throw exception;
 }
+
+@implementation M3ETest
+
+@synthesize name = name_;
 
 // dummy setUp and tearDown implementations
 -(void) setUp { }
@@ -218,11 +239,18 @@ static M3ETest* currentEtest = nil;
 }
 
 +(void)runAll {
-  for(Class klass in ClassGetSubclasses([ M3ETest class ])) {
+  NSArray* test_classes = ClassGetSubclasses([ M3ETest class ]);
+
+  test_classes = [ test_classes sortedArrayUsingComparator:^NSComparisonResult(Class obj1, Class obj2) {
+    return [ NSStringFromClass(obj1) compare: NSStringFromClass(obj2) ];
+  } ];
+  
+  for(Class klass in test_classes) {
     id test = [[ klass alloc ] init ];
     [test run];
     [test release];
   }
+  m3puts("");
 }
 
 @end
@@ -240,7 +268,7 @@ static M3ETest* currentEtest = nil;
  
 - (void)testWithFailedAssert
 {
-  m3assert(1 == 0);
+  assert_equal(1, 0)
 }
 
 - (void)testWithException

@@ -88,7 +88,7 @@
   [ bar on: @"test.event" call: ^(NSNotification* notification) { count++; }];
 
   [bar emit: @"test.event"];
-  m3assert(count == 1);
+  assert_equal_pod(count, 1);
   
   TestClass2* foo = [[ TestClass2 alloc]init];
   [ bar on: @"test.event" notify: foo with: @selector(receiveM3TestNotification:) ];
@@ -96,17 +96,17 @@
   // This event is received by the block and by bar, but not by foo!
   [bar emit: @"test.event"];
 
-  m3assert(count == 2);
-  m3assert(foo.count == 1);
-  m3assert(bar.count == 0);
+  assert_equal_pod(count, 2);
+  assert_equal_pod(foo.count, 1);
+  assert_equal_pod(bar.count, 0);
   
   [ foo release ];
 
   // now that foo is no longer with us count would still increase.
   [bar emit: @"test.event"];
 
-  m3assert(count == 3);
-  m3assert(bar.count == 0);
+  assert_equal_pod(count, 3);
+  assert_equal_pod(bar.count, 0);
 }
 
 

@@ -151,3 +151,159 @@
 }
 
 @end
+
+
+ETest(ChairDatabase)
+
+- (void)test_import_table
+{
+  ChairDatabase* db = [ChairDatabase database];
+
+  [db import: @"fixtures/theaters.json"];
+  ChairTable* theaters = [db tableForName: @"theaters"];
+  assert_equal(13, theaters.count);
+}
+
+-(void)test_import_load_and_save
+{
+  return;
+
+
+  ChairDatabase* db = [ChairDatabase database];
+
+  [db import: @"fixtures/flk.json"];
+  [db save: @"tmp/"];
+
+  // [db load: @"tmp"];
+}
+
+-(void)test_import
+{
+  return;
+
+
+  @try {
+    ChairDatabase* db = [[ChairDatabase alloc] init];
+
+    [db import: @"fixtures/flk.json"];
+
+    ChairTable* theaters = [db tableForName: @"theaters"];
+    assert_equal(13, theaters.count);
+
+    ChairTable* schedules = [db tableForName: @"schedules"];
+    assert_equal(102, schedules.count);
+
+    ChairTable* movies = [db tableForName: @"movies"];
+    assert_equal(83, movies.count);
+	} 
+	@catch (id theException) {
+		NSLog(@"Exception %@", theException);
+	} 
+}
+
+-(void)test_alloc_and_release
+{
+  @autoreleasepool {
+    ChairDatabase* db = [ChairDatabase database];
+    ChairTable* schedules = [db tableForName: @"schedules"];
+
+    ChairView* view = [schedules viewWithMap:nil andReduce:nil];
+    view = [schedules viewWithMap: nil andReduce: nil];
+
+    NSUInteger count = view.count;
+  }
+}
+
+-(void)test_group_and_view
+{
+  @autoreleasepool {
+
+    ChairDatabase* db = [ChairDatabase database];
+    [db import: @"fixtures/flk.json"];
+
+    // --------------------------------------------------------
+
+    ChairTable* schedules = [db tableForName: @"schedules"];
+    assert_equal(102, schedules.count);
+
+    ChairView* schedules_ordered_by_theater_id = 
+      [schedules viewWithMap: nil
+                     andGroup: ^(NSDictionary* value, id key) { return [value objectForKey: @"theater_id"]; }
+                    andReduce: nil];
+
+    // 
+    assert_equal(102, schedules_ordered_by_theater_id.count);
+
+    ChairView* schedules_by_theater;
+    schedules_by_theater = [schedules viewWithMap: nil 
+                                          andGroup: ^(NSDictionary* value, id key) { return [value objectForKey: @"theater_id"]; }
+                                         andReduce: ^(NSArray* values, id key) { return _.hash("count", values.count); }];
+
+    // [schedules_by_theater update];
+    assert_equal([schedules_by_theater keys], _.array(
+      267534162, 374391607, 624179285, 837728461, 1223633946, 1592415747,
+      1600891278, 1954940838, 2885852417, 3190279602, 3619205751
+    ));
+
+    assert(![schedules_by_theater get: _.object(1)]);
+    assert_equal(11, schedules_by_theater.count);
+
+    assert_equal(_.hash("count", 8), [schedules_by_theater get: _.object(267534162)]);
+  }
+}
+
+-(void)test_group_by_name
+{
+  ChairDatabase* db = [ChairDatabase database];
+
+  [db import: @"fixtures/flk.json"];
+
+  // --------------------------------------------------------
+
+  ChairTable* schedules = [db tableForName: @"schedules"];
+  assert_equal(102, schedules.count);
+
+  ChairView* schedules_by_theater = [schedules viewWithMap: nil
+                                        andGroup: [Chair groupBy: @"theater_id"]
+                                       andReduce: [Chair reduceBy: @"count"]
+                       ];
+
+  // [schedules_by_theater update];
+  assert_equal([schedules_by_theater keys], _.array(
+    267534162, 374391607, 624179285, 837728461, 1223633946, 1592415747,
+    1600891278, 1954940838, 2885852417, 3190279602, 3619205751
+  ));
+
+  assert(![schedules_by_theater get: _.object(1)]);
+  assert_equal(11, schedules_by_theater.count);
+
+  assert_equal(_.hash("count", 8), [schedules_by_theater get: _.object(267534162)]);
+}
+
+-(void)test_table_count
+{
+  ChairDatabase* db = [ChairDatabase database];
+  [db import: @"fixtures/theaters.json"];
+  ChairTable* theaters = [db tableForName: @"theaters"];
+
+  assert_equal(13, theaters.count);
+  assert_equal(13, [theaters countFrom: nil to: nil excludingEnd: NO]);
+
+  [theaters each: ^(id value, id key) {
+                     // NSLog(@">>>> key: %@", key); 
+                   }
+              min: nil
+              max: _.object(267534163) 
+     excludingEnd: NO];
+
+  // 
+
+  [theaters each: ^(id value, id key) {
+                     // NSLog(@">>>> key: %@", key); 
+                   }
+              min: nil
+              max: nil
+     excludingEnd: NO];
+}
+
+@end

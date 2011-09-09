@@ -137,3 +137,79 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
 
 @end
 
+ETest(Chair)
+
+- (void)test_chair_array_additions_multiple_entries
+{
+  NSMutableArray* array = _.array();
+  [Chair insertObject:  _.object(1) intoArray: array];
+  
+  [Chair insertObject:  _.object(1) intoArray: array];
+  [Chair insertObject:  _.object(1) intoArray: array];
+  [Chair insertObject:  _.object(1) intoArray: array];
+
+  assert_equal(array, _.array(1));
+}
+
+- (void)test_chair_array_additions
+{
+  NSMutableArray* array = _.array();
+  [Chair insertObject:  _.object(1) intoArray: array];
+  [Chair insertObject:  _.object(2) intoArray: array];
+  [Chair insertObject:  _.object(3) intoArray: array];
+  [Chair insertObject:  _.object(4) intoArray: array];
+
+  assert_equal(array, _.array(1, 2, 3, 4));
+}
+
+- (void)test_chair_array_indexForObjectChairObject
+{
+  NSMutableArray* array = _.array(1, 3, 5);
+  assert_equal(0, [Chair indexForObject: _.object(0) inArray: array]);
+  assert_equal(0, [Chair indexForObject: _.object(1) inArray: array]);
+  assert_equal(1, [Chair indexForObject: _.object(2) inArray: array]);
+  assert_equal(1, [Chair indexForObject: _.object(3) inArray: array]);
+  assert_equal(2, [Chair indexForObject: _.object(4) inArray: array]);
+  assert_equal(2, [Chair indexForObject: _.object(5) inArray: array]);
+  assert_equal(3, [Chair indexForObject: _.object(6) inArray: array]);
+}
+
+- (void)test_chair_uids
+{
+  id hash = _.hash("bla", "bla-value", "blu", 12);
+  id uid = [Chair uid: hash];
+  
+  assert([Chair uid: hash] != nil);
+
+  hash = _.hash("blu", 12, "bla", "bla-value");
+  assert_equal(uid, [Chair uid: hash]);
+
+  hash = _.hash("blu", 12, "bla", "bla-value", "yum", "my");
+  assert_not_equal(uid, [Chair uid: hash]);
+  
+  // the _uid is read from the hash, if defined.
+  hash = _.hash("blu", 12, "_uid", "some-uid");
+  assert_equal("some-uid", [Chair uid: hash]);
+}
+
+
+
+static NSString* range(NSMutableArray* array, id minimum, id maximum) {
+  NSRange range = [Chair rangeInArray: array
+                                   min: minimum
+                                   max: maximum
+                          excludingEnd: NO];
+
+  return _.join(range.location, "+", range.length);
+}
+
+-(void)test_rangeInArray
+{
+  NSMutableArray* array = _.array(267534162, 374391607, 624179285, 837728461);
+  
+  assert_equal("0+4", range(array, nil, nil));
+  assert_equal("0+1", range(array, nil, _.object(267534162)));
+  assert_equal("0+1", range(array, nil, _.object(267534163)));
+}
+
+@end

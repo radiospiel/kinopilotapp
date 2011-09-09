@@ -9,6 +9,8 @@ Copyright (c) radiospiel, <a href="http://radiospiel.github.com">http://radiospi
 
 #import "M3.h"
 
+#define UNDERSCORE_HH
+
 namespace RS {
   
   // 
