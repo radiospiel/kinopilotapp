@@ -6,9 +6,12 @@
             to: (id)observer  selector: (SEL)selector;
 
 -(void)disconnect: (id)sender    event: (SEL)event 
-               to: (id)observer  selector: (SEL)selector;
+             from: (id)observer  selector: (SEL)selector;
 
 -(void)disconnectAll: (id)object;
+
+-(void)fire: (id)sender event: (SEL)event;
+
 @end
 
 @interface M3EventCenter(DefaultCenter)
@@ -19,9 +22,11 @@
             to: (id)observer  selector: (SEL)selector;
 
 +(void)disconnect: (id)sender    event: (SEL)event 
-               to: (id)observer  selector: (SEL)selector;
+             from: (id)observer  selector: (SEL)selector;
 
 +(void)disconnectAll: (id)object;
+
++(void)fire: (id)sender event: (SEL)event;
 
 @end
 

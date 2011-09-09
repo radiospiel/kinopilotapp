@@ -22,14 +22,19 @@
 }
 
 +(void)disconnect: (id)sender    event: (SEL)event 
-               to: (id)observer  selector: (SEL)selector;
+             from: (id)observer  selector: (SEL)selector;
 {
-  [[self defaultCenter] disconnect: sender event: event to: observer selector: selector];
+  [[self defaultCenter] disconnect: sender event: event from: observer selector: selector];
 }
 
 +(void)disconnectAll: (id)object;
 {
   [[self defaultCenter] disconnectAll: object];
+}
+
++(void)fire: (id)sender event: (SEL)event;
+{
+  [[self defaultCenter] fire: sender event: event];
 }
 
 @end

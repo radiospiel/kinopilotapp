@@ -87,8 +87,8 @@ static void m3puts(NSString *format, ...) {
 
 -(void)reportFailure:(M3ETestAssertionFailed*)exception
 {
-  m3puts(@"\nETest Case '%@' failed (%d msecs).", [ self testcase ], [self milliSeconds]);
-  m3puts(@"%s(%d): %@", exception.file, exception.line, exception.msg);
+  m3puts(@"\n%s(%d): ETest Case '%@' failed (%d msecs).", exception.file, exception.line, [ self testcase ], [self milliSeconds]);
+  m3puts(@"%@", exception.msg);
 }
 
 -(void)reportException:(NSString*)exception

@@ -10,11 +10,20 @@
 
 -(void)__disconnectAutomatically:(id)object
 {
+  // NSLog(@"retainCount is %d", (int)[object retainCount]);
+
   MAZeroingWeakRef *ref = [[MAZeroingWeakRef alloc] initWithTarget: object];
+
   [ref setCleanupBlock: ^(id target) {
-      [self disconnectAll: object];
-      [ref autorelease];
+    [self disconnectAll: object];
+    [ref autorelease];
   }];
+
+  // NSLog(@"retainCount is %d", (int)[object retainCount]);
+
+  // Creating the MAZeroingWeakRef increments the object's retain count. 
+  // As a quick fix we release the object here again.
+  [object release];
 }
 
 @end
