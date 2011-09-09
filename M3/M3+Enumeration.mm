@@ -513,3 +513,114 @@ static BOOL is_array(id obj) {
   return nil;
 }
 @end
+
+
+ETest(M3Enumeration)
+
+/*
+ * each
+ */
+
+- (void)testEachWithEmptyArray
+{
+  NSMutableArray* values = _.array();
+  NSMutableArray* keys = _.array();
+  
+  _.each(_.array(), ^(id value, id key) {
+    [values addObject: value];
+    [keys addObject: key];
+  });
+  
+  assert_equal(values, _.array());
+  assert_equal(keys, _.array());
+}
+
+- (void)testEach
+{
+  NSMutableArray* values = _.array();
+  NSMutableArray* keys = _.array();
+  
+  _.each(_.array(0, 11, 22, 33, 44), 
+         ^(id value, id key) {
+           [values addObject: value];
+           [keys addObject: key];
+         });
+  
+  assert_equal(values, _.array(0, 11, 22, 33, 44));
+  assert_equal(keys, _.array(0, 1, 2, 3, 4));
+}
+
+- (void)testEachWithIndex
+{
+  NSMutableArray* values = _.array();
+  NSMutableArray* keys = _.array();
+  
+  _.each(_.array(0, 11, 22, 33, 44),
+         ^(id value, NSUInteger key) {
+           [values addObject: value];
+           [keys addObject: _.object(key)];
+         });
+  
+  assert_equal(values, _.array(0, 11, 22, 33, 44));
+  assert_equal(keys, _.array(0, 1, 2, 3, 4));
+}
+
+
+- (void)testInject
+{
+  id sum = _.inject(_.array(0, 11, 22, 33, 44),
+                    ^id(id memo, id value, id key) {
+                      int sum = memo ? [memo intValue] : 0;
+                      sum += [value intValue];
+                      return [NSNumber numberWithInt: sum];
+                    });
+  
+  assert_equal(sum, 110);
+  
+  sum = _.inject(_.array(0, 11, 22, 33, 44), 0,
+                 ^id(id memo, id value, id key) {
+                   int sum = [memo intValue] + [value intValue];
+                   return _.object(sum);
+                 });
+  
+  assert_equal(sum, 110);
+}
+
+
+- (void)testGroupBy
+{
+  id grouped = _.group_by(_.array(2.1, 1.3, 2.4),
+                          ^(id value){ 
+                            return _.object(floor([value doubleValue])); 
+                          });
+  
+  id expected = _.hash(
+                       1, _.array(1.3), 
+                       2, _.array(2.1, 2.4)
+                       );
+  
+  assert_equal(grouped, expected);
+}
+
+
+- (void)testUnderscoreInject
+{
+  id sum = _.inject(_.array(0, 11, 22, 33, 44),
+                    ^id(id memo, id value, id key) {
+                      int sum = memo ? [memo intValue] : 0;
+                      sum += [value intValue];
+                      return _.object(sum);
+                    });
+  
+  assert_equal(sum, 110);
+  
+  sum = _.inject(_.array(0, 11, 22, 33, 44),
+                 _.object(0),
+                 ^id(id memo, id value, id key) {
+                   return _.object([memo intValue] + [value intValue]);
+                 });
+  
+  assert_equal(sum, 110);
+}
+
+@end

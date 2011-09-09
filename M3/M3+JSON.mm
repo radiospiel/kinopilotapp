@@ -58,3 +58,16 @@
 }
 
 @end
+
+ETest(M3JSON)
+
+- (void) test_json 
+{
+  id obj = [M3 parseJSON: @"[\"Apple\", \"Banana\"]"];
+  assert_equal(obj, _.array("Apple", "Banana"));
+  
+  NSString* json = [M3 toJSON: obj compact: YES];
+  assert_equal(json, "[\"Apple\",\"Banana\"]");
+}
+
+@end

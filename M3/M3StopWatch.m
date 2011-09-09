@@ -35,9 +35,9 @@
   return (end - started_) * sTimebaseInfo.numer / sTimebaseInfo.denom;
 }
 
--(uint64_t) milliSeconds
+-(int)milliSeconds
 {
-  return [ self nanoSeconds ] / 1000000;
+  return (int)([ self nanoSeconds ] / 1000000);
 }
 
 -(double)seconds
@@ -70,12 +70,12 @@
 - (void)testStopWatch
 {
   int milliSeconds = [stop_watch milliSeconds];
-  m3assert(milliSeconds >= 0);
+  assert_true(milliSeconds >= 0);
   
   usleep(5000);
   
   milliSeconds = [stop_watch milliSeconds];
-  m3assert(milliSeconds >= 5);
+  assert_true(milliSeconds >= 5);
 }
 
 @end

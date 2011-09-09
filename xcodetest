@@ -70,7 +70,7 @@ while target = ARGV.shift
       test_suite = $1
     when /Test Case .* passed/
       green(line)
-    when /Test Case .* failed/
+    when /Test Case .* (failed|crashed)/
       red(line)
     when /error:/
       red(line)
