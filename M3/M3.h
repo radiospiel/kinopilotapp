@@ -17,6 +17,7 @@
 #import "M3StopWatch.h"
 #import "M3Exception.h"
 #import "M3Etest.h"
+#import "M3EventCenter.h"
 
 #ifdef __cplusplus
 #import "underscore.hh"
