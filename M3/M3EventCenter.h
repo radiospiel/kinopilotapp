@@ -12,6 +12,8 @@
 
 -(void)fire: (id)sender event: (SEL)event;
 
+-(void)fire: (id)sender event: (SEL)event withParameter: (id)parameter;
+
 @end
 
 @interface M3EventCenter(DefaultCenter)
@@ -27,6 +29,7 @@
 +(void)disconnectAll: (id)object;
 
 +(void)fire: (id)sender event: (SEL)event;
++(void)fire: (id)sender event: (SEL)event withParameter: (id)parameter;
 
 @end
 
