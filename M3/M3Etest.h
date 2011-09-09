@@ -27,7 +27,13 @@ extern
 #endif
 void m3_etest_failed(NSString* msg, const char* file, int line);
 
-#define m3_assert(expr, msg)        do { if(!expr) m3_etest_failed(msg, __FILE__, __LINE__); } while(0)
+extern 
+#ifdef __cplusplus
+"C" 
+#endif
+void m3_etest_success();
+
+#define m3_assert(expr, msg)        do { if(!expr) m3_etest_failed(msg, __FILE__, __LINE__); else m3_etest_success(); } while(0)
 #define m3_msg(fmt, p1, p2)         [ NSString stringWithFormat:fmt, p1, p2]
 
 #define assert_equal_pod(a, e)      m3_assert((a == e),           m3_msg(@"'%s' should equal '%s'", #a, #e))

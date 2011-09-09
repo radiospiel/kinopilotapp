@@ -188,6 +188,11 @@ static NSArray *ClassGetSubclasses(Class parentClass)
 
 static M3ETest* currentEtest = nil;
 
+extern "C" void m3_etest_success()
+{
+  m3print(".");
+}
+
 extern "C" void m3_etest_failed(NSString* msg, const char* file, int line)
 {
   M3ETestAssertionFailed* exception = [[ M3ETestAssertionFailed alloc]init];
