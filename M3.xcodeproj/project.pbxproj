@@ -31,7 +31,6 @@
 		9D01745E141AA7DF0035A4C2 /* M3.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8AF81413CA8B0066ECBB /* M3.m */; };
 		9D01745F141AA7DF0035A4C2 /* M3+Comparison.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B181413CAD90066ECBB /* M3+Comparison.mm */; };
 		9D017460141AA7DF0035A4C2 /* M3+Crypto.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B1A1413CAD90066ECBB /* M3+Crypto.mm */; };
-		9D017461141AA7DF0035A4C2 /* M3+Enumeration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B1C1413CAD90066ECBB /* M3+Enumeration.mm */; };
 		9D017462141AA7DF0035A4C2 /* M3+FileIO.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B1E1413CAD90066ECBB /* M3+FileIO.mm */; };
 		9D017463141AA7DF0035A4C2 /* M3+Filenames.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B201413CAD90066ECBB /* M3+Filenames.m */; };
 		9D017464141AA7DF0035A4C2 /* M3+JSON.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B221413CAD90066ECBB /* M3+JSON.mm */; };
@@ -83,8 +82,6 @@
 		9D8B8B2B1413CAD90066ECBB /* M3+Comparison.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B181413CAD90066ECBB /* M3+Comparison.mm */; };
 		9D8B8B2D1413CAD90066ECBB /* M3+Crypto.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8B8B191413CAD90066ECBB /* M3+Crypto.h */; };
 		9D8B8B2E1413CAD90066ECBB /* M3+Crypto.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B1A1413CAD90066ECBB /* M3+Crypto.mm */; };
-		9D8B8B301413CAD90066ECBB /* M3+Enumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8B8B1B1413CAD90066ECBB /* M3+Enumeration.h */; };
-		9D8B8B311413CAD90066ECBB /* M3+Enumeration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B1C1413CAD90066ECBB /* M3+Enumeration.mm */; };
 		9D8B8B331413CAD90066ECBB /* M3+FileIO.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8B8B1D1413CAD90066ECBB /* M3+FileIO.h */; };
 		9D8B8B341413CAD90066ECBB /* M3+FileIO.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B1E1413CAD90066ECBB /* M3+FileIO.mm */; };
 		9D8B8B361413CAD90066ECBB /* M3+Filenames.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8B8B1F1413CAD90066ECBB /* M3+Filenames.h */; };
@@ -185,8 +182,6 @@
 		9D8B8B181413CAD90066ECBB /* M3+Comparison.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+Comparison.mm"; sourceTree = "<group>"; };
 		9D8B8B191413CAD90066ECBB /* M3+Crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Crypto.h"; sourceTree = "<group>"; };
 		9D8B8B1A1413CAD90066ECBB /* M3+Crypto.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+Crypto.mm"; sourceTree = "<group>"; };
-		9D8B8B1B1413CAD90066ECBB /* M3+Enumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Enumeration.h"; sourceTree = "<group>"; };
-		9D8B8B1C1413CAD90066ECBB /* M3+Enumeration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+Enumeration.mm"; sourceTree = "<group>"; };
 		9D8B8B1D1413CAD90066ECBB /* M3+FileIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+FileIO.h"; sourceTree = "<group>"; };
 		9D8B8B1E1413CAD90066ECBB /* M3+FileIO.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+FileIO.mm"; sourceTree = "<group>"; };
 		9D8B8B1F1413CAD90066ECBB /* M3+Filenames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Filenames.h"; sourceTree = "<group>"; };
@@ -408,7 +403,6 @@
 				9D0EF70D1413D1A60051B8FA /* M3+Additions.h */,
 				9D8B8B171413CAD90066ECBB /* M3+Comparison.h */,
 				9D8B8B191413CAD90066ECBB /* M3+Crypto.h */,
-				9D8B8B1B1413CAD90066ECBB /* M3+Enumeration.h */,
 				9D8B8B1D1413CAD90066ECBB /* M3+FileIO.h */,
 				9D8B8B1F1413CAD90066ECBB /* M3+Filenames.h */,
 				9D8B8B211413CAD90066ECBB /* M3+JSON.h */,
@@ -419,7 +413,6 @@
 				9D8B8AF81413CA8B0066ECBB /* M3.m */,
 				9D8B8B181413CAD90066ECBB /* M3+Comparison.mm */,
 				9D8B8B1A1413CAD90066ECBB /* M3+Crypto.mm */,
-				9D8B8B1C1413CAD90066ECBB /* M3+Enumeration.mm */,
 				9D8B8B1E1413CAD90066ECBB /* M3+FileIO.mm */,
 				9D8B8B201413CAD90066ECBB /* M3+Filenames.m */,
 				9D8B8B221413CAD90066ECBB /* M3+JSON.mm */,
@@ -477,7 +470,6 @@
 			files = (
 				9D8B8B2A1413CAD90066ECBB /* M3+Comparison.h in Headers */,
 				9D8B8B2D1413CAD90066ECBB /* M3+Crypto.h in Headers */,
-				9D8B8B301413CAD90066ECBB /* M3+Enumeration.h in Headers */,
 				9D8B8B331413CAD90066ECBB /* M3+FileIO.h in Headers */,
 				9D8B8B361413CAD90066ECBB /* M3+Filenames.h in Headers */,
 				9D8B8B391413CAD90066ECBB /* M3+JSON.h in Headers */,
@@ -671,7 +663,6 @@
 				9D01745E141AA7DF0035A4C2 /* M3.m in Sources */,
 				9D01745F141AA7DF0035A4C2 /* M3+Comparison.mm in Sources */,
 				9D017460141AA7DF0035A4C2 /* M3+Crypto.mm in Sources */,
-				9D017461141AA7DF0035A4C2 /* M3+Enumeration.mm in Sources */,
 				9D017462141AA7DF0035A4C2 /* M3+FileIO.mm in Sources */,
 				9D017463141AA7DF0035A4C2 /* M3+Filenames.m in Sources */,
 				9D017464141AA7DF0035A4C2 /* M3+JSON.mm in Sources */,
@@ -706,7 +697,6 @@
 				9D8B8AF91413CA8B0066ECBB /* M3.m in Sources */,
 				9D8B8B2B1413CAD90066ECBB /* M3+Comparison.mm in Sources */,
 				9D8B8B2E1413CAD90066ECBB /* M3+Crypto.mm in Sources */,
-				9D8B8B311413CAD90066ECBB /* M3+Enumeration.mm in Sources */,
 				9D8B8B341413CAD90066ECBB /* M3+FileIO.mm in Sources */,
 				9D8B8B371413CAD90066ECBB /* M3+Filenames.m in Sources */,
 				9D8B8B3A1413CAD90066ECBB /* M3+JSON.mm in Sources */,
@@ -962,6 +952,7 @@
 				9D01744A141AA6F10035A4C2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9D01744E141AA6F10035A4C2 /* Build configuration list for PBXNativeTarget "iM3Tests" */ = {
 			isa = XCConfigurationList;
@@ -970,6 +961,7 @@
 				9D01744C141AA6F10035A4C2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9D8B8AE51413CA8B0066ECBB /* Build configuration list for PBXProject "M3" */ = {
 			isa = XCConfigurationList;
