@@ -19,14 +19,14 @@
   if(uid) return uid;
   
   NSArray* keys = [record.allKeys sortedArrayUsingSelector:@selector(localizedCompare:)];
-  NSArray* parts = [M3 map: keys
-                  withIndex: ^(id key, NSUInteger idx) {
-                              id value = [record objectForKey: key];  
-                              return _.join( key, ":", [value description]);
-                            }
-                   ];
+  NSMutableArray* parts = [ NSMutableArray arrayWithCapacity: [ keys count]];
   
-  return [M3 md5: _.join(parts, "/")];
+  [keys enumerateObjectsUsingBlock:^(id key, NSUInteger idx, BOOL *stop) {
+    id value = [record objectForKey: key];  
+    [ parts addObject: _.join( key , ":", [value description]) ];
+                              }];
+    
+  return [M3 md5: [parts componentsJoinedByString: @"/"]];
 }
 
 /*

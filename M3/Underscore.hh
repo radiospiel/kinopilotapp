@@ -248,6 +248,16 @@ namespace RS {
     VariadicFactory<SetFactory> set;
     VariadicFactory<RaiseFactory> raise;
     
+    // _.compare
+    template <class T0, class T1>
+    NSComparisonResult compare(T0 value, T1 other)
+      { return compare_(object(value), object(other)); }
+
+    NSComparisonResult compare_(id a, id b);
+  
+    static NSInteger compare(id a, id b, void* dummy);
+    
+    #if 0 
     // _.each
     id each(id list, void (^iterator)(id value, id key))
       { return [M3 each: list with: iterator]; }
@@ -312,14 +322,6 @@ namespace RS {
     NSMutableArray* pluck(id list, T propertyName)
       { return [M3 pluck: list name: string(propertyName)]; }
     
-    // _.compare
-    template <class T0, class T1>
-    NSComparisonResult compare(T0 value, T1 other)
-      { return compare_(object(value), object(other)); }
-
-    NSComparisonResult compare_(id a, id b);
-  
-    static NSInteger compare(id a, id b, void* dummy);
     
     // _.max
     id max(id list)
@@ -340,6 +342,7 @@ namespace RS {
     // _.group_by
     id group_by(id list, id (^iterator)(id value))
       { return [M3 group: list by: iterator]; }
+    #endif
   };
 };
 

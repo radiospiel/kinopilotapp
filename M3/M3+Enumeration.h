@@ -1,5 +1,8 @@
 #import "M3.h"
 
+
+#if 0 
+
 @interface M3(Enumeration)
 
 /** @name Enumeration methods */
@@ -424,5 +427,6 @@ using compare:with:
 + (id) group: (id) list 
           by: (id (^)(id value))iterator;
 
-
 @end
+
+#endif
