@@ -210,7 +210,7 @@ ETest(ChairDatabase)
     ChairView* view = [schedules viewWithMap:nil andReduce:nil];
     view = [schedules viewWithMap: nil andReduce: nil];
 
-    NSUInteger count = view.count;
+    /* NSUInteger count = */ [view count];
   }
 }
 

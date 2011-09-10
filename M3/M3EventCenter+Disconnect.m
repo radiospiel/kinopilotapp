@@ -18,7 +18,7 @@
   // this would magically retain the object one more time on some
   // platforms, but not on others.
   [ref setCleanupBlock: ^(id target) {
-    NSLog(@"Cleaning up connection");
+    // NSLog(@"Cleaning up connection");
     
     [self disconnectAll: target];
     [ref autorelease];

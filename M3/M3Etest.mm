@@ -186,8 +186,6 @@ static NSArray *ClassGetSubclasses(Class parentClass)
 
 @end
 
-static M3ETest* currentEtest = nil;
-
 extern "C" void m3_etest_success()
 {
   m3print(".");
@@ -205,7 +203,7 @@ extern "C" void m3_etest_failed(NSString* msg, const char* file, int line)
 
 @implementation M3ETest
 
-@synthesize name = name_;
+@synthesize name = name_, results = results_;
 
 // dummy setUp and tearDown implementations
 -(void) setUp { }
@@ -214,12 +212,10 @@ extern "C" void m3_etest_failed(NSString* msg, const char* file, int line)
 // perform a single test
 -(void) performTest: (NSString*)testName
 {
-  if(!results_) results_ = [[ M3ETestResults alloc ]initWithEtest: self];
+  if(!self.results) self.results = [[ M3ETestResults alloc ]initWithEtest: self];
 
-  currentEtest = self;
-  
   @try {
-    name_ = testName;
+    self.name = testName;
     [self setUp];
     [self performSelector: NSSelectorFromString(testName)];
     
@@ -232,14 +228,16 @@ extern "C" void m3_etest_failed(NSString* msg, const char* file, int line)
     [ results_ reportException: exception ];
   }
   @finally {
-    name_ = nil;
     [self tearDown ];
+    self.name = nil;
   }
 }
 
 -(void) run {
   for(NSString* method in [ M3ETest testMethodsForClass: [ self class ]]) {
-    [ self performTest: method ];
+    @autoreleasepool {
+      [ self performTest: method ];
+    }
   }
 }
 

@@ -9,7 +9,8 @@
   NSString* name_;
 };
 
-@property (nonatomic,assign,readonly) NSString* name;
+@property (nonatomic,retain) NSString* name;
+@property (nonatomic,retain) M3ETestResults* results;
 
 -(void)run;
 +(void)runAll;

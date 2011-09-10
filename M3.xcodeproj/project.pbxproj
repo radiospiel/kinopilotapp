@@ -343,8 +343,6 @@
 		9D8B8AE01413CA8B0066ECBB = {
 			isa = PBXGroup;
 			children = (
-				9D01746E141AA9D00035A4C2 /* CFNetwork.framework */,
-				9D01746C141AA9C00035A4C2 /* SystemConfiguration.framework */,
 				9D01746A141AA8F90035A4C2 /* libstdc++.dylib */,
 				9D0EF7481413DFD40051B8FA /* vendor */,
 				9D0EF7241413DBF90051B8FA /* Chair */,
@@ -371,6 +369,8 @@
 		9D8B8AED1413CA8B0066ECBB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D01746E141AA9D00035A4C2 /* CFNetwork.framework */,
+				9D01746C141AA9C00035A4C2 /* SystemConfiguration.framework */,
 				9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */,
 				9D8B8AEE1413CA8B0066ECBB /* Cocoa.framework */,
 				9D8B8B001413CA8B0066ECBB /* SenTestingKit.framework */,
