@@ -54,7 +54,7 @@
   }
  ];
   
-  self.dictionary = [[ChairDictionary alloc] initWithObjects: values andKeys: keys];
+  self.dictionary = [[[ChairDictionary alloc] initWithObjects: values andKeys: keys]autorelease];
   
   revision_ = old_revision + 1;
 }

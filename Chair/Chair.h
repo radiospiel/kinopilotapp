@@ -11,7 +11,7 @@
 
 @class ChairDatabase;
 
-@interface Chair 
+@interface Chair: NSObject
 
 /**
 

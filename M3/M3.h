@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@interface M3
+@interface M3: NSObject
 @end
 
 #import "M3MemoryManagement.h"
