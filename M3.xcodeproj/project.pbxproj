@@ -97,6 +97,10 @@
 		9D8B8B451413CAD90066ECBB /* Underscore+Logger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B291413CAD90066ECBB /* Underscore+Logger.mm */; };
 		9D8B8B491413CC010066ECBB /* Underscore.hh in Headers */ = {isa = PBXBuildFile; fileRef = 9D8B8B471413CC010066ECBB /* Underscore.hh */; };
 		9D8B8B4A1413CC010066ECBB /* Underscore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B481413CC010066ECBB /* Underscore.mm */; };
+		9D8EAD55141E839400B21BEA /* M3Http.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8EAD53141E839400B21BEA /* M3Http.h */; };
+		9D8EAD56141E839400B21BEA /* M3Http.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8EAD53141E839400B21BEA /* M3Http.h */; };
+		9D8EAD57141E839400B21BEA /* M3Http.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EAD54141E839400B21BEA /* M3Http.m */; };
+		9D8EAD58141E839400B21BEA /* M3Http.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EAD54141E839400B21BEA /* M3Http.m */; };
 		9D9656AD14177A6C00884372 /* M3Etest.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D9656AB14177A6C00884372 /* M3Etest.h */; };
 		9D9656AE14177A6C00884372 /* M3Etest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D9656AC14177A6C00884372 /* M3Etest.mm */; };
 		9D9656B314177F9700884372 /* M3StopWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D9656B114177F9700884372 /* M3StopWatch.h */; };
@@ -199,6 +203,8 @@
 		9D8B8B291413CAD90066ECBB /* Underscore+Logger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "Underscore+Logger.mm"; sourceTree = "<group>"; };
 		9D8B8B471413CC010066ECBB /* Underscore.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Underscore.hh; sourceTree = "<group>"; };
 		9D8B8B481413CC010066ECBB /* Underscore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Underscore.mm; sourceTree = "<group>"; };
+		9D8EAD53141E839400B21BEA /* M3Http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Http.h; sourceTree = "<group>"; };
+		9D8EAD54141E839400B21BEA /* M3Http.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3Http.m; sourceTree = "<group>"; };
 		9D9656AB14177A6C00884372 /* M3Etest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Etest.h; sourceTree = "<group>"; };
 		9D9656AC14177A6C00884372 /* M3Etest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Etest.mm; sourceTree = "<group>"; };
 		9D9656B114177F9700884372 /* M3StopWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3StopWatch.h; sourceTree = "<group>"; };
@@ -394,17 +400,8 @@
 		9D8B8AF41413CA8B0066ECBB /* M3 */ = {
 			isa = PBXGroup;
 			children = (
-				9D7E3DC6141A2F6800BB80E1 /* M3EventCenter.h */,
-				9D7E3DCB141A347C00BB80E1 /* M3EventCenter.mm */,
-				9D7E3DD1141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm */,
-				9D7E3DD2141A3DD400BB80E1 /* M3EventCenter+Disconnect.m */,
-				9D9656B114177F9700884372 /* M3StopWatch.h */,
-				9D9656B214177F9700884372 /* M3StopWatch.m */,
-				9D9656AB14177A6C00884372 /* M3Etest.h */,
-				9D9656AC14177A6C00884372 /* M3Etest.mm */,
-				9D99B2CE1416A3380040768E /* M3+Events.h */,
-				9D99B2D11416A4E50040768E /* M3+Events.m */,
 				9D8B8AF71413CA8B0066ECBB /* M3.h */,
+				9D8B8AF81413CA8B0066ECBB /* M3.m */,
 				9D0EF70D1413D1A60051B8FA /* M3+Additions.h */,
 				9D8B8B171413CAD90066ECBB /* M3+Comparison.h */,
 				9D8B8B191413CAD90066ECBB /* M3+Crypto.h */,
@@ -412,19 +409,30 @@
 				9D8B8B1D1413CAD90066ECBB /* M3+FileIO.h */,
 				9D8B8B1F1413CAD90066ECBB /* M3+Filenames.h */,
 				9D8B8B211413CAD90066ECBB /* M3+JSON.h */,
-				9D8B8B241413CAD90066ECBB /* M3Exception.h */,
-				9D8B8B281413CAD90066ECBB /* M3MemoryManagement.h */,
-				9D0EF70E1413D1A60051B8FA /* NSArray+Globbing.h */,
-				9D0EF7101413D1A60051B8FA /* NSString+Regexp.h */,
-				9D8B8AF81413CA8B0066ECBB /* M3.m */,
+				9D99B2CE1416A3380040768E /* M3+Events.h */,
+				9D99B2D11416A4E50040768E /* M3+Events.m */,
 				9D8B8B181413CAD90066ECBB /* M3+Comparison.mm */,
 				9D8B8B1A1413CAD90066ECBB /* M3+Crypto.mm */,
 				9D8B8B1C1413CAD90066ECBB /* M3+Enumeration.mm */,
 				9D8B8B1E1413CAD90066ECBB /* M3+FileIO.mm */,
 				9D8B8B201413CAD90066ECBB /* M3+Filenames.m */,
 				9D8B8B221413CAD90066ECBB /* M3+JSON.mm */,
+				9D9656AB14177A6C00884372 /* M3Etest.h */,
+				9D9656AC14177A6C00884372 /* M3Etest.mm */,
+				9D7E3DC6141A2F6800BB80E1 /* M3EventCenter.h */,
+				9D7E3DCB141A347C00BB80E1 /* M3EventCenter.mm */,
+				9D7E3DD1141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm */,
+				9D7E3DD2141A3DD400BB80E1 /* M3EventCenter+Disconnect.m */,
+				9D8B8B241413CAD90066ECBB /* M3Exception.h */,
 				9D8B8B251413CAD90066ECBB /* M3Exception.m */,
+				9D8EAD53141E839400B21BEA /* M3Http.h */,
+				9D8EAD54141E839400B21BEA /* M3Http.m */,
+				9D8B8B281413CAD90066ECBB /* M3MemoryManagement.h */,
+				9D9656B114177F9700884372 /* M3StopWatch.h */,
+				9D9656B214177F9700884372 /* M3StopWatch.m */,
+				9D0EF70E1413D1A60051B8FA /* NSArray+Globbing.h */,
 				9D0EF70F1413D1A60051B8FA /* NSArray+Globbing.m */,
+				9D0EF7101413D1A60051B8FA /* NSString+Regexp.h */,
 				9D0EF7111413D1A60051B8FA /* NSString+Regexp.m */,
 				9D8B8B471413CC010066ECBB /* Underscore.hh */,
 				9D8B8B481413CC010066ECBB /* Underscore.mm */,
@@ -468,6 +476,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D8EAD56141E839400B21BEA /* M3Http.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,6 +509,7 @@
 				9D9656AD14177A6C00884372 /* M3Etest.h in Headers */,
 				9D9656B314177F9700884372 /* M3StopWatch.h in Headers */,
 				9D7E3DC8141A2F6800BB80E1 /* M3EventCenter.h in Headers */,
+				9D8EAD55141E839400B21BEA /* M3Http.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,6 +698,7 @@
 				9D017457141AA7BE0035A4C2 /* ChairView.mm in Sources */,
 				9D017451141AA7B50035A4C2 /* JSONKit.m in Sources */,
 				9D017450141AA7AF0035A4C2 /* LoggerClient.m in Sources */,
+				9D8EAD58141E839400B21BEA /* M3Http.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,6 +740,7 @@
 				9D7E3DCD141A347C00BB80E1 /* M3EventCenter.mm in Sources */,
 				9D7E3DD5141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm in Sources */,
 				9D7E3DD6141A3DD400BB80E1 /* M3EventCenter+Disconnect.m in Sources */,
+				9D8EAD57141E839400B21BEA /* M3Http.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -962,6 +974,7 @@
 				9D01744A141AA6F10035A4C2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9D01744E141AA6F10035A4C2 /* Build configuration list for PBXNativeTarget "iM3Tests" */ = {
 			isa = XCConfigurationList;
@@ -970,6 +983,7 @@
 				9D01744C141AA6F10035A4C2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9D8B8AE51413CA8B0066ECBB /* Build configuration list for PBXProject "M3" */ = {
 			isa = XCConfigurationList;
