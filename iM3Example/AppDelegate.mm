@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "M3.h"
 
 #import "FirstViewController.h"
 
@@ -16,12 +17,42 @@
 
 @synthesize window = _window;
 @synthesize tabBarController = _tabBarController;
+@synthesize progressView = progressView_;
 
 - (void)dealloc
 {
+  [progressView_ release];
   [_window release];
   [_tabBarController release];
     [super dealloc];
+}
+
+-(BOOL)isIPhone
+{
+  return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone;
+}
+
+-(UIViewController*)loadControllerWithNibName: (NSString*)nibName andKlass:(Class)klass
+{
+  return [[ klass alloc]initWithNibName:nibName bundle:nil];
+}
+
+-(UIViewController*)loadController: (NSString*) name
+{
+  Class klass = NSClassFromString(name);
+  UIViewController* r;
+  if ([self isIPhone])
+    r = [ self loadControllerWithNibName: _.join(name, @"_iPhone") andKlass: klass ];
+  else
+    r = [ self loadControllerWithNibName: _.join(name, @"_iPad") andKlass: klass ];
+  
+  if(!r)
+    r = [ self loadControllerWithNibName: name andKlass: klass ];
+
+  if(!r)
+    @throw _.join("Cannot load ", name, " controller");
+  
+  return [r autorelease];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -29,27 +60,52 @@
   self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
   // Override point for customization after application launch.
 
-  UIViewController *vc1, *vc2;
-  if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-    vc1 = [[FirstViewController alloc] initWithNibName:@"FirstViewController_iPhone" bundle:nil];
-    vc2 = [[SecondViewController alloc] initWithNibName:@"SecondViewController_iPhone" bundle:nil];
-  } 
-  else {
-    vc1 = [[FirstViewController alloc] initWithNibName:@"FirstViewController_iPad" bundle:nil];
-    vc2 = [[SecondViewController alloc] initWithNibName:@"SecondViewController_iPad" bundle:nil];
-  }
-  
-//  [vc1 autorelease];
-//  [vc2 autorelease];
+  UIViewController *vc1 = [ self loadController: @"FirstViewXController"];
+  UIViewController *vc2 = [ self loadController: @"SecondViewController"];
 
   vc1 = [[UINavigationController alloc]initWithRootViewController:vc1];
   vc2 = [[UINavigationController alloc]initWithRootViewController:vc2];
-  
+
+  [vc1 autorelease];
+  [vc2 autorelease];
+
   self.tabBarController = [[[UITabBarController alloc] init] autorelease];
   self.tabBarController.viewControllers = [NSArray arrayWithObjects:vc1, vc2, nil];
   self.window.rootViewController = self.tabBarController;
-    [self.window makeKeyAndVisible];
-    return YES;
+
+  [self.window makeKeyAndVisible];
+  
+  [self progressView];
+  
+  return YES;
+}
+
+- (UINavigationController*)currentTab
+{
+  return [ self.tabBarController.viewControllers objectAtIndex:0];
+  //  return (UINavigationController*)[self.tabBarController selectedViewController];
+}
+
+
+- (UIProgressView*)progressView
+{
+  if(progressView_) return progressView_;
+
+  UINavigationItem* item = [[[self currentTab]navigationBar]topItem];
+  NSLog(@"topItem: %@", [self currentTab]);
+
+  progressView_ = [[UIProgressView alloc]initWithProgressViewStyle: UIProgressViewStyleDefault];
+  //  // progressView_ = [[UIProgressView alloc]initWithProgressViewStyle: UIProgressViewStyleBar];
+  //  
+  item.titleView = progressView_;
+  [  progressView_ setProgress:0.5f];
+
+  item.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle: @"right"
+                                                            style:UIBarButtonItemStylePlain 
+                                                           target:self 
+                                                           action:@selector(right)];
+
+  return progressView_;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
