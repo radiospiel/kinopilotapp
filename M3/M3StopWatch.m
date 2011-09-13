@@ -45,6 +45,29 @@
   return 1e-9 * [ self nanoSeconds ];
 }
 
++(M3StopWatch*) stopWatch;
+{
+  return [[[self alloc]init]autorelease];
+}
+
++(double)measure: (M3StopWatchCallback) callback
+{
+  M3StopWatch* stopWatch = [[[self alloc]init]autorelease];
+  callback();
+  return [stopWatch seconds];
+}
+
++(double)measure: (M3StopWatchCallback) callback 
+     withMessage: (NSString*)msg
+{
+  M3StopWatch* stopWatch = [[[self alloc]init]autorelease];
+  callback();
+  NSLog(@"%@: %d msecs", msg, [stopWatch milliSeconds]); 
+  
+  return [stopWatch seconds];
+}
+
+
 @end
 
 @interface M3StopWatchTests: M3ETest {
@@ -76,6 +99,16 @@
   
   milliSeconds = [stop_watch milliSeconds];
   assert_true(milliSeconds >= 5);
+}
+
+- (void)testBenchmark
+{
+  int __block count = 0;
+  [M3StopWatch measure:^(){
+    count += 1;
+    usleep(5000);
+  }];
+  assert_equal_pod(count, 1);
 }
 
 @end

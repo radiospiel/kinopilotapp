@@ -9,7 +9,12 @@ Copyright (c) radiospiel, <a href="http://radiospiel.github.com">http://radiospi
 
 #import "M3.h"
 
+#ifndef UNDERSCORE_HH
 #define UNDERSCORE_HH
+
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#endif
 
 namespace RS {
   
@@ -240,6 +245,10 @@ namespace RS {
     
     inline NSString* string(const char* s) 
       { return [NSString stringWithUTF8String: s]; }
+
+    inline NSString* string(const CGRect& r)
+      { return [NSString stringWithFormat: @"[%dx%d+%d+%d]", 
+                r.origin.x, r.origin.y, r.size.width, r.size.height];}
     
     // "Functions" to build strings, arrays, and hashes.  
     VariadicFactory<ArrayFactory> array;
@@ -375,3 +384,4 @@ public:
 
 #define LogBlock RS::BlockLogger __log_block(__PRETTY_FUNCTION__)
 
+#endif
