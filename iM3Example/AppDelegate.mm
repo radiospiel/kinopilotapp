@@ -36,29 +36,50 @@
   // push document on top of current tab
 }
 
+-(void) addTab: (NSString*)controllerName withLabel: (NSString*)label 
+       andIcon: (NSString*)iconName       navigationBarTitle: (NSString*)navigationBarTitle
+{
+  UIViewController *vc1 = [ self loadControllerFromNib: controllerName];
+
+  UINavigationController* nc = [[UINavigationController alloc]initWithRootViewController:vc1];
+  
+  if(navigationBarTitle)
+    nc.navigationBar.topItem.title = navigationBarTitle;
+  else
+    nc.navigationBarHidden = YES;
+  
+  nc.tabBarItem.image = [[UIImage imageNamed:iconName] autorelease];
+  nc.tabBarItem.title = [[label retain]autorelease];
+  
+  // Append nc to list of viewControllers
+  
+  NSMutableArray* viewControllers = [NSMutableArray arrayWithArray:self.tabBarController.viewControllers];
+  [viewControllers addObject: nc];
+  
+  self.tabBarController.viewControllers = viewControllers;
+}
+
+-(void)loadTabs
+{
+  [self addTab: @"WebViewController" withLabel: @"google" andIcon: @"world.png"  navigationBarTitle: nil ];
+  
+  [self addTab: @"FirstViewController" withLabel: @"first" andIcon: @"first.png" navigationBarTitle: @"first title"];
+  [self addTab: @"SecondViewController" withLabel: @"second" andIcon: @"second.png" navigationBarTitle: @"2nd title" ];
+}
+
 -(BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-  // Override point for customization after application launch.
-
-  UIViewController *vc1 = [ self loadControllerFromNib: @"FirstViewController"];
-  UIViewController *vc2 = [ self loadControllerFromNib: @"SecondViewController"];
-
-  vc1 = [[UINavigationController alloc]initWithRootViewController:vc1];
-  vc1.tabBarItem.image = [[UIImage imageNamed:@"alarm.png"] autorelease];
-  
-  vc2 = [[UINavigationController alloc]initWithRootViewController:vc2];
-
-  [vc1 autorelease];
-  [vc2 autorelease];
 
   self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-  self.tabBarController.viewControllers = [NSArray arrayWithObjects:vc1, vc2, nil];
+
+  [self loadTabs];
+  
   self.window.rootViewController = self.tabBarController;
 
   [self.window makeKeyAndVisible];
   
-  [self progressView];
+  // [self progressView];
   
   return YES;
 }

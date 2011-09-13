@@ -11,8 +11,15 @@
 
 @implementation AppDelegate(Nib)
 
--(UIViewController*)loadWithNibName: (NSString*)nibName andKlass:(Class)klass
+-(UIViewController*)loadWithNibName:(NSString*)nibName 
+                           andKlass:(Class)klass 
+                            doForce:(BOOL)force
 {
+  BOOL doLoad = force ||
+  ([[NSBundle mainBundle] pathForResource:nibName ofType:@"nib"] != nil);
+    
+  if(!doLoad) return nil;
+  
   return [[ klass alloc]initWithNibName:nibName bundle:nil];
 }
 
@@ -21,12 +28,12 @@
   Class klass = NSClassFromString(name);
   UIViewController* r;
   if ([self isIPhone])
-    r = [ self loadWithNibName: _.join(name, @"_iPhone") andKlass: klass ];
+    r = [ self loadWithNibName: _.join(name, @"_iPhone") andKlass: klass doForce:NO ];
   else
-    r = [ self loadWithNibName: _.join(name, @"_iPad") andKlass: klass ];
+    r = [ self loadWithNibName: _.join(name, @"_iPad") andKlass: klass doForce:NO ];
   
   if(!r)
-    r = [ self loadWithNibName: name andKlass: klass ];
+    r = [ self loadWithNibName: name andKlass: klass doForce:YES ];
   
   if([r isKindOfClass:expectedklass])
     return [r autorelease];
