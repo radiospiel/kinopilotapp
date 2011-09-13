@@ -45,6 +45,8 @@
   UIViewController *vc2 = [ self loadControllerFromNib: @"SecondViewController"];
 
   vc1 = [[UINavigationController alloc]initWithRootViewController:vc1];
+  vc1.tabBarItem.image = [[UIImage imageNamed:@"alarm.png"] autorelease];
+  
   vc2 = [[UINavigationController alloc]initWithRootViewController:vc2];
 
   [vc1 autorelease];
