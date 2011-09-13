@@ -14,4 +14,17 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UITabBarController *tabBarController;
 
+-(BOOL) isIPhone;
+
+@end
+
+
+@interface AppDelegate(Nib)
+
+-(id) loadFromNib: (NSString*) name ofClass: (Class)expectedklass;
+
+-(UIView*) loadViewFromNib: (NSString*) name;
+
+-(UIViewController*)loadControllerFromNib: (NSString*) name;
+
 @end

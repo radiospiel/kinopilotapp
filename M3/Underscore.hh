@@ -9,9 +9,12 @@ Copyright (c) radiospiel, <a href="http://radiospiel.github.com">http://radiospi
 
 #import "M3.h"
 
-#import <UIKit/UIKit.h>
-
+#ifndef UNDERSCORE_HH
 #define UNDERSCORE_HH
+
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#endif
 
 namespace RS {
   
@@ -381,3 +384,4 @@ public:
 
 #define LogBlock RS::BlockLogger __log_block(__PRETTY_FUNCTION__)
 
+#endif

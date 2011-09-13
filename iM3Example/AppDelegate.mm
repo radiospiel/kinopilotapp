@@ -9,10 +9,6 @@
 #import "AppDelegate.h"
 #import "M3.h"
 
-#import "FirstViewController.h"
-
-#import "SecondViewController.h"
-
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -31,37 +27,22 @@
 {
   return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone;
 }
-
--(UIViewController*)loadControllerWithNibName: (NSString*)nibName andKlass:(Class)klass
+//
+// Open a document at \a url with \a options.
+-(void) open: (NSString*)url withOptions: (NSDictionary*)options
 {
-  return [[ klass alloc]initWithNibName:nibName bundle:nil];
+  // get type of document
+  // get view controller for that document with options
+  // push document on top of current tab
 }
 
--(UIViewController*)loadController: (NSString*) name
-{
-  Class klass = NSClassFromString(name);
-  UIViewController* r;
-  if ([self isIPhone])
-    r = [ self loadControllerWithNibName: _.join(name, @"_iPhone") andKlass: klass ];
-  else
-    r = [ self loadControllerWithNibName: _.join(name, @"_iPad") andKlass: klass ];
-  
-  if(!r)
-    r = [ self loadControllerWithNibName: name andKlass: klass ];
-
-  if(!r)
-    @throw _.join("Cannot load ", name, " controller");
-  
-  return [r autorelease];
-}
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+-(BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
   // Override point for customization after application launch.
 
-  UIViewController *vc1 = [ self loadController: @"FirstViewXController"];
-  UIViewController *vc2 = [ self loadController: @"SecondViewController"];
+  UIViewController *vc1 = [ self loadControllerFromNib: @"FirstViewController"];
+  UIViewController *vc2 = [ self loadControllerFromNib: @"SecondViewController"];
 
   vc1 = [[UINavigationController alloc]initWithRootViewController:vc1];
   vc2 = [[UINavigationController alloc]initWithRootViewController:vc2];
