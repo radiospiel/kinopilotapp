@@ -20,8 +20,6 @@
 
 +(NSString*) read: (NSString*) path
 {
-  NSLog(@"********* read: %@", path);
-  
   NSString* r = [[NSString alloc] initWithData: [self readDataFromPath: path] 
                                       encoding: NSUTF8StringEncoding];
 
@@ -57,11 +55,6 @@
   return YES;
 }
 
-
-+(NSString*) expandPath: (NSString*) path {
-  return [path stringByExpandingTildeInPath]; 
-}
-
 // TODO: raise exception on error.
 
 +(void) mkdir_p: (NSString*) dir {
@@ -73,6 +66,11 @@
                             attributes:nil
                                  error:nil];
 }
+
+
+@end
+
+ETest(M3FileIO)
 
 
 @end

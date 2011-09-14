@@ -21,7 +21,6 @@
 +(BOOL) exists: (NSString*) path;
 
           
-+(NSString*) expandPath: (NSString*) path;
 +(void) mkdir_p: (NSString*) path;
 
 @end
