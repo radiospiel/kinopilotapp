@@ -5,3 +5,9 @@
 - (NSUInteger) matches:(id)regexp_or_string;
 
 @end
+
+@interface M3(Regex)
+
++(NSRegularExpression*) regexp: (id)regexpAsString;
+
+@end

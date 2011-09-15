@@ -1,22 +1,10 @@
-#import <Foundation/Foundation.h>
-#import "NSString+Regexp.h"
+#import "M3.h"
 
-@implementation NSString (Regex)
+@implementation NSString (Regexp)
 
-static NSRegularExpression* get_regexp(id regexp_or_string)
-{
-    if([regexp_or_string isKindOfClass: [NSRegularExpression class]])
-        return regexp_or_string;
-        
-    NSError *error = NULL;
-    return [NSRegularExpression regularExpressionWithPattern: regexp_or_string
-                                                     options: 0 
-                                                       error: &error];
-}
-        
 - (NSString*) gsub: (id) regexp_or_string with: (NSString*) template
 {
-  NSRegularExpression* regexp = get_regexp(regexp_or_string);
+  NSRegularExpression* regexp = [ M3 regexp: regexp_or_string];
 
   return [regexp stringByReplacingMatchesInString:self
                                           options:0
@@ -26,7 +14,7 @@ static NSRegularExpression* get_regexp(id regexp_or_string)
 
 - (NSUInteger) matches:(id)regexp_or_string
 {
-  NSRegularExpression* regexp = get_regexp(regexp_or_string);
+  NSRegularExpression* regexp = [ M3 regexp: regexp_or_string];
   
   return [regexp numberOfMatchesInString: self 
                                   options: 0
@@ -35,4 +23,19 @@ static NSRegularExpression* get_regexp(id regexp_or_string)
 }
 
         
+@end
+
+@implementation M3(Regexp)
+
++(NSRegularExpression*) regexp: (id)regexp_or_string;
+{
+    if([regexp_or_string isKindOfClass: [NSRegularExpression class]])
+        return regexp_or_string;
+        
+    NSError *error = NULL;
+    return [NSRegularExpression regularExpressionWithPattern: regexp_or_string
+                                                     options: 0 
+                                                       error: &error];
+}
+
 @end

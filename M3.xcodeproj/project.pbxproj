@@ -222,6 +222,14 @@
 		9D5A96CC141FF47E000104CA /* world@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D5A964B141FF47E000104CA /* world@2x.png */; };
 		9D5A96D314200FB8000104CA /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D5A96D114200FB7000104CA /* WebViewController.mm */; };
 		9D5A96D414200FB8000104CA /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D5A96D214200FB7000104CA /* WebViewController.xib */; };
+		9D750E8B142273A30056290E /* M3Data.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D750E89142273A30056290E /* M3Data.h */; };
+		9D750E8C142273A30056290E /* M3Data.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D750E89142273A30056290E /* M3Data.h */; };
+		9D750E8D142273A30056290E /* M3Data.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D750E8A142273A30056290E /* M3Data.m */; };
+		9D750E8E142273A30056290E /* M3Data.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D750E8A142273A30056290E /* M3Data.m */; };
+		9D750E91142275750056290E /* M3+Inflector.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D750E8F142275750056290E /* M3+Inflector.h */; };
+		9D750E92142275750056290E /* M3+Inflector.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D750E8F142275750056290E /* M3+Inflector.h */; };
+		9D750E93142275750056290E /* M3+Inflector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D750E90142275750056290E /* M3+Inflector.mm */; };
+		9D750E94142275750056290E /* M3+Inflector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D750E90142275750056290E /* M3+Inflector.mm */; };
 		9D767936142134CE00AB82DD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01746E141AA9D00035A4C2 /* CFNetwork.framework */; };
 		9D767937142134CE00AB82DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01746C141AA9C00035A4C2 /* SystemConfiguration.framework */; };
 		9D7E3DC8141A2F6800BB80E1 /* M3EventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D7E3DC6141A2F6800BB80E1 /* M3EventCenter.h */; };
@@ -485,6 +493,10 @@
 		9D5A96D014200FB6000104CA /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		9D5A96D114200FB7000104CA /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewController.mm; sourceTree = "<group>"; };
 		9D5A96D214200FB7000104CA /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
+		9D750E89142273A30056290E /* M3Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Data.h; sourceTree = "<group>"; };
+		9D750E8A142273A30056290E /* M3Data.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3Data.m; sourceTree = "<group>"; };
+		9D750E8F142275750056290E /* M3+Inflector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Inflector.h"; sourceTree = "<group>"; };
+		9D750E90142275750056290E /* M3+Inflector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+Inflector.mm"; sourceTree = "<group>"; };
 		9D7E3DC6141A2F6800BB80E1 /* M3EventCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3EventCenter.h; sourceTree = "<group>"; };
 		9D7E3DCB141A347C00BB80E1 /* M3EventCenter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3EventCenter.mm; sourceTree = "<group>"; };
 		9D7E3DD1141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3EventCenter+DefaultCenter.mm"; sourceTree = "<group>"; };
@@ -978,6 +990,10 @@
 				9D8B8B481413CC010066ECBB /* Underscore.mm */,
 				9D8B8B291413CAD90066ECBB /* Underscore+Logger.mm */,
 				9D8B8AF51413CA8B0066ECBB /* Supporting Files */,
+				9D750E89142273A30056290E /* M3Data.h */,
+				9D750E8A142273A30056290E /* M3Data.m */,
+				9D750E8F142275750056290E /* M3+Inflector.h */,
+				9D750E90142275750056290E /* M3+Inflector.mm */,
 			);
 			path = M3;
 			sourceTree = "<group>";
@@ -1028,6 +1044,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D8EAD56141E839400B21BEA /* M3Http.h in Headers */,
+				9D750E8C142273A30056290E /* M3Data.h in Headers */,
+				9D750E92142275750056290E /* M3+Inflector.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1060,6 +1078,8 @@
 				9D9656B314177F9700884372 /* M3StopWatch.h in Headers */,
 				9D7E3DC8141A2F6800BB80E1 /* M3EventCenter.h in Headers */,
 				9D8EAD55141E839400B21BEA /* M3Http.h in Headers */,
+				9D750E8B142273A30056290E /* M3Data.h in Headers */,
+				9D750E91142275750056290E /* M3+Inflector.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1453,6 +1473,8 @@
 				9D017467141AA7DF0035A4C2 /* NSString+Regexp.m in Sources */,
 				9D017468141AA7DF0035A4C2 /* Underscore.mm in Sources */,
 				9D017469141AA7DF0035A4C2 /* Underscore+Logger.mm in Sources */,
+				9D750E8E142273A30056290E /* M3Data.m in Sources */,
+				9D750E94142275750056290E /* M3+Inflector.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1515,6 +1537,8 @@
 				9D0EF7171413D1A60051B8FA /* NSString+Regexp.m in Sources */,
 				9D8B8B4A1413CC010066ECBB /* Underscore.mm in Sources */,
 				9D8B8B451413CAD90066ECBB /* Underscore+Logger.mm in Sources */,
+				9D750E8D142273A30056290E /* M3Data.m in Sources */,
+				9D750E93142275750056290E /* M3+Inflector.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
