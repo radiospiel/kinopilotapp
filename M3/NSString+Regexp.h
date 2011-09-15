@@ -9,5 +9,6 @@
 @interface M3(Regex)
 
 +(NSRegularExpression*) regexp: (id)regexpAsString;
++(NSRegularExpression*) regexp: (id)regexp_or_string withOptions: (int)options;
 
 @end

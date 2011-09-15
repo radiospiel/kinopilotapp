@@ -13,7 +13,6 @@
 #import "M3.h"
 
 @interface M3Inflector: NSObject {
-  NSDictionary *irregulars, *reverse_irregulars;
   NSMutableSet* uncountables;
   NSMutableArray* plurals;
   NSMutableArray* singulars;
@@ -56,31 +55,11 @@ static M3Inflector* inflector()
 
 @end
 
-ETest(M3Inflector)
-
-
--(void)test_inflector
-{
-	assert_equal([M3 pluralize: @"Cat"], @"Cats");
-	assert_equal([M3 pluralize: @"bus"], @"buses");
-	assert_equal([M3 pluralize: @"man"], @"men");
-  
-	assert_equal([M3 singularize: @"Cats"], @"Cat");
-	assert_equal([M3 singularize: @"buses"], @"bus");
-	assert_equal([M3 singularize: @"men"], @"man");
-}
-
-@end
-
-
 @implementation M3Inflector
 
 -(id)init {
   if(!(self = [ super init ])) return nil;
 
-  irregulars = [[ NSMutableDictionary dictionary ] retain];
-  reverse_irregulars = [[ NSMutableDictionary dictionary ] retain];
-  
   plurals = [[ NSMutableArray array ] retain];
   singulars = [[ NSMutableArray array ] retain];
   uncountables = [[ NSMutableArray array ] retain];
@@ -90,8 +69,7 @@ ETest(M3Inflector)
 }
 
 -(void)dealloc {
-  [irregulars release];
-  [reverse_irregulars release];
+
   [plurals release];
   [singulars release];
   [uncountables release];
@@ -101,11 +79,9 @@ ETest(M3Inflector)
 
 -(NSString*)pluralize: (NSString*) string;
 {
-  if([uncountables containsObject: string]) return string;
-  
-  NSString* irregular_plural = [irregulars objectForKey: string];
-  if(irregular_plural) 
-    return irregular_plural;
+  for(NSRegularExpression* regexp in uncountables) {
+    if([string matches: regexp]) return string;
+  }
   
   for(NSArray* regexp_and_repl in [plurals reverseObjectEnumerator]) {
     NSRegularExpression* regexp = [regexp_and_repl objectAtIndex:0];
@@ -120,12 +96,10 @@ ETest(M3Inflector)
 
 -(NSString*)singularize: (NSString*) string;
 {
-  if([uncountables containsObject: string]) return string;
-  
-  NSString* irregular_singular = [reverse_irregulars objectForKey: string];
-  if(irregular_singular) 
-    return irregular_singular;
-  
+  for(NSRegularExpression* regexp in uncountables) {
+    if([string matches: regexp]) return string;
+  }
+
   for(NSArray* regexp_and_repl in [singulars reverseObjectEnumerator]) {
     NSRegularExpression* regexp = [regexp_and_repl objectAtIndex:0];
     NSString* replacement = [regexp_and_repl objectAtIndex:1];
@@ -148,19 +122,13 @@ ETest(M3Inflector)
 	return [[[result substringToIndex:1] uppercaseString] stringByAppendingString:[result substringFromIndex:1]];
 }
 
+#define regexp(a) [M3 regexp: a withOptions: NSRegularExpressionCaseInsensitive]
+
 // With thanks to https://github.com/ciaran/inflector
 -(void)preloadInflectorData;
 {
-  
-#define irregular(a, b) [ irregulars setValue: b forKey: a ]; [ reverse_irregulars setValue: a forKey: b]
-  
-  irregular(@"person", @"people");
-  irregular(@"man", @"men");
-  irregular(@"child", @"children");
-  irregular(@"sex", @"sexes");
-  irregular(@"move", @"moves");
 
-#define plural(a, b) [plurals addObject: [ NSArray arrayWithObjects: [M3 regexp: a], b, nil ]]
+#define plural(a, b) [plurals addObject: [ NSArray arrayWithObjects: regexp(a), b, nil ]]
   
   plural(@"$", @"s");
   plural(@"s$", @"s");
@@ -180,7 +148,15 @@ ETest(M3Inflector)
   plural(@"^(ox)$", @"$1en");
   plural(@"(quiz)$", @"$1zes");
 
-#define singular(a, b) [singulars addObject: [ NSArray arrayWithObjects: [M3 regexp: a], b, nil ]]
+  /* irregular words */
+  
+  plural(@"(p)erson$", @"$1eople");
+  plural(@"(m)ove$", @"$1oves");
+  plural(@"(s)ex$", @"$1exes");
+  plural(@"(c)hild$", @"$1hildren");
+  plural(@"(m)an$", @"$1en");
+
+#define singular(a, b) [singulars addObject: [ NSArray arrayWithObjects: regexp(a), b, nil ]]
 
 	singular(@"s$", @"");
 	singular(@"(n)ews$", @"$1ews");
@@ -207,7 +183,15 @@ ETest(M3Inflector)
 	singular(@"(matr)ices$", @"$1ix");
 	singular(@"(quiz)zes$", @"$1");
 
-#define uncountable(a) [uncountables addObject: a ]
+  /* irregular words */
+  
+  singular(@"(p)eople$", @"$1erson");
+  singular(@"(m)oves$", @"$1ove");
+  singular(@"(s)exes$", @"$1ex");
+  singular(@"(c)hildren$", @"$1hild");
+  singular(@"(m)en$", @"$1an");
+
+#define uncountable(a) [uncountables addObject: regexp(a) ]
 
   uncountable(@"equipment");
   uncountable(@"information");
@@ -221,3 +205,20 @@ ETest(M3Inflector)
 
 @end
 
+
+
+ETest(M3Inflector)
+
+-(void)test_inflector
+{
+	assert_equal([M3 pluralize: @"Man"], @"Men");
+	assert_equal([M3 pluralize: @"Cat"], @"Cats");
+	assert_equal([M3 pluralize: @"bus"], @"buses");
+	assert_equal([M3 pluralize: @"man"], @"men");
+  
+	assert_equal([M3 singularize: @"Cats"], @"Cat");
+	assert_equal([M3 singularize: @"buses"], @"bus");
+	assert_equal([M3 singularize: @"men"], @"man");
+}
+
+@end
