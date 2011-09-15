@@ -37,7 +37,7 @@
 //  NSLog(@"*** frame: %@", _.string([self.view frame]));
 //  NSLog(@"*** bounds: %@", _.string([self.view bounds]));
 
-  //[self loadUrl: @"http://ix.de/ct/news"];
+  [self loadUrl: @"http://ix.de/ct/news"];
 }
 
 -(void)loadUrl: (NSString*)urlAddress;

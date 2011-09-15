@@ -222,6 +222,8 @@
 		9D5A96CC141FF47E000104CA /* world@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D5A964B141FF47E000104CA /* world@2x.png */; };
 		9D5A96D314200FB8000104CA /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D5A96D114200FB7000104CA /* WebViewController.mm */; };
 		9D5A96D414200FB8000104CA /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D5A96D214200FB7000104CA /* WebViewController.xib */; };
+		9D767936142134CE00AB82DD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01746E141AA9D00035A4C2 /* CFNetwork.framework */; };
+		9D767937142134CE00AB82DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01746C141AA9C00035A4C2 /* SystemConfiguration.framework */; };
 		9D7E3DC8141A2F6800BB80E1 /* M3EventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D7E3DC6141A2F6800BB80E1 /* M3EventCenter.h */; };
 		9D7E3DCD141A347C00BB80E1 /* M3EventCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E3DCB141A347C00BB80E1 /* M3EventCenter.mm */; };
 		9D7E3DD5141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E3DD1141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm */; };
@@ -554,6 +556,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D767936142134CE00AB82DD /* CFNetwork.framework in Frameworks */,
+				9D767937142134CE00AB82DD /* SystemConfiguration.framework in Frameworks */,
 				9D48ACFE141EAB5A00D0D000 /* libiM3.a in Frameworks */,
 				9D48ACB9141E9E3E00D0D000 /* UIKit.framework in Frameworks */,
 				9D48ACBA141E9E3E00D0D000 /* Foundation.framework in Frameworks */,
@@ -684,26 +688,23 @@
 		9D48ACBD141E9E3E00D0D000 /* iM3Example */ = {
 			isa = PBXGroup;
 			children = (
-				9D5A95C9141FF47E000104CA /* app-bits */,
 				9D48ACC6141E9E3E00D0D000 /* AppDelegate.h */,
 				9D48ACC7141E9E3E00D0D000 /* AppDelegate.mm */,
 				9D58CAE4141FE4FB0047A5FA /* AppDelegate+Nib.mm */,
 				9D48ACC9141E9E3E00D0D000 /* FirstViewController.h */,
 				9D48ACCA141E9E3E00D0D000 /* FirstViewController.m */,
-				9D48ACD0141E9E3E00D0D000 /* SecondViewController.h */,
-				9D48ACD1141E9E3E00D0D000 /* SecondViewController.m */,
-				9D48ACCC141E9E3E00D0D000 /* first.png */,
-				9D48ACCE141E9E3E00D0D000 /* first@2x.png */,
-				9D48ACD3141E9E3E00D0D000 /* second.png */,
-				9D48ACD5141E9E3E00D0D000 /* second@2x.png */,
 				9D48ACD7141E9E3E00D0D000 /* FirstViewController_iPhone.xib */,
 				9D48ACDA141E9E3E00D0D000 /* FirstViewController_iPad.xib */,
+				9D48ACD0141E9E3E00D0D000 /* SecondViewController.h */,
+				9D48ACD1141E9E3E00D0D000 /* SecondViewController.m */,
 				9D48ACDD141E9E3E00D0D000 /* SecondViewController_iPhone.xib */,
 				9D48ACE0141E9E3E00D0D000 /* SecondViewController_iPad.xib */,
-				9D48ACBE141E9E3E00D0D000 /* Supporting Files */,
 				9D5A96D014200FB6000104CA /* WebViewController.h */,
 				9D5A96D114200FB7000104CA /* WebViewController.mm */,
 				9D5A96D214200FB7000104CA /* WebViewController.xib */,
+				9D48ACBE141E9E3E00D0D000 /* Supporting Files */,
+				9D5A95C9141FF47E000104CA /* app-bits */,
+				9DCE459314211BA700F5A9FD /* resources */,
 			);
 			path = iM3Example;
 			sourceTree = "<group>";
@@ -1006,6 +1007,17 @@
 				9D8B8B091413CA8B0066ECBB /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9DCE459314211BA700F5A9FD /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				9D48ACCC141E9E3E00D0D000 /* first.png */,
+				9D48ACCE141E9E3E00D0D000 /* first@2x.png */,
+				9D48ACD3141E9E3E00D0D000 /* second.png */,
+				9D48ACD5141E9E3E00D0D000 /* second@2x.png */,
+			);
+			name = resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1415,23 +1427,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D017458141AA7DF0035A4C2 /* M3EventCenter.mm in Sources */,
-				9D017459141AA7DF0035A4C2 /* M3EventCenter+DefaultCenter.mm in Sources */,
-				9D01745A141AA7DF0035A4C2 /* M3EventCenter+Disconnect.m in Sources */,
-				9D01745B141AA7DF0035A4C2 /* M3StopWatch.m in Sources */,
-				9D01745C141AA7DF0035A4C2 /* M3Etest.mm in Sources */,
-				9D01745D141AA7DF0035A4C2 /* M3+Events.m in Sources */,
-				9D01745E141AA7DF0035A4C2 /* M3.m in Sources */,
-				9D01745F141AA7DF0035A4C2 /* M3+Comparison.mm in Sources */,
-				9D017460141AA7DF0035A4C2 /* M3+Crypto.mm in Sources */,
-				9D017462141AA7DF0035A4C2 /* M3+FileIO.mm in Sources */,
-				9D017463141AA7DF0035A4C2 /* M3+Filenames.m in Sources */,
-				9D017464141AA7DF0035A4C2 /* M3+JSON.mm in Sources */,
-				9D017465141AA7DF0035A4C2 /* M3Exception.m in Sources */,
-				9D017466141AA7DF0035A4C2 /* NSArray+Globbing.m in Sources */,
-				9D017467141AA7DF0035A4C2 /* NSString+Regexp.m in Sources */,
-				9D017468141AA7DF0035A4C2 /* Underscore.mm in Sources */,
-				9D017469141AA7DF0035A4C2 /* Underscore+Logger.mm in Sources */,
 				9D017452141AA7BE0035A4C2 /* Chair.mm in Sources */,
 				9D017453141AA7BE0035A4C2 /* ChairDatabase.mm in Sources */,
 				9D017454141AA7BE0035A4C2 /* ChairDictionary.mm in Sources */,
@@ -1440,7 +1435,24 @@
 				9D017457141AA7BE0035A4C2 /* ChairView.mm in Sources */,
 				9D017451141AA7B50035A4C2 /* JSONKit.m in Sources */,
 				9D017450141AA7AF0035A4C2 /* LoggerClient.m in Sources */,
+				9D01745E141AA7DF0035A4C2 /* M3.m in Sources */,
+				9D01745F141AA7DF0035A4C2 /* M3+Comparison.mm in Sources */,
+				9D017460141AA7DF0035A4C2 /* M3+Crypto.mm in Sources */,
+				9D01745D141AA7DF0035A4C2 /* M3+Events.m in Sources */,
+				9D017462141AA7DF0035A4C2 /* M3+FileIO.mm in Sources */,
+				9D017463141AA7DF0035A4C2 /* M3+Filenames.m in Sources */,
+				9D017464141AA7DF0035A4C2 /* M3+JSON.mm in Sources */,
+				9D01745C141AA7DF0035A4C2 /* M3Etest.mm in Sources */,
+				9D017458141AA7DF0035A4C2 /* M3EventCenter.mm in Sources */,
+				9D017459141AA7DF0035A4C2 /* M3EventCenter+DefaultCenter.mm in Sources */,
+				9D01745A141AA7DF0035A4C2 /* M3EventCenter+Disconnect.m in Sources */,
+				9D017465141AA7DF0035A4C2 /* M3Exception.m in Sources */,
 				9D8EAD58141E839400B21BEA /* M3Http.m in Sources */,
+				9D01745B141AA7DF0035A4C2 /* M3StopWatch.m in Sources */,
+				9D017466141AA7DF0035A4C2 /* NSArray+Globbing.m in Sources */,
+				9D017467141AA7DF0035A4C2 /* NSString+Regexp.m in Sources */,
+				9D017468141AA7DF0035A4C2 /* Underscore.mm in Sources */,
+				9D017469141AA7DF0035A4C2 /* Underscore+Logger.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1477,32 +1489,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D8B8AF91413CA8B0066ECBB /* M3.m in Sources */,
-				9D8B8B2B1413CAD90066ECBB /* M3+Comparison.mm in Sources */,
-				9D8B8B2E1413CAD90066ECBB /* M3+Crypto.mm in Sources */,
-				9D8B8B341413CAD90066ECBB /* M3+FileIO.mm in Sources */,
-				9D8B8B371413CAD90066ECBB /* M3+Filenames.m in Sources */,
-				9D8B8B3A1413CAD90066ECBB /* M3+JSON.mm in Sources */,
-				9D8B8B3F1413CAD90066ECBB /* M3Exception.m in Sources */,
-				9D8B8B451413CAD90066ECBB /* Underscore+Logger.mm in Sources */,
-				9D8B8B4A1413CC010066ECBB /* Underscore.mm in Sources */,
-				9D0EF7141413D1A60051B8FA /* NSArray+Globbing.m in Sources */,
-				9D0EF7171413D1A60051B8FA /* NSString+Regexp.m in Sources */,
-				9D0EF7211413D45C0051B8FA /* JSONKit.m in Sources */,
 				9D0EF7341413DBF90051B8FA /* Chair.mm in Sources */,
 				9D0EF7371413DBF90051B8FA /* ChairDatabase.mm in Sources */,
 				9D0EF73A1413DBF90051B8FA /* ChairDictionary.mm in Sources */,
 				9D0EF73D1413DBF90051B8FA /* ChairDynamicView.mm in Sources */,
 				9D0EF7401413DBF90051B8FA /* ChairTable.mm in Sources */,
 				9D0EF7461413DBF90051B8FA /* ChairView.mm in Sources */,
+				9D0EF7211413D45C0051B8FA /* JSONKit.m in Sources */,
 				9D0EF74E1413DFF50051B8FA /* LoggerClient.m in Sources */,
+				9D8B8AF91413CA8B0066ECBB /* M3.m in Sources */,
+				9D8B8B2B1413CAD90066ECBB /* M3+Comparison.mm in Sources */,
+				9D8B8B2E1413CAD90066ECBB /* M3+Crypto.mm in Sources */,
 				9D99B2D21416A4E50040768E /* M3+Events.m in Sources */,
+				9D8B8B341413CAD90066ECBB /* M3+FileIO.mm in Sources */,
+				9D8B8B371413CAD90066ECBB /* M3+Filenames.m in Sources */,
+				9D8B8B3A1413CAD90066ECBB /* M3+JSON.mm in Sources */,
 				9D9656AE14177A6C00884372 /* M3Etest.mm in Sources */,
-				9D9656B414177F9700884372 /* M3StopWatch.m in Sources */,
 				9D7E3DCD141A347C00BB80E1 /* M3EventCenter.mm in Sources */,
 				9D7E3DD5141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm in Sources */,
 				9D7E3DD6141A3DD400BB80E1 /* M3EventCenter+Disconnect.m in Sources */,
+				9D8B8B3F1413CAD90066ECBB /* M3Exception.m in Sources */,
 				9D8EAD57141E839400B21BEA /* M3Http.m in Sources */,
+				9D9656B414177F9700884372 /* M3StopWatch.m in Sources */,
+				9D0EF7141413D1A60051B8FA /* NSArray+Globbing.m in Sources */,
+				9D0EF7171413D1A60051B8FA /* NSString+Regexp.m in Sources */,
+				9D8B8B4A1413CC010066ECBB /* Underscore.mm in Sources */,
+				9D8B8B451413CAD90066ECBB /* Underscore+Logger.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1697,6 +1709,10 @@
 				GCC_PREFIX_HEADER = "iM3Example/iM3Example-Prefix.pch";
 				INFOPLIST_FILE = "iM3Example/iM3Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1718,6 +1734,10 @@
 				INFOPLIST_FILE = "iM3Example/iM3Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

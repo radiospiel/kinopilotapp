@@ -20,7 +20,7 @@
   [progressView_ release];
   [_window release];
   [_tabBarController release];
-    [super dealloc];
+  [super dealloc];
 }
 
 -(BOOL)isIPhone
@@ -69,6 +69,10 @@
 
 -(BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  for(NSString* sym in _.array("$cache","$tmp","$documents", "$root")) {
+    NSLog(@"*** %@: %@", sym, [ M3 symbolicDir: sym ]);
+  }
+  
   self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
 
   self.tabBarController = [[[UITabBarController alloc] init] autorelease];
