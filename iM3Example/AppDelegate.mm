@@ -61,7 +61,9 @@
 
 -(void)loadTabs
 {
-  [self addTab: @"WebViewController" withLabel: @"google" andIcon: @"world.png"  navigationBarTitle: nil ];
+  [self addTab: @"ProfileController" withLabel: @"google" andIcon: @"world.png"  navigationBarTitle: nil ];
+
+//  [self addTab: @"WebViewController" withLabel: @"google" andIcon: @"world.png"  navigationBarTitle: nil ];
   
   [self addTab: @"FirstViewController" withLabel: @"first" andIcon: @"first.png" navigationBarTitle: @"first title"];
   [self addTab: @"SecondViewController" withLabel: @"second" andIcon: @"second.png" navigationBarTitle: @"2nd title" ];
