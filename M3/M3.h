@@ -3,6 +3,10 @@
 @interface M3: NSObject
 @end
 
+#import "NSString+M3Extensions.h"
+#import "NSArray+Globbing.h"
+#import "NSString+Regexp.h"
+
 #import "M3MemoryManagement.h"
 
 #import "M3+Comparison.h"
@@ -12,8 +16,6 @@
 #import "M3+Filenames.h"
 #import "M3+JSON.h"
 #import "M3+Inflector.h"
-
-#import "M3+Additions.h"
 
 #import "M3StopWatch.h"
 #import "M3Exception.h"

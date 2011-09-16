@@ -166,8 +166,6 @@ ETest(ChairDatabase)
 
 -(void)test_import_load_and_save
 {
-  return;
-
 
   ChairDatabase* db = [ChairDatabase database];
 
@@ -203,53 +201,48 @@ ETest(ChairDatabase)
 
 -(void)test_alloc_and_release
 {
-  @autoreleasepool {
-    ChairDatabase* db = [ChairDatabase database];
-    ChairTable* schedules = [db tableForName: @"schedules"];
+  ChairDatabase* db = [ChairDatabase database];
+  ChairTable* schedules = [db tableForName: @"schedules"];
 
-    ChairView* view = [schedules viewWithMap:nil andReduce:nil];
-    view = [schedules viewWithMap: nil andReduce: nil];
+  ChairView* view = [schedules viewWithMap:nil andReduce:nil];
+  view = [schedules viewWithMap: nil andReduce: nil];
 
-    /* NSUInteger count = */ [view count];
-  }
+  /* NSUInteger count = */ [view count];
 }
 
 -(void)test_group_and_view
 {
-  @autoreleasepool {
+  ChairDatabase* db = [ChairDatabase database];
+  [db import: @"fixtures/flk.json"];
 
-    ChairDatabase* db = [ChairDatabase database];
-    [db import: @"fixtures/flk.json"];
+  // --------------------------------------------------------
 
-    // --------------------------------------------------------
+  ChairTable* schedules = [db tableForName: @"schedules"];
+  assert_equal(102, schedules.count);
 
-    ChairTable* schedules = [db tableForName: @"schedules"];
-    assert_equal(102, schedules.count);
+  ChairView* schedules_ordered_by_theater_id = 
+    [schedules viewWithMap: nil
+                   andGroup: ^(NSDictionary* value, id key) { return [value objectForKey: @"theater_id"]; }
+                  andReduce: nil];
 
-    ChairView* schedules_ordered_by_theater_id = 
-      [schedules viewWithMap: nil
-                     andGroup: ^(NSDictionary* value, id key) { return [value objectForKey: @"theater_id"]; }
-                    andReduce: nil];
+  // 
+  assert_equal(102, schedules_ordered_by_theater_id.count);
 
-    // 
-    assert_equal(102, schedules_ordered_by_theater_id.count);
+  ChairView* schedules_by_theater;
+  schedules_by_theater = [schedules viewWithMap: nil 
+                                        andGroup: ^(NSDictionary* value, id key) { return [value objectForKey: @"theater_id"]; }
+                                       andReduce: ^(NSArray* values, id key) { return _.hash("count", values.count); }];
 
-    ChairView* schedules_by_theater;
-    schedules_by_theater = [schedules viewWithMap: nil 
-                                          andGroup: ^(NSDictionary* value, id key) { return [value objectForKey: @"theater_id"]; }
-                                         andReduce: ^(NSArray* values, id key) { return _.hash("count", values.count); }];
+  // [schedules_by_theater update];
+  assert_equal([schedules_by_theater keys], _.array(
+    267534162, 374391607, 624179285, 837728461, 1223633946, 1592415747,
+    1600891278, 1954940838, 2885852417, 3190279602, 3619205751
+  ));
 
-    // [schedules_by_theater update];
-    assert_equal([schedules_by_theater keys], _.array(
-      267534162, 374391607, 624179285, 837728461, 1223633946, 1592415747,
-      1600891278, 1954940838, 2885852417, 3190279602, 3619205751
-    ));
+  assert(![schedules_by_theater get: _.object(1)]);
+  assert_equal(11, schedules_by_theater.count);
 
-    assert(![schedules_by_theater get: _.object(1)]);
-    assert_equal(11, schedules_by_theater.count);
-
-    assert_equal(_.hash("count", 8), [schedules_by_theater get: _.object(267534162)]);
-  }
+  assert_equal(_.hash("count", 8), [schedules_by_theater get: _.object(267534162)]);
 }
 
 -(void)test_group_by_name

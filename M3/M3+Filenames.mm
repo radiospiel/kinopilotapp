@@ -17,6 +17,8 @@
 
 + (NSString*) symbolicDir: (NSString*)name
 {
+  if(![name startsWith: @"$"]) return name;
+
   if([name isEqualToString: @"$cache"])
   {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -35,7 +37,7 @@
   if([name isEqualToString: @"$root"]) 
     return [ self dirname: [ self symbolicDir: @"$documents" ] ];
 
-  NSLog(@"*** Unknown key %@", name);
+  _.raise(@"*** Unknown key'", name, "'");
 
 // TODO: define $app
 //  if([name isEqualToString: @"$app"])
