@@ -32,12 +32,13 @@ double StopWatch::operator()() const {
   return 1e-9 * elapsedNano;
 }
   
-BlockLogger::BlockLogger(const char* pretty_function): pretty_function_(pretty_function) {
-  // NSLog(@"Enter %s", pretty_function_);
+BenchmarkLogger::BenchmarkLogger(NSString* msg) {
+  msg_ = [ msg retain ];
 }
 
-BlockLogger::~BlockLogger() {
-  NSLog(@"%.03f msecs: %s", stop_watch_() * 1000, pretty_function_);
+BenchmarkLogger::~BenchmarkLogger() {
+  NSLog(@"%@: %.03f msecs", msg_, stop_watch_() * 1000);
+  [ msg_ release ];
 }
 
 }

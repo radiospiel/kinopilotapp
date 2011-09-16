@@ -372,16 +372,16 @@ public:
   double operator()() const;
 };
  
-class BlockLogger {
-  const char* pretty_function_;
+class BenchmarkLogger {
+  NSString* msg_;
   StopWatch stop_watch_;
 public:
-  BlockLogger(const char* pretty_function);
-  ~BlockLogger();
+  BenchmarkLogger(NSString* msg);
+  ~BenchmarkLogger();
 };
 
 }
 
-#define LogBlock RS::BlockLogger __log_block(__PRETTY_FUNCTION__)
+#define Benchmark(msg) RS::BenchmarkLogger __log_block(msg)
 
 #endif

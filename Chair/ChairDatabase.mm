@@ -198,8 +198,10 @@ ETest(ChairDatabase)
   return;
   
   ChairDatabase* db = [[ChairDatabase alloc] init];
-  [db import: @"http://kinopilotupdates2.heroku.com/db/berlin"];
-
+  {
+    Benchmark(@"Importing http://kinopilotupdates2.heroku.com/db/berlin");
+    [db import: @"http://kinopilotupdates2.heroku.com/db/berlin"];
+  }
   NSLog(@"Read database %@", db);
   
   ChairTable* theaters = [db tableForName: @"theaters"];
@@ -299,7 +301,6 @@ ETest(ChairDatabase)
   assert_equal(13, [theaters countFrom: nil to: nil excludingEnd: NO]);
 
   [theaters each: ^(id value, id key) {
-                     // NSLog(@">>>> key: %@", key); 
                    }
               min: nil
               max: _.object(267534163) 
@@ -308,7 +309,6 @@ ETest(ChairDatabase)
   // 
 
   [theaters each: ^(id value, id key) {
-                     // NSLog(@">>>> key: %@", key); 
                    }
               min: nil
               max: nil
