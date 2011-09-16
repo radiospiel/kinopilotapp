@@ -13,7 +13,7 @@
   NSMutableDictionary *tables_; 
 }
 
--(void)import: (NSString*) url;
+-(void)import: (NSString*) path_or_url;
 -(void)export: (NSString*) path;
 
 -(void)load: (NSString*) path;

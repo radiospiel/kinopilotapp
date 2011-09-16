@@ -70,12 +70,14 @@
 
 -(void) import: (NSString*) path
 {
-  NSArray* entries = [M3 readJSONFile: path];
+  NSArray* entries = [M3 readJSON: path];
   if(![entries isKindOfClass: [NSArray class]])
     _.raise("Cannot read file", path);
   
   NSMutableDictionary* tables = [[NSMutableDictionary alloc] init]; 
 
+  // [self emit: @selector(progress)];
+  
   for(id entry in entries) {
     
     // Add dictionaries into the respective table.
@@ -166,7 +168,6 @@ ETest(ChairDatabase)
 
 -(void)test_import_load_and_save
 {
-
   ChairDatabase* db = [ChairDatabase database];
 
   [db import: @"fixtures/flk.json"];
@@ -177,26 +178,41 @@ ETest(ChairDatabase)
 
 -(void)test_import
 {
+  ChairDatabase* db = [[ChairDatabase alloc] init];
+
+  [db import: @"fixtures/flk.json"];
+
+  ChairTable* theaters = [db tableForName: @"theaters"];
+  assert_equal(13, theaters.count);
+
+  ChairTable* schedules = [db tableForName: @"schedules"];
+  assert_equal(102, schedules.count);
+
+  ChairTable* movies = [db tableForName: @"movies"];
+  assert_equal(83, movies.count);
+}
+
+-(void)test_import_from_server
+{
+  NSLog(@"Disabled test_import_from_server");
   return;
+  
+  ChairDatabase* db = [[ChairDatabase alloc] init];
+  [db import: @"http://kinopilotupdates2.heroku.com/db/berlin"];
 
+  NSLog(@"Read database %@", db);
+  
+  ChairTable* theaters = [db tableForName: @"theaters"];
+  NSLog(@"theaters %@", theaters);
+  assert_true(theaters.count > 0);
 
-  @try {
-    ChairDatabase* db = [[ChairDatabase alloc] init];
+  ChairTable* schedules = [db tableForName: @"schedules"];
+  NSLog(@"schedules %@", schedules);
+  assert_true(schedules.count > 0);
 
-    [db import: @"fixtures/flk.json"];
-
-    ChairTable* theaters = [db tableForName: @"theaters"];
-    assert_equal(13, theaters.count);
-
-    ChairTable* schedules = [db tableForName: @"schedules"];
-    assert_equal(102, schedules.count);
-
-    ChairTable* movies = [db tableForName: @"movies"];
-    assert_equal(83, movies.count);
-	} 
-	@catch (id theException) {
-		NSLog(@"Exception %@", theException);
-	} 
+  ChairTable* movies = [db tableForName: @"movies"];
+  NSLog(@"movies %@", movies);
+  assert_true(movies.count > 0);
 }
 
 -(void)test_alloc_and_release
