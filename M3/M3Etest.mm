@@ -234,7 +234,11 @@ extern "C" void m3_etest_failed(NSString* msg, const char* file, int line)
 }
 
 -(void) run {
+  NSString* etests = [[[NSProcessInfo processInfo] environment] objectForKey:@"ETESTS"];
+  
   for(NSString* method in [ M3ETest testMethodsForClass: [ self class ]]) {
+    if(etests && ![method matches: etests]) continue;
+    
     @autoreleasepool {
       [ self performTest: method ];
     }
