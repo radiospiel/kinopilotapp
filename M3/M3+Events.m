@@ -11,7 +11,12 @@
 
 - (void) emit: (SEL)event;
 {
-  [[M3EventCenter defaultCenter] emit:event ];
+  [[M3EventCenter defaultCenter] fire: self event: event ];
+}
+
+- (void) emit: (SEL)event withParameter: (id)parameter;
+{
+  [[M3EventCenter defaultCenter] fire: self event: event withParameter: parameter ];
 }
 
 - (id) sender

@@ -7,5 +7,6 @@ typedef void (^EventCallback)(NSNotification*);
       with: (SEL)selector;
 
 - (void) emit: (SEL)event;
+- (void) emit: (SEL)event withParameter: (id)parameter;
 
 @end

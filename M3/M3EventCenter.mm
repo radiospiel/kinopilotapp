@@ -247,16 +247,19 @@ static M3EventCenter *eventCenter = 0;
   int count2_;
   NSString* parameter_;
   id sender_;
+  id update_;
 }
 
 @property (nonatomic,assign) int count;
 @property (nonatomic,assign) int count2;
 @property (nonatomic,retain) NSString* parameter;
 @property (nonatomic,retain) id testSender;
+@property (nonatomic,retain) id update;
+
 @end
 
 @implementation TestClass2
-@synthesize count = count_, count2 = count2_, parameter = parameter_, testSender = sender_;
+@synthesize count = count_, count2 = count2_, parameter = parameter_, testSender = sender_, update = update_;
 
 -(void)dealloc {
   self.parameter = nil;
@@ -401,6 +404,40 @@ ETest(M3EventCenter)
   }
   
   assert_equal("signals_by_receiver: 0,signals_by_sender: 0,slots_by_signals: 0", pimpl->stats());
+}
+
+/*
+ * This tests the NSObject#emit API
+ */
+-(void)testEmitEvent {
+  TestClass2* obj1 = [[[ TestClass2 alloc ]init]autorelease];
+  TestClass2* obj2 = [[TestClass2 alloc ]init];
+  
+  [ obj1 on: @selector(ho) notify: obj2 with: @selector(on_ho)];
+  
+  [ obj1 emit: @selector(ho) ];
+  assert_equal(1, obj2.count);
+
+  [ obj1 emit: @selector(ho) ];
+  assert_equal(2, obj2.count);
+
+  [ obj1 on: @selector(ho) notify: obj2 with: @selector(on_ho)];
+  [ obj1 emit: @selector(ho) ];
+  assert_equal(4, obj2.count);
+
+  [obj2 release];
+
+  // This must not crash!
+  [ obj1 emit: @selector(ho) ];
+}
+
+-(void)testEmitWithParameter {
+  TestClass2* obj1 = [[[TestClass2 alloc ]init]autorelease];
+  TestClass2* obj2 = [[[TestClass2 alloc ]init]autorelease];
+  
+  [ obj1 on: @selector(updated) notify: obj2 with: @selector(setUpdate:)];
+  [ obj1 emit: @selector(updated) withParameter: _.hash("a", 1)];
+  assert_equal(_.hash("a", 1), obj2.update);
 }
 
 -(void)testSlotsWithParameters {
