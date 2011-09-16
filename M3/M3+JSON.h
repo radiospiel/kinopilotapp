@@ -4,7 +4,7 @@
 + (NSString*) toJSON: (id) obj compact: (BOOL) compact;
 + (NSString*) toJSON: (id) obj;
 
-+ (id) readJSONFile: (NSString*) path;
++ (id) readJSON: (NSString*) path;
 + (void) writeJSONFile: (NSString*) path object: (id) object;
 
 @end

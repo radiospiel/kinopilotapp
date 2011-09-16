@@ -8,18 +8,23 @@
 
 @implementation M3 (JSON)
 
-+ (id) readJSONFile:(NSString *)path 
++ (id) readJSON:(NSString *)path 
 {
-  NSData* data = [M3 readDataFromPath: path];
-
-  // id r = [data objectFromJSONData];
-  
   NSError* error = 0;
+  id returnValue;
 
-  id r = [data mutableObjectFromJSONDataWithParseOptions: 0 error: &error];
-  if(!r) [M3Exception raiseWithError: error];
-  
-  return r;
+  if([path matches: @"^(http|https)://"]) {
+    NSString* jsonString = [ M3Http get: path];
+    returnValue = [jsonString mutableObjectFromJSONStringWithParseOptions:0 error: &error ];
+  }
+  else {
+    NSData* data = [M3 readDataFromPath: path];
+    returnValue = [data mutableObjectFromJSONDataWithParseOptions: 0 error: &error];
+  }
+
+  if(!returnValue) [M3Exception raiseWithError: error];
+
+  return returnValue;
 }
 
 + (void) writeJSONFile: (NSString*) path object: (id) object;
