@@ -21,6 +21,6 @@
 
 @interface AppDelegate(Nib)
 
--(id)loadInstanceOfClass: (NSString*)className fromNib: (NSString*) nibName;
+-(id)loadInstanceOfClass: (Class)klass fromNib: (NSString*) nibName;
 
 @end

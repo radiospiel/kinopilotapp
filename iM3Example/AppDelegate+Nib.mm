@@ -20,9 +20,8 @@ static id loadInstance(Class klass, NSString* nibName)
 
 @implementation AppDelegate(Nib)
 
--(id)loadInstanceOfClass: (NSString*)className fromNib: (NSString*) nibName
+-(id)loadInstanceOfClass: (Class)klass fromNib: (NSString*) nibName
 {
-  Class klass = NSClassFromString(className);
   UIViewController* r;
   if ([self isIPhone])
     r = loadInstance(klass, _.join(nibName, @"_iPhone"));
@@ -33,7 +32,7 @@ static id loadInstance(Class klass, NSString* nibName)
     r = loadInstance(klass, nibName);
 
   if(!r)
-    _.raise("Cannot load ", className, " object from NIB ", nibName);
+    _.raise("Cannot load ", klass, " object from NIB ", nibName);
 
   return [r autorelease];
 }

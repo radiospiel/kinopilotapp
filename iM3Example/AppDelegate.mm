@@ -44,7 +44,7 @@
     navigationBarTitle: (NSString*)navigationBarTitle
 {
   if(!className) className = nibName;
-  UIViewController *vc = [ self loadInstanceOfClass: className
+  UIViewController *vc = [ self loadInstanceOfClass: NSClassFromString(className)
                                             fromNib:nibName];
   
   UINavigationController* nc = [[UINavigationController alloc]initWithRootViewController:vc];
@@ -73,7 +73,7 @@
                                ofClass: @"ProfileController"
                              withLabel: @"google" 
                                andIcon: @"games.png"  
-                    navigationBarTitle: nil ];
+                    navigationBarTitle: @"ProfileController" ];
   
   pc.data = _.hash(@"title", @"The Title", @"description", @"Yadda dadda, this is a description");
   
