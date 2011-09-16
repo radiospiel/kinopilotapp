@@ -8,13 +8,9 @@
 
   NSFileHandle* handle = [NSFileHandle fileHandleForReadingAtPath: path];
   NSData* contents = [handle readDataToEndOfFile];
-  if (!contents) {
-//    NSString *curDir = [[NSFileManager defaultManager] currentDirectoryPath];
-//    NSLog(@"I am in %@", curDir);
-
-    _.raise("Cannot read from", path);  
-  }
-  
+  if (!contents) 
+    _.raise("Cannot read from ", path);  
+    
   return contents;
 }
 
