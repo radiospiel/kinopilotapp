@@ -24,6 +24,11 @@
   return self;
 } 
 
+-(int)count 
+{
+  return keys_.count;
+}
+
 -(id)initWithObjects: (NSArray*)values andKeys: (NSArray*)keys {
   self = [super init];
   if(!self) return nil;
@@ -109,7 +114,7 @@
                                       id value = [data_ objectForKey: key];
                                       yield(value, key);
                                     } 
-];
+  ];
 }
 
 -(void) each: (void(^)(NSDictionary* value, id key))yield 
@@ -163,6 +168,18 @@
     objects = [NSMutableArray arrayWithObject: object];
     [self setObject_: objects forKey:key];
   }
+}
+
+-(int)count
+{
+  int count = 0;
+  
+  for(id key in keys_) {
+    NSArray* values = [data_ objectForKey: key];
+    count += values.count;
+  }
+  
+  return count;
 }
 
 - (void) each: (void(^)(NSDictionary* value, id key))yield 

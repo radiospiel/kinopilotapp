@@ -45,7 +45,7 @@
 
 -(NSString*) description
 {
-  return [NSString stringWithFormat:  @"<%@: %ld dependants%>", 
+  return [NSString stringWithFormat:  @"<%@: %ld dependants>", 
                                       NSStringFromClass ([self class]), 
                                       dependant_objects_.count];
 }

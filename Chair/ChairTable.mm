@@ -114,6 +114,13 @@
   return record ? key : nil;
 }
 
+-(NSString*) description
+{
+  return [NSString stringWithFormat:  @"<%@: %ld dependants, %ld records>", 
+                                      self.name,
+                                      dependant_objects_.count,
+                                      dictionary_.count];
+}
 
 // -- NSCoding --------------------------------------------------------
 
