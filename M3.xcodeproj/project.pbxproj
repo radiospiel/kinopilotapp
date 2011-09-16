@@ -365,7 +365,7 @@
 		9D48ACF2141E9E3F00D0D000 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9D48ACF4141E9E3F00D0D000 /* iM3ExampleTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iM3ExampleTests.h; sourceTree = "<group>"; };
 		9D48ACF5141E9E3F00D0D000 /* iM3ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iM3ExampleTests.m; sourceTree = "<group>"; };
-		9D4DA7C91422BF5300F98B7B /* ProfileController_iPhone_Landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileController_iPhone_Landscape.xib; sourceTree = "<group>"; };
+		9D4DA7C91422BF5300F98B7B /* ProfileController_iPhone_Landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; path = ProfileController_iPhone_Landscape.xib; sourceTree = "<group>"; };
 		9D58CAE4141FE4FB0047A5FA /* AppDelegate+Nib.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "AppDelegate+Nib.mm"; sourceTree = "<group>"; };
 		9D5A95CA141FF47E000104CA /* alarm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alarm.png; sourceTree = "<group>"; };
 		9D5A95CB141FF47E000104CA /* alarm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alarm@2x.png"; sourceTree = "<group>"; };

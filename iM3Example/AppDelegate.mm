@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "M3.h"
+#import "ProfileController.h"
 
 @implementation AppDelegate
 
@@ -36,12 +37,17 @@
   // push document on top of current tab
 }
 
--(void) addTab: (NSString*)controllerName withLabel: (NSString*)label 
-       andIcon: (NSString*)iconName       navigationBarTitle: (NSString*)navigationBarTitle
+-(id) addTab: (NSString*)nibName 
+      ofClass: (NSString*)className
+    withLabel: (NSString*)label 
+     andIcon: (NSString*)iconName       
+    navigationBarTitle: (NSString*)navigationBarTitle
 {
-  UIViewController *vc1 = [ self loadControllerFromNib: controllerName];
-
-  UINavigationController* nc = [[UINavigationController alloc]initWithRootViewController:vc1];
+  if(!className) className = nibName;
+  UIViewController *vc = [ self loadInstanceOfClass: className
+                                            fromNib:nibName];
+  
+  UINavigationController* nc = [[UINavigationController alloc]initWithRootViewController:vc];
   
   if(navigationBarTitle)
     nc.navigationBar.topItem.title = navigationBarTitle;
@@ -57,16 +63,44 @@
   [viewControllers addObject: nc];
   
   self.tabBarController.viewControllers = viewControllers;
+
+  return vc;
 }
 
 -(void)loadTabs
 {
-  [self addTab: @"ProfileController" withLabel: @"google" andIcon: @"world.png"  navigationBarTitle: nil ];
-
-//  [self addTab: @"WebViewController" withLabel: @"google" andIcon: @"world.png"  navigationBarTitle: nil ];
+  ProfileController* pc = [self addTab: @"ProfileController_iPhone_Landscape" 
+                               ofClass: @"ProfileController"
+                             withLabel: @"google" 
+                               andIcon: @"games.png"  
+                    navigationBarTitle: nil ];
   
-  [self addTab: @"FirstViewController" withLabel: @"first" andIcon: @"first.png" navigationBarTitle: @"first title"];
-  [self addTab: @"SecondViewController" withLabel: @"second" andIcon: @"second.png" navigationBarTitle: @"2nd title" ];
+  pc.data = _.hash(@"title", @"The Title", @"description", @"Yadda dadda, this is a description");
+  
+  [self addTab: @"WebViewController" 
+       ofClass: nil
+     withLabel: @"google" 
+       andIcon: @"world.png" navigationBarTitle: nil ];
+  
+  [self addTab: @"WebViewController" 
+       ofClass: nil
+     withLabel: @"google" 
+       andIcon: @"world.png" navigationBarTitle: nil ];
+  
+  [self addTab:@"FirstViewController" 
+       ofClass:nil  
+     withLabel:@"first" 
+       andIcon:@"first.png"  navigationBarTitle: @"first title"];
+  
+  [self addTab: @"WebViewController" 
+       ofClass: nil
+     withLabel: @"google" 
+       andIcon: @"world.png" navigationBarTitle: nil ];
+  
+  [self addTab: @"SecondViewController" 
+       ofClass: nil
+     withLabel: @"second" 
+       andIcon: @"second.png" navigationBarTitle: @"2nd title" ];
 }
 
 -(BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

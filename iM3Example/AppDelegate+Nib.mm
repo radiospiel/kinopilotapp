@@ -9,47 +9,33 @@
 #import "AppDelegate.h"
 #include "Underscore.hh"
 
+
+static id loadInstance(Class klass, NSString* nibName)
+{
+  if([[NSBundle mainBundle] pathForResource:nibName ofType:@"nib"])
+    return [[ klass alloc]initWithNibName:nibName bundle:nil];
+
+  return nil;
+}
+
 @implementation AppDelegate(Nib)
 
--(UIViewController*)loadWithNibName:(NSString*)nibName 
-                           andKlass:(Class)klass 
-                            doForce:(BOOL)force
+-(id)loadInstanceOfClass: (NSString*)className fromNib: (NSString*) nibName
 {
-  BOOL doLoad = force ||
-  ([[NSBundle mainBundle] pathForResource:nibName ofType:@"nib"] != nil);
-    
-  if(!doLoad) return nil;
-  
-  return [[ klass alloc]initWithNibName:nibName bundle:nil];
-}
-
--(id) loadFromNib: (NSString*) name ofClass: (Class)expectedklass
-{
-  Class klass = NSClassFromString(name);
+  Class klass = NSClassFromString(className);
   UIViewController* r;
   if ([self isIPhone])
-    r = [ self loadWithNibName: _.join(name, @"_iPhone") andKlass: klass doForce:NO ];
+    r = loadInstance(klass, _.join(nibName, @"_iPhone"));
   else
-    r = [ self loadWithNibName: _.join(name, @"_iPad") andKlass: klass doForce:NO ];
+    r = loadInstance(klass, _.join(nibName, @"_iPad"));
   
   if(!r)
-    r = [ self loadWithNibName: name andKlass: klass doForce:YES ];
-  
-  if([r isKindOfClass:expectedklass])
-    return [r autorelease];
-  
-  [r release];
-  @throw _.join("Cannot load ", name, " of class ", [klass class]);
-}
+    r = loadInstance(klass, nibName);
 
--(UIView*) loadViewFromNib: (NSString*) name
-{
-  return [self loadFromNib:name ofClass:[UIView class]];
-}
+  if(!r)
+    _.raise("Cannot load ", className, " object from NIB ", nibName);
 
--(UIViewController*)loadControllerFromNib: (NSString*) name
-{
-  return [self loadFromNib:name ofClass:[UIViewController class]];
+  return [r autorelease];
 }
 
 

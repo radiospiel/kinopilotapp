@@ -21,10 +21,6 @@
 
 @interface AppDelegate(Nib)
 
--(id) loadFromNib: (NSString*) name ofClass: (Class)expectedklass;
-
--(UIView*) loadViewFromNib: (NSString*) name;
-
--(UIViewController*)loadControllerFromNib: (NSString*) name;
+-(id)loadInstanceOfClass: (NSString*)className fromNib: (NSString*) nibName;
 
 @end

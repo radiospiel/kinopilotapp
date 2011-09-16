@@ -16,6 +16,12 @@
   IBOutlet UIButton* action1;
 
   IBOutlet UIView* body;
+  
+  BOOL isHorizontal_;
+  NSDictionary* data_;
 }
+
+@property (retain,nonatomic) NSDictionary* data;
+@property (assign,nonatomic) BOOL isHorizontal;
 
 @end

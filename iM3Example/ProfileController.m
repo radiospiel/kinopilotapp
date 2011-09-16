@@ -8,7 +8,42 @@
 
 #import "ProfileController.h"
 
+@interface UILabel(M3Utilities)
+
+-(void)setTopAlignedText: (NSString*)text;
+@end
+
+@implementation UILabel(M3Utilities)
+
+-(void)setTopAlignedText: (NSString*)text
+{
+  CGSize stringSize = [text sizeWithFont:self.font
+                       constrainedToSize:self.frame.size 
+                           lineBreakMode:self.lineBreakMode];
+  
+  self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, stringSize.width, stringSize.height);
+  [self setText:text];
+}
+
+@end
+
+@implementation UIButton(M3Utilities)
+
+-(void)setAction: (NSString*)label
+{
+  if(!label)
+    [self setHidden:YES];
+  else
+    [self setTitle:label forState:UIControlStateNormal];
+
+}
+
+@end
+
+
 @implementation ProfileController
+
+@synthesize data = data_, isHorizontal = isHorizontal_;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,8 +66,24 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+  [super viewDidLoad];
+
+  NSLog(@"viewDidLoad: data is %@", data_);
+  
+  // Do any additional setup after loading the view from its nib.
+  if(data_) {
+    [action0 setAction: [data_ valueForKey: @"action0"]];
+    [action1 setAction: [data_ valueForKey: @"action1"]];
+
+    BOOL actionsHidden = action0.hidden && action1.hidden;
+    if([self isHorizontal])
+      description.numberOfLines = actionsHidden ? 5 : 3;
+    else
+      description.numberOfLines = actionsHidden ? 6 : 5;
+      
+    [headline setTopAlignedText: [ data_ valueForKey: @"title" ]];
+    [description setTopAlignedText: [ data_ valueForKey: @"description" ]];
+  }
 }
 
 - (void)viewDidUnload
@@ -44,8 +95,14 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+  return YES;
+  // 
+  //   // Return YES for supported orientations
+  // if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+  //     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+  // } else {
+  //     return YES;
+  // }
 }
 
 @end
