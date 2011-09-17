@@ -24,7 +24,7 @@
   return self;
 } 
 
--(int)count 
+-(NSUInteger)count 
 {
   return keys_.count;
 }
@@ -170,7 +170,7 @@
   }
 }
 
--(int)count
+-(NSUInteger)count
 {
   int count = 0;
   

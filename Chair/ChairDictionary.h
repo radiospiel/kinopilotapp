@@ -17,7 +17,7 @@
   NSMutableDictionary* data_;
 };
 
-@property (readonly,nonatomic) int count;
+@property (readonly,nonatomic) NSUInteger count;
 
 -(id)init;
 -(id)initWithObjects: (NSArray*)values andKeys: (NSArray*)keys;
