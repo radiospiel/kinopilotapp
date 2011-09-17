@@ -62,7 +62,7 @@
 {
   M3StopWatch* stopWatch = [[[self alloc]init]autorelease];
   callback();
-  NSLog(@"%@: %d msecs", msg, [stopWatch milliSeconds]); 
+  rlog << msg << @": " << [stopWatch milliSeconds] << @" msecs";
   
   return [stopWatch seconds];
 }

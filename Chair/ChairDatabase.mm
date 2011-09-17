@@ -194,7 +194,7 @@ ETest(ChairDatabase)
 
 -(void)test_import_from_server
 {
-  NSLog(@"Disabled test_import_from_server");
+  rlog(2) << [self class] << ": test disabled " << [self name];
   return;
   
   ChairDatabase* db = [[ChairDatabase alloc] init];
@@ -202,18 +202,19 @@ ETest(ChairDatabase)
     Benchmark(@"Importing http://kinopilotupdates2.heroku.com/db/berlin");
     [db import: @"http://kinopilotupdates2.heroku.com/db/berlin"];
   }
-  NSLog(@"Read database %@", db);
+  
+  dlog << "Read database " << db;
   
   ChairTable* theaters = [db tableForName: @"theaters"];
-  NSLog(@"theaters %@", theaters);
+  DLOG(theaters);
   assert_true(theaters.count > 0);
 
   ChairTable* schedules = [db tableForName: @"schedules"];
-  NSLog(@"schedules %@", schedules);
+  DLOG(schedules);
   assert_true(schedules.count > 0);
 
   ChairTable* movies = [db tableForName: @"movies"];
-  NSLog(@"movies %@", movies);
+  DLOG(movies);
   assert_true(movies.count > 0);
 }
 

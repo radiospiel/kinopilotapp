@@ -1,5 +1,14 @@
 #import <Foundation/Foundation.h>
 
+/* Sync NDEBUG setting w/DEBUG setting. NDEBUG is C standard, while DEBUG is Apple's Objective-C standard. */
+
+#ifdef DEBUG
+#undef NDEBUG
+#else
+#define NDEBUG
+#endif
+
+/* The M3 namespace */
 @interface M3: NSObject
 @end
 

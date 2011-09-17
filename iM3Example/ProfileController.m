@@ -68,7 +68,7 @@
 {
   [super viewDidLoad];
 
-  NSLog(@"viewDidLoad: data is %@", data_);
+  dlog << @"viewDidLoad: data is " << data_;
   
   // Do any additional setup after loading the view from its nib.
   if(data_) {

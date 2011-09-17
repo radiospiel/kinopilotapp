@@ -98,12 +98,11 @@ ETest(M3Http)
   assert_true([data matches: @"<title>Google<\\/title>"]);
 }
 
--(void)test_get_from_heroku
+-(void)test_caching
 {
   NSString* url = @"http://www.google.com";
 
   double t1 = [ M3StopWatch measure:^() { [M3Http get: url]; } ];
-
   double t2 = [ M3StopWatch measure:^() { [M3Http get: url]; } ];
 
   assert_true(t1 > t2);

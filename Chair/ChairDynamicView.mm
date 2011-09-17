@@ -121,7 +121,6 @@
     
     reduce_fun = ^(NSArray* values, id key, EmitCallback emit) {
                    id value = reduce_func(values, key);
-                   // NSLog(@"reduced %@: %@ to %@", key, values, value);
                    if(value) emit(value, key);
     };
   };

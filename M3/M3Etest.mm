@@ -20,46 +20,6 @@
 
 @end
 
-static NSFileHandle* m3stderr() {
-  return [NSFileHandle fileHandleWithStandardError];
-}
-
-#define m3stderr m3stderr()
-
-static void m3print(NSString *format, ...) {
-  va_list args;
-  va_start(args, format);
-  NSString *formattedString = [[NSString alloc] initWithFormat: format
-                                                arguments: args];
-  va_end(args);
-
-  [m3stderr writeData: [formattedString dataUsingEncoding: NSUTF8StringEncoding]];
-  [m3stderr synchronizeFile];
-  [formattedString release];
-}
-
-static void m3print(const char* s) {
-  [m3stderr writeData: [NSData dataWithBytes:s length:strlen(s)]];
-}
-
-static void m3puts(const char* s) {
-  [m3stderr writeData: [NSData dataWithBytes:s length:strlen(s)]];
-  [m3stderr writeData: [@"\n" dataUsingEncoding: NSUTF8StringEncoding]];
-}
-
-static void m3puts(NSString *format, ...) {
-  va_list args;
-  va_start(args, format);
-  NSString *formattedString = [[NSString alloc] initWithFormat: format
-                                                arguments: args];
-  va_end(args);
-
-  [m3stderr writeData: [formattedString dataUsingEncoding: NSUTF8StringEncoding]];
-  [formattedString release];
-
-  [m3stderr writeData: [@"\n" dataUsingEncoding: NSUTF8StringEncoding]];
-}
-
 @interface M3ETestResults: M3StopWatch {
   M3ETest* etest_;
 }
@@ -87,20 +47,20 @@ static void m3puts(NSString *format, ...) {
 
 -(void)reportFailure:(M3ETestAssertionFailed*)exception
 {
-  m3puts(@"\n%s(%d): ETest Case '%@' failed (%d msecs).", exception.file, exception.line, [ self testcase ], [self milliSeconds]);
-  m3puts(@"%@", exception.msg);
+  _.puts(@"\n%s(%d): ETest Case '%@' failed (%d msecs).", exception.file, exception.line, [ self testcase ], [self milliSeconds]);
+  _.puts(@"%@", exception.msg);
 }
 
 -(void)reportException:(NSString*)exception
 {
-  m3puts(@"\nETest Case '%@' crashed (%d msecs).", [ self testcase ], [self milliSeconds]);
-  m3puts(@"Exception: %@", exception);
+  _.puts(@"\nETest Case '%@' crashed (%d msecs).", [ self testcase ], [self milliSeconds]);
+  _.puts(@"Exception: %@", exception);
 }
 
 -(void)reportSuccess
 {
-  m3print(".");
-  // m3puts(@"ETest Case '%@' passed after %d msecs", [ self testcase ], [ self milliSeconds]);
+  _.print(".");
+  // _.puts(@"ETest Case '%@' passed after %d msecs", [ self testcase ], [ self milliSeconds]);
 }
 
 @end
@@ -188,7 +148,7 @@ static NSArray *ClassGetSubclasses(Class parentClass)
 
 extern "C" void m3_etest_success()
 {
-  m3print(".");
+  _.print(".");
 }
 
 extern "C" void m3_etest_failed(NSString* msg, const char* file, int line)
@@ -257,7 +217,7 @@ extern "C" void m3_etest_failed(NSString* msg, const char* file, int line)
     [test run];
     [test release];
   }
-  m3puts("");
+  _.puts("");
 }
 
 @end

@@ -263,7 +263,6 @@ static M3EventCenter *eventCenter = 0;
 
 -(void)dealloc {
   self.parameter = nil;
-  // NSLog(@"dealloc");
   [super dealloc];
 }
 

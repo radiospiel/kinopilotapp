@@ -33,10 +33,6 @@
   [super viewDidLoad];
   // Do any additional setup after loading the view from its nib.
   
-  // self.view.frame = CGRectMake(0,20,320,401);
-//  NSLog(@"*** frame: %@", _.string([self.view frame]));
-//  NSLog(@"*** bounds: %@", _.string([self.view bounds]));
-
   [self loadUrl: @"http://ix.de/ct/news"];
 }
 

@@ -249,6 +249,13 @@ namespace RS {
     inline NSString* string(const CGRect& r)
       { return [NSString stringWithFormat: @"[%dx%d+%d+%d]", 
                 r.origin.x, r.origin.y, r.size.width, r.size.height];}
+
+    inline NSString* string(id obj) 
+      { return [obj description]; }
+
+    template <class T>
+    inline NSString* string(T obj) 
+      { return [ object(obj) description]; }
     
     // "Functions" to build strings, arrays, and hashes.  
     VariadicFactory<ArrayFactory> array;
@@ -266,6 +273,12 @@ namespace RS {
   
     static NSInteger compare(id a, id b, void* dummy);
     
+    /* write to stderr(sic!) */
+    void print(const char* s);
+    void print(NSString *format, ...);
+    void puts(const char* s);
+    void puts(NSString *format, ...);
+
     #if 0 
     // _.each
     id each(id list, void (^iterator)(id value, id key))
@@ -363,25 +376,68 @@ inline NSInteger RS::UnderscoreAdapter::compare(id a, id b, void* dummy) {
 
 namespace RS {
 
-class StopWatch {
-  uint64_t start_;
-  
-public:
-  StopWatch();
-  
-  double operator()() const;
-};
- 
 class BenchmarkLogger {
   NSString* msg_;
-  StopWatch stop_watch_;
+  M3StopWatch* stopWatch_;
 public:
   BenchmarkLogger(NSString* msg);
   ~BenchmarkLogger();
 };
 
-}
-
 #define Benchmark(msg) RS::BenchmarkLogger __log_block(msg)
+
+/*
+ * C++-like logging
+ */
+ 
+class NoLogger {
+public:
+  NoLogger() {};
+
+  const NoLogger& operator()(unsigned severity) const { return *this; }
+};
+
+template <class T>
+inline const NoLogger& operator << (const NoLogger& logger, const T& obj)
+  { return logger; }
+
+class Logger {
+  int mode_;
+  const char* file_;
+  int line_;
+  mutable unsigned severity_;
+  mutable NSMutableArray* parts_;
+  
+public:
+  enum { Debug = 0, Release = 1 };
+  
+  Logger(int mode, const char* file, int line): mode_(mode), file_(file), line_(line), severity_(2), parts_(nil) {};
+  ~Logger();
+
+  const Logger& operator()(unsigned severity) const { severity_ = severity; return *this; }
+
+  void append(NSString* string) const;
+};
+
+template <class T>
+inline const Logger& operator << (const Logger& logger, const T& obj)
+  { logger.append(_.string(obj)); return logger; }
+
+#ifndef NDEBUG
+
+#define rlog RS::Logger(RS::Logger::Debug, __FILE__, __LINE__)
+#define dlog RS::Logger(RS::Logger::Debug, __FILE__, __LINE__)
+
+#else
+
+#define rlog RS::Logger(RS::Logger::Release, __FILE__, __LINE__)
+#define dlog RS::NoLogger()
+
+#endif
+
+#define RLOG(x) rlog << #x "=" << x
+#define DLOG(x) dlog << #x "=" << x
+
+} // namespace RS {
 
 #endif
