@@ -10,43 +10,53 @@
 
 RS::UnderscoreAdapter _;
 
-static inline NSFileHandle* m3stderr() {
-  return [NSFileHandle fileHandleWithStandardError];
-}
+namespace RS {
+  
+  static inline NSFileHandle* m3stderr() {
+    return [NSFileHandle fileHandleWithStandardError];
+  }
 
-void RS::UnderscoreAdapter::print(const char* s) {
-  [m3stderr() writeData: [NSData dataWithBytes:s length:strlen(s)]];
-}
+  void UnderscoreAdapter::print(const char* s) {
+    [m3stderr() writeData: [NSData dataWithBytes:s length:strlen(s)]];
+  }
 
-void RS::UnderscoreAdapter::print(NSString *format, ...) {
-  va_list args;
-  va_start(args, format);
-  NSString *formattedString = [[NSString alloc] initWithFormat: format
-                                                arguments: args];
-  va_end(args);
+  void UnderscoreAdapter::print(NSString *format, ...) {
+    va_list args;
+    va_start(args, format);
+    NSString *formattedString = [[NSString alloc] initWithFormat: format
+                                                  arguments: args];
+    va_end(args);
 
-  [m3stderr() writeData: [formattedString dataUsingEncoding: NSUTF8StringEncoding]];
+    [m3stderr() writeData: [formattedString dataUsingEncoding: NSUTF8StringEncoding]];
 
-  [formattedString release];
-}
+    [formattedString release];
+  }
 
-void RS::UnderscoreAdapter::puts(const char* s) {
-  [m3stderr() writeData: [NSData dataWithBytes:s length:strlen(s)]];
-  [m3stderr() writeData: [@"\n" dataUsingEncoding: NSUTF8StringEncoding]];
-}
+  void UnderscoreAdapter::puts(const char* s) {
+    [m3stderr() writeData: [NSData dataWithBytes:s length:strlen(s)]];
+    [m3stderr() writeData: [@"\n" dataUsingEncoding: NSUTF8StringEncoding]];
+  }
 
-void RS::UnderscoreAdapter::puts(NSString *format, ...) {
-  va_list args;
-  va_start(args, format);
-  NSString *formattedString = [[NSString alloc] initWithFormat: format
-                                                arguments: args];
-  va_end(args);
+  void UnderscoreAdapter::puts(NSString *format, ...) {
+    va_list args;
+    va_start(args, format);
+    NSString *formattedString = [[NSString alloc] initWithFormat: format
+                                                  arguments: args];
+    va_end(args);
 
-  [m3stderr() writeData: [formattedString dataUsingEncoding: NSUTF8StringEncoding]];
-  [formattedString release];
+    [m3stderr() writeData: [formattedString dataUsingEncoding: NSUTF8StringEncoding]];
+    [formattedString release];
 
-  [m3stderr() writeData: [@"\n" dataUsingEncoding: NSUTF8StringEncoding]];
-}
+    [m3stderr() writeData: [@"\n" dataUsingEncoding: NSUTF8StringEncoding]];
+  }
+
+  NSString* RaiseFactory::run() const {
+    NSString* msg = [arguments_ componentsJoinedByString: @""];
+    dlog << @"Throwing exception " << msg;
+    @throw msg;
+  }
+
+}; // namespace RS ----------------------------------------------------
 
 ETest(UnderscoreAdapter)
 

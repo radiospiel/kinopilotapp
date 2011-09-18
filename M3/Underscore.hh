@@ -16,6 +16,7 @@ Copyright (c) radiospiel, <a href="http://radiospiel.github.com">http://radiospi
 #import <UIKit/UIKit.h>
 #endif
 
+
 namespace RS {
   
   // 
@@ -193,11 +194,7 @@ namespace RS {
   // An exception throwing factory
   struct RaiseFactory: VariadicFactoryArguments {
     typedef NSString* Type;
-    NSString* run() const {
-      NSString* msg = [arguments_ componentsJoinedByString: @""];
-      NSLog(@"Throwing exception %@", msg);
-      @throw msg;
-    }
+    NSString* run() const;
   };
   
   // A hash factory
@@ -375,69 +372,70 @@ inline NSInteger RS::UnderscoreAdapter::compare(id a, id b, void* dummy) {
 }
 
 namespace RS {
-
-class BenchmarkLogger {
-  NSString* msg_;
-  M3StopWatch* stopWatch_;
-public:
-  BenchmarkLogger(NSString* msg);
-  ~BenchmarkLogger();
-};
-
+  
+  class BenchmarkLogger {
+    NSString* msg_;
+    M3StopWatch* stopWatch_;
+  public:
+    BenchmarkLogger(NSString* msg);
+    ~BenchmarkLogger();
+  };
+  
 #define Benchmark(msg) RS::BenchmarkLogger __log_block(msg)
-
-/*
- * C++-like logging
- */
- 
-class NoLogger {
-public:
-  NoLogger() {};
-
-  const NoLogger& operator()(unsigned severity) const { return *this; }
-};
-
-template <class T>
-inline const NoLogger& operator << (const NoLogger& logger, const T& obj)
-  { return logger; }
-
-class Logger {
-  int mode_;
-  const char* file_;
-  int line_;
-  mutable unsigned severity_;
-  mutable NSMutableArray* parts_;
   
-public:
-  enum { Debug = 0, Release = 1 };
+  /*
+   * C++-like logging
+   */
   
-  Logger(int mode, const char* file, int line): mode_(mode), file_(file), line_(line), severity_(2), parts_(nil) {};
-  ~Logger();
-
-  const Logger& operator()(unsigned severity) const { severity_ = severity; return *this; }
-
-  void append(NSString* string) const;
-};
-
-template <class T>
-inline const Logger& operator << (const Logger& logger, const T& obj)
-  { logger.append(_.string(obj)); return logger; }
-
+  class NoLogger {
+  public:
+    NoLogger() {};
+    
+    const NoLogger& operator()(unsigned severity) const { return *this; }
+  };
+  
+  class Logger {
+    int mode_;
+    const char* file_;
+    int line_;
+    mutable unsigned severity_;
+    mutable NSMutableArray* parts_;
+    
+  public:
+    enum { Debug = 0, Release = 1 };
+    
+    Logger(int mode, const char* file, int line): mode_(mode), file_(file), line_(line), severity_(2), parts_(nil) {};
+    ~Logger();
+    
+    const Logger& operator()(unsigned severity) const { severity_ = severity; return *this; }
+    
+    void append(NSString* string) const;
+  };
+  
 #ifndef NDEBUG
-
+  
 #define rlog RS::Logger(RS::Logger::Debug, __FILE__, __LINE__)
 #define dlog RS::Logger(RS::Logger::Debug, __FILE__, __LINE__)
-
+  
 #else
-
+  
 #define rlog RS::Logger(RS::Logger::Release, __FILE__, __LINE__)
 #define dlog RS::NoLogger()
-
+  
 #endif
-
+  
 #define RLOG(x) rlog << #x "=" << x
 #define DLOG(x) dlog << #x "=" << x
-
+  
 } // namespace RS {
+
+template <class T>
+inline const RS::Logger& operator << (const RS::Logger& logger, T obj)
+  { logger.append(_.string(obj)); return logger; }
+
+template <class T>
+inline const RS::NoLogger& operator << (const RS::NoLogger& logger, T obj)
+  { return logger; }
+  
 
 #endif

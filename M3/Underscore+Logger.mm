@@ -22,6 +22,7 @@ BenchmarkLogger::~BenchmarkLogger() {
 
 void Logger::append(NSString* string) const {
   if(!parts_) parts_ = [NSMutableArray array];
+  if(!string) string = @"nil";
   [parts_ addObject: string];
 }
 
