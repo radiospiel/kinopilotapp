@@ -5,6 +5,7 @@
 @implementation M3 (FileIO)
 
 + (NSData*) readDataFromPath: (NSString*) path {
+  path = [M3 expandPath: path];
 
   NSFileHandle* handle = [NSFileHandle fileHandleForReadingAtPath: path];
   NSData* contents = [handle readDataToEndOfFile];
@@ -16,6 +17,8 @@
 
 +(NSString*) read: (NSString*) path
 {
+  path = [M3 expandPath: path];
+  
   NSString* r = [[NSString alloc] initWithData: [self readDataFromPath: path] 
                                       encoding: NSUTF8StringEncoding];
 
@@ -39,6 +42,8 @@
 
 +(void) write: (NSString*)string toPath: (NSString*) path 
 {
+  path = [M3 expandPath: path];
+
   [self writeData: [string dataUsingEncoding:NSUTF8StringEncoding] 
             toPath: path];
 }
@@ -48,12 +53,14 @@
  */
 +(BOOL) exists: (NSString*) path 
 {
+  // TODO: check exists
   return YES;
 }
 
 // TODO: raise exception on error.
 
 +(void) mkdir_p: (NSString*) dir {
+  dir = [M3 expandPath: dir];
 
   NSFileManager *fileManager = [NSFileManager defaultManager];
   if ([fileManager fileExistsAtPath: dir] == NO) 
