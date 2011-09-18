@@ -107,9 +107,9 @@
 {
   [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
   
-  for(NSString* sym in _.array("$cache","$tmp","$documents", "$root")) {
-    dlog << @"*** " << sym << ": " << [ M3 symbolicDir: sym ];
-  }
+  // for(NSString* sym in _.array("$cache","$tmp","$documents", "$root", "$app")) {
+  //   dlog << @"*** " << sym << ": " << [ M3 symbolicDir: sym ];
+  // }
   
   self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
 

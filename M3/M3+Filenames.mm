@@ -37,6 +37,16 @@
   if([name isEqualToString: @"$root"]) 
     return [ self dirname: [ self symbolicDir: @"$documents" ] ];
 
+  if([name isEqualToString: @"$app"]) {
+    NSString* documentsDirectory = [ self dirname: [ self symbolicDir: @"$documents" ] ];
+    
+    NSArray* matchingDirectory = [ NSArray arrayWithFilesMatchingPattern: @"*.app" inDirectory: documentsDirectory ];
+    if([matchingDirectory count] == 1)
+      return [matchingDirectory objectAtIndex: 0];
+
+    dlog << "Matching '$app' directories: " << matchingDirectory;
+  } 
+
   _.raise(@"*** Unknown key'", name, "'");
 
 // TODO: define $app
