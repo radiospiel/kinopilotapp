@@ -6,9 +6,10 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 
-@interface WebViewController : UIViewController {
+#import "M3ViewController.h"
+
+@interface WebViewController : M3ViewController {
   IBOutlet UIWebView* webView;
 }
 

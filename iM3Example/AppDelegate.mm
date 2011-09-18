@@ -69,13 +69,13 @@
 
 -(void)loadTabs
 {
-  ProfileController* pc = [self addTab: @"ProfileController_iPhone_Landscape" 
+  ProfileController* pc = [self addTab: @"ProfileController" 
                                ofClass: @"ProfileController"
                              withLabel: @"google" 
                                andIcon: @"games.png"  
                     navigationBarTitle: @"ProfileController" ];
   
-  pc.data = _.hash(@"title", @"The Title", @"description", @"Yadda dadda, this is a description");
+  pc.data = _.hash(@"title", @"The Title", @"description", @"Yadda dadda hey, this is a description");
   
   [self addTab: @"WebViewController" 
        ofClass: nil
@@ -105,14 +105,21 @@
 
 -(BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+  
   for(NSString* sym in _.array("$cache","$tmp","$documents", "$root")) {
     dlog << @"*** " << sym << ": " << [ M3 symbolicDir: sym ];
   }
   
   self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
 
-  self.tabBarController = [[[UITabBarController alloc] init] autorelease];
+  UITabBarController* tabBarController = [[[UITabBarController alloc] init] autorelease];
+  tabBarController.view.frame = [[UIScreen mainScreen] bounds];
 
+  self.tabBarController = [tabBarController autorelease];
+  // [[[UITabBarController alloc] init] autorelease];
+  // self.tabBarController.wantsFullScreenLayout = YES;
+  
   [self loadTabs];
   
   self.window.rootViewController = self.tabBarController;

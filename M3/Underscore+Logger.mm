@@ -11,7 +11,7 @@ BenchmarkLogger::BenchmarkLogger(NSString* msg) {
 }
 
 BenchmarkLogger::~BenchmarkLogger() {
-  rlog << msg_ << @": " << [stopWatch_ milliseconds] << @" msecs";
+  rlog << msg_ << @": " << [stopWatch_ milliSeconds] << @" msecs";
   [msg_ release ];
   [stopWatch_ release];
 }

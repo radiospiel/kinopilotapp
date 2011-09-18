@@ -6,6 +6,7 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
+#import "M3.h"
 #import "ProfileController.h"
 
 @interface UILabel(M3Utilities)

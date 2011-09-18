@@ -6,8 +6,8 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "M3ViewController.h"
 
-@interface SecondViewController : UIViewController
+@interface SecondViewController : M3ViewController
 
 @end
