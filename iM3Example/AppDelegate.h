@@ -8,13 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
+@class ChairDatabase;
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate> {
+  ChairDatabase *_db;
+}
 
 @property (strong, nonatomic) UIProgressView* progressView;
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UITabBarController *tabBarController;
 
 -(BOOL) isIPhone;
+
+@property (strong, nonatomic) ChairDatabase *db;
 
 @end
 

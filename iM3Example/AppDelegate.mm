@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "M3.h"
+#import "Chair.h"
 #import "ProfileController.h"
 
 @implementation AppDelegate
@@ -15,12 +16,15 @@
 @synthesize window = _window;
 @synthesize tabBarController = _tabBarController;
 @synthesize progressView = progressView_;
+@synthesize db = _db;
 
 - (void)dealloc
 {
-  [progressView_ release];
-  [_window release];
-  [_tabBarController release];
+  self.window = nil;
+  self.tabBarController = nil;
+  self.progressView = nil;
+  self.db = nil;
+  
   [super dealloc];
 }
 
@@ -105,6 +109,13 @@
 
 -(BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  rlog(1) << "Starting application in " << [ M3 symbolicDir: @"$root" ];
+
+  NSString* dbPath = @"$app/data/kinopilot.json";
+  self.db = [[ChairDatabase alloc]init]; 
+  [ self.db import: dbPath];
+  rlog(1) << "Loaded database from " << dbPath << ": " << self.db;
+  
   [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
   
   // for(NSString* sym in _.array("$cache","$tmp","$documents", "$root", "$app")) {
