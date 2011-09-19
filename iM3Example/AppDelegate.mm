@@ -7,23 +7,22 @@
 //
 
 #import "AppDelegate.h"
+
 #import "M3.h"
 #import "Chair.h"
-#import "ProfileController.h"
 
 @implementation AppDelegate
 
 @synthesize window = _window;
 @synthesize tabBarController = _tabBarController;
 @synthesize progressView = progressView_;
-@synthesize db = _db;
 
 - (void)dealloc
 {
   self.window = nil;
   self.tabBarController = nil;
   self.progressView = nil;
-  self.db = nil;
+  [self setChairDB: nil];
   
   [super dealloc];
 }
@@ -74,7 +73,7 @@
 -(id)dataForURL: (NSString*)url
 {
   if([url matches: @"^movies://"]) {
-    ChairTable* movies = [ self.db tableForName:@"movies" ];
+    ChairTable* movies = [ self.chairDB tableForName:@"movies" ];
 
     // 
     NSDictionary* movie = [movies first];
@@ -90,7 +89,7 @@
       }
     }
 
-    DLOG(movie);
+    // DLOG(movie);
     return movie; 
   }
 
@@ -111,11 +110,13 @@
 -(UIViewController*)viewControllerForURL: (NSString*)url andData: (id)data
 {
   if([url matches: @"^movies://"]) {
+    Class klass = NSClassFromString(@"ProfileController");
+    
     //
-    UIViewController *pc = [ self loadInstanceOfClass: NSClassFromString(@"ProfileController")
+    UIViewController *pc = [ self loadInstanceOfClass: klass
                                               fromNib:@"ProfileController"];
     
-    [pc setData: data];
+    pc.model = data;
     return pc;
   }
 
@@ -196,11 +197,8 @@
 {
   rlog(1) << "Starting application in " << [ M3 symbolicDir: @"$root" ];
 
-  NSString* dbPath = @"$app/data/berlin.json";
-  self.db = [[ChairDatabase alloc]init]; 
-  [self.db import: dbPath];
-
-  rlog(1) << "Loaded database from " << dbPath << ": " << self.db;
+  // [self initCouchbase];
+  [self initChairDB];
   
   [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
   

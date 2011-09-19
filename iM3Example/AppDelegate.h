@@ -8,11 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class ChairDatabase;
-
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate> {
-  ChairDatabase *_db;
-}
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) UIProgressView* progressView;
 @property (strong, nonatomic) UIWindow *window;
@@ -20,13 +16,29 @@
 
 -(BOOL) isIPhone;
 
-@property (strong, nonatomic) ChairDatabase *db;
-
 @end
 
 
 @interface AppDelegate(Nib)
 
 -(id)loadInstanceOfClass: (Class)klass fromNib: (NSString*) nibName;
+
+@end
+
+@class ChairDatabase;
+
+@interface AppDelegate(ChairDB)
+
+/*
+ * Initialize Couchbase instance.
+ */
+-(void) initChairDB;
+
+/*
+ * Return an instance 
+ */
+-(ChairDatabase*) chairDB;
+
+-(void) setChairDB: (ChairDatabase*) chairDB;
 
 @end
