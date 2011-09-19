@@ -18,10 +18,8 @@
   IBOutlet UIView* body;
   
   BOOL isLandscape_;
-  NSDictionary* data_;
 }
 
-@property (retain,nonatomic) NSDictionary* data;
 @property (assign,nonatomic) BOOL isLandscape;
 
 @end
