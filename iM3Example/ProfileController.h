@@ -9,7 +9,7 @@
 #import "M3ViewController.h"
 
 @interface ProfileController : M3ViewController {
-  IBOutlet UIView* imageView;
+  IBOutlet UIImageView* imageView;
   IBOutlet UILabel* headline;
   IBOutlet UILabel* description;
   IBOutlet UIButton* action0;
@@ -17,11 +17,11 @@
 
   IBOutlet UIView* body;
   
-  BOOL isHorizontal_;
+  BOOL isLandscape_;
   NSDictionary* data_;
 }
 
 @property (retain,nonatomic) NSDictionary* data;
-@property (assign,nonatomic) BOOL isHorizontal;
+@property (assign,nonatomic) BOOL isLandscape;
 
 @end

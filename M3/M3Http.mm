@@ -25,15 +25,52 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
 }
 
 
++(NSURLRequest*) getRequest: (NSString*) verb 
+                        url: (NSString*) url 
+                withOptions: (NSDictionary*) options
+{
+  dlog(2) << verb << " " << url;
+
+  NSURL* ns_url = [NSURL URLWithString: url];
+
+  NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:ns_url ];
+  request.cachePolicy = NSURLRequestUseProtocolCachePolicy;
+  request.timeoutInterval = 60.0;
+  request.HTTPMethod = verb;
+
+  return request;
+}
+
+
++ (NSData*) requestData: (NSString*) verb
+                    url: (NSString*) url 
+            withOptions: (NSDictionary*) options
+{
+  Benchmark(_.join(verb, " ", url));
+
+  NSURLRequest* request = [self getRequest:verb
+                                       url:url
+                               withOptions:options];
+  
+  NSError* error;
+  NSData* data = [ NSURLConnection sendSynchronousRequest: request 
+                                        returningResponse: 0
+                                                    error: &error ];
+  
+  if(!data) @throw @"RuntimeError"; //  [ ETRuntimeError raise: error ];
+
+  return data;
+}
+
 + (NSString*) uncachedRequest: (NSString*) verb
                           url: (NSString*) url 
                   withOptions: (NSDictionary*) options 
 {
-  // rlog(@"[%@] %@", verb, url);
-  
-  NSURL* ns_url = [NSURL URLWithString: url];
-  NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:ns_url ];
-  [request setHTTPMethod: verb];
+  Benchmark(_.join(verb, " ", url));
+
+  NSURLRequest* request = [self getRequest:verb
+                                       url:url
+                               withOptions:options];
   
   NSError* error;
   NSURLResponse *response;
@@ -42,9 +79,7 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
                                         returningResponse: &response 
                                                     error: &error ];
   
-  if(!data)  @throw @"RuntimeError"; //  [ ETRuntimeError raise: error ];
-  
-  // rlog(@"recv %d byte from %@", data.length, url);
+  if(!data) @throw @"RuntimeError"; //  [ ETRuntimeError raise: error ];
   
   NSStringEncoding encoding = nsEncodingByIANAName(response.textEncodingName);
   
@@ -52,7 +87,7 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
                                  encoding: encoding ] autorelease];
 }
 
-
+// retunrs a default cache
 +(NSCache*)cache
 {
   static NSCache* cache_ = 0;
@@ -87,6 +122,20 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
 + (NSString*) get: (NSString*) url {
   return [ self request: @"GET" url: url withOptions: nil ];
 }
+
+// --- Async loader ------------------------------------------------------------
+//
+//// get an URL with options
+//+ (id) asyncGet: (NSString*) url withOptions: (NSDictionary*) options
+//{
+//  [M3Http get: url withOptions: options];
+//}
+////
+//// get an URL
+//+ (id) asyncGet: (NSString*) url
+//{
+//  [M3Http get: url withOptions: options];
+//}
 
 @end
 

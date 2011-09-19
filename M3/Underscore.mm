@@ -52,7 +52,7 @@ namespace RS {
 
   NSString* RaiseFactory::run() const {
     NSString* msg = [arguments_ componentsJoinedByString: @""];
-    dlog << @"Throwing exception " << msg;
+    rlog(1) << msg;
     @throw msg;
   }
 

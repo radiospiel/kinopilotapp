@@ -18,11 +18,20 @@
 
 -(void)setTopAlignedText: (NSString*)text
 {
+  //
+  // Get the font's height.
+  float lineHeight = [text sizeWithFont:self.font].height;
+  
+  //
+  // The text might not fill the number of lines as set in the label.
+  // Calculate the size actually needed, and resize the label accordingly.
   CGSize stringSize = [text sizeWithFont:self.font
-                       constrainedToSize:self.frame.size 
+                       constrainedToSize:CGSizeMake(self.frame.size.width, lineHeight * self.numberOfLines) 
                            lineBreakMode:self.lineBreakMode];
   
-  self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, stringSize.width, stringSize.height);
+  self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, stringSize.height);
+
+  // Finally set the text.
   [self setText:text];
 }
 
@@ -36,7 +45,6 @@
     [self setHidden:YES];
   else
     [self setTitle:label forState:UIControlStateNormal];
-
 }
 
 @end
@@ -44,7 +52,7 @@
 
 @implementation ProfileController
 
-@synthesize data = data_, isHorizontal = isHorizontal_;
+@synthesize data = data_, isLandscape = isLandscape_;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -68,23 +76,33 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-
-  dlog << @"viewDidLoad: data is " << data_;
   
   // Do any additional setup after loading the view from its nib.
-  if(data_) {
-    [action0 setAction: [data_ valueForKey: @"action0"]];
-    [action1 setAction: [data_ valueForKey: @"action1"]];
+  if(!data_) return;
 
-    BOOL actionsHidden = action0.hidden && action1.hidden;
-    if([self isHorizontal])
-      description.numberOfLines = actionsHidden ? 5 : 3;
-    else
-      description.numberOfLines = actionsHidden ? 6 : 5;
-      
-    [headline setTopAlignedText: [ data_ valueForKey: @"title" ]];
-    [description setTopAlignedText: [ data_ valueForKey: @"description" ]];
+  //
+  // fill in profile view from data
+
+  headline.text = [ data_ valueForKey: @"title" ];
+  
+  if([data_ valueForKey:@"img"]) {
+    NSData* data = [M3Http requestData: @"GET" 
+                                   url: [data_ valueForKey:@"img"] 
+                           withOptions: nil];
+    imageView.image = [UIImage imageWithData:data];
   }
+
+  [action0 setAction: [data_ valueForKey: @"action0"]];
+  [action1 setAction: [data_ valueForKey: @"action1"]];
+
+  BOOL actionsHidden = action0.hidden && action1.hidden;
+  if([self isLandscape])
+    description.numberOfLines = actionsHidden ? 6 : 5;
+  else
+    description.numberOfLines = actionsHidden ? 5 : 4;
+  
+  [description setTopAlignedText: [ data_ valueForKey: @"description" ]];
+  // [imageView 
 }
 
 - (void)viewDidUnload

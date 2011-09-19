@@ -71,16 +71,101 @@
   return vc;
 }
 
+-(id)dataForURL: (NSString*)url
+{
+  if([url matches: @"^movies://"]) {
+    ChairTable* movies = [ self.db tableForName:@"movies" ];
+
+    // 
+    NSDictionary* movie = [movies first];
+    movie = [NSMutableDictionary dictionaryWithDictionary:movie];
+    
+    [movie setValue:[movie valueForKey:@"url"] forKey:@"action0"];
+
+    NSArray* images = [movie valueForKey:@"images"];
+    if(images) {
+      NSArray* first_image = [images objectAtIndex:0];
+      if(first_image) {
+        [movie setValue:[first_image valueForKey:@"thumbnail"] forKey:@"image"];
+      }
+    }
+
+    DLOG(movie);
+    return movie; 
+  }
+
+  return nil;
+}
+
+-(NSString*)titleForURL: (NSString*)url andData: (id)data
+{
+  if([data isKindOfClass:[NSDictionary class]]) {
+    NSString* title = [data objectForKey:@"title"];
+    if(!title) title = [data objectForKey:@"label"];
+    if(title) return title;
+  }
+  
+  return nil;
+}
+
+-(UIViewController*)viewControllerForURL: (NSString*)url andData: (id)data
+{
+  if([url matches: @"^movies://"]) {
+    //
+    UIViewController *pc = [ self loadInstanceOfClass: NSClassFromString(@"ProfileController")
+                                              fromNib:@"ProfileController"];
+    
+    [pc setData: data];
+    return pc;
+  }
+
+  return nil;
+}
+
+-(id)addTabForURL:(NSString*)url withLabel: (NSString*)label andIcon: (NSString*)icon
+{
+  // get data for URL
+  NSDictionary* data = [self dataForURL: url];
+  
+  // get portrait view controller for URL and Data
+  UIViewController* controller = [self viewControllerForURL: url andData: data];
+  
+  // TODO:
+  //
+  // get landscape view controller for URL and Data
+  // merge landscape view controller with portrait view controller 
+  
+  // get title for URL and Data.
+  NSString* title = [self titleForURL: url andData: data];
+
+  //
+  // Build navigation controller
+  UINavigationController* nc = [[UINavigationController alloc]initWithRootViewController:controller];
+
+  // set navigation controller's tab properties
+  nc.tabBarItem.image = [[UIImage imageNamed:icon] autorelease];
+  nc.tabBarItem.title = label;
+  
+  // set navigation controller title
+  if(title)
+    nc.navigationBar.topItem.title = title;
+  else
+     nc.navigationBarHidden = YES;
+  
+  // Append nc to list of viewControllers
+  NSMutableArray* viewControllers = [NSMutableArray arrayWithArray:self.tabBarController.viewControllers];
+  [viewControllers addObject: nc];
+  
+  self.tabBarController.viewControllers = viewControllers;
+  
+  return controller;
+}
+
 -(void)loadTabs
 {
-  ProfileController* pc = [self addTab: @"ProfileController" 
-                               ofClass: @"ProfileController"
-                             withLabel: @"google" 
-                               andIcon: @"games.png"  
-                    navigationBarTitle: @"ProfileController" ];
-  
-  pc.data = _.hash(@"title", @"The Title", @"description", @"Yadda dadda hey, this is a description");
-  
+  [self addTabForURL: @"movies://1" withLabel: @"Movies" andIcon: @"games.png"];
+
+    
   [self addTab: @"WebViewController" 
        ofClass: nil
      withLabel: @"google" 
@@ -111,9 +196,10 @@
 {
   rlog(1) << "Starting application in " << [ M3 symbolicDir: @"$root" ];
 
-  NSString* dbPath = @"$app/data/kinopilot.json";
+  NSString* dbPath = @"$app/data/berlin.json";
   self.db = [[ChairDatabase alloc]init]; 
-  [ self.db import: dbPath];
+  [self.db import: dbPath];
+
   rlog(1) << "Loaded database from " << dbPath << ": " << self.db;
   
   [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];

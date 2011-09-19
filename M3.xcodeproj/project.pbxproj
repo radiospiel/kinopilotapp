@@ -276,6 +276,7 @@
 		9D750EA11422AF7F0056290E /* ProfileController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D750E9F1422AF7F0056290E /* ProfileController.mm */; };
 		9D767936142134CE00AB82DD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01746E141AA9D00035A4C2 /* CFNetwork.framework */; };
 		9D767937142134CE00AB82DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01746C141AA9C00035A4C2 /* SystemConfiguration.framework */; };
+		9D7AAA2214272AE500A20542 /* data in Resources */ = {isa = PBXBuildFile; fileRef = 9D7AAA2114272AE500A20542 /* data */; };
 		9D7E3DC8141A2F6800BB80E1 /* M3EventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D7E3DC6141A2F6800BB80E1 /* M3EventCenter.h */; };
 		9D7E3DCD141A347C00BB80E1 /* M3EventCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E3DCB141A347C00BB80E1 /* M3EventCenter.mm */; };
 		9D7E3DD5141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E3DD1141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm */; };
@@ -304,8 +305,8 @@
 		9D8B8B4A1413CC010066ECBB /* Underscore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B481413CC010066ECBB /* Underscore.mm */; };
 		9D8EAD55141E839400B21BEA /* M3Http.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8EAD53141E839400B21BEA /* M3Http.h */; };
 		9D8EAD56141E839400B21BEA /* M3Http.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8EAD53141E839400B21BEA /* M3Http.h */; };
-		9D8EAD57141E839400B21BEA /* M3Http.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EAD54141E839400B21BEA /* M3Http.m */; };
-		9D8EAD58141E839400B21BEA /* M3Http.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EAD54141E839400B21BEA /* M3Http.m */; };
+		9D8EAD57141E839400B21BEA /* M3Http.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EAD54141E839400B21BEA /* M3Http.mm */; };
+		9D8EAD58141E839400B21BEA /* M3Http.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EAD54141E839400B21BEA /* M3Http.mm */; };
 		9D9656AD14177A6C00884372 /* M3Etest.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D9656AB14177A6C00884372 /* M3Etest.h */; };
 		9D9656AE14177A6C00884372 /* M3Etest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D9656AC14177A6C00884372 /* M3Etest.mm */; };
 		9D9656B314177F9700884372 /* M3StopWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D9656B114177F9700884372 /* M3StopWatch.h */; };
@@ -585,6 +586,7 @@
 		9D750E90142275750056290E /* M3+Inflector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+Inflector.mm"; sourceTree = "<group>"; };
 		9D750E9E1422AF7F0056290E /* ProfileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileController.h; sourceTree = "<group>"; };
 		9D750E9F1422AF7F0056290E /* ProfileController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ProfileController.mm; sourceTree = "<group>"; };
+		9D7AAA2114272AE500A20542 /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; path = data; sourceTree = "<group>"; };
 		9D7E3DC6141A2F6800BB80E1 /* M3EventCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3EventCenter.h; sourceTree = "<group>"; };
 		9D7E3DCB141A347C00BB80E1 /* M3EventCenter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3EventCenter.mm; sourceTree = "<group>"; };
 		9D7E3DD1141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3EventCenter+DefaultCenter.mm"; sourceTree = "<group>"; };
@@ -620,7 +622,7 @@
 		9D8B8B471413CC010066ECBB /* Underscore.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Underscore.hh; sourceTree = "<group>"; };
 		9D8B8B481413CC010066ECBB /* Underscore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Underscore.mm; sourceTree = "<group>"; };
 		9D8EAD53141E839400B21BEA /* M3Http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Http.h; sourceTree = "<group>"; };
-		9D8EAD54141E839400B21BEA /* M3Http.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3Http.m; sourceTree = "<group>"; };
+		9D8EAD54141E839400B21BEA /* M3Http.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Http.mm; sourceTree = "<group>"; };
 		9D9656AB14177A6C00884372 /* M3Etest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Etest.h; sourceTree = "<group>"; };
 		9D9656AC14177A6C00884372 /* M3Etest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Etest.mm; sourceTree = "<group>"; };
 		9D9656B114177F9700884372 /* M3StopWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3StopWatch.h; sourceTree = "<group>"; };
@@ -788,6 +790,7 @@
 		9D48ACBD141E9E3E00D0D000 /* iM3Example */ = {
 			isa = PBXGroup;
 			children = (
+				9D7AAA2114272AE500A20542 /* data */,
 				9D5614F0142641A300D0A484 /* resources */,
 				9D48ACC6141E9E3E00D0D000 /* AppDelegate.h */,
 				9D48ACC7141E9E3E00D0D000 /* AppDelegate.mm */,
@@ -1127,7 +1130,7 @@
 				9D8B8B241413CAD90066ECBB /* M3Exception.h */,
 				9D8B8B251413CAD90066ECBB /* M3Exception.m */,
 				9D8EAD53141E839400B21BEA /* M3Http.h */,
-				9D8EAD54141E839400B21BEA /* M3Http.m */,
+				9D8EAD54141E839400B21BEA /* M3Http.mm */,
 				9D8B8B281413CAD90066ECBB /* M3MemoryManagement.h */,
 				9D9656B114177F9700884372 /* M3StopWatch.h */,
 				9D9656B214177F9700884372 /* M3StopWatch.mm */,
@@ -1557,6 +1560,7 @@
 				9D56163D142641A300D0A484 /* icon_114px.png in Resources */,
 				9D56163E142641A300D0A484 /* icon_57px.png in Resources */,
 				9D56163F142641A300D0A484 /* icon_72px.png in Resources */,
+				9D7AAA2214272AE500A20542 /* data in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1647,7 +1651,7 @@
 				9D017459141AA7DF0035A4C2 /* M3EventCenter+DefaultCenter.mm in Sources */,
 				9D01745A141AA7DF0035A4C2 /* M3EventCenter+Disconnect.m in Sources */,
 				9D017465141AA7DF0035A4C2 /* M3Exception.m in Sources */,
-				9D8EAD58141E839400B21BEA /* M3Http.m in Sources */,
+				9D8EAD58141E839400B21BEA /* M3Http.mm in Sources */,
 				9D01745B141AA7DF0035A4C2 /* M3StopWatch.mm in Sources */,
 				9D017466141AA7DF0035A4C2 /* NSArray+Globbing.m in Sources */,
 				9D017467141AA7DF0035A4C2 /* NSString+Regexp.mm in Sources */,
@@ -1714,7 +1718,7 @@
 				9D7E3DD5141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm in Sources */,
 				9D7E3DD6141A3DD400BB80E1 /* M3EventCenter+Disconnect.m in Sources */,
 				9D8B8B3F1413CAD90066ECBB /* M3Exception.m in Sources */,
-				9D8EAD57141E839400B21BEA /* M3Http.m in Sources */,
+				9D8EAD57141E839400B21BEA /* M3Http.mm in Sources */,
 				9D9656B414177F9700884372 /* M3StopWatch.mm in Sources */,
 				9D0EF7141413D1A60051B8FA /* NSArray+Globbing.m in Sources */,
 				9D0EF7171413D1A60051B8FA /* NSString+Regexp.mm in Sources */,

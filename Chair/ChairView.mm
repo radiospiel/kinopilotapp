@@ -114,6 +114,13 @@
   return r;
 }
 
+-(NSDictionary*) first;
+{
+  NSArray* keys = [self keys];
+  if([keys count] == 0) return nil;
+  return [[self get: [keys objectAtIndex: 0]]retain];
+}
+
 -(NSArray*) keys {
   NSMutableArray* keys = [NSMutableArray array];
   

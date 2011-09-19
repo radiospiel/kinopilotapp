@@ -93,6 +93,8 @@
 -(NSArray*) keys;
 -(NSArray*) values;
 
+-(NSDictionary*) first;
+
 @end
 
 typedef void (^EmitCallback)(NSDictionary* value, id key);
@@ -122,4 +124,3 @@ typedef NSDictionary* (^SimpleReduceCallback)(NSArray* value, id key);
 + (SimpleReduceCallback) reduceBy: (NSString*) name;
 
 @end
-

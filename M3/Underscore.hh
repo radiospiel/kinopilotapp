@@ -22,7 +22,7 @@ namespace RS {
   // 
   // Convert types into objects
   inline id object(id n) {
-    return n; // ? n : [NSNull null];
+    return n ? n : [NSNull null];
   }
   
   inline id object(const char* s) {
