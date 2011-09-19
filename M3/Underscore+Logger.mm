@@ -26,6 +26,14 @@ void Logger::append(NSString* string) const {
   [parts_ addObject: string];
 }
 
+#if TARGET_CPU_ARM
+  // Device
+  #define shouldShortenSourceLocation(mode) YES
+#else
+  // Simulator
+  #define shouldShortenSourceLocation(mode) (mode != Logger::Debug)
+#endif
+
 Logger::~Logger()
 {
   if(!parts_) return;
@@ -48,7 +56,7 @@ Logger::~Logger()
 
   double secs = [stopWatch nanoSeconds] / 1e9;
   
-  if(mode_ != Debug) {
+  if(shouldShortenSourceLocation(mode_)) {
     NSString* module = [M3 basename_wo_ext: [NSString stringWithUTF8String: file_]];
     _.puts(@"[%.2f secs] %s%@: %@", secs, severityLabel, module, [parts_ componentsJoinedByString: @""]);
   }
