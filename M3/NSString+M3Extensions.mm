@@ -11,6 +11,8 @@
 -(BOOL)startsWith: (NSString*) other
 {
   if(!other) return NO;
+  if([self length] < [other length]) return NO;
+
   NSString* me = [self substringToIndex: other.length];
   return [me isEqualToString: other];
 }
