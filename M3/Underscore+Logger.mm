@@ -37,17 +37,23 @@ Logger::~Logger()
     "[DBG] "
   };
   
+  static M3StopWatch* stopWatch = 0;
+  if(!stopWatch)
+    stopWatch = [[M3StopWatch alloc]init];
+
+  
   const char* severityLabel = "";
   if(severity_ < sizeof(severityLabels)/sizeof(severityLabels[0]))
     severityLabel = severityLabels[severity_];
 
+  double secs = [stopWatch nanoSeconds] / 1e9;
   
   if(mode_ != Debug) {
     NSString* module = [M3 basename_wo_ext: [NSString stringWithUTF8String: file_]];
-    _.puts(@"%s%@: %@", severityLabel, module, [parts_ componentsJoinedByString: @""]);
+    _.puts(@"[%.2f secs] %s%@: %@", secs, severityLabel, module, [parts_ componentsJoinedByString: @""]);
   }
   else
-    _.puts(@"%s%s(%d): %@", severityLabel, file_, line_, [parts_ componentsJoinedByString: @""]);
+    _.puts(@"[%.2f secs] %s%s(%d): %@", secs, severityLabel, file_, line_, [parts_ componentsJoinedByString: @""]);
 }
 
 }
