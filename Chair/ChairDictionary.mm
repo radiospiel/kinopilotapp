@@ -13,15 +13,38 @@
 
 @implementation ChairDictionary
 
+@synthesize data=data_, keys=keys_;
+   
 - (id) init;
 {
-  self = [super init];
-  if(!self) return nil;
-  
-  data_ = [[NSMutableDictionary alloc] init];
-  keys_ = [[NSMutableArray alloc] init];
+  if (self = [super init]) { 
+    data_ = [[NSMutableDictionary alloc] init];
+    keys_ = [[NSMutableArray alloc] init];
+  }
   
   return self;
+} 
+
+- (void)dealloc
+{
+  [data_ release];
+  [keys_ release];
+  
+  [super dealloc];
+}
+
+-(id) initWithCoder: (NSCoder *)coder 
+{
+  if (self = [super init]) { 
+    self.data = [coder decodeObjectForKey:@"data_"];
+    self.keys = [coder decodeObjectForKey:@"keys_"];
+  } 
+  return self; 
+}
+
+-(void) encodeWithCoder: (NSCoder *)coder { 
+  [coder encodeObject: data_ forKey: @"data_"];
+  [coder encodeObject: keys_ forKey: @"keys_"];
 } 
 
 -(NSUInteger)count 
@@ -48,14 +71,6 @@
   return self;
 }
 
-- (void)dealloc
-{
-  [data_ release];
-  [keys_ release];
-  
-  [super dealloc];
-}
-
 + (id) dictionary {
   return AUTORELEASE([[ChairDictionary alloc] init]);
 }
@@ -63,10 +78,6 @@
 - (NSArray*) keys {
   return keys_;
 };
-
-- (NSDictionary*) data {
-  return data_;
-}
 
 // replace/insert/remove object at a given key
 - (void) setObject_: (id) object forKey: (id) key {
@@ -135,19 +146,6 @@
           min: nil
           max: nil
  excludingEnd: NO];
-}
-
-- (void) encodeWithCoder: (NSCoder *)coder { 
-  [coder encodeObject: keys_ forKey: @"keys"];
-  [coder encodeObject: data_ forKey: @"data"];
-} 
-
-- (id) initWithCoder: (NSCoder *)coder { 
-  if (self = [super init]) { 
-    keys_ = [coder decodeObjectForKey:@"keys"]; 
-    data_ = [coder decodeObjectForKey:@"data"]; 
-  } 
-  return self; 
 }
 
 @end

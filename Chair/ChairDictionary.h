@@ -33,8 +33,12 @@
 
 - (void) each: (void(^)(NSDictionary* value, id key))yield;
 
-@property (nonatomic,retain,readonly) NSArray* keys;
-@property (nonatomic,retain,readonly) NSDictionary* data;
+@property (nonatomic,retain) NSArray* keys;
+@property (nonatomic,retain) NSDictionary* data;
+
+
+-(void) encodeWithCoder: (NSCoder *)coder;
+-(id) initWithCoder: (NSCoder *)coder;
 
 @end
 

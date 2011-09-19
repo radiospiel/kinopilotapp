@@ -26,7 +26,7 @@
 {
   self = [super init];
   if(self) {
-    dictionary_ = dictionary;
+    self.dictionary = dictionary;
   }
   
   return self;
@@ -51,8 +51,7 @@
   [source_view_ each:^(id value, id key) {
     [values addObject: value];
     [keys addObject: key];
-  }
- ];
+  }];
   
   self.dictionary = [[[ChairDictionary alloc] initWithObjects: values andKeys: keys]autorelease];
   
@@ -137,23 +136,16 @@
 
 +(ChairTable*) tableWithFile:(NSString*) path {
   NSDictionary * rootObject = [NSKeyedUnarchiver unarchiveObjectWithFile:path]; 
+
   ChairTable* table = [rootObject valueForKey:@"table"];
   table.name = [M3 basename_wo_ext: path];
-
-  return table;
+  return [table autorelease];
 }
 
 -(void) saveToFile:(NSString*) path;
 {
   NSMutableDictionary * rootObject = _.hash(@"table", self);
   [NSKeyedArchiver archiveRootObject: rootObject toFile: path]; 
-//   NSMutableData *data = [NSMutableData data];
-//   NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-//   [archiver setOutputFormat:NSPropertyListXMLFormat_v1_0];
-//   [archiver encodeObject:self forKey:@"table"];
-//   [archiver finishEncoding];
-//   [data writeToFile: path atomically:YES];
-//   AUTORELEASE(archiver);
 }
 
 @end
