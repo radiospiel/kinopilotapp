@@ -3,7 +3,8 @@
 #import "Chair.h"
 
 #define REMOTE_URL  @"http://kinopilotupdates2.heroku.com/db/berlin"
-#define DB_PATH     @"$documents/chairdb/berlin.json"
+// #define DB_PATH     @"$documents/chairdb/berlin.json"
+#define DB_PATH     @"$documents/chairdb/kinopilot"
 
 @implementation AppDelegate(ChairDB)
 
@@ -13,28 +14,24 @@
 -(ChairDatabase*) chairDB
 {
   return [self memoized: @selector(chairdb) usingBlock:^() {
-    ChairDatabase* db;
+    ChairDatabase* db = [[ChairDatabase alloc]init]; 
     
     if([M3 fileExists: DB_PATH]) {
       Benchmark(_.join("Loading database from ", DB_PATH));
-      
-      db = [[ChairDatabase alloc]init]; 
-      [db import: DB_PATH];
+      [db load: DB_PATH];
     }
     else {
       {
         Benchmark(_.join("Loading database from ", REMOTE_URL));
-        
-        db = [[ChairDatabase alloc]init]; 
         [db import: REMOTE_URL];
       }
       
       {
         Benchmark(_.join("Exporting database to ", DB_PATH));
-        [db export: DB_PATH];
+        [db save: DB_PATH];
       }
     }
-    
+
     return db; 
   }];
 }
