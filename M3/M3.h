@@ -8,6 +8,10 @@
 #define NDEBUG
 #endif
 
+#if TARGET_OS_IPHONE 
+#import <UIKit/UIKit.h>
+#endif
+
 /* The M3 namespace */
 @interface M3: NSObject
 @end
@@ -15,6 +19,9 @@
 #import "NSString+M3Extensions.h"
 #import "NSArray+Globbing.h"
 #import "NSString+Regexp.h"
+#import "NSObject+Ivars.h"
+
+#import "UIViewController+Model.h"
 
 #import "M3MemoryManagement.h"
 

@@ -15,7 +15,6 @@
 		9D017445141AA6F10035A4C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D017443141AA6F10035A4C2 /* InfoPlist.strings */; };
 		9D017448141AA6F10035A4C2 /* iM3Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D017447141AA6F10035A4C2 /* iM3Tests.m */; };
 		9D017450141AA7AF0035A4C2 /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF74B1413DFF50051B8FA /* LoggerClient.m */; };
-		9D017451141AA7B50035A4C2 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF71D1413D45C0051B8FA /* JSONKit.m */; };
 		9D017452141AA7BE0035A4C2 /* Chair.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF7261413DBF90051B8FA /* Chair.mm */; };
 		9D017453141AA7BE0035A4C2 /* ChairDatabase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF7281413DBF90051B8FA /* ChairDatabase.mm */; };
 		9D017454141AA7BE0035A4C2 /* ChairDictionary.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF72A1413DBF90051B8FA /* ChairDictionary.mm */; };
@@ -68,6 +67,16 @@
 		9D0EF7521413E0400051B8FA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */; };
 		9D0EF7531413E04F0051B8FA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */; };
 		9D31B7BC1422B58400D4AFB7 /* ProfileController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D31B7BB1422B58400D4AFB7 /* ProfileController_iPhone.xib */; };
+		9D33FBCD1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */; };
+		9D33FBCE1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */; };
+		9D33FBCF1427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */; };
+		9D33FBD01427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */; };
+		9D33FBD21427D109000A3D69 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF71D1413D45C0051B8FA /* JSONKit.m */; };
+		9D33FBD71427D39E000A3D69 /* AppDelegate+ChairDB.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D33FBD61427D39E000A3D69 /* AppDelegate+ChairDB.mm */; };
+		9D33FBDA1427DCB4000A3D69 /* UIViewController+Model.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBD81427DCB4000A3D69 /* UIViewController+Model.h */; };
+		9D33FBDB1427DCB4000A3D69 /* UIViewController+Model.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBD81427DCB4000A3D69 /* UIViewController+Model.h */; };
+		9D33FBDC1427DCB4000A3D69 /* UIViewController+Model.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D33FBD91427DCB4000A3D69 /* UIViewController+Model.mm */; };
+		9D33FBDD1427DCB4000A3D69 /* UIViewController+Model.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D33FBD91427DCB4000A3D69 /* UIViewController+Model.mm */; };
 		9D3563181423F7AA002AAEAF /* NSString+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D3563171423F7AA002AAEAF /* NSString+M3Extensions.h */; };
 		9D3563191423F7AA002AAEAF /* NSString+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D3563171423F7AA002AAEAF /* NSString+M3Extensions.h */; };
 		9D35631B1423F887002AAEAF /* NSString+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D35631A1423F887002AAEAF /* NSString+M3Extensions.mm */; };
@@ -355,6 +364,8 @@
 		9D01746A141AA8F90035A4C2 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/usr/lib/libstdc++.dylib"; sourceTree = DEVELOPER_DIR; };
 		9D01746C141AA9C00035A4C2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		9D01746E141AA9D00035A4C2 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
+		9D064E821427809600765A3F /* Couchbase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Couchbase.framework; path = Frameworks/Couchbase.framework; sourceTree = "<group>"; };
+		9D064E861427898C00765A3F /* CouchCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CouchCocoa.framework; path = Frameworks/CouchCocoa.framework; sourceTree = "<group>"; };
 		9D0EF70E1413D1A60051B8FA /* NSArray+Globbing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Globbing.h"; sourceTree = "<group>"; };
 		9D0EF70F1413D1A60051B8FA /* NSArray+Globbing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Globbing.m"; sourceTree = "<group>"; };
 		9D0EF7101413D1A60051B8FA /* NSString+Regexp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Regexp.h"; sourceTree = "<group>"; };
@@ -380,6 +391,11 @@
 		9D0EF74C1413DFF50051B8FA /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoggerCommon.h; path = "vendor/NSLogger/Client Logger/iOS/LoggerCommon.h"; sourceTree = "<group>"; };
 		9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9D31B7BB1422B58400D4AFB7 /* ProfileController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileController_iPhone.xib; sourceTree = "<group>"; };
+		9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Ivars.h"; sourceTree = "<group>"; };
+		9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Ivars.mm"; sourceTree = "<group>"; };
+		9D33FBD61427D39E000A3D69 /* AppDelegate+ChairDB.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "AppDelegate+ChairDB.mm"; sourceTree = "<group>"; };
+		9D33FBD81427DCB4000A3D69 /* UIViewController+Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Model.h"; sourceTree = "<group>"; };
+		9D33FBD91427DCB4000A3D69 /* UIViewController+Model.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIViewController+Model.mm"; sourceTree = "<group>"; };
 		9D3563171423F7AA002AAEAF /* NSString+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+M3Extensions.h"; sourceTree = "<group>"; };
 		9D35631A1423F887002AAEAF /* NSString+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSString+M3Extensions.mm"; sourceTree = "<group>"; };
 		9D48ACB7141E9E3E00D0D000 /* iM3Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iM3Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -795,6 +811,7 @@
 				9D48ACC6141E9E3E00D0D000 /* AppDelegate.h */,
 				9D48ACC7141E9E3E00D0D000 /* AppDelegate.mm */,
 				9D58CAE4141FE4FB0047A5FA /* AppDelegate+Nib.mm */,
+				9D33FBD61427D39E000A3D69 /* AppDelegate+ChairDB.mm */,
 				9D48ACC9141E9E3E00D0D000 /* FirstViewController.h */,
 				9D48ACCA141E9E3E00D0D000 /* FirstViewController.m */,
 				9D48ACD7141E9E3E00D0D000 /* FirstViewController_iPhone.xib */,
@@ -1081,6 +1098,8 @@
 		9D8B8AED1413CA8B0066ECBB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D064E861427898C00765A3F /* CouchCocoa.framework */,
+				9D064E821427809600765A3F /* Couchbase.framework */,
 				9D01746E141AA9D00035A4C2 /* CFNetwork.framework */,
 				9D01746C141AA9C00035A4C2 /* SystemConfiguration.framework */,
 				9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */,
@@ -1107,20 +1126,26 @@
 		9D8B8AF41413CA8B0066ECBB /* M3 */ = {
 			isa = PBXGroup;
 			children = (
+				9D33FBD81427DCB4000A3D69 /* UIViewController+Model.h */,
+				9D33FBD91427DCB4000A3D69 /* UIViewController+Model.mm */,
 				9D8B8AF71413CA8B0066ECBB /* M3.h */,
 				9D8B8AF81413CA8B0066ECBB /* M3.m */,
 				9D8B8B171413CAD90066ECBB /* M3+Comparison.h */,
+				9D8B8B181413CAD90066ECBB /* M3+Comparison.mm */,
 				9D8B8B191413CAD90066ECBB /* M3+Crypto.h */,
-				9D8B8B1D1413CAD90066ECBB /* M3+FileIO.h */,
-				9D8B8B1F1413CAD90066ECBB /* M3+Filenames.h */,
-				9D8B8B211413CAD90066ECBB /* M3+JSON.h */,
+				9D8B8B1A1413CAD90066ECBB /* M3+Crypto.mm */,
 				9D99B2CE1416A3380040768E /* M3+Events.h */,
 				9D99B2D11416A4E50040768E /* M3+Events.m */,
-				9D8B8B181413CAD90066ECBB /* M3+Comparison.mm */,
-				9D8B8B1A1413CAD90066ECBB /* M3+Crypto.mm */,
+				9D8B8B1D1413CAD90066ECBB /* M3+FileIO.h */,
 				9D8B8B1E1413CAD90066ECBB /* M3+FileIO.mm */,
+				9D8B8B1F1413CAD90066ECBB /* M3+Filenames.h */,
 				9D8B8B201413CAD90066ECBB /* M3+Filenames.mm */,
+				9D750E8F142275750056290E /* M3+Inflector.h */,
+				9D750E90142275750056290E /* M3+Inflector.mm */,
+				9D8B8B211413CAD90066ECBB /* M3+JSON.h */,
 				9D8B8B221413CAD90066ECBB /* M3+JSON.mm */,
+				9D750E89142273A30056290E /* M3Data.h */,
+				9D750E8A142273A30056290E /* M3Data.mm */,
 				9D9656AB14177A6C00884372 /* M3Etest.h */,
 				9D9656AC14177A6C00884372 /* M3Etest.mm */,
 				9D7E3DC6141A2F6800BB80E1 /* M3EventCenter.h */,
@@ -1136,6 +1161,8 @@
 				9D9656B214177F9700884372 /* M3StopWatch.mm */,
 				9D0EF70E1413D1A60051B8FA /* NSArray+Globbing.h */,
 				9D0EF70F1413D1A60051B8FA /* NSArray+Globbing.m */,
+				9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */,
+				9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */,
 				9D3563171423F7AA002AAEAF /* NSString+M3Extensions.h */,
 				9D35631A1423F887002AAEAF /* NSString+M3Extensions.mm */,
 				9D0EF7101413D1A60051B8FA /* NSString+Regexp.h */,
@@ -1144,10 +1171,6 @@
 				9D8B8B481413CC010066ECBB /* Underscore.mm */,
 				9D8B8B291413CAD90066ECBB /* Underscore+Logger.mm */,
 				9D8B8AF51413CA8B0066ECBB /* Supporting Files */,
-				9D750E89142273A30056290E /* M3Data.h */,
-				9D750E8A142273A30056290E /* M3Data.mm */,
-				9D750E8F142275750056290E /* M3+Inflector.h */,
-				9D750E90142275750056290E /* M3+Inflector.mm */,
 			);
 			path = M3;
 			sourceTree = "<group>";
@@ -1190,6 +1213,8 @@
 				9D750E8C142273A30056290E /* M3Data.h in Headers */,
 				9D750E92142275750056290E /* M3+Inflector.h in Headers */,
 				9D3563191423F7AA002AAEAF /* NSString+M3Extensions.h in Headers */,
+				9D33FBCE1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */,
+				9D33FBDB1427DCB4000A3D69 /* UIViewController+Model.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1225,6 +1250,8 @@
 				9D750E91142275750056290E /* M3+Inflector.h in Headers */,
 				9D3563181423F7AA002AAEAF /* NSString+M3Extensions.h in Headers */,
 				9D72BEED1425010A00D24875 /* M3ViewController.h in Headers */,
+				9D33FBCD1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */,
+				9D33FBDA1427DCB4000A3D69 /* UIViewController+Model.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1274,6 +1301,7 @@
 				9D48ACB3141E9E3E00D0D000 /* Sources */,
 				9D48ACB4141E9E3E00D0D000 /* Frameworks */,
 				9D48ACB5141E9E3E00D0D000 /* Resources */,
+				9D064E85142780B900765A3F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1598,6 +1626,19 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		9D064E85142780B900765A3F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# The 'CouchbaseResources' subfolder of the framework contains \n# resources needed at runtime. Copy it into the app bundle:\nrsync -a \"${SRCROOT}/Frameworks/Couchbase.framework/CouchbaseResources\" \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"";
+		};
 		9D48ACE6141E9E3F00D0D000 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1631,13 +1672,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D33FBD21427D109000A3D69 /* JSONKit.m in Sources */,
 				9D017452141AA7BE0035A4C2 /* Chair.mm in Sources */,
 				9D017453141AA7BE0035A4C2 /* ChairDatabase.mm in Sources */,
 				9D017454141AA7BE0035A4C2 /* ChairDictionary.mm in Sources */,
 				9D017455141AA7BE0035A4C2 /* ChairDynamicView.mm in Sources */,
 				9D017456141AA7BE0035A4C2 /* ChairTable.mm in Sources */,
 				9D017457141AA7BE0035A4C2 /* ChairView.mm in Sources */,
-				9D017451141AA7B50035A4C2 /* JSONKit.m in Sources */,
 				9D017450141AA7AF0035A4C2 /* LoggerClient.m in Sources */,
 				9D01745E141AA7DF0035A4C2 /* M3.m in Sources */,
 				9D01745F141AA7DF0035A4C2 /* M3+Comparison.mm in Sources */,
@@ -1660,6 +1701,8 @@
 				9D750E8E142273A30056290E /* M3Data.mm in Sources */,
 				9D750E94142275750056290E /* M3+Inflector.mm in Sources */,
 				9D35631C1423F887002AAEAF /* NSString+M3Extensions.mm in Sources */,
+				9D33FBD01427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */,
+				9D33FBDD1427DCB4000A3D69 /* UIViewController+Model.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1683,6 +1726,7 @@
 				9D58CAE5141FE4FB0047A5FA /* AppDelegate+Nib.mm in Sources */,
 				9D5A96D314200FB8000104CA /* WebViewController.mm in Sources */,
 				9D750EA11422AF7F0056290E /* ProfileController.mm in Sources */,
+				9D33FBD71427D39E000A3D69 /* AppDelegate+ChairDB.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1727,6 +1771,8 @@
 				9D750E8D142273A30056290E /* M3Data.mm in Sources */,
 				9D750E93142275750056290E /* M3+Inflector.mm in Sources */,
 				9D35631B1423F887002AAEAF /* NSString+M3Extensions.mm in Sources */,
+				9D33FBCF1427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */,
+				9D33FBDC1427DCB4000A3D69 /* UIViewController+Model.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1916,6 +1962,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+					"\"$(SRCROOT)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iM3Example/iM3Example-Prefix.pch";
@@ -1940,6 +1987,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+					"\"$(SRCROOT)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iM3Example/iM3Example-Prefix.pch";

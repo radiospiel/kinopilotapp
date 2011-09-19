@@ -52,7 +52,7 @@
 
 @implementation ProfileController
 
-@synthesize data = data_, isLandscape = isLandscape_;
+@synthesize isLandscape = isLandscape_;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -78,22 +78,22 @@
   [super viewDidLoad];
   
   // Do any additional setup after loading the view from its nib.
-  if(!data_) return;
+  if(!self.model) return;
 
   //
   // fill in profile view from data
 
-  headline.text = [ data_ valueForKey: @"title" ];
+  headline.text = [ self.model valueForKey: @"title" ];
   
-  if([data_ valueForKey:@"img"]) {
+  if([self.model valueForKey:@"img"]) {
     NSData* data = [M3Http requestData: @"GET" 
-                                   url: [data_ valueForKey:@"img"] 
+                                   url: [self.model valueForKey:@"img"] 
                            withOptions: nil];
     imageView.image = [UIImage imageWithData:data];
   }
 
-  [action0 setAction: [data_ valueForKey: @"action0"]];
-  [action1 setAction: [data_ valueForKey: @"action1"]];
+  [action0 setAction: [self.model valueForKey: @"action0"]];
+  [action1 setAction: [self.model valueForKey: @"action1"]];
 
   BOOL actionsHidden = action0.hidden && action1.hidden;
   if([self isLandscape])
@@ -101,7 +101,7 @@
   else
     description.numberOfLines = actionsHidden ? 5 : 4;
   
-  [description setTopAlignedText: [ data_ valueForKey: @"description" ]];
+  [description setTopAlignedText: [ self.model valueForKey: @"description" ]];
   // [imageView 
 }
 
