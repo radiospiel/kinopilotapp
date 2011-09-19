@@ -32,6 +32,8 @@
       }
     }
 
+    rlog << "Database is " << db;
+    
     return db; 
   }];
 }

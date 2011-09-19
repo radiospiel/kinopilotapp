@@ -11,15 +11,15 @@
 @implementation ChairDatabase
 
 -(id)init {
-  self = [super init];
-  if(!self) return nil;
-   
-  tables_ = [[NSMutableDictionary alloc] init]; 
+  if((self = [super init])) {
+    tables_ = [[NSMutableDictionary alloc] init]; 
+  };
+  
   return self;
 }
 
 -(NSString*)description {
-  return [NSString stringWithFormat: @"<%@: %d table(s)>", [self class], tables_.count];
+  return [NSString stringWithFormat: @"<%@: %d table(s): %@>", [self class], tables_.count, [tables_ allKeys]];
 }
 
 -(void)dealloc {
@@ -172,8 +172,7 @@ ETest(ChairDatabase)
 
   [db import: @"fixtures/flk.json"];
   [db save: @"tmp/"];
-
-  // [db load: @"tmp"];
+  [db load: @"tmp"];
 }
 
 -(void)test_import
