@@ -51,10 +51,10 @@
 /*
  * returns true if the file at \a path exists.
  */
-+(BOOL) exists: (NSString*) path 
++(BOOL) fileExists: (NSString*) path 
 {
-  // TODO: check exists
-  return YES;
+  path = [self expandPath: path];
+  return [[NSFileManager defaultManager] fileExistsAtPath:path];
 }
 
 // TODO: raise exception on error.
@@ -74,7 +74,11 @@
 @end
 
 ETest(M3FileIO)
-
+-(void)testExists
+{
+  assert_true([M3 fileExists: _.string(__FILE__)]);
+  assert_false([M3 fileExists: _.join(__FILE__, "i_do_not_exist")]);
+}
 
 @end
 

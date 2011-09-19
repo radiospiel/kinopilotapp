@@ -3,8 +3,7 @@
 @interface M3(FileIO) 
 
 +(NSData*) readDataFromPath: (NSString*) path;
-+(void) writeData: (NSData*) data 
-           toPath: (NSString*) path;
++(void) writeData: (NSData*) data toPath: (NSString*) path;
 
 +(NSString*) read: (NSString*) path;
 
@@ -18,7 +17,7 @@
 /*
  * returns true if the file at \a path exists.
  */
-+(BOOL) exists: (NSString*) path;
++(BOOL) fileExists: (NSString*) path;
 
           
 +(void) mkdir_p: (NSString*) path;
