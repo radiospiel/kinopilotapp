@@ -44,7 +44,7 @@ while target = ARGV.shift
   
   while line = readline(f)
     line.sub!(/\n$/, "")
-    fShowLine ||= line =~ /\/Developer\/Tools\/RunPlatformUnitTests/
+    fShowLine ||= line =~ /\/Tools\/RunPlatformUnitTests/
 
     case line
     when "", /^    (setenv|cd) /

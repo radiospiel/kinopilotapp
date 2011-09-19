@@ -50,6 +50,7 @@ void m3_etest_success();
 
 #endif
 
+#define assert_nil(a)               m3_assert((a) == nil, @"Should be nil")
 #define assert_true(a)              m3_assert((a), @"Should be true")
 #define assert_false(a)             m3_assert((a), @"Should be false")
 
