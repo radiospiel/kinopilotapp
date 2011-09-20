@@ -85,12 +85,7 @@
 
   headline.text = [ self.model valueForKey: @"title" ];
   
-  if([self.model valueForKey:@"img"]) {
-    NSData* data = [M3Http requestData: @"GET" 
-                                   url: [self.model valueForKey:@"img"] 
-                           withOptions: nil];
-    imageView.image = [UIImage imageWithData:data];
-  }
+  imageView.imageURL = [self.model valueForKey:@"image"];
 
   [action0 setAction: [self.model valueForKey: @"action0"]];
   [action1 setAction: [self.model valueForKey: @"action1"]];

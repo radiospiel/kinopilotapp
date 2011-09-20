@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>currentDocument</key>
-	<string>Chair/ChairDatabase.mm</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -21,20 +19,6 @@
 	<integer>323</integer>
 	<key>metaData</key>
 	<dict>
-		<key>Chair/ChairDatabase.mm</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>Chair/ChairDictionary.h</key>
 		<dict>
 			<key>caret</key>
@@ -77,20 +61,6 @@
 			<key>firstVisibleLine</key>
 			<integer>94</integer>
 		</dict>
-		<key>M3/M3+Filenames.h</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>10</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>iM3Example/AppDelegate+ChairDB.mm</key>
 		<dict>
 			<key>caret</key>
@@ -120,16 +90,6 @@
 			<integer>0</integer>
 		</dict>
 	</dict>
-	<key>openDocuments</key>
-	<array>
-		<string>M3/M3+Filenames.h</string>
-		<string>Chair/ChairTable.mm</string>
-		<string>iM3Example/AppDelegate+CouchDB.mm</string>
-		<string>iM3Example/AppDelegate+ChairDB.mm</string>
-		<string>Chair/ChairDatabase.mm</string>
-		<string>Chair/ChairDictionary.h</string>
-		<string>Chair/ChairDictionary.mm</string>
-	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>

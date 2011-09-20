@@ -22,6 +22,7 @@
 #import "NSObject+Ivars.h"
 
 #import "UIViewController+Model.h"
+#import "UIImageView+Http.h"
 
 #import "M3MemoryManagement.h"
 
