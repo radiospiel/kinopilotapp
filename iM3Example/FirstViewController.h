@@ -6,8 +6,6 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "M3ViewController.h"
-
-@interface FirstViewController : M3ViewController
+@interface FirstViewController : UIViewController
 
 @end

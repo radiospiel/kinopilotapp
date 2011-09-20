@@ -32,20 +32,13 @@
 {
   [super viewDidLoad];
   // Do any additional setup after loading the view from its nib.
-  
-  [self loadUrl: @"http://ix.de/ct/news"];
-}
 
--(void)loadUrl: (NSString*)urlAddress;
-{
-  //Create a URL object.
-  NSURL *url = [NSURL URLWithString:urlAddress];
-  
-  //URL Requst Object
-  NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+  dlog << "viewDidLoad, url is " << self.url;
+  if(!self.url) return;
 
-  //Load the request in the UIWebView.
-  [webView loadRequest:requestObj];
+  NSURL *url = [NSURL URLWithString: self.url];                   // Create a NSURL object.
+  NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];   // URL Requst Object
+  [webView loadRequest:requestObj];                               // Load the request in the UIWebView.
 }
 
 - (void)viewDidUnload

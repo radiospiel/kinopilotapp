@@ -1,0 +1,30 @@
+{
+  "name": "Kinopilot Berlin",
+  "tabs": [
+    {
+      "url": "movies://1",
+      "label": "Movies",
+      "icon": "games.png"
+    },
+    {
+      "url": "http://google.com",
+      "label": "Google",
+      "icon": "world.png"
+    },
+    {
+      "url": "http://ix.de",
+      "label": "Heise",
+      "icon": "world.png"
+    },
+    {
+      "url": "first://",
+      "label": "First",
+      "icon": "first.png"
+    },
+    {
+      "url": "second://",
+      "label": "Second",
+      "icon": "second.png"
+    }
+  ]
+}

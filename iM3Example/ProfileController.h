@@ -6,9 +6,7 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "M3ViewController.h"
-
-@interface ProfileController : M3ViewController {
+@interface ProfileController : UIViewController {
   IBOutlet UIImageView* imageView;
   IBOutlet UILabel* headline;
   IBOutlet UILabel* description;

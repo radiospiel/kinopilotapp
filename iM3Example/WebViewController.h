@@ -7,12 +7,8 @@
 //
 
 
-#import "M3ViewController.h"
-
-@interface WebViewController : M3ViewController {
+@interface WebViewController : UIViewController {
   IBOutlet UIWebView* webView;
 }
-
--(void)loadUrl: (NSString*)url;
 
 @end

@@ -40,36 +40,6 @@
   // push document on top of current tab
 }
 
--(id) addTab: (NSString*)nibName 
-      ofClass: (NSString*)className
-    withLabel: (NSString*)label 
-     andIcon: (NSString*)iconName       
-    navigationBarTitle: (NSString*)navigationBarTitle
-{
-  if(!className) className = nibName;
-  UIViewController *vc = [ self loadInstanceOfClass: NSClassFromString(className)
-                                            fromNib:nibName];
-  
-  UINavigationController* nc = [[UINavigationController alloc]initWithRootViewController:vc];
-  
-  if(navigationBarTitle)
-    nc.navigationBar.topItem.title = navigationBarTitle;
-  else
-    nc.navigationBarHidden = YES;
-  
-  nc.tabBarItem.image = [[UIImage imageNamed:iconName] autorelease];
-  nc.tabBarItem.title = [[label retain]autorelease];
-  
-  // Append nc to list of viewControllers
-  
-  NSMutableArray* viewControllers = [NSMutableArray arrayWithArray:self.tabBarController.viewControllers];
-  [viewControllers addObject: nc];
-  
-  self.tabBarController.viewControllers = viewControllers;
-
-  return vc;
-}
-
 -(id)dataForURL: (NSString*)url
 {
   if([url matches: @"^movies://"]) {
@@ -96,40 +66,41 @@
   return nil;
 }
 
--(NSString*)titleForURL: (NSString*)url andData: (id)data
+-(UIViewController*)viewControllerForURL: (NSString*)url
 {
-  if([data isKindOfClass:[NSDictionary class]]) {
-    NSString* title = [data objectForKey:@"title"];
-    if(!title) title = [data objectForKey:@"label"];
-    if(title) return title;
-  }
+  if([url matches: @"^movies://"])
+    
+    return [ self loadInstanceOfClass: NSClassFromString(@"ProfileController")
+                              fromNib: @"ProfileController"];
+  
+  if([url matches: @"^first://"])
+    return [ self loadInstanceOfClass: NSClassFromString(@"FirstViewController")
+                              fromNib: @"FirstViewController"];
+  
+  if([url matches: @"^second://"])
+    return [ self loadInstanceOfClass: NSClassFromString(@"SecondViewController")
+                              fromNib: @"SecondViewController"];
+  
+  if([url matches: @"^(http|https)://"])
+    return [ self loadInstanceOfClass: NSClassFromString(@"WebViewController")
+                              fromNib: @"WebViewController"];
   
   return nil;
 }
 
--(UIViewController*)viewControllerForURL: (NSString*)url andData: (id)data
+-(id)addTab:(NSDictionary*)tabConfig
 {
-  if([url matches: @"^movies://"]) {
-    Class klass = NSClassFromString(@"ProfileController");
-    
-    //
-    UIViewController *pc = [ self loadInstanceOfClass: klass
-                                              fromNib:@"ProfileController"];
-    
-    pc.model = data;
-    return pc;
-  }
+  NSString* url = [tabConfig objectForKey: @"url"];
+  NSString* label = [tabConfig objectForKey: @"label"];
+  NSString* icon = [tabConfig objectForKey: @"icon"];
 
-  return nil;
-}
-
--(id)addTabForURL:(NSString*)url withLabel: (NSString*)label andIcon: (NSString*)icon
-{
   // get data for URL
   NSDictionary* data = [self dataForURL: url];
   
   // get portrait view controller for URL and Data
-  UIViewController* controller = [self viewControllerForURL: url andData: data];
+  UIViewController* controller = [self viewControllerForURL: url];
+  controller.url = url;
+  controller.model = data;
   
   // TODO:
   //
@@ -137,8 +108,8 @@
   // merge landscape view controller with portrait view controller 
   
   // get title for URL and Data.
-  NSString* title = [self titleForURL: url andData: data];
-
+  NSString* title = controller.title;
+  
   //
   // Build navigation controller
   UINavigationController* nc = [[UINavigationController alloc]initWithRootViewController:controller];
@@ -162,35 +133,19 @@
   return controller;
 }
 
+-(NSDictionary*) config
+{
+  return [M3 readJSON: @"$app/app.json" ];
+}
+
 -(void)loadTabs
 {
-  [self addTabForURL: @"movies://1" withLabel: @"Movies" andIcon: @"games.png"];
-
-    
-  [self addTab: @"WebViewController" 
-       ofClass: nil
-     withLabel: @"google" 
-       andIcon: @"world.png" navigationBarTitle: nil ];
+  NSArray* tabs = [[self config] objectForKey: @"tabs"];
   
-  [self addTab: @"WebViewController" 
-       ofClass: nil
-     withLabel: @"google" 
-       andIcon: @"world.png" navigationBarTitle: nil ];
-  
-  [self addTab:@"FirstViewController" 
-       ofClass:nil  
-     withLabel:@"first" 
-       andIcon:@"first.png"  navigationBarTitle: @"first title"];
-  
-  [self addTab: @"WebViewController" 
-       ofClass: nil
-     withLabel: @"google" 
-       andIcon: @"world.png" navigationBarTitle: nil ];
-  
-  [self addTab: @"SecondViewController" 
-       ofClass: nil
-     withLabel: @"second" 
-       andIcon: @"second.png" navigationBarTitle: @"2nd title" ];
+  for(NSDictionary* tab in tabs) {
+    if([tab objectForKey:@"disabled"]) continue;
+    [self addTab: tab];
+  }
 }
 
 -(BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

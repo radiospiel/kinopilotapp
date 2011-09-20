@@ -31,6 +31,7 @@
 {
   NSData* jsonData = [object JSONData];
 
+  path = [M3 expandPath: path];
   [M3 writeData: jsonData toPath: path];
 }
 
