@@ -1,5 +1,5 @@
 default:
-	rake
+	@rake
 
 clean:
-	rake clean
+	@rake clean

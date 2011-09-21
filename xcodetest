@@ -21,10 +21,9 @@ COLORS.each do |color, attrs|
   end
 end
 
-
-if ARGV.empty?
-  STDERR.puts "#{$0} testTarget testTarget testTarget ..."
-  exit 1
+etests = ARGV.map do |p| p if p != "-n" end.compact
+unless etests.empty?
+  ENV["ETESTS"] = etests.join(",")
 end
 
 def readline(f)
@@ -32,7 +31,8 @@ def readline(f)
 rescue EOFError
 end
 
-while target = ARGV.shift
+targets = %w(M3Tests)
+while target = targets.shift
   puts "=== #{target}"
   command = "xcodebuild -configuration Debug -target #{target} build"
   puts command

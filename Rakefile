@@ -9,7 +9,7 @@ task :subrepositories do
 end
 
 task :autotest => :subrepositories do
-	system "./xcodetest M3Tests"
+	system "./xcodetest"
 end
 
 # task :iautotest => :subrepositories do
