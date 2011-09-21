@@ -1,14 +1,16 @@
-
 @interface NSString (Regex)
 
-- (NSString*) gsub: (id) regexp_or_string with: (NSString*) tmpl;
-- (NSArray*) matches:(id)regexp_or_string;
+- (NSString*) gsub:  (NSString*) regexp with: (NSString*) tmpl;
+- (NSString*) igsub: (NSString*) regexp with: (NSString*) tmpl;
+
+- (NSArray*) matches: (NSString*)regexp;
+- (NSArray*) imatches:(NSString*)regexp;
 
 @end
 
-@interface M3(Regex)
-
-+(NSRegularExpression*) regexp: (id)regexpAsString;
-+(NSRegularExpression*) regexp: (id)regexp_or_string withOptions: (int)options;
-
-@end
+// @interface M3(Regex)
+// 
+// +(NSRegularExpression*) regexp: (id)regexpAsString;
+// +(NSRegularExpression*) regexp: (id)regexp_or_string withOptions: (int)options;
+// 
+// @end
