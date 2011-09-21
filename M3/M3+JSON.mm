@@ -13,7 +13,7 @@
   NSError* error = 0;
   id returnValue;
 
-  if([path matches: @"^(http|https)://"]) {
+  if([path startsWith: @"http://"]) {
     NSString* jsonString = [ M3Http get: path];
     returnValue = [jsonString mutableObjectFromJSONStringWithParseOptions:0 error: &error ];
   }

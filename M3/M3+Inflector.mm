@@ -79,16 +79,16 @@ static M3Inflector* inflector()
 
 -(NSString*)pluralize: (NSString*) string;
 {
-  for(NSRegularExpression* regexp in uncountables) {
-    if([string matches: regexp]) return string;
+  for(NSString* regexp in uncountables) {
+    if([string imatches: regexp]) return string;
   }
   
   for(NSArray* regexp_and_repl in [plurals reverseObjectEnumerator]) {
-    NSRegularExpression* regexp = [regexp_and_repl objectAtIndex:0];
+    NSString* regexp = [regexp_and_repl objectAtIndex:0];
     NSString* replacement = [regexp_and_repl objectAtIndex:1];
     
-    if([ string matches: regexp])
-      return [string gsub: regexp with: replacement];
+    if([ string imatches: regexp])
+      return [string igsub: regexp with: replacement];
   }
 
   return string;
@@ -96,16 +96,16 @@ static M3Inflector* inflector()
 
 -(NSString*)singularize: (NSString*) string;
 {
-  for(NSRegularExpression* regexp in uncountables) {
+  for(NSString* regexp in uncountables) {
     if([string matches: regexp]) return string;
   }
 
   for(NSArray* regexp_and_repl in [singulars reverseObjectEnumerator]) {
-    NSRegularExpression* regexp = [regexp_and_repl objectAtIndex:0];
+    NSString* regexp = [regexp_and_repl objectAtIndex:0];
     NSString* replacement = [regexp_and_repl objectAtIndex:1];
     
-    if([ string matches: regexp])
-      return [string gsub: regexp with: replacement];
+    if([ string imatches: regexp])
+      return [string igsub: regexp with: replacement];
   }
   
   return string;
@@ -122,7 +122,7 @@ static M3Inflector* inflector()
 	return [[[result substringToIndex:1] uppercaseString] stringByAppendingString:[result substringFromIndex:1]];
 }
 
-#define regexp(a) [M3 regexp: a withOptions: NSRegularExpressionCaseInsensitive]
+#define regexp(a) a
 
 // With thanks to https://github.com/ciaran/inflector
 -(void)preloadInflectorData;
