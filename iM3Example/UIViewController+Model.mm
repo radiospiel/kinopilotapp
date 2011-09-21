@@ -1,20 +1,17 @@
-#if TARGET_OS_IPHONE 
-
-#import "M3.h"
+#import "AppDelegate.h"
 #import "Chair.h"
 
-#define app [[UIApplication sharedApplication] delegate]
+
+#define app ((AppDelegate*)[[UIApplication sharedApplication] delegate])
 
 @implementation UIViewController(Model)
 
 +(id)modelForURL: (NSString*)url
 {
-  if([url matches: @"^/movies/view/(.*)"]) {
+  if([url matches: @"^/movies/show/(.*)"]) {
     NSNumber* uid = [$1 to_number];
     
-    // 
-    ChairTable* movies = [[app chairDB] tableForName:@"movies"];
-    NSDictionary* movie = [movies get: uid];
+    NSDictionary* movie = [app.chairDB.movies get: uid];
     movie = [NSMutableDictionary dictionaryWithDictionary:movie];
     
     [movie setValue:[movie valueForKey:@"url"] forKey:@"action0"];
@@ -28,6 +25,10 @@
     }
     
     return movie; 
+  }
+  
+  if([url matches: @"^/movies/list(/(.*))?"]) {
+    return app.chairDB.movies;
   }
   
   return [NSDictionary dictionary];
@@ -74,5 +75,3 @@
 };
 
 @end
-
-#endif

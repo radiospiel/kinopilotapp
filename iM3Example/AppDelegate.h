@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-#define app [[UIApplication sharedApplication] delegate]
+#import "M3.h"
+#import "UIViewController+Model.h"
+#import "Chair.h"
+#import "ChairDatabase+IM3Example.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 

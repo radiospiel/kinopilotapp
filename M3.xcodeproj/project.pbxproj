@@ -67,17 +67,13 @@
 		9D0EF7501413DFF50051B8FA /* LoggerCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF74C1413DFF50051B8FA /* LoggerCommon.h */; };
 		9D0EF7521413E0400051B8FA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */; };
 		9D0EF7531413E04F0051B8FA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */; };
-		9D31B7BC1422B58400D4AFB7 /* MoviesViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D31B7BB1422B58400D4AFB7 /* MoviesViewController_iPhone.xib */; };
+		9D31B7BC1422B58400D4AFB7 /* MoviesShowController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D31B7BB1422B58400D4AFB7 /* MoviesShowController_iPhone.xib */; };
 		9D33FBCD1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */; };
 		9D33FBCE1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */; };
 		9D33FBCF1427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */; };
 		9D33FBD01427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */; };
 		9D33FBD21427D109000A3D69 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF71D1413D45C0051B8FA /* JSONKit.m */; };
 		9D33FBD71427D39E000A3D69 /* AppDelegate+ChairDB.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D33FBD61427D39E000A3D69 /* AppDelegate+ChairDB.mm */; };
-		9D33FBDA1427DCB4000A3D69 /* UIViewController+Model.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBD81427DCB4000A3D69 /* UIViewController+Model.h */; };
-		9D33FBDB1427DCB4000A3D69 /* UIViewController+Model.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBD81427DCB4000A3D69 /* UIViewController+Model.h */; };
-		9D33FBDC1427DCB4000A3D69 /* UIViewController+Model.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D33FBD91427DCB4000A3D69 /* UIViewController+Model.mm */; };
-		9D33FBDD1427DCB4000A3D69 /* UIViewController+Model.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D33FBD91427DCB4000A3D69 /* UIViewController+Model.mm */; };
 		9D3563181423F7AA002AAEAF /* NSString+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D3563171423F7AA002AAEAF /* NSString+M3Extensions.h */; };
 		9D3563191423F7AA002AAEAF /* NSString+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D3563171423F7AA002AAEAF /* NSString+M3Extensions.h */; };
 		9D35631B1423F887002AAEAF /* NSString+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D35631A1423F887002AAEAF /* NSString+M3Extensions.mm */; };
@@ -286,7 +282,7 @@
 		9D750E92142275750056290E /* M3+Inflector.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D750E8F142275750056290E /* M3+Inflector.h */; };
 		9D750E93142275750056290E /* M3+Inflector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D750E90142275750056290E /* M3+Inflector.mm */; };
 		9D750E94142275750056290E /* M3+Inflector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D750E90142275750056290E /* M3+Inflector.mm */; };
-		9D750EA11422AF7F0056290E /* MoviesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D750E9F1422AF7F0056290E /* MoviesViewController.mm */; };
+		9D750EA11422AF7F0056290E /* MoviesShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D750E9F1422AF7F0056290E /* MoviesShowController.mm */; };
 		9D767936142134CE00AB82DD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01746E141AA9D00035A4C2 /* CFNetwork.framework */; };
 		9D767937142134CE00AB82DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01746C141AA9C00035A4C2 /* SystemConfiguration.framework */; };
 		9D7E3DC8141A2F6800BB80E1 /* M3EventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D7E3DC6141A2F6800BB80E1 /* M3EventCenter.h */; };
@@ -330,6 +326,8 @@
 		9D9656BC1417C1B600884372 /* M3Tests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B0D1413CA8B0066ECBB /* M3Tests.mm */; };
 		9D99B2CF1416A3380040768E /* M3+Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D99B2CE1416A3380040768E /* M3+Events.h */; };
 		9D99B2D21416A4E50040768E /* M3+Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D99B2D11416A4E50040768E /* M3+Events.m */; };
+		9DAA0D28142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA0D27142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm */; };
+		9DAA0D2B142AA8D5001F11C1 /* UIViewController+Model.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA0D2A142AA8D5001F11C1 /* UIViewController+Model.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -398,12 +396,10 @@
 		9D0EF74B1413DFF50051B8FA /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoggerClient.m; path = "vendor/NSLogger/Client Logger/iOS/LoggerClient.m"; sourceTree = "<group>"; };
 		9D0EF74C1413DFF50051B8FA /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoggerCommon.h; path = "vendor/NSLogger/Client Logger/iOS/LoggerCommon.h"; sourceTree = "<group>"; };
 		9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		9D31B7BB1422B58400D4AFB7 /* MoviesViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviesViewController_iPhone.xib; sourceTree = "<group>"; };
+		9D31B7BB1422B58400D4AFB7 /* MoviesShowController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviesShowController_iPhone.xib; sourceTree = "<group>"; };
 		9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Ivars.h"; sourceTree = "<group>"; };
 		9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Ivars.mm"; sourceTree = "<group>"; };
 		9D33FBD61427D39E000A3D69 /* AppDelegate+ChairDB.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "AppDelegate+ChairDB.mm"; sourceTree = "<group>"; };
-		9D33FBD81427DCB4000A3D69 /* UIViewController+Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Model.h"; sourceTree = "<group>"; };
-		9D33FBD91427DCB4000A3D69 /* UIViewController+Model.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIViewController+Model.mm"; sourceTree = "<group>"; };
 		9D3563171423F7AA002AAEAF /* NSString+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+M3Extensions.h"; sourceTree = "<group>"; };
 		9D35631A1423F887002AAEAF /* NSString+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSString+M3Extensions.mm"; sourceTree = "<group>"; };
 		9D3B0867142A19F700322C00 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -425,7 +421,7 @@
 		9D48ACF2141E9E3F00D0D000 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9D48ACF4141E9E3F00D0D000 /* iM3ExampleTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iM3ExampleTests.h; sourceTree = "<group>"; };
 		9D48ACF5141E9E3F00D0D000 /* iM3ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iM3ExampleTests.m; sourceTree = "<group>"; };
-		9D4DA7C91422BF5300F98B7B /* MoviesViewController_iPhone_Landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; path = MoviesViewController_iPhone_Landscape.xib; sourceTree = "<group>"; };
+		9D4DA7C91422BF5300F98B7B /* MoviesShowController_iPhone_Landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; path = MoviesShowController_iPhone_Landscape.xib; sourceTree = "<group>"; };
 		9D5614F2142641A300D0A484 /* alarm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alarm.png; sourceTree = "<group>"; };
 		9D5614F3142641A300D0A484 /* alarm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alarm@2x.png"; sourceTree = "<group>"; };
 		9D5614F4142641A300D0A484 /* arrowdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowdown.png; sourceTree = "<group>"; };
@@ -604,8 +600,8 @@
 		9D750E8A142273A30056290E /* M3Data.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Data.mm; sourceTree = "<group>"; };
 		9D750E8F142275750056290E /* M3+Inflector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Inflector.h"; sourceTree = "<group>"; };
 		9D750E90142275750056290E /* M3+Inflector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+Inflector.mm"; sourceTree = "<group>"; };
-		9D750E9E1422AF7F0056290E /* MoviesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesViewController.h; sourceTree = "<group>"; };
-		9D750E9F1422AF7F0056290E /* MoviesViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesViewController.mm; sourceTree = "<group>"; };
+		9D750E9E1422AF7F0056290E /* MoviesShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = MoviesShowController.h; sourceTree = "<group>"; };
+		9D750E9F1422AF7F0056290E /* MoviesShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesShowController.mm; sourceTree = "<group>"; };
 		9D7E3DC6141A2F6800BB80E1 /* M3EventCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3EventCenter.h; sourceTree = "<group>"; };
 		9D7E3DCB141A347C00BB80E1 /* M3EventCenter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3EventCenter.mm; sourceTree = "<group>"; };
 		9D7E3DD1141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3EventCenter+DefaultCenter.mm"; sourceTree = "<group>"; };
@@ -650,6 +646,10 @@
 		9D9656B214177F9700884372 /* M3StopWatch.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3StopWatch.mm; sourceTree = "<group>"; };
 		9D99B2CE1416A3380040768E /* M3+Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Events.h"; sourceTree = "<group>"; };
 		9D99B2D11416A4E50040768E /* M3+Events.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "M3+Events.m"; sourceTree = "<group>"; };
+		9DAA0D26142AA6EC001F11C1 /* ChairDatabase+IM3Example.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ChairDatabase+IM3Example.h"; sourceTree = "<group>"; };
+		9DAA0D27142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "ChairDatabase+IM3Example.mm"; sourceTree = "<group>"; };
+		9DAA0D29142AA8D5001F11C1 /* UIViewController+Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Model.h"; sourceTree = "<group>"; };
+		9DAA0D2A142AA8D5001F11C1 /* UIViewController+Model.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIViewController+Model.mm"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -814,6 +814,10 @@
 		9D48ACBD141E9E3E00D0D000 /* iM3Example */ = {
 			isa = PBXGroup;
 			children = (
+				9DAA0D29142AA8D5001F11C1 /* UIViewController+Model.h */,
+				9DAA0D2A142AA8D5001F11C1 /* UIViewController+Model.mm */,
+				9DAA0D26142AA6EC001F11C1 /* ChairDatabase+IM3Example.h */,
+				9DAA0D27142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm */,
 				9D0203FD14291D040024EDD8 /* app.json */,
 				9D5614F0142641A300D0A484 /* resources */,
 				9D48ACC6141E9E3E00D0D000 /* AppDelegate.h */,
@@ -824,10 +828,10 @@
 				9D5A96D114200FB7000104CA /* WebViewController.mm */,
 				9D5A96D214200FB7000104CA /* WebViewController.xib */,
 				9D48ACBE141E9E3E00D0D000 /* Supporting Files */,
-				9D750E9E1422AF7F0056290E /* MoviesViewController.h */,
-				9D750E9F1422AF7F0056290E /* MoviesViewController.mm */,
-				9D31B7BB1422B58400D4AFB7 /* MoviesViewController_iPhone.xib */,
-				9D4DA7C91422BF5300F98B7B /* MoviesViewController_iPhone_Landscape.xib */,
+				9D750E9E1422AF7F0056290E /* MoviesShowController.h */,
+				9D750E9F1422AF7F0056290E /* MoviesShowController.mm */,
+				9D31B7BB1422B58400D4AFB7 /* MoviesShowController_iPhone.xib */,
+				9D4DA7C91422BF5300F98B7B /* MoviesShowController_iPhone_Landscape.xib */,
 			);
 			path = iM3Example;
 			sourceTree = "<group>";
@@ -1171,8 +1175,6 @@
 				9D0EF7111413D1A60051B8FA /* NSString+Regexp.m */,
 				9D8C4B94142896D0005D582A /* UIImageView+Http.h */,
 				9D8C4B95142896D0005D582A /* UIImageView+Http.mm */,
-				9D33FBD81427DCB4000A3D69 /* UIViewController+Model.h */,
-				9D33FBD91427DCB4000A3D69 /* UIViewController+Model.mm */,
 				9D8B8B471413CC010066ECBB /* Underscore.hh */,
 				9D8B8B481413CC010066ECBB /* Underscore.mm */,
 				9D8B8B291413CAD90066ECBB /* Underscore+Logger.mm */,
@@ -1220,7 +1222,6 @@
 				9D750E92142275750056290E /* M3+Inflector.h in Headers */,
 				9D3563191423F7AA002AAEAF /* NSString+M3Extensions.h in Headers */,
 				9D33FBCE1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */,
-				9D33FBDB1427DCB4000A3D69 /* UIViewController+Model.h in Headers */,
 				9D8C4B97142896D0005D582A /* UIImageView+Http.h in Headers */,
 				9D3B086E142A255000322C00 /* M3+Inspect.h in Headers */,
 				9D3B0874142A3B7900322C00 /* M3+RuntimeError.h in Headers */,
@@ -1259,7 +1260,6 @@
 				9D750E91142275750056290E /* M3+Inflector.h in Headers */,
 				9D3563181423F7AA002AAEAF /* NSString+M3Extensions.h in Headers */,
 				9D33FBCD1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */,
-				9D33FBDA1427DCB4000A3D69 /* UIViewController+Model.h in Headers */,
 				9D8C4B96142896D0005D582A /* UIImageView+Http.h in Headers */,
 				9D3B086D142A255000322C00 /* M3+Inspect.h in Headers */,
 				9D3B0873142A3B7900322C00 /* M3+RuntimeError.h in Headers */,
@@ -1423,7 +1423,7 @@
 			files = (
 				9D48ACC2141E9E3E00D0D000 /* InfoPlist.strings in Resources */,
 				9D5A96D414200FB8000104CA /* WebViewController.xib in Resources */,
-				9D31B7BC1422B58400D4AFB7 /* MoviesViewController_iPhone.xib in Resources */,
+				9D31B7BC1422B58400D4AFB7 /* MoviesShowController_iPhone.xib in Resources */,
 				9D72BEFB1425F9C200D24875 /* icon_57px.png in Resources */,
 				9D72BEFD1425F9C500D24875 /* icon_114px.png in Resources */,
 				9D72BEFF1425F9C800D24875 /* Default@2x.png in Resources */,
@@ -1695,7 +1695,6 @@
 				9D750E94142275750056290E /* M3+Inflector.mm in Sources */,
 				9D35631C1423F887002AAEAF /* NSString+M3Extensions.mm in Sources */,
 				9D33FBD01427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */,
-				9D33FBDD1427DCB4000A3D69 /* UIViewController+Model.mm in Sources */,
 				9D8C4B99142896D0005D582A /* UIImageView+Http.mm in Sources */,
 				9D3B0870142A255000322C00 /* M3+Inspect.mm in Sources */,
 				9D3B0876142A3B7900322C00 /* M3+RuntimeError.mm in Sources */,
@@ -1718,8 +1717,10 @@
 				9D48ACC8141E9E3E00D0D000 /* AppDelegate.mm in Sources */,
 				9D58CAE5141FE4FB0047A5FA /* AppDelegate+Nib.mm in Sources */,
 				9D5A96D314200FB8000104CA /* WebViewController.mm in Sources */,
-				9D750EA11422AF7F0056290E /* MoviesViewController.mm in Sources */,
+				9D750EA11422AF7F0056290E /* MoviesShowController.mm in Sources */,
 				9D33FBD71427D39E000A3D69 /* AppDelegate+ChairDB.mm in Sources */,
+				9DAA0D28142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm in Sources */,
+				9DAA0D2B142AA8D5001F11C1 /* UIViewController+Model.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1765,7 +1766,6 @@
 				9D750E93142275750056290E /* M3+Inflector.mm in Sources */,
 				9D35631B1423F887002AAEAF /* NSString+M3Extensions.mm in Sources */,
 				9D33FBCF1427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */,
-				9D33FBDC1427DCB4000A3D69 /* UIViewController+Model.mm in Sources */,
 				9D8C4B98142896D0005D582A /* UIImageView+Http.mm in Sources */,
 				9D3B086F142A255000322C00 /* M3+Inspect.mm in Sources */,
 				9D3B0875142A3B7900322C00 /* M3+RuntimeError.mm in Sources */,

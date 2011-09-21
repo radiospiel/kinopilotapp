@@ -14,9 +14,6 @@
 
 /* === NSNumber ==================================================== */
 
-@interface NSNumber(Inspect)
-@end
-
 @implementation NSNumber(Inspect)
 
 -(NSString*)inspect
@@ -27,9 +24,6 @@
 @end
 
 /* === NSString ==================================================== */
-
-@interface NSString(Inspect)
-@end
 
 @implementation NSString(Inspect)
 
@@ -61,9 +55,6 @@
 
 /* === NSArray ===================================================== */
 
-@interface NSArray(Inspect)
-@end
-
 @implementation NSArray(Inspect)
 
 -(NSString*)inspect
@@ -80,9 +71,6 @@
 @end
 
 /* === NSDictionary ================================================ */
-
-@interface NSDictionary(Inspect)
-@end
 
 static NSInteger key_sort(id key1, id key2, void* _)
 {
@@ -109,14 +97,11 @@ static NSInteger key_sort(id key1, id key2, void* _)
 
 /* === NSThread ============================================ */
 
-@interface NSDictionary(Inspect)
-@end
-
 @implementation NSThread(Inspect)
 
 -(NSString*)inspect
 {
-  return [NSString stringWithFormat: @"<NSThread 0x%08x>", self ]
+  return [NSString stringWithFormat: @"<NSThread 0x%08x>", self ];
 }
 @end
 

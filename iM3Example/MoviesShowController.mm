@@ -6,8 +6,8 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "M3.h"
-#import "MoviesViewController.h"
+#import "AppDelegate.h"
+#import "MoviesShowController.h"
 
 @interface UILabel(M3Utilities)
 
@@ -50,7 +50,7 @@
 @end
 
 
-@implementation MoviesViewController
+@implementation MoviesShowController
 
 @synthesize isLandscape = isLandscape_;
 

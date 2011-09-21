@@ -44,7 +44,6 @@
 #if TARGET_OS_IPHONE 
 #import <UIKit/UIKit.h>
 
-#import "UIViewController+Model.h"
 #import "UIImageView+Http.h"
 
 #endif

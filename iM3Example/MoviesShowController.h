@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-@interface MoviesViewController : UIViewController {
+@interface MoviesShowController : UIViewController {
   IBOutlet UIImageView* imageView;
   IBOutlet UILabel* headline;
   IBOutlet UILabel* description;

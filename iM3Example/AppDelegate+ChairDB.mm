@@ -6,8 +6,6 @@
 // #define DB_PATH     @"$documents/chairdb/berlin.json"
 #define DB_PATH     @"$documents/chairdb/kinopilot"
 
-#define app [[UIApplication sharedApplication] delegate]
-
 @implementation AppDelegate(ChairDB)
 
 /*
