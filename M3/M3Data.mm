@@ -6,6 +6,8 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
+#if 0
+
 #import "M3.h"
 
 @implementation M3Data
@@ -79,6 +81,7 @@ ETest(M3Data)
 
 -(void)test_analyze
 {
+  
   assert_equal(@"String",     [M3Data analyze: @"s"]);
   assert_equal(@"Strings",    [M3Data analyze: _.array(@"a", @"b")]);
   assert_equal(@"Array",      [M3Data analyze: _.array()]);
@@ -101,3 +104,5 @@ ETest(M3Data)
 }
 
 @end
+
+#endif

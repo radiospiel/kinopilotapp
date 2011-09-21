@@ -35,7 +35,6 @@
 #import "M3EventCenter.h"
 
 #import "M3Http.h"
-#import "M3Data.h"
 
 #ifdef __cplusplus
 #import "underscore.hh"
