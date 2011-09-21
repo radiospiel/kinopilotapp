@@ -1,5 +1,8 @@
 #import "M3.h"
 
+#define RKL_BLOCKS          0
+#define NS_BLOCK_ASSERTIONS 1
+
 #import "RegexKitLite-4.0/RegexKitLite.h"
 #import "RegexKitLite-4.0/RegexKitLite.m"
 
@@ -8,128 +11,146 @@
 
 @implementation NSString (Regexp)
 
++(void)setRecentMatches: (NSArray*)matches
+{
+  [[[NSThread currentThread]threadDictionary] setObject:matches forKey: @"regex_match"];
+}
+
++(NSString*)getRecentMatchAtIndex: (NSUInteger)idx
+{
+  NSArray* currentMatches = [[[NSThread currentThread]threadDictionary] objectForKey: @"regex_match"];
+  if(!currentMatches || currentMatches.count <= idx) return nil;
+  return [currentMatches objectAtIndex:idx];
+}
+
 // TODO: Raise exception if error is set.
 
 #define RETURN(value, error) return value
 
-- (NSString*) gsub: (NSString*) regexp with: (NSString*) replacement
+/* 
+ * try to match and, if matching, return matches and submatches.
+ * This sets the $0, $1, etc. pseudo-variables, too.
+ */
+- (NSArray*) matches:(NSString*)regexp withOptions: (int)options
 {
+  NSError* error = 0;
+  
+  NSArray* matches = [self componentsMatchedByRegex: regexp 
+                                            options: options
+                                              range: NSMakeRange(0, self.length)
+                                            capture: 0 
+                                              error: &error];
+  
+  if([matches count] == 1) {
+    
+    // one match: enumerate submatches
+    
+    long captureCount = [regexp captureCount];
+    if(captureCount) {
+      matches = [NSMutableArray arrayWithObject: [matches objectAtIndex: 0]];
+      
+      for(long i=1L; i<=captureCount; ++i) {
+        NSString *submatch = [self stringByMatching:regexp capture:i];
+        if(!submatch) break;
+        
+        [((NSMutableArray*)matches) addObject: submatch];
+      }
+    }
+  }
+
+  [NSString setRecentMatches: matches];
+
+  if([matches count] == 0)
+    return nil;
+  
+  RETURN(matches, error);
+}
+
+/* 
+ * replace
+ */
+
+- (NSString*) gsub: (NSString*) regexp with: (NSString*) replacement andOptions: (int)options
+{
+  // Try to match. This sets $0, $1, etc.
+  if(![self matches: regexp withOptions: options])
+    return self;
+  
   NSError* error = 0;
   
   NSString* r;
   r = [ self stringByReplacingOccurrencesOfRegex: regexp
                                       withString: replacement 
-                                         options: CASE_SENSITIVE
+                                         options: options
                                            range: NSMakeRange(0, self.length)
                                            error: &error ];
 
   RETURN(r, error);
+}
+
+/* 
+ * replace: public API
+ */
+
+
+- (NSString*) gsub: (NSString*) regexp with: (NSString*) replacement
+{
+  return [self gsub: regexp with: replacement andOptions: CASE_SENSITIVE];
 }
 
 - (NSString*) igsub: (NSString*) regexp with: (NSString*) replacement
 {
-  NSError* error = 0;
-  
-  NSString* r;
-  r = [ self stringByReplacingOccurrencesOfRegex: regexp
-                                      withString: replacement 
-                                         options: CASE_INSENSITIVE
-                                           range: NSMakeRange(0, self.length)
-                                           error: &error ];
-
-  RETURN(r, error);
+  return [self gsub: regexp with: replacement andOptions: CASE_INSENSITIVE];
 }
+
+/* 
+ * match: public API
+ */
 
 - (NSArray*) imatches:(NSString*)regexp
 {
-  NSError* error = 0;
-  
-  NSArray* r;
-  r = [self componentsMatchedByRegex: regexp 
-                             options: CASE_INSENSITIVE
-                               range: NSMakeRange(0, self.length)
-                             capture: 0 
-                               error: &error];
-
-  if([r count] == 0) r = nil;
-  RETURN(r, error);
+  return [self matches:regexp withOptions: CASE_INSENSITIVE];
 }
 
 - (NSArray*) matches:(NSString*)regexp
 {
-  NSError* error = 0;
-  
-  NSArray* r;
-  r = [self componentsMatchedByRegex: regexp 
-                             options: CASE_SENSITIVE
-                               range: NSMakeRange(0, self.length)
-                             capture: 0 
-                               error: &error];
-
-  if([r count] == 0) r = nil;
-  RETURN(r, error);
+  return [self matches:regexp withOptions: CASE_SENSITIVE];
 }
 
-        
 @end
-
-// @implementation M3(Regexp)
-// 
-// +(NSRegularExpression*) regexp: (id)regexp_or_string;
-// {
-//   if([regexp_or_string isKindOfClass: [NSRegularExpression class]])
-//     return regexp_or_string;
-// 
-//   NSError *error = NULL;
-//   return [NSRegularExpression regularExpressionWithPattern: regexp_or_string
-//                                                    options: 0 
-//                                                      error: &error];
-// }
-// 
-// +(NSRegularExpression*) regexp: (id)regexp_or_string withOptions: (int)options;
-// {
-//   if([regexp_or_string isKindOfClass: [NSRegularExpression class]])
-//     return regexp_or_string;
-// 
-//   NSError *error = NULL;
-//   return [NSRegularExpression regularExpressionWithPattern: regexp_or_string
-//                                                    options: options
-//                                                      error: &error];
-// }
-// 
-// @end
 
 ETest(Regexp)
 
 -(void)test_regexp
 {
   assert_true([@"abc" matches: @"a"]);
-  // assert_true([@"abc" matches: [M3 regexp: @"a"]]);
-  // assert_false([@"abc" matches: [M3 regexp: @"A"]]);
-  // assert_true([@"abc" matches: [M3 regexp: @"A" withOptions: NSRegularExpressionCaseInsensitive]]);
+  assert_false([@"abc" matches: @"A"]);
+  assert_true([@"abc" imatches: @"A"]);
 }
 
 -(void)test_submatches
 {
-  // assert_equal([@"abc abc" matches: @"abc"],    _.array("abc", "abc"));
-  // assert_equal([@"ab abc" matches: @"abc"],     _.array("abc"));
-  // assert_nil([@"ab abc" matches: @"xyz"]);
-  // assert_equal([@"ab abc" matches: @"ab(c?)"],  _.array("ab", "abc"));
-  // assert_equal([@"abc abc" matches: @"abc?"],   _.array("abc", "abc"));
+  assert_equal_objects([@"abc abc" matches: @"abc"],    ([NSArray arrayWithObjects: @"abc", @"abc", nil])); 
+  assert_equal_objects([@"ab abc" matches: @"abc"],     ([NSArray arrayWithObjects: @"abc", nil])); 
+  assert_nil([@"ab abc" matches: @"xyz"]);
+
+  assert_equal_objects([@"ab abc" matches: @"ab(c?)"],  ([NSArray arrayWithObjects: @"ab", @"abc", nil]));
+  assert_equal_objects([@"abc abc" matches: @"ab(c?)"], ([NSArray arrayWithObjects: @"abc", @"abc", nil]));
 }
 
-// -(void)test_submatches
-// {
-//   assert_equal([@"abc abc" matches: @"abc"],    _.array("abc", "abc"));
-//   assert_equal([@"ab abc" matches: @"abc"],     _.array("abc"));
-//   assert_nil([@"ab abc" matches: @"xyz"]);
-//   assert_equal([@"ab abc" matches: @"ab(c?)"],  _.array("ab", "abc"));
-//   assert_equal([@"abc abc" matches: @"abc?"],   _.array("abc", "abc"));
-// }
-// 
-// -(void)test_regexp_parsing
-// {
-//   assert_equal([@"/controller/action/parameters" matches: @"^/(\\w+)/(\\w+)(/(.*))?"], _.array("controller", "action", "parameters"));
-// }
-// 
+
+-(void)test_regexp_parsing
+{
+  NSString* s = @"/controller/action/parameters";
+  assert_equal_objects(
+    [s matches: @"^/(\\w+)/(\\w+)(/(.*))?"],
+    ([NSArray arrayWithObjects: @"/controller/action/parameters", @"controller", @"action", @"/parameters", @"parameters", nil])
+  );
+
+  assert_equal_objects($0, @"/controller/action/parameters");
+  assert_equal_objects($1, @"controller");
+  assert_equal_objects($2, @"action");
+  assert_equal_objects($4, @"parameters");
+}
+ 
 @end
