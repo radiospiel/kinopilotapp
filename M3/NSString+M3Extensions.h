@@ -9,5 +9,6 @@
 @interface NSString(M3Extensions)
 
 -(BOOL)startsWith: (NSString*) other;
+-(NSString*)camelizeWord;
 
 @end

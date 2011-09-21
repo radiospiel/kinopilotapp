@@ -17,4 +17,38 @@
   return [me isEqualToString: other];
 }
 
+-(NSString*)camelizeWord;
+{
+  if(self.length == 0)
+    return @"";
+  
+  NSString* firstLetter = [self substringToIndex:1];
+  NSString* remainder = [self substringFromIndex:1];
+  return _.join([firstLetter uppercaseString], remainder);
+}
+@end
+
+ETest(NSStringM3Extensions)
+
+-(void)test_starts_with
+{
+  assert_true([@"abc def" startsWith: @"abc"]);
+  assert_false([@"abc def" startsWith: @"def"]);
+  assert_false([@"ab" startsWith: @"def"]);
+  assert_false([@"ab" startsWith: @"abc"]);
+  assert_false([@"" startsWith: @"abc"]);
+
+  // Note: each string starts with an empty string.
+  assert_true([@"ab" startsWith: @""]);
+  assert_true([@"" startsWith: @""]);
+}
+
+-(void)test_camelize
+{
+  assert_equal(@"Abc", [@"abc" camelizeWord]);
+  assert_equal(@"Abc", [@"Abc" camelizeWord]);
+  assert_equal(@"A",   [@"A" camelizeWord]);
+  assert_equal(@"A",   [@"a" camelizeWord]);
+  assert_equal(@"",    [@"" camelizeWord]);
+}
 @end
