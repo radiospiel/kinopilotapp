@@ -10,5 +10,6 @@
 
 -(BOOL)startsWith: (NSString*) other;
 -(NSString*)camelizeWord;
+-(NSNumber*)to_number;
 
 @end

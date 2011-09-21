@@ -26,6 +26,13 @@
   NSString* remainder = [self substringFromIndex:1];
   return _.join([firstLetter uppercaseString], remainder);
 }
+
+-(NSNumber*)to_number
+{
+  NSNumberFormatter* formatter = [[[NSNumberFormatter alloc] init] autorelease];
+  return [formatter numberFromString: self];
+}
+
 @end
 
 ETest(NSStringM3Extensions)
