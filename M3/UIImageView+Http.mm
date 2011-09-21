@@ -1,4 +1,4 @@
-#import <UIKit/UIKit.h>
+#if TARGET_OS_IPHONE 
 
 #import "M3.h"
 
@@ -68,3 +68,5 @@
 }
 
 @end
+
+#endif
