@@ -18,13 +18,13 @@
   id current_value = [self instance_variable_get: name];
   if(current_value) return current_value;
   
-  // @synchronized(self) {
+  @synchronized(self) {
     current_value = [self instance_variable_get: name];
     if(!current_value) {
       current_value = block();
       [self instance_variable_set: name withValue: current_value ];
     }
-  // }
+  }
 
   return current_value;
 }
