@@ -1,9 +1,7 @@
 #include "M3.h"
 #include <vis.h>
 
-/*
- * NSObject#inspect
- */
+/* === NSObject ==================================================== */
 
 @implementation NSObject(Inspect)
 
@@ -14,9 +12,7 @@
 
 @end
 
-/*
- * NSNumber#inspect
- */
+/* === NSNumber ==================================================== */
 
 @interface NSNumber(Inspect)
 @end
@@ -30,9 +26,7 @@
 
 @end
 
-/*
- * NSString#inspect
- */
+/* === NSString ==================================================== */
 
 @interface NSString(Inspect)
 @end
@@ -65,10 +59,8 @@
 
 @end
 
-/*
- * NSArray#inspect
- */
- 
+/* === NSArray ===================================================== */
+
 @interface NSArray(Inspect)
 @end
 
@@ -87,10 +79,8 @@
 
 @end
 
-/*
- * NSArray#inspect
- */
- 
+/* === NSDictionary ================================================ */
+
 @interface NSDictionary(Inspect)
 @end
 
@@ -116,6 +106,21 @@ static NSInteger key_sort(id key1, id key2, void* _)
 }
 
 @end
+
+/* === NSThread ============================================ */
+
+@interface NSDictionary(Inspect)
+@end
+
+@implementation NSThread(Inspect)
+
+-(NSString*)inspect
+{
+  return [NSString stringWithFormat: @"<NSThread 0x%08x>", self ]
+}
+@end
+
+/* === inspect ETests ============================================== */
 
 ETest(Inspect)
 

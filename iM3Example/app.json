@@ -2,8 +2,13 @@
   "name": "Kinopilot Berlin",
   "tabs": [
     {
-      "url": "movies://1",
-      "label": "Movies",
+      "url": "/movies/view/2671114677927610000",
+      "label": "Colombiana",
+      "icon": "games.png"
+    },
+    {
+      "url": "/movies/view/4856901337699517000",
+      "label": "Medea",
       "icon": "games.png"
     },
     {
@@ -15,16 +20,6 @@
       "url": "http://ix.de",
       "label": "Heise",
       "icon": "world.png"
-    },
-    {
-      "url": "first://",
-      "label": "First",
-      "icon": "first.png"
-    },
-    {
-      "url": "second://",
-      "label": "Second",
-      "icon": "second.png"
     }
   ]
 }
