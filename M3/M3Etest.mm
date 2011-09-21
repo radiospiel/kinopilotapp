@@ -1,12 +1,10 @@
 #import "M3.h"
 
-@interface M3ETestAssertionFailed: NSObject {
-  NSString* msg;
+@interface M3ETestAssertionFailed: RuntimeError {
   const char* file;
   int line;
 }
 
-@property (nonatomic,retain) NSString* msg;
 @property (nonatomic,assign) const char* file;
 @property (nonatomic,assign) int line;
 
@@ -14,7 +12,6 @@
 
 @implementation M3ETestAssertionFailed
 
-@synthesize msg;
 @synthesize file;
 @synthesize line;
 
@@ -48,7 +45,8 @@
 -(void)reportFailure:(M3ETestAssertionFailed*)exception
 {
   _.puts(@"\n%s(%d): ETest Case '%@' failed (%d msecs).", exception.file, exception.line, [ self testcase ], [self milliSeconds]);
-  _.puts(@"%@", exception.msg);
+  _.puts(@"%@", exception.message);
+  _.puts(@"in\n\t%@", [[exception backtrace] componentsJoinedByString:@"\n\t"]);
 }
 
 -(void)reportException:(NSString*)exception
@@ -137,7 +135,7 @@ static NSArray *ClassGetSubclasses(Class parentClass)
   
   NSMutableArray* testMethods = [ NSMutableArray array ]; 
   for(NSString* method in methods) {
-    if([method matches: @"^test"])
+    if([method startsWith: @"test"])
       [testMethods addObject: method];
   }
   
@@ -153,8 +151,8 @@ extern "C" void m3_etest_success()
 
 extern "C" void m3_etest_failed(NSString* msg, const char* file, int line)
 {
-  M3ETestAssertionFailed* exception = [[ M3ETestAssertionFailed alloc]init];
-  exception.msg = msg;
+  M3ETestAssertionFailed* exception = [[ M3ETestAssertionFailed alloc]initWithMessage: msg];
+
   exception.file = file;
   exception.line = line;
   
