@@ -139,7 +139,7 @@
 
   ChairTable* table = [rootObject valueForKey:@"table"];
   table.name = [M3 basename_wo_ext: path];
-  return [table autorelease];
+  return table;
 }
 
 -(void) saveToFile:(NSString*) path;

@@ -424,14 +424,16 @@ namespace RS {
   
 #endif
   
-#define RLOG(x) rlog << #x "=" << x
-#define DLOG(x) dlog << #x "=" << x
+#define RLOG(x) rlog << #x "=" << [x inspect]
+#define DLOG(x) dlog << #x "=" << [x inspect]
   
 } // namespace RS {
 
 template <class T>
-inline const RS::Logger& operator << (const RS::Logger& logger, T obj)
-  { logger.append(_.string(obj)); return logger; }
+inline const RS::Logger& operator << (const RS::Logger& logger, T obj) { 
+  logger.append(_.string(obj)); 
+  return logger; 
+}
 
 template <class T>
 inline const RS::NoLogger& operator << (const RS::NoLogger& logger, T obj)

@@ -31,7 +31,8 @@ void Logger::append(NSString* string) const {
   #define shouldShortenSourceLocation(mode) YES
 #else
   // Simulator
-  #define shouldShortenSourceLocation(mode) (mode != Logger::Debug)
+  // #define shouldShortenSourceLocation(mode) (mode != Logger::Debug)
+  #define shouldShortenSourceLocation(mode) YES
 #endif
 
 Logger::~Logger()

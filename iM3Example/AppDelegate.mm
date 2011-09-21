@@ -22,7 +22,6 @@
   self.window = nil;
   self.tabBarController = nil;
   self.progressView = nil;
-  [self setChairDB: nil];
   
   [super dealloc];
 }
@@ -40,51 +39,30 @@
   // push document on top of current tab
 }
 
--(id)dataForURL: (NSString*)url
-{
-  if([url matches: @"^movies://"]) {
-    ChairTable* movies = [ self.chairDB tableForName:@"movies" ];
-
-    // 
-    NSDictionary* movie = [movies first];
-    movie = [NSMutableDictionary dictionaryWithDictionary:movie];
-    
-    [movie setValue:[movie valueForKey:@"url"] forKey:@"action0"];
-
-    NSArray* images = [movie valueForKey:@"images"];
-    if(images) {
-      NSArray* first_image = [images objectAtIndex:0];
-      if(first_image) {
-        [movie setValue:[first_image valueForKey:@"thumbnail"] forKey:@"image"];
-      }
-    }
-
-    // DLOG(movie);
-    return movie; 
-  }
-
-  return nil;
-}
-
 -(UIViewController*)viewControllerForURL: (NSString*)url
 {
-  if([url matches: @"^movies://"])
+  //
+  // Is this an external URL? They need special handling.
+  if(([url matches: @"^([a-z]+)://"])) {
+    if([$1 isEqualToString:@"http"] || [$1 isEqualToString:@"https"])
+      return [ self loadInstanceOfClass: NSClassFromString(@"WebViewController")
+                                fromNib: @"WebViewController"];
+  }
+
+  //
+  // Any URL matching /controller/action[/parameters] creates an 
+  // CategoryActionController object and initialises it with the
+  // "CategoryActionController.nib" NIB file.
+  if ([url matches: @"^/(\\w+)/(\\w+)"]) {
+    NSString* controllerName = _.join($1.camelizeWord, $2.camelizeWord, "Controller");
+    DLOG(controllerName);
     
-    return [ self loadInstanceOfClass: NSClassFromString(@"ProfileController")
-                              fromNib: @"ProfileController"];
+    return [self loadInstanceOfClass: NSClassFromString(controllerName)
+                             fromNib: controllerName];
+
+  }
   
-  if([url matches: @"^first://"])
-    return [ self loadInstanceOfClass: NSClassFromString(@"FirstViewController")
-                              fromNib: @"FirstViewController"];
-  
-  if([url matches: @"^second://"])
-    return [ self loadInstanceOfClass: NSClassFromString(@"SecondViewController")
-                              fromNib: @"SecondViewController"];
-  
-  if([url matches: @"^(http|https)://"])
-    return [ self loadInstanceOfClass: NSClassFromString(@"WebViewController")
-                              fromNib: @"WebViewController"];
-  
+  _.raise("Cannot find controller for ", url);
   return nil;
 }
 
@@ -94,13 +72,9 @@
   NSString* label = [tabConfig objectForKey: @"label"];
   NSString* icon = [tabConfig objectForKey: @"icon"];
 
-  // get data for URL
-  NSDictionary* data = [self dataForURL: url];
-  
   // get portrait view controller for URL and Data
   UIViewController* controller = [self viewControllerForURL: url];
   controller.url = url;
-  controller.model = data;
   
   // TODO:
   //
@@ -115,7 +89,7 @@
   UINavigationController* nc = [[UINavigationController alloc]initWithRootViewController:controller];
 
   // set navigation controller's tab properties
-  nc.tabBarItem.image = [[UIImage imageNamed:icon] autorelease];
+  nc.tabBarItem.image = [UIImage imageNamed:icon];
   nc.tabBarItem.title = label;
   
   // set navigation controller title
@@ -140,6 +114,11 @@
 
 -(void)loadTabs
 {
+  // id movie1 = [UIViewController modelForURL: @"/movies/view/2671114677927610000"];
+  // id movie2 = [UIViewController modelForURL: @"/movies/view/4856901337699517000"];
+  // id movie3 = [UIViewController modelForURL: @"/movies/view/2671114677927610000"];
+  // 
+  // return;
   NSArray* tabs = [[self config] objectForKey: @"tabs"];
   
   for(NSDictionary* tab in tabs) {

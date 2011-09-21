@@ -55,4 +55,9 @@
     // return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+-(NSString*)title
+{
+  return nil;
+}
+
 @end

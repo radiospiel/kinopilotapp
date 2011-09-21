@@ -6,6 +6,8 @@
 // #define DB_PATH     @"$documents/chairdb/berlin.json"
 #define DB_PATH     @"$documents/chairdb/kinopilot"
 
+#define app [[UIApplication sharedApplication] delegate]
+
 @implementation AppDelegate(ChairDB)
 
 /*
@@ -13,9 +15,9 @@
  */
 -(ChairDatabase*) chairDB
 {
-  return [self memoized: @selector(chairdb) usingBlock:^() {
-    ChairDatabase* db = [[ChairDatabase alloc]init]; 
-    
+  ChairDatabase* db = [self memoized: @selector(chairdb) usingBlock:^() {
+    ChairDatabase* db = [ChairDatabase database];
+                         
     if([M3 fileExists: DB_PATH]) {
       Benchmark(_.join("Loading database from ", DB_PATH));
       [db load: DB_PATH];
@@ -32,15 +34,10 @@
       }
     }
 
-    rlog << "Database is " << db;
-    
     return db; 
   }];
-}
 
--(void) setChairDB: (ChairDatabase*) chairDB;
-{
-  [self instance_variable_set: @selector(chairdb) withValue: nil];
+  return db;
 }
 
 /*

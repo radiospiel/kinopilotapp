@@ -177,8 +177,8 @@ ETest(ChairDatabase)
 
 -(void)test_import
 {
-  ChairDatabase* db = [[ChairDatabase alloc] init];
-
+  ChairDatabase* db = [ChairDatabase database];
+                       
   [db import: @"fixtures/flk.json"];
 
   ChairTable* theaters = [db tableForName: @"theaters"];
@@ -222,8 +222,8 @@ ETest(ChairDatabase)
   ChairDatabase* db = [ChairDatabase database];
   ChairTable* schedules = [db tableForName: @"schedules"];
 
-  ChairView* view = [schedules viewWithMap:nil andReduce:nil];
-  view = [schedules viewWithMap: nil andReduce: nil];
+  [schedules viewWithMap:nil andReduce:nil];
+  ChairView* view = [schedules viewWithMap: nil andReduce: nil];
 
   /* NSUInteger count = */ [view count];
 }

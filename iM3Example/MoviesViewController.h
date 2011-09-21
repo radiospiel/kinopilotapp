@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-@interface ProfileController : UIViewController {
+@interface MoviesViewController : UIViewController {
   IBOutlet UIImageView* imageView;
   IBOutlet UILabel* headline;
   IBOutlet UILabel* description;

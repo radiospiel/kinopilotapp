@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define app [[UIApplication sharedApplication] delegate]
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) UIProgressView* progressView;
@@ -34,11 +36,6 @@
  */
 -(void) initChairDB;
 
-/*
- * Return an instance 
- */
--(ChairDatabase*) chairDB;
-
--(void) setChairDB: (ChairDatabase*) chairDB;
+@property (retain,nonatomic,readonly) ChairDatabase* chairDB;
 
 @end

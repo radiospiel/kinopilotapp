@@ -7,7 +7,7 @@
 //
 
 #import "M3.h"
-#import "ProfileController.h"
+#import "MoviesViewController.h"
 
 @interface UILabel(M3Utilities)
 
@@ -50,7 +50,7 @@
 @end
 
 
-@implementation ProfileController
+@implementation MoviesViewController
 
 @synthesize isLandscape = isLandscape_;
 
