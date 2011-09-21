@@ -26,6 +26,8 @@
 #import "M3+Filenames.h"
 #import "M3+JSON.h"
 #import "M3+Inflector.h"
+#import "M3+Inspect.h"
+#import "M3+RuntimeError.h"
 
 #import "M3StopWatch.h"
 #import "M3Exception.h"
