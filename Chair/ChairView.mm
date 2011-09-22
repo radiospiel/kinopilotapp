@@ -83,14 +83,17 @@
   [self each: iterator min: nil max: nil excludingEnd: nil];
 }
 
+/*
+ * Get an entry off the dictionary.
+ */
 - (NSDictionary*) get: (id)key
 {
   NSDictionary* __block r = nil;
-   
+
   [self each: ^(NSDictionary* value, id key) { r = value; }
           min: key max: key excludingEnd: NO];
   
-  return [r autorelease];
+  return r;
 }
 
 /**
@@ -118,7 +121,7 @@
 {
   NSArray* keys = [self keys];
   if([keys count] == 0) return nil;
-  return [[self get: [keys objectAtIndex: 0]]retain];
+  return [self get:keys.first];
 }
 
 -(NSArray*) keys {

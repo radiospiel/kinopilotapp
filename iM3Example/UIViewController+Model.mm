@@ -4,15 +4,22 @@
 
 #define app ((AppDelegate*)[[UIApplication sharedApplication] delegate])
 
+#define addr(ptr) [ NSString stringWithFormat: @"0x%08x", ptr]
+
 @implementation UIViewController(Model)
 
 +(id)modelForURL: (NSString*)url
 {
+  @autoreleasepool {
+    
   if([url matches: @"^/movies/show/(.*)"]) {
     NSNumber* uid = [$1 to_number];
     
     NSDictionary* movie = [app.chairDB.movies get: uid];
-    movie = [NSMutableDictionary dictionaryWithDictionary:movie];
+    dlog << "movie is at " << addr(movie);
+    
+    movie = [[NSMutableDictionary alloc] initWithDictionary: movie];
+    dlog << "copied movie is at " << addr(movie);
     
     [movie setValue:[movie valueForKey:@"url"] forKey:@"action0"];
     
@@ -28,6 +35,7 @@
   }
   
   return [NSDictionary dictionary];
+  }
 }
 
 -(NSDictionary*) model 

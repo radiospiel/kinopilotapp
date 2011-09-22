@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MoviesListController : UIViewController {
+@interface MoviesListController : UITableViewController {
   UISegmentedControl* segmentedControl_;
+  NSMutableArray* segmentURLs_;
+  IBOutlet UITableViewController* tableViewController_;
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "MoviesListController.h"
 
 #import "M3.h"
 #import "Chair.h"
@@ -36,6 +37,11 @@
   dlog(2) << url << ": Loading viewController";
   
   UIViewController* vc = nil;
+
+  if (!vc && [url matches: @"^/movies/list(/(\\w+))?"]) {
+    // Any URL matching /controller/list[/parameters] creates a UITableViewController.
+    vc = [[MoviesListController alloc]init];
+  }
 
   if (!vc && [url matches: @"^/(\\w+)/(\\w+)(/(\\w+))?"]) {
     // Any URL matching /controller/action[/parameters] creates an 
@@ -133,10 +139,6 @@
 
 -(BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  NSLog(@"Started application");
-  return YES;
-  
-
   rlog(1) << "Starting application in " << [ M3 symbolicDir: @"$root" ];
 
   [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
@@ -166,7 +168,7 @@
   [self loadTabs];
   
   
-  // [self open: @"/movies/show/186554345716910270"];
+  [self open: @"/movies/list/all"];
 
   
   // [self progressView];

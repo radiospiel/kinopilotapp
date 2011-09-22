@@ -2,21 +2,24 @@
   "name": "Kinopilot Berlin",
   "tabs": [
     {
-      "url": "/movies/list",
-      "label": "Medea",
-      "icon": "games.png"
-    },
-    {
       "url": "/movies/show/2671114677927610000",
       "label": "Colombiana",
       "icon": "games.png"
     },
     {
+      "_skip_url": "/movies/show/8502966272931203000",
+      "url": "/movies/show/2671114677927610000",
+      "label": "Bruderschaft",
+      "icon": "games.png"
+    },
+    {
+      "disabled": true,
       "url": "http://google.com",
       "label": "Google",
       "icon": "world.png"
     },
     {
+      "disabled": true,
       "url": "http://ix.de",
       "label": "Heise",
       "icon": "world.png"

@@ -57,7 +57,13 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
                                         returningResponse: 0
                                                     error: &error ];
   
-  if(!data) @throw @"RuntimeError"; //  [ ETRuntimeError raise: error ];
+  rlog(2) << "HTTP request completed. " << url;
+  if(!data) {
+    rlog(2) << "Getting data from " << url << " failed.";
+    @throw @"RuntimeError"; //  [ ETRuntimeError raise: error ];
+  }
+
+  rlog(2) << "Got data from " << url;
 
   return data;
 }
