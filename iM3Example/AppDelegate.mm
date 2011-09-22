@@ -30,81 +30,75 @@
 {
   return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone;
 }
-//
-// Open a document at \a url with \a options.
--(void) open: (NSString*)url withOptions: (NSDictionary*)options
-{
-  // get type of document
-  // get view controller for that document with options
-  // push document on top of current tab
-}
 
 -(UIViewController*)viewControllerForURL: (NSString*)url
 {
-  //
-  // Is this an external URL? They need special handling.
-  if(([url matches: @"^([a-z]+)://"])) {
-    if([$1 isEqualToString:@"http"] || [$1 isEqualToString:@"https"])
-      return [ self loadInstanceOfClass: NSClassFromString(@"WebViewController")
-                                fromNib: @"WebViewController"];
-  }
-
-  //
-  // Any URL matching /controller/action[/parameters] creates an 
-  // CategoryActionController object and initialises it with the
-  // "CategoryActionController.nib" NIB file.
+  UIViewController* vc;
+  
   if ([url matches: @"^/(\\w+)/(\\w+)"]) {
+    // Any URL matching /controller/action[/parameters] creates an 
+    // CategoryActionController object and initialises it with the
+    // "CategoryActionController.nib" NIB file.
     NSString* controllerName = _.join($1.camelizeWord, $2.camelizeWord, "Controller");
-    DLOG(controllerName);
-    
-    return [self loadInstanceOfClass: NSClassFromString(controllerName)
-                             fromNib: controllerName];
-
+    vc = [self loadInstanceOfClass: NSClassFromString(controllerName)
+                           fromNib: controllerName];
   }
-  
-  _.raise("Cannot find controller for ", url);
-  return nil;
-}
+  else if(([url matches: @"^([a-z]+)://"])) {
+    // Is this an external URL? They need special handling.
+    if([$1 isEqualToString:@"http"] || [$1 isEqualToString:@"https"])
+      vc = [ self loadInstanceOfClass: NSClassFromString(@"WebViewController")
+                              fromNib: @"WebViewController"];
+  }
 
--(id)addTab:(NSDictionary*)tabConfig
-{
-  NSString* url = [tabConfig objectForKey: @"url"];
-  NSString* label = [tabConfig objectForKey: @"label"];
-  NSString* icon = [tabConfig objectForKey: @"icon"];
+  if(!vc)
+    _.raise("Cannot find controller for ", url);
 
-  // get portrait view controller for URL and Data
-  UIViewController* controller = [self viewControllerForURL: url];
-  controller.url = url;
-  
+  vc.url = url;
+
   // TODO:
   //
   // get landscape view controller for URL and Data
   // merge landscape view controller with portrait view controller 
+
+  return vc;
+}
+
+-(void)open: (NSString*)url
+{
+  UIViewController* vc = [self viewControllerForURL: url];
   
-  // get title for URL and Data.
-  NSString* title = controller.title;
+  UINavigationController* currentTab = (UINavigationController*) self.tabBarController.selectedViewController;
+  if(!currentTab)
+    currentTab = (UINavigationController*) [self.tabBarController.viewControllers objectAtIndex:0];
   
+  [currentTab pushViewController:vc animated:NO];
+}
+
+-(void)addTab: (NSString*)url withLabel: (NSString*)label andIcon: (NSString*)icon
+{
+  // get portrait view controller for URL and Data
+  UIViewController* vc = [self viewControllerForURL: url];
+
   //
   // Build navigation controller
-  UINavigationController* nc = [[UINavigationController alloc]initWithRootViewController:controller];
+  UINavigationController* nc = [[UINavigationController alloc]initWithRootViewController:vc];
 
+  // set navigation controller title
+  if(vc.title)
+    nc.navigationBar.topItem.title = vc.title;
+  else
+    nc.navigationBarHidden = YES;
+  
   // set navigation controller's tab properties
   nc.tabBarItem.image = [UIImage imageNamed:icon];
   nc.tabBarItem.title = label;
   
-  // set navigation controller title
-  if(title)
-    nc.navigationBar.topItem.title = title;
-  else
-     nc.navigationBarHidden = YES;
-  
   // Append nc to list of viewControllers
   NSMutableArray* viewControllers = [NSMutableArray arrayWithArray:self.tabBarController.viewControllers];
+  
   [viewControllers addObject: nc];
   
   self.tabBarController.viewControllers = viewControllers;
-  
-  return controller;
 }
 
 -(NSDictionary*) config
@@ -114,16 +108,16 @@
 
 -(void)loadTabs
 {
-  // id movie1 = [UIViewController modelForURL: @"/movies/view/2671114677927610000"];
-  // id movie2 = [UIViewController modelForURL: @"/movies/view/4856901337699517000"];
-  // id movie3 = [UIViewController modelForURL: @"/movies/view/2671114677927610000"];
-  // 
-  // return;
   NSArray* tabs = [[self config] objectForKey: @"tabs"];
   
   for(NSDictionary* tab in tabs) {
     if([tab objectForKey:@"disabled"]) continue;
-    [self addTab: tab];
+    NSString* url = [tab objectForKey: @"url"];
+    NSString* label = [tab objectForKey: @"label"];
+    NSString* icon = [tab objectForKey: @"icon"];
+    
+
+    [self addTab: url withLabel: label andIcon: icon];
   }
 }
 
@@ -131,29 +125,35 @@
 {
   rlog(1) << "Starting application in " << [ M3 symbolicDir: @"$root" ];
 
-  // [self initCouchbase];
-  [self initChairDB];
-  
   [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-  
-  // for(NSString* sym in _.array("$cache","$tmp","$documents", "$root", "$app")) {
-  //   dlog << @"*** " << sym << ": " << [ M3 symbolicDir: sym ];
-  // }
-  
+
+  /*
+   * Initialise database
+   */
+  [self initChairDB];
+
+  /*
+   * Initialise root window and (still empty) tabBarController
+   */
   self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
 
   UITabBarController* tabBarController = [[[UITabBarController alloc] init] autorelease];
   tabBarController.view.frame = [[UIScreen mainScreen] bounds];
+  // tabBarController.wantsFullScreenLayout = YES;
 
-  self.tabBarController = [tabBarController autorelease];
-  // [[[UITabBarController alloc] init] autorelease];
-  // self.tabBarController.wantsFullScreenLayout = YES;
-  
+  self.tabBarController = tabBarController;
+  self.window.rootViewController = self.tabBarController;
+  [self.window makeKeyAndVisible];
+
+  /*
+   * Load initial set of tabs
+   */
+   
   [self loadTabs];
   
-  self.window.rootViewController = self.tabBarController;
+  
+  [self open: @"/movies/show/186554345716910270"];
 
-  [self.window makeKeyAndVisible];
   
   // [self progressView];
   

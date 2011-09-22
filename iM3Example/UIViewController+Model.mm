@@ -17,12 +17,8 @@
     [movie setValue:[movie valueForKey:@"url"] forKey:@"action0"];
     
     NSArray* images = [movie valueForKey:@"images"];
-    if(images) {
-      NSArray* first_image = [images objectAtIndex:0];
-      if(first_image) {
-        [movie setValue:[first_image valueForKey:@"thumbnail"] forKey:@"image"];
-      }
-    }
+    if(images.first)
+      [movie setValue:[images.first valueForKey:@"thumbnail"] forKey:@"image"];
     
     return movie; 
   }

@@ -431,6 +431,11 @@ namespace RS {
 
 template <class T>
 inline const RS::Logger& operator << (const RS::Logger& logger, T obj) { 
+  logger.append([_.string(obj) inspect]); 
+  return logger; 
+}
+
+inline const RS::Logger& operator << (const RS::Logger& logger, const char* obj) { 
   logger.append(_.string(obj)); 
   return logger; 
 }

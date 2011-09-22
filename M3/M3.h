@@ -13,7 +13,7 @@
 @end
 
 #import "NSString+M3Extensions.h"
-#import "NSArray+Globbing.h"
+#import "NSArray+M3Extensions.h"
 #import "NSString+Regexp.h"
 #import "NSObject+Ivars.h"
 

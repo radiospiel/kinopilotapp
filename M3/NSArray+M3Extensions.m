@@ -1,12 +1,13 @@
+#import <Foundation/Foundation.h>
+#import "NSArray+M3Extensions.h"
+#include <glob.h>
+
+@implementation NSArray (Globbing)
+
 /* 
  * This is from https://gist.github.com/293959
  * Thanks, bkyle!
  */
-#import <Foundation/Foundation.h>
-#import "NSArray+Globbing.h"
-#include <glob.h>
-
-@implementation NSArray (Globbing)
 
 + (NSArray*) arrayWithFilesMatchingPattern: (NSString*) pattern 
                                 inDirectory: (NSString*) directory 
@@ -30,4 +31,14 @@
   return [NSArray arrayWithArray: files];
 }
 
+@end
+
+@implementation NSArray (M3Extensions)
+
+-(id) first
+{
+  if(self.count < 1) return nil;
+  return [self objectAtIndex: 0];
+}
+                             
 @end

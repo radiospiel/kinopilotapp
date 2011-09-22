@@ -6,3 +6,11 @@
                                inDirectory: (NSString*) directory;
 
 @end
+
+@interface NSArray (M3Extensions)
+
+@property (readonly,nonatomic,retain) id first;
+
+-(id) first;
+                             
+@end

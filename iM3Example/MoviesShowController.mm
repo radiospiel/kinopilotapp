@@ -84,6 +84,7 @@
   // fill in profile view from data
 
   headline.text = [ self.model valueForKey: @"title" ];
+  dlog << "Loaded movie " << headline.text;
   
   imageView.imageURL = [self.model valueForKey:@"image"];
 
