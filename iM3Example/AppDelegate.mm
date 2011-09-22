@@ -33,9 +33,11 @@
 
 -(UIViewController*)viewControllerForURL: (NSString*)url
 {
-  UIViewController* vc;
+  dlog(2) << url << ": Loading viewController";
   
-  if ([url matches: @"^/(\\w+)/(\\w+)"]) {
+  UIViewController* vc = nil;
+
+  if (!vc && [url matches: @"^/(\\w+)/(\\w+)(/(\\w+))?"]) {
     // Any URL matching /controller/action[/parameters] creates an 
     // CategoryActionController object and initialises it with the
     // "CategoryActionController.nib" NIB file.
@@ -43,7 +45,13 @@
     vc = [self loadInstanceOfClass: NSClassFromString(controllerName)
                            fromNib: controllerName];
   }
-  else if(([url matches: @"^([a-z]+)://"])) {
+
+  if (!vc && [url matches: @"^/(\\w+)/list(/(\\w+))?"]) {
+    // Any URL matching /controller/list[/parameters] creates a UITableViewController.
+    vc = [[UITableViewController alloc]init];
+  }
+  
+  if(!vc && ([url matches: @"^([a-z]+)://"])) {
     // Is this an external URL? They need special handling.
     if([$1 isEqualToString:@"http"] || [$1 isEqualToString:@"https"])
       vc = [ self loadInstanceOfClass: NSClassFromString(@"WebViewController")
@@ -52,6 +60,8 @@
 
   if(!vc)
     _.raise("Cannot find controller for ", url);
+
+  rlog(2) << "Loaded viewController for " << url << ": " << vc;
 
   vc.url = url;
 
@@ -123,6 +133,10 @@
 
 -(BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  NSLog(@"Started application");
+  return YES;
+  
+
   rlog(1) << "Starting application in " << [ M3 symbolicDir: @"$root" ];
 
   [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
@@ -152,7 +166,7 @@
   [self loadTabs];
   
   
-  [self open: @"/movies/show/186554345716910270"];
+  // [self open: @"/movies/show/186554345716910270"];
 
   
   // [self progressView];

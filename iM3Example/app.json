@@ -2,13 +2,13 @@
   "name": "Kinopilot Berlin",
   "tabs": [
     {
-      "url": "/movies/show/2671114677927610000",
-      "label": "Colombiana",
+      "url": "/movies/list",
+      "label": "Medea",
       "icon": "games.png"
     },
     {
-      "url": "/movies/show/4856901337699517000",
-      "label": "Medea",
+      "url": "/movies/show/2671114677927610000",
+      "label": "Colombiana",
       "icon": "games.png"
     },
     {
