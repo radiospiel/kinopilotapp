@@ -443,6 +443,22 @@ inline const RS::Logger& operator << (const RS::Logger& logger, id obj) {
     
   return logger; 
 }
+// 
+// inline const RS::Logger& operator << (const RS::Logger& logger, CGPoint point) { 
+//   logger.append([NSString stringWithFormat: @"%d,%d", (int)point.x, (int)point.y]);
+//   return logger;
+// }
+// 
+// inline const RS::Logger& operator << (const RS::Logger& logger, CGSize size) { 
+//   logger.append([NSString stringWithFormat: @"+%d+%d", (int)size.width, (int)size.height]);
+//   return logger;
+// }
+// 
+// inline const RS::Logger& operator << (const RS::Logger& logger, CGRect rect) { 
+//   logger.append([NSString stringWithFormat: @"(%d,%d+%d+%d)", 
+//     (int)rect.origin.x, (int)rect.origin.y, (int)rect.size.width, (int)rect.size.height]);
+//   return logger;
+// }
 
 template <class T>
 inline const RS::NoLogger& operator << (const RS::NoLogger& logger, T obj)
