@@ -87,7 +87,7 @@
   if(!currentTab)
     currentTab = (UINavigationController*) [self.tabBarController.viewControllers objectAtIndex:0];
   
-  [currentTab pushViewController:vc animated:NO];
+  [currentTab pushViewController:vc animated:YES];
 }
 
 -(void)addTab: (NSString*)url withLabel: (NSString*)label andIcon: (NSString*)icon

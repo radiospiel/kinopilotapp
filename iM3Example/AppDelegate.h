@@ -20,6 +20,7 @@
 @property (strong, nonatomic) UITabBarController *tabBarController;
 
 -(BOOL) isIPhone;
+-(void)open: (NSString*)url;
 
 @end
 
