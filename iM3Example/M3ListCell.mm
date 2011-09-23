@@ -15,6 +15,8 @@
 
     self.detailTextLabel.font = [UIFont systemFontOfSize:11];
     self.detailTextLabel.textColor = [UIColor colorWithName: @"#333"];
+    self.detailTextLabel.backgroundColor = [UIColor clearColor];
+
     self.detailTextLabel.numberOfLines = 2;
   }
   return self;
@@ -76,7 +78,6 @@
     
     [[self contentView] addSubview: tagLabel_];
   }
-  [tagLabel_ setHidden: !([self features: @selector(tag)])];
   
   // --- set star
   
@@ -123,22 +124,25 @@
     left += 33;
 
     self.imageView.image = [UIImage imageNamed:@"no_poster.png"];
-
     self.imageView.imageURL = [self.model objectForKey:@"image"];
   }
 
-  //
-  // the remaining width is 320 - left. We reserve some space for the index.
-  if([self features:@selector(tags)]) {
-    tagLabel_.frame = CGRectMake(left+3, 4, 30, 14);
-    self.textLabel.frame = CGRectMake(left + 36, 2, 290-left, 16);
-  }
-  else {
-    self.textLabel.frame = CGRectMake(left + 4, 2, 290-left, 16);
-  }
-  
   left += 4;
   self.detailTextLabel.frame = CGRectMake(left, 16, 290 - left, 32);
+
+  //
+  // the remaining width is 320 - left. We reserve some space for the index.
+  if([self features:@selector(tag)]) {
+    CGSize tagSize = [tagLabel_.text sizeWithFont:tagLabel_.font];
+    int width = (int) (0.5 + tagSize.width);
+    
+    tagLabel_.frame = CGRectMake(left-1, 3, width, 14);
+    left += width;
+    self.textLabel.frame = CGRectMake(left+2, 2, 290-left, 16);
+  }
+  else {
+    self.textLabel.frame = CGRectMake(left, 2, 290-left, 16);
+  }
 }
 
 @end
