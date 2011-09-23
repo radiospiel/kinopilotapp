@@ -40,5 +40,11 @@
   if(self.count < 1) return nil;
   return [self objectAtIndex: 0];
 }
+
+-(id) last
+{
+  if(self.count < 1) return nil;
+  return [self objectAtIndex: (self.count - 1)];
+}
                              
 @end

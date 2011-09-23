@@ -26,9 +26,9 @@ static float px(NSString* name, int startPos, int length)
     break;
     case 6: case 8:
     r = px(name, 0, 2);
-    g = px(name, 1, 2);
-    b = px(name, 2, 2);
-    if(name.length == 8) a = px(name, 3, 2);
+    g = px(name, 2, 2);
+    b = px(name, 4, 2);
+    if(name.length == 8) a = px(name, 6, 2);
     break;
   };
   

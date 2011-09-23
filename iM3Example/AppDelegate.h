@@ -14,6 +14,9 @@
 #import "Chair.h"
 #import "ChairDatabase+IM3Example.h"
 
+@class AppDelegate;
+extern AppDelegate* app;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) UIProgressView* progressView;
@@ -22,6 +25,9 @@
 
 -(BOOL) isIPhone;
 -(void)open: (NSString*)url;
+
+-(NSDictionary*) config;
+@property (retain, nonatomic,readonly) NSDictionary *config;
 
 @end
 

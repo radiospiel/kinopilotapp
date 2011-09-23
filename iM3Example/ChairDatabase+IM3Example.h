@@ -4,6 +4,7 @@
 @property (nonatomic,retain,readonly) ChairTable* theaters;
 @property (nonatomic,retain,readonly) ChairTable* schedules;
 
--(id)modelWithURL: (NSString*)url;
+-(NSDictionary*)modelWithURL: (NSString*)url;
+-(NSDictionary*)objectForKey: (id)key andType: (NSString*) type;
 
 @end

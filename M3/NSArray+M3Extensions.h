@@ -12,5 +12,6 @@
 @property (readonly,nonatomic,retain) id first;
 
 -(id) first;
+-(id) last;
                              
 @end

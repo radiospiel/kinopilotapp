@@ -25,4 +25,7 @@
 // returns the URL for a specific key
 -(NSString*)urlWithKey:(id)key;
 
+-(void)addSegment:(NSString*)label withURL: (NSString*)url;
+-(void)showSegmentedControl;
+
 @end

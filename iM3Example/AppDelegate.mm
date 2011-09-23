@@ -11,6 +11,8 @@
 #import "M3.h"
 #import "Chair.h"
 
+AppDelegate* app;
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -50,6 +52,10 @@
 
   if (!className && [url matches: @"^/(\\w+)/(\\w+)(/(\\w+))?"]) {
     nibName = className = _.join($1.camelizeWord, $2.camelizeWord, "Controller");
+  }
+
+  if (!className && [url matches: @"^/(\\w+)"]) {
+    className = _.join($1.camelizeWord, "Controller");
   }
 
   if(!className && ([url matches: @"^([a-z]+)://"]))
@@ -143,6 +149,8 @@
 
 -(BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  app = self;
+  
   rlog(1) << "Starting application in " << [ M3 symbolicDir: @"$root" ];
 
   [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];

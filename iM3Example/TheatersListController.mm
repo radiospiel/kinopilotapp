@@ -9,8 +9,6 @@
 #import "AppDelegate.h"
 #import "TheatersListController.h"
 
-#define app ((AppDelegate*)[[UIApplication sharedApplication] delegate])
-
 @interface TheatersListCell: M3ListCell
 
 /*

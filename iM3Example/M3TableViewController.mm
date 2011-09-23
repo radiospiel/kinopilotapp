@@ -119,12 +119,8 @@
 
   // get a reusable or create a new table cell
   M3ListCell *cell = [tableView dequeueReusableCellWithIdentifier: NSStringFromClass(klass)];
-  if (!cell) {
+  if (!cell)
     cell = [[[klass alloc]init]autorelease];
-  }
-  else {
-    rlog(1) << "Reusing cell";
-  }
   
   // Set model in cell.
   id key = [self.keys objectAtIndex: indexPath.row];

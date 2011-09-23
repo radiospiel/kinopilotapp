@@ -22,7 +22,7 @@
     returnValue = [data mutableObjectFromJSONDataWithParseOptions: 0 error: &error];
   }
 
-  if(!returnValue) [M3Exception raiseWithError: error];
+  if(!returnValue) _.raise(error);
 
   return returnValue;
 }

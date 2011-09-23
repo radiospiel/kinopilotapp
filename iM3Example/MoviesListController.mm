@@ -9,8 +9,6 @@
 #import "AppDelegate.h"
 #import "MoviesListController.h"
 
-#define app ((AppDelegate*)[[UIApplication sharedApplication] delegate])
-
 @implementation MoviesListController
 
 -(NSArray*)keys
