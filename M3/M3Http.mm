@@ -29,8 +29,6 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
                         url: (NSString*) url 
                 withOptions: (NSDictionary*) options
 {
-  dlog(2) << verb << " " << url;
-
   NSURL* ns_url = [NSURL URLWithString: url];
 
   NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:ns_url ];
@@ -57,13 +55,9 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
                                         returningResponse: 0
                                                     error: &error ];
   
-  rlog(2) << "HTTP request completed. " << url;
   if(!data) {
-    rlog(2) << "Getting data from " << url << " failed.";
     @throw @"RuntimeError"; //  [ ETRuntimeError raise: error ];
   }
-
-  rlog(2) << "Got data from " << url;
 
   return data;
 }

@@ -73,13 +73,20 @@
 
 #pragma mark - View lifecycle
 
+
+- (void)handleTap:(UITapGestureRecognizer *)sender {     
+  NSLog(@"handleTap");
+  // if (sender.state == UIGestureRecognizerStateEnded)     {         // handling code     
+  // } 
+}
+
 - (void)viewDidLoad
 {
   [super viewDidLoad];
   
   // Do any additional setup after loading the view from its nib.
   if(!self.model) return;
-
+  
   //
   // fill in profile view from data
 
@@ -99,6 +106,11 @@
   
   [description setTopAlignedText: [ self.model valueForKey: @"description" ]];
   // [imageView 
+  
+  UITapGestureRecognizer *recognizer = [[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)] autorelease];
+  description.userInteractionEnabled = YES;
+  [description addGestureRecognizer:recognizer];
+  NSLog(@"*** Attached UITapGestureRecognizer");
 }
 
 - (void)viewDidUnload

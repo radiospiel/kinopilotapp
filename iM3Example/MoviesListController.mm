@@ -37,6 +37,8 @@
 
 #pragma mark - View lifecycle
 
+/* add a segment to the segmentedControl_ */
+
 -(void)addSegment:(NSString*)label withURL: (NSString*)url
 {
   [segmentedControl_ insertSegmentWithTitle: label
@@ -117,14 +119,16 @@
   static NSString *CellIdentifier = @"Cell";
   
   // get a reusable or create a new table cell
-  M3ListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  M3ListCell *cell = [tableView dequeueReusableCellWithIdentifier:[M3ListCell reuseIdentifier] ];
   if (!cell)
     cell = [[[M3ListCell alloc] init] autorelease];
 
+  // get model
+  
   NSString* key = [self keyForRow:indexPath.row];
   NSDictionary* movie = [app.chairDB.movies get: key];
   
-  // Set image attribute
+  // Set image attribute in model.
   
   NSArray* images = [movie valueForKey:@"images"];
   if([images.first isKindOfClass:[NSDictionary class]]) {
@@ -132,13 +136,16 @@
     [movie setValue: [images.first objectForKey:@"thumbnail"] forKey: @"image"];
   }
 
+  // Set model in cell.
+  
   cell.model = movie;
   return cell;
 }
 
+// No title, when loaded into a tab.
 -(NSString*)title
-{
-  return nil;
+{ 
+  return nil; 
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -148,7 +155,6 @@
 
 - (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
 {
-  dlog << "Clicked row " << indexPath.row;
   NSString* url = _.join(@"/movies/show/", [self keyForRow: indexPath.row]);
   [app open: url];
 }

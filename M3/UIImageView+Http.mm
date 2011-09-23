@@ -9,7 +9,7 @@
 // For more on sencha.io see http://www.sencha.com/learn/how-to-use-src-sencha-io/
 //
 
-#define USE_SENCHA_IO 1
+#define USE_SENCHA_IO 0
 
 @implementation UIImage(M3Extensions)
 

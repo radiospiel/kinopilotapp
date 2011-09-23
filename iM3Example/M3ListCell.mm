@@ -4,8 +4,14 @@
 
 @implementation M3ListCell
 
++(NSString*)reuseIdentifier
+{
+  static NSString* reuseIdentifier = @"M3ListCell";
+  return reuseIdentifier;
+}
+
 -(id)init {
-  self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"M3ListCell"];
+  self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier: [M3ListCell reuseIdentifier] ];
   if(self) {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -35,7 +41,7 @@
 -(BOOL)features: (SEL)what
 {
   if(what == @selector(star))
-    return NO;
+    return YES;
 
   if(what == @selector(tag))
     return nil != [self.model objectForKey:@"tags"];
@@ -49,6 +55,12 @@
 -(NSDictionary*)model
 { 
   return model_;
+}
+
+- (void)tappedStar:(UITapGestureRecognizer *)sender {     
+  NSLog(@"tappedStar");
+  if (sender.state == UIGestureRecognizerStateEnded) { // handling code     
+  } 
 }
 
 /*
@@ -66,6 +78,10 @@
   if(!starView_ && [self features: @selector(star)]) {
     starView_ = [[UIImageView alloc]init];
     [[self contentView] addSubview: starView_];
+    
+    UITapGestureRecognizer *recognizer = [[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tappedStar:)] autorelease];
+    starView_.userInteractionEnabled = YES;
+    [starView_ addGestureRecognizer:recognizer];
   }
   [starView_ setHidden: !([self features: @selector(star)])];
 
@@ -92,7 +108,6 @@
   // --- set labels
   
   self.textLabel.text = [model objectForKey: @"title"];
-  
   self.detailTextLabel.text = [model objectForKey: @"description"];
 
   // --- set tags
