@@ -327,6 +327,11 @@
 		9D9656BC1417C1B600884372 /* M3Tests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B0D1413CA8B0066ECBB /* M3Tests.mm */; };
 		9D99B2CF1416A3380040768E /* M3+Events.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D99B2CE1416A3380040768E /* M3+Events.h */; };
 		9D99B2D21416A4E50040768E /* M3+Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D99B2D11416A4E50040768E /* M3+Events.m */; };
+		9D9D318B142C6E9800C8269A /* UIColor+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D9D3189142C6E9800C8269A /* UIColor+M3Extensions.h */; };
+		9D9D318C142C6E9800C8269A /* UIColor+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D9D3189142C6E9800C8269A /* UIColor+M3Extensions.h */; };
+		9D9D318D142C6E9800C8269A /* UIColor+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D318A142C6E9800C8269A /* UIColor+M3Extensions.mm */; };
+		9D9D318E142C6E9800C8269A /* UIColor+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D318A142C6E9800C8269A /* UIColor+M3Extensions.mm */; };
+		9D9D3191142C89C600C8269A /* M3ListCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D3190142C89C600C8269A /* M3ListCell.mm */; };
 		9DAA0D28142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA0D27142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm */; };
 		9DAA0D2B142AA8D5001F11C1 /* UIViewController+Model.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA0D2A142AA8D5001F11C1 /* UIViewController+Model.mm */; };
 /* End PBXBuildFile section */
@@ -649,6 +654,10 @@
 		9D9656B214177F9700884372 /* M3StopWatch.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3StopWatch.mm; sourceTree = "<group>"; };
 		9D99B2CE1416A3380040768E /* M3+Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Events.h"; sourceTree = "<group>"; };
 		9D99B2D11416A4E50040768E /* M3+Events.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "M3+Events.m"; sourceTree = "<group>"; };
+		9D9D3189142C6E9800C8269A /* UIColor+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+M3Extensions.h"; sourceTree = "<group>"; };
+		9D9D318A142C6E9800C8269A /* UIColor+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIColor+M3Extensions.mm"; sourceTree = "<group>"; };
+		9D9D318F142C89C600C8269A /* M3ListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3ListCell.h; sourceTree = "<group>"; };
+		9D9D3190142C89C600C8269A /* M3ListCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3ListCell.mm; sourceTree = "<group>"; };
 		9DAA0D26142AA6EC001F11C1 /* ChairDatabase+IM3Example.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ChairDatabase+IM3Example.h"; sourceTree = "<group>"; };
 		9DAA0D27142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "ChairDatabase+IM3Example.mm"; sourceTree = "<group>"; };
 		9DAA0D29142AA8D5001F11C1 /* UIViewController+Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Model.h"; sourceTree = "<group>"; };
@@ -817,6 +826,8 @@
 		9D48ACBD141E9E3E00D0D000 /* iM3Example */ = {
 			isa = PBXGroup;
 			children = (
+				9D9D318F142C89C600C8269A /* M3ListCell.h */,
+				9D9D3190142C89C600C8269A /* M3ListCell.mm */,
 				9DAA0D29142AA8D5001F11C1 /* UIViewController+Model.h */,
 				9DAA0D2A142AA8D5001F11C1 /* UIViewController+Model.mm */,
 				9DAA0D26142AA6EC001F11C1 /* ChairDatabase+IM3Example.h */,
@@ -1135,6 +1146,8 @@
 		9D8B8AF41413CA8B0066ECBB /* M3 */ = {
 			isa = PBXGroup;
 			children = (
+				9D9D3189142C6E9800C8269A /* UIColor+M3Extensions.h */,
+				9D9D318A142C6E9800C8269A /* UIColor+M3Extensions.mm */,
 				9D8B8AF71413CA8B0066ECBB /* M3.h */,
 				9D8B8AF81413CA8B0066ECBB /* M3.m */,
 				9D8B8B171413CAD90066ECBB /* M3+Comparison.h */,
@@ -1230,6 +1243,7 @@
 				9D8C4B97142896D0005D582A /* UIImageView+Http.h in Headers */,
 				9D3B086E142A255000322C00 /* M3+Inspect.h in Headers */,
 				9D3B0874142A3B7900322C00 /* M3+RuntimeError.h in Headers */,
+				9D9D318C142C6E9800C8269A /* UIColor+M3Extensions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1268,6 +1282,7 @@
 				9D8C4B96142896D0005D582A /* UIImageView+Http.h in Headers */,
 				9D3B086D142A255000322C00 /* M3+Inspect.h in Headers */,
 				9D3B0873142A3B7900322C00 /* M3+RuntimeError.h in Headers */,
+				9D9D318B142C6E9800C8269A /* UIColor+M3Extensions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1703,6 +1718,7 @@
 				9D8C4B99142896D0005D582A /* UIImageView+Http.mm in Sources */,
 				9D3B0870142A255000322C00 /* M3+Inspect.mm in Sources */,
 				9D3B0876142A3B7900322C00 /* M3+RuntimeError.mm in Sources */,
+				9D9D318E142C6E9800C8269A /* UIColor+M3Extensions.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1727,6 +1743,7 @@
 				9DAA0D28142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm in Sources */,
 				9DAA0D2B142AA8D5001F11C1 /* UIViewController+Model.mm in Sources */,
 				9D1438B2142B420E00123EC8 /* MoviesListController.mm in Sources */,
+				9D9D3191142C89C600C8269A /* M3ListCell.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1775,6 +1792,7 @@
 				9D8C4B98142896D0005D582A /* UIImageView+Http.mm in Sources */,
 				9D3B086F142A255000322C00 /* M3+Inspect.mm in Sources */,
 				9D3B0875142A3B7900322C00 /* M3+RuntimeError.mm in Sources */,
+				9D9D318D142C6E9800C8269A /* UIColor+M3Extensions.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1849,7 +1867,7 @@
 				DSTROOT = /tmp/iM3.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iM3/iM3-Prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -1867,7 +1885,7 @@
 				DSTROOT = /tmp/iM3.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iM3/iM3-Prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
