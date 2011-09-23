@@ -45,6 +45,7 @@
 #import <UIKit/UIKit.h>
 
 #import "UIImageView+Http.h"
+#import "UIColor+M3Extensions.h"
 
 #endif
 
