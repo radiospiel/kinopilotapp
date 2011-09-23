@@ -9,20 +9,6 @@
 #import "MoviesListController.h"
 #import "AppDelegate.h"
 
-@interface MoviesListCell: UITableViewCell
-@end
-
-@implementation  MoviesListCell
-
-- (void) layoutSubviews
-{   
-  [super layoutSubviews];
-  self.imageView.frame = CGRectMake(3, 4, 33, 42); // your positioning here
-}
-
-@end
-
-
 #define app ((AppDelegate*)[[UIApplication sharedApplication] delegate])
 
 @implementation MoviesListController
@@ -131,30 +117,22 @@
   static NSString *CellIdentifier = @"Cell";
   
   // get a reusable or create a new table cell
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-  if (!cell) {
-    cell = [[[MoviesListCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-  }
+  M3ListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  if (!cell)
+    cell = [[[M3ListCell alloc] init] autorelease];
 
-  // fill in table cell
   NSString* key = [self keyForRow:indexPath.row];
   NSDictionary* movie = [app.chairDB.movies get: key];
   
-  cell.textLabel.text = [ movie objectForKey: @"title"]; // [NSString stringWithFormat:@"%d", indexPath.row];
-  cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
-  cell.detailTextLabel.text = [ movie objectForKey: @"title"];  
-  cell.detailTextLabel.font = [UIFont systemFontOfSize:11];
-  cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.25 alpha:1];
-
-  cell.imageView.image = [UIImage imageNamed:@"no_poster.png"];
+  // Set image attribute
   
   NSArray* images = [movie valueForKey:@"images"];
   if([images.first isKindOfClass:[NSDictionary class]]) {
-    cell.imageView.imageURL = [images.first objectForKey:@"thumbnail"]; 
+    movie = [NSMutableDictionary dictionaryWithDictionary: movie];
+    [movie setValue: [images.first objectForKey:@"thumbnail"] forKey: @"image"];
   }
-  
-  
+
+  cell.model = movie;
   return cell;
 }
 
@@ -175,115 +153,6 @@
   [app open: url];
 }
 @end
-
-/* The previous layout is as follows: */
-
-#if 0
-
-//
-// 
-// Parameters:
-//    title
-//    subtitle
-//    image
-//
-//
-//    TA    IMG   LABEL 
-//   STAR   IMG   DESCRIPTION
-//   S  R   IMG   TAGS
-
-App.Partials.listing = function(rec, options) {
-  var className = "listing";
-  
-  //
-  // left positions for img, and for texts (label and description)
-  var left = 0;
-  if(options && options.stars) {
-    className += "_stars";
-    if(!rec.img) {
-      rec.img = "img/no_poster.png"
-    } 
-  }
-  
-  if(rec.img) className += "_img";
-  if(rec.tags) className += "_tags";
-  
-  var row = Titanium.UI.createTableViewRow({
-  className: className,
-  height: 50
-  });
-  
-  if(options && options.stars) {
-    var star_img = App.is_starred(rec) ? 'img/star.png' : 'img/unstar.png';
-    var star_img_view = App.imageView({image:star_img,
-    width:16, height:16,
-    left:7, top:17
-    });
-    
-    row.add(star_img_view);
-    left = 30;
-    
-    row.update_star = function(is_starred) {
-      star_img_view.image = is_starred ? 'img/star.png' : 'img/unstar.png';
-    };
-  }
-  
-  if(rec.hasOwnProperty("img")) {
-    left += 3;
-    
-    row.add(App.imageView({image:rec.img || "img/no_poster.png", 
-    width:33, height:42,
-    left:left, top:4
-    }));
-    
-    left += 33;
-  }
-  
-  if(rec.tags) {
-    row.add(Titanium.UI.createLabel({
-    text: " " + rec.tags + " ",
-    font: Font.bold(9),
-    color: "#fff",
-    borderRadius: 3,
-    backgroundColor: "#f60",
-    textAlign:'center',
-    top:4, 
-    left: left + 3,
-    width: 30,
-    height: 14
-    }));
-  }
-  
-  left += 4;
-  var label = Titanium.UI.createLabel({
-  text: rec.title || rec.name,
-  font: Font.bold(14),
-  width: 290 - left,
-  textAlign:'left',
-  top:3, 
-  left:left + (rec.tags ? 32 : 0), height:16
-  });
-  row.add(label);
-  
-  row.search = rec.title || rec.name;
-  
-  var description = rec.subtitle || rec.teaser || rec.address;
-  var limited_description = String.truncate(description, 2);
-  
-  row.add(Titanium.UI.createLabel({
-  text: limited_description,
-  font: Font.normal(11),
-  color: "#333",
-  textAlign:'left',
-  top:18, 
-  left: left,
-  width: 290 - left,
-  height: limited_description === description ? 'auto' : 32
-  }));
-  
-  return row;  
-};
-#endif
 
 // For animating cell heights:
 // http://stackoverflow.com/questions/460014/can-you-animate-a-height-change-on-a-uitableviewcell-when-selected/2063776#2063776
