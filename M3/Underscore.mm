@@ -53,7 +53,7 @@ namespace RS {
   NSString* RaiseFactory::run() const {
     NSString* msg = [arguments_ componentsJoinedByString: @""];
     rlog(1) << msg;
-    @throw msg;
+    @throw [RuntimeError errorWithMessage:msg];
   }
 
 }; // namespace RS ----------------------------------------------------

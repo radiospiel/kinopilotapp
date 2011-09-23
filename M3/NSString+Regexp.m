@@ -33,6 +33,8 @@
  */
 - (NSArray*) matches:(NSString*)regexp withOptions: (int)options
 {
+  // we could probably use NSString#arrayOfCaptureComponentsMatchedByRegex:regexString
+
   NSError* error = 0;
   
   NSArray* matches = [self componentsMatchedByRegex: regexp 
@@ -40,6 +42,8 @@
                                               range: NSMakeRange(0, self.length)
                                             capture: 0 
                                               error: &error];
+  
+  // NSLog(@"%@.matches: %@", self, regexp);
   
   if([matches count] == 1) {
     
@@ -57,6 +61,8 @@
       }
     }
   }
+
+  // NSLog(@"matches: %@", matches.inspect);
 
   [NSString setRecentMatches: matches];
 
@@ -139,7 +145,7 @@ ETest(Regexp)
 }
 
 
--(void)test_regexp_parsing
+-(void)test_regexp_parse_submatches
 {
   NSString* s = @"/controller/action/parameters";
   assert_equal_objects(
@@ -151,6 +157,21 @@ ETest(Regexp)
   assert_equal_objects($1, @"controller");
   assert_equal_objects($2, @"action");
   assert_equal_objects($4, @"parameters");
+}
+
+-(void)test_regexp_parse_color
+{
+  assert_true([@"#abc" imatches: @"^#([0-9a-z])([0-9a-z])([0-9a-z])$"]);
+
+  assert_equal_objects($1, @"a");
+  assert_equal_objects($2, @"b");
+  assert_equal_objects($3, @"c");
+  // 
+  // assert_false([@"#abc" imatches: @"#([0-9a-z][0-9a-z])([0-9a-z][0-9a-z])([0-9a-z][0-9a-z])"]);
+  // 
+  // assert_equal_objects($1, @"a");
+  // assert_equal_objects($2, @"b");
+  // assert_equal_objects($3, @"c");
 }
  
 @end

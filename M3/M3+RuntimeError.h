@@ -5,6 +5,8 @@
 
 -(id)initWithMessage: (NSString*)theMessage;
 
++(RuntimeError*)errorWithMessage: (NSString*)theMessage;
+
 @property(retain,nonatomic,readonly) NSArray* backtrace;
 @property(retain,nonatomic,readonly) NSString* message;
 

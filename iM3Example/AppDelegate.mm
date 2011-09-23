@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "MoviesListController.h"
 
 #import "M3.h"
 #import "Chair.h"
@@ -34,40 +33,41 @@
 
 -(UIViewController*)viewControllerForURL: (NSString*)url
 {
-  dlog(2) << url << ": Loading viewController";
+  NSLog(@"viewControllerForURL: %@", url);
+  // dlog(2) << url << ": Loading viewController";
+  
+  NSString* className = nil;
+  BOOL useNib = NO;
+
+  // /category/action[/params] URLs create a CategoryActionController
+  // object. If action is not "list", the objects will be loaded from a
+  // NIB with a matching name.
+  if (!className && [url matches: @"^/(\\w+)/list(/(\\w+))?"]) {
+    className = _.join($1.camelizeWord, "ListController");
+  }
+
+  if (!className && [url matches: @"^/(\\w+)/(\\w+)(/(\\w+))?"]) {
+    useNib = YES;
+    className = _.join($1.camelizeWord, $2.camelizeWord, "Controller");
+  }
+
+  if(!className && ([url matches: @"^([a-z]+)://"]))
+    className = @"WebViewController";
+
+  if(!className)
+    _.raise("Cannot find controller class name for URL ", url);
+  
   
   UIViewController* vc = nil;
-
-  if (!vc && [url matches: @"^/movies/list(/(\\w+))?"]) {
-    // Any URL matching /controller/list[/parameters] creates a UITableViewController.
-    vc = [[MoviesListController alloc]init];
+  if(useNib) {
+    rlog(2) << "Load " << className << " from NIB";
+    vc = [self loadInstanceOfClass: NSClassFromString(className)
+                           fromNib: className];
   }
-
-  if (!vc && [url matches: @"^/(\\w+)/(\\w+)(/(\\w+))?"]) {
-    // Any URL matching /controller/action[/parameters] creates an 
-    // CategoryActionController object and initialises it with the
-    // "CategoryActionController.nib" NIB file.
-    NSString* controllerName = _.join($1.camelizeWord, $2.camelizeWord, "Controller");
-    vc = [self loadInstanceOfClass: NSClassFromString(controllerName)
-                           fromNib: controllerName];
+  else {
+    rlog(2) << "Load " << className << " without NIB";
+    vc = [[NSClassFromString(className) alloc]init];
   }
-
-  if (!vc && [url matches: @"^/(\\w+)/list(/(\\w+))?"]) {
-    // Any URL matching /controller/list[/parameters] creates a UITableViewController.
-    vc = [[UITableViewController alloc]init];
-  }
-  
-  if(!vc && ([url matches: @"^([a-z]+)://"])) {
-    // Is this an external URL? They need special handling.
-    if([$1 isEqualToString:@"http"] || [$1 isEqualToString:@"https"])
-      vc = [ self loadInstanceOfClass: NSClassFromString(@"WebViewController")
-                              fromNib: @"WebViewController"];
-  }
-
-  if(!vc)
-    _.raise("Cannot find controller for ", url);
-
-  rlog(2) << "Loaded viewController for " << url << ": " << vc;
 
   vc.url = url;
 
@@ -81,7 +81,10 @@
 
 -(void)open: (NSString*)url
 {
+  if(!url) return;
+  
   UIViewController* vc = [self viewControllerForURL: url];
+  if(!vc) return;
   
   UINavigationController* currentTab = (UINavigationController*) self.tabBarController.selectedViewController;
   if(!currentTab)
@@ -94,7 +97,8 @@
 {
   // get portrait view controller for URL and Data
   UIViewController* vc = [self viewControllerForURL: url];
-
+  if(!vc) return;
+  
   //
   // Build navigation controller
   UINavigationController* nc = [[UINavigationController alloc]initWithRootViewController:vc];
@@ -166,12 +170,7 @@
    */
    
   [self loadTabs];
-  
-  
   [self open: @"/movies/list/all"];
-
-  
-  // [self progressView];
   
   return YES;
 }

@@ -28,6 +28,12 @@
   return self;
 }
 
++(RuntimeError*)errorWithMessage: (NSString*)theMessage;
+{
+  return [[[RuntimeError alloc]initWithMessage: theMessage]autorelease];
+}
+
+
 -(void)dealloc
 {
   [message_ release];

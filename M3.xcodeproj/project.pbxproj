@@ -67,7 +67,7 @@
 		9D0EF7501413DFF50051B8FA /* LoggerCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF74C1413DFF50051B8FA /* LoggerCommon.h */; };
 		9D0EF7521413E0400051B8FA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */; };
 		9D0EF7531413E04F0051B8FA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */; };
-		9D1438B2142B420E00123EC8 /* MoviesListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D1438B0142B420E00123EC8 /* MoviesListController.mm */; };
+		9D1438B2142B420E00123EC8 /* M3TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D1438B0142B420E00123EC8 /* M3TableViewController.mm */; };
 		9D31B7BC1422B58400D4AFB7 /* MoviesShowController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D31B7BB1422B58400D4AFB7 /* MoviesShowController_iPhone.xib */; };
 		9D33FBCD1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */; };
 		9D33FBCE1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */; };
@@ -334,6 +334,8 @@
 		9D9D3191142C89C600C8269A /* M3ListCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D3190142C89C600C8269A /* M3ListCell.mm */; };
 		9DAA0D28142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA0D27142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm */; };
 		9DAA0D2B142AA8D5001F11C1 /* UIViewController+Model.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA0D2A142AA8D5001F11C1 /* UIViewController+Model.mm */; };
+		9DC682BA142CB50B00124E9A /* MoviesListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682B9142CB50B00124E9A /* MoviesListController.mm */; };
+		9DC682BD142CBF2200124E9A /* TheatersListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682BC142CBF2200124E9A /* TheatersListController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -402,8 +404,8 @@
 		9D0EF74B1413DFF50051B8FA /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoggerClient.m; path = "vendor/NSLogger/Client Logger/iOS/LoggerClient.m"; sourceTree = "<group>"; };
 		9D0EF74C1413DFF50051B8FA /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoggerCommon.h; path = "vendor/NSLogger/Client Logger/iOS/LoggerCommon.h"; sourceTree = "<group>"; };
 		9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		9D1438AF142B420E00123EC8 /* MoviesListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesListController.h; sourceTree = "<group>"; };
-		9D1438B0142B420E00123EC8 /* MoviesListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesListController.mm; sourceTree = "<group>"; };
+		9D1438AF142B420E00123EC8 /* M3TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewController.h; sourceTree = "<group>"; };
+		9D1438B0142B420E00123EC8 /* M3TableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewController.mm; sourceTree = "<group>"; };
 		9D31B7BB1422B58400D4AFB7 /* MoviesShowController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviesShowController_iPhone.xib; sourceTree = "<group>"; };
 		9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Ivars.h"; sourceTree = "<group>"; };
 		9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Ivars.mm"; sourceTree = "<group>"; };
@@ -662,6 +664,10 @@
 		9DAA0D27142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "ChairDatabase+IM3Example.mm"; sourceTree = "<group>"; };
 		9DAA0D29142AA8D5001F11C1 /* UIViewController+Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Model.h"; sourceTree = "<group>"; };
 		9DAA0D2A142AA8D5001F11C1 /* UIViewController+Model.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIViewController+Model.mm"; sourceTree = "<group>"; };
+		9DC682B8142CB50B00124E9A /* MoviesListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesListController.h; sourceTree = "<group>"; };
+		9DC682B9142CB50B00124E9A /* MoviesListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesListController.mm; sourceTree = "<group>"; };
+		9DC682BB142CBF2200124E9A /* TheatersListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheatersListController.h; sourceTree = "<group>"; };
+		9DC682BC142CBF2200124E9A /* TheatersListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TheatersListController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -826,6 +832,8 @@
 		9D48ACBD141E9E3E00D0D000 /* iM3Example */ = {
 			isa = PBXGroup;
 			children = (
+				9DC682BB142CBF2200124E9A /* TheatersListController.h */,
+				9DC682BC142CBF2200124E9A /* TheatersListController.mm */,
 				9D9D318F142C89C600C8269A /* M3ListCell.h */,
 				9D9D3190142C89C600C8269A /* M3ListCell.mm */,
 				9DAA0D29142AA8D5001F11C1 /* UIViewController+Model.h */,
@@ -842,12 +850,14 @@
 				9D5A96D114200FB7000104CA /* WebViewController.mm */,
 				9D5A96D214200FB7000104CA /* WebViewController.xib */,
 				9D48ACBE141E9E3E00D0D000 /* Supporting Files */,
+				9DC682B8142CB50B00124E9A /* MoviesListController.h */,
+				9DC682B9142CB50B00124E9A /* MoviesListController.mm */,
 				9D750E9E1422AF7F0056290E /* MoviesShowController.h */,
 				9D750E9F1422AF7F0056290E /* MoviesShowController.mm */,
 				9D31B7BB1422B58400D4AFB7 /* MoviesShowController_iPhone.xib */,
 				9D4DA7C91422BF5300F98B7B /* MoviesShowController_iPhone_Landscape.xib */,
-				9D1438AF142B420E00123EC8 /* MoviesListController.h */,
-				9D1438B0142B420E00123EC8 /* MoviesListController.mm */,
+				9D1438AF142B420E00123EC8 /* M3TableViewController.h */,
+				9D1438B0142B420E00123EC8 /* M3TableViewController.mm */,
 			);
 			path = iM3Example;
 			sourceTree = "<group>";
@@ -1742,8 +1752,10 @@
 				9D33FBD71427D39E000A3D69 /* AppDelegate+ChairDB.mm in Sources */,
 				9DAA0D28142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm in Sources */,
 				9DAA0D2B142AA8D5001F11C1 /* UIViewController+Model.mm in Sources */,
-				9D1438B2142B420E00123EC8 /* MoviesListController.mm in Sources */,
+				9D1438B2142B420E00123EC8 /* M3TableViewController.mm in Sources */,
 				9D9D3191142C89C600C8269A /* M3ListCell.mm in Sources */,
+				9DC682BA142CB50B00124E9A /* MoviesListController.mm in Sources */,
+				9DC682BD142CBF2200124E9A /* TheatersListController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

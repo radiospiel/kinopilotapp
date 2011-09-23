@@ -2,27 +2,29 @@
   "name": "Kinopilot Berlin",
   "tabs": [
     {
-      "url": "/movies/show/2671114677927610000",
-      "label": "Colombiana",
-      "icon": "games.png"
+      "url": "/movies/list",
+      "label": "Kalender",
+      "icon": "tab_tage.png"
     },
     {
-      "_skip_url": "/movies/show/8502966272931203000",
-      "url": "/movies/show/2671114677927610000",
-      "label": "Bruderschaft",
-      "icon": "games.png"
+      "url": "/movies/list",
+      "label": "Filme",
+      "icon": "tab_filme.png"
     },
     {
-      "disabled": true,
-      "url": "http://google.com",
-      "label": "Google",
-      "icon": "world.png"
+      "url": "/theaters/list",
+      "label": "Kinos",
+      "icon": "tab_kinos.png"
     },
     {
-      "disabled": true,
-      "url": "http://ix.de",
-      "label": "Heise",
-      "icon": "world.png"
+      "url": "/movies/list",
+      "label": "Map",
+      "icon": "tab_karte.png"
+    },
+    {
+      "url": "/movies/list",
+      "label": "Info",
+      "icon": "tab_about.png"
     }
   ]
 }
