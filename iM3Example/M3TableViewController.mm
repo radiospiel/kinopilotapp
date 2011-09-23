@@ -148,13 +148,6 @@
   return nil;
 }
 
-// No title, when loaded into a tab.
--(NSString*)title
-{ 
-  return [super title];
-  return nil; 
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
   return self.keys.count;

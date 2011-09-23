@@ -12,4 +12,6 @@
 -(NSString*)camelizeWord;
 -(NSNumber*)to_number;
 
+@property (readonly,nonatomic,retain) NSNumber* to_number;
+
 @end

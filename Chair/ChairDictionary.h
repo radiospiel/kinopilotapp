@@ -36,6 +36,7 @@
 @property (nonatomic,retain) NSArray* keys;
 @property (nonatomic,retain) NSDictionary* data;
 
+-(NSArray*)keys;
 
 -(void) encodeWithCoder: (NSCoder *)coder;
 -(id) initWithCoder: (NSCoder *)coder;
@@ -54,3 +55,7 @@
       excludingEnd: (BOOL) excludingEnd;
 
 @end
+
+//
+// TODO: Add ChairMultiDictionary keys
+//

@@ -33,12 +33,9 @@
 
 -(UIViewController*)viewControllerForURL: (NSString*)url
 {
-  NSLog(@"viewControllerForURL: %@", url);
-  // dlog(2) << url << ": Loading viewController";
-  
   NSString* className = nil;
-  BOOL useNib = NO;
-
+  NSString* nibName = nil;
+  
   // /category/action[/params] URLs create a CategoryActionController
   // object. If action is not "list", the objects will be loaded from a
   // NIB with a matching name.
@@ -46,26 +43,29 @@
     className = _.join($1.camelizeWord, "ListController");
   }
 
+  if (!className && [url matches: @"^/(\\w+)/show(/(\\w+))?"]) {
+    className = _.join($1.camelizeWord, "ShowController");
+    nibName = @"M3ProfileController";
+  }
+
   if (!className && [url matches: @"^/(\\w+)/(\\w+)(/(\\w+))?"]) {
-    useNib = YES;
-    className = _.join($1.camelizeWord, $2.camelizeWord, "Controller");
+    nibName = className = _.join($1.camelizeWord, $2.camelizeWord, "Controller");
   }
 
   if(!className && ([url matches: @"^([a-z]+)://"]))
-    className = @"WebViewController";
+    nibName = className = @"WebViewController";
 
   if(!className)
     _.raise("Cannot find controller class name for URL ", url);
   
-  
   UIViewController* vc = nil;
-  if(useNib) {
-    rlog(2) << "Load " << className << " from NIB";
+  if(nibName) {
+    // rlog(2) << "Load " << className << " from NIB";
     vc = [self loadInstanceOfClass: NSClassFromString(className)
-                           fromNib: className];
+                           fromNib: nibName];
   }
   else {
-    rlog(2) << "Load " << className << " without NIB";
+    // rlog(2) << "Load " << className << " without NIB";
     vc = [[NSClassFromString(className) alloc]init];
   }
 
@@ -170,7 +170,7 @@
    */
    
   [self loadTabs];
-  [self open: @"/movies/list/all"];
+  // [self open: @"/movies/list/all"];
   
   return YES;
 }

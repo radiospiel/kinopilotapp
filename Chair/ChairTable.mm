@@ -113,6 +113,11 @@
   return record ? key : nil;
 }
 
+-(NSArray*)keys
+{
+  return [dictionary_ keys];
+}
+
 -(NSString*) description
 {
   return [NSString stringWithFormat:  @"<%@: %ld dependants, %ld records>", 

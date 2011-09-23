@@ -1,14 +1,14 @@
 //
-//  MoviesShowController.m
+//  TheatersShowController.m
 //  M3
 //
 //  Created by Enrico Thierbach on 23.09.11.
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "MoviesShowController.h"
+#import "TheatersShowController.h"
 
-@implementation MoviesShowController
+@implementation TheatersShowController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

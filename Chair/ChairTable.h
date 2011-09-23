@@ -15,6 +15,8 @@
 
 @property (nonatomic,retain) ChairDictionary* dictionary;
 
+-(NSArray*)keys;
+
 @end
 
 /**

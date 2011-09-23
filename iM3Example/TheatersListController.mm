@@ -46,14 +46,8 @@
 }
 
 -(NSDictionary*)modelWithKey:(id)key
-{
-  // get model for indexPath
-  NSMutableDictionary* model = [NSMutableDictionary dictionaryWithDictionary: [app.chairDB.theaters get: key]];
-  
-  [model setObject: [model objectForKey:@"name"]    forKey: @"title"];
-  [model setObject: [model objectForKey:@"address"] forKey: @"description"];
-  
-  return model;
+{ 
+  return [app.chairDB objectForKey: key andType: @"theaters"]; 
 }
 
 // get url for indexPath

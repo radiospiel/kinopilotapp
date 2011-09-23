@@ -19,25 +19,14 @@
 }
 
 -(NSDictionary*)modelWithKey:(id)key
-{
-  // get model for indexPath
-  NSDictionary* movie = [app.chairDB.movies get: key];
-  
-  // Set image attribute in model.
-  
-  NSArray* images = [movie valueForKey:@"images"];
-  if([images.first isKindOfClass:[NSDictionary class]]) {
-    movie = [NSMutableDictionary dictionaryWithDictionary: movie];
-    [movie setValue: [images.first objectForKey:@"thumbnail"] forKey: @"image"];
-  }
-
-  return movie;
+{ 
+  return [app.chairDB objectForKey: key andType: @"movies"]; 
 }
 
 // get url for indexPath
 -(NSString*)urlWithKey: (id)key
-{
-  return _.join(@"/movies/show/", key);
+{ 
+  return _.join(@"/movies/show/", key); 
 }
 
 - (void)viewDidLoad
