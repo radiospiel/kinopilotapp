@@ -9,6 +9,12 @@
 #import "AppDelegate.h"
 #import "M3ProfileController.h"
 
+static NSString* recti(CGRect rect)
+{
+  return [NSString stringWithFormat: @"(%d,%d+%d+%d)", 
+    (int)rect.origin.x, (int)rect.origin.y, (int)rect.size.width, (int)rect.size.height];
+}
+
 @interface UILabel(M3Utilities)
 
 -(void)setTopAlignedText: (NSString*)text;
@@ -52,7 +58,7 @@
 
 @implementation M3ProfileController
 
-@synthesize isLandscape = isLandscape_;
+@synthesize bodyView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -99,10 +105,7 @@
   [action1 setAction: [self.model valueForKey: @"action1"]];
 
   BOOL actionsHidden = action0.hidden && action1.hidden;
-  if([self isLandscape])
-    description.numberOfLines = actionsHidden ? 6 : 5;
-  else
-    description.numberOfLines = actionsHidden ? 5 : 4;
+  description.numberOfLines = actionsHidden ? 5 : 4;
   
   [description setTopAlignedText: [ self.model valueForKey: @"description" ]];
   // [imageView 
@@ -115,9 +118,10 @@
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+  [super viewDidUnload];
+  
+  [bodyController_ release];
+  bodyController_ = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -131,5 +135,22 @@
   //     return YES;
   // }
 }
+
+#pragma mark - Body Controller
+
+-(void)setBodyController: (UIViewController*)controller withTitle: (NSString*)title
+{
+  [bodyController_ release];
+  bodyController_ = [controller retain];
+
+  subHeader.text = title;
+  
+  [self.bodyView addSubview: controller.view];
+  CGSize sz = self.bodyView.frame.size;
+  
+  controller.view.frame = CGRectMake(0, 0, sz.width, sz.height);
+  // dlog << "bodyView rectangle: " << recti(bodyView.frame);
+  // dlog << "controller.view rectangle: " << recti(controller.view.frame);
+} 
 
 @end

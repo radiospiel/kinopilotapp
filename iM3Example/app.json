@@ -2,12 +2,8 @@
   "name": "Kinopilot Berlin",
   "tabs": [
     {
+      "disabled": "disabled",
       "url": "/theaters/list",
-      "label": "Kinos",
-      "icon": "tab_kinos.png"
-    },
-    {
-      "url": "/movies/list",
       "label": "Kalender",
       "icon": "tab_tage.png"
     },
@@ -15,6 +11,11 @@
       "url": "/movies/list",
       "label": "Filme",
       "icon": "tab_filme.png"
+    },
+    {
+      "url": "/theaters/list",
+      "label": "Kinos",
+      "icon": "tab_kinos.png"
     },
     {
       "url": "/movies/list",
@@ -53,7 +54,8 @@
         ["Umsetzung",             "http://socially.io"],
         ["Grafische Beratung",    "http://brettmeister.com"],
         ["chair.DB",              "https://github.com/radiospiel/chairdb"]
-      ]
+      ],
+      "footer": "© socially.io UG (haftungsbeschränkt), 2011"
     }
   ]
 }

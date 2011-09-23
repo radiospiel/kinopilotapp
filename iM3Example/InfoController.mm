@@ -129,6 +129,7 @@
       cell.textLabel.numberOfLines = 0;
       cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
       cell.textLabel.textAlignment = UITextAlignmentCenter;
+      cell.selectionStyle = UITableViewCellSelectionStyleNone;
       break;
   }
   

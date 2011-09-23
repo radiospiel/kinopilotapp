@@ -29,6 +29,8 @@ extern AppDelegate* app;
 -(NSDictionary*) config;
 @property (retain, nonatomic,readonly) NSDictionary *config;
 
+-(UIViewController*)viewControllerForURL: (NSString*)url;
+
 @end
 
 

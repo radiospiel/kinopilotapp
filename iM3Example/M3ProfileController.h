@@ -13,11 +13,14 @@
   IBOutlet UIButton* action0;
   IBOutlet UIButton* action1;
 
-  IBOutlet UIView* body;
+  IBOutlet UIView* bodyView;
+  IBOutlet UILabel* subHeader;
   
-  BOOL isLandscape_;
+  UIViewController* bodyController_;
 }
 
-@property (assign,nonatomic) BOOL isLandscape;
+@property (nonatomic,retain,readonly) UIView* bodyView;
+
+-(void)setBodyController: (UIViewController*)controller withTitle: (NSString*)title;
 
 @end

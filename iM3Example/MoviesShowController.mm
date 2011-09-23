@@ -7,6 +7,7 @@
 //
 
 #import "MoviesShowController.h"
+#import "AppDelegate.h"
 
 @implementation MoviesShowController
 
@@ -36,13 +37,12 @@
 }
 */
 
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+  [super viewDidLoad];
+
+  [self setBodyController: [app viewControllerForURL: @"/theaters/list"] withTitle: @"Kinos"];
 }
-*/
 
 - (void)viewDidUnload
 {
