@@ -58,7 +58,7 @@ static NSString* recti(CGRect rect)
 
 @implementation M3ProfileController
 
-@synthesize bodyView;
+@synthesize bodyView, imageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

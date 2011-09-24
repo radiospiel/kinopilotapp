@@ -139,6 +139,12 @@
   return nil;
 }
 
+- (NSArray*)keys;
+{
+  _.raise(@"Missing mplementation: M3TableViewController#keys");
+  return nil;
+}
+
 -(NSString*)urlWithKey: (id)key
 {
   return nil;

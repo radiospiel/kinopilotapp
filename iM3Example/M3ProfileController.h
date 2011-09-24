@@ -20,6 +20,8 @@
 }
 
 @property (nonatomic,retain,readonly) UIView* bodyView;
+@property (nonatomic,retain,readonly) UIImageView* imageView;
+@property (nonatomic,retain,readonly) UILabel* description;
 
 -(void)setBodyController: (UIViewController*)controller withTitle: (NSString*)title;
 

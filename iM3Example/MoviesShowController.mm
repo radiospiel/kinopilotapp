@@ -42,6 +42,23 @@
   [super viewDidLoad];
 
   [self setBodyController: [app viewControllerForURL: @"/theaters/list"] withTitle: @"Kinos"];
+  
+  // Show full info on a tap on tap on imageView and description
+  UITapGestureRecognizer *recognizer;
+  recognizer = [[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(openFullInfo)] autorelease];
+  [self.imageView addGestureRecognizer:recognizer];
+  self.imageView.userInteractionEnabled = YES;
+
+  recognizer = [[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(openFullInfo)] autorelease];
+//  [self.description addGestureRecognizer:recognizer];
+}
+
+-(void) openFullInfo
+{
+  dlog << "==> openFullInfo";
+  
+  NSString* url = [self.url stringByReplacingOccurrencesOfString:@"/movies/show" withString:@"/movies/full"];
+  [app open: url];
 }
 
 - (void)viewDidUnload

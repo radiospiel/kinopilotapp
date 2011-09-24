@@ -60,7 +60,7 @@
 
 -(NSDictionary*)modelWithURL: (NSString*)url
 {
-  if([url matches: @"^/([^/]+)/show/(.*)"])
+  if([url matches: @"^/([^/]+)/[^/]+/(.*)"])
     return [self objectForKey: $2.to_number andType: $1];
   
   return [NSDictionary dictionary];

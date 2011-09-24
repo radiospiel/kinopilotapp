@@ -38,4 +38,14 @@
   [ self instance_variable_set: @selector(title) withValue: title ];
 };
 
+-(BOOL) shouldOpenModally
+{
+  return NO;
+}
+
+-(void) dismissModalViewController
+{
+  [self dismissModalViewControllerAnimated:YES];
+}
+
 @end

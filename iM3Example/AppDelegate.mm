@@ -91,12 +91,21 @@ AppDelegate* app;
   
   UIViewController* vc = [self viewControllerForURL: url];
   if(!vc) return;
-  
+
   UINavigationController* currentTab = (UINavigationController*) self.tabBarController.selectedViewController;
   if(!currentTab)
     currentTab = (UINavigationController*) [self.tabBarController.viewControllers objectAtIndex:0];
   
-  [currentTab pushViewController:vc animated:YES];
+  if([vc shouldOpenModally]) {
+    // vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    // vc.modalTransitionStyle = UIModalTransitionStylePartialCurl;
+    [currentTab presentModalViewController:vc animated:YES];
+
+  }
+  else {
+    [currentTab pushViewController:vc animated:YES];
+  }
 }
 
 -(void)addTab: (NSString*)url withLabel: (NSString*)label andIcon: (NSString*)icon
@@ -178,7 +187,8 @@ AppDelegate* app;
    */
    
   [self loadTabs];
-  // [self open: @"/movies/list/all"];
+  
+  // [self open: @"/movies/full/3346108360239538000"];
   
   return YES;
 }
