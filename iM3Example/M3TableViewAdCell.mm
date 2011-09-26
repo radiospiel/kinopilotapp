@@ -8,9 +8,8 @@
   self = [super init];
   if(!self) return nil;
 
-  self.textLabel.text = @"Some ad goes here.";
-  self.textLabel.textColor = [UIColor colorWithName: @"#fff"];
-  self.textLabel.font = [UIFont boldSystemFontOfSize:16];
+  self.textLabel.text = @"";
+  self.textLabel.textColor = [UIColor clearColor];
   
   self.contentView.backgroundColor = [UIColor colorWithName: @"#000"];
   self.textLabel.backgroundColor = [UIColor colorWithName: @"#000"];

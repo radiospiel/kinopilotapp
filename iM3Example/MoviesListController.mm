@@ -9,29 +9,72 @@
 #import "AppDelegate.h"
 #import "MoviesListController.h"
 #import "M3TableViewProfileCell.h"
+#import "M3TableViewAdCell.h"
 
-@implementation MoviesListController
+@implementation M3ListViewController: M3TableViewController
+
+-(void)dealloc
+{
+  [keys_ release];
+  [super dealloc];
+}
 
 -(NSArray*)keys
 {
-  return app.chairDB.movies.keys;
-}
+  if(!keys_) {
+    NSMutableArray* keys = [[NSMutableArray alloc]init];
 
--(NSDictionary*)modelWithKey:(id)key
-{ 
-  // NSLog(@"modelWithKey: %@", key);
-  // 
-  return [app.chairDB objectForKey: key andType: @"movies"]; 
+    int probability = -1;
+    
+    for(id key in app.chairDB.movies.keys) {
+      // The likelyhood of an ad view increments with each inserted row.
+      if(rand() % 12 < probability) {
+        NSLog(@"add ad");
+        [keys addObject: [NSNull null]];
+        probability = -1;
+      }
+
+      probability++;
+      
+      [keys addObject: key];
+    }
+    
+    keys_ = keys;
+  }
+
+  return keys_;
 }
 
 - (Class) tableView:(UITableView *)tableView cellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
+  NSArray* keys = [self keys];
+  id key = [keys objectAtIndex: indexPath.row];
+  
+  if([key isKindOfClass:[NSNull class]])
+    return [M3TableViewAdCell class];
+  
   return [M3TableViewProfileCell class];
+}
+
+@end
+
+@implementation MoviesListController
+
+
+-(NSDictionary*)modelWithKey:(id)key
+{ 
+  if(!key) return nil;
+  if([key isKindOfClass: [NSNull class]]) return nil;
+
+  return [app.chairDB objectForKey: key andType: @"movies"]; 
 }
 
 // get url for indexPath
 -(NSString*)urlWithKey: (id)key
 { 
+  if(!key) return nil;
+  if([key isKindOfClass: [NSNull class]]) return nil;
+  
   return _.join(@"/movies/show/", key); 
 }
 

@@ -8,5 +8,11 @@
 
 #import "M3TableViewController.h"
 
-@interface MoviesListController : M3TableViewController
+@interface M3ListViewController: M3TableViewController {
+  NSArray* keys_;
+};
+
+@end
+
+@interface MoviesListController: M3ListViewController
 @end
