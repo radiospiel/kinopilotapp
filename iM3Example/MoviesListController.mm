@@ -21,29 +21,35 @@
 
 -(NSArray*)keys
 {
-  if(!keys_) {
-    NSMutableArray* keys = [[NSMutableArray alloc]init];
+  if([self.url matches: @"/movies/list/theater_id=(.*)"])
+    return [app.chairDB movieIdsByTheaterId: $1.to_number];
 
-    int probability = -1;
-    
-    for(id key in app.chairDB.movies.keys) {
-      // The likelyhood of an ad view increments with each inserted row.
-      if(rand() % 12 < probability) {
-        [keys addObject: [NSNull null]];
-        probability = -2000;
-      }
-
-      probability++;
-      
-      [keys addObject: key];
-    }
-
-    dlog << @"added " << (keys.count - app.chairDB.movies.count) << " ads amongst " << app.chairDB.movies.count << " entries";
-
-    keys_ = keys;
-  }
-
-  return keys_;
+  return app.chairDB.movies.keys;
+  
+  // 
+  // if(!keys_) {
+  //   NSMutableArray* keys = [[NSMutableArray alloc]init];
+  // 
+  //   int probability = -1;
+  //   
+  //   for(id key in app.chairDB.movies.keys) {
+  //     // The likelyhood of an ad view increments with each inserted row.
+  //     if(rand() % 12 < probability) {
+  //       [keys addObject: [NSNull null]];
+  //       probability = -2000;
+  //     }
+  // 
+  //     probability++;
+  //     
+  //     [keys addObject: key];
+  //   }
+  // 
+  //   dlog << @"added " << (keys.count - app.chairDB.movies.count) << " ads amongst " << app.chairDB.movies.count << " entries";
+  // 
+  //   keys_ = keys;
+  // }
+  // 
+  // return keys_;
 }
 
 - (Class) tableView:(UITableView *)tableView cellClassForRowAtIndexPath:(NSIndexPath *)indexPath;

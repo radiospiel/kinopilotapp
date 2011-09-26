@@ -70,12 +70,10 @@ AppDelegate* app;
   
   UIViewController* vc = nil;
   if(nibName) {
-    // rlog(2) << "Load " << className << " from NIB";
     vc = [self loadInstanceOfClass: NSClassFromString(className)
                            fromNib: nibName];
   }
   else {
-    // rlog(2) << "Load " << className << " without NIB";
     vc = [[NSClassFromString(className) alloc]init];
   }
 
@@ -100,16 +98,17 @@ AppDelegate* app;
   if(!currentTab)
     currentTab = (UINavigationController*) [self.tabBarController.viewControllers objectAtIndex:0];
   
-  if([vc shouldOpenModally]) {
-    // vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    // vc.modalTransitionStyle = UIModalTransitionStylePartialCurl;
-    [currentTab presentModalViewController:vc animated:YES];
+  rlog(1) << "open " << url;
 
-  }
-  else {
-    [currentTab pushViewController:vc animated:YES];
-  }
+  // if([vc shouldOpenModally]) {
+  //   // vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+  //   vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+  //   // vc.modalTransitionStyle = UIModalTransitionStylePartialCurl;
+  //   [currentTab presentModalViewController:vc animated:YES];
+  //   return;
+  // }
+
+  [currentTab pushViewController:vc animated:YES];
 }
 
 -(void)addTab: (NSString*)url withLabel: (NSString*)label andIcon: (NSString*)icon

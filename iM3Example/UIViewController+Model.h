@@ -6,8 +6,6 @@
 @property (retain,nonatomic) NSString* title;
 @property (retain,nonatomic,readonly) NSDictionary* model;
 
--(BOOL) shouldOpenModally;
-
 @end
 
 #endif

@@ -43,7 +43,8 @@
 {
   [super viewDidLoad];
   
-  [self setBodyController: [app viewControllerForURL: @"/movies/list"] withTitle: @"Filme"];
+  NSString* bodyURL = _.join(@"/movies/list/theater_id=", [self.model objectForKey:@"_uid" ]);
+  [self setBodyController: [app viewControllerForURL:bodyURL ] withTitle: @"Filme"];
 }
 
 - (void)viewDidUnload

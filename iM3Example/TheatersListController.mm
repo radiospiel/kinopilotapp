@@ -45,6 +45,9 @@
 
 -(NSArray*)keys
 {
+  if([self.url matches: @"/theaters/list/movie_id=(.*)"])
+    return [app.chairDB theaterIdsByMovieId: $1.to_number];
+
   return app.chairDB.theaters.keys;
 }
 

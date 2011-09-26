@@ -41,7 +41,8 @@
 {
   [super viewDidLoad];
 
-  [self setBodyController: [app viewControllerForURL: @"/theaters/list"] withTitle: @"Kinos"];
+  NSString* bodyURL = _.join(@"/theaters/list/movie_id=", [self.model objectForKey:@"_uid" ]);
+  [self setBodyController: [app viewControllerForURL:bodyURL ] withTitle: @"Kinos"];
   
   // Show full info on a tap on tap on imageView and description
   UITapGestureRecognizer *recognizer;

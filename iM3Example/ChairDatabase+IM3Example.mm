@@ -66,4 +66,62 @@
   return [NSDictionary dictionary];
 }
 
+
+
+-(NSArray*) theaterIdsByMovieId: (NSNumber*)movieID
+{
+  // -- SQL pseudo code ----------------------------------------
+  //
+  // SELECT * FROM schedules WHERE movie_id=$1
+  // INNER JOIN theaters ON theaters.uid = schedules.theater_id
+  // ORDER BY theaters.name
+  
+  NSMutableArray* m_array = [NSMutableArray array];
+  
+  [self.schedules each:^(NSDictionary *value, id key) {
+    if(![movieID isEqual:[value objectForKey:@"movie_id"]]) return;
+    [m_array addObject: [value objectForKey:@"theater_id"]];
+  }];
+
+  NSArray* array = [m_array uniq];
+  return [array sortedArrayUsingSelector:@selector(compare:)];
+  
+  // == or just
+  //  
+  // ChairView* schedules_by_movie_id = app.chairDB.schedules;
+  //  
+  // [schedules_by_movie_id each:^(NSDictionary *value, id key) {
+  //    // <#code#>
+  // } 
+  //                         min:this_movies_id 
+  //                         max:this_movies_id 
+  //                excludingEnd:NO];
+}
+
+-(NSArray*) movieIdsByTheaterId: (NSNumber*)theaterID
+{
+  NSMutableArray* m_array = [NSMutableArray array];
+  
+  [self.schedules each:^(NSDictionary *value, id key) {
+    if(![theaterID isEqual:[value objectForKey:@"theater_id"]]) return;
+    [m_array addObject: [value objectForKey:@"movie_id"]];
+  }];
+  
+  NSArray* array = [m_array uniq];
+  return [array sortedArrayUsingSelector:@selector(compare:)];
+  
+  // == or just
+  //  
+  // ChairView* schedules_by_movie_id = app.chairDB.schedules;
+  //  
+  // [schedules_by_movie_id each:^(NSDictionary *value, id key) {
+  //    // <#code#>
+  // } 
+  //                         min:this_movies_id 
+  //                         max:this_movies_id 
+  //                excludingEnd:NO];
+}
+
+
+
 @end
