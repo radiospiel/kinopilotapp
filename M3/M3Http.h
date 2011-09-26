@@ -16,15 +16,6 @@
 // get an URL
 + (NSString*) get: (NSString*) url;
 
-// get an URL with options
-+ (NSString*) asyncGet: (NSString*) url withOptions: (NSDictionary*) options;
-
-// get an URL
-+(NSString*) asyncGet: (NSString*) url;
-
-+(NSCache*) defaultCache;
-+(void)     setDefaultCache: (NSCache*) cache;
-
 + (NSData*) requestData: (NSString*) verb
                     url: (NSString*) url 
             withOptions: (NSDictionary*) options;

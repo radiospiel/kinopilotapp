@@ -17,7 +17,8 @@ static float px(NSString* name, int startPos, int length)
 {
   name = [name stringByReplacingOccurrencesOfString:@"#" withString:@""];
   
-  float r,g,b,a = 1.0;
+  float r,g,b,a;
+  r = g = b = a = 1.0;
   switch(name.length) {
   case 3:
     r = px(name, 0, 1);

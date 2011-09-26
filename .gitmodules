@@ -7,3 +7,12 @@
 [submodule "vendor/MAZeroingWeakRef"]
 	path = vendor/MAZeroingWeakRef
 	url = https://github.com/mikeash/MAZeroingWeakRef.git
+[submodule "vendor/EGOTextView"]
+	path = vendor/EGOTextView
+	url = https://github.com/enormego/EGOTextView.git
+[submodule "vendor/TTTAttributedLabel.git"]
+	path = vendor/TTTAttributedLabel.git
+	url = https://github.com/mattt/TTTAttributedLabel.git
+[submodule "vendor/TTTAttributedLabel"]
+	path = vendor/TTTAttributedLabel
+	url = https://github.com/mattt/TTTAttributedLabel.git

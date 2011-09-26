@@ -41,7 +41,8 @@
 #endif
 
 /* iOS additions */
-#if TARGET_OS_IPHONE 
+#if TARGET_OS_IPHONE
+
 #import <UIKit/UIKit.h>
 
 #import "UIImageView+Http.h"
@@ -49,3 +50,5 @@
 
 #endif
 
+
+#import "NSAttributedString+WithSimpleMarkup.h"

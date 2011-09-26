@@ -8,11 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MoviesFullController : UIViewController {
-  IBOutlet UILabel* titleLabel;
-  IBOutlet UIImageView* imageView;
-  IBOutlet UIWebView* detailWebView;
-  IBOutlet UIWebView* bodyWebView;
-}
+@interface MoviesFullController : UITableViewController
 
 @end

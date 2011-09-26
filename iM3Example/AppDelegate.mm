@@ -50,6 +50,10 @@ AppDelegate* app;
     nibName = @"M3ProfileController";
   }
 
+  if (!className && [url matches: @"^/(\\w+)/full(/(\\w+))?"]) {
+    className = _.join($1.camelizeWord, "FullController");
+  }
+
   if (!className && [url matches: @"^/(\\w+)/(\\w+)(/(\\w+))?"]) {
     nibName = className = _.join($1.camelizeWord, $2.camelizeWord, "Controller");
   }

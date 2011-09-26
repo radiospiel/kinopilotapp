@@ -2,7 +2,7 @@
   "name": "Kinopilot Berlin",
   "tabs": [
     {
-      "disabled": "disabled",
+      "not-disabled": "disabled",
       "url": "/movies/full/3346108360239538000",
       "label": "Kalender",
       "icon": "tab_tage.png"
