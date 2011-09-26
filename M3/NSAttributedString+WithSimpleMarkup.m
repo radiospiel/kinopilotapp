@@ -132,8 +132,6 @@
       qualifiedName:(NSString *)qualifiedName 
          attributes:(NSDictionary *)attributeDict
 {
-  NSLog(@"didStartElement %@", elementName);
-  
   if([elementName isEqualToString:@"b"])
     self.bold = YES;
   else if([elementName isEqualToString:@"i"])
