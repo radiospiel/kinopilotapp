@@ -29,7 +29,45 @@
 }
 
 -(NSString*)detailText {
-  return @"detailText"; // [self.model objectForKey: @"description"];
+  NSNumber* theaterId = [self.model objectForKey: @"_uid"];
+  
+  if([self.tableViewController.url matches: @"/theaters/list/movie_id=(.*)"]) {
+    NSNumber* movieId = $1.to_number;
+    
+    // Example schedule record:
+    //
+    // { movie_id: 1376447749086599222, 
+    //   theater_id: 1528225484148625008, 
+    //   time: "2011-09-20T19:15:00+02:00", 
+    //   version: "omu"
+    // }
+    
+    NSArray* schedules = [app.chairDB schedulesByMovieId: movieId andTheaterId: theaterId];
+    NSMutableArray* parts = [NSMutableArray array];
+    for(NSDictionary* schedule in schedules) {
+      NSString* time = [schedule objectForKey:@"time"];
+      if([time matches: @"(\\d+)-(\\d+)-(\\d+)T(\\d+):(\\d+)"])
+        time = [NSString stringWithFormat: @"%@:%@", $4, $5];
+      
+      [parts addObject: time];
+    }
+    
+    NSArray* sortedParts = [[parts uniq] sortedArrayUsingSelector:@selector(compare:)];
+    return [sortedParts componentsJoinedByString: @", "];
+  }
+
+  NSArray* movieIds = [app.chairDB movieIdsByTheaterId: theaterId];
+
+  NSMutableArray* movies = [NSMutableArray array];
+  for(id movie_id in movieIds) {
+    NSDictionary* movie = [app.chairDB.movies get: movie_id];
+    [movies addObject: [[movie objectForKey:@"title"] quote]];
+  }
+  
+  NSArray* sorted = [[movies uniq] sortedArrayUsingSelector:@selector(compare:)];
+  return [sorted componentsJoinedByString: @", "];
+
+  // return [super detailText];
 }
 
 @end

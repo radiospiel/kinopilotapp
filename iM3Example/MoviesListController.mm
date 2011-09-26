@@ -11,6 +11,56 @@
 #import "M3TableViewProfileCell.h"
 #import "M3TableViewAdCell.h"
 
+
+/*** A cell for the MoviesListCell ***************************************************/
+
+@interface MoviesListCell: M3TableViewProfileCell
+@end
+
+@implementation MoviesListCell
+
+-(NSString*)detailText {
+  NSNumber* movieId = [self.model objectForKey: @"_uid"];
+
+  if([self.tableViewController.url matches: @"/movies/list/theater_id=(.*)"]) {
+    NSNumber* theaterId = $1.to_number;
+    
+    // Example schedule record:
+    //
+    // { movie_id: 1376447749086599222, 
+    //   theater_id: 1528225484148625008, 
+    //   time: "2011-09-20T19:15:00+02:00", 
+    //   version: "omu"
+    // }
+
+    NSArray* schedules = [app.chairDB schedulesByMovieId: movieId andTheaterId: theaterId];
+
+    NSMutableArray* parts = [NSMutableArray array];
+    for(NSDictionary* schedule in schedules) {
+      NSString* time = [schedule objectForKey:@"time"];
+      if([time matches: @"(\\d+)-(\\d+)-(\\d+)T(\\d+):(\\d+)"])
+        time = [NSString stringWithFormat: @"%@:%@", $4, $5];
+      
+      [parts addObject: time];
+    }
+    
+    NSArray* sortedParts = [[parts uniq] sortedArrayUsingSelector:@selector(compare:)];
+    return [sortedParts componentsJoinedByString: @", "];
+  }
+  
+  NSArray* theaterIds = [app.chairDB theaterIdsByMovieId: movieId];
+
+  NSMutableArray* theaters = [NSMutableArray array];
+  for(id theater_id in theaterIds) {
+    NSDictionary* theater = [app.chairDB.theaters get: theater_id];
+    [theaters addObject: [theater objectForKey:@"name"]];
+  }
+  
+  NSArray* sorted = [[theaters uniq] sortedArrayUsingSelector:@selector(compare:)];
+  return [sorted componentsJoinedByString: @", "];
+}
+@end
+
 @implementation MoviesListController
 
 -(void)setUrl:(NSString*)url
@@ -21,6 +71,11 @@
     self.keys = [app.chairDB movieIdsByTheaterId: $1.to_number];
   else
     self.keys = app.chairDB.movies.keys;
+}
+
+- (Class) tableView:(UITableView *)tableView cellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+  return [MoviesListCell class];
 }
 
 -(NSDictionary*)modelWithKey:(id)key
@@ -55,3 +110,4 @@
 }
 
 @end
+

@@ -123,5 +123,18 @@
 }
 
 
+-(NSArray*) schedulesByMovieId: (NSNumber*)movieID andTheaterId: (NSNumber*)theaterID
+{
+  NSMutableArray* array = [NSMutableArray array];
+  
+  [self.schedules each:^(NSDictionary *schedule, id key) {
+    if(![theaterID isEqual:[schedule objectForKey:@"theater_id"]]) return;
+    if(![movieID isEqual:[schedule objectForKey:@"movie_id"]]) return;
+    
+    [array addObject: schedule];
+  }];
+  
+  return array;
+}
 
 @end

@@ -133,6 +133,7 @@
 
   left += 4;
   self.detailTextLabel.frame = CGRectMake(left, 17, 290 - left, 32);
+  [self.detailTextLabel setTopAlignedText: [self detailText]]; // (NSString*)text;
 
   //
   // the remaining width is 320 - left. We reserve some space for the index.

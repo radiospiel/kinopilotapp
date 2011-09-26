@@ -10,4 +10,6 @@
 -(NSArray*) theaterIdsByMovieId: (NSNumber*)movieID;
 -(NSArray*) movieIdsByTheaterId: (NSNumber*)theaterID;
 
+-(NSArray*) schedulesByMovieId: (NSNumber*)movieID andTheaterId: (NSNumber*)theaterID;
+
 @end

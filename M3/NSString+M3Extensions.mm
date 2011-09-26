@@ -33,6 +33,22 @@
   return [formatter numberFromString: self];
 }
 
+-(NSString*)dquote
+{
+  return [NSString stringWithFormat: @"\u201C%@\u201D", self];
+}
+
+-(NSString*)squote
+{
+  return [NSString stringWithFormat: @"\u2018%@\u2019", self];
+}
+
+-(NSString*)quote
+{
+  return [self dquote];
+}
+
+
 @end
 
 ETest(NSStringM3Extensions)

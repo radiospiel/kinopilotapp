@@ -136,6 +136,10 @@
     self.bold = YES;
   else if([elementName isEqualToString:@"i"])
     self.italic = YES;
+  else if([elementName isEqualToString:@"h1"])
+    self.fontSize = 18;
+  else if([elementName isEqualToString:@"h2"])
+    self.fontSize = 15;
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
@@ -148,6 +152,10 @@
     self.bold = NO;
   else if([elementName isEqualToString:@"i"])
     self.italic = NO;
+  else if([elementName isEqualToString:@"h1"])
+    self.fontSize = 13;
+  else if([elementName isEqualToString:@"h2"])
+    self.fontSize = 13;
 }
 
 - (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)data

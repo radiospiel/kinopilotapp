@@ -39,6 +39,8 @@ static NSString* columns[] = {
   self = [super init];
   if(!self) return nil;
 
+  self.selectionStyle = UITableViewCellSelectionStyleNone;
+
   htmlView = [[[TTTAttributedLabel alloc]init]autorelease];
   [self addSubview:htmlView];
 
@@ -49,6 +51,7 @@ static NSString* columns[] = {
 {
   NSDictionary* model = self.model;
   
+  NSString* title =           [model objectForKey:@"title"];
   NSNumber* runtime =         [model objectForKey:@"runtime"];
   NSString* genre =           [[model objectForKey:@"genres"] objectAtIndex:0];
   NSNumber* production_year = [model objectForKey:@"production-year"];
@@ -59,6 +62,8 @@ static NSString* columns[] = {
   // NSString* cinema_start_date = [self.model objectForKey: @"cinema-start-date"]; // e.g. "2011-08-25T00:00:00+02:00"
 
   NSMutableArray* parts = [NSMutableArray array];
+
+  [parts addObject: [NSString stringWithFormat: @"<h2><b>%@</b></h2>", title]];
 
   if(genre || production_year || runtime) {
     NSMutableArray* p = [NSMutableArray array];
@@ -77,7 +82,7 @@ static NSString* columns[] = {
     [parts addObject: [p componentsJoinedByString:@""]];
   }
   
-  if(directors) {
+  if(actors) {
     NSMutableArray* p = [NSMutableArray array];
     [p addObject: @"<b>Darsteller:</b> "];
     [p addObject: [actors componentsJoinedByString:@", "]];
@@ -155,7 +160,18 @@ static NSString* columns[] = {
 {
   [super setModel:theModel];
   
-  self.textLabel.text = @"In cinemas right now.";
+  NSArray* theaterIds = [app.chairDB theaterIdsByMovieId: [theModel objectForKey: @"_uid"]];
+
+  NSMutableArray* theaters = [NSMutableArray array];
+  for(id theater_id in theaterIds) {
+    NSDictionary* theater = [app.chairDB.theaters get: theater_id];
+    [theaters addObject: [theater objectForKey:@"name"]];
+  }
+  
+  NSArray* sorted = [[theaters uniq] sortedArrayUsingSelector:@selector(compare:)];
+  self.textLabel.text = [NSString stringWithFormat: @"In %d Kinos: %@", 
+                         theaterIds.count, 
+                         [sorted componentsJoinedByString: @", "]];
 }
 
 @end
@@ -175,6 +191,8 @@ static NSString* columns[] = {
 -(id) init {
   self = [super init];
   if(!self) return nil;
+
+  self.selectionStyle = UITableViewCellSelectionStyleNone;
 
   htmlView = [[[TTTAttributedLabel alloc]init]autorelease];
   [self addSubview:htmlView];

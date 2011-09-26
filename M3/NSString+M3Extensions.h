@@ -14,4 +14,8 @@
 
 @property (readonly,nonatomic,retain) NSNumber* to_number;
 
+-(NSString*)dquote;
+-(NSString*)squote;
+-(NSString*)quote;
+
 @end
