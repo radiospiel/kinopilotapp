@@ -202,3 +202,69 @@
 
 @end
 
+#if 0
+
+/* === A font list =========================================================== */
+
+REGISTER_FONTNAME("Arial", @"ArialMT");
+REGISTER_FONTNAME("Arial,bold", @"Arial-BoldMT");
+REGISTER_FONTNAME("Arial,bold,italic", @"Arial-BoldItalicMT");
+REGISTER_FONTNAME("Arial,italic", @"Arial-ItalicMT");
+REGISTER_FONTNAME("Baskerville", @"Baskerville");
+REGISTER_FONTNAME("Baskerville,bold", @"Baskerville-SemiBold");
+REGISTER_FONTNAME("Baskerville,bold,italic", @"Baskerville-SemiBoldItalic");
+REGISTER_FONTNAME("Baskerville,italic", @"Baskerville-Italic");
+REGISTER_FONTNAME("Cochin", @"Cochin");
+REGISTER_FONTNAME("Cochin,bold", @"Cochin-Bold");
+REGISTER_FONTNAME("Cochin,bold,italic", @"Cochin-BoldItalic");
+REGISTER_FONTNAME("Cochin,italic", @"Cochin-Italic");
+REGISTER_FONTNAME("Courier", @"Courier");
+REGISTER_FONTNAME("Courier,bold", @"Courier-Bold");
+REGISTER_FONTNAME("Courier,bold,italic", @"Courier-BoldOblique");
+REGISTER_FONTNAME("Courier,italic", @"Courier-Oblique");
+REGISTER_FONTNAME("Courier New", @"CourierNewPSMT");
+REGISTER_FONTNAME("Courier New,bold", @"CourierNewPS-BoldMT");
+REGISTER_FONTNAME("Courier New,bold,italic", @"CourierNewPS-BoldItalicMT");
+REGISTER_FONTNAME("Courier New,italic", @"CourierNewPS-ItalicMT");
+REGISTER_FONTNAME("Georgia", @"Georgia");
+REGISTER_FONTNAME("Georgia,bold", @"Georgia-Bold");
+REGISTER_FONTNAME("Georgia,bold,italic", @"Georgia-BoldItalic");
+REGISTER_FONTNAME("Georgia,italic", @"Georgia-Italic");
+REGISTER_FONTNAME("Gill Sans", @"GillSans");
+REGISTER_FONTNAME("Gill Sans,bold", @"GillSans-Bold");
+REGISTER_FONTNAME("Gill Sans,bold,italic", @"GillSans-BoldItalic");
+REGISTER_FONTNAME("Gill Sans,italic", @"GillSans-Italic");
+REGISTER_FONTNAME("Helvetica", @"Helvetica");
+REGISTER_FONTNAME("Helvetica,bold", @"Helvetica-Bold");
+REGISTER_FONTNAME("Helvetica,bold,italic", @"Helvetica-BoldOblique");
+REGISTER_FONTNAME("Helvetica,italic", @"Helvetica-Oblique");
+REGISTER_FONTNAME("Helvetica Neue", @"HelveticaNeue");
+REGISTER_FONTNAME("Helvetica Neue,bold", @"HelveticaNeue-Bold");
+REGISTER_FONTNAME("Helvetica Neue,bold,italic", @"HelveticaNeue-BoldItalic");
+REGISTER_FONTNAME("Helvetica Neue,italic", @"HelveticaNeue-Italic");
+REGISTER_FONTNAME("Hoefler Text", @"HoeflerText-Regular");
+REGISTER_FONTNAME("Hoefler Text,bold", @"HoeflerText-Black");
+REGISTER_FONTNAME("Hoefler Text,bold,italic", @"HoeflerText-BlackItalic");
+REGISTER_FONTNAME("Hoefler Text,italic", @"HoeflerText-Italic");
+REGISTER_FONTNAME("Optima", @"Optima-Regular");
+REGISTER_FONTNAME("Optima,bold", @"Optima-Bold");
+REGISTER_FONTNAME("Optima,bold,italic", @"Optima-BoldItalic");
+REGISTER_FONTNAME("Optima,italic", @"Optima-Italic");
+REGISTER_FONTNAME("Palatino", @"Palatino-Roman");
+REGISTER_FONTNAME("Palatino,bold", @"Palatino-Bold");
+REGISTER_FONTNAME("Palatino,bold,italic", @"Palatino-BoldItalic");
+REGISTER_FONTNAME("Palatino,italic", @"Palatino-Italic");
+REGISTER_FONTNAME("Times New Roman", @"TimesNewRomanPSMT");
+REGISTER_FONTNAME("Times New Roman,bold", @"TimesNewRomanPS-BoldMT");
+REGISTER_FONTNAME("Times New Roman,bold,italic", @"TimesNewRomanPS-BoldItalicMT");
+REGISTER_FONTNAME("Times New Roman,italic", @"TimesNewRomanPS-ItalicMT");
+REGISTER_FONTNAME("Trebuchet MS", @"TrebuchetMS");
+REGISTER_FONTNAME("Trebuchet MS,bold", @"TrebuchetMS-Bold");
+REGISTER_FONTNAME("Trebuchet MS,bold,italic", @"Trebuchet-BoldItalic");
+REGISTER_FONTNAME("Trebuchet MS,italic", @"TrebuchetMS-Italic");
+REGISTER_FONTNAME("Verdana", @"Verdana");
+REGISTER_FONTNAME("Verdana,bold", @"Verdana-Bold");
+REGISTER_FONTNAME("Verdana,bold,italic", @"Verdana-BoldItalic");
+REGISTER_FONTNAME("Verdana,italic", @"Verdana-Italic");
+
+#endif
