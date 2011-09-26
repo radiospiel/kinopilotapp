@@ -23,14 +23,6 @@
   return self;
 }
 
--(void)dealloc
-{
-  [starView_ release];
-  [tagLabel_ release];
-  
-  [super dealloc];
-}
-
 -(BOOL)features: (SEL)what
 {
   if(what == @selector(star))
@@ -53,7 +45,12 @@
 
 - (CGFloat)wantsHeightForWidth: (CGFloat)width
 { 
-  return 50.0f; 
+  return 51.0f; 
+}
+
+-(NSString*)detailText
+{
+  return [self.model objectForKey: @"description"];
 }
 
 /*
@@ -65,10 +62,10 @@
 {
   [super setModel:model];
   
-  // --- create/show/hide starView_ and tagLabel_
+  // --- create/show/hide starView_, tagLabel_, imageView
   
   if(!starView_ && [self features: @selector(star)]) {
-    starView_ = [[UIImageView alloc]init];
+    starView_ = [[[UIImageView alloc]init]autorelease];
     [[self contentView] addSubview: starView_];
     
     UITapGestureRecognizer *recognizer = [[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tappedStar:)] autorelease];
@@ -78,7 +75,7 @@
   [starView_ setHidden: !([self features: @selector(star)])];
 
   if(!tagLabel_ && [self features: @selector(tag)]) {
-    tagLabel_ = [[UILabel alloc]init];
+    tagLabel_ = [[[UILabel alloc]init]autorelease];
     tagLabel_.font = [UIFont boldSystemFontOfSize: 9];
     tagLabel_.textColor = [UIColor colorWithName: @"#fff"];
     tagLabel_.backgroundColor = [UIColor colorWithName: @"#f60"];
@@ -86,6 +83,8 @@
     
     [[self contentView] addSubview: tagLabel_];
   }
+
+  [self.imageView setHidden: !([self features: @selector(image)])];
   
   // --- set star
   
@@ -95,13 +94,14 @@
   
   // --- set image
   
-  [self.imageView setHidden: !([self features: @selector(image)])];
+  self.imageView.image = [UIImage imageNamed:@"no_poster.png"];
+  self.imageView.imageURL = [self.model objectForKey:@"image"];
   
   // --- set labels
   
   self.textLabel.text = [model objectForKey: @"title"];
-  self.detailTextLabel.text = [model objectForKey: @"description"];
-
+  self.detailTextLabel.text = [self detailText];
+                               
   // --- set tags
 
   if([self features: @selector(tag)]) {
@@ -122,20 +122,17 @@
   int left = 0;
   if([self features:@selector(star)]) {
     starView_.frame = CGRectMake(7, 17, 16, 16);
-    left = 30;
+    left = 27;
   }
 
   if([self features:@selector(image)]) {
     left += 3;
-    self.imageView.frame = CGRectMake(left, 4, 33, 42);
+    self.imageView.frame = CGRectMake(left, 4, 33, 43);
     left += 33;
-
-    self.imageView.image = [UIImage imageNamed:@"no_poster.png"];
-    self.imageView.imageURL = [self.model objectForKey:@"image"];
   }
 
   left += 4;
-  self.detailTextLabel.frame = CGRectMake(left, 16, 290 - left, 32);
+  self.detailTextLabel.frame = CGRectMake(left, 17, 290 - left, 32);
 
   //
   // the remaining width is 320 - left. We reserve some space for the index.

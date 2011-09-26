@@ -6,13 +6,7 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "M3TableViewController.h"
-
-@interface M3ListViewController: M3TableViewController {
-  NSArray* keys_;
-};
-
-@end
+#import "M3ListViewController.h"
 
 @interface MoviesListController: M3ListViewController
 @end

@@ -21,10 +21,11 @@
   UISegmentedControl* segmentedControl_;
   NSMutableArray* segmentURLs_;
   NSMutableDictionary* requestedAdBanners_;
+  NSArray* keys_;
 }
 
-// returns an array of keys for this table.
-- (NSArray*)keys;
+// This array holds the keys.
+@property (retain,nonatomic) NSArray* keys;
 
 // returns the model for a specific key
 -(NSDictionary*)modelWithKey:(id)key;
@@ -54,5 +55,3 @@
 -(UIView*)adBannerAtIndexPath: (NSIndexPath*)indexPath;
 
 @end
-
-

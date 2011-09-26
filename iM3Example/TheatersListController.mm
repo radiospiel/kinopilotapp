@@ -10,11 +10,10 @@
 #import "M3TableViewProfileCell.h"
 #import "TheatersListController.h"
 
+/*** A cell for the TheatersListController ***************************************************/
+
 @interface TheatersListCell: M3TableViewProfileCell
 
-/*
- * checks if the current cell supports a certain feature.
- */
 -(BOOL)features: (SEL)feature;
 
 @end
@@ -29,26 +28,29 @@
   return [super features: feature];
 }
 
+-(NSString*)detailText {
+  return @"detailText"; // [self.model objectForKey: @"description"];
+}
+
 @end
+
+/*** The TheatersListController ***************************************************/
 
 @implementation TheatersListController
 
-- (void)viewDidLoad
+-(void)setUrl:(NSString*)url
 {
-  [super viewDidLoad];
+  [super setUrl: url];
+  
+  if([self.url matches: @"/theaters/list/movie_id=(.*)"])
+    self.keys = [app.chairDB theaterIdsByMovieId: $1.to_number];
+  else
+    self.keys = app.chairDB.theaters.keys;
 }
 
 - (Class) tableView:(UITableView *)tableView cellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
   return [TheatersListCell class];
-}
-
--(NSArray*)keys
-{
-  if([self.url matches: @"/theaters/list/movie_id=(.*)"])
-    return [app.chairDB theaterIdsByMovieId: $1.to_number];
-
-  return app.chairDB.theaters.keys;
 }
 
 -(NSDictionary*)modelWithKey:(id)key

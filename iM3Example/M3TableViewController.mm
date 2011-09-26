@@ -12,10 +12,13 @@
 
 @implementation M3TableViewController
 
+@synthesize keys=keys_;
+
 -(void)dealloc
 {
   [segmentedControl_ release];
   [segmentURLs_ release];
+  self.keys = nil;
   
   [self releaseRequestedBannerViews];
   
@@ -70,12 +73,6 @@
   #endif
 }
 
-- (void)viewDidLoad
-{
-  [super viewDidLoad];
-  // Do any additional setup.
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
   // Return YES for supported orientations
@@ -111,14 +108,6 @@
   cell.model = [self modelWithKey: key];
 
   return cell;
-}
-
-/*
- * This method returns a list of keys suitable for identifying each entry within the table view.
- */
-- (NSArray*)keys;
-{
-  return nil;
 }
 
 /*
