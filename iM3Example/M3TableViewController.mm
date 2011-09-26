@@ -17,6 +17,8 @@
   [segmentedControl_ release];
   [segmentURLs_ release];
   
+  [self releaseRequestedBannerViews];
+  
   [super dealloc];
 }
 
@@ -169,7 +171,7 @@
 static NSString *kADBannerContentSizePortrait = nil;
 static NSString *kADBannerContentSizeLandscape = nil;
 
-static BOOL setupConstants() {
+static BOOL initialiseADBannerConstants() {
   Class cls = NSClassFromString(@"ADBannerView");
   if (!cls) return NO;
 
@@ -188,9 +190,27 @@ static BOOL setupConstants() {
 
 @implementation M3TableViewController(iAd)
 
+-(void)releaseRequestedBannerViews
+{
+  if(!requestedAdBanners_) return;
+  
+  for(id key in requestedAdBanners_) {
+    ADBannerView* bannerView = [requestedAdBanners_ objectForKey: key];
+    bannerView.delegate = nil;
+    [bannerView release];
+  }
+}
+
 -(NSMutableDictionary*)requestedBannerViews
 {
-  return [self memoized: @selector(requestedBannerViews) usingBlock:^() { return [NSMutableDictionary dictionary]; }];
+  if(!requestedAdBanners_) {
+    static BOOL initialisedADBannerConstants = initialiseADBannerConstants();
+    (void)initialisedADBannerConstants;
+    
+    requestedAdBanners_ = [[NSMutableDictionary alloc]init];
+  }
+
+  return requestedAdBanners_;
 }
 
 /*
@@ -198,9 +218,6 @@ static BOOL setupConstants() {
  */
 -(void)requestAdBannerAtIndexPath: (NSIndexPath*)indexPath
 {
-  static BOOL initialisedTabnavConstants = setupConstants();
-  (void)initialisedTabnavConstants;
-  
   Class classAdBannerView = NSClassFromString(@"ADBannerView");
   if (!classAdBannerView) return;
 

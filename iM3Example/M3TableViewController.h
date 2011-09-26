@@ -20,6 +20,7 @@
 @interface M3TableViewController : UITableViewController<ADBannerViewDelegate> {
   UISegmentedControl* segmentedControl_;
   NSMutableArray* segmentURLs_;
+  NSMutableDictionary* requestedAdBanners_;
 }
 
 // returns an array of keys for this table.
@@ -48,8 +49,9 @@
 
 @interface M3TableViewController(iAdSupport)
 
--(void) requestAdBannerAtIndexPath: (NSIndexPath*)indexPath;
--(UIView*) adBannerAtIndexPath: (NSIndexPath*)indexPath;
+-(void)releaseRequestedBannerViews;
+-(void)requestAdBannerAtIndexPath: (NSIndexPath*)indexPath;
+-(UIView*)adBannerAtIndexPath: (NSIndexPath*)indexPath;
 
 @end
 

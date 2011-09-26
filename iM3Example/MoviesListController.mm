@@ -29,16 +29,17 @@
     for(id key in app.chairDB.movies.keys) {
       // The likelyhood of an ad view increments with each inserted row.
       if(rand() % 12 < probability) {
-        NSLog(@"add ad");
         [keys addObject: [NSNull null]];
-        probability = -1;
+        probability = -2000;
       }
 
       probability++;
       
       [keys addObject: key];
     }
-    
+
+    dlog << @"added " << (keys.count - app.chairDB.movies.count) << " ads amongst " << app.chairDB.movies.count << " entries";
+
     keys_ = keys;
   }
 
