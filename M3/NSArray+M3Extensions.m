@@ -46,5 +46,10 @@
   if(self.count < 1) return nil;
   return [self objectAtIndex: (self.count - 1)];
 }
+
+-(NSArray*) uniq
+{
+  return [[NSSet setWithArray: self] allObjects];                   
+}
                              
 @end

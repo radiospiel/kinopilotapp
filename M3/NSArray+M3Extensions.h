@@ -13,5 +13,7 @@
 
 -(id) first;
 -(id) last;
-                             
+
+-(NSArray*) uniq;
+
 @end
