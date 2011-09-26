@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <iAd/ADBannerView.h>
 
 #import "M3TableViewCell.h"
 
@@ -16,8 +17,7 @@
  * table view. 
  */
 
-@interface M3TableViewController : UITableViewController {
-  Class classForCells_;
+@interface M3TableViewController : UITableViewController<ADBannerViewDelegate> {
   UISegmentedControl* segmentedControl_;
   NSMutableArray* segmentURLs_;
 }
@@ -43,6 +43,13 @@
 
 -(void)addSegment:(NSString*)label withURL: (NSString*)url;
 -(void)showSegmentedControl;
+
+@end
+
+@interface M3TableViewController(iAdSupport)
+
+-(void) requestAdBannerAtIndexPath: (NSIndexPath*)indexPath;
+-(UIView*) adBannerAtIndexPath: (NSIndexPath*)indexPath;
 
 @end
 

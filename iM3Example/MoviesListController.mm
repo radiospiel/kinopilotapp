@@ -19,8 +19,8 @@
 
 -(NSDictionary*)modelWithKey:(id)key
 { 
-  NSLog(@"modelWithKey: %@", key);
-  
+  // NSLog(@"modelWithKey: %@", key);
+  // 
   return [app.chairDB objectForKey: key andType: @"movies"]; 
 }
 

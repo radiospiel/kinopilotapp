@@ -15,54 +15,12 @@
 static NSString* columns[] = {
   @"MovieShortInfoCell",
   @"MovieInCinemasCell",
-  @"M3AdCell",
   @"MovieRatingCell",
+  @"M3TableViewAdCell",
   @"MovieDescriptionCell"
 };
 
 @class MoviesFullController;
-
-/*
- * MovieInCinemasCell: This cell shows in which cinemaes the movie runs.
- */
-
-/*
- * M3AdCell: This cell shows the movie's image and a short 
- * description of the movie.
- */
-
-@interface M3AdCell: M3TableViewCell
-
-@end
-
-@implementation M3AdCell
-
--(id) init {
-  self = [super init];
-  if(!self) return nil;
-
-  self.textLabel.text = @"Some ad goes here.";
-  self.textLabel.textColor = [UIColor colorWithName: @"#fff"];
-  self.textLabel.font = [UIFont boldSystemFontOfSize:16];
-  
-  self.contentView.backgroundColor = [UIColor colorWithName: @"#000"];
-  self.textLabel.backgroundColor = [UIColor colorWithName: @"#000"];
-  
-  return self;
-}
-
--(void)layoutSubviews
-{
-  [super layoutSubviews];
-}
-
--(CGFloat)wantsHeightForWidth: (CGFloat)width
-{
-  return 0; //  [self.tableViewController receivedAds] ? 50 : 0;
-}
-
-@end
-
 
 /*
  * MovieShortInfoCell: This cell shows the movie's image and a short 
@@ -264,47 +222,13 @@ static NSString* columns[] = {
 
 @implementation MoviesFullController
 
-@synthesize receivedAds;
-
 - (id)initWithStyle:(UITableViewStyle)style
 {
-  receivedAds = NO;
-  
   self = [super initWithStyle:style];
   if (self) {
       // Custom initialization
   }
   return self;
-}
-
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
-  [super viewDidLoad];
-
-  [self performSelector:@selector(check_iads:) withObject:self.tableView afterDelay:1 ];
-  
-  // self.tableView.separatorColor = [UIColor clearColor];
-  // Uncomment the following line to preserve selection between presentations.
-  // self.clearsSelectionOnViewWillAppear = NO;
- 
-  // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-  // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
--(void)check_iads: (UITableView*)tableView
-{
-  self.receivedAds = YES;
-  
-  NSIndexPath* indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
-  [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source

@@ -9,14 +9,18 @@
  * The M3TableViewCell
  */
 @interface M3TableViewCell: UITableViewCell {
+  M3TableViewController* tableViewController_;
+
   id key_;
   NSDictionary* model_;
-  M3TableViewController* tableViewController_;
+  NSIndexPath* indexPath_;
 }
+
+@property (nonatomic,assign) M3TableViewController* tableViewController;
 
 @property (nonatomic,retain) id key;
 @property (nonatomic,retain) NSDictionary* model;
-@property (nonatomic,assign) M3TableViewController* tableViewController;
+@property (nonatomic,retain) NSIndexPath* indexPath;
 
 -(id)initWithStyle:(UITableViewCellStyle)style;
 

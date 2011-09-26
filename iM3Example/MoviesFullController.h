@@ -9,10 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "M3TableViewController.h"
 
-@interface MoviesFullController : M3TableViewController {
-  BOOL receivedAds;
-}
-
-@property (assign,nonatomic) BOOL receivedAds;
+@interface MoviesFullController : M3TableViewController
 
 @end

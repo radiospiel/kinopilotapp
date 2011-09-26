@@ -348,6 +348,8 @@
 		9DC682C0142CE24100124E9A /* MoviesShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682BF142CE24000124E9A /* MoviesShowController.mm */; };
 		9DC682C3142CE34B00124E9A /* TheatersShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682C2142CE34B00124E9A /* TheatersShowController.mm */; };
 		9DDE1B761430876A00FDF9C5 /* M3TableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDE1B751430876A00FDF9C5 /* M3TableViewCell.mm */; };
+		9DDE1B7A1430931900FDF9C5 /* M3TableViewAdCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDE1B791430931900FDF9C5 /* M3TableViewAdCell.mm */; };
+		9DDE1B7C1430946B00FDF9C5 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDE1B7B1430946B00FDF9C5 /* iAd.framework */; };
 		9DE40645142CFC490089EAA9 /* InfoController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DE40644142CFC490089EAA9 /* InfoController.mm */; };
 /* End PBXBuildFile section */
 
@@ -679,7 +681,7 @@
 		9D99B2D11416A4E50040768E /* M3+Events.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "M3+Events.m"; sourceTree = "<group>"; };
 		9D9D3189142C6E9800C8269A /* UIColor+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+M3Extensions.h"; sourceTree = "<group>"; };
 		9D9D318A142C6E9800C8269A /* UIColor+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIColor+M3Extensions.mm"; sourceTree = "<group>"; };
-		9D9D318F142C89C600C8269A /* M3TableViewProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; path = M3TableViewProfileCell.h; sourceTree = "<group>"; };
+		9D9D318F142C89C600C8269A /* M3TableViewProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewProfileCell.h; sourceTree = "<group>"; };
 		9D9D3190142C89C600C8269A /* M3TableViewProfileCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewProfileCell.mm; sourceTree = "<group>"; };
 		9DAA0D26142AA6EC001F11C1 /* ChairDatabase+IM3Example.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ChairDatabase+IM3Example.h"; sourceTree = "<group>"; };
 		9DAA0D27142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "ChairDatabase+IM3Example.mm"; sourceTree = "<group>"; };
@@ -695,6 +697,9 @@
 		9DC682C2142CE34B00124E9A /* TheatersShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TheatersShowController.mm; sourceTree = "<group>"; };
 		9DDE1B741430876A00FDF9C5 /* M3TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewCell.h; sourceTree = "<group>"; };
 		9DDE1B751430876A00FDF9C5 /* M3TableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewCell.mm; sourceTree = "<group>"; };
+		9DDE1B781430931900FDF9C5 /* M3TableViewAdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewAdCell.h; sourceTree = "<group>"; };
+		9DDE1B791430931900FDF9C5 /* M3TableViewAdCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewAdCell.mm; sourceTree = "<group>"; };
+		9DDE1B7B1430946B00FDF9C5 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/iAd.framework; sourceTree = DEVELOPER_DIR; };
 		9DE40643142CFC490089EAA9 /* InfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoController.h; sourceTree = "<group>"; };
 		9DE40644142CFC490089EAA9 /* InfoController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InfoController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -727,6 +732,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DDE1B7C1430946B00FDF9C5 /* iAd.framework in Frameworks */,
 				9D8543821430084C00F495E9 /* CoreGraphics.framework in Frameworks */,
 				9D854366142F963900F495E9 /* CoreText.framework in Frameworks */,
 				9D3B086A142A1A0100322C00 /* libicucore.dylib in Frameworks */,
@@ -877,10 +883,12 @@
 				9D750E9F1422AF7F0056290E /* M3ProfileController.mm */,
 				9D31B7BB1422B58400D4AFB7 /* M3ProfileController_iPhone.xib */,
 				9D4DA7C91422BF5300F98B7B /* M3ProfileController_iPhone_Landscape.xib */,
-				9D9D318F142C89C600C8269A /* M3TableViewProfileCell.h */,
-				9D9D3190142C89C600C8269A /* M3TableViewProfileCell.mm */,
 				9DDE1B741430876A00FDF9C5 /* M3TableViewCell.h */,
 				9DDE1B751430876A00FDF9C5 /* M3TableViewCell.mm */,
+				9DDE1B781430931900FDF9C5 /* M3TableViewAdCell.h */,
+				9DDE1B791430931900FDF9C5 /* M3TableViewAdCell.mm */,
+				9D9D318F142C89C600C8269A /* M3TableViewProfileCell.h */,
+				9D9D3190142C89C600C8269A /* M3TableViewProfileCell.mm */,
 				9D1438AF142B420E00123EC8 /* M3TableViewController.h */,
 				9D1438B0142B420E00123EC8 /* M3TableViewController.mm */,
 				9DE40643142CFC490089EAA9 /* InfoController.h */,
@@ -1134,6 +1142,7 @@
 		9D8B8AE01413CA8B0066ECBB = {
 			isa = PBXGroup;
 			children = (
+				9DDE1B7B1430946B00FDF9C5 /* iAd.framework */,
 				9D8543811430084C00F495E9 /* CoreGraphics.framework */,
 				9D854365142F963900F495E9 /* CoreText.framework */,
 				9D72BF001425F9CB00D24875 /* Default.png */,
@@ -1812,6 +1821,7 @@
 				9DE40645142CFC490089EAA9 /* InfoController.mm in Sources */,
 				9D26E9A9142E10260055C214 /* MoviesFullController.mm in Sources */,
 				9DDE1B761430876A00FDF9C5 /* M3TableViewCell.mm in Sources */,
+				9DDE1B7A1430931900FDF9C5 /* M3TableViewAdCell.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
