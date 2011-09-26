@@ -7,9 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "M3TableViewProfileCell.h"
 #import "TheatersListController.h"
 
-@interface TheatersListCell: M3ListCell
+@interface TheatersListCell: M3TableViewProfileCell
 
 /*
  * checks if the current cell supports a certain feature.
@@ -35,7 +36,11 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.classForCells = [TheatersListCell class];
+}
+
+- (Class) tableView:(UITableView *)tableView cellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+  return [TheatersListCell class];
 }
 
 -(NSArray*)keys

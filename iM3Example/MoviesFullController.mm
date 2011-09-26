@@ -14,65 +14,62 @@
 
 static NSString* columns[] = {
   @"MovieShortInfoCell",
-  @"MovieRatingCell",
   @"MovieInCinemasCell",
+  @"M3AdCell",
+  @"MovieRatingCell",
   @"MovieDescriptionCell"
 };
 
-@interface M3CustomCell: UITableViewCell {
-  NSDictionary* model_;
-}
+@class MoviesFullController;
 
-@property (nonatomic,retain) NSDictionary* model;
+/*
+ * MovieInCinemasCell: This cell shows in which cinemaes the movie runs.
+ */
 
--(CGFloat)recommendedHeight;
+/*
+ * M3AdCell: This cell shows the movie's image and a short 
+ * description of the movie.
+ */
+
+@interface M3AdCell: M3TableViewCell
 
 @end
 
-@implementation M3CustomCell
+@implementation M3AdCell
 
--(NSDictionary*)model
-  { return model_; }
+-(id) init {
+  self = [super init];
+  if(!self) return nil;
 
--(id)initWithStyle:(UITableViewCellStyle)style
-{
-  self = [super initWithStyle:style 
-              reuseIdentifier:nil];
-
-  self.textLabel.font = [UIFont systemFontOfSize:13];
-  self.textLabel.numberOfLines = 0;
-
+  self.textLabel.text = @"Some ad goes here.";
+  self.textLabel.textColor = [UIColor colorWithName: @"#fff"];
+  self.textLabel.font = [UIFont boldSystemFontOfSize:16];
+  
+  self.contentView.backgroundColor = [UIColor colorWithName: @"#000"];
+  self.textLabel.backgroundColor = [UIColor colorWithName: @"#000"];
+  
   return self;
 }
 
--(id)init
+-(void)layoutSubviews
 {
-  return [self initWithStyle:UITableViewCellStyleDefault];
+  [super layoutSubviews];
 }
 
--(void)setModel:(NSDictionary*)model
+-(CGFloat)wantsHeightForWidth: (CGFloat)width
 {
-  [model_ release];
-  model_ = [model retain];
+  return 0; //  [self.tableViewController receivedAds] ? 50 : 0;
 }
-
--(void)dealloc
-{
-  [model_ release];
-  [super dealloc];
-}
-
-- (CGFloat)recommendedHeight
-  { return 40.0f; }
 
 @end
+
 
 /*
  * MovieShortInfoCell: This cell shows the movie's image and a short 
  * description of the movie.
  */
 
-@interface MovieShortInfoCell: M3CustomCell {
+@interface MovieShortInfoCell: M3TableViewCell {
   TTTAttributedLabel* htmlView;
 }
 
@@ -159,7 +156,7 @@ static NSString* columns[] = {
   htmlView.frame = CGRectMake(90, 7, sz.width, sz.height);
 }
 
-- (CGFloat)recommendedHeight
+- (CGFloat)wantsHeightForWidth: (CGFloat)width
 {
   CGFloat heightByHTMLView = [self htmlViewSize].height + 15;
   CGFloat heightByImage = 120;
@@ -173,7 +170,7 @@ static NSString* columns[] = {
  * MovieRatingCell: This cell shows the community rating
  */
 
-@interface MovieRatingCell: M3CustomCell
+@interface MovieRatingCell: M3TableViewCell
 @end
 
 @implementation MovieRatingCell
@@ -191,7 +188,7 @@ static NSString* columns[] = {
  * MovieInCinemasCell: This cell shows in which cinemaes the movie runs.
  */
 
-@interface MovieInCinemasCell: M3CustomCell
+@interface MovieInCinemasCell: M3TableViewCell
 @end
 
 @implementation MovieInCinemasCell
@@ -209,7 +206,7 @@ static NSString* columns[] = {
  * MovieDescriptionCell: This cell shows a description of the movie.
  */
 
-@interface MovieDescriptionCell: M3CustomCell {
+@interface MovieDescriptionCell: M3TableViewCell {
   TTTAttributedLabel* htmlView;
 }
 
@@ -258,7 +255,7 @@ static NSString* columns[] = {
   htmlView.frame = CGRectMake(10, 5, sz.width, sz.height);
 }
 
-- (CGFloat)recommendedHeight
+- (CGFloat)wantsHeightForWidth: (CGFloat)width
 {
   return [self htmlViewSize].height + 15;
 }
@@ -267,21 +264,17 @@ static NSString* columns[] = {
 
 @implementation MoviesFullController
 
+@synthesize receivedAds;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
+  receivedAds = NO;
+  
+  self = [super initWithStyle:style];
+  if (self) {
+      // Custom initialization
+  }
+  return self;
 }
 
 #pragma mark - View lifecycle
@@ -290,41 +283,22 @@ static NSString* columns[] = {
 {
   [super viewDidLoad];
 
-  dlog << "viewDidLoad";
+  [self performSelector:@selector(check_iads:) withObject:self.tableView afterDelay:1 ];
   
   // self.tableView.separatorColor = [UIColor clearColor];
   // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+  // self.clearsSelectionOnViewWillAppear = NO;
  
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+  // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)viewDidUnload
+-(void)check_iads: (UITableView*)tableView
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
+  self.receivedAds = YES;
+  
+  NSIndexPath* indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+  [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -340,24 +314,13 @@ static NSString* columns[] = {
   return sizeof(columns)/sizeof(columns[0]);
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (Class) tableView:(UITableView *)tableView cellClassForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSString* cellClass = columns[indexPath.row];
-  
-  Class klass = NSClassFromString(cellClass);
-  
-  M3CustomCell* cell = [[[klass alloc]init] autorelease];
-  cell.model = self.model;
-  return cell;
+  NSString* className = columns[indexPath.row];
+  return NSClassFromString(className);
 }
 
 #pragma mark - Table view delegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  M3CustomCell* cell = (M3CustomCell*)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-  return [cell recommendedHeight];
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 #import "M3.h"
-#import "M3ListCell.h"
 #import "UIViewController+Model.h"
 #import "Chair.h"
 #import "ChairDatabase+IM3Example.h"

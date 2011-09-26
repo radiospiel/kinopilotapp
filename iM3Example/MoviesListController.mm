@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MoviesListController.h"
+#import "M3TableViewProfileCell.h"
 
 @implementation MoviesListController
 
@@ -18,7 +19,14 @@
 
 -(NSDictionary*)modelWithKey:(id)key
 { 
+  NSLog(@"modelWithKey: %@", key);
+  
   return [app.chairDB objectForKey: key andType: @"movies"]; 
+}
+
+- (Class) tableView:(UITableView *)tableView cellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+  return [M3TableViewProfileCell class];
 }
 
 // get url for indexPath

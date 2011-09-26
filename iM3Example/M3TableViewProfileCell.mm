@@ -1,19 +1,14 @@
-#import "M3.h"
-#import "M3ListCell.h"
+#import "M3TableViewProfileCell.h"
 #import <QuartzCore/QuartzCore.h>
+#import "M3.h"
 
-@implementation M3ListCell
-
-+(NSString*)reuseIdentifier
-{
-  static NSString* reuseIdentifier = @"M3ListCell";
-  return reuseIdentifier;
-}
+@implementation M3TableViewProfileCell
 
 -(id)init {
-  self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier: [M3ListCell reuseIdentifier] ];
+  self = [super initWithStyle:UITableViewCellStyleSubtitle];
+  
   if(self) {
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    // self.selectionStyle = UITableViewCellSelectionStyleNone;
 
     // set basic layout for textLabel and detailTextLabel. 
     // They are identical for all instances.
@@ -30,8 +25,6 @@
 
 -(void)dealloc
 {
-  self.model = nil;
-
   [starView_ release];
   [tagLabel_ release];
   
@@ -52,15 +45,15 @@
   return NO;
 }
 
--(NSDictionary*)model
-{ 
-  return model_;
-}
-
 - (void)tappedStar:(UITapGestureRecognizer *)sender {     
   NSLog(@"tappedStar");
   if (sender.state == UIGestureRecognizerStateEnded) { // handling code     
   } 
+}
+
+- (CGFloat)wantsHeightForWidth: (CGFloat)width
+{ 
+  return 50.0f; 
 }
 
 /*
@@ -70,8 +63,7 @@
  */
 -(void)setModel: (NSDictionary*)model
 {
-  [model_ release];
-  model_ = [model retain];
+  [super setModel:model];
   
   // --- create/show/hide starView_ and tagLabel_
   

@@ -9,34 +9,12 @@
 #import "M3TableViewController.h"
 #import "AppDelegate.h"
 
-#define app ((AppDelegate*)[[UIApplication sharedApplication] delegate])
-
 @implementation M3TableViewController
-
-@synthesize classForCells = classForCells_;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-      classForCells_ = [M3ListCell class];
-    }
-    return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
 
 -(void)dealloc
 {
-  [segmentedControl_ autorelease];
-  [segmentURLs_ autorelease];
+  [segmentedControl_ release];
+  [segmentURLs_ release];
   
   [super dealloc];
 }
@@ -95,13 +73,6 @@
   // Do any additional setup.
 }
 
-- (void)viewDidUnload
-{
-  [super viewDidUnload];
-  // Release any retained subviews of the main view.
-  // e.g. self.myOutlet = nil;
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
   // Return YES for supported orientations
@@ -110,41 +81,61 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  return 50;
+  M3TableViewCell* cell = (M3TableViewCell*)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+  return [cell wantsHeightForWidth: 320 ];
+}
+
+- (Class) tableView:(UITableView *)tableView cellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+  return [M3TableViewCell class];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  Class klass = classForCells_;
-
-  // get a reusable or create a new table cell
-  M3ListCell *cell = [tableView dequeueReusableCellWithIdentifier: NSStringFromClass(klass)];
-  if (!cell)
-    cell = [[[klass alloc]init]autorelease];
+  Class klass = [self tableView:tableView cellClassForRowAtIndexPath: indexPath];
+  NSString* klassName = NSStringFromClass(klass);
   
-  // Set model in cell.
+  // get a reusable or create a new table cell
+  M3TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: klassName];
+  if (!cell) {
+    cell = [[[klass alloc]init]autorelease];
+  }
+  
   id key = [self.keys objectAtIndex: indexPath.row];
+  
   cell.model = [self modelWithKey: key];
+  cell.tableViewController = self;
+
   return cell;
 }
 
--(UITableViewCell*)createCell
-{
-  return [[[M3ListCell alloc] init] autorelease];
-}
-
--(NSDictionary*)modelWithKey: (id)key
-{
-  _.raise(@"Missing mplementation: M3TableViewController#modelWithKey:");
-  return nil;
-}
-
+/*
+ * This method returns a list of keys suitable for identifying each entry within the table view.
+ */
 - (NSArray*)keys;
 {
-  _.raise(@"Missing mplementation: M3TableViewController#keys");
   return nil;
 }
 
+/*
+ * This method returns the model identified by the passed in key. If cells for this 
+ * key do not need any model, it is fine just to return nil here.
+ *
+ * The default implementation returns the controller's model.
+ */
+-(NSDictionary*)modelWithKey: (id)key
+{
+  return self.model;
+}
+
+/*
+ * This method returns a URL for the specified key. 
+ *
+ * If the user taps a cell, the app delegate will be asked to open
+ * the URL returned by this method for the cell's key.
+ *
+ * The default implementation returns nil.
+ */
 -(NSString*)urlWithKey: (id)key
 {
   return nil;
@@ -159,8 +150,13 @@
 {
   id key = [self.keys objectAtIndex: indexPath.row];
   [app open: [self urlWithKey: key]];
+
+  [self performSelector:@selector(deselectRowOnTableView:) withObject:tableView afterDelay: 1.0];
+}
+
+- (void)deselectRowOnTableView: (UITableView *)tableView
+{
+  [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 }
 @end
 
-// For animating cell heights:
-// http://stackoverflow.com/questions/460014/can-you-animate-a-height-change-on-a-uitableviewcell-when-selected/2063776#2063776

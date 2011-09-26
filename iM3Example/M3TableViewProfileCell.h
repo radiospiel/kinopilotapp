@@ -1,10 +1,9 @@
-@interface M3ListCell: UITableViewCell {
+#import "M3TableViewController.h"
+
+@interface M3TableViewProfileCell: M3TableViewCell {
   UIImageView* starView_;
   UILabel* tagLabel_;
-  NSDictionary* model_;
 };
-
-@property (nonatomic,retain) NSDictionary* model;
 
 /*
  * checks if the current cell supports a certain feature.
