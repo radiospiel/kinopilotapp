@@ -37,6 +37,7 @@
 
 -(void) setUrl: (NSString*)url {
   [ self instance_variable_set: @selector(url) withValue: url ];
+  [ self instance_variable_set: @selector(model) withValue: nil ];
 };
 
 -(NSString*) title {
@@ -57,6 +58,11 @@
   [ self instance_variable_set: @selector(title) withValue: title ];
 };
 
+-(void)releaseM3Properties
+{
+  self.url = self.title = nil;
+}
+
 @end
 
 @implementation UIView(M3Utilities)
@@ -75,8 +81,6 @@
     UITapGestureRecognizer* r;
     r = [[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(openURLOnTap:)]autorelease];
     [self addGestureRecognizer:r];
-    
-    dlog << "Installed " << r << " on " << _.ptr(self);
   }
   
   [self instance_variable_set: @selector(urlToOpenOnTap) withValue: url];

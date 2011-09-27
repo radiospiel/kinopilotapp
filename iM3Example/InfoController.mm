@@ -15,10 +15,6 @@
 -(id)init
 {
   self = [super initWithStyle: UITableViewStyleGrouped];
-  if(self) {
-    
-  }
-  
   return self;
 }
 
@@ -115,13 +111,25 @@
   
   switch(row.count) {
     case 2:
+    {
       cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:nil] autorelease];
       cell.textLabel.text = row.first;
       cell.textLabel.textColor = [UIColor colorWithName: @"#000"];
-      cell.detailTextLabel.text = [self resolveCustomValue: row.last];
+      
+      NSString* text = [self resolveCustomValue: row.last];
+      NSString* url = nil;
+      if([row.last matches:@"(http://|https://|mailto:)(.*)"]) {
+        [cell.detailTextLabel onTapOpen: text];
+        text = $2;
+      }
+      cell.detailTextLabel.text = text;
       cell.detailTextLabel.font = [self regularFont];
       cell.detailTextLabel.textColor = [UIColor colorWithName: @"#385487"];
+
+      
+      
       break;
+    }
     case 1:
       cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
       cell.textLabel.text = row.first;
@@ -140,7 +148,8 @@
 
 -(NSString*)title
 {
-  return [app.config objectForKey: @"name"];
+  // return [app.config objectForKey: @"name"];
+  return @"Info";
 }
 
 #pragma mark - Table view delegate

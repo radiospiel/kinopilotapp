@@ -63,6 +63,18 @@ static NSString* recti(CGRect rect)
 
 @synthesize bodyView, imageView, descriptionView=description;
 
+-(void)dealloc
+{
+  dlog << "Dealloc " << _.ptr(self);
+
+  [bodyController_ release];
+  bodyController_ = nil;
+  
+  [self releaseM3Properties];
+  
+  [super dealloc];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -128,6 +140,8 @@ static NSString* recti(CGRect rect)
 {
   [super viewDidUnload];
   
+  dlog << "Releasing bodyController_ " << bodyController_;
+  
   [bodyController_ release];
   bodyController_ = nil;
 }
@@ -148,8 +162,9 @@ static NSString* recti(CGRect rect)
 
 -(void)setBodyController: (UIViewController*)controller withTitle: (NSString*)title
 {
+  [controller retain];
   [bodyController_ release];
-  bodyController_ = [controller retain];
+  bodyController_ = controller;
 
   subHeader.text = title;
   

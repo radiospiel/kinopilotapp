@@ -16,10 +16,13 @@
 
 -(void)dealloc
 {
+  dlog << "Dealloc " << _.ptr(self);
+  
   [segmentedControl_ release];
   [segmentURLs_ release];
   self.keys = nil;
   
+  [self releaseM3Properties];
   [self releaseRequestedBannerViews];
   
   [super dealloc];

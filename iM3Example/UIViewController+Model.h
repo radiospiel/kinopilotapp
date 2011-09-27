@@ -6,6 +6,8 @@
 @property (retain,nonatomic) NSString* title;
 @property (retain,nonatomic,readonly) NSDictionary* model;
 
+-(void)releaseM3Properties;
+
 @end
 
 @interface UIView(M3Utilities)
