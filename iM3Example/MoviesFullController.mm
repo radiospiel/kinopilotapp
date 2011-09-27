@@ -31,6 +31,9 @@ static NSString* columns[] = {
 
 @implementation MovieRatingCell
 
++(CGFloat)fixedHeight
+  { return 50; }
+
 -(void)setModel: (NSDictionary*)theModel
 {
   [super setModel:theModel];
@@ -48,6 +51,9 @@ static NSString* columns[] = {
 @end
 
 @implementation MovieInCinemasCell
+
++(CGFloat)fixedHeight
+  { return 50; }
 
 -(void)setModel: (NSDictionary*)theModel
 {
@@ -131,7 +137,12 @@ static NSString* columns[] = {
   htmlView.frame = CGRectMake(10, 5, sz.width, sz.height);
 }
 
-- (CGFloat)wantsHeightForWidth: (CGFloat)width
++(CGFloat)fixedHeight
+{ 
+  return 0; 
+}
+
+- (CGFloat)wantsHeight
 {
   return [self htmlViewSize].height + 15;
 }

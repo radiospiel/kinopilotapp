@@ -84,14 +84,21 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  Class klass = [self tableView:tableView cellClassForRowAtIndexPath: indexPath];
+
+  CGFloat height = [klass fixedHeight]; 
+  if(height)
+    return height;
+  
   M3TableViewCell* cell = (M3TableViewCell*)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-  return [cell wantsHeightForWidth: 320 ];
+  return [cell wantsHeight];
 }
 
 - (Class) tableView:(UITableView *)tableView cellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
   return [M3TableViewCell class];
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -139,6 +146,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+  dlog << "numberOfRowsInSection " << section << " returns " << self.keys.count;
   return self.keys.count;
 }
 

@@ -34,7 +34,7 @@
   }
 }
 
--(CGFloat)wantsHeightForWidth: (CGFloat)width
+-(CGFloat)wantsHeight
 {
   ADBannerView* adView = (ADBannerView*) [self.tableViewController adBannerAtIndexPath: self.indexPath];
   return adView.bannerLoaded ? 50 : 0;

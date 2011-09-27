@@ -96,7 +96,12 @@
   htmlView.frame = CGRectMake(114, 7, sz.width, sz.height);
 }
 
-- (CGFloat)wantsHeightForWidth: (CGFloat)width
++(CGFloat)fixedHeight
+{
+  return 0;
+}
+
+- (CGFloat)wantsHeight
 {
   CGFloat heightByHTMLView = [self htmlViewSize].height + 17;
   CGFloat heightByImage = 140;

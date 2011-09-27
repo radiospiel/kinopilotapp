@@ -43,7 +43,7 @@
   } 
 }
 
-- (CGFloat)wantsHeightForWidth: (CGFloat)width
++ (CGFloat)fixedHeight
 { 
   return 51.0f; 
 }

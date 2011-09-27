@@ -24,7 +24,17 @@
 
 -(id)initWithStyle:(UITableViewCellStyle)style;
 
-// returns the height this implementation wants.
--(CGFloat) wantsHeightForWidth: (CGFloat)width;
+/*
+ * Returns the height needed for this specific cell.
+ */
+-(CGFloat) wantsHeight;
+
+/*
+ * If all cells of this class need the same height override this method
+ * to return that height. This heavily speeds up loading of larger tables.
+ *
+ * The default implementation just returns 0.
+ */
++(CGFloat) fixedHeight;
 
 @end

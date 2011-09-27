@@ -19,6 +19,11 @@
 
 @implementation MoviesListCell
 
+// +(CGFloat) fixedHeight;
+// {
+//   return 120.0f;
+// }
+// 
 -(NSString*)detailText {
   NSNumber* movieId = [self.model objectForKey: @"_uid"];
 
@@ -69,6 +74,10 @@
     self.keys = [app.chairDB movieIdsByTheaterId: $1.to_number];
   else
     self.keys = app.chairDB.movies.keys;
+
+  if(self.keys.count > 12) {
+    self.keys = [self.keys subarrayWithRange: NSMakeRange(0, 12)];
+  }
 }
 
 - (Class) tableView:(UITableView *)tableView cellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -105,6 +114,40 @@
 //  [self addSegment: @"art" withURL: @"/movies/list/fav"];
 //  
 //  [self showSegmentedControl];
+}
+
+static NSArray* sectionTitles()
+{
+  static NSArray* sectionTitles_ = nil;
+  if(!sectionTitles_) {
+    sectionTitles_ = [[@"A B C D E F G H I J K L M N O P Q R S T U V W X Y Z #" componentsSeparatedByString:@" "]retain];
+  }
+  
+  return sectionTitles_;
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+  return sectionTitles();
+}
+
+- (NSInteger)tableView:(UITableView *)tableView 
+  sectionForSectionIndexTitle:(NSString *)title 
+               atIndex:(NSInteger)index {
+
+  dlog << "sectionForSectionIndexTitle:" << index;
+  return index;
+  // return index;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+  
+	NSArray* sectionIndexTitles = [self sectionIndexTitlesForTableView:tableView];
+  return [sectionIndexTitles objectAtIndex:section];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+  dlog << "numberOfSections returns " << [sectionTitles() count];
+  return [sectionTitles() count];
 }
 
 @end

@@ -1,4 +1,5 @@
 #import "M3TableViewCell.h"
+#import "Underscore.hh"
 
 @implementation M3TableViewCell
 
@@ -7,7 +8,6 @@
 -(id)initWithStyle:(UITableViewCellStyle)style
 {
   NSString* reuseIdentifier = NSStringFromClass([self class]);
-  // NSString* reuseIdentifier = nil; 
   
   self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier: reuseIdentifier];
 
@@ -32,9 +32,10 @@
   [super dealloc];
 }
 
-- (CGFloat)wantsHeightForWidth: (CGFloat)width
-{ 
-  return 40.0f; 
-}
+- (CGFloat)wantsHeight
+  { _.raise(_.join(@"Implementation missing for ", [self class], "#wantsHeight")); }
+
++(CGFloat) fixedHeight;
+  { return 0; }
 
 @end
