@@ -3,12 +3,13 @@
   "tabs": [
     {
       "disabled": "disabled",
-      "url": "/movies/show/1376392374307535321",
+      "url": "/movies/full/1376392374307535321",
       "label": "Kalender",
       "icon": "tab_tage.png"
     },
     {
-      "url": "/movies/list",
+      "xurl": "/movies/list",
+      "url": "/movies/show/1376392374307535321",
       "label": "Filme",
       "icon": "tab_filme.png"
     },

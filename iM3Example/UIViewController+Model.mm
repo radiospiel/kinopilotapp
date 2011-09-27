@@ -1,6 +1,25 @@
 #import "AppDelegate.h"
 #import "Chair.h"
 
+// #import "TTTAttributedLabel.h"
+// 
+// @interface TTTAttributedLabel(M3Fixed)
+// @end
+// 
+// @implementation TTTAttributedLabel(M3Fixed)
+// 
+// - (BOOL)isUserInteractionEnabled {
+//   return [super isUserInteractionEnabled];
+//   // return !_userInteractionDisabled && [self.links count] > 0;
+// }
+// 
+// - (void)setUserInteractionEnabled:(BOOL)userInteractionEnabled {
+//   [super setUserInteractionEnabled: userInteractionEnabled];
+//   _userInteractionDisabled = !userInteractionEnabled;
+// }
+// 
+// @end
+
 @implementation UIViewController(Model)
 
 -(NSDictionary*) model 
@@ -37,5 +56,30 @@
 -(void) setTitle: (NSString*)title {
   [ self instance_variable_set: @selector(title) withValue: title ];
 };
+
+@end
+
+@implementation UIView(M3Utilities)
+
+-(void)openURLOnTap:(UITapGestureRecognizer*)recognizer
+{
+  NSString* url = [self instance_variable_get: @selector(urlToOpenOnTap)];
+  [app open: url];
+}
+
+-(void)onTapOpen: (NSString*)url
+{
+  self.userInteractionEnabled = YES;
+  
+  if(![self instance_variable_get: @selector(urlToOpenOnTap)]) {
+    UITapGestureRecognizer* r;
+    r = [[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(openURLOnTap:)]autorelease];
+    [self addGestureRecognizer:r];
+    
+    dlog << "Installed " << r << " on " << _.ptr(self);
+  }
+  
+  [self instance_variable_set: @selector(urlToOpenOnTap) withValue: url];
+}
 
 @end

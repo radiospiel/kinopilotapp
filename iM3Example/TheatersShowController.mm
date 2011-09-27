@@ -11,31 +11,52 @@
 
 @implementation TheatersShowController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (NSString*)descriptionAsHTML
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+  NSDictionary* model = self.model;
+
+  NSString* name = [model objectForKey:@"name"];
+
+  NSMutableArray* parts = [NSMutableArray array];
+
+  [parts addObject: [NSString stringWithFormat: @"<h2><b>%@</b></h2><br/>", name]];
+
+  void (^addEntry)(NSString*, NSString*) = ^(NSString* name, NSString* key) {
+    NSString* value = [model objectForKey:key];
+    if(!value) return;
+  
+    [parts addObject: [NSString stringWithFormat: @"<p><b>%@:</b> %@</p>", name, value]]; 
+  };
+  
+  addEntry(@"Adresse", @"address");
+  addEntry(@"Fon", @"telephone");
+  // addEntry(@"Email", @"email");
+  // addEntry(@"Web", @"website");
+  
+  return [parts componentsJoinedByString:@""];
 }
 
-- (void)didReceiveMemoryWarning
+-(NSArray*)actions
 {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
+  NSMutableArray* actions = _.array();
+
+  NSString* fon = [self.model objectForKey:@"telephone"];
+  if(actions.count < 2 && fon) {
+    [actions addObject: _.array(@"Fon", fon)];
+  }
+  NSString* email = [self.model objectForKey:@"email"];
+  if(actions.count < 2 && email) {
+    [actions addObject: _.array(@"Email", email)];
+  }
+  NSString* web = [self.model objectForKey:@"website"];
+  if(actions.count < 2 && web) {
+    [actions addObject: _.array(@"Website", web)];
+  }
+  
+  return actions;
 }
 
 #pragma mark - View lifecycle
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -45,13 +66,6 @@
   
   NSString* bodyURL = _.join(@"/movies/list/theater_id=", [self.model objectForKey:@"_uid" ]);
   [self setBodyController: [app viewControllerForURL:bodyURL ] withTitle: @"Filme"];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

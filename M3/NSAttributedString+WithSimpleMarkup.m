@@ -154,10 +154,14 @@
     self.bold = NO;
   else if([elementName isEqualToString:@"i"])
     self.italic = NO;
-  else if([elementName isEqualToString:@"h1"])
+  else if([elementName isEqualToString:@"h1"]) {
     self.fontSize = 13;
-  else if([elementName isEqualToString:@"h2"])
+    [self add: @"\n"];
+  }
+  else if([elementName isEqualToString:@"h2"]) {
     self.fontSize = 13;
+    [self add: @"\n"];
+  }
 }
 
 - (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)data

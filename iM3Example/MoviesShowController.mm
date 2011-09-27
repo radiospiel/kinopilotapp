@@ -11,32 +11,6 @@
 
 @implementation MoviesShowController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
-#pragma mark - View lifecycle
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
-
 - (void)viewDidLoad
 {
   [super viewDidLoad];
@@ -45,28 +19,49 @@
   [self setBodyController: [app viewControllerForURL:bodyURL ] withTitle: @"Kinos"];
   
   // Show full info on a tap on tap on imageView and description
-  UITapGestureRecognizer *recognizer;
-  recognizer = [[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(openFullInfo)] autorelease];
-  [self.imageView addGestureRecognizer:recognizer];
-  self.imageView.userInteractionEnabled = YES;
+  NSString* fullInfoURL = [self.url stringByReplacingOccurrencesOfString:@"/movies/show" withString:@"/movies/full"];
 
-  recognizer = [[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(openFullInfo)] autorelease];
-//  [self.description addGestureRecognizer:recognizer];
+  [self.view onTapOpen: fullInfoURL ];
+}  
+
+- (NSString*)descriptionAsHTML
+{
+  NSDictionary* model = self.model;
+
+  NSString* title =           [model objectForKey:@"title"];
+  NSNumber* runtime =         [model objectForKey:@"runtime"];
+  NSString* genre =           [[model objectForKey:@"genres"] objectAtIndex:0];
+  NSNumber* production_year = [model objectForKey:@"production-year"];
+
+  NSMutableArray* parts = [NSMutableArray array];
+  [parts addObject: [NSString stringWithFormat: @"<h2><b>%@</b></h2>", title]];
+
+  if(genre || production_year || runtime) {
+    NSMutableArray* p = [NSMutableArray array];
+    if(genre) [p addObject: genre];
+    if(production_year) [p addObject: production_year];
+    if(runtime) [p addObject: [NSString stringWithFormat:@"%@ min", runtime]];
+    
+    [parts addObject: @"<p>"];
+    [parts addObject: [p componentsJoinedByString:@", "]];
+    [parts addObject: @"</p>"];
+  }
+
+  return [parts componentsJoinedByString:@""];
 }
 
--(void) openFullInfo
+-(NSArray*)actions
 {
-  dlog << "==> openFullInfo";
+  NSMutableArray* actions = _.array();
   
-  NSString* url = [self.url stringByReplacingOccurrencesOfString:@"/movies/show" withString:@"/movies/full"];
-  [app open: url];
-}
+  NSString* imdb = [self.model objectForKey:@"IMDB"];
+  imdb = _.join(@"http://imdb.de/?q=", [self.model objectForKey: @"title"]);
+  
+  if(actions.count < 2 && imdb) {
+    [actions addObject: _.array(@"IMDB", imdb)];
+  }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+  return actions;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

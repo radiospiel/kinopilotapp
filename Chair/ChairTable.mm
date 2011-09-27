@@ -141,7 +141,7 @@
 +(ChairTable*) tableWithFile:(NSString*) path {
   NSDictionary * rootObject = [NSKeyedUnarchiver unarchiveObjectWithFile:path]; 
 
-  ChairTable* table = [rootObject valueForKey:@"table"];
+  ChairTable* table = [rootObject objectForKey:@"table"];
   table.name = [M3 basename_wo_ext: path];
   return table;
 }

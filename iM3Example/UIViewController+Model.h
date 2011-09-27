@@ -8,4 +8,8 @@
 
 @end
 
+@interface UIView(M3Utilities)
+-(void)onTapOpen: (NSString*)url;
+@end
+
 #endif

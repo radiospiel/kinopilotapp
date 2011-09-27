@@ -91,7 +91,7 @@ NSComparisonResult RS::UnderscoreAdapter::compare_(id value, id other) {
       [keys sortUsingSelector: @selector(compare:)];
 
       for(NSString* key in keys) {
-        NSComparisonResult r = compare([value valueForKey: key], [other valueForKey: key]);
+        NSComparisonResult r = compare([value objectForKey: key], [other objectForKey: key]);
         if(r) return r;
       }
       

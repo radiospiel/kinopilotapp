@@ -43,22 +43,25 @@ static NSString* recti(CGRect rect)
 
 @end
 
+
 @implementation UIButton(M3Utilities)
 
--(void)setAction: (NSString*)label
+-(void)setAction: (NSString*)label withURL: (NSString*)url
 {
-  if(!label)
-    [self setHidden:YES];
-  else
-    [self setTitle:label forState:UIControlStateNormal];
+  [self setHidden:NO];
+  [self setTitle:label forState:UIControlStateNormal];
+  [self onTapOpen: url];
 }
 
+-(void)setAction: (NSArray*)action
+{
+  [self setAction: action.first withURL: action.last];
+}
 @end
-
 
 @implementation M3ProfileController
 
-@synthesize bodyView, imageView;
+@synthesize bodyView, imageView, descriptionView=description;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -79,11 +82,14 @@ static NSString* recti(CGRect rect)
 
 #pragma mark - View lifecycle
 
+- (NSString*)descriptionAsHTML
+{
+  return @"<p>Please add a descriptionAsHTML implementation!</p>";
+}
 
-- (void)handleTap:(UITapGestureRecognizer *)sender {     
-  NSLog(@"handleTap");
-  // if (sender.state == UIGestureRecognizerStateEnded)     {         // handling code     
-  // } 
+-(NSArray*)actions
+{
+  return _.array(_.array("Google", "http://google.com"));
 }
 
 - (void)viewDidLoad
@@ -94,26 +100,28 @@ static NSString* recti(CGRect rect)
   if(!self.model) return;
   
   //
-  // fill in profile view from data
-
-  headline.text = [ self.model valueForKey: @"title" ];
-  dlog << "Loaded movie " << headline.text;
+  // --- set image
   
-  imageView.imageURL = [self.model valueForKey:@"image"];
+  imageView.imageURL = [self.model objectForKey:@"image"];
 
-  [action0 setAction: [self.model valueForKey: @"action0"]];
-  [action1 setAction: [self.model valueForKey: @"action1"]];
+  // -- set actions ---------------------------------------------------
+  
+  NSArray* actions = [self actions];
+  
+  [action0 setHidden:YES];
+  [action1 setHidden:YES];
+  
+  switch(actions.count) {
+    case 2:   [action1 setAction: [actions objectAtIndex: 1]];
+              /* fall thru */
+    case 1:   [action0 setAction: [actions objectAtIndex: 0]];
+              /* fall thru */
+    default:  (void)0;  
+  };
 
-  BOOL actionsHidden = action0.hidden && action1.hidden;
-  description.numberOfLines = actionsHidden ? 5 : 4;
-  
-  [description setTopAlignedText: [ self.model valueForKey: @"description" ]];
-  // [imageView 
-  
-  UITapGestureRecognizer *recognizer = [[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)] autorelease];
-  description.userInteractionEnabled = YES;
-  [description addGestureRecognizer:recognizer];
-  NSLog(@"*** Attached UITapGestureRecognizer");
+  // --- set description ---------------------------------------------------
+  description.numberOfLines = actions.count ? 4 : 5;
+  description.text = [NSAttributedString attributedStringWithSimpleMarkup: [self descriptionAsHTML]];
 }
 
 - (void)viewDidUnload

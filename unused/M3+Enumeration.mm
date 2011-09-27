@@ -339,7 +339,7 @@ static BOOL is_array(id obj) {
 
   [M3 each: list
           withIndex: ^(id value, NSUInteger idx) {
-            id entry = [value valueForKey: propertyName];
+            id entry = [value objectForKey: propertyName];
             [r addObject: entry]; 
           }
  ];

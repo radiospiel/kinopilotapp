@@ -46,7 +46,7 @@
 
 -(void) adjustMovies:(NSMutableDictionary*)movie
 {
-  NSArray* images = [movie valueForKey:@"images"];
+  NSArray* images = [movie objectForKey:@"images"];
   if([images.first isKindOfClass:[NSDictionary class]]) {
     [movie setValue: [images.first objectForKey:@"thumbnail"] forKey: @"image"];
   }
