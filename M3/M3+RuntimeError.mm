@@ -12,17 +12,7 @@
   if(!self) return nil;
 
   // collect backtrace information
-  NSMutableArray* backtrace_array = [NSMutableArray array];
-  
-  void* callstack[128];
-  int frames = backtrace(callstack, 128);
-  char** strs = backtrace_symbols(callstack, frames);
-  for (int i = 0; i < frames; ++i) {
-    [backtrace_array addObject: [NSString stringWithUTF8String: strs[i]]];
-  }
-  free(strs);
-  
-  backtrace_ = backtrace_array;
+  backtrace_ = [[M3 callersWithLimit: 15]retain];
   message_ = [theMessage retain];
   
   return self;

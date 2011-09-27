@@ -12,15 +12,26 @@ BenchmarkLogger::BenchmarkLogger(NSString* msg) {
 
 BenchmarkLogger::~BenchmarkLogger() {
   NSString* msg = [NSString stringWithFormat: @"%@: %d msecs", msg_, [stopWatch_ milliSeconds]];
-  rlog << [msg UTF8String];
+  NSString* caller = [M3 callerWithIndex: 3];
+
+  rlog.setSource(caller).append(msg);
   
-  [msg_ release ];
   [stopWatch_ release];
 }
 
 /*
  * C++-like logging
  */
+
+Logger::Logger(int mode, const char* file, int line): mode_(mode), file_(file), line_(line), severity_(2), parts_(nil), src_(nil)
+{
+}
+
+const Logger& Logger::setSource(NSString* src) const
+{
+  src_ = [src retain];
+  return *this;
+}
 
 void Logger::append(NSString* string) const {
   if(!parts_) parts_ = [NSMutableArray array];
@@ -58,13 +69,18 @@ Logger::~Logger()
     severityLabel = severityLabels[severity_];
 
   double secs = [stopWatch nanoSeconds] / 1e9;
-  
-  if(shouldShortenSourceLocation(mode_)) {
+
+  if(src_) {
+    _.puts(@"[%.2f secs] %s%@: %@", secs, severityLabel, src_, [parts_ componentsJoinedByString: @""]);
+  }
+  else if(shouldShortenSourceLocation(mode_)) {
     NSString* module = [M3 basename_wo_ext: [NSString stringWithUTF8String: file_]];
     _.puts(@"[%.2f secs] %s%@: %@", secs, severityLabel, module, [parts_ componentsJoinedByString: @""]);
   }
   else
     _.puts(@"[%.2f secs] %s%s(%d): %@", secs, severityLabel, file_, line_, [parts_ componentsJoinedByString: @""]);
+
+  [src_ release];
 }
 
 }

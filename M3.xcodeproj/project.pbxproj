@@ -351,6 +351,12 @@
 		9DDE1B761430876A00FDF9C5 /* M3TableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDE1B751430876A00FDF9C5 /* M3TableViewCell.mm */; };
 		9DDE1B7A1430931900FDF9C5 /* M3TableViewAdCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDE1B791430931900FDF9C5 /* M3TableViewAdCell.mm */; };
 		9DDE1B7C1430946B00FDF9C5 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDE1B7B1430946B00FDF9C5 /* iAd.framework */; };
+		9DDF5CFD1431AEF1001CAC28 /* M3+Caller.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DDF5CFB1431AEF1001CAC28 /* M3+Caller.h */; };
+		9DDF5CFE1431AEF1001CAC28 /* M3+Caller.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DDF5CFB1431AEF1001CAC28 /* M3+Caller.h */; };
+		9DDF5CFF1431AEF1001CAC28 /* M3+Caller.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DDF5CFC1431AEF1001CAC28 /* M3+Caller.m */; };
+		9DDF5D001431AEF1001CAC28 /* M3+Caller.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DDF5CFC1431AEF1001CAC28 /* M3+Caller.m */; };
+		9DDF5D031431B30D001CAC28 /* Underscore+Logger.hh in Headers */ = {isa = PBXBuildFile; fileRef = 9DDF5D021431B30D001CAC28 /* Underscore+Logger.hh */; };
+		9DDF5D041431B30D001CAC28 /* Underscore+Logger.hh in Headers */ = {isa = PBXBuildFile; fileRef = 9DDF5D021431B30D001CAC28 /* Underscore+Logger.hh */; };
 		9DE40645142CFC490089EAA9 /* InfoController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DE40644142CFC490089EAA9 /* InfoController.mm */; };
 /* End PBXBuildFile section */
 
@@ -703,6 +709,9 @@
 		9DDE1B781430931900FDF9C5 /* M3TableViewAdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewAdCell.h; sourceTree = "<group>"; };
 		9DDE1B791430931900FDF9C5 /* M3TableViewAdCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewAdCell.mm; sourceTree = "<group>"; };
 		9DDE1B7B1430946B00FDF9C5 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/iAd.framework; sourceTree = DEVELOPER_DIR; };
+		9DDF5CFB1431AEF1001CAC28 /* M3+Caller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Caller.h"; sourceTree = "<group>"; };
+		9DDF5CFC1431AEF1001CAC28 /* M3+Caller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "M3+Caller.m"; sourceTree = "<group>"; };
+		9DDF5D021431B30D001CAC28 /* Underscore+Logger.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "Underscore+Logger.hh"; sourceTree = "<group>"; };
 		9DE40643142CFC490089EAA9 /* InfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoController.h; sourceTree = "<group>"; };
 		9DE40644142CFC490089EAA9 /* InfoController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InfoController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1216,6 +1225,9 @@
 			children = (
 				9D9D3189142C6E9800C8269A /* UIColor+M3Extensions.h */,
 				9D9D318A142C6E9800C8269A /* UIColor+M3Extensions.mm */,
+				9DDF5D021431B30D001CAC28 /* Underscore+Logger.hh */,
+				9DDF5CFB1431AEF1001CAC28 /* M3+Caller.h */,
+				9DDF5CFC1431AEF1001CAC28 /* M3+Caller.m */,
 				9D8B8AF71413CA8B0066ECBB /* M3.h */,
 				9D8B8AF81413CA8B0066ECBB /* M3.m */,
 				9D8B8B171413CAD90066ECBB /* M3+Comparison.h */,
@@ -1315,6 +1327,8 @@
 				9D3B0874142A3B7900322C00 /* M3+RuntimeError.h in Headers */,
 				9D9D318C142C6E9800C8269A /* UIColor+M3Extensions.h in Headers */,
 				9D85437D142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.h in Headers */,
+				9DDF5CFE1431AEF1001CAC28 /* M3+Caller.h in Headers */,
+				9DDF5D041431B30D001CAC28 /* Underscore+Logger.hh in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1356,6 +1370,8 @@
 				9D9D318B142C6E9800C8269A /* UIColor+M3Extensions.h in Headers */,
 				9D85436F142FAC8C00F495E9 /* TTTAttributedLabel.h in Headers */,
 				9D85437C142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.h in Headers */,
+				9DDF5CFD1431AEF1001CAC28 /* M3+Caller.h in Headers */,
+				9DDF5D031431B30D001CAC28 /* Underscore+Logger.hh in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1793,6 +1809,7 @@
 				9D3B0876142A3B7900322C00 /* M3+RuntimeError.mm in Sources */,
 				9D9D318E142C6E9800C8269A /* UIColor+M3Extensions.mm in Sources */,
 				9D85437F142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m in Sources */,
+				9DDF5D001431AEF1001CAC28 /* M3+Caller.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1879,6 +1896,7 @@
 				9D9D318D142C6E9800C8269A /* UIColor+M3Extensions.mm in Sources */,
 				9D854370142FAC8C00F495E9 /* TTTAttributedLabel.m in Sources */,
 				9D85437E142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m in Sources */,
+				9DDF5CFF1431AEF1001CAC28 /* M3+Caller.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
