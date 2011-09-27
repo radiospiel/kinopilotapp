@@ -15,13 +15,15 @@
 #import "M3.h"
 #import "NSAttributedString+WithSimpleMarkup.h"
 
+#if TARGET_OS_IPHONE 
 #import <CoreText/CoreText.h>
+#endif
 
 @interface M3AttributedStringBuilder: NSObject<NSXMLParserDelegate> {
   NSMutableAttributedString* attributedString_;
   NSString* fontName;
   int fontSize;
-  UIColor* color;
+  // UIColor* color;
   BOOL bold;
   BOOL italic;
 };
@@ -48,7 +50,7 @@
   
   fontName = @"Helvetica";
   fontSize = 13;
-  color = nil;
+  // color = nil;
   
   return self;
 }
