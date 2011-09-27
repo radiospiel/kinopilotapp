@@ -160,7 +160,7 @@
 {
   NSMutableArray* objects = [self objectForKey_: key];
   if(objects) {
-    [objects addObject:key];
+    [objects addObject:object];
   }
   else {
     objects = [NSMutableArray arrayWithObject: object];
