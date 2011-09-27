@@ -4,5 +4,6 @@
 +(NSArray*)callersWithLimit: (NSUInteger)limit;
 +(NSString*)caller;
 +(NSString*)callerWithIndex: (NSUInteger)index;
++(void)logBacktrace;
 
 @end

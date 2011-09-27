@@ -9,6 +9,7 @@
   // collect backtrace information
   NSMutableArray* callers = [NSMutableArray array];
   
+  limit += offset;
   if(limit > 127) limit = 127;
   void* callstack[128];
   int frames = backtrace(callstack, limit);
@@ -52,6 +53,14 @@
 +(NSString*)caller
 {
   return [self callerWithIndex: 3];
+}
+
++(void)logBacktrace
+{
+  NSArray* callers = [M3 callersWithLimit: 6 andOffset: 3];
+  for(NSString* caller in callers) {
+    NSLog(@"%@", caller);
+  }
 }
 
 @end
