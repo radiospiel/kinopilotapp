@@ -80,12 +80,48 @@
 
 - (void) each: (void (^)(NSDictionary* value, id key)) iterator;
 {
-  [self each: iterator min: nil max: nil excludingEnd: nil];
+  [self each: iterator min: nil max: nil excludingEnd: NO];
 }
 
-/*
- * Get an entry off the dictionary.
- */
+/** get first, all, all matching values. Get all keys. */
+
+-(NSDictionary*) first;
+{
+  NSArray* keys = [self keys];
+  if([keys count] == 0) return nil;
+  return [self get:keys.first];
+}
+
+-(NSArray*) keys {
+  NSMutableArray* keys = [NSMutableArray array];
+  id __block lastKey = nil;
+  
+  [self each: ^(NSDictionary* value, id key) { 
+    if(!lastKey || _.compare(lastKey, key))
+      [keys addObject: key]; 
+    }];
+  
+  return keys;
+}
+
+- (NSArray*) valuesWithKey: (id)key
+{
+  NSMutableArray* array = [NSMutableArray array];
+  
+  [self each:^(NSDictionary *value, id key) { [array addObject:value]; } 
+         min: key max: key excludingEnd: NO];
+  
+  return array;
+  
+}
+
+- (NSArray*) values
+{
+  return [self valuesWithKey: nil];
+}
+
+/** Get an entry off the dictionary. */
+
 - (NSDictionary*) get: (id)key
 {
   NSDictionary* __block r = nil;
@@ -96,9 +132,8 @@
   return r;
 }
 
-/**
- returns the number of entries in the view.
- */
+/** returns the number of entries in the view. */
+
 - (NSUInteger) count {
   NSUInteger __block r = 0;
   [self each: ^(NSDictionary* value, id key) { r++; }];
@@ -115,27 +150,6 @@
   NSUInteger __block r = 0;
   [self each: ^(NSDictionary* value, id key) { r++; } min: min max: max excludingEnd: excludingEnd];
   return r;
-}
-
--(NSDictionary*) first;
-{
-  NSArray* keys = [self keys];
-  if([keys count] == 0) return nil;
-  return [self get:keys.first];
-}
-
--(NSArray*) keys {
-  NSMutableArray* keys = [NSMutableArray array];
-  
-  [self each: ^(NSDictionary* value, id key) { [keys addObject: key]; }];
-  return keys;
-}
-
--(NSArray*) values {
-  NSMutableArray* values = [NSMutableArray array];
-  
-  [self each: ^(NSDictionary* value, id key) { [values addObject: value]; }];
-  return values;
 }
 
 @end

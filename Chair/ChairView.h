@@ -75,6 +75,31 @@
 - (void) each: (void (^)(NSDictionary* value, id key)) iterator;
 
 /**
+ gets all values
+ */
+- (NSArray*) values;
+
+@property (readonly,nonatomic) NSArray* values;
+
+/**
+ gets all values matching the key
+ */
+- (NSArray*) valuesWithKey: (id)key;
+
+/**
+ gets all keys
+ */
+- (NSArray*) keys;
+
+@property (readonly,nonatomic) NSArray* keys;
+
+/**
+ returns the first entry in the view, or nil.
+ */
+-(NSDictionary*) first;
+
+/**
+   gets the first entry matching \a key or nil.
  */
 - (NSDictionary*) get: (id)key;
           
@@ -89,11 +114,6 @@
   returns the number of entries in the view.
 */
 - (NSUInteger) count;
-
--(NSArray*) keys;
--(NSArray*) values;
-
--(NSDictionary*) first;
 
 @end
 
