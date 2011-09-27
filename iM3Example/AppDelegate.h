@@ -32,13 +32,6 @@ extern AppDelegate* app;
 
 @end
 
-
-@interface AppDelegate(Nib)
-
--(id)loadInstanceOfClass: (Class)klass fromNib: (NSString*) nibName;
-
-@end
-
 @class ChairDatabase;
 
 @interface AppDelegate(ChairDB)

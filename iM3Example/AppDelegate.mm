@@ -69,12 +69,12 @@ AppDelegate* app;
     _.raise("Cannot find controller class name for URL ", url);
   
   UIViewController* vc = nil;
+  Class klass = NSClassFromString(className);
   if(nibName) {
-    vc = [self loadInstanceOfClass: NSClassFromString(className)
-                           fromNib: nibName];
+    vc = [[klass alloc]initWithNibName:nibName bundle:nil];
   }
   else {
-    vc = [[NSClassFromString(className) alloc]init];
+    vc = [[klass alloc]init];
   }
 
   vc.url = url;
@@ -84,7 +84,7 @@ AppDelegate* app;
   // get landscape view controller for URL and Data
   // merge landscape view controller with portrait view controller 
 
-  return vc;
+  return [vc autorelease];
 }
 
 -(void)open: (NSString*)url
@@ -119,7 +119,7 @@ AppDelegate* app;
   
   //
   // Build navigation controller
-  UINavigationController* nc = [[UINavigationController alloc]initWithRootViewController:vc];
+  UINavigationController* nc = [[[UINavigationController alloc]initWithRootViewController:vc]autorelease];
 
   // set navigation controller title
   if(vc.title)

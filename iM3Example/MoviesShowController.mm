@@ -9,6 +9,20 @@
 #import "MoviesShowController.h"
 #import "AppDelegate.h"
 
+@interface MoviesShowController (Private)
+
+@property (nonatomic,readonly) NSString* fullInfoURL;
+@end
+
+@implementation MoviesShowController (Private)
+
+-(NSString*)fullInfoURL
+{
+  return [self.url stringByReplacingOccurrencesOfString:@"/movies/show" withString:@"/movies/full"];
+}
+
+@end
+
 @implementation MoviesShowController
 
 - (void)viewDidLoad
@@ -19,9 +33,7 @@
   [self setBodyController: [app viewControllerForURL:bodyURL ] withTitle: @"Kinos"];
   
   // Show full info on a tap on tap on imageView and description
-  NSString* fullInfoURL = [self.url stringByReplacingOccurrencesOfString:@"/movies/show" withString:@"/movies/full"];
-
-  [self.view onTapOpen: fullInfoURL ];
+  [self.imageView onTapOpen: self.fullInfoURL ];
 }  
 
 - (NSString*)descriptionAsHTML
@@ -54,11 +66,13 @@
 {
   NSMutableArray* actions = _.array();
   
-  NSString* imdb = [self.model objectForKey:@"IMDB"];
-  imdb = _.join(@"http://imdb.de/?q=", [self.model objectForKey: @"title"]);
+  NSString* imdb = _.join(@"http://imdb.de/?q=", [self.model objectForKey: @"title"]);
   
   if(actions.count < 2 && imdb) {
     [actions addObject: _.array(@"IMDB", imdb)];
+  }
+  if(actions.count < 2) {
+    [actions addObject: _.array(@"Mehr...", self.fullInfoURL)];
   }
 
   return actions;

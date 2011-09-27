@@ -8,8 +8,8 @@
       "icon": "tab_tage.png"
     },
     {
-      "xurl": "/movies/list",
-      "url": "/movies/show/1376392374307535321",
+      "url": "/movies/list",
+      "xurl": "/movies/show/1376392374307535321",
       "label": "Filme",
       "icon": "tab_filme.png"
     },

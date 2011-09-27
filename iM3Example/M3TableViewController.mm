@@ -69,7 +69,7 @@
   #if 0
     self.navigationItem.titleView = segmentedControl_;  
   #else
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView: segmentedControl_];
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc]initWithCustomView: segmentedControl_]autorelease];
   #endif
 }
 

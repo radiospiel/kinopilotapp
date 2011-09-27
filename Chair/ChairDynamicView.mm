@@ -39,11 +39,11 @@
 
 // --------------------------------------------------------------------
 
-- (ChairMultiDictionary*) createUpdatedDictionary {
+- (ChairMultiDictionary*) updatedDictionary {
   /*
    * === map stage =================================================== 
    */
-  ChairMultiDictionary* mapped = [[ChairMultiDictionary alloc] init]; 
+  ChairMultiDictionary* mapped = [[[ChairMultiDictionary alloc] init] autorelease]; 
   
   if(map_function_) {
     EmitCallback emit = ^(id value, id key) {
@@ -60,7 +60,7 @@
   /*
    * === reduce stage =================================================== 
    */
-  ChairMultiDictionary* reduced = [[ChairMultiDictionary alloc] init];
+  ChairMultiDictionary* reduced = [[[ChairMultiDictionary alloc] init] autorelease];
   EmitCallback emit = ^(NSDictionary* value, id key) {
     [reduced addObject:value forKey: key];
   };
@@ -71,12 +71,11 @@
        excludingEnd: NO
    ];  
   
-  [mapped release];
   return reduced;
 }
 
 - (void) do_update {
-  self.dictionary = [self createUpdatedDictionary];
+  self.dictionary = [self updatedDictionary];
 }
 
 @end

@@ -160,7 +160,7 @@
 {
   NSMutableArray* objects = [self objectForKey_: key];
   if(!objects) {
-    objects = [[NSMutableArray alloc]init];
+    objects = [[[NSMutableArray alloc]init]autorelease];
     [self setObject_: objects forKey:key];
   }
 

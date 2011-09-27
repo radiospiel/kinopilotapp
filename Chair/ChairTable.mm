@@ -24,7 +24,7 @@
 
 -(id) init
 {
-  return [self initWithDictionary: [[ChairDictionary alloc] init]];
+  return [self initWithDictionary: [ChairDictionary dictionary]];
 }
 
 
