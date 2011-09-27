@@ -12,17 +12,7 @@
 
 @synthesize dictionary = dictionary_;
 
--(id) init;
-{
-  self = [super init];
-  if(self) {
-    dictionary_ = [[ChairDictionary alloc] init];
-  }
-  
-  return self;
-}
-
--(id) initWithDictionary: (ChairDictionary*) dictionary;
+-(id) initWithDictionary: (ChairDictionary*) dictionary
 {
   self = [super init];
   if(self) {
@@ -31,6 +21,12 @@
   
   return self;
 }
+
+-(id) init
+{
+  return [self initWithDictionary: [[ChairDictionary alloc] init]];
+}
+
 
 -(void)dealloc
 {
@@ -129,11 +125,14 @@
 // -- NSCoding --------------------------------------------------------
 
 -(void) encodeWithCoder: (NSCoder *)coder { 
+  [coder encodeObject: [NSNumber numberWithInt: self.revision] forKey: @"revision"];
   [coder encodeObject: self.dictionary forKey: @"dictionary"];
 } 
 
 -(id) initWithCoder: (NSCoder *)coder { 
   if (self = [super init]) { 
+    NSNumber* revision = [coder decodeObjectForKey:@"revision"]; 
+    self.revision = [revision intValue];
     self.dictionary = [coder decodeObjectForKey:@"dictionary"]; 
   } 
   return self; 

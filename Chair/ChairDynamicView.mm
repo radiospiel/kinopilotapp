@@ -39,8 +39,7 @@
 
 // --------------------------------------------------------------------
 
-- (void) do_update {
-
+- (ChairMultiDictionary*) createUpdatedDictionary {
   /*
    * === map stage =================================================== 
    */
@@ -56,11 +55,8 @@
     }];
   }
 
-  if(!reduce_function_) {
-    self.dictionary = [mapped autorelease];
-    return;
-  }
-
+  if(!reduce_function_) return mapped;
+  
   /*
    * === reduce stage =================================================== 
    */
@@ -73,11 +69,14 @@
                 min: nil
                 max: nil
        excludingEnd: NO
-  ];
-  
+   ];  
   
   [mapped release];
-  self.dictionary = [reduced autorelease];
+  return reduced;
+}
+
+- (void) do_update {
+  self.dictionary = [self createUpdatedDictionary];
 }
 
 @end

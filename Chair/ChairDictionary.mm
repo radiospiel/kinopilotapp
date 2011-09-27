@@ -159,13 +159,12 @@
 - (void) addObject: (NSDictionary*) object forKey: (id) key
 {
   NSMutableArray* objects = [self objectForKey_: key];
-  if(objects) {
-    [objects addObject:object];
-  }
-  else {
-    objects = [NSMutableArray arrayWithObject: object];
+  if(!objects) {
+    objects = [[NSMutableArray alloc]init];
     [self setObject_: objects forKey:key];
   }
+
+  [objects addObject:object];
 }
 
 -(NSUInteger)count

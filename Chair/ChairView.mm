@@ -61,7 +61,7 @@
 */
 - (void) update {
   if(!source_view_) return;
-  if(source_revision_ && source_revision_ == source_view_.revision) return;
+  if(source_revision_ == source_view_.revision) return;
 
   [self do_update];
   source_revision_ = source_view_.revision;
