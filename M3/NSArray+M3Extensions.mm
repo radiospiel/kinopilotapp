@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "NSArray+M3Extensions.h"
 #include <glob.h>
+#include "Underscore.hh"
 
 @implementation NSArray (Globbing)
 
@@ -50,6 +51,16 @@
 -(NSArray*) uniq
 {
   return [[NSSet setWithArray: self] allObjects];                   
+}
+
+static NSComparisonResult underscore_compare(id a, id b, void* p) {
+  return _.compare(a, b);
+}
+
+-(NSArray*) sort
+{
+
+  return [self sortedArrayUsingSelector:@selector(compare:)];
 }
                              
 @end
