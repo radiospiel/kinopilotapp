@@ -116,39 +116,5 @@
 //  [self showSegmentedControl];
 }
 
-static NSArray* sectionTitles()
-{
-  static NSArray* sectionTitles_ = nil;
-  if(!sectionTitles_) {
-    sectionTitles_ = [[@"A B C D E F G H I J K L M N O P Q R S T U V W X Y Z #" componentsSeparatedByString:@" "]retain];
-  }
-  
-  return sectionTitles_;
-}
-
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-  return sectionTitles();
-}
-
-- (NSInteger)tableView:(UITableView *)tableView 
-  sectionForSectionIndexTitle:(NSString *)title 
-               atIndex:(NSInteger)index {
-
-  dlog << "sectionForSectionIndexTitle:" << index;
-  return index;
-  // return index;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-  
-	NSArray* sectionIndexTitles = [self sectionIndexTitlesForTableView:tableView];
-  return [sectionIndexTitles objectAtIndex:section];
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  dlog << "numberOfSections returns " << [sectionTitles() count];
-  return [sectionTitles() count];
-}
-
 @end
 

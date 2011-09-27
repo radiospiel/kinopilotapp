@@ -75,6 +75,8 @@
 }
 
 - (void) do_update {
+  Benchmark(_.join(@"do_update: ", _.ptr(self)));
+  
   self.dictionary = [self updatedDictionary];
 }
 

@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "M3TableViewController.h"
-#import "M3TableViewAdCell.h"
 
 @implementation M3TableViewController
 
@@ -23,7 +22,7 @@
   self.keys = nil;
   
   [self releaseM3Properties];
-  [self releaseRequestedBannerViews];
+  // [self releaseRequestedBannerViews];
   
   [super dealloc];
 }
@@ -99,6 +98,10 @@
   return [M3TableViewCell class];
 }
 
+- (id)keyForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  return [self.keys objectAtIndex: indexPath.row];
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -113,7 +116,7 @@
   cell.tableViewController = self;
   cell.indexPath = indexPath;
 
-  id key = [self.keys objectAtIndex: indexPath.row];
+  id key = [self keyForRowAtIndexPath: indexPath ];
   cell.key = key;
   cell.model = [self modelWithKey: key];
 
@@ -152,7 +155,7 @@
 
 - (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
 {
-  id key = [self.keys objectAtIndex: indexPath.row];
+  id key = [self keyForRowAtIndexPath:indexPath];
   [app open: [self urlWithKey: key]];
 
   [self performSelector:@selector(deselectRowOnTableView:) withObject:tableView afterDelay: 1.0];
@@ -163,6 +166,8 @@
   [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 }
 @end
+
+#if 0 
 
 /*
  * iAd banners
@@ -256,3 +261,5 @@ static BOOL initialiseADBannerConstants() {
 }
 
 @end
+
+#endif

@@ -117,7 +117,6 @@
       cell.textLabel.textColor = [UIColor colorWithName: @"#000"];
       
       NSString* text = [self resolveCustomValue: row.last];
-      NSString* url = nil;
       if([row.last matches:@"(http://|https://|mailto:)(.*)"]) {
         [cell.detailTextLabel onTapOpen: text];
         text = $2;
@@ -125,9 +124,6 @@
       cell.detailTextLabel.text = text;
       cell.detailTextLabel.font = [self regularFont];
       cell.detailTextLabel.textColor = [UIColor colorWithName: @"#385487"];
-
-      
-      
       break;
     }
     case 1:

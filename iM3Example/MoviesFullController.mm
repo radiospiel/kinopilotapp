@@ -16,7 +16,7 @@ static NSString* columns[] = {
   @"MovieShortInfoCell",
   @"MovieInCinemasCell",
   @"MovieRatingCell",
-  @"M3TableViewAdCell",
+  // @"M3TableViewAdCell",
   @"MovieDescriptionCell"
 };
 

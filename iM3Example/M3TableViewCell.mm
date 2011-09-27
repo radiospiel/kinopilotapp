@@ -33,7 +33,10 @@
 }
 
 - (CGFloat)wantsHeight
-  { _.raise(_.join(@"Implementation missing for ", [self class], "#wantsHeight")); }
+{ 
+  _.raise(_.join(@"Implementation missing for ", [self class], "#wantsHeight")); 
+  return nil;
+}
 
 +(CGFloat) fixedHeight;
   { return 0; }
