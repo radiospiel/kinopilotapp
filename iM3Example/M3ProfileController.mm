@@ -166,8 +166,6 @@ static NSString* recti(CGRect rect)
   [bodyController_ release];
   bodyController_ = controller;
 
-  subHeader.text = title;
-  
   [self.bodyView addSubview: controller.view];
   CGSize sz = self.bodyView.frame.size;
   

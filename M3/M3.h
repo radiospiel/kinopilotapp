@@ -14,6 +14,7 @@
 
 #import "NSString+M3Extensions.h"
 #import "NSArray+M3Extensions.h"
+#import "NSDate+M3Extensions.h"
 #import "NSString+Regexp.h"
 #import "NSObject+Ivars.h"
 
@@ -22,6 +23,7 @@
 #import "M3+Caller.h"
 #import "M3+Comparison.h"
 #import "M3+Crypto.h"
+
 #import "M3+Events.h"
 #import "M3+FileIO.h"
 #import "M3+Filenames.h"

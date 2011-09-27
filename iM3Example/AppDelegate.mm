@@ -76,7 +76,7 @@ AppDelegate* app;
   else {
     vc = [[klass alloc]init];
   }
-
+  
   vc.url = url;
 
   // TODO:

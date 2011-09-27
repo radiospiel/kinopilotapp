@@ -3,7 +3,7 @@
   "tabs": [
     {
       "disabled": "disabled",
-      "url": "/movies/full/1376392374307535321",
+      "url": "/info",
       "label": "Kalender",
       "icon": "tab_tage.png"
     },
@@ -31,7 +31,7 @@
   ],
   "info": [
     {
-      "title":  "Dein Kinopilot",
+      "header":  "Dein Kinopilot",
       "content": [
         ["Kinopilot im Netz", "http://kinopilotapp.de"],
         ["Aktualisiert",      "updated_at"],
@@ -41,14 +41,14 @@
       ]
     },
     {
-      "title":  "Kontakt",
+      "header":  "Kontakt",
       "content": [
-        "Bei der Vielzahl unserer Termine kann sich schon mal ein Fehler eingeschlichen haben. Falls Dir solche auffallen, melde Dich bitte bei uns.",
+        "Bei der Vielzahl unserer Termine kann sich schon mal ein Fehler eingeschlichen haben. Fallen Dir Fehler auf, kontaktiere uns bitte.",
         ["Kontakt",           "mailto:kinopilotapp@socially.io"]
       ]
     },
     {
-      "title":  "Über Kinopilot",
+      "header":  "Über Kinopilot",
       "content": [
         "Kinopilot.app is built using chair.DB – the database for mobile apps – and a custom framework for rapid iOS application development.",
         ["Version",               "build_at"],

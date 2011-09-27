@@ -68,21 +68,67 @@
   }
 }
 
+static NSDictionary* adjustDate(NSDictionary* dictionary, const NSString* key)
+{
+  NSString* value = [dictionary objectForKey:key];
+  if(![value isKindOfClass: [NSString class]]) 
+    return dictionary;
+  
+  NSDate* date = [NSDate dateWithRFC3339String: value];
+  if(!date)
+    return dictionary;
+
+  NSMutableDictionary* copy = [[NSMutableDictionary dictionaryWithDictionary: dictionary] retain];
+  [copy setObject: date forKey: key];
+  
+  return copy;
+}
+
 -(void) import: (NSString*) path
 {
   NSArray* entries = [M3 readJSON: path];
   if(![entries isKindOfClass: [NSArray class]])
     _.raise("Cannot read file", path);
-  
+
+  Benchmark(_.join("*** import data ", path));
+
   NSMutableDictionary* tables = [[NSMutableDictionary alloc] init]; 
 
   // [self emit: @selector(progress)];
   
-  for(id entry in entries) {
+  for(NSDictionary* entry in entries) {
     
     // Add dictionaries into the respective table.
     if([entry isKindOfClass: [NSDictionary class]]) {
       NSString* table_name = [entry objectForKey: @"_type"];
+
+#if 0
+      if([table_name isEqualToString: @"movies"])
+        entry = adjustDate(entry, @"cinema-start-date");
+      else if([table_name isEqualToString: @"schedules"])
+        entry = adjustDate(entry, @"time");
+#else
+      //
+      // Adjust all date entries. 
+
+      NSMutableDictionary* __block copiedEntry = nil;
+
+      [entry enumerateKeysAndObjectsUsingBlock:^(id key, NSString* value, BOOL *stop) {
+        if(![value isKindOfClass: [NSString class]]) return;
+        
+        NSDate* date = [NSDate dateWithRFC3339String: value];
+        if(!date) return; 
+      
+        if(!copiedEntry)
+          copiedEntry = [[NSMutableDictionary dictionaryWithDictionary: entry]retain];
+      
+        [copiedEntry setObject: date forKey: key];
+      }];
+      
+      // if(copiedEntry) DLOG(copiedEntry);
+      if(copiedEntry) entry = copiedEntry;
+#endif
+      
       ChairTable* table = [ChairDatabase tableForDictionary_: tables 
                                                      andName: table_name];
      

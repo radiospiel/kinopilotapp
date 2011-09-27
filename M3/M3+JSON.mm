@@ -1,6 +1,17 @@
-#import "M3.h"
+#define NS_BLOCK_ASSERTIONS
 
-#import "JSONKit.h"
+/*
+ * Defining NS_BLOCK_ASSERTIONS should disable NSCParameterAssert.
+ * This, however, seems not to work or not to work completely. 
+ */
+
+#undef  NSCParameterAssert
+#define NSCParameterAssert(x) (void)0
+
+#import "JSONKit/JSONKit.h"
+#import "JSONKit/JSONKit.m"
+
+#import "M3.h"
 
 /*
  * TODO: Check raise implementation
@@ -14,11 +25,18 @@
   id returnValue;
 
   if([path startsWith: @"http://"]) {
-    NSString* jsonString = [ M3Http get: path];
-    returnValue = [jsonString mutableObjectFromJSONStringWithParseOptions:0 error: &error ];
+    NSData* data = [M3Http requestData: @"GET" 
+                                   url: path
+                           withOptions: nil];
+    
+    Benchmark(@"Parsing JSON");
+    // NSString* jsonString = [ M3Http get: path];
+    // returnValue = [jsonString mutableObjectFromJSONStringWithParseOptions:0 error: &error ];
+    returnValue = [data mutableObjectFromJSONDataWithParseOptions: 0 error: &error];
   }
   else {
     NSData* data = [M3 readDataFromPath: path];
+    Benchmark(@"Parsing JSON");
     returnValue = [data mutableObjectFromJSONDataWithParseOptions: 0 error: &error];
   }
 
@@ -37,6 +55,7 @@
 
 + (id) parseJSON:(NSString *)data;
 {
+  Benchmark(@"Parsing JSON");
   return [data objectFromJSONString];
 }
 

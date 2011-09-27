@@ -15,7 +15,6 @@
   IBOutlet UIButton* action1;
 
   IBOutlet UIView* bodyView;
-  IBOutlet UILabel* subHeader;
   
   UIViewController* bodyController_;
 }

@@ -42,14 +42,15 @@
 
     NSMutableArray* parts = [NSMutableArray array];
     for(NSDictionary* schedule in schedules) {
-      NSString* time = [schedule objectForKey:@"time"];
-      if([time matches: @"(\\d+)-(\\d+)-(\\d+)T(\\d+):(\\d+)"])
-        time = [NSString stringWithFormat: @"%@:%@", $4, $5];
-
+      NSDate* time = [schedule objectForKey:@"time"];
+      if(!time) continue;
+      
+      NSString* part = [time stringWithFormat:@"HH:mm"];
+      
       if([schedule objectForKey:@"version"])
-        time = _.join(time, " (", [schedule objectForKey:@"version"], ")"); 
+        part = _.join(part, " (", [schedule objectForKey:@"version"], ")"); 
 
-      [parts addObject: time];
+      [parts addObject: part];
     }
 
     NSArray* sortedParts = [[parts uniq] sortedArrayUsingSelector:@selector(compare:)];
@@ -91,6 +92,14 @@
   if([key isKindOfClass: [NSNull class]]) return nil;
 
   return [app.chairDB objectForKey: key andType: @"movies"]; 
+}
+
+-(NSString*)sectionForKey: (id)key
+{
+  if(![self.url matches: @"/movies/list/theater_id=(.*)"])
+    return [super sectionForKey: key];
+
+  return @"Aktuelles Programm";
 }
 
 // get url for indexPath

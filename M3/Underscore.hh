@@ -256,7 +256,7 @@ namespace RS {
     
     // The ptr method
     NSString* ptr(const NSObject* obj)
-      { return [NSString stringWithFormat: @"<%@ @ 0x%08x retain: %d>", [obj class], (int)obj, [obj retainCount]]; }
+      { return [NSString stringWithFormat: @"<%@ @ 0x%08lx retain: %d>", [obj class], (long)obj, [obj retainCount]]; }
     // NSString* ptr(const void* obj)
     //   { return [NSString stringWithFormat: @"0x%08x", (int)obj]; }
       

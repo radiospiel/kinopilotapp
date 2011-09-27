@@ -57,8 +57,6 @@
 
 -(NSMutableArray* )sectionsWithKeys: (NSArray*)keys
 {
-  Benchmark(@"sectionsWithKeys");
-  
   NSMutableArray* sections = [NSMutableArray array];
   NSString* previousSection = nil;
   
@@ -127,7 +125,6 @@
   NSArray* section = [self.sections objectAtIndex:sectionNo];
   NSArray* entries = [section objectAtIndex:2];
 
-  dlog << "numberOfRowsInSection " << sectionNo << " returns " << entries.count;
   return entries.count;
 }
 
