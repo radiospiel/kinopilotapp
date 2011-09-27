@@ -82,9 +82,10 @@
 @property (readonly,nonatomic) NSArray* values;
 
 /**
- gets all values matching the key
+ gets all values matching the key or keys
  */
 - (NSArray*) valuesWithKey: (id)key;
+- (NSArray*) valuesWithKeys: (NSArray*)keys;
 
 /**
  gets all keys
@@ -102,7 +103,7 @@
    gets the first entry matching \a key or nil.
  */
 - (NSDictionary*) get: (id)key;
-          
+
 /**
  returns the number of entries matchingng options in the view.
  */

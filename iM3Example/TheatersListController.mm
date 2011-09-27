@@ -58,16 +58,10 @@
 
   NSArray* movieIds = [app.chairDB movieIdsByTheaterId: theaterId];
 
-  NSMutableArray* movies = [NSMutableArray array];
-  for(id movie_id in movieIds) {
-    NSDictionary* movie = [app.chairDB.movies get: movie_id];
-    [movies addObject: [[movie objectForKey:@"title"] quote]];
-  }
-  
-  NSArray* sorted = [[movies uniq] sortedArrayUsingSelector:@selector(compare:)];
-  return [sorted componentsJoinedByString: @", "];
-
-  // return [super detailText];
+  NSArray* movies = [[app.chairDB.movies valuesWithKeys: movieIds] pluck: @"title"];
+  movies = [[movies uniq] sortedArrayUsingSelector:@selector(compare:)];
+  movies = [movies mapUsingSelector:@selector(quote)];
+  return [movies componentsJoinedByString: @", "];
 }
 
 @end

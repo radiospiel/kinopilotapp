@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class ChairView;
 @class ChairTable;
 
 @interface ChairDatabase: NSObject {
@@ -22,5 +23,12 @@
 -(ChairTable*)tableForName: (NSString*) name;
 
 + (ChairDatabase*) database;
+
+@end
+
+@interface NSArray(ChairDatabaseAdditions)
+
+-(NSArray*) joinWith: (ChairView*)view on: (NSString*)key; 
+-(NSArray*) innerJoinWith: (ChairView*)view on: (NSString*)key; 
 
 @end

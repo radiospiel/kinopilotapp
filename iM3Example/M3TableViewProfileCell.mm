@@ -100,7 +100,6 @@
   // --- set labels
   
   self.textLabel.text = [model objectForKey: @"title"];
-  self.detailTextLabel.text = [self detailText];
                                
   // --- set tags
 
@@ -116,6 +115,8 @@
 - (void) layoutSubviews
 {
   [super layoutSubviews];
+
+  self.detailTextLabel.text = [self detailText];
 
   //
   // left positions for img, and for texts (label and description)

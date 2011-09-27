@@ -24,7 +24,7 @@
 
   if([self.tableViewController.url matches: @"/movies/list/theater_id=(.*)"]) {
     NSNumber* theaterId = $1.to_number;
-    
+
     // Example schedule record:
     //
     // { movie_id: 1376447749086599222, 
@@ -40,25 +40,23 @@
       NSString* time = [schedule objectForKey:@"time"];
       if([time matches: @"(\\d+)-(\\d+)-(\\d+)T(\\d+):(\\d+)"])
         time = [NSString stringWithFormat: @"%@:%@", $4, $5];
-      
+
+      if([schedule objectForKey:@"version"])
+        time = _.join(time, " (", [schedule objectForKey:@"version"], ")"); 
+
       [parts addObject: time];
     }
-    
+
     NSArray* sortedParts = [[parts uniq] sortedArrayUsingSelector:@selector(compare:)];
     return [sortedParts componentsJoinedByString: @", "];
   }
-  
-  NSArray* theaterIds = [app.chairDB theaterIdsByMovieId: movieId];
 
-  NSMutableArray* theaters = [NSMutableArray array];
-  for(id theater_id in theaterIds) {
-    NSDictionary* theater = [app.chairDB.theaters get: theater_id];
-    [theaters addObject: [theater objectForKey:@"name"]];
-  }
-  
-  NSArray* sorted = [[theaters uniq] sortedArrayUsingSelector:@selector(compare:)];
-  return [sorted componentsJoinedByString: @", "];
+  NSArray* theaterIds = [app.chairDB theaterIdsByMovieId: movieId];
+  NSArray* theaters = [[app.chairDB.theaters valuesWithKeys: theaterIds] pluck: @"name"];
+  theaters = [[theaters uniq] sortedArrayUsingSelector:@selector(compare:)];
+  return [theaters componentsJoinedByString: @", "];
 }
+
 @end
 
 @implementation MoviesListController

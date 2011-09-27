@@ -34,7 +34,7 @@
 		9D017463141AA7DF0035A4C2 /* M3+Filenames.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B201413CAD90066ECBB /* M3+Filenames.mm */; };
 		9D017464141AA7DF0035A4C2 /* M3+JSON.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B221413CAD90066ECBB /* M3+JSON.mm */; };
 		9D017465141AA7DF0035A4C2 /* M3Exception.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B251413CAD90066ECBB /* M3Exception.m */; };
-		9D017466141AA7DF0035A4C2 /* NSArray+M3Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF70F1413D1A60051B8FA /* NSArray+M3Extensions.m */; };
+		9D017466141AA7DF0035A4C2 /* NSArray+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF70F1413D1A60051B8FA /* NSArray+M3Extensions.mm */; };
 		9D017467141AA7DF0035A4C2 /* NSString+Regexp.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF7111413D1A60051B8FA /* NSString+Regexp.m */; };
 		9D017468141AA7DF0035A4C2 /* Underscore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B481413CC010066ECBB /* Underscore.mm */; };
 		9D017469141AA7DF0035A4C2 /* Underscore+Logger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B291413CAD90066ECBB /* Underscore+Logger.mm */; };
@@ -43,7 +43,7 @@
 		9D01746F141AA9D00035A4C2 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01746E141AA9D00035A4C2 /* CFNetwork.framework */; };
 		9D0203FE14291D040024EDD8 /* app.json in Resources */ = {isa = PBXBuildFile; fileRef = 9D0203FD14291D040024EDD8 /* app.json */; };
 		9D0EF7131413D1A60051B8FA /* NSArray+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF70E1413D1A60051B8FA /* NSArray+M3Extensions.h */; };
-		9D0EF7141413D1A60051B8FA /* NSArray+M3Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF70F1413D1A60051B8FA /* NSArray+M3Extensions.m */; };
+		9D0EF7141413D1A60051B8FA /* NSArray+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF70F1413D1A60051B8FA /* NSArray+M3Extensions.mm */; };
 		9D0EF7161413D1A60051B8FA /* NSString+Regexp.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF7101413D1A60051B8FA /* NSString+Regexp.h */; };
 		9D0EF7171413D1A60051B8FA /* NSString+Regexp.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF7111413D1A60051B8FA /* NSString+Regexp.m */; };
 		9D0EF71F1413D45C0051B8FA /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 9D0EF71B1413D45C0051B8FA /* CHANGELOG.md */; };
@@ -292,7 +292,6 @@
 		9D7E3DD6141A3DD400BB80E1 /* M3EventCenter+Disconnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E3DD2141A3DD400BB80E1 /* M3EventCenter+Disconnect.m */; };
 		9D854366142F963900F495E9 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D854365142F963900F495E9 /* CoreText.framework */; };
 		9D85436F142FAC8C00F495E9 /* TTTAttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D85436D142FAC8C00F495E9 /* TTTAttributedLabel.h */; };
-		9D854370142FAC8C00F495E9 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D85436E142FAC8C00F495E9 /* TTTAttributedLabel.m */; };
 		9D854371142FAD3400F495E9 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D85436E142FAC8C00F495E9 /* TTTAttributedLabel.m */; };
 		9D85437C142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D85437A142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.h */; };
 		9D85437D142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D85437A142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.h */; };
@@ -403,7 +402,7 @@
 		9D064E821427809600765A3F /* Couchbase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Couchbase.framework; path = Frameworks/Couchbase.framework; sourceTree = "<group>"; };
 		9D064E861427898C00765A3F /* CouchCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CouchCocoa.framework; path = Frameworks/CouchCocoa.framework; sourceTree = "<group>"; };
 		9D0EF70E1413D1A60051B8FA /* NSArray+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+M3Extensions.h"; sourceTree = "<group>"; };
-		9D0EF70F1413D1A60051B8FA /* NSArray+M3Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+M3Extensions.m"; sourceTree = "<group>"; };
+		9D0EF70F1413D1A60051B8FA /* NSArray+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSArray+M3Extensions.mm"; sourceTree = "<group>"; };
 		9D0EF7101413D1A60051B8FA /* NSString+Regexp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Regexp.h"; sourceTree = "<group>"; };
 		9D0EF7111413D1A60051B8FA /* NSString+Regexp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Regexp.m"; sourceTree = "<group>"; };
 		9D0EF71B1413D45C0051B8FA /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG.md; sourceTree = "<group>"; };
@@ -1223,9 +1222,6 @@
 		9D8B8AF41413CA8B0066ECBB /* M3 */ = {
 			isa = PBXGroup;
 			children = (
-				9D9D3189142C6E9800C8269A /* UIColor+M3Extensions.h */,
-				9D9D318A142C6E9800C8269A /* UIColor+M3Extensions.mm */,
-				9DDF5D021431B30D001CAC28 /* Underscore+Logger.hh */,
 				9DDF5CFB1431AEF1001CAC28 /* M3+Caller.h */,
 				9DDF5CFC1431AEF1001CAC28 /* M3+Caller.m */,
 				9D8B8AF71413CA8B0066ECBB /* M3.h */,
@@ -1264,7 +1260,7 @@
 				9D9656B114177F9700884372 /* M3StopWatch.h */,
 				9D9656B214177F9700884372 /* M3StopWatch.mm */,
 				9D0EF70E1413D1A60051B8FA /* NSArray+M3Extensions.h */,
-				9D0EF70F1413D1A60051B8FA /* NSArray+M3Extensions.m */,
+				9D0EF70F1413D1A60051B8FA /* NSArray+M3Extensions.mm */,
 				9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */,
 				9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */,
 				9D85437A142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.h */,
@@ -1273,10 +1269,13 @@
 				9D35631A1423F887002AAEAF /* NSString+M3Extensions.mm */,
 				9D0EF7101413D1A60051B8FA /* NSString+Regexp.h */,
 				9D0EF7111413D1A60051B8FA /* NSString+Regexp.m */,
+				9D9D3189142C6E9800C8269A /* UIColor+M3Extensions.h */,
+				9D9D318A142C6E9800C8269A /* UIColor+M3Extensions.mm */,
 				9D8C4B94142896D0005D582A /* UIImageView+Http.h */,
 				9D8C4B95142896D0005D582A /* UIImageView+Http.mm */,
 				9D8B8B471413CC010066ECBB /* Underscore.hh */,
 				9D8B8B481413CC010066ECBB /* Underscore.mm */,
+				9DDF5D021431B30D001CAC28 /* Underscore+Logger.hh */,
 				9D8B8B291413CAD90066ECBB /* Underscore+Logger.mm */,
 				9D8B8AF51413CA8B0066ECBB /* Supporting Files */,
 			);
@@ -1796,7 +1795,7 @@
 				9D017465141AA7DF0035A4C2 /* M3Exception.m in Sources */,
 				9D8EAD58141E839400B21BEA /* M3Http.mm in Sources */,
 				9D01745B141AA7DF0035A4C2 /* M3StopWatch.mm in Sources */,
-				9D017466141AA7DF0035A4C2 /* NSArray+M3Extensions.m in Sources */,
+				9D017466141AA7DF0035A4C2 /* NSArray+M3Extensions.mm in Sources */,
 				9D017467141AA7DF0035A4C2 /* NSString+Regexp.m in Sources */,
 				9D017468141AA7DF0035A4C2 /* Underscore.mm in Sources */,
 				9D017469141AA7DF0035A4C2 /* Underscore+Logger.mm in Sources */,
@@ -1882,7 +1881,7 @@
 				9D8B8B3F1413CAD90066ECBB /* M3Exception.m in Sources */,
 				9D8EAD57141E839400B21BEA /* M3Http.mm in Sources */,
 				9D9656B414177F9700884372 /* M3StopWatch.mm in Sources */,
-				9D0EF7141413D1A60051B8FA /* NSArray+M3Extensions.m in Sources */,
+				9D0EF7141413D1A60051B8FA /* NSArray+M3Extensions.mm in Sources */,
 				9D0EF7171413D1A60051B8FA /* NSString+Regexp.m in Sources */,
 				9D8B8B4A1413CC010066ECBB /* Underscore.mm in Sources */,
 				9D8B8B451413CAD90066ECBB /* Underscore+Logger.mm in Sources */,
@@ -1894,7 +1893,6 @@
 				9D3B086F142A255000322C00 /* M3+Inspect.mm in Sources */,
 				9D3B0875142A3B7900322C00 /* M3+RuntimeError.mm in Sources */,
 				9D9D318D142C6E9800C8269A /* UIColor+M3Extensions.mm in Sources */,
-				9D854370142FAC8C00F495E9 /* TTTAttributedLabel.m in Sources */,
 				9D85437E142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m in Sources */,
 				9DDF5CFF1431AEF1001CAC28 /* M3+Caller.m in Sources */,
 			);

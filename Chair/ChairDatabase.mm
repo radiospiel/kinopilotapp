@@ -155,6 +155,47 @@
 @end
 
 
+@implementation NSArray(ChairDatabaseAdditions)
+
+-(NSArray*) joinWith: (ChairView*)view 
+                  on: (NSString*)foreign_key 
+               inner: (BOOL)innerJoin
+{
+  NSMutableArray* r = [NSMutableArray arrayWithCapacity: self.count];
+  
+  for(NSDictionary* record in self) {
+    id foreign_id = [record objectForKey: foreign_key];
+    NSArray* foreign_records = [view valuesWithKey: foreign_id];
+    if([foreign_records count] == 0) {
+      if(!innerJoin)
+        [r addObject: [NSMutableDictionary dictionaryWithDictionary:record]];
+      continue;
+    }
+    
+    for(NSDictionary* foreign_record in foreign_records) {
+      NSMutableDictionary* joined_record = [NSMutableDictionary dictionaryWithDictionary:foreign_record];
+      [joined_record addEntriesFromDictionary:record];
+      [r addObject: joined_record];
+    }
+  }
+  
+  return r;
+}
+
+-(NSArray*) joinWith: (ChairView*)view 
+                  on: (NSString*)key
+{
+  return [self joinWith:view on: key inner:NO];
+}
+
+-(NSArray*) innerJoinWith: (ChairView*)view 
+                       on: (NSString*)key
+{
+  return [self joinWith:view on: key inner:YES];
+}
+@end
+
+
 ETest(ChairDatabase)
 
 - (void)test_import_table

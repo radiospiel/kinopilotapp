@@ -75,4 +75,15 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
   return array;
 }
 
+-(NSArray*) mapUsingSelector: (SEL)selector
+{
+  NSMutableArray* array = [NSMutableArray arrayWithCapacity: self.count];
+  for(NSDictionary* entry in self) {
+    id object = [entry performSelector: selector];
+    if(object) 
+      [array addObject: object];
+  }
+  
+  return array;
+}
 @end

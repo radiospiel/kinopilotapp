@@ -254,6 +254,12 @@ namespace RS {
     inline NSString* string(T obj) 
       { return [ object(obj) description]; }
     
+    // The ptr method
+    NSString* ptr(const NSObject* obj)
+      { return [NSString stringWithFormat: @"<%@ @ 0x%08x retain: %d>", [obj class], (int)obj, [obj retainCount]]; }
+    // NSString* ptr(const void* obj)
+    //   { return [NSString stringWithFormat: @"0x%08x", (int)obj]; }
+      
     // "Functions" to build strings, arrays, and hashes.  
     VariadicFactory<ArrayFactory> array;
     VariadicFactory<HashFactory> hash;

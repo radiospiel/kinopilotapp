@@ -31,5 +31,6 @@
 */
 
 -(NSArray*) pluck: (NSString*)attributeName;
+-(NSArray*) mapUsingSelector: (SEL)selector;
 
 @end

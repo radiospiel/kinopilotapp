@@ -104,6 +104,18 @@
   return keys;
 }
 
+- (NSArray*) valuesWithKeys: (NSArray*)keys
+{
+  NSMutableArray* array = [NSMutableArray array];
+
+  for(id key in keys) {
+    [self each:^(NSDictionary *value, id key) { [array addObject:value]; } 
+           min: key max: key excludingEnd: NO];
+  }
+
+  return array;
+}
+
 - (NSArray*) valuesWithKey: (id)key
 {
   NSMutableArray* array = [NSMutableArray array];
