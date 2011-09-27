@@ -11,6 +11,7 @@
 -(id)  instance_variable_get: (SEL)name;
 -(void)instance_variable_set: (SEL)name withValue: (id)value;
 
--(id)  memoized: (SEL)name usingBlock:(id (^)())block;
+-(id)memoized: (SEL)name usingBlock:(id (^)())block;
+-(id)memoized: (SEL)name usingSelector:(SEL)selector;
 
 @end

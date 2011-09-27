@@ -13,6 +13,22 @@
   objc_setAssociatedObject(self, name, value, OBJC_ASSOCIATION_RETAIN);
 }
 
+-(id)memoized: (SEL)name usingSelector:(SEL)selector
+{
+  id current_value = [self instance_variable_get: name];
+  if(current_value) return current_value;
+  
+  @synchronized(self) {
+    current_value = [self instance_variable_get: name];
+    if(!current_value) {
+      current_value = [self performSelector: selector];
+      [self instance_variable_set: name withValue: current_value ];
+    }
+  }
+
+  return current_value;
+}
+
 -(id)memoized: (SEL)name usingBlock:(id (^)())block
 {
   id current_value = [self instance_variable_get: name];
