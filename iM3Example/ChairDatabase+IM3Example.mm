@@ -66,73 +66,66 @@
   return [NSDictionary dictionary];
 }
 
-
-
--(NSArray*) theaterIdsByMovieId: (NSNumber*)movieID
+-(ChairView*) schedules_by_movie_id_
 {
-  // -- SQL pseudo code ----------------------------------------
-  //
-  // SELECT * FROM schedules WHERE movie_id=$1
-  // INNER JOIN theaters ON theaters.uid = schedules.theater_id
-  // ORDER BY theaters.name
-  
-  NSMutableArray* m_array = [NSMutableArray array];
-  
-  [self.schedules each:^(NSDictionary *value, id key) {
-    if(![movieID isEqual:[value objectForKey:@"movie_id"]]) return;
-    [m_array addObject: [value objectForKey:@"theater_id"]];
-  }];
-
-  NSArray* array = [m_array uniq];
-  return [array sortedArrayUsingSelector:@selector(compare:)];
-  
-  // == or just
-  //  
-  // ChairView* schedules_by_movie_id = app.chairDB.schedules;
-  //  
-  // [schedules_by_movie_id each:^(NSDictionary *value, id key) {
-  //    // <#code#>
-  // } 
-  //                         min:this_movies_id 
-  //                         max:this_movies_id 
-  //                excludingEnd:NO];
+  return [ self.schedules viewWithMap:nil
+                             andGroup:^id(NSDictionary *value, id key) { return [value objectForKey:@"movie_id"]; }
+                            andReduce:^id(NSArray *values, id key) { return _.hash("group", values); }
+  ];
 }
 
--(NSArray*) movieIdsByTheaterId: (NSNumber*)theaterID
+-(ChairView*) schedules_by_theater_id_
 {
-  NSMutableArray* m_array = [NSMutableArray array];
+  return [ self.schedules viewWithMap:nil
+                             andGroup:^id(NSDictionary *value, id key) { return [value objectForKey:@"theater_id"]; }
+                            andReduce:^id(NSArray *values, id key) { return _.hash("group", values); }
+  ];
+}
+
+-(ChairView*) schedules_by_movie_id
+{
+  return [self memoized: @selector(schedules_by_movie_id) 
+          usingSelector: @selector(schedules_by_movie_id_)];
+}
+
+-(ChairView*) schedules_by_theater_id
+{
+  return [self memoized: @selector(schedules_by_theater_id) usingSelector: @selector(schedules_by_theater_id_)];
+}
+
+-(NSArray*) theaterIdsByMovieId: (NSNumber*)movie_id
+{
+  ChairView* schedules_by_movie_id = [self schedules_by_movie_id];
   
-  [self.schedules each:^(NSDictionary *value, id key) {
-    if(![theaterID isEqual:[value objectForKey:@"theater_id"]]) return;
-    [m_array addObject: [value objectForKey:@"movie_id"]];
-  }];
+  NSArray* schedules = [[schedules_by_movie_id get: movie_id] objectForKey:@"group"];
+  NSArray* theater_ids = [schedules pluck: @"theater_id"];
+
+  return theater_ids.uniq.sort;
+}
+
+-(NSArray*) movieIdsByTheaterId: (NSNumber*)theater_id
+{
+  ChairView* schedules_by_theater_id = [self schedules_by_theater_id];
   
-  NSArray* array = [m_array uniq];
-  return [array sortedArrayUsingSelector:@selector(compare:)];
+  NSArray* schedules = [[schedules_by_theater_id get: theater_id] objectForKey:@"group"];
+  NSArray* movie_ids = [schedules pluck: @"movie_id"];
   
-  // == or just
-  //  
-  // ChairView* schedules_by_movie_id = app.chairDB.schedules;
-  //  
-  // [schedules_by_movie_id each:^(NSDictionary *value, id key) {
-  //    // <#code#>
-  // } 
-  //                         min:this_movies_id 
-  //                         max:this_movies_id 
-  //                excludingEnd:NO];
+  return movie_ids.uniq.sort;
 }
 
 
--(NSArray*) schedulesByMovieId: (NSNumber*)movieID andTheaterId: (NSNumber*)theaterID
+-(NSArray*) schedulesByMovieId: (NSNumber*)movie_id andTheaterId: (NSNumber*)theater_id
 {
+  ChairView* schedules_by_theater_id = [self schedules_by_theater_id];
+  
+  NSArray* schedules = [[schedules_by_theater_id get: theater_id] objectForKey:@"group"];
+  
   NSMutableArray* array = [NSMutableArray array];
-  
-  [self.schedules each:^(NSDictionary *schedule, id key) {
-    if(![theaterID isEqual:[schedule objectForKey:@"theater_id"]]) return;
-    if(![movieID isEqual:[schedule objectForKey:@"movie_id"]]) return;
-    
-    [array addObject: schedule];
-  }];
+  for(NSDictionary* schedule in schedules) {
+    NSNumber* schedule_movie_id = [schedule objectForKey:@"movie_id"];
+    if([movie_id isEqual:schedule_movie_id]) 
+      [array addObject:schedule];
+  }
   
   return array;
 }
