@@ -62,5 +62,17 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
 
   return [self sortedArrayUsingSelector:@selector(compare:)];
 }
-                             
+
+-(NSArray*) pluck: (NSString*)attributeName
+{
+  NSMutableArray* array = [NSMutableArray arrayWithCapacity: self.count];
+  for(NSDictionary* entry in self) {
+    id object = [entry objectForKey: attributeName];
+    if(object) 
+      [array addObject: object];
+  }
+  
+  return array;
+}
+
 @end

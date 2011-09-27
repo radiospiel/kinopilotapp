@@ -23,4 +23,13 @@
 
 -(NSArray*) sort;
 
+/** 
+  This method assumes the array is an array of dictionaries. It then fetches 
+  all objects at key \a attributeName of all entries, and returns it as an array.
+
+  Not-existing entries will be skipped.
+*/
+
+-(NSArray*) pluck: (NSString*)attributeName;
+
 @end
