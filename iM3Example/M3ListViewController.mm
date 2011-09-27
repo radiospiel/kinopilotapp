@@ -51,10 +51,7 @@
  */
 -(NSString*)sectionForKey: (id)key
 {
-  NSDictionary* model = [self modelWithKey:key];
-  NSString* title = [model objectForKey:@"title"];
-  return [title substringToIndex:1];
-  
+  return [[[key description] substringToIndex:1] uppercaseString];
   //  return [[key description]substringToIndex:2];
 }
 

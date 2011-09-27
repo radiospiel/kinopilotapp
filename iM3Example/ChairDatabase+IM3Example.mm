@@ -61,7 +61,7 @@
 -(NSDictionary*)modelWithURL: (NSString*)url
 {
   if([url matches: @"^/([^/]+)/[^/]+/(.*)"])
-    return [self objectForKey: $2.to_number andType: $1];
+    return [self objectForKey: $2 andType: $1];
   
   return [NSDictionary dictionary];
 }
@@ -93,7 +93,7 @@
   return [self memoized: @selector(schedules_by_theater_id) usingSelector: @selector(schedules_by_theater_id_)];
 }
 
--(NSArray*) theaterIdsByMovieId: (NSNumber*)movie_id
+-(NSArray*) theaterIdsByMovieId: (NSString*)movie_id
 {
   ChairView* schedules_by_movie_id = [self schedules_by_movie_id];
   
@@ -103,7 +103,7 @@
   return theater_ids.uniq.sort;
 }
 
--(NSArray*) movieIdsByTheaterId: (NSNumber*)theater_id
+-(NSArray*) movieIdsByTheaterId: (NSString*)theater_id
 {
   ChairView* schedules_by_theater_id = [self schedules_by_theater_id];
   
@@ -114,7 +114,7 @@
 }
 
 
--(NSArray*) schedulesByMovieId: (NSNumber*)movie_id andTheaterId: (NSNumber*)theater_id
+-(NSArray*) schedulesByMovieId: (NSString*)movie_id andTheaterId: (NSString*)theater_id
 {
   ChairView* schedules_by_theater_id = [self schedules_by_theater_id];
   

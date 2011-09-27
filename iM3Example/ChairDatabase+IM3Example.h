@@ -7,9 +7,9 @@
 -(NSDictionary*)modelWithURL: (NSString*)url;
 -(NSDictionary*)objectForKey: (id)key andType: (NSString*) type;
 
--(NSArray*) theaterIdsByMovieId: (NSNumber*)movieID;
--(NSArray*) movieIdsByTheaterId: (NSNumber*)theaterID;
+-(NSArray*) theaterIdsByMovieId: (NSString*)movieID;
+-(NSArray*) movieIdsByTheaterId: (NSString*)theaterID;
 
--(NSArray*) schedulesByMovieId: (NSNumber*)movieID andTheaterId: (NSNumber*)theaterID;
+-(NSArray*) schedulesByMovieId: (NSString*)movieID andTheaterId: (NSString*)theaterID;
 
 @end

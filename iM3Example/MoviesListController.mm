@@ -25,10 +25,10 @@
 // }
 // 
 -(NSString*)detailText {
-  NSNumber* movieId = [self.model objectForKey: @"_uid"];
+  NSString* movieId = [self.model objectForKey: @"_uid"];
 
   if([self.tableViewController.url matches: @"/movies/list/theater_id=(.*)"]) {
-    NSNumber* theaterId = $1.to_number;
+    NSString* theaterId = $1;
 
     // Example schedule record:
     //
@@ -71,7 +71,7 @@
   [super setUrl: url];
   
   if([url matches: @"/movies/list/theater_id=(.*)"])
-    self.keys = [app.chairDB movieIdsByTheaterId: $1.to_number];
+    self.keys = [app.chairDB movieIdsByTheaterId: $1];
   else
     self.keys = app.chairDB.movies.keys;
 
