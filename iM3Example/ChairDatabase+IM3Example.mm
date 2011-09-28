@@ -113,12 +113,20 @@
   return movie_ids.uniq.sort;
 }
 
+-(NSArray*) schedulesByMovieId: (NSString*)movie_id
+{
+  return [[[self schedules_by_movie_id] get: movie_id] objectForKey:@"group"];
+}
+
+-(NSArray*) schedulesByTheaterId: (NSString*)theater_id
+{
+  return [[[self schedules_by_theater_id] get: theater_id] objectForKey:@"group"];
+}
+
 
 -(NSArray*) schedulesByMovieId: (NSString*)movie_id andTheaterId: (NSString*)theater_id
 {
-  ChairView* schedules_by_theater_id = [self schedules_by_theater_id];
-  
-  NSArray* schedules = [[schedules_by_theater_id get: theater_id] objectForKey:@"group"];
+  NSArray* schedules = [self schedulesByTheaterId: theater_id];
   
   NSMutableArray* array = [NSMutableArray array];
   for(NSDictionary* schedule in schedules) {

@@ -32,3 +32,11 @@
 -(NSArray*) innerJoinWith: (ChairView*)view on: (NSString*)key; 
 
 @end
+
+
+@interface NSDictionary(ChairDatabaseAdditions)
+
+-(NSDictionary*) joinWith: (ChairView*)view on: (NSString*)key; 
+-(NSDictionary*) innerJoinWith: (ChairView*)view on: (NSString*)key; 
+
+@end

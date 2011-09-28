@@ -6,6 +6,9 @@
 - (NSArray*) matches: (NSString*)regexp;
 - (NSArray*) imatches:(NSString*)regexp;
 
+- (NSString*) gsub_:  (NSString*) regexp with: (NSString*) tmpl;
+- (NSString*) igsub_: (NSString*) regexp with: (NSString*) tmpl;
+
 /*
  * All of the methods above store the match results in a thread local
  * storage area. Later calls to NSString.getRecentMatchAtIndex: can be

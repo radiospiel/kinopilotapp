@@ -187,7 +187,12 @@ namespace RS {
   struct JoinFactory: VariadicFactoryArguments {
     typedef NSString* Type;
     NSString* run() const {
-      return [arguments_ componentsJoinedByString: @""];
+      NSMutableArray* args = [NSMutableArray array];
+      for(id entry in arguments_) {
+        if([entry isKindOfClass: [NSNull class]]) continue;
+        [args addObject: entry];
+      }
+      return [args componentsJoinedByString: @""];
     }
   };
   

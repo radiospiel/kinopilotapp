@@ -13,7 +13,8 @@ static NSDateFormatter* dateFormatter(NSString* dateFormat)
   NSDateFormatter* formatter = [formatters objectForKey: dateFormat];
   if(!formatter) {
     formatter = [[[NSDateFormatter alloc] init]autorelease];
-    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+    // formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"MDST"]; 
+    // [NSTimeZone timeZoneForSecondsFromGMT:0];
     formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
     formatter.dateFormat = dateFormat;
     
@@ -23,7 +24,7 @@ static NSDateFormatter* dateFormatter(NSString* dateFormat)
   return formatter;
 }
 
-@implementation NSDate (Rfc3339) 
+@implementation NSDate (M3Extensions) 
 
 + (NSDate*) dateWithRFC3339String: (NSString*) string 
 {
@@ -46,9 +47,16 @@ static NSDateFormatter* dateFormatter(NSString* dateFormat)
   return [formatter stringFromDate:self];
 }
 
-- (NSString*) to_string
+-(NSString*) stringWithRFC3339Format
 {
   return [self stringWithFormat: @"yyyy-MM-dd'T'HH:mm:sszzz"];
 }
 
++(NSDate*)epoch
+{
+  static NSDate* epoch = [NSDate dateWithTimeIntervalSince1970: 0];
+  return epoch;
+}
+
 @end
+

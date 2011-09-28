@@ -109,7 +109,7 @@
                 atIndex:(NSInteger)index 
 {
   //
-  // As we have a 1:1 relation ship between index titles and sections
+  // As we have a 1:1 relationship between index titles and sections
   // we can just return the index position here.
     
   return index;

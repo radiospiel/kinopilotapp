@@ -1,8 +1,10 @@
-@interface NSDate (Rfc3339) 
+@interface NSDate (M3Extensions) 
 
 + (NSDate*) dateWithRFC3339String: (NSString*) string;
 
 - (NSString*) stringWithFormat: (NSString*)format;
-- (NSString*) to_string;
+- (NSString*) stringWithRFC3339Format;
+
++(NSDate*)epoch;
 
 @end

@@ -6,8 +6,8 @@
 #import "RegexKitLite-4.0/RegexKitLite.h"
 #import "RegexKitLite-4.0/RegexKitLite.m"
 
-#define CASE_SENSITIVE    (RKLComments | RKLDotAll)
-#define CASE_INSENSITIVE  (RKLComments | RKLDotAll | RKLCaseless)
+#define CASE_SENSITIVE    (RKLComments)
+#define CASE_INSENSITIVE  (RKLComments | RKLCaseless)
 
 @implementation NSString (Regexp)
 
@@ -43,8 +43,6 @@
                                             capture: 0 
                                               error: &error];
   
-  // NSLog(@"%@.matches: %@", self, regexp);
-  
   if([matches count] == 1) {
     
     // one match: enumerate submatches
@@ -55,6 +53,7 @@
       
       for(long i=1L; i<=captureCount; ++i) {
         NSString *submatch = [self stringByMatching:regexp capture:i];
+        
         if(!submatch) break;
         
         [((NSMutableArray*)matches) addObject: submatch];
@@ -94,6 +93,20 @@
   RETURN(r, error);
 }
 
+- (NSString*) gsub_: (NSString*) regexp with: (NSString*) replacement andOptions: (int)options
+{
+  NSError* error = 0;
+  
+  NSString* r;
+  r = [ self stringByReplacingOccurrencesOfRegex: regexp
+                                      withString: replacement 
+                                         options: options
+                                           range: NSMakeRange(0, self.length)
+                                           error: &error ];
+
+  RETURN(r, error);
+}
+
 /* 
  * replace: public API
  */
@@ -107,6 +120,16 @@
 - (NSString*) igsub: (NSString*) regexp with: (NSString*) replacement
 {
   return [self gsub: regexp with: replacement andOptions: CASE_INSENSITIVE];
+}
+
+- (NSString*) gsub_: (NSString*) regexp with: (NSString*) replacement
+{
+  return [self gsub_: regexp with: replacement andOptions: CASE_SENSITIVE];
+}
+
+- (NSString*) igsub_: (NSString*) regexp with: (NSString*) replacement
+{
+  return [self gsub_: regexp with: replacement andOptions: CASE_INSENSITIVE];
 }
 
 /* 

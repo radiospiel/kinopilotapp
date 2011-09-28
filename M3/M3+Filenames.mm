@@ -3,16 +3,16 @@
 @implementation M3 (FileNames)
 
 + (NSString*) dirname: (NSString*) path {
-    return [path gsub: @"(.*)/[^/]+$" with: @"$1"];
+    return [path gsub_: @"(.*)/[^/]+$" with: @"$1"];
 }
 
 + (NSString*) basename: (NSString*) path {
-    return [path gsub: @".*/([^/]+)$" with: @"$1"];
+    return [path gsub_: @".*/([^/]+)$" with: @"$1"];
 }
 
 + (NSString*) basename_wo_ext: (NSString*) path {
   NSString* basename = [self basename: path];
-  return [basename gsub: @"\\.([^\\.]*)$" with: @""];
+  return [basename gsub_: @"\\.([^\\.]*)$" with: @""];
 }
 
 + (NSString*) symbolicDir: (NSString*)name
@@ -58,10 +58,10 @@
 
 +(NSString*) expandPath: (NSString*) path {
   path = [path stringByExpandingTildeInPath]; 
-  NSString* firstPart = [path gsub: @"/.*" with: @""];
+  NSString* firstPart = [path gsub_: @"/.*" with: @""];
   NSString* symbolicDir = [ self symbolicDir: firstPart ];
   if(symbolicDir) {
-    return [path gsub: @"^[^/]+" with: symbolicDir ];
+    return [path gsub_: @"^[^/]+" with: symbolicDir ];
   }
   return path;
 }
