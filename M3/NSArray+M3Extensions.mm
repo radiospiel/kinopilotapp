@@ -75,6 +75,34 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
   return array;
 }
 
+
+-(NSArray*) sortBySelector: (SEL)selector
+{
+  return [self sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    id val1 = [obj1 performSelector: selector];
+    id val2 = [obj2 performSelector: selector];
+    return [val1 compare:val2];
+  }];
+}
+
+-(NSArray*) sortByBlock: (id (^)(id obj))block
+{
+  return [self sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    id val1 = block(obj1);
+    id val2 = block(obj2);
+    return [val1 compare:val2];
+  }];
+}
+
+-(NSArray*) sortByKey: (id) key
+{
+  return [self sortedArrayUsingComparator:^NSComparisonResult(NSDictionary* obj1, NSDictionary* obj2) {
+    id val1 = [obj1 objectForKey: key];
+    id val2 = [obj2 objectForKey: key];
+    return [val1 compare:val2];
+  }];
+}
+
 -(NSArray*) mapUsingSelector: (SEL)selector
 {
   NSMutableArray* array = [NSMutableArray arrayWithCapacity: self.count];
@@ -86,4 +114,55 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
   
   return array;
 }
+
+-(NSArray*) mapUsingBlock: (id (^)(id obj))block
+{
+  NSMutableArray* array = [NSMutableArray arrayWithCapacity: self.count];
+  for(NSDictionary* entry in self) {
+    id object = block(entry);
+    if(object) 
+      [array addObject: object];
+  }
+  
+  return array;
+}
+
+-(NSMutableDictionary*)groupUsingBlock: (id (^)(id obj))block
+{
+  NSMutableDictionary* groupedHash = [NSMutableDictionary dictionary];
+  
+  for(id object in self) {
+    id key = block(object);
+    
+    NSMutableArray* group = [groupedHash objectForKey:key];
+    if(!group) {
+      group = [NSMutableArray array];
+      [groupedHash setObject: group forKey:key];
+    }
+    
+    [group addObject:object];
+  }
+  
+  return groupedHash;
+}
+
+-(NSMutableDictionary*)groupUsingSelector: (SEL)selector
+{
+  NSMutableDictionary* groupedHash = [NSMutableDictionary dictionary];
+  
+  for(id object in self) {
+    id key = [object performSelector: selector];
+    
+    NSMutableArray* group = [groupedHash objectForKey:key];
+    if(!group) {
+      group = [NSMutableArray array];
+      [groupedHash setObject: group forKey:key];
+    }
+    
+    [group addObject:object];
+  }
+  
+  return groupedHash;
+}
+
 @end

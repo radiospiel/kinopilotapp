@@ -44,9 +44,13 @@
 
 @implementation MoviesListWithTheaterCell
 
--(void)setModel:(NSDictionary*) model_
+-(void)setModel:(NSDictionary*) theModel
 {
-  NSMutableDictionary* model = [NSMutableDictionary dictionaryWithDictionary:model_];
+  theModel = [theModel joinWith: app.chairDB.movies on:@"movie_id"];
+
+  NSMutableDictionary* model = [NSMutableDictionary dictionaryWithDictionary:theModel];
+
+  DLOG(model);
   
   // Example model:
   // {
@@ -67,11 +71,14 @@
 }
 
 -(NSString*)detailText {
-  NSDate* time = [self.model objectForKey: @"time" ];
+  id time = [self.model objectForKey: @"time" ];
   
-  NSString* time1 = [time stringWithFormat:@"HH:mm"];
-  // NSString* time2 = [time stringWithRFC3339Format];
-                     
+  NSString* time1;
+  if([time isKindOfClass:[NSString class]])
+    time1 = time;
+  else
+    time1 = [time stringWithFormat:@"HH:mm"];
+
   NSString* version = [self.model objectForKey: @"version"];
   if(version)
     version = _.join(@" (", version, @")");
@@ -124,44 +131,58 @@
   
   // build sections by date, and combine schedules for the same movie into one record.
 
+  // group schedules by *date* into sectionsHash
+  NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
+    NSDate* time = [schedule objectForKey:@"time"];
+    return [time stringWithFormat:@"dd.MM."];
+  }];
+  
+  // build sections off sectionsHash; group schedules in section by name
   NSMutableArray* sections = [NSMutableArray array];
-  {
-    NSMutableDictionary* groups = [NSMutableDictionary dictionary];
-    for(NSDictionary* schedule in schedules) {
-      NSDate* time = [schedule objectForKey:@"time"];
+  [sectionsHash enumerateKeysAndObjectsUsingBlock:^(NSString* day, NSMutableArray* schedulesForDay, BOOL *stop) {
+    NSMutableDictionary* schedulesGroupedByMovieId = [schedulesForDay groupUsingBlock:^id(NSDictionary* schedule) {
+      return [schedule objectForKey:@"movie_id"];
+    }];
+    
+    NSMutableArray* schedules = [NSMutableArray array];
+    [schedulesGroupedByMovieId enumerateKeysAndObjectsUsingBlock:^(NSString* movieId, NSArray* schedulesForMovieId, BOOL *stop) {
       
-      NSString* date = [time stringWithFormat:@"dd.MM."];
-      NSMutableArray* group = [groups objectForKey:date];
-      if(!group) {
-        group = [NSMutableArray array];
-        [groups setObject: group forKey:date];
-        
-        NSArray* groupArray = [NSArray arrayWithObjects:date, date, group, nil];
-        [sections addObject:groupArray];
-      }
+      schedulesForMovieId = [schedulesForMovieId sortByKey:@"time"];
       
-      [group addObject:schedule];
-    }
-  }
+      NSArray* times = [schedulesForMovieId mapUsingBlock:^id(NSDictionary* schedule) {
+        NSDate* time = [schedule objectForKey:@"time"];
+        return [time stringWithFormat:@"HH:mm"];
+      }];
 
-//  for(NSMutableArray* section in sections) {
-//    NSMutableArray* schedules = [section objectAtIndex:2];
-//                                 NSMutableArray array];
-//    
-//  }
+      NSMutableDictionary* schedule = schedulesForMovieId.first;
+      NSDate* day = [schedule objectForKey:@"time"];
+      
+      [schedule setObject: day forKey:@"day"];
+      [schedule setObject: [times componentsJoinedByString:@", "] forKey:@"time"];
+    
+      [schedules addObject:schedule];
+    }];
+    
+    schedules = [schedules sortByKey:@"movie_id"];
+    [sections addObject:_.array(day, day, schedules)];
+  }];
 
+  
   // group and sort schedules in each section by movie title 
 
   // sort sections by time of first schedule
   self.sections = [sections sortedArrayUsingComparator:^NSComparisonResult(NSArray* section1, NSArray* section2) {
     NSDictionary* schedule1 = [[section1 objectAtIndex:2]objectAtIndex:0];
-    NSDictionary* schedule2 = [[section1 objectAtIndex:2]objectAtIndex:0];
+    NSDictionary* schedule2 = [[section2 objectAtIndex:2]objectAtIndex:0];
+
     
-    NSDate* time1 = [schedule1 objectForKey:@"time"];
-    NSDate* time2 = [schedule2 objectForKey:@"time"];
+    NSDate* time1 = [schedule1 objectForKey:@"day"];
+    NSDate* time2 = [schedule2 objectForKey:@"day"];
     
     return [time1 compare:time2];
   }];
+  
+  // DLOG(self.sections);
 }
 
 -(NSDictionary*)modelWithKey:(id)key

@@ -31,6 +31,15 @@
 */
 
 -(NSArray*) pluck: (NSString*)attributeName;
+
 -(NSArray*) mapUsingSelector: (SEL)selector;
+-(NSArray*) mapUsingBlock: (id (^)(id obj))block;
+
+-(NSMutableDictionary*)groupUsingSelector: (SEL)selector;
+-(NSMutableDictionary*)groupUsingBlock: (id (^)(id obj))block;
+
+-(NSArray*) sortBySelector: (SEL)selector;
+-(NSArray*) sortByBlock: (id (^)(id obj))block;
+-(NSArray*) sortByKey: (id) key;
 
 @end
