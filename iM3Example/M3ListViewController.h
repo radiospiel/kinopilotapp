@@ -11,4 +11,6 @@
  */
 -(NSString*)sectionForKey: (id)key;
 
+-(BOOL)showsIndex;
+
 @end

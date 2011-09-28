@@ -15,7 +15,7 @@
 
 -(void)dealloc
 {
-  dlog << "Dealloc " << _.ptr(self);
+  // dlog << "Dealloc " << _.ptr(self);
   
   [segmentedControl_ release];
   [segmentURLs_ release];

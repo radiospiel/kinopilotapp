@@ -75,10 +75,6 @@
     self.keys = [app.chairDB movieIdsByTheaterId: $1];
   else
     self.keys = app.chairDB.movies.keys;
-
-  if(self.keys.count > 12) {
-    self.keys = [self.keys subarrayWithRange: NSMakeRange(0, 12)];
-  }
 }
 
 - (Class) tableView:(UITableView *)tableView cellClassForRowAtIndexPath:(NSIndexPath *)indexPath;

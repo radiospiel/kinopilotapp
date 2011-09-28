@@ -65,7 +65,7 @@ static NSString* recti(CGRect rect)
 
 -(void)dealloc
 {
-  dlog << "Dealloc " << _.ptr(self);
+  // dlog << "Dealloc " << _.ptr(self);
 
   [bodyController_ release];
   bodyController_ = nil;

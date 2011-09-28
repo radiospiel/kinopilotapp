@@ -47,15 +47,14 @@
 
 
 /*
- * Gets the section label for this 
+ * Gets the section name for this key. 
  */
 -(NSString*)sectionForKey: (id)key
 {
   return [[[key description] substringToIndex:1] uppercaseString];
-  //  return [[key description]substringToIndex:2];
 }
 
--(NSMutableArray* )sectionsWithKeys: (NSArray*)keys
+-(void)setKeys:(NSArray*)keys
 {
   NSMutableArray* sections = [NSMutableArray array];
   NSString* previousSection = nil;
@@ -67,21 +66,30 @@
       NSMutableArray* entries = [NSMutableArray array];
       [sections addObject: [NSMutableArray arrayWithObjects: section, section, entries, nil]];
     }
-
+    
     NSMutableArray* entries = [sections.last objectAtIndex:2];
     [entries addObject: key];
   }
-  
-  return sections; 
+    
+  self.sections = sections; 
+  [super setKeys: keys];
 }
 
--(void)setKeys:(NSArray*)keys
+-(BOOL)showsIndex
 {
-  [super keys];
-  self.sections = [self sectionsWithKeys:keys];
+  if(self.keys.count < 25) return NO;
+  if(self.sections.count < 7) return NO;
+
+  return YES;
 }
 
+/*
+ * returns an array of index titles for this table view. Returns nil
+ * to disable the index.
+ */
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+  if(![self showsIndex]) return nil;
+  
   NSMutableArray* array = _.array();
   
   for(NSArray* section in self.sections) {
@@ -92,10 +100,18 @@
   return array;
 }
 
+/*
+ * returns the number of the section for the section index title at position
+ * \a index (in the array returned by sectionIndexTitlesForTableView:)
+ */
 - (NSInteger) tableView:(UITableView *)tableView 
      sectionForSectionIndexTitle:(NSString *)title 
-                atIndex:(NSInteger)index {
-  
+                atIndex:(NSInteger)index 
+{
+  //
+  // As we have a 1:1 relation ship between index titles and sections
+  // we can just return the index position here.
+    
   return index;
 }
 
