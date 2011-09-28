@@ -165,7 +165,7 @@ AppDelegate* app;
   
   rlog(1) << "Starting application in " << [ M3 symbolicDir: @"$root" ];
 
-  [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+  // [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
 
   /*
    * Initialise database
