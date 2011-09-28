@@ -29,15 +29,12 @@
                                    url: path
                            withOptions: nil];
     
-    Benchmark(@"Parsing JSON");
-    // NSString* jsonString = [ M3Http get: path];
-    // returnValue = [jsonString mutableObjectFromJSONStringWithParseOptions:0 error: &error ];
     returnValue = [data mutableObjectFromJSONDataWithParseOptions: 0 error: &error];
   }
   else {
-    NSData* data = [M3 readDataFromPath: path];
-    Benchmark(@"Parsing JSON");
-    returnValue = [data mutableObjectFromJSONDataWithParseOptions: 0 error: &error];
+    NSString* data = [M3 read:path];
+    data = [data gsub:@"^\\s*//.*" with: @""];      /* remove C++-style comments */
+    returnValue = [data mutableObjectFromJSONStringWithParseOptions:0 error: &error];
   }
 
   if(!returnValue) _.raise(error);
