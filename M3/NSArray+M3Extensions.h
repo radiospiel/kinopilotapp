@@ -19,9 +19,6 @@
 
 -(NSArray*) uniq;
 
-@property (readonly,nonatomic,retain) NSArray* sort;
-
--(NSArray*) sort;
 
 /** 
   This method assumes the array is an array of dictionaries. It then fetches 
@@ -32,11 +29,17 @@
 
 -(NSArray*) pluck: (NSString*)attributeName;
 
--(NSArray*) mapUsingSelector: (SEL)selector;
--(NSArray*) mapUsingBlock: (id (^)(id obj))block;
+-(NSMutableArray*) mapUsingSelector: (SEL)selector;
+-(NSMutableArray*) mapUsingBlock: (id (^)(id obj))block;
 
 -(NSMutableDictionary*)groupUsingSelector: (SEL)selector;
 -(NSMutableDictionary*)groupUsingBlock: (id (^)(id obj))block;
+
+#pragma mark NSArray Sorting
+
+@property (readonly,nonatomic,retain) NSArray* sort;
+
+-(NSArray*) sort;
 
 -(NSArray*) sortBySelector: (SEL)selector;
 -(NSArray*) sortByBlock: (id (^)(id obj))block;

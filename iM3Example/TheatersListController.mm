@@ -46,10 +46,13 @@
     NSMutableArray* parts = [NSMutableArray array];
     
     for(NSDictionary* schedule in schedules) {
-      NSDate* time = [schedule objectForKey:@"time"];
+      id time = [schedule objectForKey:@"time"];
       if(!time) continue;
       
-      [parts addObject: [time stringWithFormat: @"HH:mm"]];
+      if([time isKindOfClass:[NSString class]])
+        [parts addObject: time];
+      else
+        [parts addObject: [time stringWithFormat: @"HH:mm"]];
     }
     
     NSArray* sortedParts = [[parts uniq] sortedArrayUsingSelector:@selector(compare:)];

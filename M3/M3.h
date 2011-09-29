@@ -55,4 +55,6 @@
 #endif
 
 
+#define M3AssertKindOf(var, type) NSCParameterAssert([var isKindOfClass: [type class]])
+
 #import "NSAttributedString+WithSimpleMarkup.h"

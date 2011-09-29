@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "M3TableViewController.h"
+#import "M3TableViewDataSource.h"
 
 @implementation M3TableViewController
 
@@ -25,6 +26,22 @@
   // [self releaseRequestedBannerViews];
   
   [super dealloc];
+}
+
+-(M3TableViewDataSource*) dataSource
+{ 
+  M3AssertKindOf(self.tableView.dataSource, M3TableViewDataSource);
+  
+  return [self.tableView dataSource];
+}
+
+-(void) setDataSource: (M3TableViewDataSource*)dataSource
+{ 
+  M3AssertKindOf(dataSource, M3TableViewDataSource);
+
+  dlog << "setDataSource: " << _.ptr(dataSource);
+
+  self.tableView.dataSource = dataSource;
 }
 
 #pragma mark - View lifecycle
@@ -74,97 +91,53 @@
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc]initWithCustomView: segmentedControl_]autorelease];
   #endif
 }
+// 
+// - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+// {
+//   // Return YES for supported orientations
+//   return (interfaceOrientation == UIInterfaceOrientationPortrait);
+// }
+// 
+// - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+// {
+//   Class klass = [self tableView:tableView cellClassForRowAtIndexPath: indexPath];
+// 
+//   CGFloat height = [klass fixedHeight]; 
+//   if(height)
+//     return height;
+//   
+//   M3TableViewCell* cell = (M3TableViewCell*)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+//   return [cell wantsHeight];
+// }
+// 
+// - (Class) tableView:(UITableView *)tableView cellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
+// {
+//   return [M3TableViewCell class];
+// }
+// 
+// - (id)keyForRowAtIndexPath:(NSIndexPath *)indexPath
+// {
+//   return [self.keys objectAtIndex: indexPath.row];
+// }
+// 
+// - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+// {
+//   return [self.dataSource tableView: tableView cellClassForRowAtIndexPath: indexPath];
+// }
+// 
+// - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+// {
+//   return [self.dataSource tableView: tableView numberOfRowsInSection: section];
+// }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-  // Return YES for supported orientations
-  return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  Class klass = [self tableView:tableView cellClassForRowAtIndexPath: indexPath];
-
-  CGFloat height = [klass fixedHeight]; 
-  if(height)
-    return height;
-  
-  M3TableViewCell* cell = (M3TableViewCell*)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-  return [cell wantsHeight];
-}
-
-- (Class) tableView:(UITableView *)tableView cellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
-{
-  return [M3TableViewCell class];
-}
-
-- (id)keyForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  return [self.keys objectAtIndex: indexPath.row];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  Class klass = [self tableView:tableView cellClassForRowAtIndexPath: indexPath];
-  NSString* klassName = NSStringFromClass(klass);
-  
-  // get a reusable or create a new table cell
-  M3TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: klassName];
-  if (!cell)
-    cell = [[[klass alloc]init]autorelease];
-
-  cell.tableViewController = self;
-  cell.indexPath = indexPath;
-
-  id key = [self keyForRowAtIndexPath: indexPath ];
-  cell.key = key;
-  cell.model = [self modelWithKey: key];
-
-  return cell;
-}
-
-/*
- * This method returns the model identified by the passed in key. If cells for this 
- * key do not need any model, it is fine just to return nil here.
- *
- * The default implementation returns the controller's model.
- */
--(NSDictionary*)modelWithKey: (id)key
-{
-  return self.model;
-}
-
-/*
- * This method returns a URL for the specified key. 
- *
- * If the user taps a cell, the app delegate will be asked to open
- * the URL returned by this method for the cell's key.
- *
- * The default implementation returns nil.
- */
--(NSString*)urlWithKey: (id)key
-{
-  return nil;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-  dlog << "numberOfRowsInSection " << section << " returns " << self.keys.count;
-  return self.keys.count;
-}
-
-- (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
-{
-  id key = [self keyForRowAtIndexPath:indexPath];
-  [app open: [self urlWithKey: key]];
-
-  [self performSelector:@selector(deselectRowOnTableView:) withObject:tableView afterDelay: 1.0];
-}
-
-- (void)deselectRowOnTableView: (UITableView *)tableView
-{
-  [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
-}
+// - (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
+// {
+//   id key = [self keyForRowAtIndexPath:indexPath];
+//   [app open: [self urlWithKey: key]];
+// 
+//   [self performSelector:@selector(deselectRowOnTableView:) withObject:tableView afterDelay: 1.0];
+// }
+// 
 @end
 
 #if 0 

@@ -324,6 +324,7 @@
 		9D8EAD56141E839400B21BEA /* M3Http.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8EAD53141E839400B21BEA /* M3Http.h */; };
 		9D8EAD57141E839400B21BEA /* M3Http.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EAD54141E839400B21BEA /* M3Http.mm */; };
 		9D8EAD58141E839400B21BEA /* M3Http.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EAD54141E839400B21BEA /* M3Http.mm */; };
+		9D92E40D1434780900C17299 /* M3TableViewDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D92E40C1434780900C17299 /* M3TableViewDataSource.mm */; };
 		9D9656AD14177A6C00884372 /* M3Etest.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D9656AB14177A6C00884372 /* M3Etest.h */; };
 		9D9656AE14177A6C00884372 /* M3Etest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D9656AC14177A6C00884372 /* M3Etest.mm */; };
 		9D9656B314177F9700884372 /* M3StopWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D9656B114177F9700884372 /* M3StopWatch.h */; };
@@ -678,6 +679,8 @@
 		9D8C4B95142896D0005D582A /* UIImageView+Http.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImageView+Http.mm"; sourceTree = "<group>"; };
 		9D8EAD53141E839400B21BEA /* M3Http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Http.h; sourceTree = "<group>"; };
 		9D8EAD54141E839400B21BEA /* M3Http.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Http.mm; sourceTree = "<group>"; };
+		9D92E40B1434780900C17299 /* M3TableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewDataSource.h; sourceTree = "<group>"; };
+		9D92E40C1434780900C17299 /* M3TableViewDataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewDataSource.mm; sourceTree = "<group>"; };
 		9D9656AB14177A6C00884372 /* M3Etest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Etest.h; sourceTree = "<group>"; };
 		9D9656AC14177A6C00884372 /* M3Etest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Etest.mm; sourceTree = "<group>"; };
 		9D9656B114177F9700884372 /* M3StopWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3StopWatch.h; sourceTree = "<group>"; };
@@ -896,6 +899,8 @@
 				9DCD82AF1431216800CD3C99 /* M3ListViewController.mm */,
 				9DDE1B741430876A00FDF9C5 /* M3TableViewCell.h */,
 				9DDE1B751430876A00FDF9C5 /* M3TableViewCell.mm */,
+				9D92E40B1434780900C17299 /* M3TableViewDataSource.h */,
+				9D92E40C1434780900C17299 /* M3TableViewDataSource.mm */,
 				9DDE1B781430931900FDF9C5 /* M3TableViewAdCell.h */,
 				9DDE1B791430931900FDF9C5 /* M3TableViewAdCell.mm */,
 				9D9D318F142C89C600C8269A /* M3TableViewProfileCell.h */,
@@ -1852,6 +1857,7 @@
 				9DDE1B7A1430931900FDF9C5 /* M3TableViewAdCell.mm in Sources */,
 				9DCD82B01431216800CD3C99 /* M3ListViewController.mm in Sources */,
 				9DDF5D071431F74C001CAC28 /* MovieShortInfoCell.mm in Sources */,
+				9D92E40D1434780900C17299 /* M3TableViewDataSource.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

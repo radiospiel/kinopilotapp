@@ -9,11 +9,13 @@
       "icon": "tab_tage.png"
     },
     {
+      "disabled": "disabled",
       "url": "/movies/list",
       "label": "Filme",
       "icon": "tab_filme.png"
     },
     {
+      "disabled": "disabled",
       "url": "/theaters/list",
       "label": "Kinos",
       "icon": "tab_kinos.png"

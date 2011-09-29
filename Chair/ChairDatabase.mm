@@ -203,31 +203,34 @@ static NSDictionary* adjustDate(NSDictionary* dictionary, const NSString* key)
 
 @implementation NSDictionary(ChairDatabaseAdditions)
 
--(NSDictionary*) joinWith: (ChairView*)view 
-                       on: (NSString*)foreign_key 
-                    inner: (BOOL)innerJoin
+-(NSMutableDictionary*) joinWith: (ChairView*)view 
+                              on: (NSString*)foreign_key 
+                           inner: (BOOL)innerJoin
 {
   id foreign_id = [self objectForKey: foreign_key];
   NSArray* foreign_records = [view valuesWithKey: foreign_id];
   NSDictionary* foreign_record = foreign_records.first;
-  if(!foreign_record && innerJoin) 
-    return self;
-  
-  NSMutableDictionary* joined_record = [NSMutableDictionary dictionaryWithDictionary:self];
-  if(foreign_record)
-    [joined_record addEntriesFromDictionary:foreign_record];
 
-  return joined_record;
+  if(foreign_record) {
+    NSMutableDictionary* joined_record = [NSMutableDictionary dictionaryWithDictionary:foreign_record];
+    [joined_record addEntriesFromDictionary:self];
+    return joined_record;
+  }
+
+  if(!innerJoin)
+    return [NSMutableDictionary dictionaryWithDictionary:self];
+  
+  return nil;
 }
 
--(NSDictionary*) joinWith: (ChairView*)view 
-                       on: (NSString*)key
+-(NSMutableDictionary*) joinWith: (ChairView*)view 
+                              on: (NSString*)key
 {
   return [self joinWith:view on: key inner:NO];
 }
 
--(NSDictionary*) innerJoinWith: (ChairView*)view 
-                            on: (NSString*)key
+-(NSMutableDictionary*) innerJoinWith: (ChairView*)view 
+                                   on: (NSString*)key
 {
   return [self joinWith:view on: key inner:YES];
 }

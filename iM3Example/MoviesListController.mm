@@ -46,27 +46,8 @@
 
 -(void)setModel:(NSDictionary*) theModel
 {
-  theModel = [theModel joinWith: app.chairDB.movies on:@"movie_id"];
-
-  NSMutableDictionary* model = [NSMutableDictionary dictionaryWithDictionary:theModel];
-
-  DLOG(model);
-  
-  // Example model:
-  // {
-  //   _type: "schedules", 
-  //   _uid: "47c5f7db5321d482dd48020af2059ded", 
-  //   movie_id: "howiendedthissummer|movies", 
-  //   theater_id: "fskamoranienplatz|theaters", 
-  //   time: <__NSDate: 2011-09-25 13:30:00 +0000>, 
-  //   version: "omu"
-  // }
-  
-  NSString* movieId = [model objectForKey: @"movie_id"];
-
-  NSDictionary* movie = [app.chairDB.movies get: movieId];
-  [model setObject: [movie objectForKey:@"title"] forKey: @"title"];
-  
+  NSMutableDictionary* model = [theModel joinWith: app.chairDB.movies on:@"movie_id"];
+  [app.chairDB adjustMovies:model];
   [super setModel:model];
 }
 
@@ -129,10 +110,18 @@
 
   NSArray* schedules = [app.chairDB schedulesByTheaterId:  theaterId];
   
+  //  {
+  //    for(NSDictionary* schedule in schedules) {
+  //      NSCParameterAssert([schedule isKindOfClass:[NSDictionary class]]);
+  //      NSCParameterAssert([[schedule objectForKey: @"time"] isKindOfClass:[NSDate class]]);
+  //    }
+  //  }
+
   // build sections by date, and combine schedules for the same movie into one record.
 
   // group schedules by *date* into sectionsHash
   NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
+    DLOG(schedule);
     NSDate* time = [schedule objectForKey:@"time"];
     return [time stringWithFormat:@"dd.MM."];
   }];
@@ -154,7 +143,7 @@
         return [time stringWithFormat:@"HH:mm"];
       }];
 
-      NSMutableDictionary* schedule = schedulesForMovieId.first;
+      NSMutableDictionary* schedule = [NSMutableDictionary dictionaryWithDictionary: schedulesForMovieId.first];
       NSDate* day = [schedule objectForKey:@"time"];
       
       [schedule setObject: day forKey:@"day"];
@@ -163,8 +152,7 @@
       [schedules addObject:schedule];
     }];
     
-    schedules = [schedules sortByKey:@"movie_id"];
-    [sections addObject:_.array(day, day, schedules)];
+    [sections addObject:_.array(day, day, [schedules sortByKey:@"movie_id"])];
   }];
 
   

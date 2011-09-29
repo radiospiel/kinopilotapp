@@ -14,4 +14,7 @@
 -(NSArray*) schedulesByTheaterId: (NSString*)theaterID;
 -(NSArray*) schedulesByMovieId: (NSString*)movieID andTheaterId: (NSString*)theaterID;
 
+-(void) adjustMovies:(NSMutableDictionary*)movie;
+-(void) adjustTheaters:(NSMutableDictionary*)theater;
+
 @end

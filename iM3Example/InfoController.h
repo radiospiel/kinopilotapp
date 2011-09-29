@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface InfoController : UITableViewController {
-  NSArray* infoSection_;
-}
+#import "M3TableViewController.h"
+
+@interface InfoController : M3TableViewController
 
 @end

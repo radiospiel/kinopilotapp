@@ -53,17 +53,7 @@
   return [[NSSet setWithArray: self] allObjects];                   
 }
 
-static NSComparisonResult underscore_compare(id a, id b, void* p) {
-  return _.compare(a, b);
-}
-
--(NSArray*) sort
-{
-
-  return [self sortedArrayUsingSelector:@selector(compare:)];
-}
-
--(NSArray*) pluck: (NSString*)attributeName
+-(NSMutableArray*) pluck: (NSString*)attributeName
 {
   NSMutableArray* array = [NSMutableArray arrayWithCapacity: self.count];
   for(NSDictionary* entry in self) {
@@ -75,6 +65,18 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
   return array;
 }
 
+/**
+ * sorting
+ */
+
+static NSComparisonResult underscore_compare(id a, id b, void* p) {
+  return _.compare(a, b);
+}
+
+-(NSArray*) sort
+{
+  return [self sortedArrayUsingSelector:@selector(compare:)];
+}
 
 -(NSArray*) sortBySelector: (SEL)selector
 {
@@ -103,7 +105,7 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
   }];
 }
 
--(NSArray*) mapUsingSelector: (SEL)selector
+-(NSMutableArray*) mapUsingSelector: (SEL)selector
 {
   NSMutableArray* array = [NSMutableArray arrayWithCapacity: self.count];
   for(NSDictionary* entry in self) {
@@ -115,7 +117,7 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
   return array;
 }
 
--(NSArray*) mapUsingBlock: (id (^)(id obj))block
+-(NSMutableArray*) mapUsingBlock: (id (^)(id obj))block
 {
   NSMutableArray* array = [NSMutableArray arrayWithCapacity: self.count];
   for(NSDictionary* entry in self) {

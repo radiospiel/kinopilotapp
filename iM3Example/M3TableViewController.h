@@ -11,6 +11,8 @@
 
 #import "M3TableViewCell.h"
 
+@class M3TableViewDataSource;
+
 /*
  * A M3TableViewController to work with M3TableViewCells. It adds an 
  * additional segmented control, which allows for filtering the 
@@ -20,12 +22,13 @@
 @interface M3TableViewController : UITableViewController<ADBannerViewDelegate> {
   UISegmentedControl* segmentedControl_;
   NSMutableArray* segmentURLs_;
-  NSMutableDictionary* requestedAdBanners_;
+  // NSMutableDictionary* requestedAdBanners_;
   NSArray* keys_;
 }
 
 // This array holds the keys.
 @property (retain,nonatomic) NSArray* keys;
+@property (retain,nonatomic) M3TableViewDataSource* dataSource;
 
 // returns the model for a specific key
 -(NSDictionary*)modelWithKey:(id)key;
