@@ -55,6 +55,11 @@
 #endif
 
 
-#define M3AssertKindOf(var, type) NSCParameterAssert([var isKindOfClass: [type class]])
+#define M3AssertKindOf(var, type) do {                              \
+          if(var && ![var isKindOfClass: [type class]]) {           \
+            NSLog(@"%s is a %@", #var, [var class]);                \
+            NSCParameterAssert([var isKindOfClass: [type class]]);  \
+          }                                                         \
+        } while(0) 
 
 #import "NSAttributedString+WithSimpleMarkup.h"

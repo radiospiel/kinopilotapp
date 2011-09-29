@@ -13,6 +13,7 @@
 @property (readonly,nonatomic,retain) id last;
 
 -(id) first;
+-(id) second;
 -(id) last;
 
 @property (readonly,nonatomic,retain) NSArray* uniq;

@@ -20,10 +20,7 @@
 /** 
  * Adds a section to the receiving data source.
  */
--(void)addSection: (NSArray*) keys
-       withHeader:(NSString*)header
-        andFooter:(NSString*)footer
-    andIndexTitle:(NSString*)indexTitle;
+-(void)addSection: (NSArray*) keys withOptions: (NSDictionary*)options;
 
 /** 
  * Returns the class for the cell with the given key. Keys are whatever

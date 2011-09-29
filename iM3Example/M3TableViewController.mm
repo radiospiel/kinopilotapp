@@ -38,10 +38,12 @@
 -(void) setDataSource: (M3TableViewDataSource*)dataSource
 { 
   M3AssertKindOf(dataSource, M3TableViewDataSource);
-
-  dlog << "setDataSource: " << _.ptr(dataSource);
-
   self.tableView.dataSource = dataSource;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  return [self.dataSource tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
 #pragma mark - View lifecycle

@@ -5,13 +5,12 @@
 
 @implementation M3TableViewDataSource
 
-@synthesize controller = controller_;
+@synthesize controller = controller_, sections = sections_;
 
 -(id)init
 {
   self = [super init];
-  if(!self) return nil;
-  
+  self.sections = [[NSMutableArray alloc]init];
   return self;
 }
 
@@ -21,37 +20,13 @@
   [super dealloc];
 }
 
--(NSMutableArray*)sections
-{
-  return sections_;
-}
-
--(void)setSections:(NSMutableArray *)sections
-{
-  for(NSArray* section in sections) {
-    NSCParameterAssert(section.count == 4);
-    M3AssertKindOf([section objectAtIndex: 0], NSString);
-    M3AssertKindOf([section objectAtIndex: 1], NSString);
-    M3AssertKindOf([section objectAtIndex: 2], NSString);
-    M3AssertKindOf([section objectAtIndex: 3], NSArray);
-  }
-
-  [sections retain];
-  [sections_ release];
-  sections_ = sections;
-}
-
--(void)addSection:(NSArray*) keys
-       withHeader:(NSString*)header
-        andFooter:(NSString*)footer
-    andIndexTitle:(NSString*)indexTitle
+-(void)addSection:(NSArray*) keys withOptions: (NSDictionary*) options
 {
   M3AssertKindOf(keys, NSArray);
+  if(options) M3AssertKindOf(options, NSDictionary);    // Note: options is allowed to be nil.
   
-  if(!sections_)
-    self.sections = [NSMutableArray array];
-    
-  [sections_ addObject: [NSArray arrayWithObjects: header, footer, indexTitle, [keys copy], nil]];
+  NSArray* section = [NSArray arrayWithObjects: keys, options, nil];
+  [self.sections addObject: section];
 }
 
 #pragma mark - UITableViewDataSource customization
@@ -76,29 +51,31 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionNo
 {
   NSArray* section = [self.sections objectAtIndex:sectionNo]; 
-  return [[section objectAtIndex:3] count];
+  return [section.first count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)sectionNo
 {
   NSArray* section = [self.sections objectAtIndex:sectionNo]; 
-  return [section objectAtIndex:0];
+  return [section.second objectForKey:@"header"];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)sectionNo
 {
   NSArray* section = [self.sections objectAtIndex:sectionNo]; 
-  return [section objectAtIndex:1];
+  return [section.second objectForKey:@"footer"];
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-  return [sections_ mapUsingBlock:^id(NSArray* section) {
-    return [section objectAtIndex:2];
+  return [self.sections mapUsingBlock:^id(NSArray* section) {
+    return [section.second objectForKey: @"index"];
   }];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+- (NSInteger)tableView:(UITableView *)tableView 
+    sectionForSectionIndexTitle:(NSString *)title 
+               atIndex:(NSInteger)index
 {
   return index;
 }
@@ -108,8 +85,7 @@
 - (id)keyForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSArray* section = [self.sections objectAtIndex:indexPath.section]; 
-  NSArray* keys = [section objectAtIndex:3];
-  return [keys objectAtIndex:indexPath.row];
+  return [section.first objectAtIndex:indexPath.row];
 }
 
 -(Class) cellClassForRowAtIndexPath: (NSIndexPath*)indexPath
@@ -123,8 +99,7 @@
   Class klass = [self cellClassForRowAtIndexPath: indexPath];
   
   CGFloat height = [klass fixedHeight]; 
-  if(height)
-    return height;
+  if(height) return height;
   
   M3TableViewCell* cell = (M3TableViewCell*)[self tableView:tableView cellForRowAtIndexPath:indexPath];
   return [cell wantsHeight];
@@ -138,8 +113,10 @@
   
   // get a reusable or create a new table cell
   M3TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: klassName];
-  if (!cell)
+  if (!cell) {
     cell = [[[klass alloc]init]autorelease];
+    M3AssertKindOf(cell, M3TableViewCell);
+  }
   
   cell.tableViewController = self.controller;
   cell.indexPath = indexPath;

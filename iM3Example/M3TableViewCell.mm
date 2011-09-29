@@ -7,12 +7,12 @@
 
 -(id)initWithStyle:(UITableViewCellStyle)style
 {
-  NSString* reuseIdentifier = NSStringFromClass([self class]);
-  
-  self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier: reuseIdentifier];
-
+  self = [super initWithStyle:style reuseIdentifier: NSStringFromClass([self class])];
   self.textLabel.font = [UIFont systemFontOfSize:13];
   self.textLabel.numberOfLines = 0;
+
+  self.detailTextLabel.font = [UIFont systemFontOfSize:13];
+  self.detailTextLabel.numberOfLines = 0;
 
   return self;
 }

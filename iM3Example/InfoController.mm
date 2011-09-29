@@ -10,17 +10,12 @@
 #import "InfoController.h"
 #import "M3TableViewDataSource.h"
 
-static UIFont* regularFont()
-{
-  static UIFont* regularFont_ = [UIFont systemFontOfSize:13];
-  return regularFont_;
-}
-
-@interface Info
+@interface Info: NSObject
 @end
 
-@implementation Info
 // --- Custom values ---------
+
+@implementation Info
 
 +(NSString*) updated_at
   { return @"updated_at"; }
@@ -47,10 +42,18 @@ static UIFont* regularFont()
 
 @implementation InfoControllerCellOneValue
 
--(void)setKey: (NSArray*)key
+-(id)init
 {
-  self.textLabel.text = key.first;
-  self.textLabel.font = regularFont();
+  return [super initWithStyle: UITableViewCellStyleDefault];
+}
+
+-(void)setKey: (NSString*)key
+{
+  M3AssertKindOf(key, NSString);
+
+  [super setKey: key];
+  
+  self.textLabel.text = key;
   self.textLabel.numberOfLines = 0;
   self.textLabel.lineBreakMode = UILineBreakModeWordWrap;
   self.textLabel.textAlignment = UITextAlignmentCenter;
@@ -59,9 +62,9 @@ static UIFont* regularFont()
 
 - (CGFloat)wantsHeight
 {
-  NSString* text = [self.key first];
+  NSString* text = self.key;
   
-  CGSize stringSize = [text sizeWithFont:regularFont()
+  CGSize stringSize = [text sizeWithFont:self.textLabel.font
                        constrainedToSize:CGSizeMake(260, 9999) 
                            lineBreakMode:UILineBreakModeWordWrap ];
 
@@ -72,28 +75,27 @@ static UIFont* regularFont()
 
 @implementation InfoControllerCellTwoValues
 
+-(id)init
+  { return [super initWithStyle: UITableViewCellStyleValue1]; }
+
 +(CGFloat) fixedHeight;
-{
-  return 35;
-}
+  { return 35; }
 
 -(NSString*)resolveCustomValue: (NSString*)name
 {
   SEL selector = NSSelectorFromString(name);
-  if(![InfoController respondsToSelector: selector]) 
+  if(![Info respondsToSelector: selector]) 
     return name;
   
-  return [InfoController performSelector:selector];
+  return [Info performSelector:selector];
 }
 
 -(void)setKey: (NSArray*)key
 {
   [super setKey: key];
   
-  dlog << "setKey: "<< key;
-  
   self.textLabel.text = key.first;
-  self.textLabel.textColor = [UIColor colorWithName: @"#000"];
+  self.textLabel.font = [UIFont boldSystemFontOfSize:13];
   
   NSString* text = [self resolveCustomValue: key.last];
   if([key.last matches:@"(http://|https://|mailto:)(.*)"]) {
@@ -101,7 +103,6 @@ static UIFont* regularFont()
     text = $2;
   }
   self.detailTextLabel.text = text;
-  self.detailTextLabel.font = regularFont();
   self.detailTextLabel.textColor = [UIColor colorWithName: @"#385487"];
 }
 
@@ -123,13 +124,9 @@ static UIFont* regularFont()
     M3AssertKindOf(section, NSDictionary);
     
     id content = [section objectForKey:@"content"];
-    if([content isKindOfClass:[NSString class]])
-      content = [NSArray arrayWithObject:content];
     
-    [self addSection: content
-          withHeader: [section objectForKey:@"header"]
-           andFooter: [section objectForKey:@"footer"]
-       andIndexTitle: nil];
+    // Read "header", "footer", and "index" from the configuration.
+    [self addSection: content withOptions: section];
   }
   
   return self;
@@ -137,8 +134,10 @@ static UIFont* regularFont()
 
 -(Class) cellClassForKey: (NSArray*)key;
 {
-  M3AssertKindOf(key, NSArray);
-  return key.count == 1 ?  [InfoControllerCellOneValue class] : [InfoControllerCellTwoValues class];
+  if([key isKindOfClass:[NSArray class]])
+    return [InfoControllerCellTwoValues class];
+
+  return [InfoControllerCellOneValue class];
 }
 
 @end
@@ -147,8 +146,7 @@ static UIFont* regularFont()
 
 -(id)init
 {
-  self = [super initWithStyle: UITableViewStyleGrouped];
-  return self;
+  return [super initWithStyle: UITableViewStyleGrouped];
 }
 
 #pragma mark - View lifecycle
@@ -157,7 +155,7 @@ static UIFont* regularFont()
 {
   [super viewDidLoad];
 
-  self.dataSource = [[M3TableViewDataSource alloc]init];
+  self.dataSource = [[InfoControllerDataSource alloc]init];
   
   // Uncomment the following line to preserve selection between presentations.
   // self.clearsSelectionOnViewWillAppear = NO;
