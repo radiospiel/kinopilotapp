@@ -47,11 +47,51 @@
 
 @implementation MoviesListDataSource
 
--(id)init
+-(id)initWithFilter:(NSString*)filter
 {
   self = [super init];
   
-  NSDictionary* groupedHash = [app.chairDB.movies.keys groupUsingBlock:^id(NSString* movie_id) {
+  NSArray* keys = nil;
+  
+  if([filter isEqualToString:@"new"]) {
+
+    NSMutableArray* movie_ids = [NSMutableArray array];
+    [app.chairDB.movies each:^(NSDictionary *movie, id movie_id) {
+      NSDate* cinema_start_date = [movie objectForKey:@"cinema-start-date"];
+      M3AssertKindOf(cinema_start_date, NSDate);
+      
+      NSTimeInterval diff = -[cinema_start_date timeIntervalSinceNow];
+      
+      // The movie started diff seconds ago
+      int diffInDays = diff / (3600 * 24);
+      if(diffInDays < 14)
+        [movie_ids addObject: movie_id];
+    }];
+    
+    keys = movie_ids; 
+  }
+//  else if([filter isEqualToString:@"fav"]) {
+//  }
+  else if([filter isEqualToString:@"art"]) {
+    NSMutableArray* movie_ids = [NSMutableArray array];
+    [app.chairDB.movies each:^(NSDictionary *movie, id movie_id) {
+      NSDate* cinema_start_date = [movie objectForKey:@"cinema-start-date"];
+      M3AssertKindOf(cinema_start_date, NSDate);
+      
+      NSTimeInterval diff = -[cinema_start_date timeIntervalSinceNow];
+      
+      // The movie started diff seconds ago
+      int diffInDays = diff / (3600 * 24);
+      if(diffInDays > 365 * 5)
+        [movie_ids addObject: movie_id];
+    }];
+    keys = movie_ids; 
+  }
+  
+  if(!keys)
+    keys = [app.chairDB.movies keys];
+  
+  NSDictionary* groupedHash = [keys groupUsingBlock:^id(NSString* movie_id) {
     return [[movie_id substringToIndex:1]uppercaseString];
   }];
   
@@ -71,7 +111,7 @@
 @end
 
 
-/*** A cell for the MoviesListCell ***************************************************/
+/*** A cell for the MoviesListCell *******************************************/
 
 /*
  * This cell is either filtered by movie_id and theater_id, or only by the
@@ -131,7 +171,7 @@
 
 @end
 
-/**** MoviesListFilteredByTheaterDataSource **************/
+/**** MoviesListFilteredByTheaterDataSource **********************************/
 
 @interface MoviesListFilteredByTheaterDataSource: M3TableViewDataSource
 @end
@@ -213,14 +253,39 @@
 
 @implementation MoviesListController
 
+-(id)init
+{
+  self = [super init];
+
+  [self addSegment: @"all" withFilter: @"all" andTitle: @"Alle Filme"];
+  [self addSegment: @"new" withFilter: @"new" andTitle: @"Neu im Kino"];
+  [self addSegment: @"art" withFilter: @"art" andTitle: @"Klassiker"];
+  // [self addSegment: @"fav" withFilter: @"fav" andTitle: @"Vorgemerkt"];
+
+  [self activateSegment: 0];
+  return self;
+}
+
+-(void)setFilter:(NSString*)filter
+{
+  if([self.url matches: @"/movies/list/theater_id=(.*)"])
+    return;
+
+  self.url = _.join(@"/movies/list/filter=", filter);
+}
+
 -(void)setUrl:(NSString*)url
 {
+  if([self.url isEqualToString:url]) return;
+  
   [super setUrl: url];
 
   if([self.url matches: @"/movies/list/theater_id=(.*)"])
     self.dataSource = [[MoviesListFilteredByTheaterDataSource alloc]initWithTheaterFilter:$1];
+  else if([self.url matches: @"/movies/list/filter=(.*)"])
+    self.dataSource = [[MoviesListDataSource alloc]initWithFilter: $1];
   else
-    self.dataSource = [[MoviesListDataSource alloc]init];
+    self.dataSource = [[MoviesListDataSource alloc]initWithFilter: @"all"];
 }
 
 @end

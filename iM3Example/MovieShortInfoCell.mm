@@ -72,6 +72,9 @@
 
 -(void)setKey: (NSArray*)class_and_movie
 {
+  M3AssertKindOf(class_and_movie, NSArray);
+  M3AssertKindOf(class_and_movie.last, NSDictionary);
+
   [super setKey:class_and_movie];
   
   NSDictionary* movie = class_and_movie.last;

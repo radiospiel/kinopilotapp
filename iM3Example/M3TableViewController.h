@@ -22,15 +22,15 @@
 
 @interface M3TableViewController : UITableViewController<ADBannerViewDelegate> {
   UISegmentedControl* segmentedControl_;
-  NSMutableArray* segmentURLs_;
-  // NSMutableDictionary* requestedAdBanners_;
+  NSMutableArray* segmentedControlParams_;
 }
 
-// This array holds the keys.
 @property (retain,nonatomic) M3TableViewDataSource* dataSource;
 
--(void)addSegment:(NSString*)label withURL: (NSString*)url;
--(void)showSegmentedControl;
+-(void)addSegment:(NSString*)label withFilter: (id)filter andTitle: (NSString*)title;
+-(void)activateSegment:(NSUInteger)segmentNo;
+
+-(void)setFilter: (id)filter;
 
 @end
 

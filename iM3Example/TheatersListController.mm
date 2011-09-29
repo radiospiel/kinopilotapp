@@ -213,4 +213,9 @@
     self.dataSource = [[TheatersListDateSource alloc]init];
 }
 
+-(NSString*)title
+{
+  return @"Kinos in Berlin";
+}
+
 @end

@@ -14,7 +14,7 @@
 -(void)dealloc
 {
   [segmentedControl_ release];
-  [segmentURLs_ release];
+  [segmentedControlParams_ release];
   
   [self releaseM3Properties];
   
@@ -32,6 +32,7 @@
 { 
   M3AssertKindOf(dataSource, M3TableViewDataSource);
   self.tableView.dataSource = dataSource;
+  [self.tableView reloadData];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -56,25 +57,42 @@
   [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 }
 
-#pragma mark - View lifecycle
+#pragma mark - Segemented Control
 
+// The M3TableViewController supports a segmented control, which is embedded 
+// into the controllers navigation item (i.e. in the place of the right
+// button).
+//
+// Each segment has a label (string or image), a title to display in the
+// navigation item whenever it is selected, and a filter expression
+// which will be send via setFilter: to the current controller. 
+//
 -(void)initializeSegmentedControl
 {
   // Do any additional setup after loading the view from its nib.
-  if(!segmentedControl_) {
-    segmentedControl_ = [[UISegmentedControl alloc]init];
-    segmentedControl_.segmentedControlStyle = UISegmentedControlStyleBar;
-    [segmentedControl_ addTarget:self
-                          action:@selector(activateSegment:)
-                forControlEvents:UIControlEventValueChanged];
-  }
-  if(!segmentURLs_)
-    segmentURLs_ = [[NSMutableArray alloc]init];
+  if(segmentedControl_) return;
+  
+  segmentedControl_ = [[UISegmentedControl alloc]init];
+  segmentedControl_.segmentedControlStyle = UISegmentedControlStyleBar;
+
+  self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc]initWithCustomView: segmentedControl_]autorelease];
+
+  [segmentedControl_ addTarget:self
+                        action:@selector(activeSegmentChanged:)
+              forControlEvents:UIControlEventValueChanged];
+
+
+  segmentedControlParams_ = [[NSMutableArray alloc]init];
+  
+  if(!self.navigationItem) return;
+   
+  UIView* titleView = self.navigationItem.titleView;
+  DLOG( NSStringFromCGRect(titleView.frame));
 }
 
 /* add a segment to the segmentedControl_ */
 
--(void)addSegment:(NSString*)label withURL: (NSString*)url
+-(void)addSegment:(NSString*)label withFilter: (id)filter andTitle: (NSString*)title
 {
   [self initializeSegmentedControl];
   
@@ -82,27 +100,43 @@
                                     atIndex: segmentedControl_.numberOfSegments
                                    animated: NO];  
   
-  segmentedControl_.frame = CGRectMake(0, 0, segmentedControl_.numberOfSegments*30, 32);
+  segmentedControl_.frame = CGRectMake(0, 0, segmentedControl_.numberOfSegments*45, 32);
 
-  [segmentURLs_ addObject: url];
+  [segmentedControlParams_ addObject: _.hash(@"filter", filter, @"title", title)];
 }
 
--(void)activateSegment:(UIGestureRecognizer *)segmentedControl
+-(void) setFilter:(id)filter
 {
-  dlog << "activateSegment: " << [segmentedControl_ selectedSegmentIndex];
-  // open URL.
+  dlog << "Remember to implement " << [self class ] << "#setFilter: " << filter;
 }
 
--(void) showSegmentedControl
+-(void) activateSegment:(NSUInteger)segmentNo
 {
-  [segmentedControl_ setSelectedSegmentIndex:0];
+  [segmentedControl_ setSelectedSegmentIndex:segmentNo];
   
-  #if 0
-    self.navigationItem.titleView = segmentedControl_;  
-  #else
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc]initWithCustomView: segmentedControl_]autorelease];
-  #endif
+  NSDictionary* params = [segmentedControlParams_ objectAtIndex:segmentNo];
+  NSString* title = [params objectForKey: @"title"];
+  if(title) self.navigationItem.title = title;
+
+  [self setFilter: [params objectForKey: @"filter"]];
 }
+
+-(void)activeSegmentChanged:(UIGestureRecognizer *)segmentedControl
+{
+  [self activateSegment: [segmentedControl_ selectedSegmentIndex]];
+}
+
+-(NSString*)title
+{
+  if(segmentedControl_) {
+    NSUInteger idx = [segmentedControl_ selectedSegmentIndex];
+    NSDictionary* params = [segmentedControlParams_ objectAtIndex:idx];
+    return [params objectForKey: @"title"];
+  }
+
+  return [super title];
+}
+
 
 @end
 

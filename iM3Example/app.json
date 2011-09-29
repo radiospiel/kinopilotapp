@@ -2,20 +2,19 @@
   "name": "Kinopilot Berlin",
   "tabs": [
     {
-      "url": "/theaters/show/fskamoranienplatz|theaters",
-      // "url": "/info",
       "disabled": "disabled",
+      "unused-url": "/theaters/show/fskamoranienplatz|theaters",
+      "unused-url": "/info",
+      "url": "/movies/show/lehavre|movies",
       "label": "Kalender",
       "icon": "tab_tage.png"
     },
     {
-      "disabled": "disabled",
       "url": "/movies/list",
       "label": "Filme",
       "icon": "tab_filme.png"
     },
     {
-      "disabled": "disabled",
       "url": "/theaters/list",
       "label": "Kinos",
       "icon": "tab_kinos.png"

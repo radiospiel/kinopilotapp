@@ -26,6 +26,8 @@
   NSDictionary* movie = [app.chairDB.movies get: movie_id];
   movie = [app.chairDB adjustMovies:movie];
 
+  M3AssertKindOf(movie, NSDictionary);
+  
   NSMutableArray* section = [NSMutableArray array];
   
   [section addObject:_.array(@"MovieShortInfoCell", movie)];
@@ -189,7 +191,7 @@
 {
   [super setUrl:url];
   
-  [url matches:@"/movies/full/(.*)"];
-  self.dataSource = [[MoviesFullControllerDataSource alloc]initWithMovieId: $1];
+  if([url matches:@"/movies/full/(.*)"])
+    self.dataSource = [[MoviesFullControllerDataSource alloc]initWithMovieId: $1];
 }
 @end
