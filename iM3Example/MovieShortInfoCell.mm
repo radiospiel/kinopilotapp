@@ -18,17 +18,18 @@
 
 -(NSString*)shortInfoASHTML
 {
-  NSDictionary* model = self.model;
+  NSArray* class_and_movie = self.key;
+  NSDictionary* movie = class_and_movie.last;
   
-  NSString* title =           [model objectForKey:@"title"];
-  NSNumber* runtime =         [model objectForKey:@"runtime"];
-  NSString* genre =           [[model objectForKey:@"genres"] objectAtIndex:0];
-  NSNumber* production_year = [model objectForKey:@"production-year"];
-  NSArray* actors =           [model objectForKey:@"actors"];
-  NSArray* directors =        [model objectForKey:@"directors"];
-  // NSString* original_title =  [model objectForKey:@"original-title"];
+  NSString* title =           [movie objectForKey:@"title"];
+  NSNumber* runtime =         [movie objectForKey:@"runtime"];
+  NSString* genre =           [[movie objectForKey:@"genres"] objectAtIndex:0];
+  NSNumber* production_year = [movie objectForKey:@"production-year"];
+  NSArray* actors =           [movie objectForKey:@"actors"];
+  NSArray* directors =        [movie objectForKey:@"directors"];
+  // NSString* original_title =  [movie objectForKey:@"original-title"];
   // NSString* average-community-rating: 56,  
-  // NSString* cinema_start_date = [self.model objectForKey: @"cinema-start-date"]; // e.g. "2011-08-25T00:00:00+02:00"
+  // NSString* cinema_start_date = [self.movie objectForKey: @"cinema-start-date"]; // e.g. "2011-08-25T00:00:00+02:00"
 
   NSMutableArray* parts = [NSMutableArray array];
 
@@ -69,12 +70,14 @@
   return [parts componentsJoinedByString:@""];
 }
 
--(void)setModel: (NSDictionary*)theModel
+-(void)setKey: (NSArray*)class_and_movie
 {
-  [super setModel:theModel];
+  [super setKey:class_and_movie];
+  
+  NSDictionary* movie = class_and_movie.last;
   
   self.imageView.image = [UIImage imageNamed:@"no_poster.png"];
-  self.imageView.imageURL = [self.model objectForKey:@"image"];
+  self.imageView.imageURL = [movie objectForKey:@"image"];
   
   self.textLabel.text = @" ";
     
@@ -97,9 +100,7 @@
 }
 
 +(CGFloat)fixedHeight
-{
-  return 0;
-}
+  { return 0; }
 
 - (CGFloat)wantsHeight
 {

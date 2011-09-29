@@ -3,7 +3,7 @@
  * description of the movie.
  */
 
-#import "M3TableViewAdCell.h"
+#import "M3TableViewCell.h"
 
 @class TTTAttributedLabel;
 

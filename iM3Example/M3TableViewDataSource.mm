@@ -31,11 +31,6 @@
 
 #pragma mark - UITableViewDataSource customization
 
--(id)modelWithKey:(id)key
-{
-  return key;
-}
-
 -(Class) cellClassForKey: (id)key
 {
   return [M3TableViewCell class];
@@ -68,6 +63,8 @@
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
+  if(self.sections.count < 7) return nil;
+  
   return [self.sections mapUsingBlock:^id(NSArray* section) {
     return [section.second objectForKey: @"index"];
   }];
@@ -105,7 +102,6 @@
   return [cell wantsHeight];
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   Class klass = [self cellClassForRowAtIndexPath: indexPath];
@@ -120,10 +116,7 @@
   
   cell.tableViewController = self.controller;
   cell.indexPath = indexPath;
-  
-  id key = [self keyForRowAtIndexPath: indexPath ];
-  cell.key = key;
-  cell.model = [self modelWithKey: key];
+  cell.key = [self keyForRowAtIndexPath: indexPath];
   
   return cell;
 }

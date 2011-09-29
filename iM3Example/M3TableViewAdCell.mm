@@ -17,12 +17,6 @@
   return self;
 }
 
--(void)setModel: (NSDictionary*)model
-{
-  [super setModel:model];
-  // [self.tableViewController requestAdBannerAtIndexPath: self.indexPath];
-}
-
 -(void)layoutSubviews
 {
   [super layoutSubviews];

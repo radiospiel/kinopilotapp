@@ -10,6 +10,7 @@
 #import <iAd/ADBannerView.h>
 
 #import "M3TableViewCell.h"
+#import "M3TableViewDataSource.h"
 
 @class M3TableViewDataSource;
 
@@ -23,28 +24,10 @@
   UISegmentedControl* segmentedControl_;
   NSMutableArray* segmentURLs_;
   // NSMutableDictionary* requestedAdBanners_;
-  NSArray* keys_;
 }
 
 // This array holds the keys.
-@property (retain,nonatomic) NSArray* keys;
 @property (retain,nonatomic) M3TableViewDataSource* dataSource;
-
-// returns the model for a specific key
--(NSDictionary*)modelWithKey:(id)key;
-
-/*
- * returns the URL for a specific key.
- *
- * If a row is tapped, and this method returns an URL for the row's key,
- * the app delegate will be asked to open that URL.
- */
--(NSString*)urlWithKey:(id)key;
-
-/*
- * returns the class of the table view cell at position indexPath
- */
-- (Class) tableView:(UITableView *)tableView cellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 -(void)addSegment:(NSString*)label withURL: (NSString*)url;
 -(void)showSegmentedControl;

@@ -9,29 +9,67 @@
 #import "AppDelegate.h"
 #import "MoviesListController.h"
 #import "M3TableViewProfileCell.h"
-#import "M3TableViewAdCell.h"
 
+/*** A cell for the MoviesListCell *******************************************/
 
-/*** A cell for the MoviesListCell ***************************************************/
-
-/*
- * This cell is either filtered by movie_id and theater_id, or only by the
- * movie_id.
- */
 @interface MoviesListCell: M3TableViewProfileCell
 @end
 
 @implementation MoviesListCell
 
--(NSString*)detailText {
-  NSString* movieId = [self.model objectForKey: @"_uid"];
-  NSArray* theaterIds = [app.chairDB theaterIdsByMovieId: movieId];
-  NSArray* theaters = [[app.chairDB.theaters valuesWithKeys: theaterIds] pluck: @"name"];
-  theaters = [[theaters uniq] sortedArrayUsingSelector:@selector(compare:)];
-  return [theaters componentsJoinedByString: @", "];
+-(void)setKey: (id)movie_id
+{
+  [super setKey:movie_id];
+  
+  NSDictionary* movie = [app.chairDB.movies get: movie_id];
+  movie = [app.chairDB adjustMovies: movie];
+  
+  [self setStarred:YES];
+  [self setImageURL: [movie objectForKey: @"image"]];
+  [self setText: [movie objectForKey: @"title"]];
+
+  NSArray* theater_ids = [app.chairDB theaterIdsByMovieId: movie_id];
+  NSArray* theaters = [[app.chairDB.theaters valuesWithKeys: theater_ids] pluck: @"name"];
+  [self setDetailText: [theaters.uniq.sort componentsJoinedByString: @", "]];
+}
+
+-(NSString*)urlToOpen
+{
+  return [NSString stringWithFormat: @"/movies/full/%@", self.key];
 }
 
 @end
+
+/*** The datasource for MoviesList *******************************************/
+
+@interface MoviesListDataSource: M3TableViewDataSource
+@end
+
+@implementation MoviesListDataSource
+
+-(id)init
+{
+  self = [super init];
+  
+  NSDictionary* groupedHash = [app.chairDB.movies.keys groupUsingBlock:^id(NSString* movie_id) {
+    return [[movie_id substringToIndex:1]uppercaseString];
+  }];
+  
+  NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
+    
+  for(NSArray* group in groups) {
+    [self addSection: group.second 
+         withOptions:_.hash(@"header", group.first, 
+                            @"index", group.first)];
+  }
+  return self;
+}
+
+-(Class)cellClassForKey:(id)key
+  { return [MoviesListCell class]; }
+
+@end
+
 
 /*** A cell for the MoviesListCell ***************************************************/
 
@@ -39,175 +77,150 @@
  * This cell is either filtered by movie_id and theater_id, or only by the
  * movie_id.
  */
-@interface MoviesListWithTheaterCell: M3TableViewProfileCell
-@end
-
-@implementation MoviesListWithTheaterCell
-
--(void)setModel:(NSDictionary*) theModel
-{
-  NSMutableDictionary* model = [theModel joinWith: app.chairDB.movies on:@"movie_id"];
-  [app.chairDB adjustMovies:model];
-  [super setModel:model];
-}
-
--(NSString*)detailText {
-  id time = [self.model objectForKey: @"time" ];
-  
-  NSString* time1;
-  if([time isKindOfClass:[NSString class]])
-    time1 = time;
-  else
-    time1 = [time stringWithFormat:@"HH:mm"];
-
-  NSString* version = [self.model objectForKey: @"version"];
-  if(version)
-    version = _.join(@" (", version, @")");
-  
-  return _.join(time1, version);
-}
+@interface MoviesListFilteredByTheaterCell: M3TableViewProfileCell
 
 @end
 
-@implementation MoviesListController
+@implementation MoviesListFilteredByTheaterCell
 
--(NSString*)theaterFilter
+
+-(void)setKey: (NSDictionary*)key
 {
-  [self.url matches: @"/movies/list/theater_id=(.*)"];
-  return $1;
-}
-
-- (Class) tableView:(UITableView *)tableView cellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
-{
-  if(![self theaterFilter]) 
-    return [MoviesListCell class];
-
-  return [MoviesListWithTheaterCell class];
-}
-
--(void)setUrl:(NSString*)url
-{
-  [super setUrl: url];
+  [super setKey:key];
   
-  NSString* theaterId = [self theaterFilter];
-  
-  if(!theaterId) {
-    self.keys = app.chairDB.movies.keys;
-    return;
-  }
-
-  self.keys = [app.chairDB movieIdsByTheaterId:theaterId];
-
-  // Get all schedules for selected movie and theater. Note: 
-  // this is an example of a schedules record:
   //
-  // { 
-  //    movie_id: "1376447749086599222", 
-  //    theater_id: "1528225484148625008", 
-  //    time: <NSTime: "2011-09-20T19:15:00+02:00">, 
-  //    version: "omu"
+  // Example key
+  //
+  // 
+  // {
+  //   movie_id: "howiendedthissummer|movies", 
+  //   schedules: [
+  //     {_type: "schedules", ..., time: <__NSDate: 2011-09-25 16:15:00 +0000>, version: "omu"}, 
+  //     {_type: "schedules", ..., time: <__NSDate: 2011-09-25 14:00:00 +0000>, version: "omu"}, 
+  //     ...
+  //   ]
   // }
-
-  NSArray* schedules = [app.chairDB schedulesByTheaterId:  theaterId];
   
-  //  {
-  //    for(NSDictionary* schedule in schedules) {
-  //      NSCParameterAssert([schedule isKindOfClass:[NSDictionary class]]);
-  //      NSCParameterAssert([[schedule objectForKey: @"time"] isKindOfClass:[NSDate class]]);
-  //    }
-  //  }
+  NSDictionary* movie = [key joinWith: app.chairDB.movies on: @"movie_id"];
+  movie = [app.chairDB adjustMovies: movie];
+  
+  [self setImageURL: [movie objectForKey: @"image"]];
+  [self setText: [movie objectForKey: @"title"]];
+  
+  NSArray* schedules = [movie objectForKey:@"schedules"];
+  schedules = [schedules sortByKey:@"time"];
+  
+  schedules = [schedules mapUsingBlock:^id(NSDictionary* schedule) {
+    NSDate* time = [schedule objectForKey:@"time"];
+    NSString* timeAsString = [time stringWithFormat:@"HH:mm"];
+    
+    NSString* version = [schedule objectForKey:@"version"];
+    if(!version) return timeAsString;
 
+    return [NSString stringWithFormat:@"%@ (%@)", timeAsString, version];
+  }];
+  
+  [self setDetailText: [schedules componentsJoinedByString:@", "]];
+}
+
+-(NSString*)urlToOpen
+{
+  return [NSString stringWithFormat: @"/movies/full/%@", [self.key objectForKey: @"movie_id"]];
+}
+
+
+@end
+
+/**** MoviesListFilteredByTheaterDataSource **************/
+
+@interface MoviesListFilteredByTheaterDataSource: M3TableViewDataSource
+@end
+
+@implementation MoviesListFilteredByTheaterDataSource
+
+-(void)addSchedulesSection: (NSArray*)schedules
+{
+  NSArray* groupedByMovieId = [[schedules groupUsingKey:@"movie_id"] allValues];
+  groupedByMovieId = [groupedByMovieId sortByBlock:^id(NSArray* schedules) {
+    M3AssertKindOf(schedules, NSArray);
+    return [schedules.first objectForKey:@"movie_id"];
+  }];
+
+  NSMutableArray* cellKeys = [NSMutableArray array];
+  for(NSArray* schedules in groupedByMovieId) {
+    schedules = [schedules sortByKey:@"movie_id"];
+    
+    id movie_id = [schedules.first objectForKey:@"movie_id"];
+    [cellKeys addObject: _.hash(@"movie_id", movie_id, @"schedules", schedules)];
+  }
+  
+  NSDate* time = [schedules.first objectForKey:@"time"];
+
+  [self addSection: cellKeys 
+       withOptions: _.hash(@"header", [time stringWithFormat:@"dd.MM."])];
+}
+
+-(id)initWithTheaterFilter: (id)theater_id
+{
+  self = [super init];
+  
+  //
+  // get all schedles for the theater
+  
+  NSArray* schedules = [app.chairDB schedulesByTheaterId: theater_id];
+  
+  {
+    for(NSDictionary* schedule in schedules) {
+      NSCParameterAssert([schedule isKindOfClass:[NSDictionary class]]);
+      NSCParameterAssert([[schedule objectForKey: @"time"] isKindOfClass:[NSDate class]]);
+    }
+  }
+  
+  //
   // build sections by date, and combine schedules for the same movie into one record.
-
-  // group schedules by *date* into sectionsHash
+  
+  // group schedules by *day* into sectionsHash
   NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
-    DLOG(schedule);
     NSDate* time = [schedule objectForKey:@"time"];
     return [time stringWithFormat:@"dd.MM."];
   }];
   
-  // build sections off sectionsHash; group schedules in section by name
-  NSMutableArray* sections = [NSMutableArray array];
-  [sectionsHash enumerateKeysAndObjectsUsingBlock:^(NSString* day, NSMutableArray* schedulesForDay, BOOL *stop) {
-    NSMutableDictionary* schedulesGroupedByMovieId = [schedulesForDay groupUsingBlock:^id(NSDictionary* schedule) {
-      return [schedule objectForKey:@"movie_id"];
-    }];
-    
-    NSMutableArray* schedules = [NSMutableArray array];
-    [schedulesGroupedByMovieId enumerateKeysAndObjectsUsingBlock:^(NSString* movieId, NSArray* schedulesForMovieId, BOOL *stop) {
-      
-      schedulesForMovieId = [schedulesForMovieId sortByKey:@"time"];
-      
-      NSArray* times = [schedulesForMovieId mapUsingBlock:^id(NSDictionary* schedule) {
-        NSDate* time = [schedule objectForKey:@"time"];
-        return [time stringWithFormat:@"HH:mm"];
-      }];
-
-      NSMutableDictionary* schedule = [NSMutableDictionary dictionaryWithDictionary: schedulesForMovieId.first];
-      NSDate* day = [schedule objectForKey:@"time"];
-      
-      [schedule setObject: day forKey:@"day"];
-      [schedule setObject: [times componentsJoinedByString:@", "] forKey:@"time"];
-    
-      [schedules addObject:schedule];
-    }];
-    
-    [sections addObject:_.array(day, day, [schedules sortByKey:@"movie_id"])];
-  }];
-
-  
-  // group and sort schedules in each section by movie title 
-
-  // sort sections by time of first schedule
-  self.sections = [sections sortedArrayUsingComparator:^NSComparisonResult(NSArray* section1, NSArray* section2) {
-    NSDictionary* schedule1 = [[section1 objectAtIndex:2]objectAtIndex:0];
-    NSDictionary* schedule2 = [[section2 objectAtIndex:2]objectAtIndex:0];
-
-    
-    NSDate* time1 = [schedule1 objectForKey:@"day"];
-    NSDate* time2 = [schedule2 objectForKey:@"day"];
+  NSArray* sectionsArray = [sectionsHash allValues];
+  sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
+    NSDate* time1 = [schedules1.first objectForKey:@"time"];
+    NSDate* time2 = [schedules2.first objectForKey:@"time"];
     
     return [time1 compare:time2];
   }];
-  
-  // DLOG(self.sections);
-}
 
--(NSDictionary*)modelWithKey:(id)key
-{ 
-  if(!key) return nil;
-  if([key isKindOfClass: [NSNull class]]) return nil;
-
-  if([key isKindOfClass:[NSDictionary class]]) return key;
-  
-  return [app.chairDB objectForKey: key andType: @"movies"]; 
-}
-
-// get url for indexPath
--(NSString*)urlWithKey: (id)key
-{ 
-  if(!key) return nil;
-  if([key isKindOfClass: [NSNull class]]) return nil;
-  
-  if([key isKindOfClass: [NSDictionary class]]) {
-    key = [key objectForKey:@"movie_id"];
+  for(NSArray* schedules in sectionsArray) {
+    M3AssertKindOf(schedules, NSArray);
+    [self addSchedulesSection: schedules];
   }
-    
-  return _.join(@"/movies/show/", key); 
+  
+  return self;
 }
 
-- (void)viewDidLoad
-{
-  [super viewDidLoad];
+-(Class)cellClassForKey:(id)key
+{ 
+  return [MoviesListFilteredByTheaterCell class]; 
+}
 
-//  // Do any additional setup after loading the view from its nib.
-//  [self addSegment: @"all" withURL: @"/movies/list/all"];
-//  [self addSegment: @"new" withURL: @"/movies/list/new"];
-//  [self addSegment: @"hot" withURL: @"/movies/list/hot"];
-//  [self addSegment: @"fav" withURL: @"/movies/list/fav"];
-//  [self addSegment: @"art" withURL: @"/movies/list/fav"];
-//  
-//  [self showSegmentedControl];
+@end
+
+
+/******************************************************************************/
+
+@implementation MoviesListController
+
+-(void)setUrl:(NSString*)url
+{
+  [super setUrl: url];
+
+  if([self.url matches: @"/movies/list/theater_id=(.*)"])
+    self.dataSource = [[MoviesListFilteredByTheaterDataSource alloc]initWithTheaterFilter:$1];
+  else
+    self.dataSource = [[MoviesListDataSource alloc]init];
 }
 
 @end

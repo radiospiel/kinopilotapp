@@ -33,6 +33,7 @@
 -(NSMutableArray*) mapUsingSelector: (SEL)selector;
 -(NSMutableArray*) mapUsingBlock: (id (^)(id obj))block;
 
+-(NSMutableDictionary*)groupUsingKey: (id)key;
 -(NSMutableDictionary*)groupUsingSelector: (SEL)selector;
 -(NSMutableDictionary*)groupUsingBlock: (id (^)(id obj))block;
 
@@ -45,5 +46,13 @@
 -(NSArray*) sortBySelector: (SEL)selector;
 -(NSArray*) sortByBlock: (id (^)(id obj))block;
 -(NSArray*) sortByKey: (id) key;
+
+@end
+
+@interface NSDictionary (M3Extensions)
+
+@property (readonly,nonatomic,retain) NSArray* to_array;
+
+-(NSArray*)to_array;
 
 @end

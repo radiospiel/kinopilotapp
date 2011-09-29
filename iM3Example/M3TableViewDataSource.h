@@ -31,14 +31,6 @@
 -(Class) cellClassForKey: (id)key;
 
 /**
- * returns a model for a given key.
- *
- * The default implementation just returns the key that was
- * passed into it.
- */
--(id)modelWithKey: (id)key;
-
-/**
  * returns the height the cell at indexPath would need.
  */
 - (CGFloat)         tableView:(UITableView *)tableView

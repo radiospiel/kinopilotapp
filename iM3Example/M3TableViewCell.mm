@@ -3,7 +3,9 @@
 
 @implementation M3TableViewCell
 
-@synthesize tableViewController=tableViewController_, model=model_, key=key_, indexPath=indexPath_;
+@synthesize tableViewController=tableViewController_, 
+            indexPath=indexPath_,
+            key=key_;
 
 -(id)initWithStyle:(UITableViewCellStyle)style
 {
@@ -26,7 +28,6 @@
 {
   self.tableViewController = nil;
   self.key = nil;
-  self.model = nil;
   self.indexPath = nil;
   
   [super dealloc];
@@ -40,5 +41,8 @@
 
 +(CGFloat) fixedHeight;
   { return 0; }
+
+-(NSString*)urlToOpen
+  { return nil; }
 
 @end

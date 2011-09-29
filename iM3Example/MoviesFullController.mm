@@ -12,21 +12,59 @@
 
 #import "TTTAttributedLabel/TTTAttributedLabel.h"
 
-static NSString* columns[] = {
-  @"MovieShortInfoCell",
-  @"MovieInCinemasCell",
-  @"MovieRatingCell",
-  // @"M3TableViewAdCell",
-  @"MovieDescriptionCell"
-};
 
-@class MoviesFullController;
+@interface MoviesFullControllerDataSource: M3TableViewDataSource
+@end
+
+@implementation MoviesFullControllerDataSource
+
+-(id)initWithMovieId: (id)movie_id
+{
+  self = [super init];
+  if(!self) return nil;
+
+  NSDictionary* movie = [app.chairDB.movies get: movie_id];
+  movie = [app.chairDB adjustMovies:movie];
+
+  NSMutableArray* section = [NSMutableArray array];
+  
+  [section addObject:_.array(@"MovieShortInfoCell", movie)];
+  [section addObject:_.array(@"MovieInCinemasCell", movie)];
+  [section addObject:_.array(@"MovieRatingCell", movie)];
+  [section addObject:_.array(@"M3TableViewAdCell", movie)];
+  [section addObject:_.array(@"MovieDescriptionCell", movie)];
+  
+  [self addSection: section withOptions: nil];
+  
+  return self;
+}
+
+-(Class) cellClassForKey: (NSArray*)key
+{
+  NSString* className = key.first;
+  return NSClassFromString(className);
+}
+
+@end
+
+@interface MovieInfoCell: M3TableViewCell
+
+@property (nonatomic,readonly) NSDictionary* movie;
+
+@end
+
+@implementation MovieInfoCell
+
+-(NSDictionary*)movie
+  { return [self.key last]; }
+
+@end
 
 /*
  * MovieRatingCell: This cell shows the community rating
  */
 
-@interface MovieRatingCell: M3TableViewCell
+@interface MovieRatingCell: MovieInfoCell
 @end
 
 @implementation MovieRatingCell
@@ -34,10 +72,9 @@ static NSString* columns[] = {
 +(CGFloat)fixedHeight
   { return 50; }
 
--(void)setModel: (NSDictionary*)theModel
+-(void)setKey: (NSArray*)class_and_movie
 {
-  [super setModel:theModel];
-
+  [super setKey:class_and_movie];
   self.textLabel.text = @"Community Rating:";
 }
 
@@ -47,7 +84,7 @@ static NSString* columns[] = {
  * MovieInCinemasCell: This cell shows in which cinemaes the movie runs.
  */
 
-@interface MovieInCinemasCell: M3TableViewCell
+@interface MovieInCinemasCell: MovieInfoCell
 @end
 
 @implementation MovieInCinemasCell
@@ -55,15 +92,15 @@ static NSString* columns[] = {
 +(CGFloat)fixedHeight
   { return 50; }
 
--(void)setModel: (NSDictionary*)theModel
+-(void)setKey: (NSArray*)class_and_movie
 {
-  [super setModel:theModel];
-  
-  NSArray* theaterIds = [app.chairDB theaterIdsByMovieId: [theModel objectForKey: @"_uid"]];
-
-  NSArray* theaters = [[app.chairDB.theaters valuesWithKeys:theaterIds] pluck: @"name"].uniq.sort;
+  [super setKey:class_and_movie];
+  M3AssertKindOf(self.movie, NSDictionary);
 
   self.imageView.image = [UIImage imageNamed: @"arrowright.png"];
+  
+  NSArray* theater_ids = [app.chairDB theaterIdsByMovieId: [self.movie objectForKey: @"_uid"]];
+  NSArray* theaters = [[app.chairDB.theaters valuesWithKeys:theater_ids] pluck: @"name"].uniq.sort;
   
   self.textLabel.numberOfLines = 2;
   
@@ -80,13 +117,27 @@ static NSString* columns[] = {
   }
 }
 
+-(NSString*)urlToOpen
+{
+  self.imageView.image = [UIImage imageNamed: @"arrowright.png"];
+
+  id movie_id = [self.movie objectForKey: @"_uid"];
+  
+  NSArray* theater_ids = [app.chairDB theaterIdsByMovieId: movie_id];
+  switch(theater_ids.count) {
+    case 0:   return nil;
+    case 1:   return [NSString stringWithFormat: @"/theaters/show/%@", theater_ids.first];
+    default:  return [NSString stringWithFormat: @"/movies/show/%@", movie_id];
+  }
+}
+
 @end
 
 /*
  * MovieDescriptionCell: This cell shows a description of the movie.
  */
 
-@interface MovieDescriptionCell: M3TableViewCell {
+@interface MovieDescriptionCell: MovieInfoCell {
   TTTAttributedLabel* htmlView;
 }
 
@@ -106,28 +157,18 @@ static NSString* columns[] = {
   return self;
 }
 
--(NSString*)descriptionAsHTML
+-(void)setKey: (NSArray*)class_and_movie
 {
-  NSDictionary* model = self.model;
-  
-  NSString* description = [model objectForKey:@"description"];
-  return description;
-}
-
--(void)setModel: (NSDictionary*)theModel
-{
-  [super setModel:theModel];
+  [super setKey:class_and_movie];
   
   self.textLabel.text = @" ";
   
-  NSString* html = [self descriptionAsHTML];
+  NSString* html = [self.movie objectForKey:@"description"];
   htmlView.text = [NSAttributedString attributedStringWithSimpleMarkup: html];
 }
 
 -(CGSize)htmlViewSize
-{
-  return [htmlView sizeThatFits: CGSizeMake(300, 1000)];
-}
+  { return [htmlView sizeThatFits: CGSizeMake(300, 1000)]; }
 
 -(void)layoutSubviews
 {
@@ -137,54 +178,18 @@ static NSString* columns[] = {
   htmlView.frame = CGRectMake(10, 5, sz.width, sz.height);
 }
 
-+(CGFloat)fixedHeight
-{ 
-  return 0; 
-}
-
 - (CGFloat)wantsHeight
-{
-  return [self htmlViewSize].height + 15;
-}
+  { return [self htmlViewSize].height + 15; }
 
 @end
 
 @implementation MoviesFullController
 
-- (id)initWithStyle:(UITableViewStyle)style
+-(void)setUrl:(NSString *)url
 {
-  self = [super initWithStyle:style];
-  if (self) {
-      // Custom initialization
-  }
-  return self;
+  [super setUrl:url];
+  
+  [url matches:@"/movies/full/(.*)"];
+  self.dataSource = [[MoviesFullControllerDataSource alloc]initWithMovieId: $1];
 }
-
-#pragma mark - Table view data source
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-  return sizeof(columns)/sizeof(columns[0]);
-}
-
-- (Class) tableView:(UITableView *)tableView cellClassForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  NSString* className = columns[indexPath.row];
-  return NSClassFromString(className);
-}
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
-}
-
 @end

@@ -12,14 +12,12 @@
   M3TableViewController* tableViewController_;
 
   id key_;
-  NSDictionary* model_;
   NSIndexPath* indexPath_;
 }
 
 @property (nonatomic,assign) M3TableViewController* tableViewController;
 
 @property (nonatomic,retain) id key;
-@property (nonatomic,retain) NSDictionary* model;
 @property (nonatomic,retain) NSIndexPath* indexPath;
 
 -(id)initWithStyle:(UITableViewCellStyle)style;
@@ -36,5 +34,8 @@
  * The default implementation just returns 0.
  */
 +(CGFloat) fixedHeight;
+
+
+-(NSString*)urlToOpen;
 
 @end

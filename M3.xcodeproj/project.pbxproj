@@ -348,7 +348,6 @@
 		9DC682BD142CBF2200124E9A /* TheatersListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682BC142CBF2200124E9A /* TheatersListController.mm */; };
 		9DC682C0142CE24100124E9A /* MoviesShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682BF142CE24000124E9A /* MoviesShowController.mm */; };
 		9DC682C3142CE34B00124E9A /* TheatersShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682C2142CE34B00124E9A /* TheatersShowController.mm */; };
-		9DCD82B01431216800CD3C99 /* M3ListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD82AF1431216800CD3C99 /* M3ListViewController.mm */; };
 		9DDE1B761430876A00FDF9C5 /* M3TableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDE1B751430876A00FDF9C5 /* M3TableViewCell.mm */; };
 		9DDE1B7A1430931900FDF9C5 /* M3TableViewAdCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDE1B791430931900FDF9C5 /* M3TableViewAdCell.mm */; };
 		9DDE1B7C1430946B00FDF9C5 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDE1B7B1430946B00FDF9C5 /* iAd.framework */; };
@@ -706,8 +705,6 @@
 		9DC682BF142CE24000124E9A /* MoviesShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesShowController.mm; sourceTree = "<group>"; };
 		9DC682C1142CE34B00124E9A /* TheatersShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheatersShowController.h; sourceTree = "<group>"; };
 		9DC682C2142CE34B00124E9A /* TheatersShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TheatersShowController.mm; sourceTree = "<group>"; };
-		9DCD82AE1431216800CD3C99 /* M3ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3ListViewController.h; sourceTree = "<group>"; };
-		9DCD82AF1431216800CD3C99 /* M3ListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3ListViewController.mm; sourceTree = "<group>"; };
 		9DDE1B741430876A00FDF9C5 /* M3TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewCell.h; sourceTree = "<group>"; };
 		9DDE1B751430876A00FDF9C5 /* M3TableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewCell.mm; sourceTree = "<group>"; };
 		9DDE1B781430931900FDF9C5 /* M3TableViewAdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewAdCell.h; sourceTree = "<group>"; };
@@ -895,8 +892,6 @@
 				9D750E9E1422AF7F0056290E /* M3ProfileController.h */,
 				9D750E9F1422AF7F0056290E /* M3ProfileController.mm */,
 				9D31B7BB1422B58400D4AFB7 /* M3ProfileController.xib */,
-				9DCD82AE1431216800CD3C99 /* M3ListViewController.h */,
-				9DCD82AF1431216800CD3C99 /* M3ListViewController.mm */,
 				9DDE1B741430876A00FDF9C5 /* M3TableViewCell.h */,
 				9DDE1B751430876A00FDF9C5 /* M3TableViewCell.mm */,
 				9D92E40B1434780900C17299 /* M3TableViewDataSource.h */,
@@ -1855,7 +1850,6 @@
 				9D26E9A9142E10260055C214 /* MoviesFullController.mm in Sources */,
 				9DDE1B761430876A00FDF9C5 /* M3TableViewCell.mm in Sources */,
 				9DDE1B7A1430931900FDF9C5 /* M3TableViewAdCell.mm in Sources */,
-				9DCD82B01431216800CD3C99 /* M3ListViewController.mm in Sources */,
 				9DDF5D071431F74C001CAC28 /* MovieShortInfoCell.mm in Sources */,
 				9D92E40D1434780900C17299 /* M3TableViewDataSource.mm in Sources */,
 			);

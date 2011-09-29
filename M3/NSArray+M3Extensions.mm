@@ -135,6 +135,25 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
   return array;
 }
 
+-(NSMutableDictionary*)groupUsingKey: (id)key
+{
+  NSMutableDictionary* groupedHash = [NSMutableDictionary dictionary];
+  
+  for(NSDictionary* object in self) {
+    id keyValue = [object objectForKey: key];
+
+    NSMutableArray* group = [groupedHash objectForKey:keyValue];
+    if(!group) {
+      group = [NSMutableArray array];
+      [groupedHash setObject: group forKey:keyValue];
+    }
+    
+    [group addObject:object];
+  }
+  
+  return groupedHash;
+}
+
 -(NSMutableDictionary*)groupUsingBlock: (id (^)(id obj))block
 {
   NSMutableDictionary* groupedHash = [NSMutableDictionary dictionary];
@@ -171,6 +190,21 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
   }
   
   return groupedHash;
+}
+
+@end
+
+@implementation NSDictionary(M3Extensions)
+
+-(NSArray*)to_array
+{
+  NSMutableArray* array = [NSMutableArray array];
+  
+  [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+    [array addObject:[NSArray arrayWithObjects:key, obj, nil]];
+  }];
+  
+  return array;
 }
 
 @end

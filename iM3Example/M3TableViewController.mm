@@ -8,22 +8,15 @@
 
 #import "AppDelegate.h"
 #import "M3TableViewController.h"
-#import "M3TableViewDataSource.h"
 
 @implementation M3TableViewController
 
-@synthesize keys=keys_;
-
 -(void)dealloc
 {
-  // dlog << "Dealloc " << _.ptr(self);
-  
   [segmentedControl_ release];
   [segmentURLs_ release];
-  self.keys = nil;
   
   [self releaseM3Properties];
-  // [self releaseRequestedBannerViews];
   
   [super dealloc];
 }
@@ -44,6 +37,23 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   return [self.dataSource tableView:tableView heightForRowAtIndexPath:indexPath];
+}
+
+- (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
+{
+  M3TableViewCell* cell = (M3TableViewCell*)[self.dataSource tableView:tableView 
+                                                 cellForRowAtIndexPath:indexPath];
+
+  NSString* url = [cell urlToOpen];
+  if(url)
+    [app open: url];
+
+  [self performSelector:@selector(deselectRowOnTableView:) withObject:tableView afterDelay: 0.1];
+}
+
+- (void)deselectRowOnTableView: (UITableView *)tableView
+{
+  [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 }
 
 #pragma mark - View lifecycle
@@ -93,53 +103,7 @@
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc]initWithCustomView: segmentedControl_]autorelease];
   #endif
 }
-// 
-// - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-// {
-//   // Return YES for supported orientations
-//   return (interfaceOrientation == UIInterfaceOrientationPortrait);
-// }
-// 
-// - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-// {
-//   Class klass = [self tableView:tableView cellClassForRowAtIndexPath: indexPath];
-// 
-//   CGFloat height = [klass fixedHeight]; 
-//   if(height)
-//     return height;
-//   
-//   M3TableViewCell* cell = (M3TableViewCell*)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-//   return [cell wantsHeight];
-// }
-// 
-// - (Class) tableView:(UITableView *)tableView cellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
-// {
-//   return [M3TableViewCell class];
-// }
-// 
-// - (id)keyForRowAtIndexPath:(NSIndexPath *)indexPath
-// {
-//   return [self.keys objectAtIndex: indexPath.row];
-// }
-// 
-// - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-// {
-//   return [self.dataSource tableView: tableView cellClassForRowAtIndexPath: indexPath];
-// }
-// 
-// - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-// {
-//   return [self.dataSource tableView: tableView numberOfRowsInSection: section];
-// }
 
-// - (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
-// {
-//   id key = [self keyForRowAtIndexPath:indexPath];
-//   [app open: [self urlWithKey: key]];
-// 
-//   [self performSelector:@selector(deselectRowOnTableView:) withObject:tableView afterDelay: 1.0];
-// }
-// 
 @end
 
 #if 0 

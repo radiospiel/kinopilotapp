@@ -44,18 +44,27 @@
   return model;
 }
 
--(void) adjustMovies:(NSMutableDictionary*)movie
+-(NSDictionary*) adjustMovies:(NSDictionary*)movie
 {
+  if([movie objectForKey:@"image"])
+    return movie;
+
   NSArray* images = [movie objectForKey:@"images"];
+  if(!images)
+    return movie;
+    
+  NSMutableDictionary* adjusted = [NSMutableDictionary dictionaryWithDictionary:movie];
+    
   if([images.first isKindOfClass:[NSDictionary class]]) {
-    [movie setValue: [images.first objectForKey:@"thumbnail"] forKey: @"image"];
+    [adjusted setValue: [images.first objectForKey:@"thumbnail"] forKey: @"image"];
   }
+
+  return adjusted;
 }
 
--(void) adjustTheaters:(NSMutableDictionary*)theater
+-(NSDictionary*) adjustTheaters:(NSDictionary*)theater
 {
-  [theater setObject: [theater objectForKey:@"name"]    forKey: @"title"];
-  [theater setObject: [theater objectForKey:@"address"] forKey: @"description"];
+  return theater;
 }
 
 -(NSDictionary*)modelWithURL: (NSString*)url
