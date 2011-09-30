@@ -344,6 +344,7 @@
 		9DA5DD4B143276D00003B54A /* NSDate+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA5DD47143276D00003B54A /* NSDate+M3Extensions.mm */; };
 		9DAA0D28142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA0D27142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm */; };
 		9DAA0D2B142AA8D5001F11C1 /* UIViewController+Model.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA0D2A142AA8D5001F11C1 /* UIViewController+Model.mm */; };
+		9DC1E7601435C145009B41A5 /* VicinityShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1E75F1435C145009B41A5 /* VicinityShowController.mm */; };
 		9DC682BA142CB50B00124E9A /* MoviesListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682B9142CB50B00124E9A /* MoviesListController.mm */; };
 		9DC682BD142CBF2200124E9A /* TheatersListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682BC142CBF2200124E9A /* TheatersListController.mm */; };
 		9DC682C0142CE24100124E9A /* MoviesShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682BF142CE24000124E9A /* MoviesShowController.mm */; };
@@ -697,6 +698,8 @@
 		9DAA0D27142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "ChairDatabase+IM3Example.mm"; sourceTree = "<group>"; };
 		9DAA0D29142AA8D5001F11C1 /* UIViewController+Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Model.h"; sourceTree = "<group>"; };
 		9DAA0D2A142AA8D5001F11C1 /* UIViewController+Model.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIViewController+Model.mm"; sourceTree = "<group>"; };
+		9DC1E75E1435C145009B41A5 /* VicinityShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VicinityShowController.h; sourceTree = "<group>"; };
+		9DC1E75F1435C145009B41A5 /* VicinityShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VicinityShowController.mm; sourceTree = "<group>"; };
 		9DC682B8142CB50B00124E9A /* MoviesListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesListController.h; sourceTree = "<group>"; };
 		9DC682B9142CB50B00124E9A /* MoviesListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesListController.mm; sourceTree = "<group>"; };
 		9DC682BB142CBF2200124E9A /* TheatersListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheatersListController.h; sourceTree = "<group>"; };
@@ -925,6 +928,8 @@
 				9D85436E142FAC8C00F495E9 /* TTTAttributedLabel.m */,
 				9D48ACBE141E9E3E00D0D000 /* Supporting Files */,
 				9D5614F0142641A300D0A484 /* resources */,
+				9DC1E75E1435C145009B41A5 /* VicinityShowController.h */,
+				9DC1E75F1435C145009B41A5 /* VicinityShowController.mm */,
 			);
 			path = iM3Example;
 			sourceTree = "<group>";
@@ -1852,6 +1857,7 @@
 				9DDE1B7A1430931900FDF9C5 /* M3TableViewAdCell.mm in Sources */,
 				9DDF5D071431F74C001CAC28 /* MovieShortInfoCell.mm in Sources */,
 				9D92E40D1434780900C17299 /* M3TableViewDataSource.mm in Sources */,
+				9DC1E7601435C145009B41A5 /* VicinityShowController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

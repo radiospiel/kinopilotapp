@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "M3.h"
 #import "M3TableViewProfileCell.h"
 #import "TheatersListController.h"
 
@@ -105,8 +106,8 @@
   schedules = [schedules sortByKey:@"time"];
   
   schedules = [schedules mapUsingBlock:^id(NSDictionary* schedule) {
-    NSDate* time = [schedule objectForKey:@"time"];
-    NSString* timeAsString = [time stringWithFormat:@"HH:mm"];
+    NSString* time = [schedule objectForKey:@"time"];
+    NSString* timeAsString = [time.to_date stringWithFormat:@"HH:mm"];
     
     NSString* version = [schedule objectForKey:@"version"];
     if(!version) return timeAsString;
@@ -145,10 +146,10 @@
     [cellKeys addObject: _.hash(@"theater_id", theater_id, @"schedules", schedules)];
   }
   
-  NSDate* time = [schedules.first objectForKey:@"time"];
+  NSString* time = [schedules.first objectForKey:@"time"];
   
   [self addSection: cellKeys 
-       withOptions: _.hash(@"header", [time stringWithFormat:@"dd.MM."])];
+       withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"dd.MM."])];
 }
 
 -(id)initWithMovieFilter: (id)movie_id
@@ -163,7 +164,7 @@
   {
     for(NSDictionary* schedule in schedules) {
       NSCParameterAssert([schedule isKindOfClass:[NSDictionary class]]);
-      NSCParameterAssert([[schedule objectForKey: @"time"] isKindOfClass:[NSDate class]]);
+      NSCParameterAssert([[schedule objectForKey: @"time"] isKindOfClass:[NSString class]]);
     }
   }
   
@@ -172,14 +173,14 @@
   
   // group schedules by *day* into sectionsHash
   NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
-    NSDate* time = [schedule objectForKey:@"time"];
-    return [time stringWithFormat:@"dd.MM."];
+    NSString* time = [schedule objectForKey:@"time"];
+    return [time.to_date stringWithFormat:@"dd.MM."];
   }];
   
   NSArray* sectionsArray = [sectionsHash allValues];
   sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
-    NSDate* time1 = [schedules1.first objectForKey:@"time"];
-    NSDate* time2 = [schedules2.first objectForKey:@"time"];
+    NSString* time1 = [schedules1.first objectForKey:@"time"];
+    NSString* time2 = [schedules2.first objectForKey:@"time"];
     
     return [time1 compare:time2];
   }];

@@ -192,6 +192,49 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
   return groupedHash;
 }
 
+-(NSMutableArray*) rejectUsingSelector: (SEL)selector
+{
+  NSMutableArray* array = [NSMutableArray arrayWithCapacity: self.count / 4];
+  for(NSDictionary* entry in self) {
+    if(![entry performSelector: selector]) [array addObject: entry];
+  }
+  
+  return array;
+}
+
+-(NSMutableArray*) rejectUsingBlock: (BOOL (^)(id obj))block
+{
+  NSMutableArray* array = [NSMutableArray arrayWithCapacity: self.count / 4];
+  for(NSDictionary* entry in self) {
+    if(!block(entry)) 
+      [array addObject: entry];
+  }
+  
+  return array;
+}
+
+-(NSMutableArray*) selectUsingSelector: (SEL)selector
+{
+  NSMutableArray* array = [NSMutableArray arrayWithCapacity: self.count / 4];
+  for(NSDictionary* entry in self) {
+    if([entry performSelector: selector]) 
+      [array addObject: entry];
+  }
+  
+  return array;
+}
+
+-(NSMutableArray*) selectUsingBlock: (BOOL (^)(id obj))block
+{
+  NSMutableArray* array = [NSMutableArray arrayWithCapacity: self.count / 4];
+  for(NSDictionary* entry in self) {
+    if(block(entry)) 
+      [array addObject: entry];
+  }
+  
+  return array;
+}
+
 @end
 
 @implementation NSDictionary(M3Extensions)

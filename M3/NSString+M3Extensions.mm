@@ -48,6 +48,8 @@
   return [self dquote];
 }
 
+-(NSDate*)to_date
+  { return [NSDate dateWithRFC3339String: self]; }
 
 @end
 

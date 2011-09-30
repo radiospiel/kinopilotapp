@@ -45,6 +45,10 @@ AppDelegate* app;
     className = _.join($1.camelizeWord, "ListController");
   }
 
+  if (!className && [url matches: @"^/vicinity/show"]) {
+    className = @"VicinityShowController";
+  }
+  
   if (!className && [url matches: @"^/(\\w+)/show(/(\\w+))?"]) {
     className = _.join($1.camelizeWord, "ShowController");
     nibName = @"M3ProfileController";
@@ -53,7 +57,7 @@ AppDelegate* app;
   if (!className && [url matches: @"^/(\\w+)/full(/(\\w+))?"]) {
     className = _.join($1.camelizeWord, "FullController");
   }
-
+  
   if (!className && [url matches: @"^/(\\w+)/(\\w+)(/(\\w+))?"]) {
     nibName = className = _.join($1.camelizeWord, $2.camelizeWord, "Controller");
   }
@@ -70,6 +74,7 @@ AppDelegate* app;
   
   UIViewController* vc = nil;
   Class klass = NSClassFromString(className);
+
   if(nibName) {
     vc = [[klass alloc]initWithNibName:nibName bundle:nil];
   }
@@ -111,25 +116,29 @@ AppDelegate* app;
   [currentTab pushViewController:vc animated:YES];
 }
 
--(void)addTab: (NSString*)url withLabel: (NSString*)label andIcon: (NSString*)icon
+-(void)addTab: (NSString*)url withOptions: (NSDictionary*)options
 {
   // get portrait view controller for URL and Data
   UIViewController* vc = [self viewControllerForURL: url];
   if(!vc) return;
-  
+
   //
   // Build navigation controller
   UINavigationController* nc = [[[UINavigationController alloc]initWithRootViewController:vc]autorelease];
 
   // set navigation controller title
-  if(vc.title)
+
+  if([options objectForKey: @"title"])
+    nc.navigationBar.topItem.title = [options objectForKey: @"title"];
+  else if(vc.title)
     nc.navigationBar.topItem.title = vc.title;
   else
     nc.navigationBarHidden = YES;
   
   // set navigation controller's tab properties
-  nc.tabBarItem.image = [UIImage imageNamed:icon];
-  nc.tabBarItem.title = label;
+
+  nc.tabBarItem.image = [UIImage imageNamed:[options objectForKey: @"icon"]];
+  nc.tabBarItem.title = [options objectForKey: @"label"];
   
   // Append nc to list of viewControllers
   NSMutableArray* viewControllers = [NSMutableArray arrayWithArray:self.tabBarController.viewControllers];
@@ -151,11 +160,7 @@ AppDelegate* app;
   for(NSDictionary* tab in tabs) {
     if([tab objectForKey:@"disabled"]) continue;
     NSString* url = [tab objectForKey: @"url"];
-    NSString* label = [tab objectForKey: @"label"];
-    NSString* icon = [tab objectForKey: @"icon"];
-    
-
-    [self addTab: url withLabel: label andIcon: icon];
+    [self addTab: url withOptions: tab];
   }
 }
 

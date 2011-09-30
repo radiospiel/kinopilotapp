@@ -2,11 +2,9 @@
   "name": "Kinopilot Berlin",
   "tabs": [
     {
-      "disabled": "disabled",
-      "unused-url": "/theaters/show/fskamoranienplatz|theaters",
-      "unused-url": "/info",
-      "url": "/movies/show/lehavre|movies",
-      "label": "Kalender",
+      "url": "/vicinity/show",
+      "label": "Jetzt",
+      "title": "Was läuft jetzt?",
       "icon": "tab_tage.png"
     },
     {

@@ -47,6 +47,13 @@
 -(NSArray*) sortByBlock: (id (^)(id obj))block;
 -(NSArray*) sortByKey: (id) key;
 
+
+-(NSMutableArray*) rejectUsingSelector: (SEL)selector;
+-(NSMutableArray*) rejectUsingBlock: (BOOL (^)(id obj))block;
+
+-(NSMutableArray*) selectUsingSelector: (SEL)selector;
+-(NSMutableArray*) selectUsingBlock: (BOOL (^)(id obj))block;
+
 @end
 
 @interface NSDictionary (M3Extensions)
