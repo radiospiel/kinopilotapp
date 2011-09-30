@@ -35,6 +35,15 @@
   return 25;
 }
 
+-(void)layoutSubviews
+{
+  [super layoutSubviews];
+  
+  CGRect frame = self.textLabel.frame;
+  frame.origin.x = 7;
+  self.textLabel.frame = frame;
+}
+
 -(void)setKey: (NSDictionary*)schedule
 {
   schedule = [schedule joinWith: app.chairDB.movies on:@"movie_id"];

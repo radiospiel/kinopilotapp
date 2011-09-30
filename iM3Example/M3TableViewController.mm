@@ -152,17 +152,20 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
 	// create the button object
-	UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
-  label.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header-background-23.png"]]; 
+  UIView* header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 23)];
+  header.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header-background-23.png"]]; 
+  
+  UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(7, 0, 306, 23)];
+  label.backgroundColor = [UIColor clearColor];
+  label.opaque = NO;
   label.textColor = [UIColor whiteColor];
-	label.font = [UIFont boldSystemFontOfSize:15];
-	label.frame = CGRectMake(0, 0, 320, 23);
+  label.font = [UIFont boldSystemFontOfSize:15];
   label.lineBreakMode = UILineBreakModeMiddleTruncation;
-  
-  NSString* text = [self.dataSource tableView:tableView titleForHeaderInSection:section];
-  label.text = _.join(@"  ", text);
-  
-	return label;
+  label.text = [self.dataSource tableView:tableView titleForHeaderInSection:section];
+
+  [header addSubview:label];
+
+  return header;
 }
 
 @end
