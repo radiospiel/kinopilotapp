@@ -21,7 +21,6 @@
 
 @implementation VicinityShowCell
 
-
 -(id)init
 { 
   self = [super initWithStyle: UITableViewCellStyleValue1]; 
@@ -62,65 +61,22 @@
 
 /*** The datasource for MoviesList *******************************************/
 
-@interface VicinityShowDataSource: M3TableViewDataSource
+@interface VicinityShowDataSource: M3TableViewDataSource {
+  CLLocationCoordinate2D currentPosition_;
+}
+
+-(double) distanceToTheater:(NSDictionary*) theater;
+
 @end
 
 @implementation VicinityShowDataSource
 
-static inline float sqr(float val)
-  { return val * val; }
-
-/* Distance from current position to [lat2,lng2] */
-
-static CGPoint currentPosition()
-{
-  float lat1 = 52.5198, lng1 = 13.3881;       // Berlin Friedrichstrasse
-  
-  // float lat1 = 52.49334, lng1 = 13.43689;      // Berlin Glogauer Strasse
-
-  return CGPointMake(lat1, lng1);
-}
-
-static float distance(float lat1, float lng1, float lat2, float lng2) 
-{
-#define PI_DIVIDED_BY_180   0.0174532925199f
-#define DEG_TO_RAD(deg)     deg * PI_DIVIDED_BY_180
-#define RADIUS              6371
-
-  lat1 = DEG_TO_RAD(lat1);
-  lng1 = DEG_TO_RAD(lng1);
-
-  lat2 = DEG_TO_RAD(lat2);
-  lng2 = DEG_TO_RAD(lng2);
-
-  float x = (lng2-lng1) * cosf((lat1+lat2)/2);
-  float y = (lat2-lat1);
-  
-  return sqrt(sqr(x) + sqr(y)) * RADIUS;
-  
-}
-
-static NSNumber* distanceToTheater(NSDictionary* theater)
-{
-  NSArray* latlong = [theater objectForKey:@"latlong"];
-
-  NSNumber* lat = latlong.first;
-  NSNumber* lng = latlong.second;
-  
-  M3AssertKindOf(lat, NSNumber);
-  M3AssertKindOf(lng, NSNumber);
-
-  float currentLat = currentPosition().x;
-  float currentLng = currentPosition().y;
-  
-  
-  float dist = distance(currentLat, currentLng, [lat floatValue], [lng floatValue]);
-  return [NSNumber numberWithFloat: dist];
-}
-
--(id)init
+-(id)initWithPosition: (CLLocationCoordinate2D) currentPosition
 {
   self = [super init];
+  if(!self) return nil;
+  
+  currentPosition_ = currentPosition;
   
   Benchmark(@"Building vicinity data set");
 
@@ -135,7 +91,7 @@ static NSNumber* distanceToTheater(NSDictionary* theater)
 
   //
   NSArray* theaters = [app.chairDB.theaters.values sortByBlock:^id(NSDictionary* theater) {
-    return distanceToTheater(theater);
+    return [NSNumber numberWithDouble: [self distanceToTheater: theater]];
   }];
   
   for(NSDictionary* theater in theaters) {
@@ -173,7 +129,7 @@ static NSNumber* distanceToTheater(NSDictionary* theater)
 
     NSString* header = [NSString stringWithFormat:@"%@ (%.1f km)", 
                           [theater objectForKey:@"name"], 
-                          [distanceToTheater(theater) doubleValue]
+                          [self distanceToTheater: theater]
                        ];
     [self addSection: schedulesCloseToNow
          withOptions: _.hash(@"header", header)];
@@ -183,32 +139,111 @@ static NSNumber* distanceToTheater(NSDictionary* theater)
 }
 
 -(Class)cellClassForKey:(id)key
-{ return [VicinityShowCell class]; }
+  { return [VicinityShowCell class]; }
 
-@end
+/* Distance from current position to [lat2,lng2] */
 
-
-@implementation VicinityShowController
-
--(id)init
+static double distance(double lat1, double lng1, double lat2, double lng2) 
 {
-  self = [super init];
-  self.dataSource = [[VicinityShowDataSource alloc]init];
+#define PI_DIVIDED_BY_180   0.0174532925199
+#define DEG_TO_RAD(deg)     deg * PI_DIVIDED_BY_180
+#define RADIUS              6371
   
-  self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched; 
+  lat1 = DEG_TO_RAD(lat1);
+  lng1 = DEG_TO_RAD(lng1);
+  
+  lat2 = DEG_TO_RAD(lat2);
+  lng2 = DEG_TO_RAD(lng2);
+  
+  double x = (lng2-lng1) * cos((lat1+lat2)/2);
+  double y = (lat2-lat1);
+  
+  return sqrt(x*x + y*y) * RADIUS;
+  
+}
 
-  return self;
+-(double) distanceToTheater:(NSDictionary*) theater
+{
+  NSArray* latlong = [theater objectForKey:@"latlong"];
+  
+  NSNumber* lat = latlong.first;
+  NSNumber* lng = latlong.second;
+  
+  M3AssertKindOf(lat, NSNumber);
+  M3AssertKindOf(lng, NSNumber);
+  
+  return distance(currentPosition_.latitude, currentPosition_.longitude, 
+                         [lat floatValue], [lng floatValue]);
 }
 
 @end
 
+@implementation VicinityShowController
+
+@synthesize locationManager = locationManager_;
+
+-(void)setLocation: (CLLocationCoordinate2D)location
+{
+  self.dataSource = [[VicinityShowDataSource alloc]initWithPosition: location];
+}
 
 
+-(id)init
+{
+  self = [super init];
+  
+#define FRIEDRICH_STRASSE CLLocationCoordinate2DMake(52.5198, 13.3881)      // Berlin Friedrichstrasse
+#define GLOGAUER_STRASSE  CLLocationCoordinate2DMake(52.49334, 13.43689)    // Berlin Glogauer Strasse
+  
+  [self setLocation: FRIEDRICH_STRASSE];
+  
+  self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched; 
 
+  UIBarButtonItem* item = [[UIBarButtonItem alloc]initWithTitle: @"cur" 
+                                                          style: UIBarButtonItemStyleBordered
+                                                         target: self 
+                                                         action: @selector(refreshPosition)
+                           ];
 
+  self.navigationItem.rightBarButtonItem = item;
 
+  return self;
+}
 
+-(void)refreshPosition
+{
+  if(!self.locationManager) {
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self; // send loc updates to myself
+    [self.locationManager startUpdatingLocation];
+  }
+}
 
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation
+{
+  CLLocationAccuracy accuracy = [newLocation horizontalAccuracy];
+  if(accuracy > 200) return;
+  
+  dlog << "Got location " << newLocation;
+  
+  [self setLocation: newLocation.coordinate];
+  [self.locationManager stopUpdatingLocation];
+  self.locationManager = nil;
+}
 
+-(void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+  dlog << "Got location error " << error;
+  
+  [self.locationManager stopUpdatingLocation];
+  self.locationManager = nil;
+}
 
-
+- (void)dealloc {
+  self.locationManager = nil;
+  [super dealloc];
+}
+    
+@end
