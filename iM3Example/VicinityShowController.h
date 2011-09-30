@@ -8,6 +8,6 @@
 
 #import "M3TableViewController.h"
 
-@interface VicinityShowController : M3TableViewController
+@interface VicinityShowController : M3TableViewListController
 
 @end

@@ -8,5 +8,5 @@
 
 #import "M3TableViewController.h"
 
-@interface TheatersListController: M3TableViewController
+@interface TheatersListController: M3TableViewListController
 @end

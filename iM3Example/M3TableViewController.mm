@@ -83,11 +83,11 @@
 
 
   segmentedControlParams_ = [[NSMutableArray alloc]init];
-  
-  if(!self.navigationItem) return;
-   
-  UIView* titleView = self.navigationItem.titleView;
-  DLOG( NSStringFromCGRect(titleView.frame));
+  // 
+  // if(!self.navigationItem) return;
+  //  
+  // UIView* titleView = self.navigationItem.titleView;
+  // DLOG( NSStringFromCGRect(titleView.frame));
 }
 
 /* add a segment to the segmentedControl_ */
@@ -137,8 +137,36 @@
   return [super title];
 }
 
+@end
+
+/*
+ * Slightly modified section headers for lists: this saves a few pixels per section.
+ */
+@implementation M3TableViewListController
+
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+	return 23;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+	// create the button object
+	UILabel * label = [[UILabel alloc] initWithFrame:CGRectZero];
+  label.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header-background-23.png"]]; 
+  label.textColor = [UIColor whiteColor];
+	label.font = [UIFont boldSystemFontOfSize:15];
+	label.frame = CGRectMake(0, 0, 320, 23);
+  label.lineBreakMode = UILineBreakModeMiddleTruncation;
+  
+  NSString* text = [self.dataSource tableView:tableView titleForHeaderInSection:section];
+  label.text = _.join(@"  ", text);
+  
+	return label;
+}
 
 @end
+
 
 #if 0 
 

@@ -41,3 +41,6 @@
 -(UIView*)adBannerAtIndexPath: (NSIndexPath*)indexPath;
 
 @end
+
+@interface M3TableViewListController: M3TableViewController
+@end
