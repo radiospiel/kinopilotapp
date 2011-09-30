@@ -19,13 +19,13 @@
 
   NSMutableArray* parts = [NSMutableArray array];
 
-  [parts addObject: [NSString stringWithFormat: @"<h2><b>%@</b></h2><br/>", name]];
+  [parts addObject: [NSString stringWithFormat: @"<h2><b>%@</b></h2><br/>", name.cdata]];
 
   void (^addEntry)(NSString*, NSString*) = ^(NSString* name, NSString* key) {
     NSString* value = [model objectForKey:key];
     if(!value) return;
   
-    [parts addObject: [NSString stringWithFormat: @"<p><b>%@:</b> %@</p>", name, value]]; 
+    [parts addObject: [NSString stringWithFormat: @"<p><b>%@:</b> %@</p>", name, value.cdata]]; 
   };
   
   addEntry(@"Adresse", @"address");

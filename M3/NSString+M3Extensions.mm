@@ -48,6 +48,11 @@
   return [self dquote];
 }
 
+-(NSString*)cdata
+{
+  return [NSString stringWithFormat: @"<![CDATA[%@]]>", self];
+}
+
 -(NSDate*)to_date
   { return [NSDate dateWithRFC3339String: self]; }
 

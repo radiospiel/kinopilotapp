@@ -165,7 +165,9 @@
   
   self.textLabel.text = @" ";
   
-  NSString* html = [self.movie objectForKey:@"description"];
+  NSString* description = [self.movie objectForKey:@"description"];
+  NSString* html = _.join(@"<p><b>Beschreibung: </b>", description.cdata, @"</p><br />");
+
   htmlView.text = [NSAttributedString attributedStringWithSimpleMarkup: html];
 }
 
