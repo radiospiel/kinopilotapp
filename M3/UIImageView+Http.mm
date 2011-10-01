@@ -148,14 +148,25 @@
     
   [self.superview addSubview: overlay];
   
-  overlay.frame = self.frame;
+  CGRect frame = self.frame;
+  
   overlay.contentMode = UIViewContentModeScaleAspectFill;
   overlay.clipsToBounds = YES;
 
-  overlay.alpha = 0.0; // initially hide the image
-    
-  [UIView animateWithDuration:0.2
-                   animations:^{ overlay.alpha = 1.0; }
+  // Initial setting.
+  overlay.frame = CGRectMake(frame.origin.x + frame.size.width,   frame.origin.y,
+                             0,                                   frame.size.height);
+  overlay.alpha = 0.0;
+  
+  // start animation
+  
+  [UIView animateWithDuration:0.3
+                   animations:^{ 
+                     overlay.frame = CGRectMake(frame.origin.x,   frame.origin.y,
+                                                frame.size.width, frame.size.height);
+  
+                     overlay.alpha = 1.0; 
+                   }
                    completion:^(BOOL finished){
                      self.image = overlay.image;
                      [overlay removeFromSuperview];
