@@ -152,10 +152,10 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
 	// create the button object
-  UIView* header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 23)];
-  header.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header-background-23.png"]]; 
+  UIView* header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22)];
+  header.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header-background-22.png"]]; 
   
-  UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(7, 0, 306, 23)];
+  UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(7, 0, 306, 22)];
   label.backgroundColor = [UIColor clearColor];
   label.opaque = NO;
   label.textColor = [UIColor whiteColor];
