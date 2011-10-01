@@ -49,16 +49,22 @@
   if([movie objectForKey:@"image"])
     return movie;
 
-  NSArray* images = [movie objectForKey:@"images"];
-  if(!images)
-    return movie;
-    
   NSMutableDictionary* adjusted = [NSMutableDictionary dictionaryWithDictionary:movie];
-    
-  if([images.first isKindOfClass:[NSDictionary class]]) {
-    [adjusted setValue: [images.first objectForKey:@"thumbnail"] forKey: @"image"];
-  }
+  
+  NSArray* images = [movie objectForKey:@"images"];
+  images = [images selectUsingBlock:^BOOL(id obj) {
+    return [obj isKindOfClass:[NSDictionary class]];
+  }];
 
+  if(images.count > 0) {
+    NSArray* thumbnails = [images mapUsingBlock:^id(NSDictionary* imageHash) {
+      return [imageHash objectForKey:@"thumbnail"]; 
+    }];
+    
+    [adjusted setValue: thumbnails.first  forKey: @"image"];
+    [adjusted setValue: thumbnails        forKey: @"thumbnails"];
+  }
+  
   return adjusted;
 }
 

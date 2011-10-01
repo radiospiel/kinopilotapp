@@ -1,12 +1,8 @@
 {
   "name": "Kinopilot Berlin",
   "tabs": [
-  {
-    "url": "/movies/show/alleskoscher|movies",
-    "label": "Map",
-    "icon": "tab_karte.png"
-  },
     {
+      // "url": "/movies/full/langenacht|movies",
       "url": "/vicinity/show",
       "label": "Jetzt",
       "title": "Was läuft jetzt?",
@@ -21,6 +17,11 @@
       "url": "/theaters/list",
       "label": "Kinos",
       "icon": "tab_kinos.png"
+    },
+    {
+      "url": "/map/show",
+      "label": "Map",
+      "icon": "tab_karte.png"
     },
     {
       "url": "/info",

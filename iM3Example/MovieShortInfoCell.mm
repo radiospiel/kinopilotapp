@@ -83,10 +83,13 @@
   self.imageView.imageURL = [movie objectForKey:@"image"];
   self.imageView.contentMode = UIViewContentModeScaleAspectFill;
   self.imageView.clipsToBounds = YES;
+
+  NSArray* thumbnails = [movie objectForKey:@"thumbnails"];
   
-  NSArray* thumbnails = [[movie objectForKey:@"images"] pluck: @"thumbnail"];
-  for(NSString* thumbnail in thumbnails) {
-    [self.imageView addImageURLToRotation: thumbnail];
+  if(thumbnails.count > 1) {
+    for(NSString* thumbnail in [movie objectForKey:@"thumbnails"]) {
+      [self.imageView addImageURLToRotation: thumbnail];
+    }
   }
   
   self.textLabel.text = @" ";

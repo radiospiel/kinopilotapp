@@ -212,7 +212,9 @@ static double distance(double lat1, double lng1, double lat2, double lng2)
 {
   self = [super init];
   if(!self) return nil;
-  
+
+  self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched; 
+
   [M3LocationManager on: @selector(onUpdatedLocation) 
                  notify: self 
                    with: @selector(onUpdatedLocation:) ];
@@ -223,8 +225,6 @@ static double distance(double lat1, double lng1, double lat2, double lng2)
   
   [self setLocation];
    
-  self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched; 
-
   [self setUpdateIsNotRunning];
   
   return self;

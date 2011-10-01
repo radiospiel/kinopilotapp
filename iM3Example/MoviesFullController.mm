@@ -222,11 +222,11 @@
     case 0:
       break;
     case 1: 
-      [self setRightButtonWithTitle: @"In einem Kino"
+      [self setRightButtonWithTitle: @"1 Kino"
                                 url: _.join(@"/theaters/show/", theater_ids.first) ];
       break;
     default: 
-      [self setRightButtonWithTitle: [NSString stringWithFormat: @"In %d Kinos", theater_ids.count]
+      [self setRightButtonWithTitle: [NSString stringWithFormat: @"%d Kinos", theater_ids.count]
                                 url: _.join(@"/movies/show/", movie_id) ];
   }
 }

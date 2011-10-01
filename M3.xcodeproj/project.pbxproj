@@ -70,6 +70,9 @@
 		9D10C3741437477500FE19C9 /* stars@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D10C3701437477500FE19C9 /* stars@2x.png */; };
 		9D10C3751437477500FE19C9 /* unstars.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D10C3711437477500FE19C9 /* unstars.png */; };
 		9D10C3761437477500FE19C9 /* unstars@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D10C3721437477500FE19C9 /* unstars@2x.png */; };
+		9D10C37A1437728300FE19C9 /* MapShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D10C3781437728300FE19C9 /* MapShowController.mm */; };
+		9D10C37B1437728300FE19C9 /* MapShowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D10C3791437728300FE19C9 /* MapShowController.xib */; };
+		9D10C37D143774A800FE19C9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D10C37C143774A800FE19C9 /* MapKit.framework */; };
 		9D1438B2142B420E00123EC8 /* M3TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D1438B0142B420E00123EC8 /* M3TableViewController.mm */; };
 		9D26E9A9142E10260055C214 /* MoviesFullController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D26E9A8142E10260055C214 /* MoviesFullController.mm */; };
 		9D31B7BC1422B58400D4AFB7 /* M3ProfileController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D31B7BB1422B58400D4AFB7 /* M3ProfileController.xib */; };
@@ -320,10 +323,10 @@
 		9D8B8B451413CAD90066ECBB /* Underscore+Logger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B291413CAD90066ECBB /* Underscore+Logger.mm */; };
 		9D8B8B491413CC010066ECBB /* Underscore.hh in Headers */ = {isa = PBXBuildFile; fileRef = 9D8B8B471413CC010066ECBB /* Underscore.hh */; };
 		9D8B8B4A1413CC010066ECBB /* Underscore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B8B481413CC010066ECBB /* Underscore.mm */; };
-		9D8C4B96142896D0005D582A /* UIImageView+Http.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8C4B94142896D0005D582A /* UIImageView+Http.h */; };
-		9D8C4B97142896D0005D582A /* UIImageView+Http.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8C4B94142896D0005D582A /* UIImageView+Http.h */; };
-		9D8C4B98142896D0005D582A /* UIImageView+Http.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8C4B95142896D0005D582A /* UIImageView+Http.mm */; };
-		9D8C4B99142896D0005D582A /* UIImageView+Http.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8C4B95142896D0005D582A /* UIImageView+Http.mm */; };
+		9D8C4B96142896D0005D582A /* UIImageView+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8C4B94142896D0005D582A /* UIImageView+M3Extensions.h */; };
+		9D8C4B97142896D0005D582A /* UIImageView+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8C4B94142896D0005D582A /* UIImageView+M3Extensions.h */; };
+		9D8C4B98142896D0005D582A /* UIImageView+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8C4B95142896D0005D582A /* UIImageView+M3Extensions.mm */; };
+		9D8C4B99142896D0005D582A /* UIImageView+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8C4B95142896D0005D582A /* UIImageView+M3Extensions.mm */; };
 		9D8EAD55141E839400B21BEA /* M3Http.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8EAD53141E839400B21BEA /* M3Http.h */; };
 		9D8EAD56141E839400B21BEA /* M3Http.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8EAD53141E839400B21BEA /* M3Http.h */; };
 		9D8EAD57141E839400B21BEA /* M3Http.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EAD54141E839400B21BEA /* M3Http.mm */; };
@@ -442,6 +445,10 @@
 		9D10C3701437477500FE19C9 /* stars@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stars@2x.png"; sourceTree = "<group>"; };
 		9D10C3711437477500FE19C9 /* unstars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unstars.png; sourceTree = "<group>"; };
 		9D10C3721437477500FE19C9 /* unstars@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unstars@2x.png"; sourceTree = "<group>"; };
+		9D10C3771437728300FE19C9 /* MapShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapShowController.h; sourceTree = "<group>"; };
+		9D10C3781437728300FE19C9 /* MapShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MapShowController.mm; sourceTree = "<group>"; };
+		9D10C3791437728300FE19C9 /* MapShowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapShowController.xib; sourceTree = "<group>"; };
+		9D10C37C143774A800FE19C9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		9D1438AF142B420E00123EC8 /* M3TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewController.h; sourceTree = "<group>"; };
 		9D1438B0142B420E00123EC8 /* M3TableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewController.mm; sourceTree = "<group>"; };
 		9D26E9A7142E10260055C214 /* MoviesFullController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesFullController.h; sourceTree = "<group>"; };
@@ -689,8 +696,8 @@
 		9D8B8B291413CAD90066ECBB /* Underscore+Logger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "Underscore+Logger.mm"; sourceTree = "<group>"; };
 		9D8B8B471413CC010066ECBB /* Underscore.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Underscore.hh; sourceTree = "<group>"; };
 		9D8B8B481413CC010066ECBB /* Underscore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Underscore.mm; sourceTree = "<group>"; };
-		9D8C4B94142896D0005D582A /* UIImageView+Http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Http.h"; sourceTree = "<group>"; };
-		9D8C4B95142896D0005D582A /* UIImageView+Http.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImageView+Http.mm"; sourceTree = "<group>"; };
+		9D8C4B94142896D0005D582A /* UIImageView+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+M3Extensions.h"; sourceTree = "<group>"; };
+		9D8C4B95142896D0005D582A /* UIImageView+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImageView+M3Extensions.mm"; sourceTree = "<group>"; };
 		9D8EAD53141E839400B21BEA /* M3Http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Http.h; sourceTree = "<group>"; };
 		9D8EAD54141E839400B21BEA /* M3Http.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Http.mm; sourceTree = "<group>"; };
 		9D92E40B1434780900C17299 /* M3TableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewDataSource.h; sourceTree = "<group>"; };
@@ -768,6 +775,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D10C37D143774A800FE19C9 /* MapKit.framework in Frameworks */,
 				9DD2ED851435F0F70078AD6A /* CoreLocation.framework in Frameworks */,
 				9DDE1B7C1430946B00FDF9C5 /* iAd.framework in Frameworks */,
 				9D8543821430084C00F495E9 /* CoreGraphics.framework in Frameworks */,
@@ -949,6 +957,9 @@
 				9D85436E142FAC8C00F495E9 /* TTTAttributedLabel.m */,
 				9D48ACBE141E9E3E00D0D000 /* Supporting Files */,
 				9D5614F0142641A300D0A484 /* resources */,
+				9D10C3771437728300FE19C9 /* MapShowController.h */,
+				9D10C3781437728300FE19C9 /* MapShowController.mm */,
+				9D10C3791437728300FE19C9 /* MapShowController.xib */,
 			);
 			path = iM3Example;
 			sourceTree = "<group>";
@@ -1188,6 +1199,7 @@
 		9D8B8AE01413CA8B0066ECBB = {
 			isa = PBXGroup;
 			children = (
+				9D10C37C143774A800FE19C9 /* MapKit.framework */,
 				9DD2ED841435F0F70078AD6A /* CoreLocation.framework */,
 				9DDE1B7B1430946B00FDF9C5 /* iAd.framework */,
 				9D8543811430084C00F495E9 /* CoreGraphics.framework */,
@@ -1307,8 +1319,8 @@
 				9D0EF7111413D1A60051B8FA /* NSString+Regexp.m */,
 				9D9D3189142C6E9800C8269A /* UIColor+M3Extensions.h */,
 				9D9D318A142C6E9800C8269A /* UIColor+M3Extensions.mm */,
-				9D8C4B94142896D0005D582A /* UIImageView+Http.h */,
-				9D8C4B95142896D0005D582A /* UIImageView+Http.mm */,
+				9D8C4B94142896D0005D582A /* UIImageView+M3Extensions.h */,
+				9D8C4B95142896D0005D582A /* UIImageView+M3Extensions.mm */,
 				9D8B8B471413CC010066ECBB /* Underscore.hh */,
 				9D8B8B481413CC010066ECBB /* Underscore.mm */,
 				9DDF5D021431B30D001CAC28 /* Underscore+Logger.hh */,
@@ -1359,7 +1371,7 @@
 				9D750E92142275750056290E /* M3+Inflector.h in Headers */,
 				9D3563191423F7AA002AAEAF /* NSString+M3Extensions.h in Headers */,
 				9D33FBCE1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */,
-				9D8C4B97142896D0005D582A /* UIImageView+Http.h in Headers */,
+				9D8C4B97142896D0005D582A /* UIImageView+M3Extensions.h in Headers */,
 				9D3B086E142A255000322C00 /* M3+Inspect.h in Headers */,
 				9D3B0874142A3B7900322C00 /* M3+RuntimeError.h in Headers */,
 				9D9D318C142C6E9800C8269A /* UIColor+M3Extensions.h in Headers */,
@@ -1403,7 +1415,7 @@
 				9D750E91142275750056290E /* M3+Inflector.h in Headers */,
 				9D3563181423F7AA002AAEAF /* NSString+M3Extensions.h in Headers */,
 				9D33FBCD1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */,
-				9D8C4B96142896D0005D582A /* UIImageView+Http.h in Headers */,
+				9D8C4B96142896D0005D582A /* UIImageView+M3Extensions.h in Headers */,
 				9D3B086D142A255000322C00 /* M3+Inspect.h in Headers */,
 				9D3B0873142A3B7900322C00 /* M3+RuntimeError.h in Headers */,
 				9D9D318B142C6E9800C8269A /* UIColor+M3Extensions.h in Headers */,
@@ -1750,6 +1762,7 @@
 				9D10C3741437477500FE19C9 /* stars@2x.png in Resources */,
 				9D10C3751437477500FE19C9 /* unstars.png in Resources */,
 				9D10C3761437477500FE19C9 /* unstars@2x.png in Resources */,
+				9D10C37B1437728300FE19C9 /* MapShowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1849,7 +1862,7 @@
 				9D750E94142275750056290E /* M3+Inflector.mm in Sources */,
 				9D35631C1423F887002AAEAF /* NSString+M3Extensions.mm in Sources */,
 				9D33FBD01427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */,
-				9D8C4B99142896D0005D582A /* UIImageView+Http.mm in Sources */,
+				9D8C4B99142896D0005D582A /* UIImageView+M3Extensions.mm in Sources */,
 				9D3B0870142A255000322C00 /* M3+Inspect.mm in Sources */,
 				9D3B0876142A3B7900322C00 /* M3+RuntimeError.mm in Sources */,
 				9D9D318E142C6E9800C8269A /* UIColor+M3Extensions.mm in Sources */,
@@ -1893,6 +1906,7 @@
 				9DDF5D071431F74C001CAC28 /* MovieShortInfoCell.mm in Sources */,
 				9D92E40D1434780900C17299 /* M3TableViewDataSource.mm in Sources */,
 				9DC1E7601435C145009B41A5 /* VicinityShowController.mm in Sources */,
+				9D10C37A1437728300FE19C9 /* MapShowController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1937,7 +1951,7 @@
 				9D750E93142275750056290E /* M3+Inflector.mm in Sources */,
 				9D35631B1423F887002AAEAF /* NSString+M3Extensions.mm in Sources */,
 				9D33FBCF1427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */,
-				9D8C4B98142896D0005D582A /* UIImageView+Http.mm in Sources */,
+				9D8C4B98142896D0005D582A /* UIImageView+M3Extensions.mm in Sources */,
 				9D3B086F142A255000322C00 /* M3+Inspect.mm in Sources */,
 				9D3B0875142A3B7900322C00 /* M3+RuntimeError.mm in Sources */,
 				9D9D318D142C6E9800C8269A /* UIColor+M3Extensions.mm in Sources */,

@@ -48,6 +48,9 @@ AppDelegate* app;
   if (!className && [url matches: @"^/vicinity/show"]) {
     className = @"VicinityShowController";
   }
+
+  if (!className && [url matches: @"^/map/show(/(\\w+))?"])
+    nibName = className = @"MapShowController";
   
   if (!className && [url matches: @"^/(\\w+)/show(/(\\w+))?"]) {
     className = _.join($1.camelizeWord, "ShowController");
@@ -75,6 +78,9 @@ AppDelegate* app;
   UIViewController* vc = nil;
   Class klass = NSClassFromString(className);
 
+//  DLOG(className);
+//  DLOG(nibName);
+  
   if(nibName) {
     vc = [[klass alloc]initWithNibName:nibName bundle:nil];
   }
@@ -95,6 +101,8 @@ AppDelegate* app;
 -(void)open: (NSString*)url
 {
   if(!url) return;
+
+  rlog(1) << "open " << url;
   
   UIViewController* vc = [self viewControllerForURL: url];
   if(!vc) return;
@@ -103,7 +111,6 @@ AppDelegate* app;
   if(!currentTab)
     currentTab = (UINavigationController*) [self.tabBarController.viewControllers objectAtIndex:0];
   
-  rlog(1) << "open " << url;
 
   // if([vc shouldOpenModally]) {
   //   // vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
