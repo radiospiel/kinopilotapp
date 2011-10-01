@@ -115,7 +115,7 @@
 
   if(rating < 0) return;
   
-  self.textLabel.text = @"Community Rating:";
+  self.textLabel.text = @"moviepilot.de Rating:";
 
   ratingBackground_.frame = CGRectMake(150, 6, 96, 16);
   ratingForeground_.frame = CGRectMake(150, 6, (rating * 96 + 50)/100, 16);

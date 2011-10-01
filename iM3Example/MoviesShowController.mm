@@ -31,10 +31,13 @@
 
   NSString* bodyURL = _.join(@"/theaters/list/movie_id=", [self.model objectForKey:@"_uid" ]);
   [self setBodyController: [app viewControllerForURL:bodyURL ] withTitle: @"Kinos"];
+
+  self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+  self.imageView.clipsToBounds = YES;
   
   // Show full info on a tap on tap on imageView and description
   [self.imageView onTapOpen: self.fullInfoURL ];
-}  
+} 
 
 - (NSString*)descriptionAsHTML
 {

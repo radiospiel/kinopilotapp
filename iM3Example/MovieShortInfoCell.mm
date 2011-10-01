@@ -50,7 +50,7 @@
   if(directors) {
     NSMutableArray* p = [NSMutableArray array];
     [p addObject: @"<b>Regie:</b> "];
-    [p addObject: [directors componentsJoinedByString:@", "]];
+    [p addObject: [directors.uniq componentsJoinedByString:@", "]];
 
     [parts addObject: @"<p>"];
     [parts addObject: [p componentsJoinedByString:@""]];
@@ -60,7 +60,7 @@
   if(actors) {
     NSMutableArray* p = [NSMutableArray array];
     [p addObject: @"<b>Darsteller:</b> "];
-    [p addObject: [actors componentsJoinedByString:@", "]];
+    [p addObject: [actors.uniq componentsJoinedByString:@", "]];
 
     [parts addObject: @"<p>"];
     [parts addObject: [p componentsJoinedByString:@""]];
@@ -81,6 +81,13 @@
   
   self.imageView.image = [UIImage imageNamed:@"no_poster.png"];
   self.imageView.imageURL = [movie objectForKey:@"image"];
+  self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+  self.imageView.clipsToBounds = YES;
+  
+  NSArray* thumbnails = [[movie objectForKey:@"images"] pluck: @"thumbnail"];
+  for(NSString* thumbnail in thumbnails) {
+    [self.imageView addImageURLToRotation: thumbnail];
+  }
   
   self.textLabel.text = @" ";
     

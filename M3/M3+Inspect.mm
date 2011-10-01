@@ -105,6 +105,19 @@ static NSInteger key_sort(id key1, id key2, void* _)
 }
 @end
 
+#if TARGET_OS_IPHONE
+
+/* === UIImage ETests ============================================== */
+
+@implementation UIImage(M3Extensions)
+
+-(NSString*) inspect
+  { return [NSString stringWithFormat: @"<NSImage %dx%d>", (int)self.size.width, (int)self.size.height]; }
+
+@end
+
+#endif
+
 /* === inspect ETests ============================================== */
 
 ETest(Inspect)
