@@ -36,6 +36,11 @@
   return [parts componentsJoinedByString:@""];
 }
 
+-(NSString*)title
+{
+  return [self.model objectForKey:@"name"];
+}
+
 -(NSArray*)actions
 {
   NSMutableArray* actions = _.array();

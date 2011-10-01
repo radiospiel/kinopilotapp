@@ -188,8 +188,6 @@
 
 + (NSAttributedString*)attributedStringWithSimpleMarkup:(NSString *)html 
 {
-  html = [html stringByReplacingOccurrencesOfString:@"\n\n" withString:@"<br /><br />"];
-  
   NSString* format = @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     "<!DOCTYPE addresses SYSTEM \"addresses.dtd\">\n"
     "<body>%@</body>\n";
