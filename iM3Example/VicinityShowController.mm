@@ -94,8 +94,8 @@
   // *then*. If we'll then have less than 6 (schedulesPerTheater) schedules 
   // (i.e. Arthouse cinema), we include schedules until we have those, if 
   // these are in the next 12 hours (i.e. before *then_max*.
-  NSString* now =   [[NSDate date] stringWithRFC3339Format];
-  NSString* then =  [[NSDate dateWithTimeIntervalSinceNow: 2 * 3600] stringWithRFC3339Format];
+  NSString* now =       [[NSDate date] stringWithRFC3339Format];
+  NSString* then =      [[NSDate dateWithTimeIntervalSinceNow: 2 * 3600] stringWithRFC3339Format];
   NSString* then_max =  [[NSDate dateWithTimeIntervalSinceNow: 12 * 3600] stringWithRFC3339Format];
 
   //
@@ -148,7 +148,9 @@
 }
 
 -(Class)cellClassForKey:(id)key
-  { return [VicinityShowCell class]; }
+{ 
+  return [VicinityShowCell class]; 
+}
 
 /* Distance from current position to [lat2,lng2] */
 
@@ -168,7 +170,6 @@ static double distance(double lat1, double lng1, double lat2, double lng2)
   double y = (lat2-lat1);
   
   return sqrt(x*x + y*y) * RADIUS;
-  
 }
 
 -(double) distanceToTheater:(NSDictionary*) theater
@@ -189,70 +190,62 @@ static double distance(double lat1, double lng1, double lat2, double lng2)
 
 @implementation VicinityShowController
 
-@synthesize locationManager = locationManager_;
-
--(void)setLocation: (CLLocationCoordinate2D)location
+-(void)setLocation
 {
-  self.dataSource = [[VicinityShowDataSource alloc]initWithPosition: location];
+  self.dataSource = [[VicinityShowDataSource alloc]initWithPosition: [M3LocationManager coordinates]];
 }
 
+-(void)setUpdateIsNotRunning
+{
+  [self setRightButtonWithTitle: @"cur" target: self action: @selector(startUpdate)];
+}
+
+-(void)setUpdateIsRunning
+{
+  [self setRightButtonWithSystemItem: UIBarButtonSystemItemStop 
+                              target: self 
+                              action: @selector(setUpdateIsNotRunning) // <-- fake: we do not stop the update.
+  ];
+}
 
 -(id)init
 {
   self = [super init];
+  if(!self) return nil;
   
-#define FRIEDRICH_STRASSE CLLocationCoordinate2DMake(52.5198, 13.3881)      // Berlin Friedrichstrasse
-#define GLOGAUER_STRASSE  CLLocationCoordinate2DMake(52.49334, 13.43689)    // Berlin Glogauer Strasse
+  [M3LocationManager on: @selector(onUpdatedLocation) 
+                 notify: self 
+                   with: @selector(onUpdatedLocation:) ];
   
-  [self setLocation: FRIEDRICH_STRASSE];
+  [M3LocationManager on: @selector(onError) 
+                 notify: self 
+                   with: @selector(onUpdateLocationFailed)];
   
+  [self setLocation];
+   
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched; 
 
-  UIBarButtonItem* item = [[UIBarButtonItem alloc]initWithTitle: @"cur" 
-                                                          style: UIBarButtonItemStyleBordered
-                                                         target: self 
-                                                         action: @selector(refreshPosition)
-                           ];
-
-  self.navigationItem.rightBarButtonItem = item;
-
+  [self setUpdateIsNotRunning];
+  
   return self;
 }
 
--(void)refreshPosition
+-(void)startUpdate
 {
-  if(!self.locationManager) {
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self; // send loc updates to myself
-    [self.locationManager startUpdatingLocation];
-  }
+  [[M3LocationManager class] updateLocation]; 
+  [self setUpdateIsRunning];
 }
 
-- (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation
+- (void)onUpdatedLocation: (M3LocationManager*)locationManager
 {
-  CLLocationAccuracy accuracy = [newLocation horizontalAccuracy];
-  if(accuracy > 200) return;
-  
-  dlog << "Got location " << newLocation;
-  
-  [self setLocation: newLocation.coordinate];
-  [self.locationManager stopUpdatingLocation];
-  self.locationManager = nil;
+  [self setUpdateIsRunning];
+  [self setLocation];
 }
 
--(void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+- (void)onUpdateLocationFailed: (NSError*)error
 {
+  [self setUpdateIsNotRunning];
   dlog << "Got location error " << error;
-  
-  [self.locationManager stopUpdatingLocation];
-  self.locationManager = nil;
 }
 
-- (void)dealloc {
-  self.locationManager = nil;
-  [super dealloc];
-}
-    
 @end

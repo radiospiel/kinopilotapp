@@ -46,7 +46,8 @@
   if(title) return title;
   
   // Do we have a model? Use a @"title" property in that case.
-  title = [self.model objectForKey:@"title"];
+  if(self.model && [self.model isKindOfClass: [NSDictionary class]])
+    title = [self.model objectForKey:@"title"];
   
   if(title) return title;
   
@@ -57,6 +58,61 @@
 -(void) setTitle: (NSString*)title {
   [ self instance_variable_set: @selector(title) withValue: title ];
 };
+
+
+#pragma mark - set right action button
+
+-(void)setRightButtonWithTitle: (NSString*)title_or_image
+                           url: (NSString*)url;
+{
+  UIBarButtonItem* item = [UIBarButtonItem alloc];
+
+  item = [item initWithTitle: title_or_image
+                       style: UIBarButtonItemStyleBordered
+                      target: nil
+                      action: nil];
+  
+  self.navigationItem.rightBarButtonItem = [item autorelease];
+}
+
+-(void)setRightButtonWithTitle: (NSString*)title_or_image
+                        target: (id)target
+                        action: (SEL)action
+{
+  UIBarButtonItem* item = [UIBarButtonItem alloc];
+  
+  item = [item initWithTitle: title_or_image
+                       style: UIBarButtonItemStyleBordered
+                      target: target
+                      action: action];
+  
+  self.navigationItem.rightBarButtonItem = [item autorelease];
+}
+
+-(void)setRightButtonWithSystemItem: (UIBarButtonSystemItem)systemItem
+                             target: (id)target
+                             action: (SEL)action
+{
+  UIBarButtonItem* item = [UIBarButtonItem alloc];
+  
+  item = [item initWithBarButtonSystemItem: systemItem
+                                    target: target
+                                    action: action];
+
+  self.navigationItem.rightBarButtonItem = [item autorelease];
+}
+
+-(void)setRightButtonWithSystemItem: (UIBarButtonSystemItem)systemItem
+                                url: (NSString*)url;
+{
+  UIBarButtonItem* item = [UIBarButtonItem alloc];
+  
+  item = [item initWithBarButtonSystemItem: systemItem
+                                    target: nil
+                                    action: nil];
+
+  self.navigationItem.rightBarButtonItem = [item autorelease];
+}
 
 -(void)releaseM3Properties
 {

@@ -345,10 +345,15 @@
 		9DAA0D28142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA0D27142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm */; };
 		9DAA0D2B142AA8D5001F11C1 /* UIViewController+Model.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA0D2A142AA8D5001F11C1 /* UIViewController+Model.mm */; };
 		9DC1E7601435C145009B41A5 /* VicinityShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1E75F1435C145009B41A5 /* VicinityShowController.mm */; };
+		9DC51240143723A8009A393C /* M3LocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DC5123E143723A8009A393C /* M3LocationManager.h */; };
+		9DC51241143723A8009A393C /* M3LocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DC5123E143723A8009A393C /* M3LocationManager.h */; };
+		9DC51242143723A8009A393C /* M3LocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC5123F143723A8009A393C /* M3LocationManager.mm */; };
+		9DC51243143723A8009A393C /* M3LocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC5123F143723A8009A393C /* M3LocationManager.mm */; };
 		9DC682BA142CB50B00124E9A /* MoviesListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682B9142CB50B00124E9A /* MoviesListController.mm */; };
 		9DC682BD142CBF2200124E9A /* TheatersListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682BC142CBF2200124E9A /* TheatersListController.mm */; };
 		9DC682C0142CE24100124E9A /* MoviesShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682BF142CE24000124E9A /* MoviesShowController.mm */; };
 		9DC682C3142CE34B00124E9A /* TheatersShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682C2142CE34B00124E9A /* TheatersShowController.mm */; };
+		9DD2ED851435F0F70078AD6A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD2ED841435F0F70078AD6A /* CoreLocation.framework */; };
 		9DDE1B761430876A00FDF9C5 /* M3TableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDE1B751430876A00FDF9C5 /* M3TableViewCell.mm */; };
 		9DDE1B7A1430931900FDF9C5 /* M3TableViewAdCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDE1B791430931900FDF9C5 /* M3TableViewAdCell.mm */; };
 		9DDE1B7C1430946B00FDF9C5 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDE1B7B1430946B00FDF9C5 /* iAd.framework */; };
@@ -700,6 +705,8 @@
 		9DAA0D2A142AA8D5001F11C1 /* UIViewController+Model.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIViewController+Model.mm"; sourceTree = "<group>"; };
 		9DC1E75E1435C145009B41A5 /* VicinityShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VicinityShowController.h; sourceTree = "<group>"; };
 		9DC1E75F1435C145009B41A5 /* VicinityShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VicinityShowController.mm; sourceTree = "<group>"; };
+		9DC5123E143723A8009A393C /* M3LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3LocationManager.h; sourceTree = "<group>"; };
+		9DC5123F143723A8009A393C /* M3LocationManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3LocationManager.mm; sourceTree = "<group>"; };
 		9DC682B8142CB50B00124E9A /* MoviesListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesListController.h; sourceTree = "<group>"; };
 		9DC682B9142CB50B00124E9A /* MoviesListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesListController.mm; sourceTree = "<group>"; };
 		9DC682BB142CBF2200124E9A /* TheatersListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheatersListController.h; sourceTree = "<group>"; };
@@ -708,6 +715,7 @@
 		9DC682BF142CE24000124E9A /* MoviesShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesShowController.mm; sourceTree = "<group>"; };
 		9DC682C1142CE34B00124E9A /* TheatersShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheatersShowController.h; sourceTree = "<group>"; };
 		9DC682C2142CE34B00124E9A /* TheatersShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TheatersShowController.mm; sourceTree = "<group>"; };
+		9DD2ED841435F0F70078AD6A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
 		9DDE1B741430876A00FDF9C5 /* M3TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewCell.h; sourceTree = "<group>"; };
 		9DDE1B751430876A00FDF9C5 /* M3TableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewCell.mm; sourceTree = "<group>"; };
 		9DDE1B781430931900FDF9C5 /* M3TableViewAdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewAdCell.h; sourceTree = "<group>"; };
@@ -750,6 +758,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DD2ED851435F0F70078AD6A /* CoreLocation.framework in Frameworks */,
 				9DDE1B7C1430946B00FDF9C5 /* iAd.framework in Frameworks */,
 				9D8543821430084C00F495E9 /* CoreGraphics.framework in Frameworks */,
 				9D854366142F963900F495E9 /* CoreText.framework in Frameworks */,
@@ -1164,6 +1173,7 @@
 		9D8B8AE01413CA8B0066ECBB = {
 			isa = PBXGroup;
 			children = (
+				9DD2ED841435F0F70078AD6A /* CoreLocation.framework */,
 				9DDE1B7B1430946B00FDF9C5 /* iAd.framework */,
 				9D8543811430084C00F495E9 /* CoreGraphics.framework */,
 				9D854365142F963900F495E9 /* CoreText.framework */,
@@ -1289,6 +1299,8 @@
 				9DDF5D021431B30D001CAC28 /* Underscore+Logger.hh */,
 				9D8B8B291413CAD90066ECBB /* Underscore+Logger.mm */,
 				9D8B8AF51413CA8B0066ECBB /* Supporting Files */,
+				9DC5123E143723A8009A393C /* M3LocationManager.h */,
+				9DC5123F143723A8009A393C /* M3LocationManager.mm */,
 			);
 			path = M3;
 			sourceTree = "<group>";
@@ -1340,6 +1352,7 @@
 				9DDF5CFE1431AEF1001CAC28 /* M3+Caller.h in Headers */,
 				9DDF5D041431B30D001CAC28 /* Underscore+Logger.hh in Headers */,
 				9DA5DD49143276D00003B54A /* NSDate+M3Extensions.h in Headers */,
+				9DC51241143723A8009A393C /* M3LocationManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1384,6 +1397,7 @@
 				9DDF5CFD1431AEF1001CAC28 /* M3+Caller.h in Headers */,
 				9DDF5D031431B30D001CAC28 /* Underscore+Logger.hh in Headers */,
 				9DA5DD48143276D00003B54A /* NSDate+M3Extensions.h in Headers */,
+				9DC51240143723A8009A393C /* M3LocationManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1822,6 +1836,7 @@
 				9D85437F142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m in Sources */,
 				9DDF5D001431AEF1001CAC28 /* M3+Caller.m in Sources */,
 				9DA5DD4B143276D00003B54A /* NSDate+M3Extensions.mm in Sources */,
+				9DC51243143723A8009A393C /* M3LocationManager.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1909,6 +1924,7 @@
 				9D85437E142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m in Sources */,
 				9DDF5CFF1431AEF1001CAC28 /* M3+Caller.m in Sources */,
 				9DA5DD4A143276D00003B54A /* NSDate+M3Extensions.mm in Sources */,
+				9DC51242143723A8009A393C /* M3LocationManager.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

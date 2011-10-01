@@ -7,13 +7,7 @@
 //
 
 #import "M3TableViewController.h"
-#import "CoreLocation/CoreLocation.h"
 
-@interface VicinityShowController : M3TableViewListController<CLLocationManagerDelegate> {
-  CLLocationManager* locationManager_;
-}
-
-@property (nonatomic,retain) CLLocationManager* locationManager;
-
+@interface VicinityShowController : M3TableViewListController
 @end
 

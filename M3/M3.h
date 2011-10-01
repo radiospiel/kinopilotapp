@@ -51,6 +51,7 @@
 
 #import "UIImageView+Http.h"
 #import "UIColor+M3Extensions.h"
+#import "M3LocationManager.h"
 
 #endif
 
