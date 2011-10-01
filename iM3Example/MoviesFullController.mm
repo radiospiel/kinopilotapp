@@ -31,7 +31,7 @@
   NSMutableArray* section = [NSMutableArray array];
   
   [section addObject:_.array(@"MovieShortInfoCell", movie)];
-  [section addObject:_.array(@"MovieInCinemasCell", movie)];
+  [section addObject:_.array(@"MovieNotInCinemasCell", movie)];
   [section addObject:_.array(@"MovieRatingCell", movie)];
   [section addObject:_.array(@"M3TableViewAdCell", movie)];
   [section addObject:_.array(@"MovieDescriptionCell", movie)];
@@ -58,7 +58,12 @@
 @implementation MovieInfoCell
 
 -(NSDictionary*)movie
-  { return [self.key last]; }
+{ 
+  NSDictionary* movie = [self.key objectAtIndex:1];
+  M3AssertKindOf(movie, NSDictionary);
+
+  return movie;
+}
 
 @end
 
@@ -66,74 +71,94 @@
  * MovieRatingCell: This cell shows the community rating
  */
 
-@interface MovieRatingCell: MovieInfoCell
+@interface MovieRatingCell: MovieInfoCell {
+  UIImageView* ratingBackground_;
+  UIImageView* ratingForeground_;
+  UILabel*     ratingLabel_;
+}
 @end
 
 @implementation MovieRatingCell
 
-+(CGFloat)fixedHeight
-  { return 50; }
-
--(void)setKey: (NSArray*)class_and_movie
+-(CGFloat)wantsHeight
 {
-  [super setKey:class_and_movie];
+  NSNumber* number = [self.movie objectForKey: @"average-community-rating"];
+  int rating = [number intValue];
+  
+  return rating < 0 ? 0 : 30;
+}
+
+-(id)init
+{
+  self = [super init];
+  if(self) {
+    ratingBackground_ = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"unstars.png"]];
+    [self addSubview: [ratingBackground_ autorelease]];
+
+    ratingForeground_ = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"stars.png"]];
+    [self addSubview: [ratingForeground_ autorelease]];
+  
+    ratingLabel_ = [[UILabel alloc]init];
+    [self addSubview: [ratingLabel_ autorelease]];
+
+    self.clipsToBounds = YES;
+  }
+  return self;
+}
+
+-(void)layoutSubviews
+{
+  [super layoutSubviews];
+  
+  // Get rating: this is a number between 0 and 100.
+  NSNumber* number = [self.movie objectForKey: @"average-community-rating"];
+  int rating = [number intValue];
+
+  if(rating < 0) return;
+  
   self.textLabel.text = @"Community Rating:";
+
+  ratingBackground_.frame = CGRectMake(150, 6, 96, 16);
+  ratingForeground_.frame = CGRectMake(150, 6, (rating * 96 + 50)/100, 16);
+  ratingForeground_.contentMode = UIViewContentModeLeft;
+  ratingForeground_.clipsToBounds = YES;
+
+  CGRect labelFrame = self.textLabel.frame;
+  
+  ratingLabel_.frame = CGRectMake(260, labelFrame.origin.y, 96, labelFrame.size.height);
+  ratingLabel_.font = self.textLabel.font;
+  ratingLabel_.text = [NSString stringWithFormat: @"%.1f", rating / 10.0];
 }
 
 @end
 
 /*
- * MovieInCinemasCell: This cell shows in which cinemaes the movie runs.
+ * MovieNotInCinemasCell: This cell shows in which cinemaes the movie runs.
  */
 
-@interface MovieInCinemasCell: MovieInfoCell
+@interface MovieNotInCinemasCell: MovieInfoCell
 @end
 
-@implementation MovieInCinemasCell
+@implementation MovieNotInCinemasCell
 
-+(CGFloat)fixedHeight
-  { return 50; }
-
--(void)setKey: (NSArray*)class_and_movie
-{
-  [super setKey:class_and_movie];
-  M3AssertKindOf(self.movie, NSDictionary);
-
-  self.imageView.image = [UIImage imageNamed: @"arrowright.png"];
-  
+-(CGFloat)wantsHeight
+{ 
   NSArray* theater_ids = [app.chairDB theaterIdsByMovieId: [self.movie objectForKey: @"_uid"]];
-  NSArray* theaters = [[app.chairDB.theaters valuesWithKeys:theater_ids] pluck: @"name"].uniq.sort;
-  
-  self.textLabel.numberOfLines = 2;
-  
-  switch(theaters.count) {
-    case 0:
-      self.textLabel.text = @"Für diesen Film liegen zur Zeit keine Aufführungen vor.";
-      break;
-    case 1:
-      self.textLabel.text = [NSString stringWithFormat: @"Zur Zeit im %@", theaters.first];
-      break;
-    default:
-      self.textLabel.text = [NSString stringWithFormat: @"Zur Zeit in %d Kinos: %@", theaters.count, [theaters componentsJoinedByString: @", "]];
-      break;
-  }
+  return theater_ids.count > 0 ? 0 : 30; 
 }
 
--(NSString*)urlToOpen
+-(id)init
 {
-  self.imageView.image = [UIImage imageNamed: @"arrowright.png"];
-
-  id movie_id = [self.movie objectForKey: @"_uid"];
+  self = [super init];
   
-  NSArray* theater_ids = [app.chairDB theaterIdsByMovieId: movie_id];
-  switch(theater_ids.count) {
-    case 0:   return nil;
-    case 1:   return [NSString stringWithFormat: @"/theaters/show/%@", theater_ids.first];
-    default:  return [NSString stringWithFormat: @"/movies/show/%@", movie_id];
-  }
-}
+  self.textLabel.text = @"Für diesen Film liegen uns keine Aufführungen vor.";
+  self.textLabel.font = [UIFont italicSystemFontOfSize:13];
+  self.textLabel.textColor = [UIColor colorWithName:@"#999"];
 
+  return self;
+}
 @end
+
 
 /*
  * MovieDescriptionCell: This cell shows a description of the movie.
@@ -189,11 +214,32 @@
 
 @implementation MoviesFullController
 
+// set right button
+-(void)setRightButton: (NSString*)movie_id
+{
+  NSArray* theater_ids = [app.chairDB theaterIdsByMovieId: movie_id];
+  
+  switch(theater_ids.count) {
+    case 0:
+      break;
+    case 1: 
+      [self setRightButtonWithTitle: @"In einem Kino"
+                                url: _.join(@"/theaters/show/", theater_ids.first) ];
+      break;
+    default: 
+      [self setRightButtonWithTitle: [NSString stringWithFormat: @"In %d Kinos", theater_ids.count]
+                                url: _.join(@"/movies/show/", movie_id) ];
+  }
+}
+
 -(void)setUrl:(NSString *)url
 {
   [super setUrl:url];
   
-  if([url matches:@"/movies/full/(.*)"])
-    self.dataSource = [[MoviesFullControllerDataSource alloc]initWithMovieId: $1];
+  if([url matches:@"/movies/full/(.*)"]) {
+    NSString* movie_id = $1;
+    self.dataSource = [[MoviesFullControllerDataSource alloc]initWithMovieId: movie_id];
+    [self setRightButton:movie_id];
+  }
 }
 @end
