@@ -67,12 +67,25 @@
   return theater;
 }
 
+-(NSDictionary*) adjustModel:(NSDictionary*)model
+{
+  NSString* typeName = [model objectForKey:@"_type"];
+  if([typeName isEqualToString:@"theaters"])
+    return [self adjustTheaters:model];
+  
+  if([typeName isEqualToString:@"movies"])
+    return [self adjustMovies:model];
+  
+  return model;
+}
+
 -(NSDictionary*)modelWithURL: (NSString*)url
 {
-  if([url matches: @"^/([^/]+)/[^/]+/(.*)"])
-    return [self objectForKey: $2 andType: $1];
-  
-  return [NSDictionary dictionary];
+  if(![url matches: @"^/([^/]+)/[^/]+/(.*)"])
+    return [NSDictionary dictionary];
+
+  NSDictionary* model = [self objectForKey: $2 andType: $1];
+  return [self adjustModel:model];
 }
 
 -(ChairView*) schedules_by_movie_id_

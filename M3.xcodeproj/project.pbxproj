@@ -938,6 +938,8 @@
 				9DC682BC142CBF2200124E9A /* TheatersListController.mm */,
 				9DC682C1142CE34B00124E9A /* TheatersShowController.h */,
 				9DC682C2142CE34B00124E9A /* TheatersShowController.mm */,
+				9DC1E75E1435C145009B41A5 /* VicinityShowController.h */,
+				9DC1E75F1435C145009B41A5 /* VicinityShowController.mm */,
 				9D5A96D014200FB6000104CA /* WebViewController.h */,
 				9D5A96D114200FB7000104CA /* WebViewController.mm */,
 				9DA5DD4414326E120003B54A /* WebViewController.xib */,
@@ -947,8 +949,6 @@
 				9D85436E142FAC8C00F495E9 /* TTTAttributedLabel.m */,
 				9D48ACBE141E9E3E00D0D000 /* Supporting Files */,
 				9D5614F0142641A300D0A484 /* resources */,
-				9DC1E75E1435C145009B41A5 /* VicinityShowController.h */,
-				9DC1E75F1435C145009B41A5 /* VicinityShowController.mm */,
 			);
 			path = iM3Example;
 			sourceTree = "<group>";

@@ -90,16 +90,16 @@
 
 -(CGSize)htmlViewSize
 {
-  return [htmlView sizeThatFits: CGSizeMake(196, 1000)];
+  return [htmlView sizeThatFits: CGSizeMake(212, 1000)];
 }
 
 -(void)layoutSubviews
 {
   [super layoutSubviews];
 
-  self.imageView.frame = CGRectMake(10, 10, 94, 126);
+  self.imageView.frame = CGRectMake(10, 10, 90, 120);
   CGSize sz = [self htmlViewSize];
-  htmlView.frame = CGRectMake(114, 7, sz.width, sz.height);
+  htmlView.frame = CGRectMake(107, 7, sz.width, sz.height);
 }
 
 +(CGFloat)fixedHeight

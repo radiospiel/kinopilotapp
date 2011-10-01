@@ -85,18 +85,14 @@
 {
   [super layoutSubviews];
 
-  
-  // Layout everything..
-
   // left positions for img, and for texts (label and description)
-  int left = 0;
+  int left = 7;
   if(starView_) {
     starView_.frame = CGRectMake(7, 17, 16, 16);
     left = 27;
   }
 
   if(!self.imageView.hidden) {
-    left += 3;
     self.imageView.frame = CGRectMake(left, 4, 33, 43);
     left += 33;
   }

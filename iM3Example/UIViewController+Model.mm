@@ -62,17 +62,14 @@
 
 #pragma mark - set right action button
 
--(void)setRightButtonWithTitle: (NSString*)title_or_image
-                           url: (NSString*)url;
+-(void)setRightButtonURL: (NSString*)url
 {
-  UIBarButtonItem* item = [UIBarButtonItem alloc];
+  [ self instance_variable_set: @selector(right_button_url) withValue: url ];
+}
 
-  item = [item initWithTitle: title_or_image
-                       style: UIBarButtonItemStyleBordered
-                      target: nil
-                      action: nil];
-  
-  self.navigationItem.rightBarButtonItem = [item autorelease];
+-(void)openRightButtonURL
+{
+  [app open: [self instance_variable_get: @selector(right_button_url)]];
 }
 
 -(void)setRightButtonWithTitle: (NSString*)title_or_image
@@ -89,6 +86,15 @@
   self.navigationItem.rightBarButtonItem = [item autorelease];
 }
 
+-(void)setRightButtonWithTitle: (NSString*)title_or_image
+                           url: (NSString*)url
+{
+  [self setRightButtonURL: url];
+  [self setRightButtonWithTitle: title_or_image 
+                         target: self
+                         action: @selector(openRightButtonURL)];
+}
+
 -(void)setRightButtonWithSystemItem: (UIBarButtonSystemItem)systemItem
                              target: (id)target
                              action: (SEL)action
@@ -103,15 +109,12 @@
 }
 
 -(void)setRightButtonWithSystemItem: (UIBarButtonSystemItem)systemItem
-                                url: (NSString*)url;
+                                url: (NSString*)url
 {
-  UIBarButtonItem* item = [UIBarButtonItem alloc];
-  
-  item = [item initWithBarButtonSystemItem: systemItem
-                                    target: nil
-                                    action: nil];
-
-  self.navigationItem.rightBarButtonItem = [item autorelease];
+  [self setRightButtonURL: url];
+  [self setRightButtonWithSystemItem: systemItem 
+                              target: self
+                              action: @selector(openRightButtonURL)];
 }
 
 -(void)releaseM3Properties

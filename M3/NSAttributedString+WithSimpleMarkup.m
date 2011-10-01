@@ -189,7 +189,7 @@
 + (NSAttributedString*)attributedStringWithSimpleMarkup:(NSString *)html 
 {
   NSString* format = @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<!DOCTYPE addresses SYSTEM \"addresses.dtd\">\n"
+  "<!DOCTYPE addresses SYSTEM \"addresses.dtd\">\n"   // a fake doctype
     "<body>%@</body>\n";
     
   html = [NSString stringWithFormat: format, html];

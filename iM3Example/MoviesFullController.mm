@@ -12,7 +12,6 @@
 
 #import "TTTAttributedLabel/TTTAttributedLabel.h"
 
-
 @interface MoviesFullControllerDataSource: M3TableViewDataSource
 @end
 
@@ -230,6 +229,11 @@
       [self setRightButtonWithTitle: [NSString stringWithFormat: @"In %d Kinos", theater_ids.count]
                                 url: _.join(@"/movies/show/", movie_id) ];
   }
+}
+
+-(NSString*)title 
+{
+  return @"Details";
 }
 
 -(void)setUrl:(NSString *)url

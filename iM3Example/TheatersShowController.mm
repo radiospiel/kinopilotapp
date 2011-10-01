@@ -13,27 +13,16 @@
 
 - (NSString*)descriptionAsHTML
 {
-  NSDictionary* model = self.model;
+  NSMutableString* html = [NSMutableString string];
+ 
+  NSString* name = [self.model objectForKey:@"name"];
+  [html appendFormat:@"<h2><b>%@</b></h2>", name.cdata];
 
-  NSString* name = [model objectForKey:@"name"];
-
-  NSMutableArray* parts = [NSMutableArray array];
-
-  [parts addObject: [NSString stringWithFormat: @"<h2><b>%@</b></h2><br/>", name.cdata]];
-
-  void (^addEntry)(NSString*, NSString*) = ^(NSString* name, NSString* key) {
-    NSString* value = [model objectForKey:key];
-    if(!value) return;
+  NSString* address = [self.model objectForKey:@"address"];
+  if(address)
+    [html appendFormat: @"<p><b>Adresse:</b> %@</p>", address.cdata]; 
   
-    [parts addObject: [NSString stringWithFormat: @"<p><b>%@:</b> %@</p>", name, value.cdata]]; 
-  };
-  
-  addEntry(@"Adresse", @"address");
-  addEntry(@"Fon", @"telephone");
-  // addEntry(@"Email", @"email");
-  // addEntry(@"Web", @"website");
-  
-  return [parts componentsJoinedByString:@""];
+  return html;
 }
 
 -(NSString*)title
