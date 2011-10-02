@@ -32,86 +32,39 @@
   [super dealloc];
 }
 
--(id) initWithCoder: (NSCoder *)coder 
+#pragma mark - JSON I/O
+
+-(id)initWithJSONFile: (NSString *)path withExtraData: (NSMutableDictionary*)extraData
 {
   self = [super init];
-  self.data = [coder decodeObjectForKey: @"data"];
-  self.keys = [coder decodeObjectForKey: @"keys"];
-  return self;
-  
-#if 0 
-  // -- get keys
-  
-  NSArray* keys = [coder decodeObjectForKey:@"keys"];
-  
-  // -- get column names
-  
-  NSArray* column_names = [coder decodeObjectForKey: @"column_names"];
-  int column_count = column_names.count;
 
-  // -- get rows
+  @autoreleasepool {
+    NSDictionary* jsonData = [M3 readJSON: path];
+    self.data = [jsonData objectForKey: @"data"];
+    self.keys = [jsonData objectForKey: @"keys"];
 
-  NSArray* rows = [coder decodeObjectForKey: @"rows"];
-
-  NSArray* objects = [rows mapUsingBlock:^id(NSArray* row) {
-    DLOG(row);
-    
-    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithCapacity:column_count];
-    int idx = -1;
-    for(id value in row) {
-      idx++;
-      
-      if([value isKindOfClass:[NSNull class]]) continue;
-      [dict setObject: value forKey:[column_names objectAtIndex:idx]];
-    }
-
-    DLOG(dict);
-    return dict;
-  }];
-
-//  dlog << "objects.count " << objects;
-//  dlog << "keys " << keys;
-  
-  return [self initWithObjects:objects andKeys:keys];
-#endif
-}
-
--(void) encodeWithCoder: (NSCoder *)coder { 
-  [coder encodeObject: self.data forKey: @"data"];
-  [coder encodeObject: self.keys forKey: @"keys"];
-  
-  return;
-#if 0 
-  // save keys
-  
-  [coder encodeObject: keys_ forKey: @"keys"];
-
-  // save column names
-  
-  NSMutableArray* column_names_ = [NSMutableArray arrayWithCapacity: data_.allValues.count * 6];
-  for(NSDictionary* value in data_.allValues) {
-    [column_names_ addObjectsFromArray: value.allKeys];
+    NSDictionary* extra = [jsonData objectForKey: @"extra"];
+    if(extra)
+      [extraData addEntriesFromDictionary:extra]; 
   }
   
-  NSArray* columns = column_names_.uniq.sort;
+  return self;
+}
 
-  [coder encodeObject: columns forKey: @"columns"];
+-(void) saveToJSONFile: (NSString *)path withExtraData: (NSDictionary*)extraData
+{ 
+  @autoreleasepool {
+    NSDictionary* jsonData = [NSDictionary dictionaryWithObjectsAndKeys:
+                              self.data, @"data",
+                              self.keys, @"keys",
+                              extraData, @"extra",
+                              nil];
+    
+    [M3 writeJSONFile:path object:jsonData];
+  };
+}
 
-  // save rows
-
-  NSMutableArray* rows = [self.data.allValues mapUsingBlock:^id(NSDictionary* row) {
-    return [columns mapUsingBlock:^id(NSString* column) {
-      id value = [row objectForKey:column];
-      return value ? value : [NSNull null];
-    }];
-  }];
-
-  [coder encodeObject: rows forKey: @"rows"];
-
-  // save data
-  // [coder encodeObject: data_ forKey: @"data_"];
-#endif
-} 
+#pragma mark - 
 
 -(NSUInteger)count 
 {

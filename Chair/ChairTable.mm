@@ -121,38 +121,32 @@
                                       dictionary_.count];
 }
 
-// -- NSCoding --------------------------------------------------------
+// -- I/O --------------------------------------------------------
 
--(void) encodeWithCoder: (NSCoder *)coder { 
-  [coder encodeObject: [NSNumber numberWithInt: self.revision] forKey: @"revision"];
-  [coder encodeObject: self.dictionary forKey: @"dictionary"];
-} 
+-(void) saveToFile:(NSString*) path
+{
+  Benchmark(_.join(@"save to file ", [M3 basename: path]));
+  
+  NSMutableDictionary* extraData = [NSMutableDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt:self.revision], @"revision", nil];
+  
+  [self.dictionary saveToJSONFile: path 
+                    withExtraData: extraData ];
+}
 
--(id) initWithCoder: (NSCoder *)coder { 
-  if (self = [super init]) { 
-    NSNumber* revision = [coder decodeObjectForKey:@"revision"]; 
-    self.revision = [revision intValue];
-    self.dictionary = [coder decodeObjectForKey:@"dictionary"]; 
-  } 
-  return self; 
+-(void)loadFromFile: (NSString*)path
+{
+  Benchmark(_.join(@"load from file ", [M3 basename: path]));
+
+  NSMutableDictionary* extraData = [NSMutableDictionary dictionary];
+  self.dictionary = [[ChairDictionary alloc]initWithJSONFile: path withExtraData: extraData];
+  self.revision = [[extraData objectForKey: @"revision"] intValue];
 }
 
 +(ChairTable*) tableWithFile:(NSString*) path {
-  NSDictionary * rootObject = [NSKeyedUnarchiver unarchiveObjectWithFile:path]; 
-
-  Benchmark(_.join(@"loadFromFile ", path));
-
-  ChairTable* table = [rootObject objectForKey:@"table"];
+  ChairTable* table = [[ChairTable alloc]init];
   table.name = [M3 basename_wo_ext: path];
+  [table loadFromFile: path];
   return table;
-}
-
--(void) saveToFile:(NSString*) path;
-{
-  Benchmark(_.join(@"saveToFile ", path));
-  
-  NSMutableDictionary * rootObject = _.hash(@"table", self);
-  [NSKeyedArchiver archiveRootObject: rootObject toFile: path]; 
 }
 
 @end

@@ -135,7 +135,7 @@
   
   for(NSString* name in tables_) {
     ChairTable* table = [tables_ objectForKey: name];
-    [table saveToFile: _.join(basedir, "/", name, ".bin")];
+    [table saveToFile: _.join(basedir, "/", name, ".json")];
   }
 }
 
@@ -145,7 +145,7 @@
   
   NSMutableDictionary *tables = [[NSMutableDictionary alloc] init];
   
-  NSArray* dbfiles = [NSArray arrayWithFilesMatchingPattern: @"*.bin" inDirectory: basedir];
+  NSArray* dbfiles = [NSArray arrayWithFilesMatchingPattern: @"*.json" inDirectory: basedir];
   
   for(NSString* file in dbfiles) {
     ChairTable* table = [ChairTable tableWithFile: file];

@@ -55,13 +55,7 @@ static NSMutableString* gsub(NSString* string, NSString* regexp, NSString* repla
   }
   else {
     NSString* data = [M3 read:path];
-    data = gsub(data, @"\n *//.*" , @"\n");
-    
-    // data = [data gsub:@"^ *//.*" with: @""];      /* remove C++-style comments */
     returnValue = [data mutableObjectFromJSONStringWithParseOptions:0 error: &error];
-    if(!returnValue) {
-      dlog << data;
-    }
   }
 
   if(!returnValue) _.raise(error);

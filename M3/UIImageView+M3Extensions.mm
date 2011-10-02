@@ -66,7 +66,7 @@
 {
   url = [self sourceImageURL: url];
 
-  NSString* cachePath = _.join("$cache/", [M3 md5: url], ".bin");
+  NSString* cachePath = _.join("$cache/", [M3 md5: url], ".json");
   
   if([M3 fileExists: cachePath]) {
     NSData *data = [M3 readDataFromPath: cachePath];

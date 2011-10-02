@@ -12,7 +12,7 @@
  * entries 
  */
 
-@interface ChairDictionary: NSObject<NSCoding> {
+@interface ChairDictionary: NSObject {
   NSMutableArray* keys_;
   NSMutableDictionary* data_;
 };
@@ -21,6 +21,11 @@
 
 -(id)init;
 -(id)initWithObjects: (NSArray*)values andKeys: (NSArray*)keys;
+
+/* JSON I/O */
+
+-(id)initWithJSONFile: (NSString *)path withExtraData: (NSMutableDictionary*)extraData;
+-(void) saveToJSONFile: (NSString *)path withExtraData: (NSDictionary*)extraData;
 
 + (id) dictionary;
 
@@ -37,9 +42,6 @@
 @property (nonatomic,retain) NSDictionary* data;
 
 -(NSArray*)keys;
-
--(void) encodeWithCoder: (NSCoder *)coder;
--(id) initWithCoder: (NSCoder *)coder;
 
 @end
 

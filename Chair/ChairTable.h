@@ -23,7 +23,7 @@
  
 */
 
-@interface ChairTable: ChairMaterializedView<NSCoding> {
+@interface ChairTable: ChairMaterializedView {
   NSString* name_;
 }
 
