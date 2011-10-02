@@ -17,7 +17,7 @@
 //  the License.
 //
 
-#import "GTMDefines.h"
+// #import "GTMDefines.h"
 #import "GTMNSString+HTML.h"
 
 typedef struct {
@@ -395,8 +395,8 @@ static int EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
       return nil;
       // COV_NF_END
     }
-    [self getCharacters:[data mutableBytes]];
-    buffer = [data bytes];
+    [self getCharacters: (unichar *)[data mutableBytes]];
+    buffer = (const unichar *) [data bytes];
   }
 
   if (!buffer || !data2) {
@@ -411,7 +411,7 @@ static int EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
   NSUInteger buffer2Length = 0;
   
   for (NSUInteger i = 0; i < length; ++i) {
-    HTMLEscapeMap *val = bsearch(&buffer[i], table, 
+    HTMLEscapeMap *val = (HTMLEscapeMap*) bsearch(&buffer[i], table, 
                                  size / sizeof(HTMLEscapeMap), 
                                  sizeof(HTMLEscapeMap), EscapeMapCompare);
     if (val || (escapeUnicode && buffer[i] > 127)) {

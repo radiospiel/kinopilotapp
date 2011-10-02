@@ -6,6 +6,13 @@
 //
 #import "M3.h"
 
+
+#define _GTMDevAssert(x,y)  ((void)0)
+#define _GTMDevLog(x)       ((void)0)
+
+#import "google-toolbox/GTMNSString+HTML.h"
+#import "google-toolbox/GTMNSString+HTML.m"
+
 @implementation NSString(M3Extensions)
 
 -(BOOL)startsWith: (NSString*) other
@@ -55,6 +62,31 @@
 
 -(NSDate*)to_date
   { return [NSDate dateWithRFC3339String: self]; }
+
+-(NSString*)htmlEscape
+{
+  return [self gtm_stringByEscapingForHTML];
+}
+
+-(NSString*)htmlUnescape
+{
+  return [self gtm_stringByUnescapingFromHTML];
+}
+
+-(NSString*)urlEscape
+{
+  return [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+-(NSString*)urlUnescape
+{
+  return [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+-(NSURL*)to_url
+{
+  return [NSURL URLWithString:self];
+}
 
 @end
 

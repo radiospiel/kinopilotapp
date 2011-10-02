@@ -29,4 +29,19 @@
 @property (readonly,nonatomic,retain) NSDate* to_date;
 -(NSDate*)to_date;
 
+@property (readonly,nonatomic,retain) NSString* htmlEscape;
+-(NSString*)htmlEscape;
+
+@property (readonly,nonatomic,retain) NSString* htmlUnescape;
+-(NSString*)htmlUnescape;
+
+@property (readonly,nonatomic,retain) NSString* urlEscape;
+-(NSString*)urlEscape;
+
+@property (readonly,nonatomic,retain) NSString* urlUnescape;
+-(NSString*)urlUnescape;
+
+@property (readonly,nonatomic,retain) NSURL* to_url;
+-(NSURL*)to_url;
+
 @end
