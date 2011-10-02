@@ -208,7 +208,7 @@
   NSString* time = [schedules.first objectForKey:@"time"];
 
   [self addSection: cellKeys 
-       withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"dd.MM."])];
+       withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"ccc dd.MM."])];
 }
 
 -(id)initWithTheaterFilter: (id)theater_id
@@ -296,7 +296,7 @@
   else if([self.url matches: @"/movies/list/filter=(.*)"])
     self.dataSource = [[MoviesListDataSource alloc]initWithFilter: $1];
   else
-    self.dataSource = [[MoviesListDataSource alloc]initWithFilter: @"all"];
+    self.dataSource = [[MoviesListDataSource alloc]initWithFilter: @"new"];
 }
 
 @end

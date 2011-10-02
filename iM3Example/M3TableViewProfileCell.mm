@@ -94,10 +94,9 @@
 
   if(!self.imageView.hidden) {
     self.imageView.frame = CGRectMake(left, 4, 33, 43);
-    left += 33;
+    left += 37;
   }
 
-  left += 4;
   self.detailTextLabel.frame = CGRectMake(left, 17, 290 - left, 32);
 
   //

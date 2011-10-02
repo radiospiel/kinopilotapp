@@ -133,7 +133,7 @@
 
 -(void)loadFromFile: (NSString*)path
 {
-  Benchmark(_.join(@"load from file ", [M3 basename: path]));
+  // Benchmark(_.join(@"load from file ", [M3 basename: path]));
 
   NSMutableDictionary* extraData = [NSMutableDictionary dictionary];
   self.dictionary = [[ChairDictionary alloc]initWithJSONFile: path withExtraData: extraData];

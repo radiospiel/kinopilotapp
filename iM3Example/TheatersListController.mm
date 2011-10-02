@@ -149,7 +149,7 @@
   NSString* time = [schedules.first objectForKey:@"time"];
   
   [self addSection: cellKeys 
-       withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"dd.MM."])];
+       withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"ccc dd.MM."])];
 }
 
 -(id)initWithMovieFilter: (id)movie_id

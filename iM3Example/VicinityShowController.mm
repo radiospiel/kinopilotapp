@@ -53,8 +53,14 @@
   NSNumber* time = [schedule objectForKey: @"time"];
   
   self.textLabel.text = [time.to_date stringWithFormat: @"HH:mm"];
-  self.detailTextLabel.text = [schedule objectForKey:@"title"];
+
+  NSString* detailText = [schedule objectForKey:@"title"];
+  if([schedule objectForKey:@"version"])
+    detailText = [detailText stringByAppendingFormat:@" (%@)", [schedule objectForKey:@"version"]];
+
+  self.detailTextLabel.text = detailText;
   self.detailTextLabel.numberOfLines = 1;
+  self.detailTextLabel.lineBreakMode = UILineBreakModeMiddleTruncation;
 }
 
 -(NSString*)urlToOpen
@@ -109,22 +115,22 @@
     
     NSArray* schedules = [[app.chairDB.schedules_by_theater_id get: theater_id] objectForKey: @"group"];
     schedules = [schedules selectUsingBlock:^BOOL(NSDictionary* schedule) {
-      NSNumber* time = [schedule objectForKey: @"time"];
-      NSTimeInterval timeInterval = [time doubleValue];
+      NSNumber* timeAsNumber = [schedule objectForKey: @"time"];
+      double time = [timeAsNumber doubleValue];
       
-      return timeInterval > now && timeInterval < then_max;
+      return time > now && time < then_max;
     }];
     
     schedules = [schedules sortByKey: @"time"];
     
     NSMutableArray* schedulesCloseToNow = [NSMutableArray array];
     for(NSDictionary* schedule in schedules) {
-      NSNumber* time = [schedule objectForKey: @"time"];
-      NSTimeInterval time_as_double = [time doubleValue];
+      NSNumber* timeAsNumber = [schedule objectForKey: @"time"];
+      double time = [timeAsNumber doubleValue];
 
       // This schedule is between then and then_max? Add only if we
       // don't have SCHEDULES_PER_THEATER schedules collected yet.
-      if(time_as_double > then) {
+      if(time > then) {
         if(schedulesCloseToNow.count >= SCHEDULES_PER_THEATER)
           break;
       }

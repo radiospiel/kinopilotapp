@@ -15,7 +15,9 @@ static NSDateFormatter* dateFormatter(NSString* dateFormat)
     formatter = [[[NSDateFormatter alloc] init]autorelease];
     // formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"MDST"]; 
     // [NSTimeZone timeZoneForSecondsFromGMT:0];
-    formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+    // formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+    // formatter.locale = [NSLocale currentLocale];
+    formatter.locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"de_DE"]autorelease];
     formatter.dateFormat = dateFormat;
     
     [formatters setObject: formatter forKey: dateFormat];
