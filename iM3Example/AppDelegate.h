@@ -23,6 +23,8 @@ extern AppDelegate* app;
 @property (strong, nonatomic) UITabBarController *tabBarController;
 
 -(BOOL) isIPhone;
+
+-(BOOL)canOpen: (NSString*)url;
 -(void)open: (NSString*)url;
 
 -(NSDictionary*) config;

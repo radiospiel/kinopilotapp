@@ -41,8 +41,6 @@
   NSMutableArray* values = [NSMutableArray array];
   NSMutableArray* keys = [NSMutableArray array];
   
-  NSUInteger old_revision = revision_;
-  
   [source_view_ each:^(id value, id key) {
     [values addObject: value];
     [keys addObject: key];
@@ -50,7 +48,7 @@
   
   self.dictionary = [[[ChairDictionary alloc] initWithObjects: values andKeys: keys]autorelease];
   
-  revision_ = old_revision + 1;
+  revision_ += 1;
 }
 
 - (void) each: (void (^)(NSDictionary* value, id key)) iterator

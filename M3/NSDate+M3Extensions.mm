@@ -58,6 +58,40 @@ static NSDateFormatter* dateFormatter(NSString* dateFormat)
   return epoch;
 }
 
+
+
+#define COMPONENTS [[NSCalendar currentCalendar] components:0 fromDate:self]
+
+-(NSUInteger) year
+{
+  return [COMPONENTS year];
+}
+
+-(NSUInteger) month
+{
+  return [COMPONENTS month];
+}
+
+-(NSUInteger) day
+{
+  return [COMPONENTS day];
+}
+
+-(NSUInteger) hour
+{
+  return [COMPONENTS hour];
+}
+
+-(NSUInteger) minute
+{
+  return [COMPONENTS minute];
+}
+
+-(NSUInteger) second
+{
+  return [COMPONENTS second];
+}
+
 @end
 
 @implementation NSNumber (M3Extensions) 

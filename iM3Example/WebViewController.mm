@@ -37,8 +37,7 @@
   dlog << "viewDidLoad, url is " << self.url;
   if(!self.url) return;
 
-  NSURL *url = [NSURL URLWithString: self.url];                   // Create a NSURL object.
-  NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];   // URL Requst Object
+  NSURLRequest *requestObj = [NSURLRequest requestWithURL:self.url.to_url];   // URL Requst Object
   [webView loadRequest:requestObj];                               // Load the request in the UIWebView.
 }
 

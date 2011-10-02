@@ -37,13 +37,20 @@
 {
   NSMutableArray* actions = _.array();
 
+  NSString* address = [self.model objectForKey:@"address"];
+  
+  if(actions.count < 2 && address) {
+    [actions addObject: _.array(@"Fahrinfo", _.join(@"fahrinfo-berlin://connection?to=", address.urlEscape))];
+  }
+
   NSString* fon = [self.model objectForKey:@"telephone"];
   if(actions.count < 2 && fon) {
-    [actions addObject: _.array(@"Fon", fon)];
+    [actions addObject: _.array(@"Fon", _.join(@"tel://", fon.urlEscape))];
   }
+
   NSString* email = [self.model objectForKey:@"email"];
   if(actions.count < 2 && email) {
-    [actions addObject: _.array(@"Email", email)];
+    [actions addObject: _.array(@"Email", _.join(@"mailto:", email))];
   }
   NSString* web = [self.model objectForKey:@"website"];
   if(actions.count < 2 && web) {

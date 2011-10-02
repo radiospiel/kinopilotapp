@@ -73,15 +73,17 @@
 -(NSArray*)actions
 {
   NSMutableArray* actions = _.array();
-  
-  NSString* imdb = _.join(@"http://imdb.de/?q=", [self.model objectForKey: @"title"]);
-  
-  if(actions.count < 2 && imdb) {
-    [actions addObject: _.array(@"IMDB", imdb)];
-  }
-  if(actions.count < 2) {
-    [actions addObject: _.array(@"Mehr...", self.fullInfoURL)];
-  }
+
+  // add full info URL
+  [actions addObject: _.array(@"Mehr...", self.fullInfoURL)];
+
+  // add imdb URL
+  NSString* title = [self.model objectForKey: @"title"];
+  NSString* imdbURL = _.join(@"imdb:///find?q=", title.urlEscape);
+  if(![app canOpen:imdbURL])
+    imdbURL = _.join(@"http://imdb.de/?q=", title.urlEscape);
+
+  [actions addObject: _.array(@"IMDB", imdbURL)];
 
   return actions;
 }

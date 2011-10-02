@@ -29,9 +29,7 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
                         url: (NSString*) url 
                 withOptions: (NSDictionary*) options
 {
-  NSURL* ns_url = [NSURL URLWithString: url];
-
-  NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:ns_url ];
+  NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url.to_url ];
   request.cachePolicy = NSURLRequestUseProtocolCachePolicy;
   request.timeoutInterval = 60.0;
   request.HTTPMethod = verb;

@@ -18,7 +18,7 @@
 +(UIView*) createHTMLView: (NSString*)html;
 {
   UIWebView* webView = [[UIWebView alloc]init];
-  [webView loadHTMLString:html baseURL:[NSURL URLWithString:@"/"]];  
+  [webView loadHTMLString:html baseURL: @"/".to_url];  
   
   return webView;
 }

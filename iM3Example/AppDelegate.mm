@@ -69,9 +69,6 @@ AppDelegate* app;
     className = _.join($1.camelizeWord, "Controller");
   }
 
-  if(!className && ([url matches: @"^([a-z]+)://"]))
-    nibName = className = @"WebViewController";
-
   if(!className)
     _.raise("Cannot find controller class name for URL ", url);
   
@@ -98,19 +95,44 @@ AppDelegate* app;
   return [vc autorelease];
 }
 
+-(BOOL)canOpen: (NSString*)url
+{
+  return [[UIApplication sharedApplication] canOpenURL:url.to_url];
+}
+
 -(void)open: (NSString*)url
 {
   if(!url) return;
 
   rlog(1) << "open " << url;
   
+  // Adjust mailto URLs
+  if([url matches: @"^mailto:(.*)"]) {
+    url = [NSString stringWithFormat: @"mailto:?to=%@&subject=%@&body=%@",
+            [$1 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+            @"Subject", @"Body" ];
+  }
+  
+  // Open real URLs in external application
+  if([url matches: @"^([-a-z]+):"]) {
+    if(![self canOpen: url]) {
+      dlog << "Cannot open URL " << url;
+      return;
+    }
+
+    // test canOpenURL
+    [[UIApplication sharedApplication] openURL: url.to_url];
+
+    return;
+  }
+
+  // Open internal URLs inside application.
   UIViewController* vc = [self viewControllerForURL: url];
   if(!vc) return;
 
   UINavigationController* currentTab = (UINavigationController*) self.tabBarController.selectedViewController;
   if(!currentTab)
     currentTab = (UINavigationController*) [self.tabBarController.viewControllers objectAtIndex:0];
-  
 
   // if([vc shouldOpenModally]) {
   //   // vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;

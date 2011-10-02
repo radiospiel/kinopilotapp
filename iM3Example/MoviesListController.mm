@@ -55,17 +55,17 @@
   
   if([filter isEqualToString:@"new"]) {
 
+    double limit = [[NSDate date]timeIntervalSince1970] - 14 * 24 * 3600;
+    
     NSMutableArray* movie_ids = [NSMutableArray array];
     [app.chairDB.movies each:^(NSDictionary *movie, id movie_id) {
-      NSString* cinema_start_date = [movie objectForKey:@"cinema-start-date"];
-      M3AssertKindOf(cinema_start_date, NSString);
+      NSNumber* cinema_start_date = [movie objectForKey:@"cinema-start-date"];
+      M3AssertKindOf(cinema_start_date, NSNumber);
       
-      NSTimeInterval diff = -[cinema_start_date.to_date timeIntervalSinceNow];
+      if([cinema_start_date doubleValue] < limit)
+        return;
       
-      // The movie started diff seconds ago
-      int diffInDays = diff / (3600 * 24);
-      if(diffInDays < 14)
-        [movie_ids addObject: movie_id];
+      [movie_ids addObject: movie_id];
     }];
     
     keys = movie_ids; 
@@ -73,17 +73,28 @@
 //  else if([filter isEqualToString:@"fav"]) {
 //  }
   else if([filter isEqualToString:@"art"]) {
+
+    double limit = [[NSDate date]timeIntervalSince1970] - 10 * 365 * 24 * 3600; // ~10 years
+    
+    int year_limit = 1999;
+    
     NSMutableArray* movie_ids = [NSMutableArray array];
     [app.chairDB.movies each:^(NSDictionary *movie, id movie_id) {
-      NSString* cinema_start_date = [movie objectForKey:@"cinema-start-date"];
-      M3AssertKindOf(cinema_start_date, NSString);
+      NSNumber* cinema_start_date = [movie objectForKey:@"cinema-start-date"];
+      M3AssertKindOf(cinema_start_date, NSNumber);
       
-      NSTimeInterval diff = -[cinema_start_date.to_date timeIntervalSinceNow];
-      
-      // The movie started diff seconds ago
-      int diffInDays = diff / (3600 * 24);
-      if(diffInDays > 365 * 5)
+      if(cinema_start_date && [cinema_start_date doubleValue] < limit) {
         [movie_ids addObject: movie_id];
+        return;
+      }
+      
+      NSNumber* production_year = [movie objectForKey:@"production-year"];
+      M3AssertKindOf(production_year, NSNumber);
+      
+      if(production_year && [production_year intValue] < year_limit) {
+        [movie_ids addObject: movie_id];
+        return;
+      }
     }];
     keys = movie_ids; 
   }
@@ -257,8 +268,8 @@
 {
   self = [super init];
 
-  [self addSegment: @"all" withFilter: @"all" andTitle: @"Alle Filme"];
   [self addSegment: @"new" withFilter: @"new" andTitle: @"Neu im Kino"];
+  [self addSegment: @"all" withFilter: @"all" andTitle: @"Alle Filme"];
   [self addSegment: @"art" withFilter: @"art" andTitle: @"Klassiker"];
   // [self addSegment: @"fav" withFilter: @"fav" andTitle: @"Vorgemerkt"];
 
