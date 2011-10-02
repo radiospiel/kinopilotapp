@@ -2,7 +2,6 @@
   "name": "Kinopilot Berlin",
   "tabs": [
     {
-      // "url": "/movies/full/langenacht|movies",
       "url": "/vicinity/show",
       "label": "Jetzt",
       "title": "Was läuft jetzt?",

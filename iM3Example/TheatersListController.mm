@@ -164,7 +164,7 @@
   {
     for(NSDictionary* schedule in schedules) {
       NSCParameterAssert([schedule isKindOfClass:[NSDictionary class]]);
-      NSCParameterAssert([[schedule objectForKey: @"time"] isKindOfClass:[NSString class]]);
+      NSCParameterAssert([[schedule objectForKey: @"time"] isKindOfClass:[NSNumber class]]);
     }
   }
   
@@ -173,14 +173,14 @@
   
   // group schedules by *day* into sectionsHash
   NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
-    NSString* time = [schedule objectForKey:@"time"];
+    NSNumber* time = [schedule objectForKey:@"time"];
     return [time.to_date stringWithFormat:@"dd.MM."];
   }];
   
   NSArray* sectionsArray = [sectionsHash allValues];
   sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
-    NSString* time1 = [schedules1.first objectForKey:@"time"];
-    NSString* time2 = [schedules2.first objectForKey:@"time"];
+    NSNumber* time1 = [schedules1.first objectForKey:@"time"];
+    NSNumber* time2 = [schedules2.first objectForKey:@"time"];
     
     return [time1 compare:time2];
   }];

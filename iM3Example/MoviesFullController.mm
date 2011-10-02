@@ -150,7 +150,7 @@
 {
   self = [super init];
   
-  self.textLabel.text = @"Für diesen Film liegen uns keine Aufführungen vor.";
+  self.textLabel.text = @"Für diesen Film liegen uns keine Termine vor.";
   self.textLabel.font = [UIFont italicSystemFontOfSize:13];
   self.textLabel.textColor = [UIColor colorWithName:@"#999"];
 

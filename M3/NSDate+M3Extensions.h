@@ -8,3 +8,9 @@
 +(NSDate*)epoch;
 
 @end
+
+@interface NSNumber (M3Extensions) 
+
+-(NSDate*)to_date;
+
+@end

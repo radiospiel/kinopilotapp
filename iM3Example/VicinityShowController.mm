@@ -50,8 +50,7 @@
 
   [super setKey:schedule];
 
-  NSString* time = [schedule objectForKey: @"time"];
-  
+  NSNumber* time = [schedule objectForKey: @"time"];
   
   self.textLabel.text = [time.to_date stringWithFormat: @"HH:mm"];
   self.detailTextLabel.text = [schedule objectForKey:@"title"];
@@ -94,9 +93,9 @@
   // *then*. If we'll then have less than 6 (schedulesPerTheater) schedules 
   // (i.e. Arthouse cinema), we include schedules until we have those, if 
   // these are in the next 12 hours (i.e. before *then_max*.
-  NSString* now =       [[NSDate date] stringWithRFC3339Format];
-  NSString* then =      [[NSDate dateWithTimeIntervalSinceNow: 2 * 3600] stringWithRFC3339Format];
-  NSString* then_max =  [[NSDate dateWithTimeIntervalSinceNow: 12 * 3600] stringWithRFC3339Format];
+  NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+  NSTimeInterval then = now + 2 * 3600;
+  NSTimeInterval then_max = now + 12 * 3600;
 
   //
   NSArray* theaters = [app.chairDB.theaters.values sortByBlock:^id(NSDictionary* theater) {
@@ -110,23 +109,22 @@
     
     NSArray* schedules = [[app.chairDB.schedules_by_theater_id get: theater_id] objectForKey: @"group"];
     schedules = [schedules selectUsingBlock:^BOOL(NSDictionary* schedule) {
-      NSString* time = [schedule objectForKey: @"time"];
-
-      if([time compare: then_max] == NSOrderedDescending) return NO;  // In the distant future?
-      if([time compare: now] == NSOrderedAscending) return NO;        // In the past?
+      NSNumber* time = [schedule objectForKey: @"time"];
+      NSTimeInterval timeInterval = [time doubleValue];
       
-      return YES;
+      return timeInterval > now && timeInterval < then_max;
     }];
     
     schedules = [schedules sortByKey: @"time"];
     
     NSMutableArray* schedulesCloseToNow = [NSMutableArray array];
     for(NSDictionary* schedule in schedules) {
-      NSString* time = [schedule objectForKey: @"time"];
+      NSNumber* time = [schedule objectForKey: @"time"];
+      NSTimeInterval time_as_double = [time doubleValue];
 
       // This schedule is between then and then_max? Add only if we
       // don't have SCHEDULES_PER_THEATER schedules collected yet.
-      if([time compare: then] == NSOrderedDescending) {
+      if(time_as_double > then) {
         if(schedulesCloseToNow.count >= SCHEDULES_PER_THEATER)
           break;
       }
