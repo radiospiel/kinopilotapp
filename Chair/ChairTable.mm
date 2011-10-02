@@ -27,7 +27,6 @@
   return [self initWithDictionary: [ChairDictionary dictionary]];
 }
 
-
 -(void)dealloc
 {
   LOG_DEALLOC;
@@ -86,9 +85,9 @@
 @synthesize name = name_;
 
 - (id) initWithName: (NSString*) name {
-  if(!(self = [super init])) return nil;
-  
+  self = [super init];
   self.name = name;
+  
   return self;
 }
 
@@ -141,6 +140,8 @@
 +(ChairTable*) tableWithFile:(NSString*) path {
   NSDictionary * rootObject = [NSKeyedUnarchiver unarchiveObjectWithFile:path]; 
 
+  Benchmark(_.join(@"loadFromFile ", path));
+
   ChairTable* table = [rootObject objectForKey:@"table"];
   table.name = [M3 basename_wo_ext: path];
   return table;
@@ -148,6 +149,8 @@
 
 -(void) saveToFile:(NSString*) path;
 {
+  Benchmark(_.join(@"saveToFile ", path));
+  
   NSMutableDictionary * rootObject = _.hash(@"table", self);
   [NSKeyedArchiver archiveRootObject: rootObject toFile: path]; 
 }

@@ -56,6 +56,8 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
                                                     error: &error ];
   
   if(!data) {
+    rlog(1) << "RuntimeError: " << error;
+    
     @throw @"RuntimeError"; //  [ ETRuntimeError raise: error ];
   }
 

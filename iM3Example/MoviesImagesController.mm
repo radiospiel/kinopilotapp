@@ -10,12 +10,6 @@
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 
-static NSUInteger kNumberOfPages = 6;
-
-static NSString *NameKey = @"nameKey";
-static NSString *ImageKey = @"imageKey";
-
-
 @interface MoviesImagesController (PrivateMethods)
 - (void)loadScrollViewWithPage:(int)page;
 - (void)scrollViewDidScroll:(UIScrollView *)sender;
@@ -70,7 +64,7 @@ static NSString *ImageKey = @"imageKey";
 
   // --- fill the pageViews array with NSNull placeholders.
 
-  self.pageViews = [thumbnail_urls mapUsingBlock:^id(id obj) {
+  self.pageViews = [fullsize_urls mapUsingBlock:^id(id obj) {
     return [NSNull null];
   }];
 
@@ -79,7 +73,7 @@ static NSString *ImageKey = @"imageKey";
   CGRect frame = scrollView.frame;
   
   scrollView.pagingEnabled = YES;
-  scrollView.contentSize = CGSizeMake(frame.size.width * kNumberOfPages, frame.size.height);
+  scrollView.contentSize = CGSizeMake(frame.size.width * self.pageViews.count, frame.size.height);
   scrollView.showsHorizontalScrollIndicator = NO;
   scrollView.showsVerticalScrollIndicator = NO;
   scrollView.scrollsToTop = NO;
@@ -124,7 +118,7 @@ static NSString *ImageKey = @"imageKey";
 
 - (void)loadScrollViewWithPage:(int)page
 {
-  if (page < 0 || page >= kNumberOfPages)
+  if (page < 0 || page >= self.pageViews.count)
     return;
 
   // replace the placeholder in the oageViews array.
