@@ -13,3 +13,10 @@
 + (NSAttributedString*)attributedStringWithSimpleMarkup:(NSString *)html;
 
 @end
+
+@interface NSString (WithSimpleMarkup)
+
+@property (nonatomic,readonly) NSAttributedString* to_attributed_string;
+- (NSAttributedString*)to_attributed_string;
+
+@end

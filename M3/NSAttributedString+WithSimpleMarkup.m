@@ -19,13 +19,23 @@
 #import <CoreText/CoreText.h>
 #endif
 
+@implementation NSString (WithSimpleMarkup)
+
+- (NSAttributedString*)to_attributed_string
+{
+  return [NSAttributedString attributedStringWithSimpleMarkup:self];
+}
+
+@end
+
 @interface M3AttributedStringBuilder: NSObject<NSXMLParserDelegate> {
   NSMutableAttributedString* attributedString_;
   NSString* fontName;
   int fontSize;
-  // UIColor* color;
+//  UIColor* color;
   BOOL bold;
   BOOL italic;
+  BOOL uppercase;
 };
 
 // returns an autoreleased instance of the attributedString.
@@ -33,24 +43,26 @@
 
 @property (retain,nonatomic) NSString* fontName;
 @property (assign,nonatomic) int fontSize;
-// @property (retain,nonatomic) UIColor* color;
+@property (retain,nonatomic) UIColor* color;
 @property (getter=isBold,assign,nonatomic) BOOL bold;
 @property (getter=isItalic,assign,nonatomic) BOOL italic;
+@property (getter=isUppercase,assign,nonatomic) BOOL uppercase;
 
 @end
 
 @implementation M3AttributedStringBuilder
 
-@synthesize fontName, fontSize, /* color, */ bold, italic;
+@synthesize fontName, fontSize, color, bold, italic, uppercase;
 
 -(id)init
 {
   self = [super init];
+  if(!self) return nil;
+  
   attributedString_ = [[NSMutableAttributedString alloc]init];
   
   fontName = @"Helvetica";
   fontSize = 13;
-  // color = nil;
   
   return self;
 }
@@ -58,6 +70,10 @@
 -(void)dealloc
 {
   [attributedString_ release];
+
+  self.fontName = nil;
+  self.color = nil;
+
   [super dealloc];
 }
 
@@ -91,6 +107,9 @@
 
 - (void)add:(NSString*)string
 {
+  if(self.uppercase)
+    string = [string uppercaseString];
+
   // -- create string ----------------------------
   
   CFMutableAttributedStringRef attrString;
@@ -99,11 +118,11 @@
   
   // -- set color ----------------------------
 
-  //  if(color != nil) {
-  //    CFAttributedStringSetAttribute(attrString, 
-  //      CFRangeMake(0, CFAttributedStringGetLength(attrString)), 
-  //      kCTForegroundColorAttributeName, color.CGColor);
-  //  }
+//  if(color != nil) {
+//    CFAttributedStringSetAttribute(attrString, 
+//      CFRangeMake(0, CFAttributedStringGetLength(attrString)), 
+//      kCTForegroundColorAttributeName, color.CGColor);
+//  }
   
   // -- set font ----------------------------
 
@@ -142,6 +161,19 @@
     self.fontSize = 18;
   else if([elementName isEqualToString:@"h2"])
     self.fontSize = 15;
+  else if([elementName isEqualToString:@"tag"]) {
+//  self.fontSize = 9;
+// self.bold = YES;
+    [self add: @" "];
+    // self.uppercase = YES;
+//  color: "#fff",
+//  borderRadius: 3,
+//  backgroundColor: "#f60",
+//  textAlign:'center',
+//  top:4, 
+
+  }
+
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
@@ -161,6 +193,12 @@
   else if([elementName isEqualToString:@"h2"]) {
     self.fontSize = 13;
     [self add: @"\n"];
+  }
+  else if([elementName isEqualToString:@"tag"]) {
+    [self add: @" "];
+    self.fontSize = 13;
+    // self.uppercase = NO;
+    // self.bold = NO;
   }
 }
 
