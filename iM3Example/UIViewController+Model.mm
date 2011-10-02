@@ -128,6 +128,8 @@
 
 -(void)openURLOnTap:(UITapGestureRecognizer*)recognizer
 {
+  dlog << "openURLOnTap:";
+  
   NSString* url = [self instance_variable_get: @selector(urlToOpenOnTap)];
   [app open: url];
 }

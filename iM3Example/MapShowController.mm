@@ -10,67 +10,49 @@
 #import "M3.h"
 #import "AppDelegate.h"
 
-@interface MapAnnotation: NSObject<MKAnnotation> {
-  NSDictionary* theater_;
+@interface MapAnnotation: MKPointAnnotation {
+  NSString* theater_id_;
 }
 
-@property (nonatomic,retain) NSDictionary* theater;
+@property (nonatomic,retain) NSString* theater_id;
 
 @end
 
 @implementation MapAnnotation
 
-@synthesize theater = theater_;
+@synthesize theater_id = theater_id_;
 
 -(id)initWithTheater: (NSDictionary*)theater
 {
   self = [super init];
-  self.theater = theater;
-  
+  self.theater_id = [theater objectForKey:@"_uid"];
+
+  NSArray* latlong = [theater objectForKey:@"latlong"];
+  self.coordinate = CLLocationCoordinate2DMake([latlong.first floatValue], [latlong.second floatValue]);
+
+  self.title = [theater objectForKey:@"name"];
+  self.subtitle = [theater objectForKey:@"address"];
+
   return self;
-}
-
--(CLLocationCoordinate2D)coordinate
-{
-  NSArray* latlong = [self.theater objectForKey:@"latlong"];
-  
-  NSNumber* lat = latlong.first;
-  NSNumber* lng = latlong.second;
-  
-  return CLLocationCoordinate2DMake([lat floatValue], [lng floatValue]);
-}
-
--(NSString*)title
-{
-  return [self.theater objectForKey:@"name"];
-}
-
--(NSString*)subtitle
-{
-  return [self.theater objectForKey:@"address"];
 }
 
 -(void)dealloc
 {
-  self.theater = nil;
+  self.theater_id = nil;
   [super dealloc];
 }
 
-
 -(void) showDetails: (id)param
 {
-  NSString* url = _.join(@"/theaters/show/", [self.theater objectForKey:@"_uid"]);
-  dlog << "showDetails: url " << url;
+  NSString* url = _.join(@"/theaters/show/", self.theater_id);
   [ app open: url];
 }
-
-
 
 @end
 
 @implementation MapShowController
 
-@synthesize theatersToAdd = theatersToAdd_;
+@synthesize theatersToAdd = theatersToAdd_, theater_id = theater_id_;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -85,6 +67,14 @@
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
+}
+
+-(void)setUrl:(NSString *)url
+{
+  [super setUrl:url];
+  
+  [url matches: @"/map/show/theater_id=(.*)"];
+  self.theater_id = $1;
 }
 
 -(NSString*)title {
@@ -158,7 +148,7 @@
 #pragma mark - mapView delegate
 
 - (MKAnnotationView*) mapView:(MKMapView *)mv 
-            viewForAnnotation:(id<MKAnnotation>)annotation 
+            viewForAnnotation:(MapAnnotation*)annotation 
 {
   // Try to dequeue an existing pin view first.
   static NSString* identifier = @"CustomPinAnnotationView";
@@ -175,8 +165,15 @@
                                              reuseIdentifier:identifier]
               autorelease];
   
-  pinView.pinColor = MKPinAnnotationColorRed;
-  pinView.animatesDrop = YES;
+  if([[self theater_id] isEqualToString: annotation.theater_id]) {
+    pinView.pinColor = MKPinAnnotationColorGreen;
+    pinView.animatesDrop = NO;
+  }
+  else {
+    pinView.pinColor = MKPinAnnotationColorRed;
+    pinView.animatesDrop = YES;
+  }
+
   pinView.canShowCallout = YES;
   
   // Add a detail disclosure button to the callout.
@@ -199,11 +196,23 @@
   [super viewDidLoad];
   
   mapView.delegate = self;
+
+  NSString* theater_id = [self theater_id];
   
   MKCoordinateRegion region;
-  region.center = [M3LocationManager coordinates];
-  region.span.latitudeDelta = 0.08;
-  region.span.longitudeDelta = 0.08;
+  if(theater_id) {
+    NSDictionary* theater = [app.chairDB.theaters get: theater_id];
+    NSArray* latlong = [theater objectForKey:@"latlong"];
+    
+    region.center = CLLocationCoordinate2DMake([latlong.first floatValue], [latlong.second floatValue]);
+    region.span.latitudeDelta = 0.012;
+    region.span.longitudeDelta = 0.012;
+  }
+  else {
+    region.center = [M3LocationManager coordinates];
+    region.span.latitudeDelta = 0.08;
+    region.span.longitudeDelta = 0.08;
+  }
   
   [mapView setRegion:region];
   
@@ -212,7 +221,8 @@
     return [[MapAnnotation alloc]initWithTheater: theater];
   }];
   
-  [self initLocationUpdates];
+  if(!theater_id)
+    [self initLocationUpdates];
   
   [mapView addAnnotations:annotations];
 }

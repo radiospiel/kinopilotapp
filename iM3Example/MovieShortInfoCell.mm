@@ -96,6 +96,8 @@
     
   NSString* html = [self shortInfoASHTML];
   htmlView.text = [NSAttributedString attributedStringWithSimpleMarkup: html];
+  
+  [self.imageView onTapOpen: _.join(@"/movies/images/", [movie objectForKey:@"_uid"]) ];
 }
 
 -(CGSize)htmlViewSize

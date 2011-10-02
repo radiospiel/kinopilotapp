@@ -84,7 +84,7 @@
   NSNumber* number = [self.movie objectForKey: @"average-community-rating"];
   int rating = [number intValue];
   
-  return rating < 0 ? 0 : 30;
+  return rating < 0.01 ? 0 : 30;
 }
 
 -(id)init
@@ -113,7 +113,7 @@
   NSNumber* number = [self.movie objectForKey: @"average-community-rating"];
   int rating = [number intValue];
 
-  if(rating < 0) return;
+  if(rating < 0.01) return;
   
   self.textLabel.text = @"moviepilot.de Rating:";
 

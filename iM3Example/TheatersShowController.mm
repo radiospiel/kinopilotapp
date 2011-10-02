@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import "TheatersShowController.h"
 
+#import <MapKit/MapKit.h>
+#import <QuartzCore/QuartzCore.h>
+
 @implementation TheatersShowController
 
 - (NSString*)descriptionAsHTML
@@ -57,10 +60,44 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+
+  //
+  // Add a map view
+  CGRect frame = imageView.frame; 
+  frame.origin = CGPointMake(0,0);
   
+  MKMapView* mapView = [[MKMapView alloc]initWithFrame:frame];
+  [imageView addSubview:[mapView autorelease]];
+
+  NSArray* latlong = [self.model objectForKey:@"latlong"];
+  
+  MKCoordinateRegion region;
+  region.center = CLLocationCoordinate2DMake([latlong.first floatValue], [latlong.second floatValue]);
+  region.span.latitudeDelta = 0.003;    // This is roughly 300m
+  region.span.longitudeDelta = 0.003;   // This is roughly 300m
+
+  mapView.region = region;
+  mapView.layer.borderColor = [UIColor colorWithName:@"#666"].CGColor;
+  mapView.layer.borderWidth = 0.6f;
+
+  MKPointAnnotation* annotation = [[MKPointAnnotation alloc]init];
+  [annotation setCoordinate:region.center];
+  [mapView addAnnotation: [annotation autorelease]];
+  
+  //
+  // Open URL on tapping the map. It is strange - but this seems to work only
+  // when adding a tap handler on imageView *and* on mapView.
+  NSString* url = _.join(@"/map/show/theater_id=", [self.model objectForKey:@"_uid" ]);
+  
+  [imageView onTapOpen: url];
+  [mapView onTapOpen: url];
+  
+  //
+  // Set body controller
   NSString* bodyURL = _.join(@"/movies/list/theater_id=", [self.model objectForKey:@"_uid" ]);
   [self setBodyController: [app viewControllerForURL:bodyURL ] withTitle: @"Filme"];
 }
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

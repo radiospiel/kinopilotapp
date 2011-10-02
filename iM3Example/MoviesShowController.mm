@@ -21,6 +21,11 @@
   return [self.url stringByReplacingOccurrencesOfString:@"/movies/show" withString:@"/movies/full"];
 }
 
+-(NSString*)imagesURL
+{
+  return [self.url stringByReplacingOccurrencesOfString:@"/movies/show" withString:@"/movies/images"];
+}
+
 @end
 
 @implementation MoviesShowController
@@ -36,7 +41,7 @@
   self.imageView.clipsToBounds = YES;
   
   // Show full info on a tap on tap on imageView and description
-  [self.imageView onTapOpen: self.fullInfoURL ];
+  [self.imageView onTapOpen: self.imagesURL ];
 } 
 
 - (NSString*)descriptionAsHTML
