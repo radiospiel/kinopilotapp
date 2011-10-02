@@ -18,7 +18,11 @@
 @implementation Info
 
 +(NSString*) updated_at
-  { return @"updated_at"; }
+{ 
+  NSDictionary* stats = app.chairDB.stats.first;
+  NSNumber* updated_at = [stats objectForKey: @"updated_at"]; 
+  return [updated_at.to_date stringWithFormat: @"dd. MM. yyyy HH:mm"];
+}
 
 +(NSString*) theaters_count
   { return [NSString stringWithFormat: @"%d", app.chairDB.theaters.count]; }

@@ -2,6 +2,11 @@
 
 @implementation ChairDatabase(IM3Example)
 
+-(ChairTable*) stats
+{
+  return [self tableForName:@"stats"];
+}
+
 -(ChairTable*) movies
 {
   return [self tableForName:@"movies"];
