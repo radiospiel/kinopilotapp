@@ -89,6 +89,11 @@ private:
     id observer = slot.first;
     SEL selector = slot.second;
 
+    if(![observer respondsToSelector:selector]) {
+      dlog << "*** Warning: " << [observer class] << " does not respond to " << NSStringFromSelector(selector);
+      return;
+    }
+
     [ observer performSelector: selector withObject: parameter];
   }
 

@@ -1,6 +1,56 @@
 #import "AppDelegate.h"
 
+#define REMOTE_URL  @"http://kinopilotupdates2.heroku.com/db/berlin"
+// #define DB_PATH     @"$documents/chairdb/berlin.json"
+#define DB_PATH     @"$documents/chairdb/kinopilot"
+
+
 @implementation ChairDatabase(IM3Example)
+
+-(BOOL)isLoaded
+{
+  return self.movies.count > 0;
+}
+
+-(BOOL)loadLocalCopy
+{
+  if(![M3 fileExists: DB_PATH]) return NO;
+  
+  Benchmark(_.join("Loading database from ", DB_PATH));
+  [self load: DB_PATH];
+  [self emit:@selector(updated)];
+}
+
+-(BOOL)loadRemoteURL
+{
+  Benchmark(_.join("Loading database from ", REMOTE_URL));
+
+  [self import: REMOTE_URL];
+  [self emit:@selector(updated)];
+}
+
+/*
+ * Updates the database if an update is needed.
+ *
+ * If the in-memory database is still empty, this method loads the database
+ * from the on-disk copy, if it exists, or from the remote URL.
+ *-
+ * If the in-memory database is not empty, this method loads the database
+ * from the remote URL, if the local copy is outdated.
+ */
+
+-(void)updateIfNeeded
+{
+  dlog << "*** updateIfNeeded";
+
+  if(![self isLoaded]) {
+    if([self loadLocalCopy]) return;
+    if([self loadRemoteURL]) return;
+  }
+  else {
+    // TODO: check for updates
+  }
+}
 
 -(ChairTable*) stats
 {

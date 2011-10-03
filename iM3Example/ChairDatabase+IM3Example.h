@@ -20,4 +20,6 @@
 -(NSDictionary*) adjustMovies:(NSDictionary*)movie;
 -(NSDictionary*) adjustTheaters:(NSDictionary*)theater;
 
+-(void)updateIfNeeded;
+
 @end

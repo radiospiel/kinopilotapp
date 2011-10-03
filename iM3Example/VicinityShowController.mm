@@ -227,11 +227,14 @@ static double distance(double lat1, double lng1, double lat2, double lng2)
                  notify: self 
                    with: @selector(onUpdateLocationFailed)];
   
-  [self setLocation];
-   
   [self setUpdateIsNotRunning];
   
   return self;
+}
+
+-(void)reload
+{
+  [self setLocation];
 }
 
 -(void)startUpdate

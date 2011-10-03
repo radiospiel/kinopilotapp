@@ -144,6 +144,16 @@
  */
 @implementation M3TableViewListController
 
+-(id)init
+{
+  self = [super init];
+
+  [app.chairDB on: @selector(updated) notify:self with:@selector(reload)];
+  [app.chairDB on: @selector(resumed) notify:self with:@selector(reload)];
+  
+  return self;
+}
+
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
 	return 23;
