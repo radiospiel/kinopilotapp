@@ -13,6 +13,20 @@
 
 AppDelegate* app;
 
+@implementation NSString (IM3ExampleExtensions)
+
+-(NSString*) withVersionString: (NSString*)versionString;
+{
+  if(!versionString) return self;
+  
+  versionString = versionString.uppercaseString;
+  versionString = [versionString stringByReplacingOccurrencesOfString:@"OMU" withString:@"OmU"];
+  
+  return [self stringByAppendingFormat:@" (%@)", versionString];
+}
+
+@end
+
 @implementation AppDelegate
 
 @synthesize window = _window;

@@ -165,10 +165,7 @@
     NSString* time = [schedule objectForKey:@"time"];
     NSString* timeAsString = [time.to_date stringWithFormat:@"HH:mm"];
     
-    NSString* version = [schedule objectForKey:@"version"];
-    if(!version) return timeAsString;
-
-    return [NSString stringWithFormat:@"%@ (%@)", timeAsString, version];
+    return [timeAsString withVersionString: [schedule objectForKey:@"version"]];
   }];
   
   [self setDetailText: [schedules componentsJoinedByString:@", "]];

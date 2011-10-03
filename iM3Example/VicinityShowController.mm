@@ -55,10 +55,8 @@
   self.textLabel.text = [time.to_date stringWithFormat: @"HH:mm"];
 
   NSString* detailText = [schedule objectForKey:@"title"];
-  if([schedule objectForKey:@"version"])
-    detailText = [detailText stringByAppendingFormat:@" (%@)", [schedule objectForKey:@"version"]];
 
-  self.detailTextLabel.text = detailText;
+  self.detailTextLabel.text = [detailText withVersionString: [schedule objectForKey:@"version"]];
   self.detailTextLabel.numberOfLines = 1;
   self.detailTextLabel.lineBreakMode = UILineBreakModeMiddleTruncation;
 }

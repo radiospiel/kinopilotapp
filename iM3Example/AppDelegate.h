@@ -16,6 +16,12 @@
 @class AppDelegate;
 extern AppDelegate* app;
 
+@interface NSString (IM3ExampleExtensions)
+
+-(NSString*) withVersionString: (NSString*)versionString;
+
+@end
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) UIProgressView* progressView;

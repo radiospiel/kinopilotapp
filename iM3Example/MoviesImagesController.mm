@@ -60,8 +60,6 @@
   
   self.imageUrls = fullsize_urls;
   
-  dlog << "load " << fullsize_urls.count << " pages";
-
   // --- fill the pageViews array with NSNull placeholders.
 
   self.pageViews = [fullsize_urls mapUsingBlock:^id(id obj) {
