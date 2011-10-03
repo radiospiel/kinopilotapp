@@ -12,7 +12,9 @@
 			<key>name</key>
 			<string>M3</string>
 			<key>regexFolderFilter</key>
-			<string>!.*/(\.[^/]*|ios|fixtures|build|vendor|tmp|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<string>!.*/(\.[^/]*|ios|TTTAttributedExample|fixtures|build|vendor|tmp|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<key>selected</key>
+			<true/>
 			<key>sourceDirectory</key>
 			<string></string>
 		</dict>
