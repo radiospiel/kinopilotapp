@@ -19,14 +19,24 @@
   Benchmark(_.join("Loading database from ", DB_PATH));
   [self load: DB_PATH];
   [self emit:@selector(updated)];
+  
+  return YES;
 }
 
 -(BOOL)loadRemoteURL
 {
-  Benchmark(_.join("Loading database from ", REMOTE_URL));
+  {
+    Benchmark(_.join("Loading database from ", REMOTE_URL));
 
-  [self import: REMOTE_URL];
-  [self emit:@selector(updated)];
+    [self import: REMOTE_URL];
+    [self emit:@selector(updated)];
+  }
+  {
+    Benchmark(_.join("Saving database to ", DB_PATH));
+    [self save: DB_PATH];
+  }
+
+  return YES;
 }
 
 /*
