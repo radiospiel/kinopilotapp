@@ -62,6 +62,11 @@
   }
 }
 
+-(void)update
+{
+  [self loadRemoteURL];
+}
+
 -(ChairTable*) stats
 {
   return [self tableForName:@"stats"];

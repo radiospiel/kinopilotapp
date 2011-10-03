@@ -161,7 +161,6 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-	// create the button object
   UIView* header = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22)]autorelease];
   header.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header-background-22.png"]]; 
   

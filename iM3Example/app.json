@@ -1,6 +1,12 @@
 {
   "name": "Kinopilot Berlin",
   "tabs": [
+  {
+    "url": "/info",
+    "label": "Info",
+    "icon": "tab_about.png"
+  },
+  
     {
       "url": "/vicinity/show",
       "label": "Jetzt",
@@ -37,6 +43,12 @@
         ["Kinos",             "theaters_count"],
         ["Filme",             "movies_count"],
         ["Aufführungen",      "schedules_count"]
+      ]
+    },
+    {
+      "actions": [
+        ["Update",  "http://kinopilotapp.de"],
+        ["Share",   "updated_at"]
       ]
     },
     {

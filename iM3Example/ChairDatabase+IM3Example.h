@@ -21,5 +21,6 @@
 -(NSDictionary*) adjustTheaters:(NSDictionary*)theater;
 
 -(void)updateIfNeeded;
+-(void)update;
 
 @end
