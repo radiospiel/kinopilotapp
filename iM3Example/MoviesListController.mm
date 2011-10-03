@@ -205,7 +205,8 @@
     [cellKeys addObject: _.hash(@"movie_id", movie_id, @"schedules", schedules)];
   }
   
-  NSString* time = [schedules.first objectForKey:@"time"];
+  NSNumber* time = [schedules.first objectForKey:@"time"];
+  time = [NSNumber numberWithInt: [time intValue] - 6 * 2400];
 
   [self addSection: cellKeys 
        withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"ccc dd.MM."])];
@@ -217,7 +218,6 @@
   
   //
   // get all schedles for the theater
-  
   NSArray* schedules = [app.chairDB schedulesByTheaterId: theater_id];
   
   {
@@ -228,13 +228,20 @@
   }
   
   //
-  // build sections by date, and combine schedules for the same movie into one record.
+  // build sections by date, remove old schedules, and combine schedules 
+  // for the same movie into one record.
+  NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
   
   // group schedules by *day* into sectionsHash
   NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
     NSNumber* time = [schedule objectForKey:@"time"];
+    if([time intValue] < now) return @"old";
+    
+    time = [NSNumber numberWithInt: [time intValue] - 6 * 2400];
     return [time.to_date stringWithFormat:@"dd.MM."];
   }];
+  
+  [sectionsHash removeObjectForKey:@"old"];
   
   NSArray* sectionsArray = [sectionsHash allValues];
   sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
