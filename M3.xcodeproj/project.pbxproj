@@ -417,8 +417,6 @@
 		9D01746C141AA9C00035A4C2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		9D01746E141AA9D00035A4C2 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		9D0203FD14291D040024EDD8 /* app.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = app.json; sourceTree = "<group>"; };
-		9D064E821427809600765A3F /* Couchbase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Couchbase.framework; path = Frameworks/Couchbase.framework; sourceTree = "<group>"; };
-		9D064E861427898C00765A3F /* CouchCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CouchCocoa.framework; path = Frameworks/CouchCocoa.framework; sourceTree = "<group>"; };
 		9D0EF70E1413D1A60051B8FA /* NSArray+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+M3Extensions.h"; sourceTree = "<group>"; };
 		9D0EF70F1413D1A60051B8FA /* NSArray+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSArray+M3Extensions.mm"; sourceTree = "<group>"; };
 		9D0EF7101413D1A60051B8FA /* NSString+Regexp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Regexp.h"; sourceTree = "<group>"; };
@@ -1207,11 +1205,6 @@
 		9D8B8AE01413CA8B0066ECBB = {
 			isa = PBXGroup;
 			children = (
-				9D10C37C143774A800FE19C9 /* MapKit.framework */,
-				9DD2ED841435F0F70078AD6A /* CoreLocation.framework */,
-				9DDE1B7B1430946B00FDF9C5 /* iAd.framework */,
-				9D8543811430084C00F495E9 /* CoreGraphics.framework */,
-				9D854365142F963900F495E9 /* CoreText.framework */,
 				9D72BF001425F9CB00D24875 /* Default.png */,
 				9D72BEFE1425F9C800D24875 /* Default@2x.png */,
 				9D72BEFC1425F9C500D24875 /* icon_114px.png */,
@@ -1245,11 +1238,14 @@
 		9D8B8AED1413CA8B0066ECBB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D10C37C143774A800FE19C9 /* MapKit.framework */,
+				9DD2ED841435F0F70078AD6A /* CoreLocation.framework */,
+				9DDE1B7B1430946B00FDF9C5 /* iAd.framework */,
+				9D8543811430084C00F495E9 /* CoreGraphics.framework */,
+				9D854365142F963900F495E9 /* CoreText.framework */,
 				9D3B0869142A1A0100322C00 /* libicucore.dylib */,
 				9D3B0867142A19F700322C00 /* libicucore.dylib */,
 				9D01746A141AA8F90035A4C2 /* libstdc++.dylib */,
-				9D064E861427898C00765A3F /* CouchCocoa.framework */,
-				9D064E821427809600765A3F /* Couchbase.framework */,
 				9D01746E141AA9D00035A4C2 /* CFNetwork.framework */,
 				9D01746C141AA9C00035A4C2 /* SystemConfiguration.framework */,
 				9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */,
