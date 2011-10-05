@@ -274,6 +274,10 @@
 		9D56163E142641A300D0A484 /* icon_57px.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D561598142641A300D0A484 /* icon_57px.png */; };
 		9D56163F142641A300D0A484 /* icon_72px.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D561599142641A300D0A484 /* icon_72px.png */; };
 		9D594A7B143CF97400A4CED4 /* AppDelegate+Info.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D594A7A143CF97400A4CED4 /* AppDelegate+Info.mm */; };
+		9D594A7F143D027C00A4CED4 /* UIButton+ActionButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D594A7D143D027C00A4CED4 /* UIButton+ActionButton.h */; };
+		9D594A80143D027C00A4CED4 /* UIButton+ActionButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D594A7D143D027C00A4CED4 /* UIButton+ActionButton.h */; };
+		9D594A81143D027C00A4CED4 /* UIButton+ActionButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D594A7E143D027C00A4CED4 /* UIButton+ActionButton.mm */; };
+		9D594A82143D027C00A4CED4 /* UIButton+ActionButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D594A7E143D027C00A4CED4 /* UIButton+ActionButton.mm */; };
 		9D5A96D314200FB8000104CA /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D5A96D114200FB7000104CA /* WebViewController.mm */; };
 		9D72BEFB1425F9C200D24875 /* icon_57px.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D72BEFA1425F9C200D24875 /* icon_57px.png */; };
 		9D72BEFD1425F9C500D24875 /* icon_114px.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D72BEFC1425F9C500D24875 /* icon_114px.png */; };
@@ -646,6 +650,8 @@
 		9D561598142641A300D0A484 /* icon_57px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_57px.png; sourceTree = "<group>"; };
 		9D561599142641A300D0A484 /* icon_72px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_72px.png; sourceTree = "<group>"; };
 		9D594A7A143CF97400A4CED4 /* AppDelegate+Info.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "AppDelegate+Info.mm"; sourceTree = "<group>"; };
+		9D594A7D143D027C00A4CED4 /* UIButton+ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ActionButton.h"; sourceTree = "<group>"; };
+		9D594A7E143D027C00A4CED4 /* UIButton+ActionButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIButton+ActionButton.mm"; sourceTree = "<group>"; };
 		9D5A96D014200FB6000104CA /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		9D5A96D114200FB7000104CA /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewController.mm; sourceTree = "<group>"; };
 		9D72BEFA1425F9C200D24875 /* icon_57px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_57px.png; sourceTree = "<group>"; };
@@ -1324,6 +1330,8 @@
 				9D35631A1423F887002AAEAF /* NSString+M3Extensions.mm */,
 				9D0EF7101413D1A60051B8FA /* NSString+Regexp.h */,
 				9D0EF7111413D1A60051B8FA /* NSString+Regexp.m */,
+				9D594A7D143D027C00A4CED4 /* UIButton+ActionButton.h */,
+				9D594A7E143D027C00A4CED4 /* UIButton+ActionButton.mm */,
 				9D9D3189142C6E9800C8269A /* UIColor+M3Extensions.h */,
 				9D9D318A142C6E9800C8269A /* UIColor+M3Extensions.mm */,
 				9D8C4B94142896D0005D582A /* UIImageView+M3Extensions.h */,
@@ -1387,6 +1395,7 @@
 				9DDF5D041431B30D001CAC28 /* Underscore+Logger.hh in Headers */,
 				9DA5DD49143276D00003B54A /* NSDate+M3Extensions.h in Headers */,
 				9DC51241143723A8009A393C /* M3LocationManager.h in Headers */,
+				9D594A80143D027C00A4CED4 /* UIButton+ActionButton.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1432,6 +1441,7 @@
 				9DDF5D031431B30D001CAC28 /* Underscore+Logger.hh in Headers */,
 				9DA5DD48143276D00003B54A /* NSDate+M3Extensions.h in Headers */,
 				9DC51240143723A8009A393C /* M3LocationManager.h in Headers */,
+				9D594A7F143D027C00A4CED4 /* UIButton+ActionButton.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1878,6 +1888,7 @@
 				9DDF5D001431AEF1001CAC28 /* M3+Caller.m in Sources */,
 				9DA5DD4B143276D00003B54A /* NSDate+M3Extensions.mm in Sources */,
 				9DC51243143723A8009A393C /* M3LocationManager.mm in Sources */,
+				9D594A82143D027C00A4CED4 /* UIButton+ActionButton.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1969,6 +1980,7 @@
 				9DDF5CFF1431AEF1001CAC28 /* M3+Caller.m in Sources */,
 				9DA5DD4A143276D00003B54A /* NSDate+M3Extensions.mm in Sources */,
 				9DC51242143723A8009A393C /* M3LocationManager.mm in Sources */,
+				9D594A81143D027C00A4CED4 /* UIButton+ActionButton.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
