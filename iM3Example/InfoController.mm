@@ -10,34 +10,6 @@
 #import "InfoController.h"
 #import "M3TableViewDataSource.h"
 
-@interface Info: NSObject
-@end
-
-// --- Custom values ---------
-
-@implementation Info
-
-+(NSString*) updated_at
-{ 
-  NSDictionary* stats = app.chairDB.stats.first;
-  NSNumber* updated_at = [stats objectForKey: @"updated_at"]; 
-  return [updated_at.to_date stringWithFormat: @"dd.MM.yyyy HH:mm"];
-}
-
-+(NSString*) theaters_count
-  { return [NSString stringWithFormat: @"%d", app.chairDB.theaters.count]; }
-
-+(NSString*) movies_count
-  { return [NSString stringWithFormat: @"%d", app.chairDB.movies.count]; }
-
-+(NSString*) schedules_count
-  { return [NSString stringWithFormat: @"%d", app.chairDB.schedules.count]; }
-
-+(NSString*) build_at
-  { return [NSString stringWithFormat: @"%s %s", __DATE__, __TIME__]; }
-
-@end
-
 /* 
  * This cell shows one value (i.e. one piece of text). The text might span
  * over multiple lines.
@@ -94,15 +66,6 @@
 +(CGFloat) fixedHeight;
   { return 35; }
 
--(NSString*)resolveCustomValue: (NSString*)name
-{
-  SEL selector = NSSelectorFromString(name);
-  if(![Info respondsToSelector: selector]) 
-    return name;
-  
-  return [Info performSelector:selector];
-}
-
 -(void)setKey: (NSArray*)key
 {
   [super setKey: key];
@@ -110,7 +73,7 @@
   self.textLabel.text = key.first;
   self.textLabel.font = [UIFont boldSystemFontOfSize:13];
   
-  NSString* text = [self resolveCustomValue: key.last];
+  NSString* text = [app infoForKey: key.last];
   if([key.last matches:@"(http://|https://|mailto:)(.*)"]) {
     [self.detailTextLabel onTapOpen: text];
     text = $2;

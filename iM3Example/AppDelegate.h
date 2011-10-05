@@ -22,6 +22,9 @@ extern AppDelegate* app;
 
 @end
 
+/*
+ * The AppDelegate class and the global app object.
+ */
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) UIProgressView* progressView;
@@ -45,10 +48,17 @@ extern AppDelegate* app;
 @interface AppDelegate(ChairDB)
 
 /*
- * Initialize Couchbase instance.
+ * Initialize Chair DB.
  */
 -(void) initChairDB;
 
 @property (retain,nonatomic,readonly) ChairDatabase* chairDB;
+
+@end
+
+
+@interface AppDelegate(Info)
+
+-(NSString*) infoForKey: (NSString*)key;
 
 @end
