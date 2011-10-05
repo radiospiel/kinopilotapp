@@ -126,48 +126,9 @@
 @implementation InfoController
 
 -(id)init
-{
-  return [super initWithStyle: UITableViewStyleGrouped];
+{ 
+  return [super initWithStyle: UITableViewStyleGrouped]; 
 }
-
-- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectionNo
-{
-  NSArray* section = [self.dataSource.sections objectAtIndex: sectionNo];
-  NSDictionary* actions = [section.second objectForKey:@"actions"];
-  return actions ? 49 : 33;
-}
-
-- (UIView *)tableView:(UITableView *)tableView 
-            viewForHeaderInSection:(NSInteger)sectionNo
-{
-  if(sectionNo != 1) return nil;
-  
-  NSArray* section = [self.dataSource.sections objectAtIndex: sectionNo];
-  NSDictionary* actions = [section.second objectForKey:@"actions"];
-  if(!actions) return nil;
-  
-  
-  UIView* v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 49)];
-  int btnWidth = (300 - (actions.count - 1) * 20) / actions.count;
-  int x = 10;
-  
-  for(NSArray* action in actions) {
-    NSString* lbl = action.first;
-
-    UIButton* btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [btn setTitle: lbl forState:UIControlStateNormal];
-    btn.frame = CGRectMake(x, 5, btnWidth, 44);
-    [btn addTarget:app.chairDB action:@selector(update)
-      forControlEvents:UIControlEventTouchUpInside];   
-    
-    x += btnWidth + 20;
-    
-    [v addSubview: btn];
-  }
-  
-  return [v autorelease];
-}
-
 
 #pragma mark - View lifecycle
 

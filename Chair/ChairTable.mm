@@ -123,7 +123,7 @@
 
 -(void) saveToFile:(NSString*) path
 {
-  Benchmark(_.join(@"save to file ", [M3 basename: path]));
+  // Benchmark(_.join(@"save to file ", [M3 basename: path]));
   
   NSMutableDictionary* extraData = [NSMutableDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt:self.revision], @"revision", nil];
   

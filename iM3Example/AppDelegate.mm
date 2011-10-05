@@ -114,11 +114,25 @@ AppDelegate* app;
   return [[UIApplication sharedApplication] canOpenURL:url.to_url];
 }
 
+-(void)executeAction: (NSString*)action
+{
+  dlog << "exec action " << action;
+  if([action isEqualToString:@"update"]) {
+    [app.chairDB performSelectorOnMainThread:@selector(update) withObject:nil waitUntilDone:YES];
+  }
+}
+
 -(void)open: (NSString*)url
 {
   if(!url) return;
 
   rlog(1) << "open " << url;
+  
+  // Opening an application action?
+  if([url matches: @"^app:(.*)"]) {
+    [self executeAction: $1];
+    return;
+  }
   
   // Adjust mailto URLs
   if([url matches: @"^mailto:(.*)"]) {

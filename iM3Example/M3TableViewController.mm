@@ -137,6 +137,46 @@
   return [super title];
 }
 
+#pragma mark - Actions
+
+#define ACTIONS_BUTTON_HEIGHT 49
+
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectionNo
+{
+  NSArray* section = [self.dataSource.sections objectAtIndex: sectionNo];
+  NSDictionary* actions = [section.second objectForKey:@"actions"];
+  return actions ? ACTIONS_BUTTON_HEIGHT : 33;
+}
+
+
+- (UIView *)tableView:(UITableView *)tableView 
+            viewForHeaderInSection:(NSInteger)sectionNo
+{
+  NSArray* section = [self.dataSource.sections objectAtIndex: sectionNo];
+  NSDictionary* actions = [section.second objectForKey:@"actions"];
+  if(!actions) return nil;
+  
+  // 
+  // add a button "section", i.e. a line of button(s)
+  
+  UIView* headerView = [[[UIView alloc]init]autorelease];
+  headerView.frame = CGRectMake(0, 0, 320, ACTIONS_BUTTON_HEIGHT);
+
+  int btnWidth = (300 - (actions.count - 1) * 20) / actions.count;
+  int x = 10;
+  
+  for(NSArray* action in actions) {
+    UIButton* btn = [UIButton actionButtonWithURL:action.second
+                                         andTitle:action.first];
+  
+    btn.frame = CGRectMake(x, 5, btnWidth, ACTIONS_BUTTON_HEIGHT - 5);
+    x += btnWidth + 20;
+    [headerView addSubview: btn];
+  }
+  
+  return headerView;
+}
+
 @end
 
 /*

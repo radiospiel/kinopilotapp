@@ -9,56 +9,6 @@
 #import "AppDelegate.h"
 #import "M3ProfileController.h"
 
-static NSString* recti(CGRect rect)
-{
-  return [NSString stringWithFormat: @"(%d,%d+%d+%d)", 
-    (int)rect.origin.x, (int)rect.origin.y, (int)rect.size.width, (int)rect.size.height];
-}
-
-@interface UILabel(M3Utilities)
-
--(void)setTopAlignedText: (NSString*)text;
-@end
-
-@implementation UILabel(M3Utilities)
-
--(void)setTopAlignedText: (NSString*)text
-{
-  //
-  // Get the font's height.
-  float lineHeight = [text sizeWithFont:self.font].height;
-  
-  //
-  // The text might not fill the number of lines as set in the label.
-  // Calculate the size actually needed, and resize the label accordingly.
-  CGSize stringSize = [text sizeWithFont:self.font
-                       constrainedToSize:CGSizeMake(self.frame.size.width, lineHeight * self.numberOfLines) 
-                           lineBreakMode:self.lineBreakMode];
-  
-  self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, stringSize.height);
-
-  // Finally set the text.
-  [self setText:text];
-}
-
-@end
-
-
-@implementation UIButton(M3Utilities)
-
--(void)setAction: (NSString*)label withURL: (NSString*)url
-{
-  [self setHidden:NO];
-  [self setTitle:label forState:UIControlStateNormal];
-  [self onTapOpen: url];
-}
-
--(void)setAction: (NSArray*)action
-{
-  [self setAction: action.first withURL: action.last];
-}
-@end
-
 @implementation M3ProfileController
 
 @synthesize bodyView, imageView, descriptionView=description;
@@ -110,17 +60,18 @@ static NSString* recti(CGRect rect)
   // -- set actions ---------------------------------------------------
   
   NSArray* actions = [self actions];
-  
-  [action0 setHidden:YES];
-  [action1 setHidden:YES];
-  
-  switch(actions.count) {
-    case 2:   [action1 setAction: [actions objectAtIndex: 1]];
-              /* fall thru */
-    case 1:   [action0 setAction: [actions objectAtIndex: 0]];
-              /* fall thru */
-    default:  (void)0;  
-  };
+  for(int i=0; i<2; ++i) {
+    UIButton* actionButton = i == 0 ? action0 : action1;
+    if(i >= actions.count) {
+      [actionButton setHidden:YES];
+      continue;
+    }
+
+    NSArray* action = [actions objectAtIndex:i];
+    
+    [actionButton setHidden:NO];
+    [actionButton setActionURL: action.second andTitle:action.first];
+  }
 
   // --- set description ---------------------------------------------------
   description.numberOfLines = actions.count ? 4 : 5;
@@ -161,8 +112,6 @@ static NSString* recti(CGRect rect)
   CGSize sz = self.bodyView.frame.size;
   
   controller.view.frame = CGRectMake(0, 0, sz.width, sz.height);
-  // dlog << "bodyView rectangle: " << recti(bodyView.frame);
-  // dlog << "controller.view rectangle: " << recti(controller.view.frame);
-} 
+}
 
 @end

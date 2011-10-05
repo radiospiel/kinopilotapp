@@ -1,12 +1,6 @@
 {
   "name": "Kinopilot Berlin",
   "tabs": [
-  {
-    "url": "/info",
-    "label": "Info",
-    "icon": "tab_about.png"
-  },
-  
     {
       "url": "/vicinity/show",
       "label": "Jetzt",
@@ -47,8 +41,8 @@
     },
     {
       "actions": [
-        ["Update",  "http://kinopilotapp.de"],
-        ["Share",   "updated_at"]
+        ["Update",  "app:update"],
+        ["Share",   "app:share"]
       ]
     },
     {
