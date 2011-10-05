@@ -14,12 +14,15 @@
 #define NUMBER_OF_THEATERS    12
 #define SCHEDULES_PER_THEATER 6
 
-/*** A cell for the VicinityShowController *******************************************/
+/*** VicinityShowController cells *******************************************/
 
-@interface VicinityShowCell: M3TableViewCell
+// VicinityTableCell defines some layout for the various Vicinity cells
+//
+
+@interface VicinityTableCell: M3TableViewCell
 @end
 
-@implementation VicinityShowCell
+@implementation VicinityTableCell
 
 -(id)init
 { 
@@ -44,6 +47,15 @@
   self.textLabel.frame = frame;
 }
 
+@end
+
+// A VicinityScheduleCell defines some layout for the various Vicinity cells
+
+@interface VicinityScheduleCell: VicinityTableCell
+@end
+
+@implementation VicinityScheduleCell
+
 -(void)setKey: (NSDictionary*)schedule
 {
   schedule = [schedule joinWith: app.chairDB.movies on:@"movie_id"];
@@ -64,9 +76,32 @@
 -(NSString*)urlToOpen
 {
   NSDictionary* schedule = self.key;
-  
-  // return [NSString stringWithFormat: @"/theaters/show/%@", [schedule objectForKey: @"theater_id"]];
   return [NSString stringWithFormat: @"/movies/full/%@", [schedule objectForKey: @"movie_id"]];
+}
+
+@end
+
+// A VicinityTheaterCell holds a "link" to /theaters/show/<theaters>
+
+@interface VicinityTheaterCell: VicinityTableCell
+@end
+
+@implementation VicinityTheaterCell
+
+-(id)init
+{ 
+  self = [super init];
+  
+  self.detailTextLabel.font = [UIFont italicSystemFontOfSize:13];
+  self.detailTextLabel.text = @"mehr...";
+  
+  return self;
+}
+
+-(NSString*)urlToOpen
+{
+  NSDictionary* theater = self.key;
+  return [NSString stringWithFormat: @"/theaters/show/%@", [theater objectForKey: @"_uid"]];
 }
 
 @end
@@ -138,6 +173,8 @@
     // Add this section. 
     if(schedulesCloseToNow.count == 0) continue;
 
+    [schedulesCloseToNow addObject: theater];
+    
     NSString* header = [NSString stringWithFormat:@"%@ (%.1f km)", 
                           [theater objectForKey:@"name"], 
                           [self distanceToTheater: theater]
@@ -149,9 +186,15 @@
   return self;
 }
 
--(Class)cellClassForKey:(id)key
+-(Class)cellClassForKey:(NSDictionary*)key
 { 
-  return [VicinityShowCell class]; 
+  NSString* typeName = [key objectForKey: @"_type"];
+  M3AssertKindOf(typeName, NSString);
+  
+  if([typeName isEqualToString: @"theaters"])
+    return [VicinityTheaterCell class];
+  
+  return [VicinityScheduleCell class]; 
 }
 
 /* Distance from current position to [lat2,lng2] */
