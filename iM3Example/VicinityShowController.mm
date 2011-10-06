@@ -237,7 +237,8 @@ static double distance(double lat1, double lng1, double lat2, double lng2)
 
 -(void)setLocation
 {
-  self.dataSource = [[VicinityShowDataSource alloc]initWithPosition: [M3LocationManager coordinates]];
+  id dataSource = [[VicinityShowDataSource alloc]initWithPosition: [M3LocationManager coordinates]];
+  self.dataSource = [dataSource autorelease];
 }
 
 -(void)setUpdateIsNotRunning

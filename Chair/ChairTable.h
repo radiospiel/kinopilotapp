@@ -34,6 +34,7 @@
 -(id) upsert: (NSDictionary*)record;
 -(id) upsert: (NSDictionary*)record withKey: (NSString*)key;
 
++(ChairTable*) table;
 +(ChairTable*) tableWithFile: (NSString*)file;
 
 -(void) saveToFile: (NSString*) path;

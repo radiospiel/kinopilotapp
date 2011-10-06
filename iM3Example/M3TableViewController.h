@@ -23,6 +23,7 @@
 @interface M3TableViewController : UITableViewController<ADBannerViewDelegate> {
   UISegmentedControl* segmentedControl_;
   NSMutableArray* segmentedControlParams_;
+  M3TableViewDataSource* dataSource_;
 }
 
 @property (retain,nonatomic) M3TableViewDataSource* dataSource;

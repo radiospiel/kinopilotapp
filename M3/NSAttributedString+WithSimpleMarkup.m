@@ -43,7 +43,7 @@
 
 @property (retain,nonatomic) NSString* fontName;
 @property (assign,nonatomic) int fontSize;
-@property (retain,nonatomic) UIColor* color;
+// @property (retain,nonatomic) UIColor* color;
 @property (getter=isBold,assign,nonatomic) BOOL bold;
 @property (getter=isItalic,assign,nonatomic) BOOL italic;
 @property (getter=isUppercase,assign,nonatomic) BOOL uppercase;
@@ -52,7 +52,7 @@
 
 @implementation M3AttributedStringBuilder
 
-@synthesize fontName, fontSize, color, bold, italic, uppercase;
+@synthesize fontName, fontSize, bold, italic, uppercase;
 
 -(id)init
 {
@@ -72,7 +72,6 @@
   [attributedString_ release];
 
   self.fontName = nil;
-  self.color = nil;
 
   [super dealloc];
 }

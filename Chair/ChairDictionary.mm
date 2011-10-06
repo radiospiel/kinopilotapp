@@ -18,9 +18,9 @@
 - (id) init;
 {
   self = [super init];
-  self.data = [[NSMutableDictionary alloc] init];
-  self.keys = [[NSMutableArray alloc] init];
-
+  self.data = [NSMutableDictionary dictionary];
+  self.keys = [NSMutableArray array];
+                
   return self;
 } 
 
@@ -53,15 +53,13 @@
 
 -(void) saveToJSONFile: (NSString *)path withExtraData: (NSDictionary*)extraData
 { 
-  @autoreleasepool {
-    NSDictionary* jsonData = [NSDictionary dictionaryWithObjectsAndKeys:
+  NSDictionary* jsonData = [NSDictionary dictionaryWithObjectsAndKeys:
                               self.data, @"data",
                               self.keys, @"keys",
                               extraData, @"extra",
                               nil];
     
-    [M3 writeJSONFile:path object:jsonData];
-  };
+  [M3 writeJSONFile:path object:jsonData];
 }
 
 #pragma mark - 

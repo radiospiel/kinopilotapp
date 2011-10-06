@@ -97,7 +97,7 @@
   self = [super init];
   if(!self) return nil;
 
-  NSArray* infoSections = [[app.config objectForKey: @"info"]retain];
+  NSArray* infoSections = [app.config objectForKey: @"info"];
   M3AssertKindOf(infoSections, NSArray);
   for(NSDictionary* section in infoSections) {
     M3AssertKindOf(section, NSDictionary);
@@ -136,7 +136,7 @@
 {
   [super viewDidLoad];
 
-  self.dataSource = [[InfoControllerDataSource alloc]init];
+  self.dataSource = [[[InfoControllerDataSource alloc]init]autorelease];
   
   // Uncomment the following line to preserve selection between presentations.
   // self.clearsSelectionOnViewWillAppear = NO;

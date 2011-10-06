@@ -10,7 +10,7 @@
 -(id)init
 {
   self = [super init];
-  self.sections = [[NSMutableArray alloc]init];
+  self.sections = [NSMutableArray array];
   return self;
 }
 

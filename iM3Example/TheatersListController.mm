@@ -217,11 +217,15 @@
 -(void)setUrl:(NSString*)url
 {
   [super setUrl: url];
+
+  id dataSource;
   
   if([self.url matches: @"/theaters/list/movie_id=(.*)"])
-    self.dataSource = [[TheatersListFilteredByMovieDataSource alloc]initWithMovieFilter:$1];
+    dataSource = [[TheatersListFilteredByMovieDataSource alloc]initWithMovieFilter:$1];
   else
-    self.dataSource = [[TheatersListDateSource alloc]init];
+    dataSource = [[TheatersListDateSource alloc]init];
+
+  self.dataSource = [dataSource autorelease];
 }
 
 -(NSString*)title

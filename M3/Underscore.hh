@@ -62,9 +62,9 @@ namespace RS {
   class VariadicFactoryArguments {
   public:
     VariadicFactoryArguments() {
-      arguments_ = [NSMutableArray array];
+      arguments_ = [[[NSMutableArray alloc]init]autorelease];
     }
-    
+
     template <class T> 
     VariadicFactoryArguments& arg(T& arg) {
       [arguments_ addObject: object(arg)];
@@ -192,6 +192,7 @@ namespace RS {
         if([entry isKindOfClass: [NSNull class]]) continue;
         [args addObject: entry];
       }
+
       return [args componentsJoinedByString: @""];
     }
   };

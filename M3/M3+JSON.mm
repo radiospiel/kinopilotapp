@@ -65,6 +65,7 @@ static NSMutableString* gsub(NSString* string, NSString* regexp, NSString* repla
 
 + (void) writeJSONFile: (NSString*) path object: (id) object;
 {
+  dlog << "object: " << _.ptr(object);
   NSData* jsonData = [object JSONData];
 
   path = [M3 expandPath: path];

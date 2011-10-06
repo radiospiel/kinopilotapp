@@ -23,15 +23,22 @@
 
 -(M3TableViewDataSource*) dataSource
 { 
-  M3AssertKindOf(self.tableView.dataSource, M3TableViewDataSource);
+  M3AssertKindOf(self.tableView, UITableView);
+  M3AssertKindOf([self.tableView dataSource], M3TableViewDataSource);
   
-  return [self.tableView dataSource];
+  return dataSource_;
 }
 
 -(void) setDataSource: (M3TableViewDataSource*)dataSource
 { 
   M3AssertKindOf(dataSource, M3TableViewDataSource);
-  self.tableView.dataSource = dataSource;
+  
+  // Note: the dataSource in a UITableView *IS NOT RETAINED*
+  [dataSource retain];
+  [dataSource_ release];
+  
+  self.tableView.dataSource = dataSource_ = dataSource; 
+
   [self.tableView reloadData];
 }
 

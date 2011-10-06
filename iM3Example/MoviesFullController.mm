@@ -242,7 +242,8 @@
   
   if([url matches:@"/movies/full/(.*)"]) {
     NSString* movie_id = $1;
-    self.dataSource = [[MoviesFullControllerDataSource alloc]initWithMovieId: movie_id];
+    id dataSource = [[MoviesFullControllerDataSource alloc]initWithMovieId: movie_id];
+    self.dataSource = [dataSource autorelease];
     [self setRightButton:movie_id];
   }
 }

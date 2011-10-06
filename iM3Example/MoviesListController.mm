@@ -298,12 +298,16 @@
 {
   [super setUrl: url];
 
+  id dataSource;
+  
   if([self.url matches: @"/movies/list/theater_id=(.*)"])
-    self.dataSource = [[MoviesListFilteredByTheaterDataSource alloc]initWithTheaterFilter:$1];
+    dataSource = [[MoviesListFilteredByTheaterDataSource alloc]initWithTheaterFilter:$1];
   else if([self.url matches: @"/movies/list/filter=(.*)"])
-    self.dataSource = [[MoviesListDataSource alloc]initWithFilter: $1];
+    dataSource = [[MoviesListDataSource alloc]initWithFilter: $1];
   else
-    self.dataSource = [[MoviesListDataSource alloc]initWithFilter: @"new"];
+    dataSource = [[MoviesListDataSource alloc]initWithFilter: @"new"];
+
+  self.dataSource = [dataSource autorelease];
 }
 
 @end

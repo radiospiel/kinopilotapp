@@ -12,7 +12,7 @@
   limit += offset;
   if(limit > 127) limit = 127;
   void* callstack[128];
-  int frames = backtrace(callstack, limit);
+  int frames = backtrace(callstack, (int)limit);
   char** strs = backtrace_symbols(callstack, frames);
   
   while(offset < frames) {
@@ -40,7 +40,7 @@
   if(index > 20) index = 20;
   
   void* callstack[21];
-  int frames = backtrace(callstack, index+1);
+  int frames = backtrace(callstack, (int)index+1);
   char** strs = backtrace_symbols(callstack, frames);
 
   NSString* caller = [NSString stringWithUTF8String: strs[index]];

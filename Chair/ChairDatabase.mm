@@ -35,21 +35,20 @@
   return AUTORELEASE(database);
 }
 
-+(ChairTable*) tableForDictionary_: (NSMutableDictionary*) tables 
-                           andName: (NSString*) name 
++(ChairTable*) tableWithName: (NSString*) name 
+                  inDictionary: (NSMutableDictionary*)tables
 {
   ChairTable* table = [tables objectForKey: name];
   if(!table) {
-    table = [[ChairTable alloc] initWithName: name]; 
+    table = [[[ChairTable alloc] initWithName: name]autorelease]; 
     [tables setObject: table forKey: name];
-    [table release];
   }
   
   return table;
 }
 
 -(ChairTable*) tableForName: (NSString*) name {
-  return [ChairDatabase tableForDictionary_: tables_ andName: name];
+  return [ChairDatabase tableWithName: name inDictionary: tables_];
 }
 
 //
@@ -97,12 +96,9 @@
     // Add dictionaries into the respective table.
     if(![entry isKindOfClass: dictionaryClass]) 
       continue;
-      
+    
     NSString* table_name = [entry objectForKey: @"_type"];
-
-    ChairTable* table = [ChairDatabase tableForDictionary_: tables
-                                                   andName: table_name];
-     
+    ChairTable* table = [ChairDatabase tableWithName:table_name inDictionary: tables];
     [table upsert: entry];
   }
 
@@ -135,6 +131,8 @@
   
   for(NSString* name in tables_) {
     ChairTable* table = [tables_ objectForKey: name];
+    dlog << "table " << table.name << _.ptr(table);
+    
     [table saveToFile: _.join(basedir, "/", name, ".json")];
   }
 }
@@ -251,7 +249,8 @@ ETest(ChairDatabase)
 {
   ChairDatabase* db = [ChairDatabase database];
 
-  [db import: @"fixtures/flk.json"];
+  
+  // [db import: @"fixtures/flk.json"];
   [db save: @"tmp/"];
   [db load: @"tmp"];
 }

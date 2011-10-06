@@ -127,7 +127,7 @@
   frame.origin.x = frame.size.width * page;
   frame.origin.y = 0;
 
-  UIImageView* imageView = [[UIImageView alloc]initWithFrame: frame];
+  UIImageView* imageView = [[[UIImageView alloc]initWithFrame: frame]autorelease];
   
   imageView.image = [UIImage imageNamed:@"no_poster.png"];
   imageView.imageURL = [self.imageUrls objectAtIndex:page];

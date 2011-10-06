@@ -125,8 +125,10 @@
 {
   // Benchmark(_.join(@"save to file ", [M3 basename: path]));
   
-  NSMutableDictionary* extraData = [NSMutableDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt:self.revision], @"revision", nil];
+  // NSMutableDictionary* extraData = _.hash(@"revision", [NSNumber numberWithInt:self.revision]);
   
+  NSMutableDictionary* extraData = [NSMutableDictionary dictionary];
+
   [self.dictionary saveToJSONFile: path 
                     withExtraData: extraData ];
 }
@@ -136,12 +138,23 @@
   // Benchmark(_.join(@"load from file ", [M3 basename: path]));
 
   NSMutableDictionary* extraData = [NSMutableDictionary dictionary];
-  self.dictionary = [[ChairDictionary alloc]initWithJSONFile: path withExtraData: extraData];
-  self.revision = [[extraData objectForKey: @"revision"] intValue];
+  self.dictionary = [[[ChairDictionary alloc]initWithJSONFile: path withExtraData: extraData] autorelease];
+  
+  NSNumber* revision = [extraData objectForKey: @"revision"];
+  
+  M3AssertKindOf(revision, NSNumber);
+                 
+  self.revision = [revision intValue];
 }
 
-+(ChairTable*) tableWithFile:(NSString*) path {
-  ChairTable* table = [[ChairTable alloc]init];
++(ChairTable*) table 
+{
+  return [[[ChairTable alloc]init]autorelease];
+}
+
++(ChairTable*) tableWithFile:(NSString*) path 
+{
+  ChairTable* table =  [ChairTable table];
   table.name = [M3 basename_wo_ext: path];
   [table loadFromFile: path];
   return table;

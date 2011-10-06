@@ -1,5 +1,7 @@
 #import "M3.h"
 
+#if TARGET_OS_IPHONE
+
 #define ACTIONS_BUTTON_HEIGHT 49
 
 @implementation UIButton(M3ActionButton)
@@ -44,3 +46,5 @@
 }
 
 @end
+
+#endif
