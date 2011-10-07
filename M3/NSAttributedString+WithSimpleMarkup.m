@@ -216,6 +216,7 @@
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError
 {
+  [M3Exception raiseOnError: parseError];
   [self add: [parseError description]];
 }
 @end

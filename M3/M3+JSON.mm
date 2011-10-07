@@ -58,14 +58,13 @@ static NSMutableString* gsub(NSString* string, NSString* regexp, NSString* repla
     returnValue = [data mutableObjectFromJSONStringWithParseOptions:0 error: &error];
   }
 
-  if(!returnValue) _.raise(error);
+  [M3Exception raiseOnError: error];
 
   return returnValue;
 }
 
 + (void) writeJSONFile: (NSString*) path object: (id) object;
 {
-  dlog << "object: " << _.ptr(object);
   NSData* jsonData = [object JSONData];
 
   path = [M3 expandPath: path];
@@ -86,7 +85,8 @@ static NSMutableString* gsub(NSString* string, NSString* regexp, NSString* repla
   if(!compact) flags |= JKSerializeOptionPretty;
   
   NSString* r = [object JSONStringWithOptions: flags error: &error];
-  if(!r) [M3Exception raiseWithError: error];
+  
+  [M3Exception raiseOnError: error];
   
   return r;
 }

@@ -23,10 +23,6 @@
   return [currentMatches objectAtIndex:idx];
 }
 
-// TODO: Raise exception if error is set.
-
-#define RETURN(value, error) return value
-
 /* 
  * try to match and, if matching, return matches and submatches.
  * This sets the $0, $1, etc. pseudo-variables, too.
@@ -42,6 +38,8 @@
                                               range: NSMakeRange(0, self.length)
                                             capture: 0 
                                               error: &error];
+  
+  [M3Exception raiseOnError: error];
   
   if([matches count] == 1) {
     
@@ -65,10 +63,7 @@
 
   [NSString setRecentMatches: matches];
 
-  if([matches count] == 0)
-    return nil;
-  
-  RETURN(matches, error);
+  return [matches count] == 0 ? nil : matches;
 }
 
 /* 
@@ -90,7 +85,9 @@
                                            range: NSMakeRange(0, self.length)
                                            error: &error ];
 
-  RETURN(r, error);
+  [M3Exception raiseOnError: error];
+  
+  return r;
 }
 
 - (NSString*) gsub_: (NSString*) regexp with: (NSString*) replacement andOptions: (int)options
@@ -104,7 +101,9 @@
                                            range: NSMakeRange(0, self.length)
                                            error: &error ];
 
-  RETURN(r, error);
+  [M3Exception raiseOnError: error];
+  
+  return r;
 }
 
 /* 

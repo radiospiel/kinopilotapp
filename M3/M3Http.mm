@@ -48,17 +48,12 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
                                        url:url
                                withOptions:options];
   
-  NSError* error;
+  NSError* error = 0;
   NSData* data = [ NSURLConnection sendSynchronousRequest: request 
                                         returningResponse: 0
                                                     error: &error ];
   
-  if(!data) {
-    rlog(1) << "RuntimeError: " << error;
-    
-    @throw @"RuntimeError"; //  [ ETRuntimeError raise: error ];
-  }
-
+  [M3Exception raiseOnError: error];
   return data;
 }
 
@@ -72,14 +67,14 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
                                        url:url
                                withOptions:options];
   
-  NSError* error;
-  NSURLResponse *response;
+  NSError* error = 0;
+  NSURLResponse *response = 0;
   
   NSData* data = [ NSURLConnection sendSynchronousRequest: request 
                                         returningResponse: &response 
                                                     error: &error ];
   
-  if(!data) @throw @"RuntimeError"; //  [ ETRuntimeError raise: error ];
+  [M3Exception raiseOnError: error];
   
   NSStringEncoding encoding = nsEncodingByIANAName(response.textEncodingName);
   

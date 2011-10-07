@@ -14,7 +14,7 @@
 
 +(void) raise: (NSString*) error;
 +(void) raise: (NSString*) error withMessage: (NSString*) message;
-+(void) raiseWithError: (NSError*) error;
++(void) raiseOnError: (NSError*) error;
 
 @end
 

@@ -28,17 +28,24 @@
   [super dealloc];
 }
 
-+(void) raise: (NSString*) error {
-  @throw [[M3Exception alloc] initWithError: error andMessage: nil];
-}
-
 +(void) raise: (NSString*) error withMessage: (NSString*) message {
-  @throw [[M3Exception alloc] initWithError: error andMessage: message];
+  M3Exception* exception = [[M3Exception alloc] initWithError: error andMessage: message];
+
+  NSLog(@"*** Exception: %@\n%@", exception.error, exception.message);
+  
+  @throw exception;
 }
 
-+(void) raiseWithError: (NSError*) error {
-  @throw [[M3Exception alloc] initWithError: error.localizedDescription 
-                                   andMessage: error.localizedFailureReason];
++(void) raise: (NSString*) error {
+  [M3Exception raise: error withMessage: nil];
+}
+
+
++(void) raiseOnError: (NSError*) error {
+  if(!error) return;
+
+  [M3Exception raise: error.localizedDescription 
+         withMessage: error.localizedFailureReason];
 }
 
 @end
