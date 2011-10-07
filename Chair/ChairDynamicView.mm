@@ -13,30 +13,6 @@
 @synthesize map_function = map_function_;
 @synthesize reduce_function = reduce_function_;
 
--(id) initWithView: (ChairView*)view_
-            andMap: (MapCallback)map_fun
-         andReduce: (ReduceCallback)reduce_fun {
-  self = [super init];
-  if(!self) return nil;
-  
-  source_view_ = view_;
-  self.map_function = [[map_fun copy]autorelease];
-  self.reduce_function = [[reduce_fun copy]autorelease];
-
-  [source_view_ addDependantObject: self];
-  return self;
-}
-
--(void)dealloc
-{
-  LOG_DEALLOC;
-  
-  self.map_function = nil;
-  self.reduce_function = nil;
-  
-  [super dealloc];
-}
-
 // --------------------------------------------------------------------
 
 - (ChairMultiDictionary*) updatedDictionary {
@@ -78,6 +54,45 @@
   // Benchmark(_.join(@"do_update: ", _.ptr(self)));
   
   self.dictionary = [self updatedDictionary];
+}
+
+// --------------------------------------------------------------------
+
+-(id) initWithView: (ChairView*)view_
+            andMap: (MapCallback)map_fun
+         andReduce: (ReduceCallback)reduce_fun {
+  self = [super init];
+  if(!self) return nil;
+  
+  source_view_ = view_;
+  [source_view_ addDependantObject: self];
+  
+  self.map_function = [[map_fun copy]autorelease];
+  self.reduce_function = [[reduce_fun copy]autorelease];
+  // self.dictionary = [self updatedDictionary];
+  
+  return self;
+}
+
+-(void)dealloc
+{
+  LOG_DEALLOC;
+  
+  self.map_function = nil;
+  self.reduce_function = nil;
+  
+  [super dealloc];
+}
+
+-(NSString*) description
+{
+  if([self isDirty])
+    return [NSString stringWithFormat: @"<%@: dirty, %ld dependants>", 
+            NSStringFromClass([self class]), dependant_objects_.count];
+  else
+    return [NSString stringWithFormat: @"<%@: %ld records, %ld dependants>", 
+            NSStringFromClass([self class]), self.count, dependant_objects_.count];
+    
 }
 
 @end
@@ -125,11 +140,7 @@
     };
   };
   
-  ChairView* r = [[ChairDynamicView alloc] initWithView: self
-                                                 andMap: map_fun
-                                              andReduce: reduce_fun];
-
-  return [r autorelease];
+  return [self viewWithMap: map_fun andReduce: reduce_fun];
 }
 
 @end

@@ -131,7 +131,6 @@
   
   for(NSString* name in tables_) {
     ChairTable* table = [tables_ objectForKey: name];
-    dlog << "table " << table.name << _.ptr(table);
     
     [table saveToFile: _.join(basedir, "/", name, ".json")];
   }

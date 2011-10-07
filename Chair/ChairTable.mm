@@ -123,10 +123,8 @@
 {
   // Benchmark(_.join(@"save to file ", [M3 basename: path]));
   
-  // NSMutableDictionary* extraData = _.hash(@"revision", [NSNumber numberWithInt:self.revision]);
+  NSMutableDictionary* extraData = _.hash(@"revision", [NSNumber numberWithInt:self.revision]);
   
-  NSMutableDictionary* extraData = [NSMutableDictionary dictionary];
-
   [self.dictionary saveToJSONFile: path 
                     withExtraData: extraData ];
 }
