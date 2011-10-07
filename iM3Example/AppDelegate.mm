@@ -118,7 +118,7 @@ AppDelegate* app;
 {
   dlog << "exec action " << action;
   if([action isEqualToString:@"update"]) {
-    [app.chairDB performSelectorOnMainThread:@selector(update) withObject:nil waitUntilDone:YES];
+    [app.chairDB performSelector:@selector(update) withObject:nil afterDelay:0.3];
   }
 }
 

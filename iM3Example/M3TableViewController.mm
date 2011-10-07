@@ -194,7 +194,7 @@
   self = [super init];
 
   [app.chairDB on: @selector(updated) notify:self with:@selector(reload)];
-  [app.chairDB on: @selector(resumed) notify:self with:@selector(reload)];
+  [app on: @selector(resumed) notify:self with:@selector(reload)];
   
   return self;
 }

@@ -90,7 +90,8 @@
   
   self.detailTextLabel.font = [UIFont italicSystemFontOfSize:13];
   self.detailTextLabel.text = @"mehr...";
-  
+  self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
   return self;
 }
 
@@ -143,6 +144,10 @@
     NSString* theater_id = [theater objectForKey:@"_uid"];
     
     NSArray* schedules = [[app.chairDB.schedules_by_theater_id get: theater_id] objectForKey: @"group"];
+    M3AssertKindOf(schedules, NSArray);
+
+    if(!schedules) continue;
+    
     schedules = [schedules selectUsingBlock:^BOOL(NSDictionary* schedule) {
       NSNumber* timeAsNumber = [schedule objectForKey: @"time"];
       double time = [timeAsNumber doubleValue];

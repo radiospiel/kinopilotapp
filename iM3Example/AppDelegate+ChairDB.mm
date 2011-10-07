@@ -11,7 +11,7 @@
 {
   ChairDatabase* db = [self memoized: @selector(chairdb) usingBlock:^() {
     ChairDatabase* db = [ChairDatabase database];
-    [app on: @selector(resumed) notify: db with:@selector(updateIfNeeded)];
+    [self on: @selector(resumed) notify: db with:@selector(updateIfNeeded)];
     return db; 
   }];
 

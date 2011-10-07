@@ -30,7 +30,7 @@
   NSMutableArray* section = [NSMutableArray array];
   
   [section addObject:_.array(@"MovieShortInfoCell", movie)];
-  [section addObject:_.array(@"MovieNotInCinemasCell", movie)];
+  [section addObject:_.array(@"MovieInCinemasCell", movie)];
   [section addObject:_.array(@"MovieRatingCell", movie)];
   [section addObject:_.array(@"M3TableViewAdCell", movie)];
   [section addObject:_.array(@"MovieDescriptionCell", movie)];
@@ -132,32 +132,59 @@
 @end
 
 /*
- * MovieNotInCinemasCell: This cell shows in which cinemaes the movie runs.
+ * MovieInCinemasCell: This cell shows in which cinemaes the movie runs.
  */
 
-@interface MovieNotInCinemasCell: MovieInfoCell
+@interface MovieInCinemasCell: MovieInfoCell
 @end
 
-@implementation MovieNotInCinemasCell
+@implementation MovieInCinemasCell
 
 -(CGFloat)wantsHeight
 { 
-  NSArray* theater_ids = [app.chairDB theaterIdsByMovieId: [self.movie objectForKey: @"_uid"]];
-  return theater_ids.count > 0 ? 0 : 30; 
+  return 30;
 }
 
--(id)init
+-(void)setKey: (id)key
 {
-  self = [super init];
+  [super setKey: key];
   
-  self.textLabel.text = @"Für diesen Film liegen uns keine Termine vor.";
-  self.textLabel.font = [UIFont italicSystemFontOfSize:13];
-  self.textLabel.textColor = [UIColor colorWithName:@"#999"];
+  // --- fill in cell.
+  
+  NSString* movie_id = [self.movie objectForKey: @"_uid"];
+  NSArray* theater_ids = [app.chairDB theaterIdsByMovieId: movie_id];
 
-  return self;
+  if(!theater_ids.count) {
+    self.textLabel.text = @"Für diesen Film liegen uns keine Termine vor.";
+    self.textLabel.font = [UIFont italicSystemFontOfSize:13];
+    self.textLabel.textColor = [UIColor colorWithName:@"#999"];
+  }
+  else {
+    NSString* label = nil;
+
+    if(theater_ids.count == 1) {
+      NSDictionary* theater = [app.chairDB.theaters get: theater_ids.first];
+      label = [NSString stringWithFormat: @"Zur Zeit im %@", [theater objectForKey:@"name"]];
+    }
+    else {
+      label = [NSString stringWithFormat: @"Zur Zeit in %d Kinos", theater_ids.count];
+    }
+
+    self.textLabel.font = [UIFont boldSystemFontOfSize:14];
+    self.textLabel.text = label;
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+  }
+
+  // --- set URL
+  switch(theater_ids.count) {
+    case 0:   self.url = nil;
+    case 1:   self.url = _.join(@"/theaters/show/", theater_ids.first); break;
+    default:  self.url = _.join(@"/movies/show/", movie_id); break;
+  }
+  
 }
-@end
 
+@end
 
 /*
  * MovieDescriptionCell: This cell shows a description of the movie.
@@ -213,24 +240,6 @@
 
 @implementation MoviesFullController
 
-// set right button
--(void)setRightButton: (NSString*)movie_id
-{
-  NSArray* theater_ids = [app.chairDB theaterIdsByMovieId: movie_id];
-  
-  switch(theater_ids.count) {
-    case 0:
-      break;
-    case 1: 
-      [self setRightButtonWithTitle: @"1 Kino"
-                                url: _.join(@"/theaters/show/", theater_ids.first) ];
-      break;
-    default: 
-      [self setRightButtonWithTitle: [NSString stringWithFormat: @"%d Kinos", theater_ids.count]
-                                url: _.join(@"/movies/show/", movie_id) ];
-  }
-}
-
 -(NSString*)title 
 {
   return @"Details";
@@ -244,7 +253,6 @@
     NSString* movie_id = $1;
     id dataSource = [[MoviesFullControllerDataSource alloc]initWithMovieId: movie_id];
     self.dataSource = [dataSource autorelease];
-    [self setRightButton:movie_id];
   }
 }
 @end

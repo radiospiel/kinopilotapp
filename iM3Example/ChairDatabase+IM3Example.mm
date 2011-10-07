@@ -172,18 +172,18 @@
   ];
 }
 
+-(ChairView*) schedules_by_movie_id
+{
+  return [self memoized: @selector(schedules_by_movie_id) 
+          usingSelector: @selector(schedules_by_movie_id_)];
+}
+
 -(ChairView*) schedules_by_theater_id_
 {
   return [ self.schedules viewWithMap:nil
                              andGroup:^id(NSDictionary *value, id key) { return [value objectForKey:@"theater_id"]; }
                             andReduce:^id(NSArray *values, id key) { return _.hash("group", values); }
   ];
-}
-
--(ChairView*) schedules_by_movie_id
-{
-  return [self memoized: @selector(schedules_by_movie_id) 
-          usingSelector: @selector(schedules_by_movie_id_)];
 }
 
 -(ChairView*) schedules_by_theater_id

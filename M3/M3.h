@@ -56,6 +56,21 @@
 
 #endif
 
+#define M3AssertNotNil(var) do {                        \
+          if(!var) NSLog(@"%s must not be nil", #var);  \
+          NSCParameterAssert(var != nil);               \
+        } while(0) 
+
+#define M3AssertKindOfAndSet(var, type)      do {                        \
+               if(!var) {                                                \
+                 NSLog(@"%s must not be nil", #var);                     \
+                 NSCParameterAssert(var != nil);                         \
+               }                                                         \
+               if(var && ![var isKindOfClass: [type class]]) {           \
+                 NSLog(@"%s is a %@", #var, [var class]);                \
+                 NSCParameterAssert([var isKindOfClass: [type class]]);  \
+               }                                                         \
+             } while(0)
 
 #define M3AssertKindOf(var, type) do {                              \
           if(var && ![var isKindOfClass: [type class]]) {           \
