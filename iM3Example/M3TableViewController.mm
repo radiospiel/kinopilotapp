@@ -52,9 +52,7 @@
   M3TableViewCell* cell = (M3TableViewCell*)[self.dataSource tableView:tableView 
                                                  cellForRowAtIndexPath:indexPath];
 
-  NSString* url = [cell urlToOpen];
-  if(url)
-    [app open: url];
+  [cell selectedCell];
 
   [self performSelector:@selector(deselectRowOnTableView:) withObject:tableView afterDelay: 0.1];
 }

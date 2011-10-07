@@ -32,11 +32,8 @@
   NSArray* movies = [[app.chairDB.movies valuesWithKeys: movieIds] pluck: @"title"];
   movies = [movies.uniq.sort mapUsingSelector:@selector(quote)];
   [self setDetailText: [movies componentsJoinedByString: @", "]];
-}
 
--(NSString*)urlToOpen
-{
-  return [NSString stringWithFormat: @"/theaters/show/%@", self.key];
+  self.url = [NSString stringWithFormat: @"/theaters/show/%@", self.key];
 }
 
 @end
@@ -113,11 +110,8 @@
   }];
   
   [self setDetailText: [schedules componentsJoinedByString:@", "]];
-}
 
--(NSString*)urlToOpen
-{
-  return [NSString stringWithFormat: @"/theaters/show/%@", [self.key objectForKey: @"theater_id"]];
+  self.url = [NSString stringWithFormat: @"/theaters/show/%@", [self.key objectForKey: @"theater_id"]];
 }
 
 @end

@@ -1,11 +1,13 @@
 #import "M3TableViewCell.h"
 #import "Underscore.hh"
+#import "AppDelegate.h"
 
 @implementation M3TableViewCell
 
 @synthesize tableViewController=tableViewController_, 
             indexPath=indexPath_,
-            key=key_;
+            key=key_,
+            url=url_;
 
 -(id)initWithStyle:(UITableViewCellStyle)style
 {
@@ -42,7 +44,8 @@
 +(CGFloat) fixedHeight;
   { return 0; }
 
--(NSString*)urlToOpen
-  { return nil; }
+-(void)selectedCell {
+  if(self.url) [app open: self.url];
+}
 
 @end

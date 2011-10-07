@@ -71,12 +71,8 @@
   self.detailTextLabel.text = [detailText withVersionString: [schedule objectForKey:@"version"]];
   self.detailTextLabel.numberOfLines = 1;
   self.detailTextLabel.lineBreakMode = UILineBreakModeMiddleTruncation;
-}
 
--(NSString*)urlToOpen
-{
-  NSDictionary* schedule = self.key;
-  return [NSString stringWithFormat: @"/movies/full/%@", [schedule objectForKey: @"movie_id"]];
+  self.url = [NSString stringWithFormat: @"/movies/full/%@", [schedule objectForKey: @"movie_id"]];
 }
 
 @end
@@ -98,10 +94,10 @@
   return self;
 }
 
--(NSString*)urlToOpen
+-(void)setKey: (NSDictionary*)theater
 {
-  NSDictionary* theater = self.key;
-  return [NSString stringWithFormat: @"/theaters/show/%@", [theater objectForKey: @"_uid"]];
+  [super setKey: theater];
+  self.url = [NSString stringWithFormat: @"/theaters/show/%@", [theater objectForKey: @"_uid"]];
 }
 
 @end

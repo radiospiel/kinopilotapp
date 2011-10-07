@@ -31,11 +31,8 @@
   NSArray* theater_ids = [app.chairDB theaterIdsByMovieId: movie_id];
   NSArray* theaters = [[app.chairDB.theaters valuesWithKeys: theater_ids] pluck: @"name"];
   [self setDetailText: [theaters.uniq.sort componentsJoinedByString: @", "]];
-}
 
--(NSString*)urlToOpen
-{
-  return [NSString stringWithFormat: @"/movies/full/%@", self.key];
+  self.url = [NSString stringWithFormat: @"/movies/full/%@", self.key];
 }
 
 @end
@@ -169,13 +166,9 @@
   }];
   
   [self setDetailText: [schedules componentsJoinedByString:@", "]];
-}
 
--(NSString*)urlToOpen
-{
-  return [NSString stringWithFormat: @"/movies/full/%@", [self.key objectForKey: @"movie_id"]];
+  self.url = [NSString stringWithFormat: @"/movies/full/%@", [self.key objectForKey: @"movie_id"]];
 }
-
 
 @end
 

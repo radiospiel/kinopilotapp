@@ -13,12 +13,14 @@
 
   id key_;
   NSIndexPath* indexPath_;
+  NSString* url_;
 }
 
 @property (nonatomic,assign) M3TableViewController* tableViewController;
 
 @property (nonatomic,retain) id key;
 @property (nonatomic,retain) NSIndexPath* indexPath;
+@property (nonatomic,retain) NSString* url;
 
 -(id)initWithStyle:(UITableViewCellStyle)style;
 
@@ -35,7 +37,6 @@
  */
 +(CGFloat) fixedHeight;
 
-
--(NSString*)urlToOpen;
+-(void)selectedCell;
 
 @end
