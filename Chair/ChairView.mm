@@ -45,9 +45,7 @@
 
 -(NSString*) description
 {
-  return [NSString stringWithFormat:  @"<%@: %ld dependants>", 
-                                      NSStringFromClass ([self class]), 
-                                      dependant_objects_.count];
+  return [NSString stringWithFormat: @"<%@: %ld dependants>", NSStringFromClass([self class]), dependant_objects_.count];
 }
 
 /**
@@ -65,6 +63,14 @@
 
   [self do_update];
   source_revision_ = source_view_.revision;
+}
+
+-(BOOL)isDirty
+{
+  if(!source_view_) return NO;
+  if(source_revision_ == source_view_.revision) return NO;
+
+  return YES;
 }
 
 - (void) do_update {

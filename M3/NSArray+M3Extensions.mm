@@ -134,7 +134,6 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
       [array addObject: object];
   }
   
-  dlog << "mapUsingBlock " << _.ptr(array);
   return array;
 }
 

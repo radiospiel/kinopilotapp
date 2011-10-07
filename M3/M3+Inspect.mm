@@ -7,7 +7,20 @@
 
 -(NSString*)inspect
 { 
-  return [NSString stringWithFormat: @"<%@: %@>", [self class], [self description]]; 
+  // If this is a Class, just return its description
+  if(self && self == [self class]) return [self description];
+  
+  // get class name and adjust it for MAZeroingWeakRef modified class names.
+  NSString* className = NSStringFromClass([self class]);
+  NSString* shortClassName = [className stringByReplacingOccurrencesOfString:@"_MAZeroingWeakRefSubclass" withString:@""];
+
+  // If the description is in the "default" format, just replace the className
+  // with the adjusted classname.
+  NSString* description = [self.description stringByReplacingOccurrencesOfString: className withString: shortClassName];
+  if([description matches: @"<([^:]+): ([^>]+)>"])
+    return description;
+    
+  return [NSString stringWithFormat: @"<%@: %@>", shortClassName, description]; 
 }
 
 @end

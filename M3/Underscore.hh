@@ -253,18 +253,27 @@ namespace RS {
       { return [NSString stringWithFormat: @"[%dx%d+%d+%d]", 
                 r.origin.x, r.origin.y, r.size.width, r.size.height];}
 
-    inline NSString* string(id obj) 
-      { return [obj description]; }
-
+    inline NSString* string(Class obj) 
+    { 
+      NSString* className = NSStringFromClass(obj);
+      return [className stringByReplacingOccurrencesOfString:@"_MAZeroingWeakRefSubclass" withString:@""];
+    }
+    
+    inline NSString* string(SEL selector) 
+      { return [@":" stringByAppendingString: NSStringFromSelector(selector)]; }
+    
     template <class T>
     inline NSString* string(T obj) 
       { return [ object(obj) description]; }
     
     // The ptr method
     NSString* ptr(const NSObject* obj)
-      { return [NSString stringWithFormat: @"<%@ @ 0x%08lx retain: %d>", [obj class], (long)obj, [obj retainCount]]; }
-    // NSString* ptr(const void* obj)
-    //   { return [NSString stringWithFormat: @"0x%08x", (int)obj]; }
+    { 
+      NSString* className = NSStringFromClass([obj class]);
+      className = [className stringByReplacingOccurrencesOfString:@"_MAZeroingWeakRefSubclass" withString:@""];
+      
+      return [NSString stringWithFormat: @"<%@ @ 0x%08lx>", className, (long)obj]; 
+    }
       
     // "Functions" to build strings, arrays, and hashes.  
     VariadicFactory<ArrayFactory> array;
@@ -287,93 +296,6 @@ namespace RS {
     void print(NSString *format, ...);
     void puts(const char* s);
     void puts(NSString *format, ...);
-
-    #if 0 
-    // _.each
-    id each(id list, void (^iterator)(id value, id key))
-      { return [M3 each: list with: iterator]; }
-    id each(id list, void (^iterator)(id value, NSUInteger index))
-      { return [M3 each: list withIndex: iterator]; }
-    
-    // _.inject
-    template <class T>
-    id inject(id list, T memo, id (^iterator)(id memo, id value, id key))
-      { return [M3 inject: list memo: object(memo) with: iterator]; }
-    template <class T>
-    id inject(id list, T memo, id (^iterator)(id memo, id value, NSUInteger key))
-      { return [M3 inject: list memo: object(memo) withIndex: iterator]; }
-    id inject(id list, id (^iterator)(id memo, id value, id key))
-      { return [M3 inject: list with: iterator]; }
-    id inject(id list, id (^iterator)(id memo, id value, NSUInteger key))
-      { return [M3 inject: list withIndex: iterator]; }
-    
-    // _.map
-    NSMutableArray* map(id list, id (^iterator)(id value, id key))
-      { return [M3 map: list with: iterator]; }
-    NSMutableArray* map(id list, id (^iterator)(id value, NSUInteger idx))
-      { return [M3 map: list withIndex: iterator]; }
-    
-    // _.detect
-    id detect(id list,  BOOL (^iterator)(id value, id key))
-      { return [M3 detect: list with: iterator]; }
-    id detect(id list,  BOOL (^iterator)(id value, NSUInteger key))
-      { return [M3 detect: list withIndex: iterator]; }
-    
-    // _.select
-    NSMutableArray* select(id list, BOOL (^iterator)(id value, id key))
-      { return [M3 select: list with: iterator]; }
-    NSMutableArray* select(id list, BOOL (^iterator)(id value, NSUInteger key))
-      { return [M3 select: list withIndex: iterator]; }
-    
-    // _.reject
-    NSMutableArray* reject(id list, BOOL (^iterator)(id value, id key))
-      { return [M3 reject: list with: iterator]; }
-    NSMutableArray* reject(id list, BOOL (^iterator)(id value, NSUInteger key))
-      { return [M3 reject: list withIndex: iterator]; }
-    
-    // _.all
-    BOOL all(id list,  BOOL (^iterator)(id value, id key))
-      { return [M3 all: list with: iterator]; }
-    BOOL all(id list,  BOOL (^iterator)(id value, NSUInteger key))
-      { return [M3 all: list withIndex: iterator]; }
-    
-    // _.any
-    BOOL any(id list,  BOOL (^iterator)(id value, id key))
-      { return [M3 any: list with: iterator]; }
-    BOOL any(id list,  BOOL (^iterator)(id value, NSUInteger key))
-      { return [M3 any: list withIndex: iterator]; }
-    
-    // _.include
-    template <class T>
-    BOOL include(id list, T value)
-      { return [M3 include: list value: object(value)]; }
-    
-    // _.pluck
-    template <class T>
-    NSMutableArray* pluck(id list, T propertyName)
-      { return [M3 pluck: list name: string(propertyName)]; }
-    
-    
-    // _.max
-    id max(id list)
-      { return [M3 max: list]; }
-    id max(id list, id (^iterator)(id value, id key))
-      { return [M3 max: list with: iterator]; }
-    id max(id list, id (^iterator)(id value, NSUInteger idx))
-      { return [M3 max: list withIndex: iterator]; }
-    
-    // _.min
-    id min(id list)
-      { return [M3 min: list]; }
-    id min(id list,  id (^iterator)(id value, id key))
-      { return [M3 min: list with: iterator]; }
-    id min(id list,  id (^iterator)(id value, NSUInteger idx))
-      { return [M3 min: list withIndex: iterator]; }
-    
-    // _.group_by
-    id group_by(id list, id (^iterator)(id value))
-      { return [M3 group: list by: iterator]; }
-    #endif
   };
 };
 

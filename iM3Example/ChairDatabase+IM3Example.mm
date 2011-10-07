@@ -16,8 +16,6 @@
 {
   if(![M3 fileExists: DB_PATH]) return NO;
   
-  dlog << "load local copy";
-  
   Benchmark(_.join("Loading database from ", DB_PATH));
   [self load: DB_PATH];
   [self emit:@selector(updated)];

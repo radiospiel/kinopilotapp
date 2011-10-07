@@ -54,6 +54,14 @@
 - (void) do_update;
 
 /**
+  Is this view dirty? If this method returns YES, each, count, and other
+  methods would update this view first.
+ 
+  @see update
+ */
+-(BOOL)isDirty;
+
+/**
 
  returns/yields all entries in the view
  

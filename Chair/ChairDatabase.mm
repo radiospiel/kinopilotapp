@@ -19,7 +19,7 @@
 }
 
 -(NSString*)description {
-  return [NSString stringWithFormat: @"<%@: %d table(s): %@>", [self class], tables_.count, [tables_ allKeys]];
+  return [NSString stringWithFormat: @"%d table(s): %@", tables_.count, tables_.allValues.inspect];
 }
 
 -(void)dealloc {

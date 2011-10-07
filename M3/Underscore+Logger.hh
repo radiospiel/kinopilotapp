@@ -67,6 +67,8 @@ inline const RS::NoLogger& operator << (const RS::NoLogger& logger, T obj)
   { return logger; }
 
 
+#define nolog RS::NoLogger()
+
 #ifndef NDEBUG
   
 #define rlog RS::Logger(RS::Logger::Debug, __FILE__, __LINE__)

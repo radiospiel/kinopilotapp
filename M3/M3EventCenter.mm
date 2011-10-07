@@ -3,6 +3,9 @@
 #include <map>
 #include <set>
 
+#undef dlog
+#define dlog nolog
+
 typedef std::pair<id,SEL> M3Signal;
 typedef std::pair<id,SEL> M3Slot;
 
@@ -94,6 +97,8 @@ private:
       return;
     }
 
+    dlog << _.ptr(observer) << " performSelector: " << NSStringFromSelector(selector);
+    
     [ observer performSelector: selector withObject: parameter];
   }
 
@@ -102,6 +107,9 @@ private:
   // Adding a connection means
   void connect(id sender, SEL signal, id receiver, SEL slot)
   {
+    dlog << "connect " << sender << " " << signal
+         << " --> " << receiver << " " << NSStringFromSelector(slot);
+
     M3Signal m3signal = std::make_pair(sender, signal);
     M3Slot m3slot = std::make_pair(receiver, slot);
 
@@ -128,6 +136,8 @@ private:
   //
   // Removing an object
   void disconnectAll(id object) {
+    dlog << "disconnect " << _.ptr(object);
+    
     disconnectAllSignalsToReceiver(signals_by_sender.signalsForId(object));
     signals_by_sender.erase(object);
     
