@@ -225,6 +225,14 @@
 		9DA5DD4B143276D00003B54A /* NSDate+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA5DD47143276D00003B54A /* NSDate+M3Extensions.mm */; };
 		9DAA0D28142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA0D27142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm */; };
 		9DAA0D2B142AA8D5001F11C1 /* UIViewController+Model.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA0D2A142AA8D5001F11C1 /* UIViewController+Model.mm */; };
+		9DBCDDEE1440919B0020EA1F /* M3Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBCDDED1440919B0020EA1F /* M3Cache.m */; };
+		9DBCDDEF1440919B0020EA1F /* M3Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBCDDED1440919B0020EA1F /* M3Cache.m */; };
+		9DBCDDF2144094290020EA1F /* M3-Internals.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DBCDDF1144094290020EA1F /* M3-Internals.h */; };
+		9DBCDDF3144094290020EA1F /* M3-Internals.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DBCDDF1144094290020EA1F /* M3-Internals.h */; };
+		9DBCDDF5144095390020EA1F /* M3-Internals.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBCDDF4144095390020EA1F /* M3-Internals.m */; };
+		9DBCDDF6144095390020EA1F /* M3-Internals.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBCDDF4144095390020EA1F /* M3-Internals.m */; };
+		9DBCDDFC1440B55A0020EA1F /* M3Cache.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DBCDDFB1440B55A0020EA1F /* M3Cache.h */; };
+		9DBCDDFD1440B55A0020EA1F /* M3Cache.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DBCDDFB1440B55A0020EA1F /* M3Cache.h */; };
 		9DC1E7601435C145009B41A5 /* VicinityShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1E75F1435C145009B41A5 /* VicinityShowController.mm */; };
 		9DC51240143723A8009A393C /* M3LocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DC5123E143723A8009A393C /* M3LocationManager.h */; };
 		9DC51241143723A8009A393C /* M3LocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DC5123E143723A8009A393C /* M3LocationManager.h */; };
@@ -464,6 +472,10 @@
 		9DAA0D27142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "ChairDatabase+IM3Example.mm"; sourceTree = "<group>"; };
 		9DAA0D29142AA8D5001F11C1 /* UIViewController+Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Model.h"; sourceTree = "<group>"; };
 		9DAA0D2A142AA8D5001F11C1 /* UIViewController+Model.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIViewController+Model.mm"; sourceTree = "<group>"; };
+		9DBCDDED1440919B0020EA1F /* M3Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3Cache.m; sourceTree = "<group>"; };
+		9DBCDDF1144094290020EA1F /* M3-Internals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3-Internals.h"; sourceTree = "<group>"; };
+		9DBCDDF4144095390020EA1F /* M3-Internals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "M3-Internals.m"; sourceTree = "<group>"; };
+		9DBCDDFB1440B55A0020EA1F /* M3Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Cache.h; sourceTree = "<group>"; };
 		9DC1E75E1435C145009B41A5 /* VicinityShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VicinityShowController.h; sourceTree = "<group>"; };
 		9DC1E75F1435C145009B41A5 /* VicinityShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VicinityShowController.mm; sourceTree = "<group>"; };
 		9DC5123E143723A8009A393C /* M3LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3LocationManager.h; sourceTree = "<group>"; };
@@ -878,6 +890,8 @@
 				9DDF5CFC1431AEF1001CAC28 /* M3+Caller.m */,
 				9D8B8AF71413CA8B0066ECBB /* M3.h */,
 				9D8B8AF81413CA8B0066ECBB /* M3.m */,
+				9DBCDDF1144094290020EA1F /* M3-Internals.h */,
+				9DBCDDF4144095390020EA1F /* M3-Internals.m */,
 				9D8B8B171413CAD90066ECBB /* M3+Comparison.h */,
 				9D8B8B181413CAD90066ECBB /* M3+Comparison.mm */,
 				9D8B8B191413CAD90066ECBB /* M3+Crypto.h */,
@@ -896,6 +910,8 @@
 				9D8B8B221413CAD90066ECBB /* M3+JSON.mm */,
 				9D3B0871142A3B7900322C00 /* M3+RuntimeError.h */,
 				9D3B0872142A3B7900322C00 /* M3+RuntimeError.mm */,
+				9DBCDDFB1440B55A0020EA1F /* M3Cache.h */,
+				9DBCDDED1440919B0020EA1F /* M3Cache.m */,
 				9D750E89142273A30056290E /* M3Data.h */,
 				9D750E8A142273A30056290E /* M3Data.mm */,
 				9D9656AB14177A6C00884372 /* M3Etest.h */,
@@ -908,6 +924,8 @@
 				9D8B8B251413CAD90066ECBB /* M3Exception.m */,
 				9D8EAD53141E839400B21BEA /* M3Http.h */,
 				9D8EAD54141E839400B21BEA /* M3Http.mm */,
+				9DC5123E143723A8009A393C /* M3LocationManager.h */,
+				9DC5123F143723A8009A393C /* M3LocationManager.mm */,
 				9D8B8B281413CAD90066ECBB /* M3MemoryManagement.h */,
 				9D9656B114177F9700884372 /* M3StopWatch.h */,
 				9D9656B214177F9700884372 /* M3StopWatch.mm */,
@@ -934,8 +952,6 @@
 				9DDF5D021431B30D001CAC28 /* Underscore+Logger.hh */,
 				9D8B8B291413CAD90066ECBB /* Underscore+Logger.mm */,
 				9D8B8AF51413CA8B0066ECBB /* Supporting Files */,
-				9DC5123E143723A8009A393C /* M3LocationManager.h */,
-				9DC5123F143723A8009A393C /* M3LocationManager.mm */,
 			);
 			path = M3;
 			sourceTree = "<group>";
@@ -989,6 +1005,8 @@
 				9DA5DD49143276D00003B54A /* NSDate+M3Extensions.h in Headers */,
 				9DC51241143723A8009A393C /* M3LocationManager.h in Headers */,
 				9D594A80143D027C00A4CED4 /* UIButton+ActionButton.h in Headers */,
+				9DBCDDF3144094290020EA1F /* M3-Internals.h in Headers */,
+				9DBCDDFD1440B55A0020EA1F /* M3Cache.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1035,6 +1053,8 @@
 				9DA5DD48143276D00003B54A /* NSDate+M3Extensions.h in Headers */,
 				9DC51240143723A8009A393C /* M3LocationManager.h in Headers */,
 				9D594A7F143D027C00A4CED4 /* UIButton+ActionButton.h in Headers */,
+				9DBCDDF2144094290020EA1F /* M3-Internals.h in Headers */,
+				9DBCDDFC1440B55A0020EA1F /* M3Cache.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1349,6 +1369,8 @@
 				9DA5DD4B143276D00003B54A /* NSDate+M3Extensions.mm in Sources */,
 				9DC51243143723A8009A393C /* M3LocationManager.mm in Sources */,
 				9D594A82143D027C00A4CED4 /* UIButton+ActionButton.mm in Sources */,
+				9DBCDDEF1440919B0020EA1F /* M3Cache.m in Sources */,
+				9DBCDDF6144095390020EA1F /* M3-Internals.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1441,6 +1463,8 @@
 				9DA5DD4A143276D00003B54A /* NSDate+M3Extensions.mm in Sources */,
 				9DC51242143723A8009A393C /* M3LocationManager.mm in Sources */,
 				9D594A81143D027C00A4CED4 /* UIButton+ActionButton.mm in Sources */,
+				9DBCDDEE1440919B0020EA1F /* M3Cache.m in Sources */,
+				9DBCDDF5144095390020EA1F /* M3-Internals.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

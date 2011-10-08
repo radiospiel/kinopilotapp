@@ -1,5 +1,9 @@
 #import <Foundation/Foundation.h>
 
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#endif
+
 /* Sync NDEBUG setting w/DEBUG setting. NDEBUG is C standard, while DEBUG is Apple's Objective-C standard. */
 
 #ifdef DEBUG
@@ -32,9 +36,11 @@
 #import "M3+Inspect.h"
 #import "M3+RuntimeError.h"
 
+#import "M3Cache.h"
+#import "M3Etest.h"
+
 #import "M3StopWatch.h"
 #import "M3Exception.h"
-#import "M3Etest.h"
 #import "M3EventCenter.h"
 
 #import "M3Http.h"
@@ -46,8 +52,6 @@
 
 /* iOS additions */
 #if TARGET_OS_IPHONE
-
-#import <UIKit/UIKit.h>
 
 #import "UIButton+ActionButton.h"
 #import "UIImageView+M3Extensions.h"

@@ -1,10 +1,5 @@
 #import "M3.h"
-
-#define COREFOUNDATION_HACK_LEVEL 0
-#define KVO_HACK_LEVEL 0
-
-#import "MAZeroingWeakRef/MAZeroingWeakRef.h"
-#import "MAZeroingWeakRef/MAZeroingWeakRef.m"
+#import "M3-Internals.h"
 
 @implementation M3EventCenter(Disconnect)
 

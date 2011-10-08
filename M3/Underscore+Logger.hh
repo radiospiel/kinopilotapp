@@ -16,6 +16,8 @@
 #ifndef UNDERSCORE_LOGGER_HH
 #define UNDERSCORE_LOGGER_HH
 
+@class M3StopWatch;
+
 namespace RS {
   
 //! Measure a block
