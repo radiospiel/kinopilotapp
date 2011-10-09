@@ -89,7 +89,7 @@
 }
 
 + (id) dictionary {
-  return AUTORELEASE([[ChairDictionary alloc] init]);
+  return [[[ChairDictionary alloc] init]autorelease];
 }
 
 - (NSArray*) keys {
@@ -170,7 +170,7 @@
 @implementation ChairMultiDictionary
 
 + (ChairMultiDictionary*) dictionary {
-  return AUTORELEASE([[ChairMultiDictionary alloc] init]);
+  return [[[ChairMultiDictionary alloc] init] autorelease];
 }
 
 - (void) addObject: (NSDictionary*) object forKey: (id) key

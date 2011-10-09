@@ -76,8 +76,6 @@
 
 -(void)dealloc
 {
-  LOG_DEALLOC;
-  
   self.map_function = nil;
   self.reduce_function = nil;
   
@@ -115,8 +113,8 @@
   if(!map_func) map_func = ^(NSDictionary* value, id key) { return value; };
   if(!group_func) group_func = ^(NSDictionary* value, id key) { return key; };
 
-  map_func = AUTORELEASE([map_func copy]);
-  group_func = AUTORELEASE([group_func copy]);
+  map_func = [[map_func copy]autorelease];
+  group_func = [[group_func copy]autorelease];
   
   MapCallback map_fun = ^(NSDictionary* value, id key, EmitCallback emit) {
                           value = map_func(value, key);
@@ -128,11 +126,11 @@
                           emit(value, key);
                         };
 
-  map_fun = AUTORELEASE([map_fun copy]);
+  map_fun = [[map_fun copy]autorelease];
 
   ReduceCallback reduce_fun = nil;
   if(reduce_func) {
-    reduce_func = AUTORELEASE([reduce_func copy]);
+    reduce_func = [[reduce_func copy] autorelease];
     
     reduce_fun = ^(NSArray* values, id key, EmitCallback emit) {
                    id value = reduce_func(values, key);

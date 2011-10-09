@@ -120,7 +120,7 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
 + (SimpleMapCallback) groupBy: (NSString*) name;
 {
   id block = ^(NSDictionary* value, id key) { return [value objectForKey: name]; };
-  return AUTORELEASE([block copy]);
+  return [[block copy]autorelease];
 }
 
 + (SimpleReduceCallback) reduceBy: (NSString*) name;

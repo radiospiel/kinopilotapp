@@ -28,8 +28,6 @@
 
 -(void)dealloc 
 {
-  LOG_DEALLOC;
-
   [dependant_objects_ release];
   
   self.revision = 0;

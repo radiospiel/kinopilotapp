@@ -29,8 +29,6 @@
 
 -(void)dealloc
 {
-  LOG_DEALLOC;
-
   self.dictionary = nil;
   [super dealloc];
 }

@@ -23,16 +23,13 @@
 }
 
 -(void)dealloc {
-  LOG_DEALLOC;
-  
   [tables_ release];
   [super dealloc];
 }
 
 +(ChairDatabase*) database 
 {
-  ChairDatabase* database = [[self alloc] init];
-  return AUTORELEASE(database);
+  return [[[self alloc] init] autorelease];
 }
 
 +(ChairTable*) tableWithName: (NSString*) name 
