@@ -79,6 +79,8 @@ ETest(M3Internals)
 
   assert_nil(ref.target);
   assert_equal_int(deallocCount, 1);
+  
+  [ref release];
 }
 
 @end

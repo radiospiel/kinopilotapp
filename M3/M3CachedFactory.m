@@ -338,7 +338,7 @@ static M3CachedFactory* cache = nil;
     assert_equal_int(deallocCount, 0);
     
     // --- get a different piece of content.
-    id bar = [cache build: @"bar"];
+    [cache build: @"bar"];
 
     // verify cache stats
     assert_equal_int([cache stats], 2);
@@ -352,7 +352,7 @@ static M3CachedFactory* cache = nil;
     assert_equal_int(buildCount, 2);    // and yes, no new object has been built
     assert_equal_int([cache stats], 2); // and yes, we have still two objects
 
-    [foo2 retain];
+    [foo retain];
 
     // verify cache stats
 
