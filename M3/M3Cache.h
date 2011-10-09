@@ -1,17 +1,27 @@
-@interface M3Cache: NSObject {
-  id (^theBlock_)(id key);
+@interface M3CachedFactory: NSObject {
   NSMutableDictionary* objects_;
+
+  id target_;
+  SEL selector_;
 }
 
-+(M3Cache*) cacheWithBlock: (id (^)(id key))block;
--(id)initWithBlock: (id (^)(id key))block;
+-(id)initWithClass: (id)target andSelector: (SEL)selector;
 
--(id)setObject: (NSObject*)object 
-        forKey: (id)key;
--(id)objectForKey: (id)key;
+-(id)newObject:(id)parameter;
 
--(void)asyncObjectForKey: (id)key 
-                 toBlock: (void (^)(id key, BOOL instantlyAvailable))block;
+-(id)build:(id)parameter;
+
+-(BOOL)buildAsync: (id)parameter
+         callback: (void (^)(id builtObject, BOOL didExist))callback;
+
+-(BOOL)newObjectAsync: (id)parameter
+             callback: (void (^)(id newObject, BOOL didExist))callback;
+
+@end
+
+@interface NSObject(M3CachedFactory)
+
++(M3CachedFactory*) cachedFactoryWithSelector: (SEL)selector;
 
 @end
 
@@ -19,11 +29,10 @@
 
 @interface UIImage (M3Cached)
 
-+(void)imageWithURL: (NSString*)url
-            toBlock: (void (^)(id key, BOOL instantlyAvailable))block;
++(UIImage*)imageWithContentsOfURL: (NSString*)url;
 
-
-+(UIImage*)imageWithFile: (NSString*)path;
++(M3CachedFactory*)cachedImagesWithURL;
++(M3CachedFactory*)cachedImagesWithPath;
 
 @end
 
