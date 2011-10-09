@@ -88,7 +88,20 @@
   return [NSURL URLWithString:self];
 }
 
+-(SEL)to_sym
+{
+  return NSSelectorFromString(self);
+}
+
 @end
+
+@implementation NSURL(M3Extensions)
+-(NSURL*)to_url
+{ 
+  return self; 
+}
+@end
+
 
 ETest(NSStringM3Extensions)
 

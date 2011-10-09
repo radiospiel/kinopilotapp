@@ -44,4 +44,11 @@
 @property (readonly,nonatomic,retain) NSURL* to_url;
 -(NSURL*)to_url;
 
+@property (readonly,nonatomic,assign) SEL to_sym;
+-(SEL)to_sym;
+
+@end
+
+@interface NSURL(M3Extensions)
+-(NSURL*)to_url;
 @end
