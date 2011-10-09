@@ -45,8 +45,8 @@
 -(void)reportFailure:(M3ETestAssertionFailed*)exception
 {
   _.puts(@"\n%s(%d): ETest Case '%@' failed (%d msecs).", exception.file, exception.line, [ self testcase ], [self milliSeconds]);
-  _.puts(@"%@", exception.message);
-  _.puts(@"in\n\t%@", [[exception backtrace] componentsJoinedByString:@"\n\t"]);
+  _.puts(@"\n%s(%d): %@", exception.file, exception.line, exception.message);
+  // _.puts(@"in\n\t%@", [[exception backtrace] componentsJoinedByString:@"\n\t"]);
 }
 
 -(void)reportException:(NSString*)exception

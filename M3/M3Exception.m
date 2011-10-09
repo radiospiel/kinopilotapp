@@ -18,7 +18,7 @@
   if(message_)
     return [NSString stringWithFormat: @"%@: %@", error_, message_];
   else
-    return AUTORELEASE(error_);
+    return error_;
 }
 
 -(void)dealloc {
