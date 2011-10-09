@@ -34,7 +34,7 @@
 #import "M3+Inspect.h"
 #import "M3+RuntimeError.h"
 
-#import "M3Cache.h"
+#import "M3CachedFactory.h"
 #import "M3Etest.h"
 
 #import "M3StopWatch.h"
