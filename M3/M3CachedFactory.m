@@ -161,21 +161,45 @@
 
 @implementation UIImage (M3Cached)
 
+- (UIImage*)decompress
+{
+	UIGraphicsBeginImageContext(CGSizeMake(1, 1));
+	[self drawAtPoint:CGPointZero];
+	UIGraphicsEndImageContext();
+
+  return self;
+}
+
++(UIImage*)decompressedImageWithContentsOfFile: (NSString*)url
+{
+  return [[self imageWithContentsOfFile: path]decompress];
+}
+
 +(UIImage*)imageWithContentsOfURL: (NSString*)url
 {
   UIImage* image = nil;
   NSString* cachePath = [NSString stringWithFormat: @"$cache/%@.bin", [M3 md5: url]];
+  if([M3 exists: cachePath]) {
+    image = [UIImage imageWithContentsOfFile:cachePath];
+    if(image) return image;
+  }
+  
   NSData* data = [M3Http requestData: @"GET" 
                                  url: url
                          withOptions: nil];
-  
+
   if(!data) return nil;
-  
+
   image = [UIImage imageWithData:data];
-  if(!image) return nil;
+  if(image)
+    [M3 writeData: data toPath: cachePath];
   
-  [M3 writeData: data toPath: cachePath];
   return image;
+}
+
++(UIImage*)decompressedImageWithContentsOfURL: (NSString*)url
+{
+  return [[self imageWithContentsOfURL: path]decompress];
 }
 
 +(M3CachedFactory*)cachedImagesWithURL
@@ -185,7 +209,7 @@
 
 +(M3CachedFactory*)cachedImagesWithPath
 {
-  return [UIImage cachedFactoryWithSelector: @selector(imageWithContentsOfFile:)];
+  return [UIImage cachedFactoryWithSelector: @selector(decompressedImageWithContentsOfFile:)];
 }
 
 @end
