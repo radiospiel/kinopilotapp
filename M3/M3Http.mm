@@ -48,13 +48,20 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
                                        url:url
                                withOptions:options];
   
+  NSHTTPURLResponse* response = 0;
   NSError* error = 0;
   NSData* data = [ NSURLConnection sendSynchronousRequest: request 
-                                        returningResponse: 0
+                                        returningResponse: &response
                                                     error: &error ];
   
   [M3Exception raiseOnError: error];
-  return data;
+  M3AssertKindOf(response, NSHTTPURLResponse);
+  
+  if(response.statusCode == 200) 
+    return data;
+
+  rlog << url << ": failed with status code " << response.statusCode;
+  return nil;
 }
 
 + (NSString*) uncachedRequest: (NSString*) verb
@@ -67,8 +74,8 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
                                        url:url
                                withOptions:options];
   
+  NSHTTPURLResponse *response = 0;
   NSError* error = 0;
-  NSURLResponse *response = 0;
   
   NSData* data = [ NSURLConnection sendSynchronousRequest: request 
                                         returningResponse: &response 
@@ -76,8 +83,12 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
   
   [M3Exception raiseOnError: error];
   
-  NSStringEncoding encoding = nsEncodingByIANAName(response.textEncodingName);
+  M3AssertKindOf(response, NSHTTPURLResponse);
   
+  NSStringEncoding encoding = nsEncodingByIANAName(response.textEncodingName);
+
+  // int responseStatusCode = response.statusCode;
+
   return [[ [NSString alloc] initWithData: data
                                  encoding: encoding ] autorelease];
 }

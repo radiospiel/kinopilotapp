@@ -5,6 +5,7 @@
  * For more on sencha.io see http://www.sencha.com/learn/how-to-use-src-sencha-io/
  */
 #define USE_SENCHA_IO 0
+// #define USE_SENCHA_IO 1
 
 /**
  * The rotation interval
@@ -30,7 +31,7 @@
   if(width > 0 && height > 0) {
     // TODO: add proper support for shards
     NSString* shard = @"";
-    url = [NSString stringWithFormat: @"http://src%@.sencha.io/%d/%d/%@", shard, width, height, url];
+    url = [NSString stringWithFormat: @"http://src%@.sencha.io/%d/%d/%@", shard, width*2, height*2, url];
   }
 #endif
 
@@ -66,31 +67,10 @@
 {
   url = [self sourceImageURL: url];
 
-  NSString* cachePath = _.join("$cache/", [M3 md5: url], ".json");
-  
-  if([M3 fileExists: cachePath]) {
-    NSData *data = [M3 readDataFromPath: cachePath];
-    UIImage * image = [UIImage imageWithData:data];
-    block(image, NO);
-    return;
-  }
-  
-  // read image from URL in background
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    NSData* data = [M3Http requestData: @"GET" 
-                                   url: url
-                           withOptions: nil];
-    if(!data) return;
-    
-    UIImage* image = [UIImage imageWithData:data];
-    if(!image) return;
-    
-    [M3 writeData: data toPath: cachePath];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-      block(image, YES);
-    });
-  });
+  [[UIImage cachedImagesWithURL]buildAsync:url
+                                  callback:^(UIImage* image, BOOL didExist) {
+                                    block(image, didExist != NO);
+                                  }];
 }
 
 // -(void)loadImageInBackground: ^(NSImage* image)
@@ -176,6 +156,8 @@
 
 -(void)addImageToRotation: (UIImage*)image
 {
+  if(!image) return;
+  
   // If needed initialise rotationTimer.
   [self rotationTimer];
 

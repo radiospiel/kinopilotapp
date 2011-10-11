@@ -63,6 +63,9 @@ AppDelegate* app;
     className = @"VicinityShowController";
   }
 
+  if (!className && [url matches: @"^/movies/images(/(\\w+))?"])
+    className = @"MoviesImagesController";
+
   if (!className && [url matches: @"^/map/show(/(\\w+))?"])
     nibName = className = @"MapShowController";
   
@@ -158,20 +161,59 @@ AppDelegate* app;
   UIViewController* vc = [self viewControllerForURL: url];
   if(!vc) return;
 
-  UINavigationController* currentTab = (UINavigationController*) self.tabBarController.selectedViewController;
-  if(!currentTab)
-    currentTab = (UINavigationController*) [self.tabBarController.viewControllers objectAtIndex:0];
+  
+  UINavigationController* nc = (UINavigationController*) self.tabBarController.selectedViewController;
+  if(!nc)
+    nc = (UINavigationController*) [self.tabBarController.viewControllers objectAtIndex:0];
 
-  // if([vc shouldOpenModally]) {
-  //   // vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-  //   vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-  //   // vc.modalTransitionStyle = UIModalTransitionStylePartialCurl;
-  //   [currentTab presentModalViewController:vc animated:YES];
-  //   return;
-  // }
-
-  [currentTab pushViewController:vc animated:YES];
+  if(NO) { // [vc shouldOpenModally]) {
+    vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    // vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    // vc.modalTransitionStyle = UIModalTransitionStylePartialCurl;
+    [nc presentModalViewController:vc animated:YES];
+  }
+  else {
+    [nc pushViewController:vc animated:YES];
+  }
 }
+
+-(void)navigationController:(UINavigationController *) nc 
+     willShowViewController:(UIViewController *) vc 
+                   animated:(BOOL)anmated
+{
+  UITabBarController* tbc = self.tabBarController;
+
+  // find the tab bars content view.
+  UIView *contentView = [tbc.view.subviews.first isKindOfClass:[UITabBar class]] ?
+    tbc.view.subviews.second :
+    tbc.view.subviews.first;
+  
+  if([vc respondsToSelector:@selector(isFullscreen)] && [vc isFullscreen]) {
+    [nc setNavigationBarHidden: YES animated: YES];
+    
+    CGRect frame = [[UIScreen mainScreen]bounds];
+    contentView.frame = frame;
+    
+    tbc.tabBar.hidden = YES;
+  }
+  else {
+    [nc setNavigationBarHidden: NO animated: YES];
+    tbc.tabBar.hidden = NO;
+    
+    CGRect frame = [[UIScreen mainScreen]bounds];
+    frame.size.height -= tbc.tabBar.frame.size.height;
+    contentView.frame = frame;
+    
+    tbc.tabBar.hidden = NO;
+  }
+}
+
+-(void)navigationController:(UINavigationController *) nc 
+     didShowViewController:(UIViewController *) vc 
+                   animated:(BOOL)anmated
+{
+}
+
 
 -(void)addTab: (NSString*)url withOptions: (NSDictionary*)options
 {
@@ -182,7 +224,8 @@ AppDelegate* app;
   //
   // Build navigation controller
   UINavigationController* nc = [[[UINavigationController alloc]initWithRootViewController:vc]autorelease];
-
+  nc.delegate = self;
+  
   // set navigation controller title
 
   if([options objectForKey: @"title"])

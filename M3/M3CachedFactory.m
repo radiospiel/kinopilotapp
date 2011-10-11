@@ -55,9 +55,11 @@
 
 -(id)build:(id)parameter
 {
-  // reuse existing objects, if any
-  MAZeroingWeakRef* ref = [objects_ objectForKey:parameter];
-  if(ref) return ref.target;
+  @synchronized(self) {
+    // reuse existing objects, if any
+    MAZeroingWeakRef* ref = [objects_ objectForKey:parameter];
+    if(ref) return ref.target;
+  }
   
   // No existing object? Build a new one, then,
   id object = [self buildObjectWithParameter:parameter];
@@ -67,7 +69,12 @@
 -(BOOL)buildAsync: (id)parameter
          callback: (void (^)(id builtObject, BOOL didExist))callback
 {
-  MAZeroingWeakRef* ref = [objects_ objectForKey:parameter];
+  MAZeroingWeakRef* ref;
+  
+  @synchronized(self) {
+    ref = [objects_ objectForKey:parameter];
+  }
+  
   if(ref) {
     callback(ref.target, YES);
     return YES;
@@ -76,7 +83,10 @@
   // read the object from the cache's block
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     id object = [target_ performSelector:selector_ withObject:parameter];
-    object = [self setObject:object forParameter:parameter];
+    @synchronized(self) {
+      if(object)
+        object = [self setObject:object forParameter:parameter];
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
       callback(object, NO);
     });
@@ -170,7 +180,7 @@
   return self;
 }
 
-+(UIImage*)decompressedImageWithContentsOfFile: (NSString*)url
++(UIImage*)decompressedImageWithContentsOfFile: (NSString*)path
 {
   return [[self imageWithContentsOfFile: path]decompress];
 }
@@ -179,25 +189,29 @@
 {
   UIImage* image = nil;
   NSString* cachePath = [NSString stringWithFormat: @"$cache/%@.bin", [M3 md5: url]];
-  if([M3 exists: cachePath]) {
-    image = [UIImage imageWithContentsOfFile:cachePath];
-    if(image) return image;
+                                
+  if([M3 fileExists: cachePath]) {
+    return [M3 readImageFromPath:cachePath];
   }
-  
+
   NSData* data = [M3Http requestData: @"GET" 
                                  url: url
                          withOptions: nil];
 
-  if(!data) return nil;
+  if(data) {
+    image = [UIImage imageWithData:data];
+    if(image) {
+      [M3 writeData: data toPath: cachePath];
+      return image;
+    }
+  }
 
-  image = [UIImage imageWithData:data];
-  if(image)
-    [M3 writeData: data toPath: cachePath];
-  
-  return image;
+  [M3 writeData: [NSData dataWithBytes:self length:0] toPath: cachePath];
+
+  return nil;
 }
 
-+(UIImage*)decompressedImageWithContentsOfURL: (NSString*)url
++(UIImage*)decompressedImageWithContentsOfURL: (NSString*)path
 {
   return [[self imageWithContentsOfURL: path]decompress];
 }

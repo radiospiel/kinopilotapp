@@ -151,7 +151,6 @@
 		9D594A82143D027C00A4CED4 /* UIButton+ActionButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D594A7E143D027C00A4CED4 /* UIButton+ActionButton.mm */; };
 		9D5A96D314200FB8000104CA /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D5A96D114200FB7000104CA /* WebViewController.mm */; };
 		9D72E29A14387FE600D8E5B5 /* MoviesImagesController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D72E29914387FE600D8E5B5 /* MoviesImagesController.mm */; };
-		9D72E29F1438849600D8E5B5 /* MoviesImagesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D72E29E1438849600D8E5B5 /* MoviesImagesController.xib */; };
 		9D750E8B142273A30056290E /* M3Data.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D750E89142273A30056290E /* M3Data.h */; };
 		9D750E8C142273A30056290E /* M3Data.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D750E89142273A30056290E /* M3Data.h */; };
 		9D750E8D142273A30056290E /* M3Data.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D750E8A142273A30056290E /* M3Data.mm */; };
@@ -402,7 +401,6 @@
 		9D5A96D114200FB7000104CA /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewController.mm; sourceTree = "<group>"; };
 		9D72E29814387FE600D8E5B5 /* MoviesImagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesImagesController.h; sourceTree = "<group>"; };
 		9D72E29914387FE600D8E5B5 /* MoviesImagesController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesImagesController.mm; sourceTree = "<group>"; };
-		9D72E29E1438849600D8E5B5 /* MoviesImagesController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviesImagesController.xib; sourceTree = "<group>"; };
 		9D750E89142273A30056290E /* M3Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Data.h; sourceTree = "<group>"; };
 		9D750E8A142273A30056290E /* M3Data.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Data.mm; sourceTree = "<group>"; };
 		9D750E8F142275750056290E /* M3+Inflector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Inflector.h"; sourceTree = "<group>"; };
@@ -694,7 +692,6 @@
 				9DE40644142CFC490089EAA9 /* InfoController.mm */,
 				9D72E29814387FE600D8E5B5 /* MoviesImagesController.h */,
 				9D72E29914387FE600D8E5B5 /* MoviesImagesController.mm */,
-				9D72E29E1438849600D8E5B5 /* MoviesImagesController.xib */,
 				9DC682B8142CB50B00124E9A /* MoviesListController.h */,
 				9DC682B9142CB50B00124E9A /* MoviesListController.mm */,
 				9DC682BE142CE24000124E9A /* MoviesShowController.h */,
@@ -1260,7 +1257,6 @@
 				9D10C3751437477500FE19C9 /* unstars.png in Resources */,
 				9D10C3761437477500FE19C9 /* unstars@2x.png in Resources */,
 				9D10C37B1437728300FE19C9 /* MapShowController.xib in Resources */,
-				9D72E29F1438849600D8E5B5 /* MoviesImagesController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

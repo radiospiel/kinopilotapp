@@ -20,6 +20,27 @@
 
 @synthesize imageUrls = imageUrls_, pageViews = pageViews_;
 
+-(id)init
+{
+  self = [super initWithNibName:nil bundle:nil];
+
+  return self;
+}
+
+-(BOOL)isFullscreen
+{
+  return YES;
+}
+
+-(void)dealloc
+{
+  self.imageUrls = nil;
+  self.pageViews = nil;
+  
+  [super dealloc];
+}
+
+//
 -(NSString*)title
 {
   return nil;
@@ -44,8 +65,76 @@
   tbc.tabBar.hidden = hide;
 }
 
+#define PAGE_CONTROL_HEIGHT 24
+
+-(void)layoutPageControl
+{
+  int x, y, w, h;
+  
+  w = pageControl.numberOfPages * 18 + 46;
+  h = PAGE_CONTROL_HEIGHT;
+  
+  x = (320 - w) / 2;
+  y = 400;
+  
+  pageControl.frame = CGRectMake(x, y, w, h);
+}
+
+-(void)popNavigationController
+{
+  [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad
 {
+  if(!scrollView) {
+    scrollView = [[[UIScrollView alloc]initWithFrame:CGRectMake(0,0,320,480)]autorelease];
+    [self.view addSubview:scrollView];
+
+    scrollView.delegate = self;
+    scrollView.pagingEnabled = YES;
+    scrollView.showsHorizontalScrollIndicator = NO;
+    scrollView.showsVerticalScrollIndicator = NO;
+    scrollView.scrollsToTop = NO;
+    scrollView.bounces = NO;
+    scrollView.directionalLockEnabled = YES;
+  }
+  
+  if(!pageControl) {
+    pageControl = [[[UIPageControl alloc]initWithFrame:CGRectMake(30, 100, 300, 100)]autorelease];
+    [self.view addSubview:pageControl];
+
+    [self layoutPageControl];
+    
+    pageControl.backgroundColor = [UIColor colorWithName:@"#60606080"];
+    pageControl.layer.borderColor = [UIColor colorWithName:@"#ccc"].CGColor;
+    pageControl.layer.borderWidth = 2.0f;
+    pageControl.layer.cornerRadius = 11;
+    pageControl.userInteractionEnabled = NO;
+  }
+  
+  if(!closeButton) {
+    closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [closeButton setTitle:@"x" forState:UIControlStateNormal];
+    [closeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    closeButton.frame = CGRectMake(270, 10, PAGE_CONTROL_HEIGHT, PAGE_CONTROL_HEIGHT);
+    closeButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    // closeButton.backgroundColor = [UIColor blackColor];
+    closeButton.backgroundColor = [UIColor colorWithName:@"#60606080"];
+
+    CALayer *layer = closeButton.layer;
+    //    layer.backgroundColor = [[UIColor colorWithName:@"#60606080"] CGColor];
+    // layer.backgroundColor = [[UIColor clearColor] CGColor];
+    layer.borderColor = [UIColor colorWithName:@"#ccc"].CGColor;
+    layer.cornerRadius = 11;
+    layer.borderWidth = 2.0f;
+
+    [self.view addSubview:closeButton];
+    [closeButton addTarget:self action:@selector(popNavigationController) forControlEvents:UIControlEventTouchUpInside];
+  }
+
+  //  [self setTabBarHidden:YES];
+
   // --- get image URLs from movie object
 
   [self.url matches:@"/movies/images/(.*)"];
@@ -56,7 +145,7 @@
   NSArray* images = [movie objectForKey:@"images"];
   
   NSArray* fullsize_urls = [images pluck: @"fullsize"];
-  NSArray* thumbnail_urls = [images pluck: @"thumbnail"];
+  // NSArray* thumbnail_urls = [images pluck: @"thumbnail"];
   
   self.imageUrls = fullsize_urls;
   
@@ -66,32 +155,15 @@
     return [NSNull null];
   }];
 
+  // --- set up scrollview size
+  
+  CGSize contentSize = CGSizeMake(scrollView.frame.size.width * self.pageViews.count, scrollView.frame.size.height);
+  scrollView.contentSize = contentSize;
+  
   // --- wire up scrollview and pager
   
-  CGRect frame = scrollView.frame;
-  
-  scrollView.pagingEnabled = YES;
-  scrollView.contentSize = CGSizeMake(frame.size.width * self.pageViews.count, frame.size.height);
-  scrollView.showsHorizontalScrollIndicator = NO;
-  scrollView.showsVerticalScrollIndicator = NO;
-  scrollView.scrollsToTop = NO;
-  scrollView.directionalLockEnabled = YES;
-  scrollView.delegate = self;
-  
-  pageControl.numberOfPages = thumbnail_urls.count;
-  pageControl.currentPage = 0;
-  
-  frame = pageControl.frame;
-  frame.size.width = pageControl.numberOfPages * 18 + 46;
-  frame.origin.x = (320 - frame.size.width)/2;
-  frame.size.height = 24;
-  pageControl.frame = frame;
-  
-  pageControl.backgroundColor = [UIColor colorWithName:@"#60606080"];
-  pageControl.layer.borderColor = [UIColor colorWithName:@"#ccc"].CGColor;
-  pageControl.layer.borderWidth = 2.0f;
-  pageControl.layer.cornerRadius = 11;
-  pageControl.userInteractionEnabled = NO;
+  pageControl.numberOfPages = self.pageViews.count;
+  [self layoutPageControl];
   
   // --- load pages
   
@@ -103,15 +175,15 @@
   // [self setTabBarHidden: YES];
 }
 
-- (void)dealloc
+#define DX 5
+#define DY 5
+
+-(UIImageView*)viewForPage:(int)page
 {
-  [scrollView release];
-  [pageControl release];
+  if (page < 0 || page >= self.pageViews.count)
+    return nil;
   
-  self.pageViews = nil;
-  self.imageUrls = nil;
-  
-  [super dealloc];
+  return [self.pageViews objectAtIndex:page];
 }
 
 - (void)loadScrollViewWithPage:(int)page
@@ -124,12 +196,15 @@
   if(![placeholder isKindOfClass:[NSNull class]]) return;
 
   CGRect frame = scrollView.frame;
-  frame.origin.x = frame.size.width * page;
-  frame.origin.y = 0;
-
+  frame.origin.x = frame.size.width * page + DX;
+  frame.origin.y = DY;
+  frame.size.width -= 2*DX;
+  frame.size.height -= 2*DY;
+  
   UIImageView* imageView = [[[UIImageView alloc]initWithFrame: frame]autorelease];
   
-  imageView.image = [UIImage imageNamed:@"no_poster.png"];
+  // imageView.image = [UIImage imageNamed:@"no_poster.png"];
+  NSLog(@"imageURL: %@", [self.imageUrls objectAtIndex:page]);
   imageView.imageURL = [self.imageUrls objectAtIndex:page];
   imageView.contentMode = UIViewContentModeScaleAspectFit;
   imageView.clipsToBounds = YES;
@@ -154,25 +229,24 @@
   CGFloat pageWidth = scrollView.frame.size.width;
   int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
 
-  if(pageControl.currentPage == page) return;
+  if(pageControl.currentPage != page) {
+    pageControl.currentPage = page;
+    
+    // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
+    [self loadScrollViewWithPage:page - 1];
+    [self loadScrollViewWithPage:page];
+    [self loadScrollViewWithPage:page + 1];
+  }
   
-  pageControl.hidden = YES;
+//  double distance_from_center = fabs(pageWidth / 2 - (scrollView.contentOffset.x - page * pageWidth));
+//  double relative_distance = (distance_from_center < 30) ? 0 : distance_from_center / (pageWidth / 2);
 //  
-//  if(pageControl.currentPage != page) {
-//    pageControl.currentPage = page;
-//    pageControl.alpha = 1;
-//    [UIView animateWithDuration:0.3
-//                     animations:^{
-//                       pageControl.alpha = 0;
-//                     }];
-//  }
-  
-  // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
-  [self loadScrollViewWithPage:page - 1];
-  [self loadScrollViewWithPage:page];
-  [self loadScrollViewWithPage:page + 1];
-  
-  // A possible optimization would be to unload the views+controllers which are no longer visible
+//  //
+//  [self viewForPage:page - 1].alpha = relative_distance;
+//  [self viewForPage:page].alpha = 1 - relative_distance;
+//  [self viewForPage:page + 1].alpha = relative_distance;
+
+  // Note: A possible optimization would be to unload the views+controllers which are no longer visible
 }
 
 // At the begin of scroll dragging, reset the boolean used when scrolls originate from the UIPageControl

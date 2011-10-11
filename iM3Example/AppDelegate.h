@@ -25,7 +25,7 @@ extern AppDelegate* app;
 /*
  * The AppDelegate class and the global app object.
  */
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) UIProgressView* progressView;
 @property (strong, nonatomic) UIWindow *window;

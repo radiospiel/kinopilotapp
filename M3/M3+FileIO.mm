@@ -4,6 +4,16 @@
 
 @implementation M3 (FileIO)
 
+#if TARGET_OS_IPHONE
+
++(UIImage*) readImageFromPath: (NSString*) path
+{
+  path = [M3 expandPath: path];
+  return [UIImage imageWithContentsOfFile:path];
+}
+
+#endif
+
 + (NSData*) readDataFromPath: (NSString*) path {
   path = [M3 expandPath: path];
 

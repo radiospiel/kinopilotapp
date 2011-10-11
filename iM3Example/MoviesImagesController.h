@@ -10,8 +10,9 @@
 
 @interface MoviesImagesController : UIViewController<UIScrollViewDelegate> 
 {   
-  UIScrollView *scrollView;
+  UIScrollView  *scrollView;
   UIPageControl *pageControl;
+  UIButton      *closeButton;
   
   NSMutableArray *pageViews_;
   NSArray *imageUrls_;
@@ -23,6 +24,7 @@
 @property (nonatomic, retain) NSArray *imageUrls;
 @property (nonatomic, retain) NSMutableArray *pageViews;
 
-- (IBAction)changePage:(id)sender;
+//- (IBAction)changePage:(id)sender;
+
 
 @end

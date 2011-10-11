@@ -3,9 +3,11 @@
 @interface M3(FileIO) 
 
 +(NSData*) readDataFromPath: (NSString*) path;
-+(void) writeData: (NSData*) data toPath: (NSString*) path;
 
 +(NSString*) read: (NSString*) path;
+
++(void) writeData: (NSData*) data toPath: (NSString*) path;
+
 
 /*
  * writes the string \a data to the file \a path. If the file exists, it
@@ -21,5 +23,12 @@
 
           
 +(void) mkdir_p: (NSString*) path;
+
+#if TARGET_OS_IPHONE
+
++(UIImage*) readImageFromPath: (NSString*) path;
+
+#endif
+
 
 @end
