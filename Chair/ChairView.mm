@@ -21,7 +21,7 @@
   self.source_view = nil;
   source_revision_ = 0;
   
-  dependant_objects_ = [[[NSMutableArray alloc]init] retain];
+  dependant_objects_ = [[NSMutableArray alloc]init];
   
   return self;
 }

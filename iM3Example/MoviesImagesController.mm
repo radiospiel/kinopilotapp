@@ -122,7 +122,7 @@
 #define DX 5
 #define DY 5
 
--(UIView*)createPage: (int)pageNo withImage: (UIImage*)image
+-(UIView*)viewForPage: (int)pageNo withImage: (UIImage*)image
 {
   // set the content size.
   CGSize viewSz = scrollView.frame.size; 
@@ -138,7 +138,7 @@
   imageView.contentMode = UIViewContentModeScaleAspectFit;
   imageView.clipsToBounds = YES;
 
-  return imageView;
+  return [imageView autorelease];
 }
 
 -(void)addImage:(UIImage*)image
@@ -146,7 +146,7 @@
   // The number of the page to be added. Note: pages are 0-based.
   int pageNo = pageControl.numberOfPages;
   
-  UIView* page = [self createPage:pageNo withImage:image];
+  UIView* page = [self viewForPage:pageNo withImage:image];
   [scrollView addSubview:page];
   [self.pages addObject:page];
   
