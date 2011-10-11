@@ -13,18 +13,10 @@
   UIScrollView  *scrollView;
   UIPageControl *pageControl;
   UIButton      *closeButton;
-  
-  NSMutableArray *pageViews_;
-  NSArray *imageUrls_;
-  
-  // To be used when scrolls originate from the UIPageControl
-  BOOL pageControlUsed;
+
+  NSMutableArray *pages_;
 }
 
-@property (nonatomic, retain) NSArray *imageUrls;
-@property (nonatomic, retain) NSMutableArray *pageViews;
-
-//- (IBAction)changePage:(id)sender;
-
+@property (nonatomic,retain) NSMutableArray *pages;
 
 @end

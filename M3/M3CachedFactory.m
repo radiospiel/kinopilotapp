@@ -34,6 +34,8 @@
 -(id)setObject: (NSObject*)object 
   forParameter: (id)parameter
 {
+  if(!object) return nil;
+  
   @synchronized(self) {
     MAZeroingWeakRef* ref = [objects_ objectForKey:parameter];
     if(ref) return ref.target;
@@ -67,7 +69,9 @@
 }
 
 -(BOOL)buildAsync: (id)parameter
-         callback: (void (^)(id builtObject, BOOL didExist))callback
+     withCallback: (void (^)(id builtObject, BOOL didExist))callback
+         orTarget: (id)target
+      andSelector: (SEL)selector
 {
   MAZeroingWeakRef* ref;
   
@@ -76,38 +80,44 @@
   }
   
   if(ref) {
-    callback(ref.target, YES);
+    if(callback)
+      callback(ref.target, YES);
+    else
+      [target performSelector:selector withObject:ref.target];
+
     return YES;
   }
   
   // read the object from the cache's block
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     id object = [target_ performSelector:selector_ withObject:parameter];
-    @synchronized(self) {
-      if(object)
-        object = [self setObject:object forParameter:parameter];
-    }
+    object = [self setObject:object forParameter:parameter];
+
     dispatch_async(dispatch_get_main_queue(), ^{
-      callback(object, NO);
+      if(callback)
+        callback(object, NO);
+      else
+        [target performSelector:selector withObject:object];
     });
   });
   
   return NO;
 }
 
-#pragma mark --- create retained objects ---------------------------------------
-
--(id)newObject:(id)parameter
+-(BOOL)buildAsync: (id)parameter
+     withCallback: (void (^)(id builtObject, BOOL didExist))callback
 {
-  return [[self build:parameter]retain];
+  return [self buildAsync: parameter 
+             withCallback: callback 
+                 orTarget: nil 
+              andSelector: nil];
 }
 
--(BOOL)newObjectAsync: (id)parameter
-       callback: (void (^)(id newObject, BOOL didExist))callback
+-(BOOL)buildAsync: (id)parameter
+       withTarget: (id)target
+      andSelector: (SEL)selector
 {
-  return [self buildAsync:parameter callback:^(id builtObject, BOOL didExist) {
-    callback([builtObject retain], didExist);
-  }];
+  return [self buildAsync: parameter withCallback: nil orTarget: target andSelector: selector];
 }
 
 #pragma mark --- private methods for debugging and testing purposes ------------

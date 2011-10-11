@@ -1,7 +1,15 @@
 {
   "name": "Kinopilot Berlin",
   "tabs": [
+  {
+    "disabled": "disabled",
+    "url": "/movies/images/finaldestinati|9qjT6vEJrXs",
+    "label": "Jetzt",
+    "icon": "tab_tage.png"
+  },
+
     {
+      "nurl": "/movies/images/ultimatewaveta|7ZkssasKhYo",
       "url": "/vicinity/show",
       "label": "Jetzt",
       "title": "Was läuft jetzt?",

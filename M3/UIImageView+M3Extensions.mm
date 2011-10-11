@@ -68,7 +68,7 @@
   url = [self sourceImageURL: url];
 
   [[UIImage cachedImagesWithURL]buildAsync:url
-                                  callback:^(UIImage* image, BOOL didExist) {
+                                  withCallback:^(UIImage* image, BOOL didExist) {
                                     block(image, didExist != NO);
                                   }];
 }

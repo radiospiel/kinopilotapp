@@ -63,8 +63,9 @@
 {
   NSMutableArray* array = [NSMutableArray arrayWithCapacity: self.count];
   for(NSDictionary* entry in self) {
-    M3AssertKindOf(entry, NSDictionary);
-    
+    if(![entry respondsToSelector:@selector(objectForKey:)])
+      continue;
+
     id object = [entry objectForKey: attributeName];
     if(object) 
       [array addObject: object];
