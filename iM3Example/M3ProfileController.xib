@@ -177,38 +177,6 @@
 			<array class="NSMutableArray" key="connectionRecords">
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">action0</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="347180179"/>
-					</object>
-					<int key="connectionID">9</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">action1</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="290699940"/>
-					</object>
-					<int key="connectionID">10</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">imageView</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="351796583"/>
-					</object>
-					<int key="connectionID">13</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">bodyView</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="289161813"/>
-					</object>
-					<int key="connectionID">18</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">view</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="191373211"/>
@@ -217,11 +185,43 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">description</string>
+						<string key="label">actionButton0_</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="347180179"/>
+					</object>
+					<int key="connectionID">24</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">actionButton1_</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="290699940"/>
+					</object>
+					<int key="connectionID">25</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">bodyView_</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="289161813"/>
+					</object>
+					<int key="connectionID">26</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">descriptionView_</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="374173217"/>
 					</object>
-					<int key="connectionID">23</int>
+					<int key="connectionID">27</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">imageView_</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="351796583"/>
+					</object>
+					<int key="connectionID">28</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -301,7 +301,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">23</int>
+			<int key="maxID">28</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -309,31 +309,31 @@
 					<string key="className">M3ProfileController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="action0">UIButton</string>
-						<string key="action1">UIButton</string>
-						<string key="bodyView">UIView</string>
-						<string key="description">TTTAttributedLabel</string>
-						<string key="imageView">UIImageView</string>
+						<string key="actionButton0_">UIButton</string>
+						<string key="actionButton1_">UIButton</string>
+						<string key="bodyView_">UIView</string>
+						<string key="descriptionView_">TTTAttributedLabel</string>
+						<string key="imageView_">UIImageView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="action0">
-							<string key="name">action0</string>
+						<object class="IBToOneOutletInfo" key="actionButton0_">
+							<string key="name">actionButton0_</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="action1">
-							<string key="name">action1</string>
+						<object class="IBToOneOutletInfo" key="actionButton1_">
+							<string key="name">actionButton1_</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="bodyView">
-							<string key="name">bodyView</string>
+						<object class="IBToOneOutletInfo" key="bodyView_">
+							<string key="name">bodyView_</string>
 							<string key="candidateClassName">UIView</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="description">
-							<string key="name">description</string>
+						<object class="IBToOneOutletInfo" key="descriptionView_">
+							<string key="name">descriptionView_</string>
 							<string key="candidateClassName">TTTAttributedLabel</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="imageView">
-							<string key="name">imageView</string>
+						<object class="IBToOneOutletInfo" key="imageView_">
+							<string key="name">imageView_</string>
 							<string key="candidateClassName">UIImageView</string>
 						</object>
 					</dictionary>

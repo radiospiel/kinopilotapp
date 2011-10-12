@@ -11,81 +11,76 @@
 
 @implementation M3ProfileController
 
-@synthesize bodyView, imageView, descriptionView=description;
+@synthesize imageView = imageView_;
+@synthesize htmlDescription = htmlDescription_;
 
 -(void)dealloc
 {
-  // dlog << "Dealloc " << _.ptr(self);
-
+  self.htmlDescription = nil;
+  
   [bodyController_ release];
   bodyController_ = nil;
   
   [self releaseM3Properties];
-  
+
   [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
 {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
+  // Releases the view if it doesn't have a superview.
+  [super didReceiveMemoryWarning];
     
-    // Release any cached data, images, etc that aren't in use.
+  // Release any cached data, images, etc that aren't in use.
 }
 
 #pragma mark - View lifecycle
 
-- (NSString*)descriptionAsHTML
+-(void)setUrl:(NSString *)url
 {
-  return @"<p>Please add a descriptionAsHTML implementation!</p>";
+  [super setUrl:url];
 }
+
+// -- set actions ---------------------------------------------------
 
 -(NSArray*)actions
 {
-  return _.array(_.array("Google", "http://google.com"));
+  return actions_;
 }
 
-- (void)viewDidLoad
+-(void)setActions: (NSArray*)actions
 {
-  [super viewDidLoad];
-  
-  // Do any additional setup after loading the view from its nib.
-  if(!self.model) return;
-  
-  //
-  // --- set image
-  
-  imageView.imageURL = [self.model objectForKey:@"image"];
+  [actions retain];
+  [actions_ release];
+  actions_ = actions;
 
-  // -- set actions ---------------------------------------------------
-  
-  NSArray* actions = [self actions];
   for(int i=0; i<2; ++i) {
-    UIButton* actionButton = i == 0 ? action0 : action1;
+    UIButton* actionButton = i == 0 ? actionButton0_ : actionButton1_;
     if(i >= actions.count) {
       [actionButton setHidden:YES];
       continue;
     }
-
+    
     NSArray* action = [actions objectAtIndex:i];
     
     [actionButton setHidden:NO];
     [actionButton setActionURL: action.second andTitle:action.first];
   }
-
-  // --- set description ---------------------------------------------------
-  description.numberOfLines = actions.count ? 4 : 5;
-  description.text = [NSAttributedString attributedStringWithSimpleMarkup: [self descriptionAsHTML]];
 }
 
-- (void)viewDidUnload
+-(NSString*)htmlDescription
 {
-  [super viewDidUnload];
+  return htmlDescription_;
+}
+
+-(void)setHtmlDescription: (NSString*)htmlDescription
+{
+  [htmlDescription retain];
+  [htmlDescription_ release];
+  htmlDescription_ = htmlDescription;
   
-  dlog << "Releasing bodyController_ " << bodyController_;
-  
-  [bodyController_ release];
-  bodyController_ = nil;
+  descriptionView_.numberOfLines = self.actions.count ? 4 : 5;
+  descriptionView_.text = [NSAttributedString attributedStringWithSimpleMarkup: htmlDescription];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -100,6 +95,12 @@
   // }
 }
 
+-(void)viewDidLoad
+{
+  self.url = self.url;
+  [super viewDidLoad];
+}
+
 #pragma mark - Body Controller
 
 -(void)setBodyController: (UIViewController*)controller withTitle: (NSString*)title
@@ -108,8 +109,8 @@
   [bodyController_ release];
   bodyController_ = controller;
 
-  [self.bodyView addSubview: controller.view];
-  CGSize sz = self.bodyView.frame.size;
+  [bodyView_ addSubview: controller.view];
+  CGSize sz = bodyView_.frame.size;
   
   controller.view.frame = CGRectMake(0, 0, sz.width, sz.height);
 }

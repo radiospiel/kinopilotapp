@@ -79,7 +79,7 @@
     ref = [objects_ objectForKey:parameter];
   }
   
-  if(ref) {
+  if(ref && ref.target) {
     if(callback)
       callback(ref.target, YES);
     else

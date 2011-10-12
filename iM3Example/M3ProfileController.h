@@ -9,19 +9,25 @@
 #import "TTTAttributedLabel.h"
 
 @interface M3ProfileController : UIViewController {
-  IBOutlet UIImageView* imageView;
-  IBOutlet TTTAttributedLabel* description;
-  IBOutlet UIButton* action0;
-  IBOutlet UIButton* action1;
+  IBOutlet UIImageView* imageView_;
+  IBOutlet TTTAttributedLabel* descriptionView_;
+  IBOutlet UIButton* actionButton0_;
+  IBOutlet UIButton* actionButton1_;
 
-  IBOutlet UIView* bodyView;
+  IBOutlet UIView* bodyView_;
   
   UIViewController* bodyController_;
+
+  NSArray* actions_;
+  NSString* htmlDescription_;
 }
 
-@property (nonatomic,retain,readonly) UIView* bodyView;
+// @property (nonatomic,retain,readonly) UIView* bodyView;
 @property (nonatomic,retain,readonly) UIImageView* imageView;
-@property (nonatomic,retain,readonly) TTTAttributedLabel* descriptionView;
+// @property (nonatomic,retain,readonly) TTTAttributedLabel* descriptionView;
+
+@property (nonatomic,retain) NSArray* actions;
+@property (nonatomic,retain) NSString* htmlDescription;
 
 -(void)setBodyController: (UIViewController*)controller withTitle: (NSString*)title;
 

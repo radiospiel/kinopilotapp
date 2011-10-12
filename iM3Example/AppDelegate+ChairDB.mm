@@ -1,6 +1,4 @@
 #import "AppDelegate.h"
-#import "M3.h"
-#import "Chair.h"
 
 @implementation AppDelegate(ChairDB)
 

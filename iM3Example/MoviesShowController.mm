@@ -9,83 +9,84 @@
 #import "MoviesShowController.h"
 #import "AppDelegate.h"
 
-@interface MoviesShowController (Private)
-
-@property (nonatomic,readonly) NSString* fullInfoURL;
-@end
-
-@implementation MoviesShowController (Private)
-
--(NSString*)fullInfoURL
-{
-  return [self.url stringByReplacingOccurrencesOfString:@"/movies/show" withString:@"/movies/full"];
-}
-
--(NSString*)imagesURL
-{
-  return [self.url stringByReplacingOccurrencesOfString:@"/movies/show" withString:@"/movies/images"];
-}
-
-@end
-
 @implementation MoviesShowController
 
-- (void)viewDidLoad
+-(void)viewDidLoad
 {
   [super viewDidLoad];
-
-  NSString* bodyURL = _.join(@"/theaters/list/movie_id=", [self.model objectForKey:@"_uid" ]);
-  [self setBodyController: [app viewControllerForURL:bodyURL ] withTitle: @"Kinos"];
-
+  
   self.imageView.contentMode = UIViewContentModeScaleAspectFill;
   self.imageView.clipsToBounds = YES;
-  
-  // Show full info on a tap on tap on imageView and description
-  [self.imageView onTapOpen: self.imagesURL ];
-} 
-
-- (NSString*)descriptionAsHTML
-{
-  NSDictionary* model = self.model;
-
-  NSString* title =           [model objectForKey:@"title"];
-  NSNumber* runtime =         [model objectForKey:@"runtime"];
-  NSString* genre =           [[model objectForKey:@"genres"] objectAtIndex:0];
-  NSNumber* production_year = [model objectForKey:@"production-year"];
-
-  NSMutableArray* parts = [NSMutableArray array];
-  [parts addObject: [NSString stringWithFormat: @"<h2><b>%@</b></h2>", title]];
-
-  if(genre || production_year || runtime) {
-    NSMutableArray* p = [NSMutableArray array];
-    if(genre) [p addObject: genre];
-    if(production_year) [p addObject: production_year];
-    if(runtime) [p addObject: [NSString stringWithFormat:@"%@ min", runtime]];
-    
-    [parts addObject: @"<p>"];
-    [parts addObject: [p componentsJoinedByString:@", "]];
-    [parts addObject: @"</p>"];
-  }
-
-  return [parts componentsJoinedByString:@""];
 }
 
--(NSArray*)actions
+-(void)setUrl: (NSString *)url
 {
-  NSMutableArray* actions = _.array();
+  [super setUrl: url];
 
-  // add full info URL
-  [actions addObject: _.array(@"Mehr...", self.fullInfoURL)];
+  [url matches:@"/movies/show/(.*)"];
+  DLOG($1);
+  
+  self.model = [app.chairDB.movies get: $1];
+}
 
-  // add imdb URL
-  NSString* title = [self.model objectForKey: @"title"];
-  NSString* imdbURL = _.join(@"imdb:///find?q=", title.urlEscape);
-  if(![app canOpen:imdbURL])
-    imdbURL = _.join(@"http://imdb.de/?q=", title.urlEscape);
+-(void)setModel: (NSDictionary*)movie
+{  
+  DLOG(movie);
 
-  [actions addObject: _.array(@"IMDB", imdbURL)];
+  [super setModel: movie];
 
-  return actions;
+  NSString* bodyURL = _.join(@"/theaters/list/movie_id=", [movie objectForKey: @"_uid"]);
+  [self setBodyController: [app viewControllerForURL:bodyURL ] withTitle: @"Kinos"];
+  
+  // Show full info on a tap on tap on imageView and description
+  [self.imageView onTapOpen:  
+          [self.url stringByReplacingOccurrencesOfString:@"/movies/show" withString:@"/movies/images"] ];
+  
+  // -- set views
+
+  NSString* title =           [movie objectForKey:@"title"];
+  NSNumber* runtime =         [movie objectForKey:@"runtime"];
+  NSArray* genres =           [movie objectForKey:@"genres"];
+  NSNumber* production_year = [movie objectForKey:@"production-year"];
+
+  // -- set actions
+
+  {
+    NSMutableArray* actions = _.array();
+    
+    // add full info URL
+    [actions addObject: _.array(@"Mehr...", 
+                                [self.url stringByReplacingOccurrencesOfString:@"/movies/show" withString:@"/movies/full"]
+                                )];
+    
+    // add imdb URL
+    NSString* imdbURL = _.join(@"imdb:///find?q=", title.urlEscape);
+    if(![app canOpen:imdbURL])
+      imdbURL = _.join(@"http://imdb.de/?q=", title.urlEscape);
+    
+    [actions addObject: _.array(@"IMDB", imdbURL)];
+    
+    self.actions = actions;
+  }
+
+  // -- set desription
+  {
+    NSMutableArray* parts = [NSMutableArray array];
+    [parts addObject: [NSString stringWithFormat: @"<h2><b>%@</b></h2>", title]];
+    
+    if(genres.first || production_year || runtime) {
+      NSMutableArray* p = [NSMutableArray array];
+      if(genres.first) [p addObject: genres.first];
+      if(production_year) [p addObject: production_year];
+      if(runtime) [p addObject: [NSString stringWithFormat:@"%@ min", runtime]];
+      
+      [parts addObject: @"<p>"];
+      [parts addObject: [p componentsJoinedByString:@", "]];
+      [parts addObject: @"</p>"];
+    }
+    
+    self.htmlDescription = [parts componentsJoinedByString:@""];
+  }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

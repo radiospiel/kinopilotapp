@@ -8,9 +8,6 @@
 
 #import "AppDelegate.h"
 
-#import "M3.h"
-#import "Chair.h"
-
 AppDelegate* app;
 
 @implementation NSString (IM3ExampleExtensions)
@@ -184,11 +181,11 @@ AppDelegate* app;
   UITabBarController* tbc = self.tabBarController;
 
   // find the tab bars content view.
-  UIView *contentView = [tbc.view.subviews.first isKindOfClass:[UITabBar class]] ?
-    tbc.view.subviews.second :
-    tbc.view.subviews.first;
+  NSArray* subviews = tbc.view.subviews;
+  UIView *contentView = [subviews.first isKindOfClass:[UITabBar class]] ?
+    subviews.second : subviews.first;
   
-  if([vc respondsToSelector:@selector(isFullscreen)] && [vc isFullscreen]) {
+  if([vc isFullscreen]) {
     [nc setNavigationBarHidden: YES animated: YES];
     
     CGRect frame = [[UIScreen mainScreen]bounds];

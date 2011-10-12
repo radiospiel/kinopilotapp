@@ -10,5 +10,4 @@
 
 @interface MoviesShowController: M3ProfileController
 
-
 @end

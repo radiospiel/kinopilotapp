@@ -1,6 +1,6 @@
-#import "M3TableViewCell.h"
-#import "Underscore.hh"
 #import "AppDelegate.h"
+
+#import "M3TableViewCell.h"
 
 @implementation M3TableViewCell
 
