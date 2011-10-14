@@ -130,11 +130,8 @@
   self = [super init];
 
   //
-  // get all schedles for the theater
+  // get all schedules for the theater
   NSArray* schedules = [app.chairDB schedulesByTheaterId: theater_id];
-
-  DLOG(schedules);
-  
   
   {
     for(NSDictionary* schedule in schedules) {

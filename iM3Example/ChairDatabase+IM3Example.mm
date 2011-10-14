@@ -15,9 +15,12 @@
 -(BOOL)loadLocalCopy
 {
   if(![M3 fileExists: DB_PATH]) return NO;
-  
-  Benchmark(_.join("Loading database from ", DB_PATH));
-  [self load: DB_PATH];
+
+  {
+    Benchmark(_.join("Loading database from ", DB_PATH));
+    [self load: DB_PATH];
+  }  
+
   [self emit:@selector(updated)];
   
   return YES;
@@ -27,10 +30,11 @@
 {
   {
     Benchmark(_.join("Loading database from ", REMOTE_URL));
-
     [self import: REMOTE_URL];
-    [self emit:@selector(updated)];
   }
+
+  [self emit:@selector(updated)];
+
   {
     Benchmark(_.join("Saving database to ", DB_PATH));
     [self save: DB_PATH];
@@ -218,7 +222,10 @@
 
 -(NSArray*) schedulesByTheaterId: (NSString*)theater_id
 {
-  return [[[self schedules_by_theater_id] get: theater_id] objectForKey:@"group"];
+  ChairView* view = [self schedules_by_theater_id];
+  NSDictionary* group = [view get: theater_id];
+
+  return [group objectForKey:@"group"];
 }
 
 

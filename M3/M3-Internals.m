@@ -50,6 +50,12 @@ static int deallocCount = 0;
 
 @end
 
+@interface NSObject(Internals)
+
++(void) clearCachedFactoryWithSelector: (SEL)selector; // internal, test only
+
+@end
+
 ETest(M3Internals)
 
 -(void)setUp

@@ -64,7 +64,7 @@
   self = [super init];
   if(!self) return nil;
   
-  source_view_ = view_;
+  source_view_ = [view_ retain];
   [source_view_ addDependantObject: self];
   
   self.map_function = [[map_fun copy]autorelease];
@@ -78,6 +78,7 @@
 {
   self.map_function = nil;
   self.reduce_function = nil;
+  self.source_view = nil;
   
   [super dealloc];
 }

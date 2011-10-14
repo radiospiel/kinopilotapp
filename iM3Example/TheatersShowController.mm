@@ -14,6 +14,16 @@
 
 @implementation TheatersShowController
 
+-(id)init
+{
+  self = [super init];
+
+  if(self)
+    [app.chairDB on: @selector(updated) notify:self with:@selector(reload)];
+
+  return self;
+}
+
 -(void)setUrl: (NSString *)url
 {
   [super setUrl: url];
@@ -25,6 +35,11 @@
 -(void)setModel: (NSDictionary*)theater
 {
   [super setModel: theater];
+  
+  M3TableViewDataSource* dataSource = [M3DataSource moviesListFilteredByTheater: [theater objectForKey:@"_uid" ]];
+  self.dataSource = dataSource;
+  
+  return;
 
   self.title = [theater objectForKey:@"name"];
 

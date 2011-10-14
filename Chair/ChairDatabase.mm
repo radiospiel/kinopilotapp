@@ -36,10 +36,10 @@
                   inDictionary: (NSMutableDictionary*)tables
 {
   ChairTable* table = [tables objectForKey: name];
-  if(!table) {
-    table = [[[ChairTable alloc] initWithName: name]autorelease]; 
-    [tables setObject: table forKey: name];
-  }
+  if(table) return table;
+    
+  table = [[[ChairTable alloc] initWithName: name]autorelease]; 
+  [tables setObject: table forKey: name];
   
   return table;
 }
@@ -56,9 +56,11 @@
   for(NSString* name in tables) {
     ChairTable* table = [tables objectForKey: name];
     ChairTable* old_table = [tables_ objectForKey: name];
-    if(old_table && old_table.revision > table.revision) {
+    
+    // The table's revision must be at least one more than 
+    // the old_table's revision.
+    if(table.revision <= old_table.revision)
       table.revision = old_table.revision + 1; 
-    }
     
     [tables_ setObject: table forKey:name];
   }
