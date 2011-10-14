@@ -14,6 +14,29 @@
 @synthesize imageView = imageView_;
 @synthesize htmlDescription = htmlDescription_;
 
+-(id)init
+{
+  self = [super init];
+  NSLog(@"init ok.");
+  NSLog(@"self is: %@", self);
+
+
+  // IBOutlet UIImageView* imageView_;
+  // IBOutlet TTTAttributedLabel* descriptionView_;
+  // IBOutlet UIButton* actionButton0_;
+  // IBOutlet UIButton* actionButton1_;
+
+  // IBOutlet UIView* bodyView_;
+  
+  // UIViewController* bodyController_;
+
+  // NSArray* actions_;
+  // NSString* htmlDescription_;
+
+
+  return self;
+}
+
 -(void)dealloc
 {
   self.htmlDescription = nil;

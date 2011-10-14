@@ -105,8 +105,8 @@
 
   // --- set body controller
 
-  NSString* bodyURL = _.join(@"/movies/list/theater_id=", [theater objectForKey:@"_uid" ]);
-  [self setBodyController: [app viewControllerForURL:bodyURL ] withTitle: @"Filme"];
+  // NSString* bodyURL = _.join(@"/movies/list/theater_id=", [theater objectForKey:@"_uid" ]);
+  // [self setBodyController: [app viewControllerForURL:bodyURL ] withTitle: @"Filme"];
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "M3Router.h"
 
 AppDelegate* app;
 
@@ -26,9 +27,7 @@ AppDelegate* app;
 
 @implementation AppDelegate
 
-@synthesize window = _window;
-@synthesize tabBarController = _tabBarController;
-@synthesize progressView = progressView_;
+@synthesize window = _window, tabBarController = _tabBarController, progressView = progressView_;
 
 - (void)dealloc
 {
@@ -44,76 +43,6 @@ AppDelegate* app;
   return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone;
 }
 
--(UIViewController*)viewControllerForURL: (NSString*)url
-{
-  NSString* className = nil;
-  NSString* nibName = nil;
-  
-  // /category/action[/params] URLs create a CategoryActionController
-  // object. If action is not "list", the objects will be loaded from a
-  // NIB with a matching name.
-  if (!className && [url matches: @"^/(\\w+)/list(/(\\w+))?"]) {
-    className = _.join($1.camelizeWord, "ListController");
-  }
-
-  if (!className && [url matches: @"^/vicinity/show"]) {
-    className = @"VicinityShowController";
-  }
-
-  if (!className && [url matches: @"^/movies/images(/(\\w+))?"])
-    className = @"MoviesImagesController";
-
-  if (!className && [url matches: @"^/map/show(/(\\w+))?"])
-    nibName = className = @"MapShowController";
-  
-  if (!className && [url matches: @"^/(\\w+)/show(/(\\w+))?"]) {
-    className = _.join($1.camelizeWord, "ShowController");
-    nibName = @"M3ProfileController";
-  }
-
-  if (!className && [url matches: @"^/(\\w+)/full(/(\\w+))?"]) {
-    className = _.join($1.camelizeWord, "FullController");
-  }
-  
-  if (!className && [url matches: @"^/(\\w+)/(\\w+)(/(\\w+))?"]) {
-    nibName = className = _.join($1.camelizeWord, $2.camelizeWord, "Controller");
-  }
-
-  if (!className && [url matches: @"^/(\\w+)"]) {
-    className = _.join($1.camelizeWord, "Controller");
-  }
-
-  if(!className)
-    _.raise("Cannot find controller class name for URL ", url);
-  
-  UIViewController* vc = nil;
-  Class klass = NSClassFromString(className);
-
-//  DLOG(className);
-//  DLOG(nibName);
-  
-  if(nibName) {
-    vc = [[klass alloc]initWithNibName:nibName bundle:nil];
-  }
-  else {
-    vc = [[klass alloc]init];
-  }
-  
-  vc.url = url;
-
-  // TODO:
-  //
-  // get landscape view controller for URL and Data
-  // merge landscape view controller with portrait view controller 
-
-  return [vc autorelease];
-}
-
--(BOOL)canOpen: (NSString*)url
-{
-  return [[UIApplication sharedApplication] canOpenURL:url.to_url];
-}
-
 -(void)executeAction: (NSString*)action
 {
   dlog << "exec action " << action;
@@ -122,6 +51,19 @@ AppDelegate* app;
   }
 }
 
+-(BOOL)canOpen: (NSString*)url
+{
+  return [[UIApplication sharedApplication] canOpenURL:url.to_url];
+}
+
+/*
+ * "opens" the URL.
+ * 
+ * There are different kind of URL:
+ *
+ * - "app:<action>" executes an action name via AppDelegate#executeAction:
+ * - "<protocol>:<protocol-parameters>" executes an external URL.
+ */
 -(void)open: (NSString*)url
 {
   if(!url) return;
@@ -155,7 +97,7 @@ AppDelegate* app;
   }
 
   // Open internal URLs inside application.
-  UIViewController* vc = [self viewControllerForURL: url];
+  UIViewController* vc = [[self router] controllerForURL: url];
   if(!vc) return;
 
   
@@ -214,8 +156,10 @@ AppDelegate* app;
 
 -(void)addTab: (NSString*)url withOptions: (NSDictionary*)options
 {
+  if(!url) return;
+
   // get portrait view controller for URL and Data
-  UIViewController* vc = [self viewControllerForURL: url];
+  UIViewController* vc = [self.router controllerForURL: url];
   if(!vc) return;
 
   //
@@ -386,5 +330,14 @@ AppDelegate* app;
 {
 }
 
+
+@end
+
+@implementation AppDelegate(M3Router)
+
+-(M3Router*) router
+{
+  return [[[M3Router alloc]init]autorelease];
+}
 
 @end

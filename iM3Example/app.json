@@ -1,37 +1,31 @@
 {
   "name": "Kinopilot Berlin",
   "tabs": [
-  {
-    "disabled": "disabled",
-    "url": "/movies/images/finaldestinati|9qjT6vEJrXs",
-    "label": "Jetzt",
-    "icon": "tab_tage.png"
-  },
-
     {
+      "url": "/theaters/show/eiszeitkino|RWMBNYsImlk",
       "nurl": "/movies/images/ultimatewaveta|7ZkssasKhYo",
-      "url": "/vicinity/show",
+      "nurl": "/vicinity/show",
       "label": "Jetzt",
       "title": "Was läuft jetzt?",
       "icon": "tab_tage.png"
     },
     {
-      "url": "/movies/list",
+      "nurl": "/movies/list",
       "label": "Filme",
       "icon": "tab_filme.png"
     },
     {
-      "url": "/theaters/list",
+      "nurl": "/theaters/list",
       "label": "Kinos",
       "icon": "tab_kinos.png"
     },
     {
-      "url": "/map/show",
+      "nurl": "/map/show",
       "label": "Map",
       "icon": "tab_karte.png"
     },
     {
-      "url": "/info",
+      "nurl": "/info",
       "label": "Info",
       "icon": "tab_about.png"
     }

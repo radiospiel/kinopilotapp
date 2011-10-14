@@ -11,13 +11,27 @@
 
 @implementation M3TableViewController
 
+-(id)init
+{
+  self = [super init];
+  
+  // As M3TableViewController inherits from UITableViewController, the tableView
+  // property is initially set to a newly created UITableView - which we will 
+  // continue to use - and the UITableView's dataSource is set to self.
+  self.tableView.dataSource = nil;
+  
+  return self;
+}
+
 -(void)dealloc
 {
+  self.dataSource = nil;
+
   [segmentedControl_ release];
   [segmentedControlParams_ release];
   
   [self releaseM3Properties];
-  
+
   [super dealloc];
 }
 
@@ -32,14 +46,18 @@
 -(void) setDataSource: (M3TableViewDataSource*)dataSource
 { 
   M3AssertKindOf(dataSource, M3TableViewDataSource);
-  
+
   // Note: the dataSource in a UITableView *IS NOT RETAINED*
   [dataSource retain];
   [dataSource_ release];
   
   self.tableView.dataSource = dataSource_ = dataSource; 
 
-  [self.tableView reloadData];
+  // Note: M3TableViewController#dealloc sets the dataSource to nil
+  // when deallocing.
+  if(dataSource_) {
+    [self.tableView reloadData];
+  }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

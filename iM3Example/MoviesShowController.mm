@@ -36,7 +36,7 @@
   [super setModel: movie];
 
   NSString* bodyURL = _.join(@"/theaters/list/movie_id=", [movie objectForKey: @"_uid"]);
-  [self setBodyController: [app viewControllerForURL:bodyURL ] withTitle: @"Kinos"];
+  [self setBodyController: [app.router controllerForURL: bodyURL] withTitle: @"Kinos"];
   
   // Show full info on a tap on tap on imageView and description
   [self.imageView onTapOpen:  

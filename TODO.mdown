@@ -1,0 +1,5 @@
+# TODO
+
+- fix version string on the server, and remove the withVersionString: method.
+- moves imdb and fahrinfo detection and handling code into AppDelegate.
+
