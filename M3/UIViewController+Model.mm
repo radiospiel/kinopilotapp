@@ -12,6 +12,11 @@
   [ self instance_variable_set: @selector(m3_url) withValue: url ];
 };
 
+-(void)reload 
+{
+  [ self setUrl: self.url];
+}
+
 -(NSString*) title {
   return [ self instance_variable_get: @selector(m3_title) ];
 };

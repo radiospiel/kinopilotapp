@@ -274,11 +274,6 @@
   return self;
 }
 
--(void)reload
-{
-  [self setUrl: self.url];
-}
-
 -(void)setFilter:(NSString*)filter
 {
   if([self.url matches: @"/movies/list/theater_id=(.*)"])

@@ -13,6 +13,13 @@
 
 -(BOOL)isFullscreen;
 
+/*
+ * The reload method just sets the url to its current value, again.
+ *
+ * This usually results into reloading the controller's content.
+ */
+-(void)reload;
+
 @end
 
 /*

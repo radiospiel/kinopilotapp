@@ -13,7 +13,6 @@
 @interface MoviesImagesController (PrivateMethods)
 - (void)scrollViewDidScroll:(UIScrollView *)sender;
 - (void)layoutPageControl;
-- (void)reload;
 @end
 
 @implementation MoviesImagesController
@@ -155,11 +154,6 @@
   
   pageControl.numberOfPages = pageNo+1;
   [self layoutPageControl];
-}
-
--(void)reload
-{
-  self.url = self.url;
 }
 
 - (void)setUrl:(NSString *)url

@@ -203,11 +203,6 @@
 
 @implementation TheatersListController
 
--(void)reload
-{
-  [self setUrl: self.url];
-}
-
 -(void)setUrl:(NSString*)url
 {
   [super setUrl: url];
