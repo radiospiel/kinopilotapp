@@ -29,8 +29,6 @@
 
 #pragma mark --- private methods -----------------------------------------------
 
-#define DLOG_CLASS(var) NSLog(@"%s(%d): %s is a %@", __FILE__, __LINE__, #var, [var class])
-
 -(id)setObject: (NSObject*)object 
   forParameter: (id)parameter
 {
@@ -38,10 +36,9 @@
   
   @synchronized(self) {
     MAZeroingWeakRef* ref = [objects_ objectForKey:parameter];
-    if(ref) return ref.target;
+    if(ref && ref.target) return ref.target;
 
-    ref = [MAZeroingWeakRef refWithTarget:object];
-    [objects_ setObject:ref
+    [objects_ setObject:[MAZeroingWeakRef refWithTarget:object]
                  forKey:parameter];
 
     return object;
@@ -60,7 +57,7 @@
   @synchronized(self) {
     // reuse existing objects, if any
     MAZeroingWeakRef* ref = [objects_ objectForKey:parameter];
-    if(ref) return ref.target;
+    if(ref && ref.target) return ref.target;
   }
   
   // No existing object? Build a new one, then,

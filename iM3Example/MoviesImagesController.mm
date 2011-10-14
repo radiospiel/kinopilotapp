@@ -128,9 +128,11 @@
   CGSize viewSz = scrollView.frame.size; 
   scrollView.contentSize = CGSizeMake(viewSz.width * (pageNo+1), viewSz.height);
   
+  UIView* pageView = [[UIView alloc]initWithFrame:CGRectMake(viewSz.width * pageNo,0,viewSz.width, viewSz.height)];
+  pageView.backgroundColor = [UIColor colorWithName:@"#c0a070"];
+  
   // Build a view to add as a new 
-  CGRect frame = CGRectMake(viewSz.width * pageNo + DX, DY,
-                            viewSz.width - 2*DX, viewSz.height - 2*DY);
+  CGRect frame = CGRectMake(DX, DY, viewSz.width - 2*DX, viewSz.height - 2*DY);
   
   // replace the placeholder in the oageViews array.
   UIImageView* imageView = [[UIImageView alloc]initWithFrame: frame];
@@ -138,7 +140,8 @@
   imageView.contentMode = UIViewContentModeScaleAspectFit;
   imageView.clipsToBounds = YES;
 
-  return [imageView autorelease];
+  [pageView addSubview: [imageView autorelease]];
+  return [pageView autorelease];
 }
 
 -(void)addImage:(UIImage*)image
