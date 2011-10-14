@@ -20,6 +20,11 @@
   [super dealloc];
 }
 
+-(NSString*)inspect
+{
+  return [NSString stringWithFormat: @"<%@ @ 0x%08x: %d sections>", NSStringFromClass([self class]), self, self.sections.count];
+}
+
 -(void)addSection:(NSArray*) keys withOptions: (NSDictionary*) options
 {
   M3AssertKindOf(keys, NSArray);
@@ -77,7 +82,7 @@
   return index;
 }
 
-#pragma mark - UITableViewDataSource implementations: cells */
+#pragma mark - UITableViewDataSource implementations: cells
 
 - (id)keyForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -88,7 +93,8 @@
 -(Class) cellClassForRowAtIndexPath: (NSIndexPath*)indexPath
 {
   id key = [self keyForRowAtIndexPath:indexPath];
-  return [self cellClassForKey:key];
+  id klass = [self cellClassForKey:key];
+  return [klass respondsToSelector: @selector(to_class)] ? [klass to_class] : klass;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

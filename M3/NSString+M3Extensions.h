@@ -47,6 +47,9 @@
 @property (readonly,nonatomic,assign) SEL to_sym;
 -(SEL)to_sym;
 
+@property (readonly,nonatomic,assign) NSString* to_class;
+-(NSString*)to_class;
+
 @end
 
 @interface NSURL(M3Extensions)

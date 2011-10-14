@@ -13,6 +13,9 @@
 #import "Chair.h"
 #import "ChairDatabase+IM3Example.h"
 #import "M3Router.h"
+#import "M3TableViewDataSource.h"
+#import "M3TableViewProfileCell.h"
+#import "M3DataSource.h"
 
 @class AppDelegate;
 extern AppDelegate* app;

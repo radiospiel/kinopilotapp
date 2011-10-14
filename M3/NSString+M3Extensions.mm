@@ -93,6 +93,11 @@
   return NSSelectorFromString(self);
 }
 
+-(NSString*)to_class
+{
+  return NSClassFromString(self);
+}
+
 @end
 
 @implementation NSURL(M3Extensions)

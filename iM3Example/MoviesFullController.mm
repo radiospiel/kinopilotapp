@@ -40,10 +40,9 @@
   return self;
 }
 
--(Class) cellClassForKey: (NSArray*)key
-{
-  NSString* className = key.first;
-  return NSClassFromString(className);
+-(id) cellClassForKey: (NSArray*)key
+{ 
+  return key.first; 
 }
 
 @end
