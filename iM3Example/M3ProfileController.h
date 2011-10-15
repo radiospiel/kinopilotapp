@@ -32,4 +32,6 @@
 
 -(void)setBodyController: (UIViewController*)controller withTitle: (NSString*)title;
 
+-(UIView*) headerView;
+
 @end

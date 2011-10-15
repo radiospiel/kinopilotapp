@@ -171,6 +171,7 @@
 		9D7E3DCD141A347C00BB80E1 /* M3EventCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E3DCB141A347C00BB80E1 /* M3EventCenter.mm */; };
 		9D7E3DD5141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E3DD1141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm */; };
 		9D7E3DD6141A3DD400BB80E1 /* M3EventCenter+Disconnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E3DD2141A3DD400BB80E1 /* M3EventCenter+Disconnect.m */; };
+		9D81D3C3144A139C0013B706 /* M3ProfileView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D81D3C2144A139C0013B706 /* M3ProfileView.mm */; };
 		9D854366142F963900F495E9 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D854365142F963900F495E9 /* CoreText.framework */; };
 		9D85436F142FAC8C00F495E9 /* TTTAttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D85436D142FAC8C00F495E9 /* TTTAttributedLabel.h */; };
 		9D854371142FAD3400F495E9 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D85436E142FAC8C00F495E9 /* TTTAttributedLabel.m */; };
@@ -406,7 +407,7 @@
 		9D5A96D114200FB7000104CA /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewController.mm; sourceTree = "<group>"; };
 		9D5D32C31448AA2900A4BA9F /* M3Router.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Router.h; sourceTree = "<group>"; };
 		9D5D32C41448AA2900A4BA9F /* M3Router.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Router.mm; sourceTree = "<group>"; };
-		9D5D32C71448BC6600A4BA9F /* M3DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; path = M3DataSource.h; sourceTree = "<group>"; };
+		9D5D32C71448BC6600A4BA9F /* M3DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3DataSource.h; sourceTree = "<group>"; };
 		9D5D32C81448BC6600A4BA9F /* M3DataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3DataSource.mm; sourceTree = "<group>"; };
 		9D72E29814387FE600D8E5B5 /* MoviesImagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesImagesController.h; sourceTree = "<group>"; };
 		9D72E29914387FE600D8E5B5 /* MoviesImagesController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesImagesController.mm; sourceTree = "<group>"; };
@@ -420,6 +421,8 @@
 		9D7E3DCB141A347C00BB80E1 /* M3EventCenter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3EventCenter.mm; sourceTree = "<group>"; };
 		9D7E3DD1141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3EventCenter+DefaultCenter.mm"; sourceTree = "<group>"; };
 		9D7E3DD2141A3DD400BB80E1 /* M3EventCenter+Disconnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "M3EventCenter+Disconnect.m"; sourceTree = "<group>"; };
+		9D81D3C1144A139C0013B706 /* M3ProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3ProfileView.h; sourceTree = "<group>"; };
+		9D81D3C2144A139C0013B706 /* M3ProfileView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3ProfileView.mm; sourceTree = "<group>"; };
 		9D854365142F963900F495E9 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
 		9D85436D142FAC8C00F495E9 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTTAttributedLabel.h; path = vendor/TTTAttributedLabel/TTTAttributedLabel.h; sourceTree = SOURCE_ROOT; };
 		9D85436E142FAC8C00F495E9 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTTAttributedLabel.m; path = vendor/TTTAttributedLabel/TTTAttributedLabel.m; sourceTree = SOURCE_ROOT; };
@@ -686,6 +689,8 @@
 				9D5D32C41448AA2900A4BA9F /* M3Router.mm */,
 				9D750E9E1422AF7F0056290E /* M3ProfileController.h */,
 				9D750E9F1422AF7F0056290E /* M3ProfileController.mm */,
+				9D81D3C1144A139C0013B706 /* M3ProfileView.h */,
+				9D81D3C2144A139C0013B706 /* M3ProfileView.mm */,
 				9DDE1B741430876A00FDF9C5 /* M3TableViewCell.h */,
 				9DDE1B751430876A00FDF9C5 /* M3TableViewCell.mm */,
 				9D92E40B1434780900C17299 /* M3TableViewDataSource.h */,
@@ -1419,6 +1424,7 @@
 				9D594A7B143CF97400A4CED4 /* AppDelegate+Info.mm in Sources */,
 				9D5D32C51448AA2900A4BA9F /* M3Router.mm in Sources */,
 				9D5D32C91448BC6600A4BA9F /* M3DataSource.mm in Sources */,
+				9D81D3C3144A139C0013B706 /* M3ProfileView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

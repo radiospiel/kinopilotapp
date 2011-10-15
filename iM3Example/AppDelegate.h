@@ -16,6 +16,7 @@
 #import "M3TableViewDataSource.h"
 #import "M3TableViewProfileCell.h"
 #import "M3DataSource.h"
+#import "M3ProfileView.h"
 
 @class AppDelegate;
 extern AppDelegate* app;
