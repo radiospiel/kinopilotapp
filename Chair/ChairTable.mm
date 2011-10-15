@@ -111,8 +111,8 @@
 
 -(NSString*) description
 {
-  NSString* format = dependant_objects_.count ? @"<%@: %ld records, %ld dependants>" : @"<%@: %ld records>";
-  return [NSString stringWithFormat: format, self.name, dictionary_.count, dependant_objects_.count];
+  NSString* format = @"<%@: %ld records>";
+  return [NSString stringWithFormat: format, self.name, dictionary_.count];
 }
 
 // -- I/O --------------------------------------------------------

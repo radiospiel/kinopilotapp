@@ -4,12 +4,23 @@
 // #define DB_PATH     @"$documents/chairdb/berlin.json"
 #define DB_PATH     @"$documents/chairdb/kinopilot"
 
+@interface ChairDatabase(Private)
+
+-(void)resetMemoizedViews;
+
+@end
 
 @implementation ChairDatabase(IM3Example)
 
 -(BOOL)isLoaded
 {
   return self.movies.count > 0;
+}
+
+-(void) updateCompleted
+{
+  [self resetMemoizedViews];
+  [self emit:@selector(updated)];
 }
 
 -(BOOL)loadLocalCopy
@@ -21,8 +32,8 @@
     [self load: DB_PATH];
   }  
 
-  [self emit:@selector(updated)];
-  
+  [self updateCompleted];
+
   return YES;
 }
 
@@ -33,7 +44,7 @@
     [self import: REMOTE_URL];
   }
 
-  [self emit:@selector(updated)];
+  [self updateCompleted];
 
   {
     Benchmark(_.join("Saving database to ", DB_PATH));
@@ -166,7 +177,15 @@
   return [self adjustModel:model];
 }
 
--(ChairView*) schedules_by_movie_id
+/** -- memoizedViews ------------------------------------------------------------------ **/
+
+-(void)resetMemoizedViews
+{
+  [self instance_variable_set: @selector(schedules_by_movie_id) withValue:nil];
+  [self instance_variable_set: @selector(schedules_by_theater_id) withValue:nil];
+}
+
+-(ChairView*) schedules_by_movie_id_
 {
   return [ self.schedules viewWithMap:nil
                              andGroup:^id(NSDictionary *value, id key) { return [value objectForKey:@"movie_id"]; }
@@ -174,13 +193,13 @@
   ];
 }
 
-// -(ChairView*) schedules_by_movie_id
-// {
-//   return [self memoized: @selector(schedules_by_movie_id) 
-//           usingSelector: @selector(schedules_by_movie_id_)];
-// }
+-(ChairView*) schedules_by_movie_id
+{
+  return [self memoized: @selector(schedules_by_movie_id)
+          usingSelector: @selector(schedules_by_movie_id_)];
+}
 
--(ChairView*) schedules_by_theater_id
+-(ChairView*) schedules_by_theater_id_
 {
   return [ self.schedules viewWithMap:nil
                              andGroup:^id(NSDictionary *value, id key) { return [value objectForKey:@"theater_id"]; }
@@ -188,10 +207,13 @@
   ];
 }
 
-// -(ChairView*) schedules_by_theater_id
-// {
-//   return [self memoized: @selector(schedules_by_theater_id) usingSelector: @selector(schedules_by_theater_id_)];
-// }
+-(ChairView*) schedules_by_theater_id
+{
+  return [self memoized: @selector(schedules_by_theater_id) 
+          usingSelector: @selector(schedules_by_theater_id_)];
+}
+
+/** -------------------------------------------------------------------- **/
 
 -(NSArray*) theaterIdsByMovieId: (NSString*)movie_id
 {

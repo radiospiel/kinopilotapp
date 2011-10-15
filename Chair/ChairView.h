@@ -12,14 +12,10 @@
 */
 
 @interface ChairView: NSObject {
-  NSUInteger      revision_;
-  ChairView*      source_view_;
-  NSUInteger      source_revision_;
-  
-  NSMutableArray* dependant_objects_;
+  NSUInteger    revision_;
+  ChairView*    source_view_;
+  NSUInteger    source_revision_;
 }
-
--(void) addDependantObject: (id) object;
 
 /**
   The revision number. 
@@ -29,9 +25,17 @@
   stemming from that view.
 */
 @property (nonatomic,assign) NSUInteger revision;
-@property (nonatomic,retain) ChairView* source_view;
+@property (nonatomic,assign) ChairView* source_view;
 
+/**
+  Initialise this view.
+ */
 - (id) init;
+
+/**
+  Initialise this view.
+ */
+- (id) initWithSourceView: (ChairView*)source_view;
 
 /**
   Update this view.

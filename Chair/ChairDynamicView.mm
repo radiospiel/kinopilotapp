@@ -58,18 +58,14 @@
 
 // --------------------------------------------------------------------
 
--(id) initWithView: (ChairView*)view_
+-(id) initWithView: (ChairView*)view
             andMap: (MapCallback)map_fun
-         andReduce: (ReduceCallback)reduce_fun {
-  self = [super init];
-  if(!self) return nil;
-  
-  source_view_ = [view_ retain];
-  [source_view_ addDependantObject: self];
+         andReduce: (ReduceCallback)reduce_fun
+{
+  self = [super initWithSourceView:view];
   
   self.map_function = [[map_fun copy]autorelease];
   self.reduce_function = [[reduce_fun copy]autorelease];
-  // self.dictionary = [self updatedDictionary];
   
   return self;
 }
@@ -78,20 +74,18 @@
 {
   self.map_function = nil;
   self.reduce_function = nil;
-  self.source_view = nil;
   
   [super dealloc];
 }
 
 -(NSString*) description
 {
+  NSString* klassName = NSStringFromClass([self class]);
+
   if([self isDirty])
-    return [NSString stringWithFormat: @"<%@: dirty, %ld dependants>", 
-            NSStringFromClass([self class]), dependant_objects_.count];
-  else
-    return [NSString stringWithFormat: @"<%@: %ld records, %ld dependants>", 
-            NSStringFromClass([self class]), self.count, dependant_objects_.count];
-    
+    return [NSString stringWithFormat: @"<%@: dirty>", klassName];
+
+  return [NSString stringWithFormat: @"<%@: %ld records>", klassName, self.count];
 }
 
 @end

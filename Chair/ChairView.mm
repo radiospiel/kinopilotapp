@@ -13,37 +13,38 @@
 @synthesize revision = revision_;
 @synthesize source_view = source_view_;
 
-- (id) init {
+/**
+  Initialise this view.
+ */
+
+- (id) init
+{
+  return [self initWithSourceView: nil];
+}
+
+- (id) initWithSourceView: (ChairView*)source_view
+{
   self = [super init];
   if(!self) return nil;
   
   self.revision = 0;
-  self.source_view = nil;
+  self.source_view = source_view;
   source_revision_ = 0;
-  
-  dependant_objects_ = [[NSMutableArray alloc]init];
   
   return self;
 }
 
 -(void)dealloc 
 {
-  [dependant_objects_ release];
-  
   self.revision = 0;
   self.source_view = nil;
 
   [super dealloc];
 }
 
--(void) addDependantObject: (id) object;
-{
-  [dependant_objects_ addObject: object];
-}
-
 -(NSString*) description
 {
-  return [NSString stringWithFormat: @"<%@: %ld dependants>", NSStringFromClass([self class]), dependant_objects_.count];
+  return [NSString stringWithFormat: @"<%@>", NSStringFromClass([self class])];
 }
 
 /**
