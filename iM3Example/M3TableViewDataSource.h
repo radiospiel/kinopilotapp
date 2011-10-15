@@ -23,10 +23,15 @@
 -(void)addSection: (NSArray*) keys withOptions: (NSDictionary*)options;
 
 /** 
+ * Adds a section to the receiving data source.
+ */
+-(void)prependSection: (NSArray*) keys withOptions: (NSDictionary*)options;
+
+/** 
  * Returns the class for the cell with the given key. Keys are whatever
  * is put into the section.
  *
- * The default implementation returns a M3TableViewCell.
+ * The default implementation returns M3TableViewCell.
  */
 -(Class) cellClassForKey: (id)key;
 

@@ -34,6 +34,15 @@
   [self.sections addObject: section];
 }
 
+-(void)prependSection:(NSArray*) keys withOptions: (NSDictionary*) options
+{
+  M3AssertKindOf(keys, NSArray);
+  if(options) M3AssertKindOf(options, NSDictionary);    // Note: options is allowed to be nil.
+  
+  NSArray* section = [NSArray arrayWithObjects: keys, options, nil];
+  [self.sections insertObject:section atIndex:0];
+}
+
 #pragma mark - UITableViewDataSource customization
 
 -(Class) cellClassForKey: (id)key

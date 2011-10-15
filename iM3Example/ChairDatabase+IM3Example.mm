@@ -55,8 +55,6 @@
 
 -(void)updateIfNeeded
 {
-  dlog << "*** updateIfNeeded";
-
   if(![self isLoaded]) {
     if([self loadLocalCopy]) return;
     if([self loadRemoteURL]) return;
@@ -168,7 +166,7 @@
   return [self adjustModel:model];
 }
 
--(ChairView*) schedules_by_movie_id_
+-(ChairView*) schedules_by_movie_id
 {
   return [ self.schedules viewWithMap:nil
                              andGroup:^id(NSDictionary *value, id key) { return [value objectForKey:@"movie_id"]; }
@@ -176,13 +174,13 @@
   ];
 }
 
--(ChairView*) schedules_by_movie_id
-{
-  return [self memoized: @selector(schedules_by_movie_id) 
-          usingSelector: @selector(schedules_by_movie_id_)];
-}
+// -(ChairView*) schedules_by_movie_id
+// {
+//   return [self memoized: @selector(schedules_by_movie_id) 
+//           usingSelector: @selector(schedules_by_movie_id_)];
+// }
 
--(ChairView*) schedules_by_theater_id_
+-(ChairView*) schedules_by_theater_id
 {
   return [ self.schedules viewWithMap:nil
                              andGroup:^id(NSDictionary *value, id key) { return [value objectForKey:@"theater_id"]; }
@@ -190,15 +188,16 @@
   ];
 }
 
--(ChairView*) schedules_by_theater_id
-{
-  return [self memoized: @selector(schedules_by_theater_id) usingSelector: @selector(schedules_by_theater_id_)];
-}
+// -(ChairView*) schedules_by_theater_id
+// {
+//   return [self memoized: @selector(schedules_by_theater_id) usingSelector: @selector(schedules_by_theater_id_)];
+// }
 
 -(NSArray*) theaterIdsByMovieId: (NSString*)movie_id
 {
   ChairView* schedules_by_movie_id = [self schedules_by_movie_id];
-  
+  [schedules_by_movie_id update];
+
   NSArray* schedules = [[schedules_by_movie_id get: movie_id] objectForKey:@"group"];
   NSArray* theater_ids = [schedules pluck: @"theater_id"];
 
@@ -224,7 +223,7 @@
 {
   ChairView* view = [self schedules_by_theater_id];
   NSDictionary* group = [view get: theater_id];
-
+  
   return [group objectForKey:@"group"];
 }
 

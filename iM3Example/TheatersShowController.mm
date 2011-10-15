@@ -10,7 +10,23 @@
 #import "TheatersShowController.h"
 
 #import <MapKit/MapKit.h>
-#import <QuartzCore/QuartzCore.h>
+
+@class TTTAttributedLabel, MKMapView;
+
+@interface ProfileView: UIView {
+  MKMapView* mapView_;
+  TTTAttributedLabel* htmlView_;
+  UIImageView* imageView_;
+}
+
+-(void) setHtmlDescription: (NSString*)html;
+-(void) setActions: (NSArray*) actions;
+-(void) setImageURLs: (NSArray*) imageURLs;
+-(void) setCoordinate: (CLLocationCoordinate2D) coordinate;
+
++(ProfileView*) profileViewForTheater: (NSDictionary*)theater;
+
+@end
 
 @implementation TheatersShowController
 
@@ -27,101 +43,167 @@
 -(void)setUrl: (NSString *)url
 {
   [super setUrl: url];
+
+  if(!url) return;
   
   [url matches:@"/theaters/show/(.*)"];
   self.model = [app.chairDB.theaters get: $1];
+  
+  UIView* profileView = [ProfileView profileViewForTheater:self.model];
+  self.tableView.tableHeaderView = profileView;
 }
 
 -(void)setModel: (NSDictionary*)theater
 {
   [super setModel: theater];
   
-  M3TableViewDataSource* dataSource = [M3DataSource moviesListFilteredByTheater: [theater objectForKey:@"_uid" ]];
-  self.dataSource = dataSource;
-  
-  return;
+  id theater_id = [theater objectForKey:@"_uid"];
+  self.dataSource = [M3DataSource moviesListFilteredByTheater: theater_id];
+}
 
-  self.title = [theater objectForKey:@"name"];
+@end
 
-  // -- add a map view
+#import <QuartzCore/QuartzCore.h>
 
-  CGRect frame = imageView_.frame; 
-  frame.origin = CGPointMake(0,0);
-  
-  MKMapView* mapView = [[MKMapView alloc]initWithFrame:frame];
-  [imageView_ addSubview:[mapView autorelease]];
-  
-  NSArray* latlong = [theater objectForKey:@"latlong"];
-  
-  MKCoordinateRegion region;
-  region.center = CLLocationCoordinate2DMake([latlong.first floatValue], [latlong.second floatValue]);
-  region.span.latitudeDelta = 0.003;    // This is roughly 300m
-  region.span.longitudeDelta = 0.003;   // This is roughly 300m
+@implementation ProfileView
 
-  mapView.region = region;
-  mapView.layer.borderColor = [UIColor colorWithName:@"#666"].CGColor;
-  mapView.layer.borderWidth = 0.6f;
-
-  MKPointAnnotation* annotation = [[MKPointAnnotation alloc]init];
-  [annotation setCoordinate:region.center];
-  [mapView addAnnotation: [annotation autorelease]];
+-(id)initWithTheater:(NSDictionary*)theater
+{
+  self = [super initWithFrame: CGRectMake(0, 0, 320, 40)];
   
+  return self;
+}
+
+-(void) setHtmlDescription: (NSString*) html
+{
+  htmlView_ = [[[TTTAttributedLabel alloc]init]autorelease];
+  htmlView_.text = [NSAttributedString attributedStringWithSimpleMarkup: html];
+
+  CGSize htmlSize = [htmlView_ sizeThatFits: CGSizeMake(220, 1000)];
+  htmlView_.frame = CGRectMake(85, 5, htmlSize.width, htmlSize.height);
+
+  [self addSubview:htmlView_];
+}
+
+-(void) setActions: (NSArray*) actions
+{
+  int w = 85;
+  int r = 305;
+  
+  int y = htmlView_.frame.origin.y + htmlView_.frame.size.height + 16;
+  
+  for(NSArray* action in [actions subarrayWithRange:NSMakeRange(0,2)]) {
+    UIButton* button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button.frame = CGRectMake(r - w, y, w, 24); r -= (w+10);
+    // button.backgroundColor = [UIColor colorWithWhite:0 alpha:0]; // this has a alpha of 0. 
+    [button setActionURL: action.second andTitle:action.first];
+
+    [self addSubview:button];
+  }
+}
+
+-(void) setImageURLs: (NSArray*) imageURLs
+{
+  
+}
+
+-(void) setProfileURL: (NSString*)url
+{
   //
   // Open URL on tapping the map. It is strange - but this seems to work only
   // when adding a tap handler on imageView *and* on mapView.
-  NSString* url = _.join(@"/map/show/theater_id=", [theater objectForKey:@"_uid" ]);
   
   [imageView_ onTapOpen: url];
-  [mapView onTapOpen: url];
+  [mapView_ onTapOpen: url];
+}
 
-  // -- set actions
+-(void) setCoordinate: (CLLocationCoordinate2D) coordinate
+{
+  mapView_ = [[MKMapView alloc]initWithFrame:CGRectMake(05,5,70,100)];
+  [self addSubview:[mapView_ autorelease]];
 
-  {
-    NSMutableArray* actions = _.array();
-    
-    NSString* address = [self.model objectForKey:@"address"];
-    
-    if(actions.count < 2 && address) {
-      [actions addObject: _.array(@"Fahrinfo", _.join(@"fahrinfo-berlin://connection?to=", address.urlEscape))];
-    }
-    
-    NSString* fon = [self.model objectForKey:@"telephone"];
-    if(actions.count < 2 && fon) {
-      [actions addObject: _.array(@"Fon", _.join(@"tel://", fon.urlEscape))];
-    }
-    
-    NSString* email = [self.model objectForKey:@"email"];
-    if(actions.count < 2 && email) {
-      [actions addObject: _.array(@"Email", _.join(@"mailto:", email))];
-    }
-    NSString* web = [self.model objectForKey:@"website"];
-    if(actions.count < 2 && web) {
-      [actions addObject: _.array(@"Website", web)];
-    }
-    
-    self.actions = actions;
-  }
+  MKCoordinateRegion region;
+  region.center = coordinate;
+  region.span.latitudeDelta = 0.003;    // This is roughly 300m
+  region.span.longitudeDelta = 0.003;   // This is roughly 300m
+  
+  mapView_.region = region;
+  mapView_.layer.borderColor = [UIColor colorWithName:@"#666"].CGColor;
+  mapView_.layer.borderWidth = 0.6f;
+  
+  MKPointAnnotation* annotation = [[MKPointAnnotation alloc]init];
+  [annotation setCoordinate:region.center];
+  [mapView_ addAnnotation: [annotation autorelease]];
+}
 
-  // -- set description
+-(int)wantsHeight
+{
+  int rHeight = htmlView_.frame.origin.y + htmlView_.frame.size.height + 16;
+  rHeight += 24;
+  rHeight += 16;
+
+  int lHeight = 114;
+  
+  return lHeight > rHeight ? lHeight : rHeight;
+}
+
+
++(ProfileView*) profileViewForTheater: (NSDictionary*)theater
+{
+  if(!theater) return nil;
+  ProfileView* pv = [[ProfileView alloc]init];
+
+  // -- set descriptions
   
   {
     NSMutableString* html = [NSMutableString string];
     
-    NSString* name = [self.model objectForKey:@"name"];
+    NSString* name = [theater objectForKey:@"name"];
     [html appendFormat:@"<h2><b>%@</b></h2>", name.cdata];
     
-    NSString* address = [self.model objectForKey:@"address"];
+    NSString* address = [theater objectForKey:@"address"];
     if(address)
       [html appendFormat: @"<p><b>Adresse:</b> %@</p>", address.cdata]; 
     
-    DLOG(html);
-    self.htmlDescription = html;
+    [pv setHtmlDescription:html];
   }
 
-  // --- set body controller
+  // -- set actions
+  
+  {
+    NSMutableArray* actions = _.array();
+    
+    NSString* address = [theater objectForKey:@"address"];
+    
+    if(address)
+      [actions addObject: _.array(@"Fahrinfo", _.join(@"fahrinfo-berlin://connection?to=", address.urlEscape))];
+    
+    NSString* fon = [theater objectForKey:@"telephone"];
+    if(fon)
+      [actions addObject: _.array(@"Fon", _.join(@"tel://", fon.urlEscape))];
+    
+    NSString* web = [theater objectForKey:@"website"];
+    if(web)
+      [actions addObject: _.array(@"Website", web)];
+    
+    [pv setActions: actions];
+  }
 
-  // NSString* bodyURL = _.join(@"/movies/list/theater_id=", [theater objectForKey:@"_uid" ]);
-  // [self setBodyController: [app viewControllerForURL:bodyURL ] withTitle: @"Filme"];
+  // -- add a map view
+
+  {
+    NSArray* latlong = [theater objectForKey:@"latlong"];
+    [pv setCoordinate: CLLocationCoordinate2DMake([latlong.first floatValue], [latlong.second floatValue])];
+  }  
+
+  NSString* url = _.join(@"/map/show/theater_id=", [theater objectForKey:@"_uid" ]);
+
+  [pv setProfileURL:url];
+  
+  // --- adjust size
+  
+  pv.frame = CGRectMake(0, 0, 320, [pv wantsHeight]);
+  return pv;
 }
 
 @end

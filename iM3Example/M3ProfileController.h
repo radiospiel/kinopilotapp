@@ -9,7 +9,7 @@
 #import "TTTAttributedLabel.h"
 #import "M3TableViewController.h"
 
-@interface M3ProfileController : M3TableViewController {
+@interface M3ProfileController : M3TableViewListController {
   IBOutlet UIImageView* imageView_;
   IBOutlet TTTAttributedLabel* descriptionView_;
   IBOutlet UIButton* actionButton0_;
