@@ -11,66 +11,50 @@
 
 @implementation MoviesShowController
 
--(void)viewDidLoad
+-(id)init
 {
-  [super viewDidLoad];
+  self = [super init];
   
-  self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-  self.imageView.clipsToBounds = YES;
+  if(self)
+    [app.chairDB on: @selector(updated) notify:self with:@selector(reload)];
+  
+  return self;
 }
 
 -(void)setUrl: (NSString *)url
 {
   [super setUrl: url];
-
-  [url matches:@"/movies/show/(.*)"];
-  DLOG($1);
   
+  if(!url) return;
+  
+  [url matches:@"/movies/show/(.*)"];
   self.model = [app.chairDB.movies get: $1];
+  
+  self.tableView.tableHeaderView = [self headerView];
 }
 
 -(void)setModel: (NSDictionary*)movie
-{  
-  DLOG(movie);
-
+{
   [super setModel: movie];
-
-  NSString* bodyURL = _.join(@"/theaters/list/movie_id=", [movie objectForKey: @"_uid"]);
-  [self setBodyController: [app.router controllerForURL: bodyURL] withTitle: @"Kinos"];
   
-  // Show full info on a tap on tap on imageView and description
-  [self.imageView onTapOpen:  
-          [self.url stringByReplacingOccurrencesOfString:@"/movies/show" withString:@"/movies/images"] ];
+  id movie_id = [movie objectForKey:@"_uid"];
+  self.dataSource = [M3DataSource theatersListFilteredByMovie: movie_id];
+}
+
+-(UIView*) headerView
+{
+  NSDictionary* movie = self.model;
+  if(!movie) return nil;
+  M3ProfileView* pv = [[[M3ProfileView alloc]init]autorelease];
   
-  // -- set views
-
-  NSString* title =           [movie objectForKey:@"title"];
-  NSNumber* runtime =         [movie objectForKey:@"runtime"];
-  NSArray* genres =           [movie objectForKey:@"genres"];
-  NSNumber* production_year = [movie objectForKey:@"production-year"];
-
-  // -- set actions
-
-  {
-    NSMutableArray* actions = _.array();
-    
-    // add full info URL
-    [actions addObject: _.array(@"Mehr...", 
-                                [self.url stringByReplacingOccurrencesOfString:@"/movies/show" withString:@"/movies/full"]
-                                )];
-    
-    // add imdb URL
-    NSString* imdbURL = _.join(@"imdb:///find?q=", title.urlEscape);
-    if(![app canOpen:imdbURL])
-      imdbURL = _.join(@"http://imdb.de/?q=", title.urlEscape);
-    
-    [actions addObject: _.array(@"IMDB", imdbURL)];
-    
-    self.actions = actions;
-  }
-
   // -- set desription
+
   {
+    NSString* title =           [movie objectForKey:@"title"];
+    NSNumber* runtime =         [movie objectForKey:@"runtime"];
+    NSArray* genres =           [movie objectForKey:@"genres"];
+    NSNumber* production_year = [movie objectForKey:@"production-year"];
+
     NSMutableArray* parts = [NSMutableArray array];
     [parts addObject: [NSString stringWithFormat: @"<h2><b>%@</b></h2>", title]];
     
@@ -85,14 +69,45 @@
       [parts addObject: @"</p>"];
     }
     
-    self.htmlDescription = [parts componentsJoinedByString:@""];
+    [pv setHtmlDescription: [parts componentsJoinedByString:@""]];
   }
-}
+  
+  // -- set actions
+  
+  {
+    NSMutableArray* actions = _.array();
+    
+    // add full info URL
+    [actions addObject: _.array(@"Mehr...", 
+                                [self.url stringByReplacingOccurrencesOfString:@"/movies/show" withString:@"/movies/full"]
+                                )];
+    
+    // add imdb URL
+    NSString* title =           [movie objectForKey:@"title"];
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
+    NSString* imdbURL = _.join(@"imdb:///find?q=", title.urlEscape);
+    if(![app canOpen:imdbURL])
+      imdbURL = _.join(@"http://imdb.de/?q=", title.urlEscape);
+    
+    [actions addObject: _.array(@"IMDB", imdbURL)];
+    
+    [pv setActions: actions];
+  }
+  
+  // -- add an image view
+  
+  {
+    NSArray* images = [movie objectForKey:@"images"];
+    [pv setImageURLs: [images pluck:@"thumbnail"]];
+  }
 
+  // --- set profile URL
+  
+  [pv setProfileURL: _.join(@"/movies/full/", [movie objectForKey:@"_uid"]) ];
+  
+  // --- adjust size
+  
+  pv.frame = CGRectMake(0, 0, 320, [pv wantsHeight]);
+  return pv;
+}
 @end

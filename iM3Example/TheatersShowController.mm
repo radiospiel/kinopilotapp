@@ -33,11 +33,19 @@
   self.tableView.tableHeaderView = [self headerView];
 }
 
+-(void)setModel: (NSDictionary*)theater
+{
+  [super setModel: theater];
+  
+  id theater_id = [theater objectForKey:@"_uid"];
+  self.dataSource = [M3DataSource moviesListFilteredByTheater: theater_id];
+}
+
 -(UIView*) headerView
 {
   NSDictionary* theater = self.model;
   if(!theater) return nil;
-  M3ProfileView* pv = [[M3ProfileView alloc]init];
+  M3ProfileView* pv = [[[M3ProfileView alloc]init]autorelease];
   
   // -- set descriptions
   
@@ -91,13 +99,4 @@
   pv.frame = CGRectMake(0, 0, 320, [pv wantsHeight]);
   return pv;
 }
-
--(void)setModel: (NSDictionary*)theater
-{
-  [super setModel: theater];
-  
-  id theater_id = [theater objectForKey:@"_uid"];
-  self.dataSource = [M3DataSource moviesListFilteredByTheater: theater_id];
-}
-
 @end

@@ -14,13 +14,6 @@
 
 @implementation M3ProfileView
 
--(id)initWithTheater:(NSDictionary*)theater
-{
-  self = [super initWithFrame: CGRectMake(0, 0, 320, 40)];
-  
-  return self;
-}
-
 -(void) setHtmlDescription: (NSString*) html
 {
   htmlView_ = [[[TTTAttributedLabel alloc]init]autorelease];
@@ -51,7 +44,24 @@
 
 -(void) setImageURLs: (NSArray*) imageURLs
 {
+  imageView_ = [[UIImageView alloc]initWithFrame:CGRectMake(5,5,70,100)];
+  [self addSubview:[imageView_ autorelease]];
+
+  imageView_.contentMode = UIViewContentModeScaleAspectFill;
+  imageView_.clipsToBounds = YES;
+  imageView_.image = [UIImage imageNamed:@"no_poster.png"];
+
+  DLOG(imageURLs);
   
+  if(!imageURLs.count) return;
+  
+  imageView_.imageURL = imageURLs.first;
+  
+  
+  if(imageURLs.count > 1) {
+    for(NSString* url in imageURLs)
+      [imageView_ addImageURLToRotation: url];
+  }
 }
 
 -(void) setProfileURL: (NSString*)url
@@ -66,7 +76,7 @@
 
 -(void) setCoordinate: (CLLocationCoordinate2D) coordinate
 {
-  mapView_ = [[MKMapView alloc]initWithFrame:CGRectMake(05,5,70,100)];
+  mapView_ = [[MKMapView alloc]initWithFrame:CGRectMake(5,5,70,100)];
   [self addSubview:[mapView_ autorelease]];
   
   MKCoordinateRegion region;

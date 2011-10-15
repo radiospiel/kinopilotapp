@@ -18,4 +18,7 @@
 +(M3TableViewDataSource*)moviesListWithFilter: (NSString*)filter;
 +(M3TableViewDataSource*)moviesListFilteredByTheater:(id)theater_id;
 
++(M3TableViewDataSource*)theatersListFilteredByMovie:(id)movie_id;
++(M3TableViewDataSource*)theatersList;
+
 @end
