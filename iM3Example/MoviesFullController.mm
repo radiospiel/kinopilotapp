@@ -254,4 +254,10 @@
     self.dataSource = [dataSource autorelease];
   }
 }
+
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+	return 0;
+}
+
 @end
