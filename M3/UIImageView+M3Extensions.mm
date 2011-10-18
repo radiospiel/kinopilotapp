@@ -1,42 +1,13 @@
 /**
- * Enable sencha.io support? sencha.io delivers images in just the right size. This reduces 
- * memory usage on the device, but increases the time needed to fetch all the images.
- *
- * For more on sencha.io see http://www.sencha.com/learn/how-to-use-src-sencha-io/
- */
-#define USE_SENCHA_IO 0
-// #define USE_SENCHA_IO 1
-
-/**
  * The rotation interval
  */
 #define ROTATION_INTERVAL 2.5
-
 
 #if TARGET_OS_IPHONE 
 
 #import "M3.h"
 
 @implementation UIImageView(M3Extensions)
-
-/**
- * converts the image URL into the image URL, where the image will be fetched.
- */
-
--(NSString*)sourceImageURL: (NSString*)url
-{
-#if USE_SENCHA_IO
-  int width = self.frame.size.width;
-  int height = self.frame.size.height;
-  if(width > 0 && height > 0) {
-    // TODO: add proper support for shards
-    NSString* shard = @"";
-    url = [NSString stringWithFormat: @"http://src%@.sencha.io/%d/%d/%@", shard, width*2, height*2, url];
-  }
-#endif
-
-  return url;
-}
 
 #pragma mark - Image loading via HTTP
 
@@ -65,8 +36,8 @@
 
 -(void)loadImageFromURL:(NSString*)url andExecute: (void (^)(UIImage* image, BOOL backgrounded))block
 {
-  url = [self sourceImageURL: url];
-
+  url = [M3 imageURL:url forSize: self.frame.size];
+  
   [[UIImage cachedImagesWithURL]buildAsync:url
                                   withCallback:^(UIImage* image, BOOL didExist) {
                                     block(image, didExist != NO);

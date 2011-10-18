@@ -26,7 +26,10 @@
 
   [app.chairDB on: @selector(updated) notify:self with:@selector(reload)];
 
-  scrollView = [[[UIScrollView alloc]initWithFrame:CGRectMake(0,0,320,480)]autorelease];
+  CGSize viewSize = self.view.frame.size;
+  CGRect frame = CGRectMake(0,0,viewSize.width,viewSize.height);
+
+  scrollView = [[[UIScrollView alloc]initWithFrame:frame]autorelease];
   [self.view addSubview:scrollView];
   
   scrollView.delegate = self;
@@ -36,7 +39,7 @@
   scrollView.scrollsToTop = NO;
   scrollView.bounces = NO;
   scrollView.directionalLockEnabled = YES;
-  
+
   pageControl = [[[UIPageControl alloc]initWithFrame:CGRectMake(30, 100, 300, 100)]autorelease];
   [self.view addSubview:pageControl];
   
@@ -118,17 +121,18 @@
 }
 
 
-#define DX 5
-#define DY 5
+#define DX 0
+#define DY 0
 
 -(UIView*)viewForPage: (int)pageNo withImage: (UIImage*)image
 {
   // set the content size.
+
   CGSize viewSz = scrollView.frame.size; 
   scrollView.contentSize = CGSizeMake(viewSz.width * (pageNo+1), viewSz.height);
   
   UIView* pageView = [[UIView alloc]initWithFrame:CGRectMake(viewSz.width * pageNo,0,viewSz.width, viewSz.height)];
-  pageView.backgroundColor = [UIColor colorWithName:@"#c0a070"];
+  // pageView.backgroundColor = [UIColor colorWithName:@"#c0a070"];
   
   // Build a view to add as a new 
   CGRect frame = CGRectMake(DX, DY, viewSz.width - 2*DX, viewSz.height - 2*DY);
@@ -162,12 +166,12 @@
   
   [url matches:@"/movies/images/(.*)"];
   NSString* movie_id = $1;
-  
+
   NSDictionary* movie = [app.chairDB.movies get: movie_id];
   NSArray* images = [movie objectForKey:@"images"];
   for(NSString* url in [images pluck: @"fullsize"]) {
     M3CachedFactory* factory = [UIImage cachedImagesWithURL]; 
-    [factory buildAsync:url
+    [factory buildAsync:[M3 imageURL: url forSize: self.view.frame.size]
              withTarget:self 
             andSelector:@selector(addImage:)];
   }

@@ -30,6 +30,7 @@
 #import "M3+FileIO.h"
 #import "M3+Filenames.h"
 #import "M3+JSON.h"
+#import "M3+Image.h"
 #import "M3+Inflector.h"
 #import "M3+Inspect.h"
 #import "M3+RuntimeError.h"

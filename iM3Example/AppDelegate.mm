@@ -210,6 +210,8 @@ AppDelegate* app;
 {
   app = self;
   
+  [M3 enableImageHost:M3SenchaSupportFull scaleForRetinaDisplay:NO];
+  
   rlog(1) << "Starting application in " << [ M3 symbolicDir: @"$root" ];
 
   // [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
