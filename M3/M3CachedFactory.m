@@ -310,10 +310,12 @@ static M3CachedFactory* cache = nil;
     // foo, foo2 will be autoreleased
     foo = [cache build: @"foo"];
     assert_equal_int(deallocCount, 0);
+    assert_equal_int(buildCount, 1);
     assert_true([cache stats] == 1);
     
     // building an object with the identical key
     foo2 = [cache build: @"foo"];
+    assert_equal_int(buildCount, 1);
     assert_equal_pod(foo2, foo);
   }
   
@@ -326,9 +328,8 @@ static M3CachedFactory* cache = nil;
   // Note that foo has still the old value set, even though it does
   // no longer point to a valid object.
   foo2 = [cache build: @"foo"];
-  assert_not_equal_pod(foo2, foo);
+  assert_equal_int(buildCount, 2);
 }
-
 
 - (void)testManualRetain
 {
