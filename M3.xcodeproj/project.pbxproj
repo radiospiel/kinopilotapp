@@ -79,6 +79,7 @@
 		9D15A6B21446291400F17C91 /* UIViewController+Model.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D15A6AF1446291400F17C91 /* UIViewController+Model.mm */; };
 		9D15A6B31446291400F17C91 /* UIViewController+Model.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D15A6AF1446291400F17C91 /* UIViewController+Model.mm */; };
 		9D26E9A9142E10260055C214 /* MoviesFullController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D26E9A8142E10260055C214 /* MoviesFullController.mm */; };
+		9D2BF7571450A1F40045C11C /* M3ListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D2BF7561450A1F40045C11C /* M3ListViewController.mm */; };
 		9D33FBCD1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */; };
 		9D33FBCE1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */; };
 		9D33FBCF1427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */; };
@@ -343,6 +344,8 @@
 		9D15A6AF1446291400F17C91 /* UIViewController+Model.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIViewController+Model.mm"; sourceTree = "<group>"; };
 		9D26E9A7142E10260055C214 /* MoviesFullController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesFullController.h; sourceTree = "<group>"; };
 		9D26E9A8142E10260055C214 /* MoviesFullController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesFullController.mm; sourceTree = "<group>"; };
+		9D2BF7551450A1F40045C11C /* M3ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3ListViewController.h; sourceTree = "<group>"; };
+		9D2BF7561450A1F40045C11C /* M3ListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3ListViewController.mm; sourceTree = "<group>"; };
 		9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Ivars.h"; sourceTree = "<group>"; };
 		9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Ivars.mm"; sourceTree = "<group>"; };
 		9D33FBD61427D39E000A3D69 /* AppDelegate+ChairDB.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "AppDelegate+ChairDB.mm"; sourceTree = "<group>"; };
@@ -691,6 +694,8 @@
 				9D594A7A143CF97400A4CED4 /* AppDelegate+Info.mm */,
 				9DAA0D26142AA6EC001F11C1 /* ChairDatabase+IM3Example.h */,
 				9DAA0D27142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm */,
+				9D2BF7551450A1F40045C11C /* M3ListViewController.h */,
+				9D2BF7561450A1F40045C11C /* M3ListViewController.mm */,
 				9D5D32C31448AA2900A4BA9F /* M3Router.h */,
 				9D5D32C41448AA2900A4BA9F /* M3Router.mm */,
 				9D750E9E1422AF7F0056290E /* M3ProfileController.h */,
@@ -1436,6 +1441,7 @@
 				9D5D32C51448AA2900A4BA9F /* M3Router.mm in Sources */,
 				9D5D32C91448BC6600A4BA9F /* M3DataSource.mm in Sources */,
 				9D81D3C3144A139C0013B706 /* M3ProfileView.mm in Sources */,
+				9D2BF7571450A1F40045C11C /* M3ListViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

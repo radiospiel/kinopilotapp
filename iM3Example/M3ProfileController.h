@@ -7,9 +7,9 @@
 //
 
 #import "TTTAttributedLabel.h"
-#import "M3TableViewController.h"
+#import "M3ListViewController.h"
 
-@interface M3ProfileController : M3TableViewListController
+@interface M3ProfileController : M3ListViewController
 
 -(UIView*) headerView;
 

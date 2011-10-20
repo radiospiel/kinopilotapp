@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "M3TableViewController.h"
+#import "M3ListViewController.h"
 
-@interface MoviesListController: M3TableViewListController
+@interface MoviesListController: M3ListViewController
 @end

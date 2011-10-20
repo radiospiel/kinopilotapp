@@ -6,8 +6,8 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "M3TableViewController.h"
+#import "M3ListViewController.h"
 
-@interface VicinityShowController : M3TableViewListController
+@interface VicinityShowController : M3ListViewController
 @end
 

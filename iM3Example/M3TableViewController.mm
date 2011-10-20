@@ -15,10 +15,6 @@
 {
   self = [super init];
   
-  // As M3TableViewController inherits from UITableViewController, the tableView
-  // property is initially set to a newly created UITableView - which we will 
-  // continue to use - and the UITableView's dataSource is set to self.
-  self.tableView.dataSource = nil;
   
   return self;
 }
@@ -33,6 +29,22 @@
   [self releaseM3Properties];
 
   [super dealloc];
+}
+
+-(void)viewDidLoad
+{
+  [super viewDidLoad];
+  
+  // As M3TableViewController inherits from UITableViewController, the tableView
+  // property is initially set to a newly created UITableView - which we will 
+  // continue to use - and the UITableView's dataSource is set to self.
+  self.tableView.dataSource = nil;
+}
+
+-(void)viewDidUnload
+{
+  
+  [super viewDidUnload];
 }
 
 -(M3TableViewDataSource*) dataSource
@@ -202,45 +214,7 @@
 
 @end
 
-/*
- * Slightly modified section headers for lists: this saves a few pixels per section.
- */
-@implementation M3TableViewListController
 
--(id)init
-{
-  self = [super init];
-
-  [app.chairDB on: @selector(updated) notify:self with:@selector(reload)];
-  [app on: @selector(resumed) notify:self with:@selector(reload)];
-  
-  return self;
-}
-
-- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-	return 23;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-  UIView* header = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22)]autorelease];
-  header.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header-background-22.png"]]; 
-  
-  UILabel * label = [[[UILabel alloc] initWithFrame:CGRectMake(7, 0, 308, 22)]autorelease];
-  label.backgroundColor = [UIColor clearColor];
-  label.opaque = NO;
-  label.textColor = [UIColor whiteColor];
-  label.font = [UIFont boldSystemFontOfSize:15];
-  label.lineBreakMode = UILineBreakModeMiddleTruncation;
-  label.text = [self.dataSource tableView:tableView titleForHeaderInSection:section];
-
-  [header addSubview:label];
-
-  return header;
-}
-
-@end
 
 
 #if 0 
