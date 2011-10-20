@@ -21,12 +21,8 @@
   return self;
 }
 
--(void)setUrl: (NSString *)url
+-(void)loadFromUrl: (NSString *)url
 {
-  [super setUrl: url];
-
-  if(!url) return;
-  
   [url matches:@"/theaters/show/(.*)"];
   self.model = [app.chairDB.theaters get: $1];
   

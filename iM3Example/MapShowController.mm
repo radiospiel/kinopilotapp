@@ -69,10 +69,8 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
--(void)setUrl:(NSString *)url
+-(void)loadFromUrl:(NSString *)url
 {
-  [super setUrl:url];
-  
   [url matches: @"/map/show/theater_id=(.*)"];
   self.theater_id = $1;
 }

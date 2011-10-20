@@ -51,7 +51,7 @@
   imageView_.clipsToBounds = YES;
   imageView_.image = [UIImage imageNamed:@"no_poster.png"];
 
-  DLOG(imageURLs);
+//  DLOG(imageURLs);
   
   if(!imageURLs.count) return;
   

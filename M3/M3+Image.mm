@@ -22,7 +22,7 @@ const char* M3SenchaSupportLarge = "M3SenchaSupportLarge";
 
 static const char* enabled_sencha = 0;
 static BOOL sencha_retina_display = NO;
-static const char* sencha_format = "jpg50";
+static const char* sencha_format = "jpg70";
 
 /**
  * converts the source image URL into the image URL to actually fetch the image

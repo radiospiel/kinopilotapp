@@ -20,6 +20,11 @@
  */
 -(void)reload;
 
+/*
+ * This method is called whenever the URL changed.
+ */
+-(void)loadFromUrl: (NSString*)url;
+
 @end
 
 /*

@@ -21,10 +21,8 @@
   return self;
 }
 
--(void)setUrl: (NSString *)url
+-(void)loadFromUrl: (NSString *)url
 {
-  [super setUrl: url];
-  
   if(!url) return;
   
   [url matches:@"/movies/show/(.*)"];
@@ -110,4 +108,5 @@
   pv.frame = CGRectMake(0, 0, 320, [pv wantsHeight]);
   return pv;
 }
+
 @end

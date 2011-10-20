@@ -22,9 +22,28 @@
 -(id)init
 {
   self = [super initWithNibName:nil bundle:nil];
-  self.pages = [NSMutableArray array];
 
   [app.chairDB on: @selector(updated) notify:self with:@selector(reload)];
+  
+  return self;
+}
+
+-(BOOL)isFullscreen
+{
+  return YES;
+}
+
+-(void)dealloc
+{
+  self.pages = nil;
+  [super dealloc];
+}
+
+#pragma mark - Low memory management
+
+- (void)viewDidLoad
+{
+  self.pages = [NSMutableArray array];
 
   CGSize viewSize = self.view.frame.size;
   CGRect frame = CGRectMake(0,0,viewSize.width,viewSize.height);
@@ -58,22 +77,15 @@
   
   [self.view addSubview:closeButton];
   [closeButton addTarget:self action:@selector(popNavigationController) forControlEvents:UIControlEventTouchUpInside];
-  
-  return self;
+
+  [super viewDidLoad];
 }
 
--(BOOL)isFullscreen
-{
-  return YES;
-}
-
--(void)dealloc
+- (void)viewDidUnload
 {
   self.pages = nil;
-  
-  [super dealloc];
+  [super viewDidLoad];
 }
-
 
 #define PAGE_CONTROL_HEIGHT 24
 
@@ -120,24 +132,18 @@
   [self.navigationController popViewControllerAnimated:YES];
 }
 
-
-#define DX 0
-#define DY 0
-
 -(UIView*)viewForPage: (int)pageNo withImage: (UIImage*)image
 {
   // set the content size.
-
   CGSize viewSz = scrollView.frame.size; 
   scrollView.contentSize = CGSizeMake(viewSz.width * (pageNo+1), viewSz.height);
-  
+
+  // The view for the new page
   UIView* pageView = [[UIView alloc]initWithFrame:CGRectMake(viewSz.width * pageNo,0,viewSz.width, viewSz.height)];
-  // pageView.backgroundColor = [UIColor colorWithName:@"#c0a070"];
+
+  // The view in the new page.
+  CGRect frame = CGRectMake(0, 0, viewSz.width, viewSz.height);
   
-  // Build a view to add as a new 
-  CGRect frame = CGRectMake(DX, DY, viewSz.width - 2*DX, viewSz.height - 2*DY);
-  
-  // replace the placeholder in the oageViews array.
   UIImageView* imageView = [[UIImageView alloc]initWithFrame: frame];
   imageView.image = image;
   imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -155,15 +161,13 @@
   UIView* page = [self viewForPage:pageNo withImage:image];
   [scrollView addSubview:page];
   [self.pages addObject:page];
-  
+
   pageControl.numberOfPages = pageNo+1;
   [self layoutPageControl];
 }
 
-- (void)setUrl:(NSString *)url
+- (void)loadFromUrl:(NSString *)url
 {
-  [super setUrl:url];
-  
   [url matches:@"/movies/images/(.*)"];
   NSString* movie_id = $1;
 

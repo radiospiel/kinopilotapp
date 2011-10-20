@@ -114,11 +114,11 @@
   self.url = _.join(@"/movies/list/filter=", filter);
 }
 
--(void)setUrl:(NSString*)url
+-(void)loadFromUrl:(NSString *)url
 {
-  [super setUrl: url];
-
-  if([self.url matches: @"/movies/list/theater_id=(.*)"])
+  if(!url)
+    self.dataSource = nil;
+  else if([self.url matches: @"/movies/list/theater_id=(.*)"])
     self.dataSource = [M3DataSource moviesListFilteredByTheater:$1]; 
   else if([self.url matches: @"/movies/list/filter=(.*)"])
     self.dataSource = [M3DataSource moviesListWithFilter: $1];

@@ -244,10 +244,8 @@
   return @"Details";
 }
 
--(void)setUrl:(NSString *)url
+-(void)loadFromUrl:(NSString *)url
 {
-  [super setUrl:url];
-  
   if([url matches:@"/movies/full/(.*)"]) {
     NSString* movie_id = $1;
     id dataSource = [[MoviesFullControllerDataSource alloc]initWithMovieId: movie_id];

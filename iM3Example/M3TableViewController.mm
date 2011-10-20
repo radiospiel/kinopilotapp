@@ -33,17 +33,21 @@
 
 -(void)viewDidLoad
 {
+  dlog << "viewDidLoad: " << _.ptr(self) << (self.isViewLoaded ? " Loaded" : " Not loaded");
+
   [super viewDidLoad];
-  
-  // As M3TableViewController inherits from UITableViewController, the tableView
-  // property is initially set to a newly created UITableView - which we will 
-  // continue to use - and the UITableView's dataSource is set to self.
+
+  // As M3TableViewController inherits from UITableViewController, the 
+  // tableView is initialed with a newly created UITableView. Its dataSource
+  // property is set to the controller - this is not what we'll use here,
+  // so we nil it to be on the safe side.
   self.tableView.dataSource = nil;
+
+  [self reload];
 }
 
 -(void)viewDidUnload
 {
-  
   [super viewDidUnload];
 }
 
@@ -57,17 +61,15 @@
 
 -(void) setDataSource: (M3TableViewDataSource*)dataSource
 { 
-  M3AssertKindOf(dataSource, M3TableViewDataSource);
+  if(dataSource == dataSource_) return;
 
-  // Note: the dataSource in a UITableView *IS NOT RETAINED*
+  // Note: an UITableView's dataSource is not retained by itself.
   [dataSource retain];
   [dataSource_ release];
+  dataSource_ = dataSource;
   
-  self.tableView.dataSource = dataSource_ = dataSource; 
-
-  // Note: M3TableViewController#dealloc sets the dataSource to nil
-  // when deallocing.
-  if(dataSource_) {
+  if(self.isViewLoaded) {
+    [self.tableView setDataSource: dataSource_]; 
     [self.tableView reloadData];
   }
 }

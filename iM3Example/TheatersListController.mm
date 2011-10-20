@@ -88,15 +88,15 @@
 
 @implementation TheatersListController
 
--(void)setUrl:(NSString*)url
+-(void)loadFromUrl:(NSString*)url
 {
-  [super setUrl: url];
-
-  if([self.url matches: @"/theaters/list/movie_id=(.*)"])
+  if(!url)
+    self.dataSource = nil;
+  else if([url matches: @"/theaters/list/movie_id=(.*)"])
     self.dataSource = [M3DataSource theatersListFilteredByMovie:$1]; 
   else
     self.dataSource = [M3DataSource theatersList];
-  }
+}
 
 -(NSString*)title
 {

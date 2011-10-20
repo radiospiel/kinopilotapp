@@ -115,12 +115,12 @@
 
 @implementation VicinityShowDataSource
 
--(id)initWithPosition: (CLLocationCoordinate2D) currentPosition
+-(id)init
 {
   self = [super init];
   if(!self) return nil;
-  
-  currentPosition_ = currentPosition;
+
+  currentPosition_ = [M3LocationManager coordinates];
   
   Benchmark(@"Building vicinity data set");
 
@@ -236,12 +236,6 @@ static double distance(double lat1, double lng1, double lat2, double lng2)
 
 @implementation VicinityShowController
 
--(void)setLocation
-{
-  id dataSource = [[VicinityShowDataSource alloc]initWithPosition: [M3LocationManager coordinates]];
-  self.dataSource = [dataSource autorelease];
-}
-
 -(void)setUpdateIsNotRunning
 {
   [self setRightButtonWithTitle: @"cur" target: self action: @selector(startUpdate)];
@@ -277,7 +271,7 @@ static double distance(double lat1, double lng1, double lat2, double lng2)
 
 -(void)reload
 {
-  [self setLocation];
+  self.dataSource = [[[VicinityShowDataSource alloc]init]autorelease];
 }
 
 -(void)startUpdate
@@ -289,7 +283,7 @@ static double distance(double lat1, double lng1, double lat2, double lng2)
 - (void)onUpdatedLocation: (M3LocationManager*)locationManager
 {
   [self setUpdateIsRunning];
-  [self setLocation];
+  [self reload];
 }
 
 - (void)onUpdateLocationFailed: (NSError*)error

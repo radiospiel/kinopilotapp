@@ -1,4 +1,5 @@
 #import "M3.h"
+#import "UIViewController+Model.h"
 
 #if TARGET_OS_IPHONE 
 
@@ -9,12 +10,20 @@
 };
 
 -(void) setUrl: (NSString*)url {
-  [ self instance_variable_set: @selector(m3_url) withValue: url ];
+  if([url isEqualToString: self.url]) return;
+  
+  [self instance_variable_set: @selector(m3_url) withValue: url];
+  [self loadFromUrl:url];
 };
+
+-(void)loadFromUrl: (NSString*)url
+{
+  dlog << "*** loadFromUrl: " << _.ptr(self) << ", url: " << self.url;
+}
 
 -(void)reload 
 {
-  [ self setUrl: self.url];
+  [self loadFromUrl:self.url];
 }
 
 -(NSString*) title {

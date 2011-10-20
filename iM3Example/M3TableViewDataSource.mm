@@ -65,6 +65,8 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)sectionNo
 {
+  if(self.sections.count <= sectionNo) return nil;
+  
   NSArray* section = [self.sections objectAtIndex:sectionNo]; 
   return [section.second objectForKey:@"header"];
 }

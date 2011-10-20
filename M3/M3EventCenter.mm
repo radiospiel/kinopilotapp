@@ -66,6 +66,8 @@ public:
   
   void fireEvent(id sender, SEL event, id parameter=nil)
   {
+    dlog << "*** fireEvent " << _.ptr(sender) << " event: " << event;
+
     sender_ = sender;
     
     M3Signal m3signal = std::make_pair(sender, event);
@@ -97,7 +99,7 @@ private:
       return;
     }
 
-    dlog << _.ptr(observer) << " performSelector: " << NSStringFromSelector(selector);
+    // dlog << _.ptr(observer) << " performSelector: " << NSStringFromSelector(selector);
     
     [ observer performSelector: selector withObject: parameter];
   }
@@ -107,8 +109,8 @@ private:
   // Adding a connection means
   void connect(id sender, SEL signal, id receiver, SEL slot)
   {
-    dlog << "connect " << sender << " " << signal
-         << " --> " << receiver << " " << NSStringFromSelector(slot);
+    // dlog << "connect " << sender << " " << signal
+    //      << " --> " << receiver << " " << NSStringFromSelector(slot);
 
     M3Signal m3signal = std::make_pair(sender, signal);
     M3Slot m3slot = std::make_pair(receiver, slot);
