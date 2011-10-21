@@ -23,7 +23,7 @@
   NSDictionary* movie = [app.chairDB.movies get: movie_id];
   movie = [app.chairDB adjustMovies: movie];
   
-  [self setStarred:YES];
+  // [self setStarred:YES];
   [self setImageURL: [movie objectForKey: @"image"]];
   [self setText: [movie objectForKey: @"title"]];
 

@@ -44,6 +44,8 @@ static const char* sencha_format = "jpg70";
   if(!enabled_sencha) return url;
 
   int w = size.width, h = size.height;
+  if(!w || !h) return url;
+  
   if(enabled_sencha == M3SenchaSupportLarge && (w+h) < 200) return url;
   
   if(sencha_retina_display && [[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {

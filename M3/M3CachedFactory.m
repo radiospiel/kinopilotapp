@@ -194,19 +194,17 @@
 
 +(UIImage*)imageWithContentsOfURL: (NSString*)url
 {
-  UIImage* image = nil;
   NSString* cachePath = [NSString stringWithFormat: @"$cache/%@.bin", [M3 md5: url]];
-                                
-  if([M3 fileExists: cachePath]) {
+
+  if([M3 fileExists: cachePath])
     return [M3 readImageFromPath:cachePath];
-  }
 
   NSData* data = [M3Http requestData: @"GET" 
                                  url: url
                          withOptions: nil];
 
   if(data) {
-    image = [UIImage imageWithData:data];
+    UIImage* image = [UIImage imageWithData:data];
     if(image) {
       [M3 writeData: data toPath: cachePath];
       return image;

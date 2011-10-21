@@ -25,7 +25,7 @@
   NSDictionary* theater = [app.chairDB.theaters get: theater_id];
   theater = [app.chairDB adjustTheaters: theater];
   
-  [self setStarred:YES];
+  // [self setStarred:YES];
   [self setText: [theater objectForKey: @"name"]];
 
   NSArray* movieIds = [app.chairDB movieIdsByTheaterId: theater_id];

@@ -50,12 +50,12 @@
   if(!url) return;
 
   [self loadImageFromURL:url andExecute:^(UIImage *image, BOOL backgrounded) {
+    [self instance_variable_set: @selector(imageURL) withValue:url];
+
     if(backgrounded)
       [self setImageWithAnimation: image];
     else
       [self setImage: image];
-    
-    [self instance_variable_set: @selector(imageURL) withValue:url];
   }];
 }
 
