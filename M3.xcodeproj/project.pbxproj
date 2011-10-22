@@ -246,7 +246,6 @@
 		9DC682BA142CB50B00124E9A /* MoviesListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682B9142CB50B00124E9A /* MoviesListController.mm */; };
 		9DC682BD142CBF2200124E9A /* TheatersListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682BC142CBF2200124E9A /* TheatersListController.mm */; };
 		9DC682C0142CE24100124E9A /* MoviesShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682BF142CE24000124E9A /* MoviesShowController.mm */; };
-		9DC682C3142CE34B00124E9A /* TheatersShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682C2142CE34B00124E9A /* TheatersShowController.mm */; };
 		9DD2ED851435F0F70078AD6A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD2ED841435F0F70078AD6A /* CoreLocation.framework */; };
 		9DD6431C144E23840042EE57 /* M3+Image.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DD6431A144E23840042EE57 /* M3+Image.h */; };
 		9DD6431D144E23840042EE57 /* M3+Image.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DD6431A144E23840042EE57 /* M3+Image.h */; };
@@ -501,8 +500,6 @@
 		9DC682BC142CBF2200124E9A /* TheatersListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TheatersListController.mm; sourceTree = "<group>"; };
 		9DC682BE142CE24000124E9A /* MoviesShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesShowController.h; sourceTree = "<group>"; };
 		9DC682BF142CE24000124E9A /* MoviesShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesShowController.mm; sourceTree = "<group>"; };
-		9DC682C1142CE34B00124E9A /* TheatersShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheatersShowController.h; sourceTree = "<group>"; };
-		9DC682C2142CE34B00124E9A /* TheatersShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TheatersShowController.mm; sourceTree = "<group>"; };
 		9DD2ED841435F0F70078AD6A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
 		9DD6431A144E23840042EE57 /* M3+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Image.h"; sourceTree = "<group>"; };
 		9DD6431B144E23840042EE57 /* M3+Image.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+Image.mm"; sourceTree = "<group>"; };
@@ -726,8 +723,6 @@
 				9D26E9A8142E10260055C214 /* MoviesFullController.mm */,
 				9DC682BB142CBF2200124E9A /* TheatersListController.h */,
 				9DC682BC142CBF2200124E9A /* TheatersListController.mm */,
-				9DC682C1142CE34B00124E9A /* TheatersShowController.h */,
-				9DC682C2142CE34B00124E9A /* TheatersShowController.mm */,
 				9DC1E75E1435C145009B41A5 /* VicinityShowController.h */,
 				9DC1E75F1435C145009B41A5 /* VicinityShowController.mm */,
 				9D5A96D014200FB6000104CA /* WebViewController.h */,
@@ -1427,7 +1422,6 @@
 				9DC682BA142CB50B00124E9A /* MoviesListController.mm in Sources */,
 				9DC682BD142CBF2200124E9A /* TheatersListController.mm in Sources */,
 				9DC682C0142CE24100124E9A /* MoviesShowController.mm in Sources */,
-				9DC682C3142CE34B00124E9A /* TheatersShowController.mm in Sources */,
 				9DE40645142CFC490089EAA9 /* InfoController.mm in Sources */,
 				9D26E9A9142E10260055C214 /* MoviesFullController.mm in Sources */,
 				9DDE1B761430876A00FDF9C5 /* M3TableViewCell.mm in Sources */,

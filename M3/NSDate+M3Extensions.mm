@@ -60,7 +60,13 @@ static NSDateFormatter* dateFormatter(NSString* dateFormat)
   return epoch;
 }
 
-
++(NSDate*)dateByYear: (int)year andMonth: (int)month andDay: (int)day
+{
+  const char* tzString = "CET";
+  
+  NSString* dateString = [NSString stringWithFormat: @"%04d-%02d-%02d'T'00:00:00%s", year, month, day, tzString];
+  return [NSDate dateWithRFC3339String: dateString];
+}
 
 #define COMPONENTS [[NSCalendar currentCalendar] components:0 fromDate:self]
 

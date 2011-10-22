@@ -67,6 +67,7 @@
   [dataSource retain];
   [dataSource_ release];
   dataSource_ = dataSource;
+  dataSource_.controller = self;
   
   if(self.isViewLoaded) {
     [self.tableView setDataSource: dataSource_]; 

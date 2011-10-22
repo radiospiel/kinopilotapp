@@ -98,7 +98,9 @@
 -(void)setKey: (NSDictionary*)theater
 {
   [super setKey: theater];
-  self.url = [NSString stringWithFormat: @"/theaters/show/%@", [theater objectForKey: @"_uid"]];
+
+
+  self.url = [NSString stringWithFormat: @"/movies/list?theater_id=%@", [theater objectForKey: @"_uid"]];
 }
 
 @end

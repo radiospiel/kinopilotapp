@@ -7,6 +7,8 @@
 
 +(NSDate*)epoch;
 
++(NSDate*)dateByYear: (int)year andMonth: (int)month andDay: (int)day;
+
 @property (readonly,nonatomic) NSUInteger year;
 @property (readonly,nonatomic) NSUInteger month;
 @property (readonly,nonatomic) NSUInteger day;

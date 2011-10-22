@@ -31,7 +31,7 @@
   NSArray* theaters = [[app.chairDB.theaters valuesWithKeys: theater_ids] pluck: @"name"];
   [self setDetailText: [theaters.uniq.sort componentsJoinedByString: @", "]];
 
-  self.url = [NSString stringWithFormat: @"/movies/full/%@", self.key];
+  self.url = [NSString stringWithFormat: @"/theaters/list?movie_id=%@", movie_id];
 }
 
 @end
@@ -84,7 +84,18 @@
   
   [self setDetailText: [schedules componentsJoinedByString:@", "]];
 
-  self.url = [NSString stringWithFormat: @"/movies/full/%@", [self.key objectForKey: @"movie_id"]];
+  // -- set URL for this cell.
+
+  M3AssertKindOf(self.tableViewController, MoviesListController);
+  
+  if(!self.tableViewController) return;
+  
+  MoviesListController* mlc = (MoviesListController*)self.tableViewController;
+  
+  self.url = [NSString stringWithFormat: @"/schedules/list?theater_id=%@&movie_id=%@", 
+                mlc.theater_id,
+                [self.key objectForKey: @"movie_id"]
+              ];
 }
 
 @end
@@ -97,34 +108,111 @@
 {
   self = [super init];
 
-  [self addSegment: @"new" withFilter: @"new" andTitle: @"Neu im Kino"];
-  [self addSegment: @"all" withFilter: @"all" andTitle: @"Alle Filme"];
-  [self addSegment: @"art" withFilter: @"art" andTitle: @"Klassiker"];
-  // [self addSegment: @"fav" withFilter: @"fav" andTitle: @"Vorgemerkt"];
+  // [self addSegment: @"new" withFilter: @"new" andTitle: @"Neu im Kino"];
+  // [self addSegment: @"all" withFilter: @"all" andTitle: @"Alle Filme"];
+  // [self addSegment: @"art" withFilter: @"art" andTitle: @"Klassiker"];
+  // // [self addSegment: @"fav" withFilter: @"fav" andTitle: @"Vorgemerkt"];
 
-  [self activateSegment: 0];
+  // [self activateSegment: 0];
   return self;
+}
+
+-(NSString*)title
+{
+  NSDictionary* theater = [app.chairDB.theaters get: self.theater_id];
+  return [theater objectForKey:@"name"];
 }
 
 -(void)setFilter:(NSString*)filter
 {
-  if([self.url matches: @"/movies/list/theater_id=(.*)"])
-    return;
+  if(self.theater_id) return;
+  self.url = _.join(@"/movies/list?filter=", filter);
+}
 
-  self.url = _.join(@"/movies/list/filter=", filter);
+-(NSDictionary*)theater
+{
+  return [app.chairDB.theaters get: self.theater_id];
+}
+
+-(NSString*)theater_id
+{
+  if(!self.url) return nil;
+  
+  [self.url matches: @"/movies/list\\?theater_id=(.*)"];
+  return $1;
+}
+
+-(UIView*) headerView
+{
+  NSDictionary* theater = self.theater;
+  if(!theater) return nil;
+  M3ProfileView* pv = [[[M3ProfileView alloc]init]autorelease];
+  
+  // -- set descriptions
+  
+  {
+    NSMutableString* html = [NSMutableString string];
+    
+    NSString* name = [theater objectForKey:@"name"];
+    [html appendFormat:@"<h2><b>%@</b></h2>", name.cdata];
+    
+    NSString* address = [theater objectForKey:@"address"];
+    if(address)
+      [html appendFormat: @"<p><b>Adresse:</b> %@</p>", address.cdata]; 
+    
+    [pv setHtmlDescription:html];
+  }
+  
+  // -- set actions
+  
+  {
+    NSMutableArray* actions = _.array();
+    
+    NSString* address = [theater objectForKey:@"address"];
+    
+    if(address)
+      [actions addObject: _.array(@"Fahrinfo", _.join(@"fahrinfo-berlin://connection?to=", address.urlEscape))];
+    
+    NSString* fon = [theater objectForKey:@"telephone"];
+    if(fon)
+      [actions addObject: _.array(@"Fon", _.join(@"tel://", fon.urlEscape))];
+    
+    NSString* web = [theater objectForKey:@"website"];
+    if(web)
+      [actions addObject: _.array(@"Website", web)];
+    
+    [pv setActions: actions];
+  }
+  
+  // -- add a map view
+  
+  {
+    NSArray* latlong = [theater objectForKey:@"latlong"];
+    [pv setCoordinate: CLLocationCoordinate2DMake([latlong.first floatValue], [latlong.second floatValue])];
+  }  
+  
+  NSString* url = _.join(@"/map/show/theater_id=", [theater objectForKey:@"_uid" ]);
+  
+  [pv setProfileURL:url];
+  
+  // --- adjust size
+  
+  pv.frame = CGRectMake(0, 0, 320, [pv wantsHeight]);
+  return pv;
 }
 
 -(void)loadFromUrl:(NSString *)url
 {
   if(!url)
     self.dataSource = nil;
-  else if([self.url matches: @"/movies/list/theater_id=(.*)"])
+  else if([self.url matches: @"/movies/list\\?theater_id=(.*)"])
     self.dataSource = [M3DataSource moviesListFilteredByTheater:$1]; 
-  else if([self.url matches: @"/movies/list/filter=(.*)"])
+  else if([self.url matches: @"/movies/list\\?filter=(.*)"])
     self.dataSource = [M3DataSource moviesListWithFilter: $1];
   else
     self.dataSource = [M3DataSource moviesListWithFilter: @"new"];
+  
+  self.tableView.tableHeaderView = [self headerView];
 }
 
 @end
-
