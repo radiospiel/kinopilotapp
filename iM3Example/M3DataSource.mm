@@ -298,6 +298,65 @@
 @end
 
 
+/**** TheatersListFilteredByMovieDataSource **********************************/
+
+@interface SchedulesByTheaterAndMovieDataSource: M3TableViewDataSource
+@end
+
+@implementation SchedulesByTheaterAndMovieDataSource
+
+-(id)initWithTheater: (NSString*)theater_id 
+            andMovie: (NSString*)movie_id
+{
+  self = [super init];
+
+  M3AssertKindOfAndSet(theater_id, NSString);
+  M3AssertKindOfAndSet(movie_id, NSString);
+
+  //
+  // get all schedules for the theater and for the movie, and 
+  // remove all schedules, that are in the past.
+  NSArray* schedules = [app.chairDB schedulesByTheaterId: theater_id];
+  NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+
+  schedules = [schedules selectUsingBlock:^BOOL(NSDictionary* schedule) {
+    NSString* schedule_movie_id = [schedule objectForKey:@"movie_id"];
+    if(![movie_id isEqualToString:schedule_movie_id]) return NO;
+    
+    NSNumber* time = [schedule objectForKey:@"time"];
+    if([time intValue] < now) return NO;
+    
+    return YES;
+  }];
+
+  //
+  // sort schedules
+  schedules = [schedules sortByBlock:^id(NSDictionary* schedule) {
+    return [schedule objectForKey:@"time"];
+  }];
+  
+  
+  
+  NSString* header;
+  if(schedules.count > 1) 
+    header = [NSString stringWithFormat: @"%d Aufführungen", schedules.count];
+  else
+    header = @"Eine Aufführung";
+  
+  [self addSection: schedules
+       withOptions: _.hash(@"header", header)];
+  
+  return self;
+}
+
+-(id)cellClassForKey:(id)key
+{ 
+  return @"ScheduleListCell";
+}
+
+@end
+
+
 @implementation M3DataSource(M3Lists)
 
 +(M3TableViewDataSource*)moviesListWithFilter:(NSString *)filter
@@ -318,6 +377,12 @@
 +(M3TableViewDataSource*)theatersList
 {
   return [[[TheatersListDateSource alloc]init]autorelease];
+}
+
++(M3TableViewDataSource*)schedulesByTheater: (NSString*)theater_id 
+                                   andMovie: (NSString*)movie_id
+{
+  return [[[SchedulesByTheaterAndMovieDataSource alloc]initWithTheater:theater_id andMovie:movie_id]autorelease];
 }
 
 @end

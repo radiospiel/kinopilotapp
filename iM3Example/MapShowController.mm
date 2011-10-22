@@ -44,7 +44,7 @@
 
 -(void) showDetails: (id)param
 {
-  NSString* url = _.join(@"/theaters/show/", self.theater_id);
+  NSString* url = _.join(@"/movies/list?theater_id=", self.theater_id);
   [ app open: url];
 }
 

@@ -1,0 +1,43 @@
+# Application URLs
+
+## Movie List
+
+- **`/movies/list?filter=<filter>`** Show a list of movies matching the filter 
+  criteria. A click on a movie shows a Theater List showing that movie, under
+  *`/theaters/list?movie_id=<movie_id>`*
+
+- **`/movies/list?theater_id=<theater_id>`** Show a list of movies playing in 
+  the specific theater, grouped by day. The header view contains a theater short 
+  info cell, which, amongst others, contains a link to a map highlighting the theater.
+  (*`/map/show?theater_id=<theater_id>`*) A click on a movie shows all play 
+  times of the movie in the theater, under *`/schedules/list?theater_id=<theater_id>&movie_id=<movie_id>`*
+
+## Theater List
+
+- **`/theaters/list?filter=<filter>`** Show a list of theaters matching the 
+  filter criteria. A click on a theater shows a list of movies shown in that 
+  theater, under *`/movies/list?theater_id=<theater_id>`*
+
+- **`/theaters/list?movie_id=<movie_id>`** Show a list of theaters showing the
+  movies, grouped by day. The header view of that list is a movie short info,
+  which, amongst others, contains a link to the movie full info under
+  *`/movies/show?movie_id=<movie_id>`*.
+  A click on a theater shows all play times of the movie in the specific theater.
+  under *`/schedules/list?theater_id=<theater_id>&movie_id=<movie_id>`*
+
+## Schedules List
+
+- **`/schedules/list?theater_id=<theater_id>&movie_id=<movie_id>`** show a list 
+  of play times for a given theater and movie combination. The header 
+  cell contains a description a la "&lt;movie title&gt; in &lt;theater name&gt;".
+  Below is a list of schedules, grouped by day. Clicking on a schedule opens a
+  schedule (modal) view, which allows to share the schedule, 
+  under *`/schedules/show?schedule_id=<schedule_id>`*
+
+## Schedules Show
+
+- **`/schedules/show?schedule_id=<schedule_id>`** shows a single schedule,
+  and adds the opportunity to share, add to calendar, etc.
+
+## Movie Show: `/movies/show?schedule_id=<schedule_id>`
+

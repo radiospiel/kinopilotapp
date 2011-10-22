@@ -31,7 +31,7 @@
   NSArray* theaters = [[app.chairDB.theaters valuesWithKeys: theater_ids] pluck: @"name"];
   [self setDetailText: [theaters.uniq.sort componentsJoinedByString: @", "]];
 
-  self.url = [NSString stringWithFormat: @"/theaters/list?movie_id=%@", movie_id];
+  self.url = _.join(@"/theaters/list?movie_id=", movie_id);
 }
 
 @end
@@ -92,10 +92,9 @@
   
   MoviesListController* mlc = (MoviesListController*)self.tableViewController;
   
-  self.url = [NSString stringWithFormat: @"/schedules/list?theater_id=%@&movie_id=%@", 
-                mlc.theater_id,
-                [self.key objectForKey: @"movie_id"]
-              ];
+  self.url = _.join(@"/schedules/list?",
+                      @"theater_id=", mlc.theater_id, 
+                      @"&movie_id=", [self.key objectForKey: @"movie_id"]);
 }
 
 @end
@@ -131,6 +130,9 @@
 
 -(NSDictionary*)theater
 {
+  NSString* theater_id = self.theater_id;
+  if(!theater_id) return nil;
+   
   return [app.chairDB.theaters get: self.theater_id];
 }
 
@@ -146,6 +148,7 @@
 {
   NSDictionary* theater = self.theater;
   if(!theater) return nil;
+  
   M3ProfileView* pv = [[[M3ProfileView alloc]init]autorelease];
   
   // -- set descriptions

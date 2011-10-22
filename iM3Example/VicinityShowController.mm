@@ -72,12 +72,12 @@
   self.detailTextLabel.numberOfLines = 1;
   self.detailTextLabel.lineBreakMode = UILineBreakModeMiddleTruncation;
 
-  self.url = [NSString stringWithFormat: @"/movies/full/%@", [schedule objectForKey: @"movie_id"]];
+  self.url = _.join(@"/movies/show?movie_id=", [schedule objectForKey: @"movie_id"]);
 }
 
 @end
 
-// A VicinityTheaterCell holds a "link" to /theaters/show/<theaters>
+// A VicinityTheaterCell holds a "link" to /movies/list?theater_id=<theaters>
 
 @interface VicinityTheaterCell: VicinityTableCell
 @end
@@ -99,8 +99,7 @@
 {
   [super setKey: theater];
 
-
-  self.url = [NSString stringWithFormat: @"/movies/list?theater_id=%@", [theater objectForKey: @"_uid"]];
+  self.url = _.join(@"/movies/list?theater_id=", [theater objectForKey: @"_uid"]);
 }
 
 @end

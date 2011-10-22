@@ -32,7 +32,11 @@
   
   int y = htmlView_.frame.origin.y + htmlView_.frame.size.height + 16;
   
-  for(NSArray* action in [actions subarrayWithRange:NSMakeRange(0,2)]) {
+  for(int idx=0; idx < 2; ++idx) { 
+    if(idx >= actions.count) break;
+    
+    NSArray* action = [actions objectAtIndex:idx];
+  
     UIButton* button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button.frame = CGRectMake(r - w, y, w, 24); r -= (w+10);
     // button.backgroundColor = [UIColor colorWithWhite:0 alpha:0]; // this has a alpha of 0. 

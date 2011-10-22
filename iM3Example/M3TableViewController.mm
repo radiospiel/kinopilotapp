@@ -33,7 +33,7 @@
 
 -(void)viewDidLoad
 {
-  dlog << "viewDidLoad: " << _.ptr(self) << (self.isViewLoaded ? " Loaded" : " Not loaded");
+  // dlog << "viewDidLoad: " << _.ptr(self) << (self.isViewLoaded ? " Loaded" : " Not loaded");
 
   [super viewDidLoad];
 

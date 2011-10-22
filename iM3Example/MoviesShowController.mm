@@ -1,112 +1,260 @@
 //
-//  MoviesShowController.m
+//  MoviesFullController.m
 //  M3
 //
-//  Created by Enrico Thierbach on 23.09.11.
+//  Created by Enrico Thierbach on 24.09.11.
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
 #import "MoviesShowController.h"
 #import "AppDelegate.h"
+#import "M3.h"
 
-@implementation MoviesShowController
+#import "TTTAttributedLabel/TTTAttributedLabel.h"
 
--(id)init
+@interface MoviesFullControllerDataSource: M3TableViewDataSource
+@end
+
+@implementation MoviesFullControllerDataSource
+
+-(id)initWithMovieId: (id)movie_id
 {
   self = [super init];
+  if(!self) return nil;
   
-  if(self)
-    [app.chairDB on: @selector(updated) notify:self with:@selector(reload)];
+  NSDictionary* movie = [app.chairDB.movies get: movie_id];
+  movie = [app.chairDB adjustMovies:movie];
+  
+  M3AssertKindOf(movie, NSDictionary);
+  
+  NSMutableArray* section = [NSMutableArray array];
+  
+  [section addObject:_.array(@"MovieShortInfoCell", movie)];
+  [section addObject:_.array(@"MovieInCinemasCell", movie)];
+  [section addObject:_.array(@"MovieRatingCell", movie)];
+  // [section addObject:_.array(@"M3TableViewAdCell", movie)];
+  [section addObject:_.array(@"MovieDescriptionCell", movie)];
+  
+  [self addSection: section withOptions: nil];
   
   return self;
 }
 
--(void)loadFromUrl: (NSString *)url
-{
-  if(!url) return;
-  
-  [url matches:@"/movies/show/(.*)"];
-  self.model = [app.chairDB.movies get: $1];
-  
-  self.tableView.tableHeaderView = [self headerView];
+-(id) cellClassForKey: (NSArray*)key
+{ 
+  return key.first; 
 }
 
--(void)setModel: (NSDictionary*)movie
-{
-  [super setModel: movie];
+@end
+
+@interface MovieInfoCell: M3TableViewCell
+
+@property (nonatomic,readonly) NSDictionary* movie;
+
+@end
+
+@implementation MovieInfoCell
+
+-(NSDictionary*)movie
+{ 
+  NSDictionary* movie = [self.key objectAtIndex:1];
+  M3AssertKindOf(movie, NSDictionary);
   
-  id movie_id = [movie objectForKey:@"_uid"];
-  self.dataSource = [M3DataSource theatersListFilteredByMovie: movie_id];
+  return movie;
 }
 
--(UIView*) headerView
+@end
+
+/*
+ * MovieRatingCell: This cell shows the community rating
+ */
+
+@interface MovieRatingCell: MovieInfoCell {
+  UIImageView* ratingBackground_;
+  UIImageView* ratingForeground_;
+  UILabel*     ratingLabel_;
+}
+@end
+
+@implementation MovieRatingCell
+
+-(CGFloat)wantsHeight
 {
-  NSDictionary* movie = self.model;
-  if(!movie) return nil;
-  M3ProfileView* pv = [[[M3ProfileView alloc]init]autorelease];
+  NSNumber* number = [self.movie objectForKey: @"average-community-rating"];
+  int rating = [number intValue];
   
-  // -- set desription
+  return rating < 0.01 ? 0 : 30;
+}
 
-  {
-    NSString* title =           [movie objectForKey:@"title"];
-    NSNumber* runtime =         [movie objectForKey:@"runtime"];
-    NSArray* genres =           [movie objectForKey:@"genres"];
-    NSNumber* production_year = [movie objectForKey:@"production-year"];
-
-    NSMutableArray* parts = [NSMutableArray array];
-    [parts addObject: [NSString stringWithFormat: @"<h2><b>%@</b></h2>", title]];
+-(id)init
+{
+  self = [super init];
+  if(self) {
+    ratingBackground_ = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"unstars.png"]];
+    [self addSubview: [ratingBackground_ autorelease]];
     
-    if(genres.first || production_year || runtime) {
-      NSMutableArray* p = [NSMutableArray array];
-      if(genres.first) [p addObject: genres.first];
-      if(production_year) [p addObject: production_year];
-      if(runtime) [p addObject: [NSString stringWithFormat:@"%@ min", runtime]];
-      
-      [parts addObject: @"<p>"];
-      [parts addObject: [p componentsJoinedByString:@", "]];
-      [parts addObject: @"</p>"];
+    ratingForeground_ = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"stars.png"]];
+    [self addSubview: [ratingForeground_ autorelease]];
+    
+    ratingLabel_ = [[UILabel alloc]init];
+    [self addSubview: [ratingLabel_ autorelease]];
+    
+    self.clipsToBounds = YES;
+  }
+  return self;
+}
+
+-(void)layoutSubviews
+{
+  [super layoutSubviews];
+  
+  // Get rating: this is a number between 0 and 100.
+  NSNumber* number = [self.movie objectForKey: @"average-community-rating"];
+  int rating = [number intValue];
+  
+  if(rating < 0.01) return;
+  
+  self.textLabel.text = @"moviepilot.de Rating:";
+  
+  ratingBackground_.frame = CGRectMake(150, 6, 96, 16);
+  ratingForeground_.frame = CGRectMake(150, 6, (rating * 96 + 50)/100, 16);
+  ratingForeground_.contentMode = UIViewContentModeLeft;
+  ratingForeground_.clipsToBounds = YES;
+  
+  CGRect labelFrame = self.textLabel.frame;
+  
+  ratingLabel_.frame = CGRectMake(260, labelFrame.origin.y, 96, labelFrame.size.height);
+  ratingLabel_.font = self.textLabel.font;
+  ratingLabel_.text = [NSString stringWithFormat: @"%.1f", rating / 10.0];
+}
+
+@end
+
+/*
+ * MovieInCinemasCell: This cell shows in which cinemaes the movie runs.
+ */
+
+@interface MovieInCinemasCell: MovieInfoCell
+@end
+
+@implementation MovieInCinemasCell
+
+-(CGFloat)wantsHeight
+{ 
+  return 30;
+}
+
+-(void)setKey: (id)key
+{
+  [super setKey: key];
+  
+  // --- fill in cell.
+  
+  NSString* movie_id = [self.movie objectForKey: @"_uid"];
+  NSArray* theater_ids = [app.chairDB theaterIdsByMovieId: movie_id];
+  
+  if(!theater_ids.count) {
+    self.textLabel.text = @"Für diesen Film liegen uns keine Termine vor.";
+    self.textLabel.font = [UIFont italicSystemFontOfSize:13];
+    self.textLabel.textColor = [UIColor colorWithName:@"#999"];
+  }
+  else {
+    NSString* label = nil;
+    
+    if(theater_ids.count == 1) {
+      NSDictionary* theater = [app.chairDB.theaters get: theater_ids.first];
+      label = [NSString stringWithFormat: @"Zur Zeit im %@", [theater objectForKey:@"name"]];
+    }
+    else {
+      label = [NSString stringWithFormat: @"Zur Zeit in %d Kinos", theater_ids.count];
     }
     
-    [pv setHtmlDescription: [parts componentsJoinedByString:@""]];
+    self.textLabel.font = [UIFont boldSystemFontOfSize:14];
+    self.textLabel.text = label;
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
   }
   
-  // -- set actions
+  // --- set URL
+  switch(theater_ids.count) {
+    case 0:   self.url = nil;
+    case 1:   self.url = _.join(@"/schedules/list?movie_id=", movie_id, "&theater_id=", theater_ids.first); break;
+    default:  self.url = _.join(@"/theaters/list?movie_id=", movie_id); break;
+  }
   
-  {
-    NSMutableArray* actions = _.array();
-    
-    // add full info URL
-    [actions addObject: _.array(@"Mehr...", 
-                                [self.url stringByReplacingOccurrencesOfString:@"/movies/show" withString:@"/movies/full"]
-                                )];
-    
-    // add imdb URL
-    NSString* title =           [movie objectForKey:@"title"];
+}
 
-    NSString* imdbURL = _.join(@"imdb:///find?q=", title.urlEscape);
-    if(![app canOpen:imdbURL])
-      imdbURL = _.join(@"http://imdb.de/?q=", title.urlEscape);
-    
-    [actions addObject: _.array(@"IMDB", imdbURL)];
-    
-    [pv setActions: actions];
-  }
-  
-  // -- add an image view
-  
-  {
-    NSArray* images = [movie objectForKey:@"images"];
-    [pv setImageURLs: [images pluck:@"thumbnail"]];
-  }
+@end
 
-  // --- set profile URL
+/*
+ * MovieDescriptionCell: This cell shows a description of the movie.
+ */
+
+@interface MovieDescriptionCell: MovieInfoCell {
+  TTTAttributedLabel* htmlView;
+}
+
+@end
+
+@implementation MovieDescriptionCell
+
+-(id) init {
+  self = [super init];
+  if(!self) return nil;
   
-  [pv setProfileURL: _.join(@"/movies/full/", [movie objectForKey:@"_uid"]) ];
+  self.selectionStyle = UITableViewCellSelectionStyleNone;
   
-  // --- adjust size
+  htmlView = [[[TTTAttributedLabel alloc]init]autorelease];
+  [self addSubview:htmlView];
   
-  pv.frame = CGRectMake(0, 0, 320, [pv wantsHeight]);
-  return pv;
+  return self;
+}
+
+-(void)setKey: (NSArray*)class_and_movie
+{
+  [super setKey:class_and_movie];
+  
+  self.textLabel.text = @" ";
+  
+  NSString* description = [self.movie objectForKey:@"description"];
+  NSString* html = _.join(@"<p><b>Beschreibung: </b>", description.cdata, @"</p><br />");
+  
+  htmlView.text = [NSAttributedString attributedStringWithSimpleMarkup: html];
+}
+
+-(CGSize)htmlViewSize
+{ return [htmlView sizeThatFits: CGSizeMake(300, 1000)]; }
+
+-(void)layoutSubviews
+{
+  [super layoutSubviews];
+  
+  CGSize sz = [self htmlViewSize];
+  htmlView.frame = CGRectMake(10, 5, sz.width, sz.height);
+}
+
+- (CGFloat)wantsHeight
+{ return [self htmlViewSize].height + 15; }
+
+@end
+
+@implementation MoviesShowController
+
+-(NSString*)title 
+{
+  return @"Details";
+}
+
+-(void)loadFromUrl:(NSString *)url
+{
+  if([url matches:@"/movies/show\\?movie_id=(.*)"]) {
+    NSString* movie_id = $1;
+    self.dataSource = [[[MoviesFullControllerDataSource alloc]initWithMovieId: movie_id]autorelease];
+  }
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+	return 0;
 }
 
 @end

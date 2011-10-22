@@ -32,15 +32,26 @@
   NSArray* movies = [[app.chairDB.movies valuesWithKeys: movieIds] pluck: @"title"];
   movies = [movies.uniq.sort mapUsingSelector:@selector(quote)];
   [self setDetailText: [movies componentsJoinedByString: @", "]];
+}
 
-  self.url = [NSString stringWithFormat: @"/theaters/show/%@", self.key];
+-(NSString*)url 
+{
+  NSString* theater_id = self.key;
+  
+  TheatersListController* tlc = (TheatersListController*)self.tableViewController;
+  M3AssertKindOf(tlc, TheatersListController);
+
+  if(!tlc.movie_id)
+    return _.join(@"/movies/list?theater_id=", theater_id);
+
+  return _.join(@"/schedules/list?theater_id=", theater_id, @"&movie_id=", tlc.movie_id);
 }
 
 @end
 
 // --- TheatersListFiltered ----------------------------------------------
 
-@interface TheatersListFilteredByMovieCell: M3TableViewProfileCell
+@interface TheatersListFilteredByMovieCell: TheatersListCell
 @end
 
 @implementation TheatersListFilteredByMovieCell
@@ -78,8 +89,19 @@
   }];
   
   [self setDetailText: [schedules componentsJoinedByString:@", "]];
+}
 
-  self.url = [NSString stringWithFormat: @"/theaters/show/%@", [self.key objectForKey: @"theater_id"]];
+-(NSString*)url 
+{
+  NSString* theater_id = [self.key objectForKey: @"theater_id"];
+
+  TheatersListController* tlc = (TheatersListController*)self.tableViewController;
+  M3AssertKindOf(tlc, TheatersListController);
+
+  if(!tlc.movie_id)
+    return _.join(@"/movies/list?theater_id=", theater_id);
+
+  return _.join(@"/schedules/list?theater_id=", theater_id, @"&movie_id=", tlc.movie_id);
 }
 
 @end
@@ -88,19 +110,99 @@
 
 @implementation TheatersListController
 
+// -(NSString*)title
+// {
+//   return @"Kinos in Berlin";
+// }
+
+-(NSString*) movie_id
+{
+  if(![self.url matches: @"/theaters/list\\?movie_id=(.*)"]) return nil;
+  return $1;
+}
+
+-(UIView*) headerView
+{
+  NSString* movie_id = [self movie_id];
+  if(!movie_id) return nil;
+
+  NSDictionary* movie = [app.chairDB.movies get: movie_id];
+  if(!movie) return nil;
+
+  M3ProfileView* pv = [[[M3ProfileView alloc]init]autorelease];
+  
+  // -- set desription
+
+  {
+    NSString* title =           [movie objectForKey:@"title"];
+    NSNumber* runtime =         [movie objectForKey:@"runtime"];
+    NSArray* genres =           [movie objectForKey:@"genres"];
+    NSNumber* production_year = [movie objectForKey:@"production-year"];
+
+    NSMutableArray* parts = [NSMutableArray array];
+    [parts addObject: [NSString stringWithFormat: @"<h2><b>%@</b></h2>", title]];
+    
+    if(genres.first || production_year || runtime) {
+      NSMutableArray* p = [NSMutableArray array];
+      if(genres.first) [p addObject: genres.first];
+      if(production_year) [p addObject: production_year];
+      if(runtime) [p addObject: [NSString stringWithFormat:@"%@ min", runtime]];
+      
+      [parts addObject: @"<p>"];
+      [parts addObject: [p componentsJoinedByString:@", "]];
+      [parts addObject: @"</p>"];
+    }
+    
+    [pv setHtmlDescription: [parts componentsJoinedByString:@""]];
+  }
+  
+  // -- set actions
+  
+  {
+    NSMutableArray* actions = _.array();
+    
+    // add full info URL
+    [actions addObject: _.array(@"Mehr...", _.join(@"/movies/show?movie_id=", movie_id))];
+    
+    // add imdb URL
+    NSString* title =           [movie objectForKey:@"title"];
+
+    NSString* imdbURL = _.join(@"imdb:///find?q=", title.urlEscape);
+    if(![app canOpen:imdbURL])
+      imdbURL = _.join(@"http://imdb.de/?q=", title.urlEscape);
+    
+    [actions addObject: _.array(@"IMDB", imdbURL)];
+    
+    [pv setActions: actions];
+  }
+  
+  // -- add an image view
+  
+  {
+    NSArray* images = [movie objectForKey:@"images"];
+    [pv setImageURLs: [images pluck:@"thumbnail"]];
+  }
+
+  // --- set profile URL
+  
+  [pv setProfileURL: _.join(@"/movies/show?movie_id=", movie_id) ];
+  
+  // --- adjust size
+  
+  pv.frame = CGRectMake(0, 0, 320, [pv wantsHeight]);
+  return pv;
+}
+
 -(void)loadFromUrl:(NSString*)url
 {
   if(!url)
     self.dataSource = nil;
-  else if([url matches: @"/theaters/list/movie_id=(.*)"])
+  else if([url matches: @"/theaters/list\\?movie_id=(.*)"])
     self.dataSource = [M3DataSource theatersListFilteredByMovie:$1]; 
   else
     self.dataSource = [M3DataSource theatersList];
-}
-
--(NSString*)title
-{
-  return @"Kinos in Berlin";
+  
+  self.tableView.tableHeaderView = [self headerView];
 }
 
 @end

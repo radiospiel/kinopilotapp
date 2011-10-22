@@ -21,4 +21,7 @@
 +(M3TableViewDataSource*)theatersListFilteredByMovie:(id)movie_id;
 +(M3TableViewDataSource*)theatersList;
 
++(M3TableViewDataSource*)schedulesByTheater: (NSString*)theater_id 
+                                   andMovie: (NSString*)movie_id; 
+
 @end

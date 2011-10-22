@@ -9,4 +9,7 @@
 #import "M3ListViewController.h"
 
 @interface TheatersListController: M3ListViewController
+
+@property (readonly) NSString* movie_id;
+
 @end

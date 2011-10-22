@@ -95,7 +95,11 @@
 
 -(NSString*)to_class
 {
-  return NSClassFromString(self);
+  Class klass = NSClassFromString(self);
+  if(!klass)
+    _.raise("No such class: ", self);
+
+  return klass;
 }
 
 @end
