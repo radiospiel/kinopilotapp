@@ -191,7 +191,7 @@
     [pv setCoordinate: CLLocationCoordinate2DMake([latlong.first floatValue], [latlong.second floatValue])];
   }  
   
-  NSString* url = _.join(@"/map/show/theater_id=", [theater objectForKey:@"_uid" ]);
+  NSString* url = _.join(@"/map/show?theater_id=", [theater objectForKey:@"_uid" ]);
   
   [pv setProfileURL:url];
   

@@ -71,7 +71,7 @@
 
 -(void)loadFromUrl:(NSString *)url
 {
-  [url matches: @"/map/show/theater_id=(.*)"];
+  [url matches: @"/map/show\\?theater_id=(.*)"];
   self.theater_id = $1;
 }
 
