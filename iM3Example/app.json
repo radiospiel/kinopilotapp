@@ -8,7 +8,7 @@
       "nurl": "/movies/show?movie_id=attacktheblock|wP9KzNQIOmA",
       "nurl": "/movies/list?theater_id=centralkino|pK17THcITlg",
       "nurl": "/movies/images/attacktheblock|wP9KzNQIOmA",
-      "url": "/vicinity/show",
+      "url": "/dashboard",
       "label": "Jetzt",
       "ntitle": "Was läuft jetzt?",
       "icon": "tab_tage.png"

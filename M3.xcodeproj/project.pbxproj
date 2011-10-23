@@ -46,6 +46,8 @@
 		9D0893A614534F5F00F64AC1 /* berlin.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D0893A314534F5F00F64AC1 /* berlin.png */; };
 		9D0893A714534F5F00F64AC1 /* cinemas.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D0893A414534F5F00F64AC1 /* cinemas.png */; };
 		9D0893A814534F5F00F64AC1 /* movies.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D0893A514534F5F00F64AC1 /* movies.png */; };
+		9D0893AD145429AF00F64AC1 /* traffic.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D0893AC145429AF00F64AC1 /* traffic.png */; };
+		9D0893B014542C2500F64AC1 /* DashboardController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0893AF14542C2400F64AC1 /* DashboardController.mm */; };
 		9D0EF7131413D1A60051B8FA /* NSArray+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF70E1413D1A60051B8FA /* NSArray+M3Extensions.h */; };
 		9D0EF7141413D1A60051B8FA /* NSArray+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF70F1413D1A60051B8FA /* NSArray+M3Extensions.mm */; };
 		9D0EF7161413D1A60051B8FA /* NSString+Regexp.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF7101413D1A60051B8FA /* NSString+Regexp.h */; };
@@ -316,6 +318,9 @@
 		9D0893A9145351AB00F64AC1 /* berlin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = berlin.png; path = iM3Example/resources/images/berlin.png; sourceTree = "<group>"; };
 		9D0893AA145351AB00F64AC1 /* cinemas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cinemas.png; path = iM3Example/resources/images/cinemas.png; sourceTree = "<group>"; };
 		9D0893AB145351AB00F64AC1 /* movies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = movies.png; path = iM3Example/resources/images/movies.png; sourceTree = "<group>"; };
+		9D0893AC145429AF00F64AC1 /* traffic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = traffic.png; sourceTree = "<group>"; };
+		9D0893AE14542C2400F64AC1 /* DashboardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardController.h; sourceTree = "<group>"; };
+		9D0893AF14542C2400F64AC1 /* DashboardController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DashboardController.mm; sourceTree = "<group>"; };
 		9D0EF70E1413D1A60051B8FA /* NSArray+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+M3Extensions.h"; sourceTree = "<group>"; };
 		9D0EF70F1413D1A60051B8FA /* NSArray+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSArray+M3Extensions.mm"; sourceTree = "<group>"; };
 		9D0EF7101413D1A60051B8FA /* NSString+Regexp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Regexp.h"; sourceTree = "<group>"; };
@@ -700,6 +705,8 @@
 				9D594A7A143CF97400A4CED4 /* AppDelegate+Info.mm */,
 				9DAA0D26142AA6EC001F11C1 /* ChairDatabase+IM3Example.h */,
 				9DAA0D27142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm */,
+				9D0893AE14542C2400F64AC1 /* DashboardController.h */,
+				9D0893AF14542C2400F64AC1 /* DashboardController.mm */,
 				9D2BF7551450A1F40045C11C /* M3ListViewController.h */,
 				9D2BF7561450A1F40045C11C /* M3ListViewController.mm */,
 				9D5D32C31448AA2900A4BA9F /* M3Router.h */,
@@ -795,6 +802,7 @@
 				9D0893A314534F5F00F64AC1 /* berlin.png */,
 				9D0893A414534F5F00F64AC1 /* cinemas.png */,
 				9D0893A514534F5F00F64AC1 /* movies.png */,
+				9D0893AC145429AF00F64AC1 /* traffic.png */,
 				9D10C36F1437477500FE19C9 /* stars.png */,
 				9D10C3701437477500FE19C9 /* stars@2x.png */,
 				9D10C3711437477500FE19C9 /* unstars.png */,
@@ -1301,6 +1309,7 @@
 				9D10C3761437477500FE19C9 /* unstars@2x.png in Resources */,
 				9D10C37B1437728300FE19C9 /* MapShowController.xib in Resources */,
 				9DEB834A1444E5280075F65A /* close.png in Resources */,
+				9D0893AD145429AF00F64AC1 /* traffic.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1454,6 +1463,7 @@
 				9D81D3C3144A139C0013B706 /* M3ProfileView.mm in Sources */,
 				9D2BF7571450A1F40045C11C /* M3ListViewController.mm in Sources */,
 				9D0893A21452F6C600F64AC1 /* SchedulesListController.mm in Sources */,
+				9D0893B014542C2500F64AC1 /* DashboardController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

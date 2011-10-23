@@ -1,5 +1,7 @@
+#import "DashboardController.h"
+
 //
-//  VicinityShowController.m
+//  DashboardController.m
 //  M3
 //
 //  Created by Enrico Thierbach on 30.09.11.
@@ -14,99 +16,114 @@
 #define NUMBER_OF_THEATERS    12
 #define SCHEDULES_PER_THEATER 6
 
-/***  VicinityTableCell ****************************************************/
+/*** VicinityShowController cells *******************************************/
 
-// VicinityTableCell defines some layout for the various Vicinity cells
-//
+@interface DashboardInfoCell: M3TableViewCell {
+  BOOL rightAligned_;
+}
 
-@interface VicinityTableCell: M3TableViewCell
 @end
 
-@implementation VicinityTableCell
+@implementation DashboardInfoCell
 
--(id)init
+-(id)initWithLabel: (NSString*)label
+     andBackground: (NSString*)imageName
 { 
-  self = [super initWithStyle: UITableViewCellStyleValue1]; 
-  self.textLabel.font = [UIFont boldSystemFontOfSize:14];
-  self.detailTextLabel.font = [UIFont systemFontOfSize:13];
-  
+  self = [super init];
+  if(self) {
+    rightAligned_ = NO;
+  }
+
   return self;
 }
 
 +(CGFloat)fixedHeight
 {
-  return 25;
+  return 90;
+}
+
+-(void)setLabel: (NSString*)label
+{
+  self.textLabel.font = [UIFont fontWithName:@"Futura-Medium" size:24];
+  self.textLabel.textColor = [UIColor colorWithName:@"ffffff"];
+  self.textLabel.backgroundColor = [UIColor clearColor];
+  self.textLabel.text = label;
+}
+
+-(void)setBackground: (NSString*)imageName
+{
+  UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:imageName]];
+  [[self contentView] setBackgroundColor: background];
+}
+
+-(void)setKey: (NSString*)key
+{
+  [super setKey: key];
+  
+  if([key isEqualToString: @"city"]) {
+    [self setLabel: @"Berlin"];
+    self.textLabel.font = [UIFont fontWithName:@"Futura-Medium" size:36];
+    [self setBackground: @"berlin.png"];
+    self.url = @"/info";
+  }
+  else if([key isEqualToString: @"theaters"]) {
+    rightAligned_ = YES;
+
+    [self setLabel: [NSString stringWithFormat:@"%d Kinos", app.chairDB.theaters.count]];
+     [self setBackground: @"cinemas.png"];
+    self.url = @"/theaters/list";
+  }
+  else if([key isEqualToString: @"movies"]) {
+    rightAligned_ = YES;
+    
+    [self setLabel: [NSString stringWithFormat:@"%d Filme", app.chairDB.movies.count]];
+    [self setBackground: @"movies.png"];
+    self.url = @"/movies/list";
+  }
+  else if([key isEqualToString: @"vicinity"]) {
+    // rightAligned_ = YES;
+    
+    [self setLabel: [NSString stringWithFormat:@"%d Aufführungen nearby", app.chairDB.movies.count]];
+    // [self setLabel2: [NSString stringWithFormat:@"in der Nähe", app.chairDB.movies.count]];
+    [self setBackground: @"traffic.png"];
+    self.url = @"/vicinity/show";
+  }
+  else if([key isEqualToString: @"news"]) {
+    // rightAligned_ = YES;
+    
+    [self setLabel: @"News"];
+    // [self setLabel2: [NSString stringWithFormat:@"in der Nähe", app.chairDB.movies.count]];
+    [self setBackground: @"movies.png"];
+    self.url = @"http://www.moviepilot.de";
+  }
+  else if([key isEqualToString: @"moviepilot"]) {
+    // rightAligned_ = YES;
+    
+    [self setLabel: @"Danke moviepilot!"];
+    // [self setLabel2: [NSString stringWithFormat:@"in der Nähe", app.chairDB.movies.count]];
+    [self setBackground: @"berlin.png"];
+    self.url = @"http://www.moviepilot.de";
+  }
 }
 
 -(void)layoutSubviews
 {
   [super layoutSubviews];
   
-  CGRect frame = self.textLabel.frame;
-  frame.origin.x = 7;
-  self.textLabel.frame = frame;
-}
+  if(rightAligned_) {
+    CGRect frame = self.textLabel.frame;
+    CGSize sz = [self.textLabel sizeThatFits: frame.size];
 
-@end
-
-// A VicinityScheduleCell defines some layout for the various Vicinity cells
-
-@interface VicinityScheduleCell: VicinityTableCell
-@end
-
-@implementation VicinityScheduleCell
-
--(void)setKey: (NSDictionary*)schedule
-{
-  schedule = [schedule joinWith: app.chairDB.movies on:@"movie_id"];
-
-  [super setKey:schedule];
-
-  NSNumber* time = [schedule objectForKey: @"time"];
-  
-  self.textLabel.text = [time.to_date stringWithFormat: @"HH:mm"];
-
-  NSString* detailText = [schedule objectForKey:@"title"];
-
-  self.detailTextLabel.text = [detailText withVersionString: [schedule objectForKey:@"version"]];
-  self.detailTextLabel.numberOfLines = 1;
-  self.detailTextLabel.lineBreakMode = UILineBreakModeMiddleTruncation;
-
-  self.url = _.join(@"/movies/show?movie_id=", [schedule objectForKey: @"movie_id"]);
-}
-
-@end
-
-// A VicinityTheaterCell holds a "link" to /movies/list?theater_id=<theaters>
-
-@interface VicinityTheaterCell: VicinityTableCell
-@end
-
-@implementation VicinityTheaterCell
-
--(id)init
-{ 
-  self = [super init];
-  
-  self.detailTextLabel.font = [UIFont italicSystemFontOfSize:13];
-  self.detailTextLabel.text = @"mehr...";
-  self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
-  return self;
-}
-
--(void)setKey: (NSDictionary*)theater
-{
-  [super setKey: theater];
-
-  self.url = _.join(@"/movies/list?theater_id=", [theater objectForKey: @"_uid"]);
+    self.textLabel.frame = CGRectMake(320 - frame.origin.x - sz.width, frame.origin.y,
+                                      sz.width, frame.size.height);
+  }
 }
 
 @end
 
 /*** The datasource for MoviesList *******************************************/
 
-@interface VicinityShowDataSource: M3TableViewDataSource {
+@interface DashboardDataSource: M3TableViewDataSource {
   CLLocationCoordinate2D currentPosition_;
 }
 
@@ -114,13 +131,17 @@
 
 @end
 
-@implementation VicinityShowDataSource
+@implementation DashboardDataSource
 
 -(id)init
 {
   self = [super init];
   if(!self) return nil;
 
+  [self addSection: _.array(@"city", @"theaters", @"movies", @"vicinity", @"news", @"moviepilot") 
+       withOptions: nil];
+
+#if 0
   currentPosition_ = [M3LocationManager coordinates];
   
   Benchmark(@"Building vicinity data set");
@@ -184,26 +205,14 @@
     [self addSection: schedulesCloseToNow
          withOptions: _.hash(@"header", header)];
   }
+#endif
 
   return self;
 }
 
 -(id)cellClassForKey:(id)key
 { 
-  if([key isKindOfClass: [NSString class]]) return key;
-
-  NSDictionary* dict = (NSDictionary*)key;
-
-  NSString* typeName = [dict objectForKey: @"_type"];
-  M3AssertKindOf(typeName, NSString);
-  
-  if([typeName isEqualToString: @"theaters"])
-    return [VicinityTheaterCell class];
-
-  if([typeName isEqualToString: @"schedules"])
-    return [VicinityScheduleCell class];
-
-  return nil; 
+  return [DashboardInfoCell class];
 }
 
 /* Distance from current position to [lat2,lng2] */
@@ -242,62 +251,22 @@ static double distance(double lat1, double lng1, double lat2, double lng2)
 
 @end
 
-@implementation VicinityShowController
-
--(void)setUpdateIsNotRunning
-{
-  [self setRightButtonWithTitle: @"cur" target: self action: @selector(startUpdate)];
-}
-
--(void)setUpdateIsRunning
-{
-  [self setRightButtonWithSystemItem: UIBarButtonSystemItemStop 
-                              target: self 
-                              action: @selector(setUpdateIsNotRunning) // <-- fake: we do not stop the update.
-  ];
-}
+@implementation DashboardController
 
 -(id)init
 {
   self = [super init];
-  if(!self) return nil;
-
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched; 
-
-  [M3LocationManager on: @selector(onUpdatedLocation) 
-                 notify: self 
-                   with: @selector(onUpdatedLocation:) ];
-  
-  [M3LocationManager on: @selector(onError) 
-                 notify: self 
-                   with: @selector(onUpdateLocationFailed)];
-  
-  [self setUpdateIsNotRunning];
-  
   return self;
 }
 
 -(void)reload
 {
-  self.dataSource = [[[VicinityShowDataSource alloc]init]autorelease];
+  self.dataSource = [[[DashboardDataSource alloc]init]autorelease];
 }
 
--(void)startUpdate
+-(BOOL)isFullscreen
 {
-  [[M3LocationManager class] updateLocation]; 
-  [self setUpdateIsRunning];
+  return YES;
 }
-
-- (void)onUpdatedLocation: (M3LocationManager*)locationManager
-{
-  [self setUpdateIsRunning];
-  [self reload];
-}
-
-- (void)onUpdateLocationFailed: (NSError*)error
-{
-  [self setUpdateIsNotRunning];
-  dlog << "Got location error " << error;
-}
-
 @end

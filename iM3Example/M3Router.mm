@@ -19,6 +19,9 @@
   if ([url matches: @"^/(\\w+)/list(/(\\w+))?"]) 
     return _.join($1.camelizeWord, "ListController");
 
+  if ([url matches: @"^/dashboard"])
+    return @"DashboardController";
+  
   if ([url matches: @"^/vicinity/show"])
     return @"VicinityShowController";
 
