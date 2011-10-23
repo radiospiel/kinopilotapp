@@ -99,12 +99,17 @@ AppDelegate* app;
   // Open internal URLs inside application.
   UIViewController* vc = [[self router] controllerForURL: url];
   if(!vc) return;
-
   
-  UINavigationController* nc = (UINavigationController*) self.tabBarController.selectedViewController;
-  if(!nc)
-    nc = (UINavigationController*) [self.tabBarController.viewControllers objectAtIndex:0];
-
+  UINavigationController* nc;
+  if(!self.tabBarController) {
+    nc = (UINavigationController*)self.window.rootViewController;
+  }
+  else {
+    nc = (UINavigationController*) self.tabBarController.selectedViewController;
+    if(!nc)
+      nc = (UINavigationController*) [self.tabBarController.viewControllers objectAtIndex:0];
+  }
+    
   if(NO) { // [vc shouldOpenModally]) {
     vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     // vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
@@ -154,39 +159,34 @@ AppDelegate* app;
 }
 
 
--(void)addTab: (NSString*)url withOptions: (NSDictionary*)options
+-(UINavigationController*)navigationControllerForTab: (NSDictionary*)tab
 {
-  if(!url) return;
-
+  NSString* url = [tab objectForKey: @"url"];
+  
   // get portrait view controller for URL and Data
   UIViewController* vc = [self.router controllerForURL: url];
-  if(!vc) return;
-
+  if(!vc) return nil;
+  
   //
   // Build navigation controller
   UINavigationController* nc = [[[UINavigationController alloc]initWithRootViewController:vc]autorelease];
   nc.delegate = self;
-  
-  // set navigation controller title
 
-  if([options objectForKey: @"title"])
-    nc.navigationBar.topItem.title = [options objectForKey: @"title"];
+  // set navigation controller title
+  
+  if([tab objectForKey: @"title"])
+    nc.navigationBar.topItem.title = [tab objectForKey: @"title"];
   else if(vc.title)
     nc.navigationBar.topItem.title = vc.title;
   else
     nc.navigationBarHidden = YES;
   
   // set navigation controller's tab properties
+  
+  nc.tabBarItem.image = [UIImage imageNamed:[tab objectForKey: @"icon"]];
+  nc.tabBarItem.title = [tab objectForKey: @"label"];
 
-  nc.tabBarItem.image = [UIImage imageNamed:[options objectForKey: @"icon"]];
-  nc.tabBarItem.title = [options objectForKey: @"label"];
-  
-  // Append nc to list of viewControllers
-  NSMutableArray* viewControllers = [NSMutableArray arrayWithArray:self.tabBarController.viewControllers];
-  
-  [viewControllers addObject: nc];
-  
-  self.tabBarController.viewControllers = viewControllers;
+  return nc;
 }
 
 -(NSDictionary*) config
@@ -197,11 +197,29 @@ AppDelegate* app;
 -(void)loadTabs
 {
   NSArray* tabs = [[self config] objectForKey: @"tabs"];
+  tabs = [tabs selectUsingBlock:^BOOL(NSDictionary* tab) {
+    return [tab objectForKey: @"url"] != nil;
+  }];
+
+  NSMutableArray* viewControllers = [tabs mapUsingBlock:^id(NSDictionary* tab) {
+    return [self navigationControllerForTab:tab];
+  }];
   
-  for(NSDictionary* tab in tabs) {
-    if([tab objectForKey:@"disabled"]) continue;
-    NSString* url = [tab objectForKey: @"url"];
-    [self addTab: url withOptions: tab];
+  viewControllers = [viewControllers selectUsingBlock:^BOOL(id tab) {
+    return tab != nil;
+  }];
+
+  if(viewControllers.count > 1) {
+    UITabBarController* tabBarController = [[[UITabBarController alloc] init] autorelease];
+    tabBarController.view.frame = [[UIScreen mainScreen] bounds];
+    // tabBarController.wantsFullScreenLayout = YES;
+    tabBarController.viewControllers = viewControllers;
+    
+    self.tabBarController = tabBarController;
+    self.window.rootViewController = self.tabBarController;
+  }
+  else {
+    self.window.rootViewController = viewControllers.first;
   }
 }
 
@@ -215,31 +233,25 @@ AppDelegate* app;
   rlog(1) << "Starting application in " << [ M3 symbolicDir: @"$root" ];
 
   // [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-
+  /*
+   * Initialise root window
+   */
+  self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+  
   /*
    * Initialise database
    */
   [self initChairDB];
 
   /*
-   * Initialise root window and (still empty) tabBarController
-   */
-  self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-
-  UITabBarController* tabBarController = [[[UITabBarController alloc] init] autorelease];
-  tabBarController.view.frame = [[UIScreen mainScreen] bounds];
-  // tabBarController.wantsFullScreenLayout = YES;
-
-  self.tabBarController = tabBarController;
-  self.window.rootViewController = self.tabBarController;
-  [self.window makeKeyAndVisible];
-
-  /*
    * Load initial set of tabs
    */
-   
+  
   [self loadTabs];
   
+
+  [self.window makeKeyAndVisible];
+
   return YES;
 }
 

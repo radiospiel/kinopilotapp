@@ -15,11 +15,16 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+  NSString* text = [self.dataSource tableView:tableView titleForHeaderInSection:section];
+  if(!text) return 0;
 	return 23;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+  NSString* text = [self.dataSource tableView:tableView titleForHeaderInSection:section];
+  if(!text) return nil;
+  
   UIView* header = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22)]autorelease];
   header.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header-background-22.png"]]; 
   
@@ -29,7 +34,7 @@
   label.textColor = [UIColor whiteColor];
   label.font = [UIFont boldSystemFontOfSize:15];
   label.lineBreakMode = UILineBreakModeMiddleTruncation;
-  label.text = [self.dataSource tableView:tableView titleForHeaderInSection:section];
+  label.text = text;
 
   [header addSubview:label];
 

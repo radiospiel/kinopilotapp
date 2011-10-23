@@ -10,26 +10,26 @@
       "nurl": "/movies/images/attacktheblock|wP9KzNQIOmA",
       "url": "/vicinity/show",
       "label": "Jetzt",
-      "title": "Was läuft jetzt?",
+      "ntitle": "Was läuft jetzt?",
       "icon": "tab_tage.png"
     },
     {
-      "url": "/movies/list",
+      "nurl": "/movies/list",
       "label": "Filme",
       "icon": "tab_filme.png"
     },
     {
-      "url": "/theaters/list",
+      "nurl": "/theaters/list",
       "label": "Kinos",
       "icon": "tab_kinos.png"
     },
     {
-      "url": "/map/show",
+      "nurl": "/map/show",
       "label": "Map",
       "icon": "tab_karte.png"
     },
     {
-      "url": "/info",
+      "nurl": "/info",
       "label": "Info",
       "icon": "tab_about.png"
     }

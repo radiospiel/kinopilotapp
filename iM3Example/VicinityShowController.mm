@@ -16,6 +16,118 @@
 
 /*** VicinityShowController cells *******************************************/
 
+@interface VicinityInfoCell: M3TableViewCell
+@end
+
+@implementation VicinityInfoCell
+
+-(id)initWithLabel: (NSString*)label
+     andBackground: (NSString*)imageName
+{ 
+  self = [super init];
+  
+  self.textLabel.font = [UIFont fontWithName:@"Futura-Medium" size:24];
+  self.textLabel.textColor = [UIColor colorWithName:@"ffffff"];
+  self.textLabel.backgroundColor = [UIColor clearColor];
+  self.textLabel.text = label;
+
+  UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:imageName]];
+  [[self contentView] setBackgroundColor: background];
+
+  return self;
+}
+
++(CGFloat)fixedHeight
+{
+  return 90;
+}
+@end
+
+@interface VicinityCityCell: VicinityInfoCell
+@end
+
+@implementation VicinityCityCell
+
+-(id)init
+{ 
+  self = [super initWithLabel:@"Berlin" andBackground:@"berlin.png"];
+
+  self.textLabel.font = [UIFont fontWithName:@"Futura-Medium" size:36];
+  
+  return self;
+}
+
+-(NSString*)url
+{
+  return @"/info";
+}
+
+@end
+
+
+@interface VicinityTheatersCell: VicinityInfoCell
+@end
+
+@implementation VicinityTheatersCell
+
+-(id)init
+{ 
+  self = [super initWithLabel: [NSString stringWithFormat:@"%d Kinos", app.chairDB.theaters.count]
+                andBackground: @"cinemas.png"];
+
+  return self;
+}
+
+-(void)layoutSubviews
+{
+  [super layoutSubviews];
+  
+  CGRect frame = self.textLabel.frame;
+  CGSize sz = [self.textLabel sizeThatFits: frame.size];
+  
+  self.textLabel.frame = CGRectMake(320 - frame.origin.x - sz.width, frame.origin.y,
+                                    sz.width, frame.size.height);
+}
+
+-(NSString*)url
+{
+  return @"/theaters/list";
+}
+
+@end
+
+@interface VicinityMoviesCell: VicinityInfoCell
+@end
+
+@implementation VicinityMoviesCell
+
+-(id)init
+{ 
+  self = [super initWithLabel: [NSString stringWithFormat:@"%d Filme", app.chairDB.movies.count]
+                andBackground: @"movies.png"];
+  
+  return self;
+}
+
+-(void)layoutSubviews
+{
+  [super layoutSubviews];
+
+  CGRect frame = self.textLabel.frame;
+  CGSize sz = [self.textLabel sizeThatFits: frame.size];
+  
+  self.textLabel.frame = CGRectMake(320 - frame.origin.x - sz.width, frame.origin.y,
+                                                           sz.width, frame.size.height);
+}
+
+-(NSString*)url
+{
+  return @"/movies/list";
+}
+@end
+
+/***  VicinityTableCell ****************************************************/
+
 // VicinityTableCell defines some layout for the various Vicinity cells
 //
 
@@ -121,6 +233,9 @@
   self = [super init];
   if(!self) return nil;
 
+  [self addSection: _.array(@"VicinityCityCell", @"VicinityTheatersCell", @"VicinityMoviesCell") 
+       withOptions: nil];
+
   currentPosition_ = [M3LocationManager coordinates];
   
   Benchmark(@"Building vicinity data set");
@@ -188,15 +303,22 @@
   return self;
 }
 
--(Class)cellClassForKey:(NSDictionary*)key
+-(id)cellClassForKey:(id)key
 { 
-  NSString* typeName = [key objectForKey: @"_type"];
+  if([key isKindOfClass: [NSString class]]) return key;
+
+  NSDictionary* dict = (NSDictionary*)key;
+
+  NSString* typeName = [dict objectForKey: @"_type"];
   M3AssertKindOf(typeName, NSString);
   
   if([typeName isEqualToString: @"theaters"])
     return [VicinityTheaterCell class];
-  
-  return [VicinityScheduleCell class]; 
+
+  if([typeName isEqualToString: @"schedules"])
+    return [VicinityScheduleCell class];
+
+  return nil; 
 }
 
 /* Distance from current position to [lat2,lng2] */
