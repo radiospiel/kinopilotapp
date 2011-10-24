@@ -118,8 +118,7 @@
 
 -(NSString*)title
 {
-  NSDictionary* theater = [app.chairDB.theaters get: self.theater_id];
-  return [theater objectForKey:@"name"];
+  return [self.theater objectForKey:@"name"];
 }
 
 -(void)setFilter:(NSString*)filter
@@ -130,9 +129,6 @@
 
 -(NSDictionary*)theater
 {
-  NSString* theater_id = self.theater_id;
-  if(!theater_id) return nil;
-   
   return [app.chairDB.theaters get: self.theater_id];
 }
 

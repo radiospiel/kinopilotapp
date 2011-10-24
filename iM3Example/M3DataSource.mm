@@ -310,9 +310,6 @@
 {
   self = [super init];
 
-  M3AssertKindOfAndSet(theater_id, NSString);
-  M3AssertKindOfAndSet(movie_id, NSString);
-
   //
   // get all schedules for the theater and for the movie, and 
   // remove all schedules, that are in the past.
@@ -382,6 +379,9 @@
 +(M3TableViewDataSource*)schedulesByTheater: (NSString*)theater_id 
                                    andMovie: (NSString*)movie_id
 {
+  M3AssertKindOfAndSet(theater_id, NSString);
+  M3AssertKindOfAndSet(movie_id, NSString);
+  
   return [[[SchedulesByTheaterAndMovieDataSource alloc]initWithTheater:theater_id andMovie:movie_id]autorelease];
 }
 

@@ -43,7 +43,8 @@
 };
 
 -(void)releaseM3Properties {
-  self.url = nil;
+  [self instance_variable_set: @selector(m3_url) withValue: nil];
+  // self.url = nil would invoke loadFromUrl.
   self.title = nil;
   self.model = nil;
 }

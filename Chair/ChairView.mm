@@ -141,6 +141,8 @@
 
 - (NSDictionary*) get: (id)key
 {
+  if(!key) return nil;
+  
   NSDictionary* __block r = nil;
 
   [self each: ^(NSDictionary* value, id key) { r = value; }

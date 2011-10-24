@@ -110,10 +110,11 @@
 
 @implementation TheatersListController
 
-// -(NSString*)title
-// {
-//   return @"Kinos in Berlin";
-// }
+-(NSString*)title
+{
+  NSDictionary* movie = [app.chairDB.movies get: self.movie_id];
+  return [movie objectForKey:@"title"];
+}
 
 -(NSString*) movie_id
 {

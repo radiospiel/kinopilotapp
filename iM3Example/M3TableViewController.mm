@@ -59,18 +59,14 @@
   [super viewDidAppear:animated];
   
   // If we are running in the simulator and it's the DEBUG target
-  // then simulate a memory warning. Note that the DEBUG flag isn't
-  // defined by default. To define it add this Preprocessor Macro for
-  // the Debug target: DEBUG=1
-  [self simulateMemoryWarning];
-}
-
-- (void)simulateMemoryWarning
-{
+  // then simulate a memory warning. 
   dlog << "*** simulateMemoryWarning";
-
-  CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)@"UISimulatedMemoryWarningNotification", NULL, NULL, true);
+    
+  CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), 
+                                       (CFStringRef)@"UISimulatedMemoryWarningNotification", 
+                                       NULL, NULL, true);
 }
+
 #endif
 #endif
 
