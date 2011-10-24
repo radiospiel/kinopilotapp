@@ -51,6 +51,29 @@
   [super viewDidUnload];
 }
 
+
+#if TARGET_IPHONE_SIMULATOR
+#ifdef DEBUG
+- (void) viewDidAppear:(BOOL)animated
+{
+  [super viewDidAppear:animated];
+  
+  // If we are running in the simulator and it's the DEBUG target
+  // then simulate a memory warning. Note that the DEBUG flag isn't
+  // defined by default. To define it add this Preprocessor Macro for
+  // the Debug target: DEBUG=1
+  [self simulateMemoryWarning];
+}
+
+- (void)simulateMemoryWarning
+{
+  dlog << "*** simulateMemoryWarning";
+
+  CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)@"UISimulatedMemoryWarningNotification", NULL, NULL, true);
+}
+#endif
+#endif
+
 -(M3TableViewDataSource*) dataSource
 { 
   M3AssertKindOf(self.tableView, UITableView);
