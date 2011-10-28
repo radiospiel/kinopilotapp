@@ -36,6 +36,20 @@ static float px(NSString* name, int startPos, int length)
   return [UIColor colorWithRed:r green: g blue: b alpha: a];
 }
 
+-(UIImage*) to_image
+{
+  CGRect rect = CGRectMake(0, 0, 1, 1);
+  UIGraphicsBeginImageContext(rect.size);
+  CGContextRef context = UIGraphicsGetCurrentContext();
+  CGContextSetFillColorWithColor(context, [self CGColor]);
+
+  CGContextFillRect(context, rect);
+  UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+  
+  return img;
+}
+
 @end
 
 #endif
