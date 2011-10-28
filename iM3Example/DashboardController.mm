@@ -136,80 +136,19 @@
   self = [super init];
   if(!self) return nil;
 
-  [self addSection: _.array(@"city", @"theaters", @"movies", @"vicinity", @"news", @"moviepilot") 
+  [self addSection: _.array(@"city", @"M3TableViewAdCell", @"theaters", @"movies", @"vicinity", @"news", @"moviepilot") 
        withOptions: nil];
-
-#if 0
-  currentPosition_ = [M3LocationManager coordinates];
-  
-  Benchmark(@"Building vicinity data set");
-
-  //
-  // Time range: we'll show all schedules in the next 2 hours, i.e. less than
-  // *then*. If we'll then have less than 6 (schedulesPerTheater) schedules 
-  // (i.e. Arthouse cinema), we include schedules until we have those, if 
-  // these are in the next 12 hours (i.e. before *then_max*.
-  NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
-  NSTimeInterval then = now + 2 * 3600;
-  NSTimeInterval then_max = now + 12 * 3600;
-
-  //
-  NSArray* theaters = [app.chairDB.theaters.values sortByBlock:^id(NSDictionary* theater) {
-    return [NSNumber numberWithDouble: [self distanceToTheater: theater]];
-  }];
-  
-  for(NSDictionary* theater in theaters) {
-    if(self.sections.count >= NUMBER_OF_THEATERS) break;
-    
-    NSString* theater_id = [theater objectForKey:@"_uid"];
-    
-    NSArray* schedules = [[app.chairDB.schedules_by_theater_id get: theater_id] objectForKey: @"group"];
-    M3AssertKindOf(schedules, NSArray);
-
-    if(!schedules) continue;
-    
-    schedules = [schedules selectUsingBlock:^BOOL(NSDictionary* schedule) {
-      NSNumber* timeAsNumber = [schedule objectForKey: @"time"];
-      double time = [timeAsNumber doubleValue];
-      
-      return time > now && time < then_max;
-    }];
-    
-    schedules = [schedules sortByKey: @"time"];
-    
-    NSMutableArray* schedulesCloseToNow = [NSMutableArray array];
-    for(NSDictionary* schedule in schedules) {
-      NSNumber* timeAsNumber = [schedule objectForKey: @"time"];
-      double time = [timeAsNumber doubleValue];
-
-      // This schedule is between then and then_max? Add only if we
-      // don't have SCHEDULES_PER_THEATER schedules collected yet.
-      if(time > then) {
-        if(schedulesCloseToNow.count >= SCHEDULES_PER_THEATER)
-          break;
-      }
-      [schedulesCloseToNow addObject:schedule];
-    }
-    
-    // Add this section. 
-    if(schedulesCloseToNow.count == 0) continue;
-
-    [schedulesCloseToNow addObject: theater];
-    
-    NSString* header = [NSString stringWithFormat:@"%@ (%.1f km)", 
-                          [theater objectForKey:@"name"], 
-                          [self distanceToTheater: theater]
-                       ];
-    [self addSection: schedulesCloseToNow
-         withOptions: _.hash(@"header", header)];
-  }
-#endif
 
   return self;
 }
 
--(id)cellClassForKey:(id)key
+-(id)cellClassForKey:(NSString*)key
 { 
+  M3AssertKindOf(key, NSString);
+  
+  if([key isEqualToString:@"M3TableViewAdCell"])
+    return @"M3TableViewAdCell";
+  
   return [DashboardInfoCell class];
 }
 

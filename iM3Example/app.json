@@ -2,12 +2,7 @@
   "name": "Kinopilot Berlin",
   "tabs": [
     {
-      "murl": "/movies/list",
-      "nurl": "/theaters/list",
-      "nurl": "/theaters/list?movie_id=attacktheblock|wP9KzNQIOmA",
-      "nurl": "/movies/show?movie_id=attacktheblock|wP9KzNQIOmA",
-      "nurl": "/movies/list?theater_id=centralkino|pK17THcITlg",
-      "nurl": "/movies/images?movie_id=attacktheblock|wP9KzNQIOmA",
+      "nurl": "/movies/list?theater_id=adriafilmtheat|2487JHMKNoY",
       "url": "/dashboard",
       "label": "Jetzt",
       "ntitle": "Was läuft jetzt?",

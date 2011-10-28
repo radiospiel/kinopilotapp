@@ -88,6 +88,7 @@
 		9D19E137145AD085003343C5 /* NSURL+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D19E134145AD085003343C5 /* NSURL+M3Extensions.h */; };
 		9D19E138145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D19E135145AD085003343C5 /* NSURL+M3Extensions.mm */; };
 		9D19E139145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D19E135145AD085003343C5 /* NSURL+M3Extensions.mm */; };
+		9D19E166145B0188003343C5 /* M3TableViewController+AdSupport.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D19E165145B0188003343C5 /* M3TableViewController+AdSupport.mm */; };
 		9D2BF7571450A1F40045C11C /* M3ListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D2BF7561450A1F40045C11C /* M3ListViewController.mm */; };
 		9D33FBCD1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */; };
 		9D33FBCE1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */; };
@@ -363,6 +364,8 @@
 		9D15A6AF1446291400F17C91 /* UIViewController+Model.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIViewController+Model.mm"; sourceTree = "<group>"; };
 		9D19E134145AD085003343C5 /* NSURL+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+M3Extensions.h"; sourceTree = "<group>"; };
 		9D19E135145AD085003343C5 /* NSURL+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSURL+M3Extensions.mm"; sourceTree = "<group>"; };
+		9D19E164145B0188003343C5 /* M3TableViewController+AdSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3TableViewController+AdSupport.h"; sourceTree = "<group>"; };
+		9D19E165145B0188003343C5 /* M3TableViewController+AdSupport.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3TableViewController+AdSupport.mm"; sourceTree = "<group>"; };
 		9D2BF7551450A1F40045C11C /* M3ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3ListViewController.h; sourceTree = "<group>"; };
 		9D2BF7561450A1F40045C11C /* M3ListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3ListViewController.mm; sourceTree = "<group>"; };
 		9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Ivars.h"; sourceTree = "<group>"; };
@@ -721,16 +724,18 @@
 				9D750E9F1422AF7F0056290E /* M3ProfileController.mm */,
 				9D81D3C1144A139C0013B706 /* M3ProfileView.h */,
 				9D81D3C2144A139C0013B706 /* M3ProfileView.mm */,
-				9DDE1B741430876A00FDF9C5 /* M3TableViewCell.h */,
-				9DDE1B751430876A00FDF9C5 /* M3TableViewCell.mm */,
-				9D92E40B1434780900C17299 /* M3TableViewDataSource.h */,
-				9D92E40C1434780900C17299 /* M3TableViewDataSource.mm */,
 				9DDE1B781430931900FDF9C5 /* M3TableViewAdCell.h */,
 				9DDE1B791430931900FDF9C5 /* M3TableViewAdCell.mm */,
-				9D9D318F142C89C600C8269A /* M3TableViewProfileCell.h */,
-				9D9D3190142C89C600C8269A /* M3TableViewProfileCell.mm */,
+				9DDE1B741430876A00FDF9C5 /* M3TableViewCell.h */,
+				9DDE1B751430876A00FDF9C5 /* M3TableViewCell.mm */,
 				9D1438AF142B420E00123EC8 /* M3TableViewController.h */,
 				9D1438B0142B420E00123EC8 /* M3TableViewController.mm */,
+				9D19E164145B0188003343C5 /* M3TableViewController+AdSupport.h */,
+				9D19E165145B0188003343C5 /* M3TableViewController+AdSupport.mm */,
+				9D92E40B1434780900C17299 /* M3TableViewDataSource.h */,
+				9D92E40C1434780900C17299 /* M3TableViewDataSource.mm */,
+				9D9D318F142C89C600C8269A /* M3TableViewProfileCell.h */,
+				9D9D3190142C89C600C8269A /* M3TableViewProfileCell.mm */,
 				9DE40643142CFC490089EAA9 /* InfoController.h */,
 				9DE40644142CFC490089EAA9 /* InfoController.mm */,
 				9D72E29814387FE600D8E5B5 /* MoviesImagesController.h */,
@@ -1475,6 +1480,7 @@
 				9D2BF7571450A1F40045C11C /* M3ListViewController.mm in Sources */,
 				9D0893A21452F6C600F64AC1 /* SchedulesListController.mm in Sources */,
 				9D0893B014542C2500F64AC1 /* DashboardController.mm in Sources */,
+				9D19E166145B0188003343C5 /* M3TableViewController+AdSupport.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

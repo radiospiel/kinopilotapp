@@ -24,6 +24,8 @@
   UISegmentedControl* segmentedControl_;
   NSMutableArray* segmentedControlParams_;
   M3TableViewDataSource* dataSource_;
+  
+  NSMutableDictionary* requestedAdBanners_;
 }
 
 @property (retain,nonatomic) M3TableViewDataSource* dataSource;
@@ -32,13 +34,5 @@
 -(void)activateSegment:(NSUInteger)segmentNo;
 
 -(void)setFilter: (id)filter;
-
-@end
-
-@interface M3TableViewController(iAdSupport)
-
--(void)releaseRequestedBannerViews;
--(void)requestAdBannerAtIndexPath: (NSIndexPath*)indexPath;
--(UIView*)adBannerAtIndexPath: (NSIndexPath*)indexPath;
 
 @end
