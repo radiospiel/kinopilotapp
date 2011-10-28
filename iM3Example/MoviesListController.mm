@@ -93,6 +93,7 @@
   MoviesListController* mlc = (MoviesListController*)self.tableViewController;
   
   self.url = _.join(@"/schedules/list?",
+                      @"important=movie&", 
                       @"theater_id=", mlc.theater_id, 
                       @"&movie_id=", [self.key objectForKey: @"movie_id"]);
 }
@@ -139,62 +140,7 @@
 
 -(UIView*) headerView
 {
-  NSDictionary* theater = self.theater;
-  if(!theater) return nil;
-  
-  M3ProfileView* pv = [[[M3ProfileView alloc]init]autorelease];
-  
-  // -- set descriptions
-  
-  {
-    NSMutableString* html = [NSMutableString string];
-    
-    NSString* name = [theater objectForKey:@"name"];
-    [html appendFormat:@"<h2><b>%@</b></h2>", name.cdata];
-    
-    NSString* address = [theater objectForKey:@"address"];
-    if(address)
-      [html appendFormat: @"<p><b>Adresse:</b> %@</p>", address.cdata]; 
-    
-    [pv setHtmlDescription:html];
-  }
-  
-  // -- set actions
-  
-  {
-    NSMutableArray* actions = _.array();
-    
-    NSString* address = [theater objectForKey:@"address"];
-    
-    if(address)
-      [actions addObject: _.array(@"Fahrinfo", _.join(@"fahrinfo-berlin://connection?to=", address.urlEscape))];
-    
-    NSString* fon = [theater objectForKey:@"telephone"];
-    if(fon)
-      [actions addObject: _.array(@"Fon", _.join(@"tel://", fon.urlEscape))];
-    
-    NSString* web = [theater objectForKey:@"website"];
-    if(web)
-      [actions addObject: _.array(@"Website", web)];
-    
-    [pv setActions: actions];
-  }
-  
-  // -- add a map view
-  
-  {
-    NSArray* latlong = [theater objectForKey:@"latlong"];
-    [pv setCoordinate: CLLocationCoordinate2DMake([latlong.first floatValue], [latlong.second floatValue])];
-  }  
-  
-  NSString* url = _.join(@"/map/show?theater_id=", [theater objectForKey:@"_uid" ]);
-  
-  [pv setProfileURL:url];
-  
-  // --- adjust size
-  
-  pv.frame = CGRectMake(0, 0, 320, [pv wantsHeight]);
-  return pv;
+  return [M3ProfileView profileViewForTheater: self.theater]; 
 }
 
 -(void)loadFromUrl:(NSString *)url

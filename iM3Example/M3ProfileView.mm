@@ -106,4 +106,136 @@
   return lHeight > rHeight ? lHeight : rHeight;
 }
 
+// --- predefined profiles ------------------------------------------------
+
++(M3ProfileView*) profileViewForTheater: (NSDictionary*) theater
+{
+  if(!theater) return nil;
+  
+  M3ProfileView* pv = [[[M3ProfileView alloc]init]autorelease];
+  
+  // -- set descriptions
+  
+  {
+    NSMutableString* html = [NSMutableString string];
+    
+    NSString* name = [theater objectForKey:@"name"];
+    [html appendFormat:@"<h2><b>%@</b></h2>", name.cdata];
+    
+    NSString* address = [theater objectForKey:@"address"];
+    if(address)
+      [html appendFormat: @"<p>%@</p>", address.cdata]; 
+    
+    [pv setHtmlDescription:html];
+  }
+  
+  // -- set actions
+  
+  {
+    NSMutableArray* actions = _.array();
+    
+    NSString* address = [theater objectForKey:@"address"];
+    
+    if(address)
+      [actions addObject: _.array(@"Fahrinfo", _.join(@"fahrinfo-berlin://connection?to=", address.urlEscape))];
+    
+    NSString* fon = [theater objectForKey:@"telephone"];
+    if(fon)
+      [actions addObject: _.array(@"Fon", _.join(@"tel://", fon.urlEscape))];
+    
+    NSString* web = [theater objectForKey:@"website"];
+    if(web)
+      [actions addObject: _.array(@"Website", web)];
+    
+    [pv setActions: actions];
+  }
+  
+  // -- add a map view
+  
+  {
+    NSArray* latlong = [theater objectForKey:@"latlong"];
+    [pv setCoordinate: CLLocationCoordinate2DMake([latlong.first floatValue], [latlong.second floatValue])];
+  }  
+  
+  // -- set proile URL
+  
+  NSString* url = _.join(@"/map/show?theater_id=", [theater objectForKey:@"_uid" ]);
+  [pv setProfileURL:url];
+  
+  // --- adjust size
+  
+  pv.frame = CGRectMake(0, 0, 320, [pv wantsHeight]);
+  return pv;
+}
+
++(M3ProfileView*) profileViewForMovie: (NSDictionary*) movie
+{
+  if(!movie) return nil;
+  
+  NSString* movie_id = [movie objectForKey:@"_uid"];
+  
+  M3ProfileView* pv = [[[M3ProfileView alloc]init]autorelease];
+  
+  // -- set desription
+  
+  {
+    NSString* title =           [movie objectForKey:@"title"];
+    NSNumber* runtime =         [movie objectForKey:@"runtime"];
+    NSArray* genres =           [movie objectForKey:@"genres"];
+    NSNumber* production_year = [movie objectForKey:@"production-year"];
+    
+    NSMutableArray* parts = [NSMutableArray array];
+    [parts addObject: [NSString stringWithFormat: @"<h2><b>%@</b></h2>", title]];
+    
+    if(genres.first || production_year || runtime) {
+      NSMutableArray* p = [NSMutableArray array];
+      if(genres.first) [p addObject: genres.first];
+      if(production_year) [p addObject: production_year];
+      if(runtime) [p addObject: [NSString stringWithFormat:@"%@ min", runtime]];
+      
+      [parts addObject: @"<p>"];
+      [parts addObject: [p componentsJoinedByString:@", "]];
+      [parts addObject: @"</p>"];
+    }
+    
+    [pv setHtmlDescription: [parts componentsJoinedByString:@""]];
+  }
+  
+  // -- set actions
+  
+  {
+    NSMutableArray* actions = _.array();
+    
+    // add full info URL
+    [actions addObject: _.array(@"Mehr...", _.join(@"/movies/show?movie_id=", movie_id))];
+    
+    // add imdb URL
+    NSString* title =           [movie objectForKey:@"title"];
+    
+    NSString* imdbURL = _.join(@"imdb:///find?q=", title.urlEscape);
+    if(![app canOpen:imdbURL])
+      imdbURL = _.join(@"http://imdb.de/?q=", title.urlEscape);
+    
+    [actions addObject: _.array(@"IMDB", imdbURL)];
+    
+    [pv setActions: actions];
+  }
+  
+  // -- add an image view
+  
+  {
+    NSArray* images = [movie objectForKey:@"images"];
+    [pv setImageURLs: [images pluck:@"thumbnail"]];
+  }
+  
+  // --- set profile URL
+  
+  [pv setProfileURL: _.join(@"/movies/show?movie_id=", movie_id) ];
+  
+  // --- adjust size
+  
+  pv.frame = CGRectMake(0, 0, 320, [pv wantsHeight]);
+  return pv;
+}
+
 @end

@@ -30,64 +30,10 @@
 
 -(UIView*) headerView
 {
-  NSDictionary* theater = self.theater;
-  NSDictionary* movie = self.movie;
-  
-  M3ProfileView* pv = [[[M3ProfileView alloc]init]autorelease];
-  
-  // -- set descriptions
-  
-  {
-    NSMutableString* html = [NSMutableString string];
-    
-    NSString* name = [theater objectForKey:@"name"];
-    NSString* title = [movie objectForKey:@"title"];
-    
-    [html appendFormat:@"<h2><b>%@</b>, im <b>%@</b></h2>", title.cdata, name.cdata];
-    
-    NSString* address = [theater objectForKey:@"address"];
-    if(address)
-      [html appendFormat: @"<p>%@</p>", address.cdata]; 
-    
-    [pv setHtmlDescription:html];
-  }
-  
-  // -- set actions
-  
-  {
-    NSMutableArray* actions = _.array();
-    
-    NSString* address = [theater objectForKey:@"address"];
-    
-    if(address)
-      [actions addObject: _.array(@"Fahrinfo", _.join(@"fahrinfo-berlin://connection?to=", address.urlEscape))];
-    
-    NSString* fon = [theater objectForKey:@"telephone"];
-    if(fon)
-      [actions addObject: _.array(@"Fon", _.join(@"tel://", fon.urlEscape))];
-    
-    NSString* web = [theater objectForKey:@"website"];
-    if(web)
-      [actions addObject: _.array(@"Website", web)];
-    
-    [pv setActions: actions];
-  }
-  
-  // -- add a map view
-  
-  {
-    NSArray* latlong = [theater objectForKey:@"latlong"];
-    [pv setCoordinate: CLLocationCoordinate2DMake([latlong.first floatValue], [latlong.second floatValue])];
-  }  
-  
-  NSString* url = _.join(@"/map/show?theater_id=", [theater objectForKey:@"_uid" ]);
-  
-  [pv setProfileURL:url];
-  
-  // --- adjust size
-  
-  pv.frame = CGRectMake(0, 0, 320, [pv wantsHeight]);
-  return pv;
+  NSString* important = [self.url.to_url param: @"important"];
+  return [important isEqualToString: @"movie"] ? 
+    [M3ProfileView profileViewForMovie: self.movie] :
+    [M3ProfileView profileViewForTheater: self.theater];
 }
 
 -(void)loadFromUrl:(NSString *)url
