@@ -27,7 +27,8 @@
 
 -(void) setActions: (NSArray*) actions
 {
-  int w = 85;
+  int h = 26;
+  int w = 90;
   int r = 305;
   
   int y = htmlView_.frame.origin.y + htmlView_.frame.size.height + 16;
@@ -37,11 +38,8 @@
     
     NSArray* action = [actions objectAtIndex:idx];
   
-    UIButton* button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    button.frame = CGRectMake(r - w, y, w, 24); r -= (w+10);
-    // button.backgroundColor = [UIColor colorWithWhite:0 alpha:0]; // this has a alpha of 0. 
-    [button setActionURL: action.second andTitle:action.first];
-    
+    UIButton* button = [UIButton actionButtonWithURL:action.second andTitle:action.first];
+    button.frame = CGRectMake(r - w, y, w, h); r -= (w+10);
     [self addSubview:button];
   }
 }
