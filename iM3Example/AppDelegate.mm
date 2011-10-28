@@ -109,6 +109,8 @@ AppDelegate* app;
     if(!nc)
       nc = (UINavigationController*) [self.tabBarController.viewControllers objectAtIndex:0];
   }
+  
+  [nc.navigationBar setBarStyle:UIBarStyleBlack];
     
   if(NO) { // [vc shouldOpenModally]) {
     vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;

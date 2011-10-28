@@ -26,17 +26,6 @@
 
 @implementation DashboardInfoCell
 
--(id)initWithLabel: (NSString*)label
-     andBackground: (NSString*)imageName
-{ 
-  self = [super init];
-  if(self) {
-    rightAligned_ = NO;
-  }
-
-  return self;
-}
-
 +(CGFloat)fixedHeight
 {
   return 90;
@@ -46,14 +35,23 @@
 {
   self.textLabel.font = [UIFont fontWithName:@"Futura-Medium" size:24];
   self.textLabel.textColor = [UIColor colorWithName:@"ffffff"];
+  // self.textLabel.highlightedTextColor= [UIColor colorWithName:@"000000"];
   self.textLabel.backgroundColor = [UIColor clearColor];
   self.textLabel.text = label;
 }
 
 -(void)setBackground: (NSString*)imageName
 {
-  UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:imageName]];
-  [[self contentView] setBackgroundColor: background];
+  self.backgroundColor = [UIColor blackColor];
+
+  UIImageView* imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imageName]];
+  self.backgroundView = [imageView autorelease];
+
+  [[self contentView] setBackgroundColor: [UIColor colorWithName:@"00000060"]];
+
+  UIView* bgView = [[UIView alloc]init];
+  [bgView setBackgroundColor:[UIColor clearColor]];
+  self.selectedBackgroundView = [bgView autorelease];
 }
 
 -(void)setKey: (NSString*)key
@@ -253,15 +251,11 @@ static double distance(double lat1, double lng1, double lat2, double lng2)
 
 @implementation DashboardController
 
--(id)init
-{
-  self = [super init];
-  self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched; 
-  return self;
-}
-
 -(void)reload
 {
+  self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched; 
+  self.tableView.backgroundColor = [UIColor blackColor];
+
   self.dataSource = [[[DashboardDataSource alloc]init]autorelease];
 }
 
