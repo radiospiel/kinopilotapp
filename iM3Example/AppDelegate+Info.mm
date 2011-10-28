@@ -23,7 +23,7 @@
 +(NSString*) schedules_count
   { return [NSString stringWithFormat: @"%d", app.chairDB.schedules.count]; }
 
-+(NSString*) build_at
++(NSString*) built_at
   { return [NSString stringWithFormat: @"%s %s", __DATE__, __TIME__]; }
 
 @end

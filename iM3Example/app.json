@@ -7,7 +7,7 @@
       "nurl": "/theaters/list?movie_id=attacktheblock|wP9KzNQIOmA",
       "nurl": "/movies/show?movie_id=attacktheblock|wP9KzNQIOmA",
       "nurl": "/movies/list?theater_id=centralkino|pK17THcITlg",
-      "nurl": "/movies/images/attacktheblock|wP9KzNQIOmA",
+      "nurl": "/movies/images?movie_id=attacktheblock|wP9KzNQIOmA",
       "url": "/dashboard",
       "label": "Jetzt",
       "ntitle": "Was läuft jetzt?",
@@ -42,7 +42,8 @@
         ["Aktualisiert",      "updated_at"],
         ["Kinos",             "theaters_count"],
         ["Filme",             "movies_count"],
-        ["Aufführungen",      "schedules_count"]
+        ["Aufführungen",      "schedules_count"],
+        ["App Version",       "built_at"]
       ]
     },
     {

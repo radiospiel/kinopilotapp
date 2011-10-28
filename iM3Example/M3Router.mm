@@ -3,60 +3,20 @@
 
 @implementation M3Router
 
--(NSString*)nibNameForURL: (NSString*)url
+-(Class)controllerClassForURL: (NSString*) url
 {
-	if ([url matches: @"^/map/show(/(\\w+))?"])
-    return @"MapShowController";
-
-  return nil;
-}
-
--(NSString*)controllerClassNameForURL: (NSString*) url
-{
-  // /category/action[/params] URLs create a CategoryActionController
-  // object. If action is not "list", the objects will be loaded from a
-  // NIB with a matching name.
-  if ([url matches: @"^/(\\w+)/list(/(\\w+))?"]) 
-    return _.join($1.camelizeWord, "ListController");
-
-  if ([url matches: @"^/dashboard"])
-    return @"DashboardController";
+  // /category/action[/params] URLs create a CategoryActionController object. 
+  NSArray* parts = [url.to_url.path componentsSeparatedByString: @"/"];
+  parts = [parts mapUsingSelector:@selector(camelizeWord)];
   
-  if ([url matches: @"^/vicinity/show"])
-    return @"VicinityShowController";
-
-  if ([url matches: @"^/movies/images(/(\\w+))?"])
-    return @"MoviesImagesController";
-
-  if ([url matches: @"^/map/show(/(\\w+))?"])
-    return @"MapShowController";
-  
-  if ([url matches: @"^/(\\w+)/show(/(\\w+))?"])
-    return _.join($1.camelizeWord, "ShowController");
-
-  if ([url matches: @"^/(\\w+)/full(/(\\w+))?"])
-    return _.join($1.camelizeWord, "FullController");
-  
-  if ([url matches: @"^/(\\w+)"])
-    return _.join($1.camelizeWord, "Controller");
-
-  return nil;
+  NSString *className = _.join([parts get:1], [parts get:2], "Controller");
+  return className.to_class;
 }
   
 -(UIViewController*)controllerForURL: (NSString*)url
 {
-  NSString* nibName = [self nibNameForURL: url];
-  NSString *className = nibName ? nibName : [self controllerClassNameForURL: url];
-  
-  if(!className)
-    _.raise("Cannot find controller class name for URL ", url);
-  
-  Class klass = NSClassFromString(className);
-  if(!klass)
-    _.raise("Cannot find controller class name for URL ", url);
-
-  UIViewController* vc = !nibName ? [[klass alloc]init] : 
-    [[klass alloc]initWithNibName:nibName bundle:nil];
+  Class klass = [self controllerClassForURL: url];
+  UIViewController* vc = [[klass alloc]init];
   
   vc.url = url;
 

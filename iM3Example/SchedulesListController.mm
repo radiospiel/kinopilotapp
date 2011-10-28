@@ -3,16 +3,6 @@
 
 @implementation SchedulesListController
 
--(NSDictionary*)parameters
-{
-  if([self.url matches: @"/schedules/list\\?theater_id=(.*)&movie_id=(.*)"]) 
-    return _.hash(@"theater_id", $1, @"movie_id", $2);
-  else if([self.url matches: @"/schedules/list\\?movie_id=(.*)&theater_id=(.*)"]) 
-    return _.hash(@"movie_id", $1, @"theater_id", $2);
-  
-  return nil;
-}
-
 -(NSString*)title
 {
   return nil;
@@ -25,7 +15,7 @@
 
 -(NSString*)theater_id
 {
-  return [[self parameters] objectForKey: @"theater_id"];
+  return [self.url.to_url.params objectForKey: @"theater_id"];
 }
 
 -(NSDictionary*)movie
@@ -35,7 +25,7 @@
 
 -(NSString*)movie_id
 {
-  return [[self parameters] objectForKey: @"movie_id"];
+  return [self.url.to_url.params objectForKey: @"movie_id"];
 }
 
 -(UIView*) headerView
@@ -155,8 +145,7 @@
 
 -(NSString*)schedule_id
 {
-  [self.url matches: @"/schedules/show\\?schedule_id=(.*)"];
-  return $1;
+  return [self.url.to_url param: @"schedule_id"];
 }
 
 -(NSString*)title

@@ -118,8 +118,7 @@
 
 -(NSString*) movie_id
 {
-  if(![self.url matches: @"/theaters/list\\?movie_id=(.*)"]) return nil;
-  return $1;
+  return [self.url.to_url param: @"movie_id"];
 }
 
 -(UIView*) headerView
@@ -196,12 +195,15 @@
 
 -(void)loadFromUrl:(NSString*)url
 {
-  if(!url)
+  if(!url) {
     self.dataSource = nil;
-  else if([url matches: @"/theaters/list\\?movie_id=(.*)"])
-    self.dataSource = [M3DataSource theatersListFilteredByMovie:$1]; 
-  else
-    self.dataSource = [M3DataSource theatersList];
+    return;
+  }
+
+  NSString* movie_id = [url.to_url param: @"movie_id"];
+    
+  self.dataSource = !movie_id ? [M3DataSource theatersList] :
+    [M3DataSource theatersListFilteredByMovie:movie_id];
   
   self.tableView.tableHeaderView = [self headerView];
 }

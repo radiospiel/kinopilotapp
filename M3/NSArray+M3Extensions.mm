@@ -38,20 +38,22 @@
 
 -(id) first
 {
-  if(self.count < 1) return nil;
-  return [self objectAtIndex: 0];
+  return [self get: 0];
 }
 
 -(id) second
 {
-  if(self.count < 2) return nil;
-  return [self objectAtIndex: 1];
+  return [self get: 1];
 }
 
 -(id) last
 {
-  if(self.count < 1) return nil;
-  return [self objectAtIndex: (self.count - 1)];
+  return [self get: self.count - 1];
+}
+
+-(id) get: (NSUInteger)idx 
+{
+  return idx >= self.count ? nil : [self objectAtIndex: idx];
 }
 
 -(NSArray*) uniq

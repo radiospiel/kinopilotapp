@@ -246,10 +246,8 @@
 
 -(void)loadFromUrl:(NSString *)url
 {
-  if([url matches:@"/movies/show\\?movie_id=(.*)"]) {
-    NSString* movie_id = $1;
-    self.dataSource = [[[MoviesFullControllerDataSource alloc]initWithMovieId: movie_id]autorelease];
-  }
+  NSString* movie_id = [url.to_url param: @"movie_id"];
+  self.dataSource = [[[MoviesFullControllerDataSource alloc]initWithMovieId: movie_id]autorelease];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

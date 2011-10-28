@@ -134,10 +134,7 @@
 
 -(NSString*)theater_id
 {
-  if(!self.url) return nil;
-  
-  [self.url matches: @"/movies/list\\?theater_id=(.*)"];
-  return $1;
+  return [self.url.to_url.params objectForKey:@"theater_id"];
 }
 
 -(UIView*) headerView
@@ -202,15 +199,20 @@
 
 -(void)loadFromUrl:(NSString *)url
 {
-  if(!url)
+  if(!url) {
     self.dataSource = nil;
-  else if([self.url matches: @"/movies/list\\?theater_id=(.*)"])
-    self.dataSource = [M3DataSource moviesListFilteredByTheater:$1]; 
-  else if([self.url matches: @"/movies/list\\?filter=(.*)"])
-    self.dataSource = [M3DataSource moviesListWithFilter: $1];
-  else
-    self.dataSource = [M3DataSource moviesListWithFilter: @"new"];
-  
+    return;
+  }
+
+  NSDictionary* params = url.to_url.params;
+
+  if([params objectForKey: @"theater_id"])
+    self.dataSource = [M3DataSource moviesListFilteredByTheater:[params objectForKey: @"theater_id"]]; 
+  else {
+    NSString* filter = [params objectForKey: @"filter"];
+    self.dataSource = [M3DataSource moviesListWithFilter: (filter ? filter : @"new")];
+  }
+
   self.tableView.tableHeaderView = [self headerView];
 }
 

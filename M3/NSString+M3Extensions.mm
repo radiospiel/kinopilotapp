@@ -83,17 +83,12 @@
   return [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
--(NSURL*)to_url
-{
-  return [NSURL URLWithString:self];
-}
-
 -(SEL)to_sym
 {
   return NSSelectorFromString(self);
 }
 
--(NSString*)to_class
+-(Class)to_class
 {
   Class klass = NSClassFromString(self);
   if(!klass)
@@ -103,14 +98,6 @@
 }
 
 @end
-
-@implementation NSURL(M3Extensions)
--(NSURL*)to_url
-{ 
-  return self; 
-}
-@end
-
 
 ETest(NSStringM3Extensions)
 

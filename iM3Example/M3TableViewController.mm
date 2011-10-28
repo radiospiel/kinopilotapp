@@ -60,7 +60,6 @@
   
   // If we are running in the simulator and it's the DEBUG target
   // then simulate a memory warning. 
-  dlog << "*** simulateMemoryWarning";
     
   CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), 
                                        (CFStringRef)@"UISimulatedMemoryWarningNotification", 

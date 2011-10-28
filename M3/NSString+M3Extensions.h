@@ -41,17 +41,10 @@
 @property (readonly,nonatomic,retain) NSString* urlUnescape;
 -(NSString*)urlUnescape;
 
-@property (readonly,nonatomic,retain) NSURL* to_url;
--(NSURL*)to_url;
-
 @property (readonly,nonatomic,assign) SEL to_sym;
 -(SEL)to_sym;
 
-@property (readonly,nonatomic,assign) NSString* to_class;
--(NSString*)to_class;
+@property (readonly,nonatomic,assign) Class to_class;
+-(Class)to_class;
 
-@end
-
-@interface NSURL(M3Extensions)
--(NSURL*)to_url;
 @end

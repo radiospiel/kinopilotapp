@@ -84,6 +84,10 @@
 		9D15A6B11446291400F17C91 /* UIViewController+Model.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D15A6AE1446291400F17C91 /* UIViewController+Model.h */; };
 		9D15A6B21446291400F17C91 /* UIViewController+Model.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D15A6AF1446291400F17C91 /* UIViewController+Model.mm */; };
 		9D15A6B31446291400F17C91 /* UIViewController+Model.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D15A6AF1446291400F17C91 /* UIViewController+Model.mm */; };
+		9D19E136145AD085003343C5 /* NSURL+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D19E134145AD085003343C5 /* NSURL+M3Extensions.h */; };
+		9D19E137145AD085003343C5 /* NSURL+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D19E134145AD085003343C5 /* NSURL+M3Extensions.h */; };
+		9D19E138145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D19E135145AD085003343C5 /* NSURL+M3Extensions.mm */; };
+		9D19E139145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D19E135145AD085003343C5 /* NSURL+M3Extensions.mm */; };
 		9D2BF7571450A1F40045C11C /* M3ListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D2BF7561450A1F40045C11C /* M3ListViewController.mm */; };
 		9D33FBCD1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */; };
 		9D33FBCE1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */; };
@@ -357,6 +361,8 @@
 		9D1438B0142B420E00123EC8 /* M3TableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewController.mm; sourceTree = "<group>"; };
 		9D15A6AE1446291400F17C91 /* UIViewController+Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Model.h"; sourceTree = "<group>"; };
 		9D15A6AF1446291400F17C91 /* UIViewController+Model.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIViewController+Model.mm"; sourceTree = "<group>"; };
+		9D19E134145AD085003343C5 /* NSURL+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+M3Extensions.h"; sourceTree = "<group>"; };
+		9D19E135145AD085003343C5 /* NSURL+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSURL+M3Extensions.mm"; sourceTree = "<group>"; };
 		9D2BF7551450A1F40045C11C /* M3ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3ListViewController.h; sourceTree = "<group>"; };
 		9D2BF7561450A1F40045C11C /* M3ListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3ListViewController.mm; sourceTree = "<group>"; };
 		9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Ivars.h"; sourceTree = "<group>"; };
@@ -972,16 +978,18 @@
 				9D9656B214177F9700884372 /* M3StopWatch.mm */,
 				9D0EF70E1413D1A60051B8FA /* NSArray+M3Extensions.h */,
 				9D0EF70F1413D1A60051B8FA /* NSArray+M3Extensions.mm */,
+				9D85437A142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.h */,
+				9D85437B142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m */,
 				9DA5DD46143276D00003B54A /* NSDate+M3Extensions.h */,
 				9DA5DD47143276D00003B54A /* NSDate+M3Extensions.mm */,
 				9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */,
 				9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */,
-				9D85437A142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.h */,
-				9D85437B142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m */,
 				9D3563171423F7AA002AAEAF /* NSString+M3Extensions.h */,
 				9D35631A1423F887002AAEAF /* NSString+M3Extensions.mm */,
 				9D0EF7101413D1A60051B8FA /* NSString+Regexp.h */,
 				9D0EF7111413D1A60051B8FA /* NSString+Regexp.m */,
+				9D19E134145AD085003343C5 /* NSURL+M3Extensions.h */,
+				9D19E135145AD085003343C5 /* NSURL+M3Extensions.mm */,
 				9D594A7D143D027C00A4CED4 /* UIButton+ActionButton.h */,
 				9D594A7E143D027C00A4CED4 /* UIButton+ActionButton.mm */,
 				9D9D3189142C6E9800C8269A /* UIColor+M3Extensions.h */,
@@ -1052,6 +1060,7 @@
 				9DBCDDFD1440B55A0020EA1F /* M3CachedFactory.h in Headers */,
 				9D15A6B11446291400F17C91 /* UIViewController+Model.h in Headers */,
 				9DD6431D144E23840042EE57 /* M3+Image.h in Headers */,
+				9D19E137145AD085003343C5 /* NSURL+M3Extensions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1101,6 +1110,7 @@
 				9DBCDDFC1440B55A0020EA1F /* M3CachedFactory.h in Headers */,
 				9D15A6B01446291400F17C91 /* UIViewController+Model.h in Headers */,
 				9DD6431C144E23840042EE57 /* M3+Image.h in Headers */,
+				9D19E136145AD085003343C5 /* NSURL+M3Extensions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1422,6 +1432,7 @@
 				9DBCDDF6144095390020EA1F /* M3-Internals.m in Sources */,
 				9D15A6B31446291400F17C91 /* UIViewController+Model.mm in Sources */,
 				9DD6431F144E23840042EE57 /* M3+Image.mm in Sources */,
+				9D19E139145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1521,6 +1532,7 @@
 				9DBCDDF5144095390020EA1F /* M3-Internals.m in Sources */,
 				9D15A6B21446291400F17C91 /* UIViewController+Model.mm in Sources */,
 				9DD6431E144E23840042EE57 /* M3+Image.mm in Sources */,
+				9D19E138145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

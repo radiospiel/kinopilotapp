@@ -10,6 +10,7 @@
 @interface NSArray (M3Extensions)
 
 @property (readonly,nonatomic,retain) id first;
+@property (readonly,nonatomic,retain) id second;
 @property (readonly,nonatomic,retain) id last;
 
 -(id) first;
@@ -17,9 +18,9 @@
 -(id) last;
 
 @property (readonly,nonatomic,retain) NSArray* uniq;
-
 -(NSArray*) uniq;
 
+-(id) get: (NSUInteger)idx;
 
 /** 
   This method assumes the array is an array of dictionaries. It then fetches 

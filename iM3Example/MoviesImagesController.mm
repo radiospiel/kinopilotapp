@@ -168,8 +168,7 @@
 
 - (void)loadFromUrl:(NSString *)url
 {
-  [url matches:@"/movies/images/(.*)"];
-  NSString* movie_id = $1;
+  NSString* movie_id = [url.to_url param: @"movie_id"]; 
 
   NSDictionary* movie = [app.chairDB.movies get: movie_id];
   NSArray* images = [movie objectForKey:@"images"];

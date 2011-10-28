@@ -16,11 +16,13 @@
 @interface M3: NSObject
 @end
 
+#import "NSObject+Ivars.h"
+
 #import "NSString+M3Extensions.h"
 #import "NSArray+M3Extensions.h"
 #import "NSDate+M3Extensions.h"
 #import "NSString+Regexp.h"
-#import "NSObject+Ivars.h"
+#import "NSURL+M3Extensions.h"
 
 #import "M3+Caller.h"
 #import "M3+Comparison.h"

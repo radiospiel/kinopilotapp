@@ -118,7 +118,7 @@
     }
   }
   
-  [self.imageView onTapOpen: _.join(@"/movies/images/", [movie objectForKey:@"_uid"]) ];
+  [self.imageView onTapOpen: _.join(@"/movies/images?movie_id=", [movie objectForKey:@"_uid"]) ];
 }
 
 -(void)layoutSubviews
