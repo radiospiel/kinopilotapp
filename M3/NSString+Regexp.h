@@ -3,6 +3,8 @@
 - (NSString*) gsub:  (NSString*) regexp with: (NSString*) tmpl;
 - (NSString*) igsub: (NSString*) regexp with: (NSString*) tmpl;
 
+-(NSString*) interpolate: (NSDictionary*) values;
+
 - (NSArray*) matches: (NSString*)regexp;
 - (NSArray*) imatches:(NSString*)regexp;
 
