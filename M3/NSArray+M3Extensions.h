@@ -55,6 +55,9 @@
 -(NSMutableArray*) selectUsingSelector: (SEL)selector;
 -(NSMutableArray*) selectUsingBlock: (BOOL (^)(id obj))block;
 
+-(id) detectUsingSelector: (SEL)selector;
+-(id) detectUsingBlock: (BOOL (^)(id obj))block;
+
 @end
 
 @interface NSDictionary (M3Extensions)

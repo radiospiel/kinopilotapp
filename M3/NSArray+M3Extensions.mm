@@ -240,6 +240,24 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
   return array;
 }
 
+-(id) detectUsingSelector: (SEL)selector
+{
+  for(id obj in self) {
+    if([obj performSelector:selector]) return obj;
+  }
+  
+  return nil;
+}
+
+-(id) detectUsingBlock: (BOOL (^)(id obj))block
+{
+  for(id obj in self) {
+    if(block(obj)) return obj;
+  }
+  
+  return nil;
+}
+
 @end
 
 @implementation NSDictionary(M3Extensions)
