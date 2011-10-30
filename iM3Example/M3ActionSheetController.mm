@@ -45,14 +45,17 @@
   [[self actionSheet] showInView:view];
 }
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-  NSString* label = [actionSheet buttonTitleAtIndex:buttonIndex];
-
+-(void)openAction:(NSString*)label
+{
   NSArray* action = [self.actions detectUsingBlock:^BOOL(NSArray* obj) {
     return [label isEqualToString:obj.first];
   }];
-
+  
   [app open: action.second];
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+  [self openAction: [actionSheet buttonTitleAtIndex:buttonIndex]];
 }
 
 @end

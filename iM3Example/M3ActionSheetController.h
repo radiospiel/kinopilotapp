@@ -10,5 +10,6 @@
 -(UIActionSheet*) actionSheet;
 
 -(void)showOnTopOfView:(UIView*)view;
+-(void)openAction:(NSString*)label;
 
 @end
