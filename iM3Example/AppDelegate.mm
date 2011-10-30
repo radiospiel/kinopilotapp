@@ -52,6 +52,79 @@ AppDelegate* app;
   return [[UIApplication sharedApplication] canOpenURL:url.to_url];
 }
 
+
+// Opening an application action?
+-(BOOL)openActionURL: (NSString*)url 
+{
+  if(![url matches: @"^app:(.*)"]) return NO;
+
+  [self executeAction: $1];
+  return YES;
+}
+
+// Opening an application action?
+-(BOOL)openExternalURL: (NSString*)url 
+{
+  if(![url matches: @"^([-a-z]+):"]) return NO;
+
+  if(![self canOpen: url]) {
+    dlog << "Cannot open URL " << url;
+    return NO;
+  }
+
+  // Adjust mailto URLs
+  if([url matches: @"^mailto:(.*)"]) {
+    url = [NSString stringWithFormat: @"mailto:?to=%@&subject=%@&body=%@",
+            [$1 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+            @"Subject", @"Body" ];
+  }
+
+  [[UIApplication sharedApplication] openURL: url.to_url];
+  return YES;
+}
+
+// Open internal URLs inside application.
+-(BOOL)openInternalURL: (NSString*)url 
+{
+  UIViewController* vc = [[self router] controllerForURL: url];
+  if(!vc) return NO;
+
+  // Get top-most controller.
+  UINavigationController* nc;
+  if(!self.tabBarController) {
+    nc = (UINavigationController*)self.window.rootViewController;
+  }
+  else {
+    nc = (UINavigationController*) self.tabBarController.selectedViewController;
+    if(!nc)
+      nc = (UINavigationController*) [self.tabBarController.viewControllers objectAtIndex:0];
+  }
+  
+  M3AssertKindOf(nc, UINavigationController);
+  [nc.navigationBar setBarStyle:UIBarStyleBlack];
+
+  // viewmode
+  if([url matches: @"/schedules/show"]) {
+    dlog << "schedules show: " << vc;
+    [vc retain];
+    [vc showOnTopOfView: nc.view]; 
+    return YES;
+  }  
+
+    
+  if(NO) { // [vc shouldOpenModally]) {
+    vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    // vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    // vc.modalTransitionStyle = UIModalTransitionStylePartialCurl;
+    [nc presentModalViewController:vc animated:YES];
+  }
+  else {
+    [nc pushViewController:vc animated:YES];
+  }
+
+  return YES;
+}
+
 /*
  * "opens" the URL.
  * 
@@ -65,57 +138,13 @@ AppDelegate* app;
   if(!url) return;
 
   rlog(1) << "open " << url;
-  
-  // Opening an application action?
-  if([url matches: @"^app:(.*)"]) {
-    [self executeAction: $1];
-    return;
-  }
-  
-  // Adjust mailto URLs
-  if([url matches: @"^mailto:(.*)"]) {
-    url = [NSString stringWithFormat: @"mailto:?to=%@&subject=%@&body=%@",
-            [$1 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
-            @"Subject", @"Body" ];
-  }
-  
-  // Open real URLs in external application
-  if([url matches: @"^([-a-z]+):"]) {
-    if(![self canOpen: url]) {
-      dlog << "Cannot open URL " << url;
-      return;
-    }
 
-    // test canOpenURL
-    [[UIApplication sharedApplication] openURL: url.to_url];
+  BOOL success = [self openActionURL: url] ||
+    [self openExternalURL: url] ||
+    [self openInternalURL: url];
 
-    return;
-  }
-
-  // Open internal URLs inside application.
-  UIViewController* vc = [[self router] controllerForURL: url];
-  if(!vc) return;
-  
-  UINavigationController* nc;
-  if(!self.tabBarController) {
-    nc = (UINavigationController*)self.window.rootViewController;
-  }
-  else {
-    nc = (UINavigationController*) self.tabBarController.selectedViewController;
-    if(!nc)
-      nc = (UINavigationController*) [self.tabBarController.viewControllers objectAtIndex:0];
-  }
-  
-  [nc.navigationBar setBarStyle:UIBarStyleBlack];
-    
-  if(NO) { // [vc shouldOpenModally]) {
-    vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    // vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    // vc.modalTransitionStyle = UIModalTransitionStylePartialCurl;
-    [nc presentModalViewController:vc animated:YES];
-  }
-  else {
-    [nc pushViewController:vc animated:YES];
+  if(!success) {
+    dlog << "Cannot open " << url;
   }
 }
 
