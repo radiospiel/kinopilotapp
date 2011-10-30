@@ -15,17 +15,23 @@
   
 -(UIViewController*)controllerForURL: (NSString*)url
 {
-  Class klass = [self controllerClassForURL: url];
-  UIViewController* vc = [[klass alloc]init];
-  
-  vc.url = url;
+  @try {
+    Class klass = [self controllerClassForURL: url];
+    UIViewController* vc = [[klass alloc]init];
+    
+    vc.url = url;
 
-  // TODO:
-  //
-  // get landscape view controller for URL and Data
-  // merge landscape view controller with portrait view controller 
+    // TODO:
+    //
+    // get landscape view controller for URL and Data
+    // merge landscape view controller with portrait view controller 
 
-  return [vc autorelease];
+    return [vc autorelease];
+  }
+  @catch(id exception) {
+    dlog << "controllerForURL: " << url << ": " << exception;
+    return nil;
+  }
 }
 
 @end
