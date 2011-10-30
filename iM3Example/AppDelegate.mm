@@ -16,10 +16,6 @@ AppDelegate* app;
 -(NSString*) withVersionString: (NSString*)versionString;
 {
   if(!versionString) return self;
-  
-  versionString = versionString.uppercaseString;
-  versionString = [versionString stringByReplacingOccurrencesOfString:@"OMU" withString:@"OmU"];
-  
   return [self stringByAppendingFormat:@" (%@)", versionString];
 }
 
