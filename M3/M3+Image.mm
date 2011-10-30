@@ -48,11 +48,13 @@ static const char* sencha_format = "jpg70";
   
   if(enabled_sencha == M3SenchaSupportLarge && (w+h) < 200) return url;
   
+#if TARGET_OS_IPHONE
   if(sencha_retina_display && [[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
     w = w * [UIScreen mainScreen].scale; 
     h = h * [UIScreen mainScreen].scale;
   }
-
+#endif
+  
   NSString* shard = @"";
   return [NSString stringWithFormat: @"http://src%@.sencha.io/%s/%d/%d/%@", shard, sencha_format, w, h, url];
 }
