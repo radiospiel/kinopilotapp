@@ -121,6 +121,10 @@
 		9D48ACF3141E9E3F00D0D000 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D48ACF1141E9E3F00D0D000 /* InfoPlist.strings */; };
 		9D48ACF6141E9E3F00D0D000 /* iM3ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D48ACF5141E9E3F00D0D000 /* iM3ExampleTests.m */; };
 		9D48ACFE141EAB5A00D0D000 /* libiM3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01742A141AA6F10035A4C2 /* libiM3.a */; };
+		9D4B7018145D5ECB00F1DBCE /* SchedulesShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D4B7017145D5ECB00F1DBCE /* SchedulesShowController.mm */; };
+		9D4B701C145D734B00F1DBCE /* M3ActionSheetController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D4B701B145D734B00F1DBCE /* M3ActionSheetController.mm */; };
+		9D4B701E145D7A6400F1DBCE /* invitation_mail.html in Resources */ = {isa = PBXBuildFile; fileRef = 9D4B701D145D7A6400F1DBCE /* invitation_mail.html */; };
+		9D4B7020145D92E800F1DBCE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D4B701F145D92E800F1DBCE /* MessageUI.framework */; };
 		9D56161B142641A300D0A484 /* background-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D561574142641A300D0A484 /* background-dark.png */; };
 		9D56161C142641A300D0A484 /* background-light.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D561575142641A300D0A484 /* background-light.png */; };
 		9D56161D142641A300D0A484 /* background-striped.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D561576142641A300D0A484 /* background-striped.png */; };
@@ -392,6 +396,12 @@
 		9D48ACF2141E9E3F00D0D000 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9D48ACF4141E9E3F00D0D000 /* iM3ExampleTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iM3ExampleTests.h; sourceTree = "<group>"; };
 		9D48ACF5141E9E3F00D0D000 /* iM3ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iM3ExampleTests.m; sourceTree = "<group>"; };
+		9D4B7016145D5ECB00F1DBCE /* SchedulesShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchedulesShowController.h; sourceTree = "<group>"; };
+		9D4B7017145D5ECB00F1DBCE /* SchedulesShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SchedulesShowController.mm; sourceTree = "<group>"; };
+		9D4B701A145D734B00F1DBCE /* M3ActionSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3ActionSheetController.h; sourceTree = "<group>"; };
+		9D4B701B145D734B00F1DBCE /* M3ActionSheetController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3ActionSheetController.mm; sourceTree = "<group>"; };
+		9D4B701D145D7A6400F1DBCE /* invitation_mail.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = invitation_mail.html; sourceTree = "<group>"; };
+		9D4B701F145D92E800F1DBCE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
 		9D561574142641A300D0A484 /* background-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-dark.png"; sourceTree = "<group>"; };
 		9D561575142641A300D0A484 /* background-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-light.png"; sourceTree = "<group>"; };
 		9D561576142641A300D0A484 /* background-striped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-striped.png"; sourceTree = "<group>"; };
@@ -569,6 +579,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D4B7020145D92E800F1DBCE /* MessageUI.framework in Frameworks */,
 				9D10C37D143774A800FE19C9 /* MapKit.framework in Frameworks */,
 				9DD2ED851435F0F70078AD6A /* CoreLocation.framework in Frameworks */,
 				9DDE1B7C1430946B00FDF9C5 /* iAd.framework in Frameworks */,
@@ -716,6 +727,8 @@
 				9DAA0D27142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm */,
 				9D0893AE14542C2400F64AC1 /* DashboardController.h */,
 				9D0893AF14542C2400F64AC1 /* DashboardController.mm */,
+				9D4B701A145D734B00F1DBCE /* M3ActionSheetController.h */,
+				9D4B701B145D734B00F1DBCE /* M3ActionSheetController.mm */,
 				9D2BF7551450A1F40045C11C /* M3ListViewController.h */,
 				9D2BF7561450A1F40045C11C /* M3ListViewController.mm */,
 				9D5D32C31448AA2900A4BA9F /* M3Router.h */,
@@ -748,6 +761,8 @@
 				9DDF5D061431F74C001CAC28 /* MovieShortInfoCell.mm */,
 				9D0893A01452F6C600F64AC1 /* SchedulesListController.h */,
 				9D0893A11452F6C600F64AC1 /* SchedulesListController.mm */,
+				9D4B7016145D5ECB00F1DBCE /* SchedulesShowController.h */,
+				9D4B7017145D5ECB00F1DBCE /* SchedulesShowController.mm */,
 				9DC682BB142CBF2200124E9A /* TheatersListController.h */,
 				9DC682BC142CBF2200124E9A /* TheatersListController.mm */,
 				9DC1E75E1435C145009B41A5 /* VicinityShowController.h */,
@@ -801,6 +816,7 @@
 		9D5614F0142641A300D0A484 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				9D4B701D145D7A6400F1DBCE /* invitation_mail.html */,
 				9D561573142641A300D0A484 /* images */,
 				9D561594142641A300D0A484 /* static */,
 			);
@@ -871,6 +887,7 @@
 		9D8B8AE01413CA8B0066ECBB = {
 			isa = PBXGroup;
 			children = (
+				9D4B701F145D92E800F1DBCE /* MessageUI.framework */,
 				9D0893A9145351AB00F64AC1 /* berlin.png */,
 				9D0893AA145351AB00F64AC1 /* cinemas.png */,
 				9D0893AB145351AB00F64AC1 /* movies.png */,
@@ -1325,6 +1342,7 @@
 				9D10C37B1437728300FE19C9 /* MapShowController.xib in Resources */,
 				9DEB834A1444E5280075F65A /* close.png in Resources */,
 				9D0893AD145429AF00F64AC1 /* traffic.png in Resources */,
+				9D4B701E145D7A6400F1DBCE /* invitation_mail.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1481,6 +1499,8 @@
 				9D0893A21452F6C600F64AC1 /* SchedulesListController.mm in Sources */,
 				9D0893B014542C2500F64AC1 /* DashboardController.mm in Sources */,
 				9D19E166145B0188003343C5 /* M3TableViewController+AdSupport.mm in Sources */,
+				9D4B7018145D5ECB00F1DBCE /* SchedulesShowController.mm in Sources */,
+				9D4B701C145D734B00F1DBCE /* M3ActionSheetController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
