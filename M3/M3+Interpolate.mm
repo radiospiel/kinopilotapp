@@ -1,7 +1,7 @@
 #import "M3.h"
 
 
-@interface M3Interpolation
+@interface M3Interpolation: NSObject
 @end
 
 @implementation M3Interpolation

@@ -89,6 +89,11 @@ AppDelegate* app;
   UIViewController* vc = [[self router] controllerForURL: url];
   if(!vc) return NO;
 
+  if([vc respondsToSelector:@selector(doShow)]) {
+    [vc performSelector:@selector(doShow)];
+    return YES;
+  }
+
   // Get top-most controller.
   UINavigationController* nc;
   if(!self.tabBarController) {
@@ -111,7 +116,6 @@ AppDelegate* app;
     return YES;
   }  
 
-    
   if(NO) { // [vc shouldOpenModally]) {
     vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     // vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
