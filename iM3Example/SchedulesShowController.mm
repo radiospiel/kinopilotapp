@@ -19,8 +19,8 @@
                   [theater objectForKey: @"name"]
                 ];
 
-  [self addAction:@"Twitter"  withURL: _.join(@"/share/twitter?schedule_id=", schedule_id)];
-  [self addAction:@"Facebook" withURL: _.join(@"/share/facebook?schedule_id=", schedule_id)];
+  // [self addAction:@"Twitter"  withURL: _.join(@"/share/twitter?schedule_id=", schedule_id)];
+  // [self addAction:@"Facebook" withURL: _.join(@"/share/facebook?schedule_id=", schedule_id)];
   [self addAction:@"Email"    withURL: _.join(@"/share/email?schedule_id=", schedule_id)];
   [self addAction:@"Kalender" withURL: _.join(@"/share/calendar?schedule_id=", schedule_id)];
 }

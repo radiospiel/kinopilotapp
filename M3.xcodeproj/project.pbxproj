@@ -247,6 +247,7 @@
 		9DACE1BB145F3C5700372415 /* M3+Interpolate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DACE1B9145F3C5700372415 /* M3+Interpolate.mm */; };
 		9DACE1BF145F48B600372415 /* ShareController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DACE1BE145F48B600372415 /* ShareController.mm */; };
 		9DACE1C0145F4BAA00372415 /* M3+Interpolate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DACE1B9145F3C5700372415 /* M3+Interpolate.mm */; };
+		9DACE1C2145F532300372415 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DACE1C1145F532300372415 /* EventKit.framework */; };
 		9DBCDDEE1440919B0020EA1F /* M3CachedFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBCDDED1440919B0020EA1F /* M3CachedFactory.m */; };
 		9DBCDDEF1440919B0020EA1F /* M3CachedFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBCDDED1440919B0020EA1F /* M3CachedFactory.m */; };
 		9DBCDDF2144094290020EA1F /* M3-Internals.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DBCDDF1144094290020EA1F /* M3-Internals.h */; };
@@ -526,6 +527,7 @@
 		9DACE1B9145F3C5700372415 /* M3+Interpolate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+Interpolate.mm"; sourceTree = "<group>"; };
 		9DACE1BD145F48B600372415 /* ShareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareController.h; sourceTree = "<group>"; };
 		9DACE1BE145F48B600372415 /* ShareController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShareController.mm; sourceTree = "<group>"; };
+		9DACE1C1145F532300372415 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/EventKit.framework; sourceTree = DEVELOPER_DIR; };
 		9DBCDDED1440919B0020EA1F /* M3CachedFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3CachedFactory.m; sourceTree = "<group>"; };
 		9DBCDDF1144094290020EA1F /* M3-Internals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3-Internals.h"; sourceTree = "<group>"; };
 		9DBCDDF4144095390020EA1F /* M3-Internals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "M3-Internals.m"; sourceTree = "<group>"; };
@@ -587,6 +589,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DACE1C2145F532300372415 /* EventKit.framework in Frameworks */,
 				9D4B7020145D92E800F1DBCE /* MessageUI.framework in Frameworks */,
 				9D10C37D143774A800FE19C9 /* MapKit.framework in Frameworks */,
 				9DD2ED851435F0F70078AD6A /* CoreLocation.framework in Frameworks */,
@@ -897,6 +900,7 @@
 		9D8B8AE01413CA8B0066ECBB = {
 			isa = PBXGroup;
 			children = (
+				9DACE1C1145F532300372415 /* EventKit.framework */,
 				9D4B701F145D92E800F1DBCE /* MessageUI.framework */,
 				9D0893A9145351AB00F64AC1 /* berlin.png */,
 				9D0893AA145351AB00F64AC1 /* cinemas.png */,

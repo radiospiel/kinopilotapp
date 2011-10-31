@@ -4,13 +4,13 @@
 -(void)email;
 @end
 
-@interface ShareController(Twitter)
--(void)twitter;
-@end
-
-@interface ShareController(Facebook)
--(void)facebook;
-@end
+//@interface ShareController(Twitter)
+//-(void)twitter;
+//@end
+//
+//@interface ShareController(Facebook)
+//-(void)facebook;
+//@end
 
 @interface ShareController(Calendar)
 -(void)calendar;
@@ -136,31 +136,60 @@
 }
 
 @end
+//
+//
+//@implementation ShareController(Twitter)
+//
+//-(void)twitter
+//{
+//  
+//}
+//
+//@end
+//
+//@implementation ShareController(Facebook)
+//
+//-(void)facebook
+//{
+//  
+//}
+//
+//@end
 
-
-@implementation ShareController(Twitter)
-
--(void)twitter
-{
-  
-}
-
-@end
-
-@implementation ShareController(Facebook)
-
--(void)facebook
-{
-  
-}
-
-@end
+#import <EventKit/EventKit.h>
 
 @implementation ShareController(Calendar)
 
 -(void)calendar
 {
+  NSNumber* time = [self.schedule objectForKey: @"time"];
+  NSNumber* runtime = [self.movie objectForKey: @"runtime"];
+  NSTimeInterval runtimeInSecs = runtime ? [runtime intValue] * 60 : 90 * 60;
   
+
+  EKEventStore *eventDB = [[[EKEventStore alloc] init]autorelease];
+  EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
+
+  myEvent.title     = [self.movie objectForKey:@"title"];
+  myEvent.startDate = time.to_date;
+  myEvent.endDate   = [myEvent.startDate dateByAddingTimeInterval: runtimeInSecs + 30 * 60];
+  myEvent.location  = [self.theater objectForKey:@"name"];
+
+  [myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
+
+  NSError *err;
+  [eventDB saveEvent:myEvent span:EKSpanThisEvent error:&err]; 
+
+  if (!err) {
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle: nil //, @"Die Aufführung wurde in Deinen Kalender aufgenommen"
+      message:@"Die Aufführung wurde in Deinen Kalender eingetragen"
+      delegate:nil
+      cancelButtonTitle:@"Schließen"
+      otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+  }
 }
 
 @end
