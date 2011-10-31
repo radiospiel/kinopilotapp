@@ -4,6 +4,8 @@
     {
       "nurl": "/movies/list?theater_id=adriafilmtheat|2487JHMKNoY",
       "url": "/dashboard",
+      "nurl": "/schedules/show?schedule_id=LM9xtAgl0VY",
+      "nurl": "/schedules/list?important=movie&theater_id=adriafilmtheat|2487JHMKNoY&movie_id=dreiviertelmon|7v1rGV0J82o",
       "label": "Jetzt",
       "ntitle": "Was läuft jetzt?",
       "icon": "tab_tage.png"
