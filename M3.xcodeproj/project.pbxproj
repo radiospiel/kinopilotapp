@@ -243,6 +243,8 @@
 		9DA5DD4A143276D00003B54A /* NSDate+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA5DD47143276D00003B54A /* NSDate+M3Extensions.mm */; };
 		9DA5DD4B143276D00003B54A /* NSDate+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA5DD47143276D00003B54A /* NSDate+M3Extensions.mm */; };
 		9DAA0D28142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA0D27142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm */; };
+		9DACE1BA145F3C5700372415 /* M3+Interpolate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DACE1B8145F3C5700372415 /* M3+Interpolate.h */; };
+		9DACE1BB145F3C5700372415 /* M3+Interpolate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DACE1B9145F3C5700372415 /* M3+Interpolate.mm */; };
 		9DBCDDEE1440919B0020EA1F /* M3CachedFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBCDDED1440919B0020EA1F /* M3CachedFactory.m */; };
 		9DBCDDEF1440919B0020EA1F /* M3CachedFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBCDDED1440919B0020EA1F /* M3CachedFactory.m */; };
 		9DBCDDF2144094290020EA1F /* M3-Internals.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DBCDDF1144094290020EA1F /* M3-Internals.h */; };
@@ -518,6 +520,8 @@
 		9DA5DD47143276D00003B54A /* NSDate+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSDate+M3Extensions.mm"; sourceTree = "<group>"; };
 		9DAA0D26142AA6EC001F11C1 /* ChairDatabase+IM3Example.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ChairDatabase+IM3Example.h"; sourceTree = "<group>"; };
 		9DAA0D27142AA6EC001F11C1 /* ChairDatabase+IM3Example.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "ChairDatabase+IM3Example.mm"; sourceTree = "<group>"; };
+		9DACE1B8145F3C5700372415 /* M3+Interpolate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Interpolate.h"; sourceTree = "<group>"; };
+		9DACE1B9145F3C5700372415 /* M3+Interpolate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+Interpolate.mm"; sourceTree = "<group>"; };
 		9DBCDDED1440919B0020EA1F /* M3CachedFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3CachedFactory.m; sourceTree = "<group>"; };
 		9DBCDDF1144094290020EA1F /* M3-Internals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3-Internals.h"; sourceTree = "<group>"; };
 		9DBCDDF4144095390020EA1F /* M3-Internals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "M3-Internals.m"; sourceTree = "<group>"; };
@@ -976,6 +980,8 @@
 				9D750E90142275750056290E /* M3+Inflector.mm */,
 				9D3B086B142A255000322C00 /* M3+Inspect.h */,
 				9D3B086C142A255000322C00 /* M3+Inspect.mm */,
+				9DACE1B8145F3C5700372415 /* M3+Interpolate.h */,
+				9DACE1B9145F3C5700372415 /* M3+Interpolate.mm */,
 				9D8B8B211413CAD90066ECBB /* M3+JSON.h */,
 				9D8B8B221413CAD90066ECBB /* M3+JSON.mm */,
 				9D3B0871142A3B7900322C00 /* M3+RuntimeError.h */,
@@ -1133,6 +1139,7 @@
 				9D15A6B01446291400F17C91 /* UIViewController+Model.h in Headers */,
 				9DD6431C144E23840042EE57 /* M3+Image.h in Headers */,
 				9D19E136145AD085003343C5 /* NSURL+M3Extensions.h in Headers */,
+				9DACE1BA145F3C5700372415 /* M3+Interpolate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1559,6 +1566,7 @@
 				9D15A6B21446291400F17C91 /* UIViewController+Model.mm in Sources */,
 				9DD6431E144E23840042EE57 /* M3+Image.mm in Sources */,
 				9D19E138145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */,
+				9DACE1BB145F3C5700372415 /* M3+Interpolate.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

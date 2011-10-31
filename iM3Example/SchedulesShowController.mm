@@ -50,11 +50,12 @@
 
   MFMailComposeViewController* mailCo = [[[MFMailComposeViewController alloc] init] autorelease];
   
-  [mailCo setSubject: [@"{{nice_time}}: {{movie.title}} im {{theater.name}}" interpolate: context]];
+  [mailCo setSubject: [M3 interpolateString: @"{{nice_time}}: {{movie.title}} im {{theater.name}}"
+                                 withValues: context]];
 
-  NSString* tmpl = [M3 read: @"$app/invitation_mail.html"];
-  
-  [mailCo setMessageBody: [tmpl interpolate: context] isHTML:YES]; 
+  [mailCo setMessageBody: [M3 interpolateFile: @"$app/invitation_mail.html"
+                                   withValues: context] 
+                  isHTML: YES]; 
   
   // -- show message composer.
   
