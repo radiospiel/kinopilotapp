@@ -18,10 +18,13 @@
 
 @property (nonatomic,assign) M3TableViewController* tableViewController;
 
-@property (nonatomic,retain) id key;
 @property (nonatomic,retain) NSIndexPath* indexPath;
 @property (nonatomic,retain) NSString* url;
+@property (nonatomic,retain) id key;
 
+/*
+ * The designated initialiser
+ */
 -(id)initWithStyle:(UITableViewCellStyle)style;
 
 /*
@@ -38,5 +41,9 @@
 +(CGFloat) fixedHeight;
 
 -(void)selectedCell;
+
+/* private ****************************************************************/
+
+-(void)prepareLayout;
 
 @end

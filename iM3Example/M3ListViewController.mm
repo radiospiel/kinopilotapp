@@ -26,7 +26,7 @@
   if(!text) return nil;
   
   UIView* header = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22)]autorelease];
-  header.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header-background-22.png"]]; 
+  header.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header-background-dark-22.png"]]; 
   
   UILabel * label = [[[UILabel alloc] initWithFrame:CGRectMake(7, 0, 308, 22)]autorelease];
   label.backgroundColor = [UIColor clearColor];

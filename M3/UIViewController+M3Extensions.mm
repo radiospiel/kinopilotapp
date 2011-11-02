@@ -1,9 +1,7 @@
 #import "M3.h"
-#import "UIViewController+Model.h"
+#import "UIViewController+M3Extensions.h"
 
-#if TARGET_OS_IPHONE 
-
-@implementation UIViewController(M3Properties)
+@implementation UIViewController(M3UrlExtensions)
 
 -(NSString*) url {
   return [ self instance_variable_get: @selector(m3_url) ];
@@ -34,17 +32,8 @@
   [ self instance_variable_set: @selector(m3_title) withValue: title ];
 };
 
-//-(NSDictionary*) model {
-//  return [ self instance_variable_get: @selector(m3_model) ];
-//};
-//
-//-(void) setModel: (NSDictionary*)title {
-//  [ self instance_variable_set: @selector(m3_model) withValue: title ];
-//};
-
 -(void)releaseM3Properties {
   [self instance_variable_set: @selector(m3_url) withValue: nil];
-  // self.url = nil would invoke loadFromUrl.
   self.title = nil;
 }
 
@@ -220,5 +209,3 @@
 }
 
 @end
-
-#endif

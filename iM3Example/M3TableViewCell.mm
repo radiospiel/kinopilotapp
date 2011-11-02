@@ -4,6 +4,13 @@
 
 @implementation M3TableViewCell
 
++(void)initialize
+{
+  M3Stylesheet* stylesheet = [self stylesheet];
+  [stylesheet setFont: [UIFont boldSystemFontOfSize:15] forKey:@"h2"];
+  [stylesheet setFont: [UIFont systemFontOfSize:13] forKey:@"details"];
+}
+
 @synthesize tableViewController=tableViewController_, 
             indexPath=indexPath_,
             key=key_,
@@ -12,12 +19,6 @@
 -(id)initWithStyle:(UITableViewCellStyle)style
 {
   self = [super initWithStyle:style reuseIdentifier: NSStringFromClass([self class])];
-  self.textLabel.font = [UIFont systemFontOfSize:13];
-  self.textLabel.numberOfLines = 0;
-
-  self.detailTextLabel.font = [UIFont systemFontOfSize:13];
-  self.detailTextLabel.numberOfLines = 0;
-
   return self;
 }
 
@@ -35,6 +36,17 @@
   [super dealloc];
 }
 
+-(void)prepareLayout
+{
+  M3AssertNotNil(self.tableViewController);
+  
+  self.textLabel.font = [self.stylesheet fontForKey:@"h2"];
+  self.textLabel.numberOfLines = 0;
+  
+  self.detailTextLabel.font = [self.stylesheet fontForKey:@"details"];
+  self.detailTextLabel.numberOfLines = 0;
+}
+
 - (CGFloat)wantsHeight
 { 
   _.raise(_.join(@"Implementation missing for ", [self class], "#wantsHeight")); 
@@ -44,7 +56,8 @@
 +(CGFloat) fixedHeight;
   { return 0; }
 
--(void)selectedCell {
+-(void)selectedCell 
+{
   if(self.url) [app open: self.url];
 }
 

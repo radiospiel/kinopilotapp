@@ -131,7 +131,9 @@
     M3AssertKindOf(cell, M3TableViewCell);
   }
   
-  cell.tableViewController = self.controller;
+  [cell setTableViewController: self.controller];
+  [cell prepareLayout];
+  
   cell.indexPath = indexPath;
   cell.key = [self keyForRowAtIndexPath: indexPath];
   

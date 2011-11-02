@@ -20,6 +20,12 @@
 
 @implementation InfoControllerCellOneValue
 
++(void)initialize
+{
+  M3Stylesheet* stylesheet = [self stylesheet];
+  [stylesheet setFont: [UIFont systemFontOfSize:14] forKey:@"h2"];
+}
+
 -(id)init
 {
   return [super initWithStyle: UITableViewCellStyleDefault];
@@ -60,28 +66,56 @@
 
 @implementation InfoControllerCellTwoValues
 
++(void)initialize
+{
+  M3Stylesheet* stylesheet = [self stylesheet];
+  [stylesheet setFont: [UIFont boldSystemFontOfSize:14] forKey:@"h2"];
+  [stylesheet setFont: [UIFont systemFontOfSize:14] forKey:@"details"];
+}
+
 -(id)init
-  { return [super initWithStyle: UITableViewCellStyleValue1]; }
+{ 
+  return [super initWithStyle: UITableViewCellStyleValue1]; 
+}
 
 +(CGFloat) fixedHeight;
-  { return 35; }
+{ 
+  return 35; 
+}
 
 -(void)setKey: (NSArray*)key
 {
   [super setKey: key];
   
   self.textLabel.text = key.first;
-  self.textLabel.font = [UIFont boldSystemFontOfSize:13];
+  self.textLabel.textAlignment = UITextAlignmentRight;
   
   NSString* text = [app infoForKey: key.last];
   if([key.last matches:@"(http://|https://|mailto:)(.*)"]) {
     [self.detailTextLabel onTapOpen: text];
     text = $2;
   }
+
+  self.detailTextLabel.textAlignment = UITextAlignmentLeft;
   self.detailTextLabel.text = text;
   self.detailTextLabel.textColor = [UIColor colorWithName: @"#385487"];
 }
 
+-(void)layoutSubviews
+{
+  [super layoutSubviews];
+  
+  CGRect frame;
+  
+  frame = self.textLabel.frame;
+  frame.size.width = 125;
+  self.textLabel.frame = frame;
+
+  frame = self.detailTextLabel.frame;
+  frame.origin.x = 155;
+  frame.size.width = 140;
+  self.detailTextLabel.frame = frame;
+}
 @end
 
 /*

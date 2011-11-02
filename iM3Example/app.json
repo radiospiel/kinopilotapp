@@ -39,8 +39,7 @@
         ["Aktualisiert",      "updated_at"],
         ["Kinos",             "theaters_count"],
         ["Filme",             "movies_count"],
-        ["Aufführungen",      "schedules_count"],
-        ["App Version",       "built_at"]
+        ["Aufführungen",      "schedules_count"]
       ]
     },
     {
@@ -60,7 +59,7 @@
       "header":  "Über Kinopilot",
       "content": [
         "Kinopilot.app is built using chair.DB – the database for mobile apps – and a custom framework for rapid iOS application development.",
-        ["Version",               "build_at"],
+        ["Version",               "built_at"],
         ["Umsetzung",             "http://socially.io"],
         ["Grafische Beratung",    "http://brettmeister.com"],
         ["chair.DB",              "https://github.com/radiospiel/chairdb"]

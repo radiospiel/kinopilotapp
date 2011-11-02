@@ -3,7 +3,7 @@
 /*
  * Custom properties on UIViewControllers.
  */
-@interface UIViewController(M3Properties)
+@interface UIViewController(M3UrlExtensions)
 
 @property (retain,nonatomic) NSString* url;
 @property (retain,nonatomic) NSString* title;
@@ -27,22 +27,33 @@
 
 @end
 
+
+@interface UIViewController(M3Extensions)
+
 /*
  * Setting the right button action.
  */
-@interface UIViewController(M3Extensions)
 
 -(void)setRightButtonWithTitle: (NSString*)title_or_image
                         target: (id)target
                         action: (SEL)action;
 
+/*
+ * Setting the right button action.
+ */
 -(void)setRightButtonWithTitle: (NSString*)title_or_image
                            url: (NSString*)url;
 
+/*
+ * Setting the right button action.
+ */
 -(void)setRightButtonWithSystemItem: (UIBarButtonSystemItem)systemItem
                              target: (id)target
                              action: (SEL)action;
 
+/*
+ * Setting the right button action.
+ */
 -(void)setRightButtonWithSystemItem: (UIBarButtonSystemItem)systemItem
                                 url: (NSString*)url;
 

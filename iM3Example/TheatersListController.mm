@@ -25,7 +25,6 @@
   NSDictionary* theater = [app.chairDB.theaters get: theater_id];
   theater = [app.chairDB adjustTheaters: theater];
   
-  // [self setStarred:YES];
   [self setText: [theater objectForKey: @"name"]];
 
   NSArray* movieIds = [app.chairDB movieIdsByTheaterId: theater_id];
@@ -55,6 +54,24 @@
 @end
 
 @implementation TheatersListFilteredByMovieCell
+
+static CGFloat textHeight = 0, detailTextHeight = 0;
+
++(void)initialize {
+  textHeight = [self.stylesheet fontForKey:@"h2"].lineHeight;
+  detailTextHeight = [self.stylesheet fontForKey:@"detail"].lineHeight;
+}
+
++ (CGFloat)fixedHeight
+{ 
+  return 2 + textHeight + detailTextHeight + 3; 
+}
+
+-(void)prepareLayout
+{
+  [super prepareLayout];
+  self.detailTextLabel.numberOfLines = 1;
+}
 
 -(void)setKey: (NSDictionary*)key
 {

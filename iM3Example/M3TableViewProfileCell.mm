@@ -1,17 +1,37 @@
 #import "M3TableViewProfileCell.h"
 #import <QuartzCore/QuartzCore.h>
 #import "M3.h"
+#import "AppDelegate.h"
 
 @implementation M3TableViewProfileCell
 
+static CGFloat textHeight = 0, detailTextHeight = 0;
+
++(void)initialize {
+  textHeight = [self.stylesheet fontForKey:@"h2"].lineHeight;
+  detailTextHeight = [self.stylesheet fontForKey:@"detail"].lineHeight;
+  
+  dlog << "init textHeight: " << textHeight << ", detilHeight: " << detailTextHeight;
+}
+
 -(id)init {
   self = [super initWithStyle:UITableViewCellStyleSubtitle];
+  self.imageView.hidden = YES;
+  return self;
+}
 
+-(void)dealloc
+{
+  [starView_ release];
+  [super dealloc];
+}
+
+-(void)prepareLayout
+{
   //
   // set basic layout for textLabel and detailTextLabel. 
-
-  self.textLabel.font = [UIFont boldSystemFontOfSize:14];
-  self.detailTextLabel.font = [UIFont systemFontOfSize:11];
+  [super prepareLayout];
+  
   self.detailTextLabel.textColor = [UIColor colorWithName: @"#333"];
   self.detailTextLabel.numberOfLines = 2;
   
@@ -20,18 +40,6 @@
   // textLabel are pretty close to each other - this minimize the visible
   // interference between both.
   self.detailTextLabel.backgroundColor = [UIColor clearColor];
-
-  self.imageView.hidden = YES;
-
-  // self.selectionStyle = UITableViewCellSelectionStyleNone;
-
-  return self;
-}
-
--(void)dealloc
-{
-  [starView_ release];
-  [super dealloc];
 }
 
 
@@ -43,7 +51,7 @@
 
 + (CGFloat)fixedHeight
 { 
-  return 51.0f; 
+  return 2 + textHeight + 2 * detailTextHeight + 3;
 }
 
 -(void)setStarred: (BOOL)starred
@@ -84,24 +92,39 @@
 - (void) layoutSubviews
 {
   [super layoutSubviews];
-
+  
   // left positions for img, and for texts (label and description)
   int left = 7;
   if(starView_) {
-    starView_.frame = CGRectMake(7, 17, 16, 16);
+    starView_.frame = CGRectMake(7, 20, 16, 16);
     left = 27;
   }
 
   if(!self.imageView.hidden) {
-    self.imageView.frame = CGRectMake(left, 4, 33, 43);
-    left += 37;
+    self.imageView.frame = CGRectMake(left, 4, 36, 47);
+    left += 42;
   }
 
-  self.detailTextLabel.frame = CGRectMake(left, 17, 290 - left, 32);
-
   //
-  // the remaining width is 320 - left. We reserve some space for the index.
-  self.textLabel.frame = CGRectMake(left, 2, 290-left, 16);
+  // After adding image and starView 320px - \a left pixels remain. 
+  // We reserve some space (30px) to not obstruct the index.
+  // int indexWidth = 30;
+  int indexWidth = 0;
+
+  self.textLabel.frame = CGRectMake(left, 2, 320 - indexWidth - left, textHeight);
+
+
+  // top align text in detailTextLabel.
+  
+  int numberOfLines = self.detailTextLabel.numberOfLines;
+  CGSize maxSize = CGSizeMake(320 - indexWidth - left, 
+                      numberOfLines ? numberOfLines * detailTextHeight : 9999);
+
+  CGSize labelSize = [self.detailTextLabel.text sizeWithFont: self.detailTextLabel.font 
+                                           constrainedToSize: maxSize
+                                               lineBreakMode: self.detailTextLabel.lineBreakMode];
+  
+  self.detailTextLabel.frame = CGRectMake(left, 1 + textHeight, labelSize.width, labelSize.height);
 }
 
 @end

@@ -80,10 +80,10 @@
 		9D10C37B1437728300FE19C9 /* MapShowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D10C3791437728300FE19C9 /* MapShowController.xib */; };
 		9D10C37D143774A800FE19C9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D10C37C143774A800FE19C9 /* MapKit.framework */; };
 		9D1438B2142B420E00123EC8 /* M3TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D1438B0142B420E00123EC8 /* M3TableViewController.mm */; };
-		9D15A6B01446291400F17C91 /* UIViewController+Model.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D15A6AE1446291400F17C91 /* UIViewController+Model.h */; };
-		9D15A6B11446291400F17C91 /* UIViewController+Model.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D15A6AE1446291400F17C91 /* UIViewController+Model.h */; };
-		9D15A6B21446291400F17C91 /* UIViewController+Model.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D15A6AF1446291400F17C91 /* UIViewController+Model.mm */; };
-		9D15A6B31446291400F17C91 /* UIViewController+Model.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D15A6AF1446291400F17C91 /* UIViewController+Model.mm */; };
+		9D15A6B01446291400F17C91 /* UIViewController+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D15A6AE1446291400F17C91 /* UIViewController+M3Extensions.h */; };
+		9D15A6B11446291400F17C91 /* UIViewController+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D15A6AE1446291400F17C91 /* UIViewController+M3Extensions.h */; };
+		9D15A6B21446291400F17C91 /* UIViewController+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D15A6AF1446291400F17C91 /* UIViewController+M3Extensions.mm */; };
+		9D15A6B31446291400F17C91 /* UIViewController+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D15A6AF1446291400F17C91 /* UIViewController+M3Extensions.mm */; };
 		9D19E136145AD085003343C5 /* NSURL+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D19E134145AD085003343C5 /* NSURL+M3Extensions.h */; };
 		9D19E137145AD085003343C5 /* NSURL+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D19E134145AD085003343C5 /* NSURL+M3Extensions.h */; };
 		9D19E138145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D19E135145AD085003343C5 /* NSURL+M3Extensions.mm */; };
@@ -225,6 +225,9 @@
 		9D8EAD57141E839400B21BEA /* M3Http.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EAD54141E839400B21BEA /* M3Http.mm */; };
 		9D8EAD58141E839400B21BEA /* M3Http.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EAD54141E839400B21BEA /* M3Http.mm */; };
 		9D92E40D1434780900C17299 /* M3TableViewDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D92E40C1434780900C17299 /* M3TableViewDataSource.mm */; };
+		9D934D9F1461BF51001B25C6 /* UIView+M3Stylesheets.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D934D9D1461BF51001B25C6 /* UIView+M3Stylesheets.h */; };
+		9D934DA01461BF51001B25C6 /* UIView+M3Stylesheets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D934D9E1461BF51001B25C6 /* UIView+M3Stylesheets.mm */; };
+		9D934DA21461CEF1001B25C6 /* header-background-dark-22.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D934DA11461CEF1001B25C6 /* header-background-dark-22.png */; };
 		9D9656AD14177A6C00884372 /* M3Etest.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D9656AB14177A6C00884372 /* M3Etest.h */; };
 		9D9656AE14177A6C00884372 /* M3Etest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D9656AC14177A6C00884372 /* M3Etest.mm */; };
 		9D9656B314177F9700884372 /* M3StopWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D9656B114177F9700884372 /* M3StopWatch.h */; };
@@ -369,8 +372,8 @@
 		9D10C37C143774A800FE19C9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		9D1438AF142B420E00123EC8 /* M3TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewController.h; sourceTree = "<group>"; };
 		9D1438B0142B420E00123EC8 /* M3TableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewController.mm; sourceTree = "<group>"; };
-		9D15A6AE1446291400F17C91 /* UIViewController+Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Model.h"; sourceTree = "<group>"; };
-		9D15A6AF1446291400F17C91 /* UIViewController+Model.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIViewController+Model.mm"; sourceTree = "<group>"; };
+		9D15A6AE1446291400F17C91 /* UIViewController+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+M3Extensions.h"; sourceTree = "<group>"; };
+		9D15A6AF1446291400F17C91 /* UIViewController+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIViewController+M3Extensions.mm"; sourceTree = "<group>"; };
 		9D19E134145AD085003343C5 /* NSURL+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+M3Extensions.h"; sourceTree = "<group>"; };
 		9D19E135145AD085003343C5 /* NSURL+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSURL+M3Extensions.mm"; sourceTree = "<group>"; };
 		9D19E164145B0188003343C5 /* M3TableViewController+AdSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3TableViewController+AdSupport.h"; sourceTree = "<group>"; };
@@ -508,6 +511,9 @@
 		9D8EAD54141E839400B21BEA /* M3Http.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Http.mm; sourceTree = "<group>"; };
 		9D92E40B1434780900C17299 /* M3TableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewDataSource.h; sourceTree = "<group>"; };
 		9D92E40C1434780900C17299 /* M3TableViewDataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewDataSource.mm; sourceTree = "<group>"; };
+		9D934D9D1461BF51001B25C6 /* UIView+M3Stylesheets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+M3Stylesheets.h"; sourceTree = "<group>"; };
+		9D934D9E1461BF51001B25C6 /* UIView+M3Stylesheets.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIView+M3Stylesheets.mm"; sourceTree = "<group>"; };
+		9D934DA11461CEF1001B25C6 /* header-background-dark-22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header-background-dark-22.png"; sourceTree = "<group>"; };
 		9D9656AB14177A6C00884372 /* M3Etest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Etest.h; sourceTree = "<group>"; };
 		9D9656AC14177A6C00884372 /* M3Etest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Etest.mm; sourceTree = "<group>"; };
 		9D9656B114177F9700884372 /* M3StopWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3StopWatch.h; sourceTree = "<group>"; };
@@ -839,6 +845,7 @@
 		9D561573142641A300D0A484 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				9D934DA11461CEF1001B25C6 /* header-background-dark-22.png */,
 				9D0893A314534F5F00F64AC1 /* berlin.png */,
 				9D0893A414534F5F00F64AC1 /* cinemas.png */,
 				9D0893A514534F5F00F64AC1 /* movies.png */,
@@ -1034,8 +1041,10 @@
 				9D9D318A142C6E9800C8269A /* UIColor+M3Extensions.mm */,
 				9D8C4B94142896D0005D582A /* UIImageView+M3Extensions.h */,
 				9D8C4B95142896D0005D582A /* UIImageView+M3Extensions.mm */,
-				9D15A6AE1446291400F17C91 /* UIViewController+Model.h */,
-				9D15A6AF1446291400F17C91 /* UIViewController+Model.mm */,
+				9D15A6AE1446291400F17C91 /* UIViewController+M3Extensions.h */,
+				9D15A6AF1446291400F17C91 /* UIViewController+M3Extensions.mm */,
+				9D934D9D1461BF51001B25C6 /* UIView+M3Stylesheets.h */,
+				9D934D9E1461BF51001B25C6 /* UIView+M3Stylesheets.mm */,
 				9D8B8B471413CC010066ECBB /* Underscore.hh */,
 				9D8B8B481413CC010066ECBB /* Underscore.mm */,
 				9DDF5D021431B30D001CAC28 /* Underscore+Logger.hh */,
@@ -1096,9 +1105,10 @@
 				9D594A80143D027C00A4CED4 /* UIButton+ActionButton.h in Headers */,
 				9DBCDDF3144094290020EA1F /* M3-Internals.h in Headers */,
 				9DBCDDFD1440B55A0020EA1F /* M3CachedFactory.h in Headers */,
-				9D15A6B11446291400F17C91 /* UIViewController+Model.h in Headers */,
+				9D15A6B11446291400F17C91 /* UIViewController+M3Extensions.h in Headers */,
 				9DD6431D144E23840042EE57 /* M3+Image.h in Headers */,
 				9D19E137145AD085003343C5 /* NSURL+M3Extensions.h in Headers */,
+				9D934D9F1461BF51001B25C6 /* UIView+M3Stylesheets.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1146,7 +1156,7 @@
 				9D594A7F143D027C00A4CED4 /* UIButton+ActionButton.h in Headers */,
 				9DBCDDF2144094290020EA1F /* M3-Internals.h in Headers */,
 				9DBCDDFC1440B55A0020EA1F /* M3CachedFactory.h in Headers */,
-				9D15A6B01446291400F17C91 /* UIViewController+Model.h in Headers */,
+				9D15A6B01446291400F17C91 /* UIViewController+M3Extensions.h in Headers */,
 				9DD6431C144E23840042EE57 /* M3+Image.h in Headers */,
 				9D19E136145AD085003343C5 /* NSURL+M3Extensions.h in Headers */,
 				9DACE1BA145F3C5700372415 /* M3+Interpolate.h in Headers */,
@@ -1360,6 +1370,7 @@
 				9DEB834A1444E5280075F65A /* close.png in Resources */,
 				9D0893AD145429AF00F64AC1 /* traffic.png in Resources */,
 				9D4B701E145D7A6400F1DBCE /* invitation_mail.html in Resources */,
+				9D934DA21461CEF1001B25C6 /* header-background-dark-22.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1471,9 +1482,10 @@
 				9D594A82143D027C00A4CED4 /* UIButton+ActionButton.mm in Sources */,
 				9DBCDDEF1440919B0020EA1F /* M3CachedFactory.m in Sources */,
 				9DBCDDF6144095390020EA1F /* M3-Internals.m in Sources */,
-				9D15A6B31446291400F17C91 /* UIViewController+Model.mm in Sources */,
+				9D15A6B31446291400F17C91 /* UIViewController+M3Extensions.mm in Sources */,
 				9DD6431F144E23840042EE57 /* M3+Image.mm in Sources */,
 				9D19E139145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */,
+				9D934DA01461BF51001B25C6 /* UIView+M3Stylesheets.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1575,7 +1587,7 @@
 				9D594A81143D027C00A4CED4 /* UIButton+ActionButton.mm in Sources */,
 				9DBCDDEE1440919B0020EA1F /* M3CachedFactory.m in Sources */,
 				9DBCDDF5144095390020EA1F /* M3-Internals.m in Sources */,
-				9D15A6B21446291400F17C91 /* UIViewController+Model.mm in Sources */,
+				9D15A6B21446291400F17C91 /* UIViewController+M3Extensions.mm in Sources */,
 				9DD6431E144E23840042EE57 /* M3+Image.mm in Sources */,
 				9D19E138145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */,
 				9DACE1BB145F3C5700372415 /* M3+Interpolate.mm in Sources */,
