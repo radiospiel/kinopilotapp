@@ -34,19 +34,18 @@
   [ self instance_variable_set: @selector(m3_title) withValue: title ];
 };
 
--(NSDictionary*) model {
-  return [ self instance_variable_get: @selector(m3_model) ];
-};
-
--(void) setModel: (NSDictionary*)title {
-  [ self instance_variable_set: @selector(m3_model) withValue: title ];
-};
+//-(NSDictionary*) model {
+//  return [ self instance_variable_get: @selector(m3_model) ];
+//};
+//
+//-(void) setModel: (NSDictionary*)title {
+//  [ self instance_variable_set: @selector(m3_model) withValue: title ];
+//};
 
 -(void)releaseM3Properties {
   [self instance_variable_set: @selector(m3_url) withValue: nil];
   // self.url = nil would invoke loadFromUrl.
   self.title = nil;
-  self.model = nil;
 }
 
 -(BOOL)isFullscreen {
