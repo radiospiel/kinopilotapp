@@ -23,76 +23,6 @@
   return [currentMatches objectAtIndex:idx];
 }
 
--(NSString*) interpolateUsingBlock: (NSString* (^)(NSString* match))block
-{
-  // The regex basically matches everything in double curly braces,
-  // and cuts of leading and trailing whitespace.
-  NSString* regex = @"\\{\\{\\s*([^\\}]*)\\s*\\}\\}";
-  
-  return [self stringByReplacingOccurrencesOfRegex:regex
-               usingBlock:^NSString *(NSInteger count, NSString *const *strings, const NSRange *ranges, 
-                  volatile BOOL *const stop) {
-                 return block(strings[1]);
-               }];
-}
-
-+(id) interpolateSingleKey: (NSString*)key fromObject: (id) object
-{
-  if([object isKindOfClass:[NSDictionary class]]) {
-    NSDictionary* dict = (NSDictionary*)object;
-    id r = [dict objectForKey:key];
-    if(r) return r;
-
-    if([object respondsToSelector: key.to_sym])
-      return [object performSelector: key.to_sym ];
-  
-    return nil;
-  }
-  
-  if([object respondsToSelector: key.to_sym])
-    return [object performSelector: key.to_sym ];
-
-  NSLog(@"Cannot interpolate %@ on %@", [key inspect], [object inspect]);
-  return nil;
-}
-
-+(NSString*) interpolateKey: (NSString*)key fromObject: (id) object
-{
-  for(NSString* part in [key componentsSeparatedByString: @"."]) {
-    object = [NSString interpolateSingleKey:part fromObject:object];
-    if(!object)
-      return [NSString stringWithFormat: @"Interpolation error: %@", [key inspect]];
-  }
-  
-  if([object isKindOfClass:[NSString class]])
-    return object;
-  if([object respondsToSelector:@selector(to_s)])
-    return [object performSelector: @selector(to_s)];
-  if([object respondsToSelector:@selector(to_string)])
-    return [object performSelector: @selector(to_string)];
-            
-  return [object description];
-}
-
--(NSString*) interpolate: (NSDictionary*) values
-{
-  return [self interpolateUsingBlock:^NSString *(NSString *key) {
-    NSArray* parts = [key componentsSeparatedByString: @":"];
-    NSString* format = nil;
-    
-    if(parts.count == 2) {
-      format = parts.first;
-      key = parts.last;
-    }
-          
-    NSString* value = [NSString interpolateKey: key fromObject: values];
-    if(!format)
-      return [value htmlEscape];
-    
-    return value;
-  }];
-}
-
 //-(NSString*) gsub: (NSString*)regex 
 //       usingBlock: (NSString* (^)(NSString* match))block
 //{
@@ -287,39 +217,4 @@ ETest(Regexp)
   // assert_equal_objects($3, @"c");
 }
 
--(void)test_regexp_t
-{
-  NSString* __block m = nil;
-
-  NSString* (^tf)(NSString* foo)  = ^(NSString* foo) {
-    return [foo interpolateUsingBlock:^NSString *(NSString *match) {
-      m = [[match copy]autorelease];
-      return @"bar";
-    }];
-  };
-  
-  assert_equal_objects(@"foo bar foo", tf(@"foo {{foo}} foo"));
-  assert_equal_objects(m, @"foo");
-  
-  assert_equal_objects(@"foo bar foo", tf(@"foo {{foo}} foo"));
-  assert_equal_objects(m, @"foo");
-}
-
--(void)test_regexp_interpolation
-{
-  // { foo: "bar" }
-  NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys: @"bar", @"foo", nil];
-
-  assert_nil([NSString interpolateKey:@"key" fromObject: dict]);
-  assert_equal_objects([NSString interpolateKey:@"foo" fromObject: dict], @"bar");
-
-  
-  dict = [NSDictionary dictionaryWithObjectsAndKeys: dict, @"sub", nil];
-
-  assert_nil([NSString interpolateKey:@"key" fromObject: dict]);
-  assert_nil([NSString interpolateKey:@"foo" fromObject: dict]);
-  assert_nil([NSString interpolateKey:@"sub.key" fromObject: dict]);
-  assert_equal_objects([NSString interpolateKey:@"sub.foo" fromObject: dict], @"bar");
-}
- 
 @end

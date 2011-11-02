@@ -12,8 +12,9 @@
   <li><a href="http://maps.google.com/?q={{raw:coordinates}}">{{theater.name}}</a></li>
 </ul>
 <div style='font-size: 85%'>
-  {{movie.description}}
+  {{raw:htmlTeaser}}
 </div>
+<div style="background-color: #ccc, border-top: 1px solid  #888">
 <table style="font-size: 70%; color: #444; margin-top: 8px; padding-top: 2px">
   <tr>
     <td><img src="http://kinopilotupdates.heroku.com/images/flk_72px.png" width="72" height="72"></td>
@@ -21,5 +22,6 @@
       Diese Empfehlung wurde Dir von <a href="http://kinopilotapp.de">Kinopilot.app</a> geschickt - Deinem Kinoprogramm fürs iPhone!
     </td>
   </tr>
-</body>
 </table>
+</div>
+</body>

@@ -35,6 +35,7 @@
 #import "M3+Image.h"
 #import "M3+Inflector.h"
 #import "M3+Inspect.h"
+#import "M3+Interpolate.h"
 #import "M3+RuntimeError.h"
 
 #import "M3CachedFactory.h"
