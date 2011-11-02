@@ -1,5 +1,40 @@
-# TODO
+# MS1
 
-- fix version string on the server, and remove the withVersionString: method.
-- moves imdb and fahrinfo detection and handling code into AppDelegate.
+## Auto Sync: when syncing
+## Progressbar: when syncing
 
+## Startup Screen: Add number animation
+
+## Startup Screen: Add animated news
+## News list
+## News show
+## News show (next/prev)
+## News syncing
+## News scraping
+
+# Share
+
+## Share movie
+## Share theater
+## Share via twitter
+## Share via Facebook
+
+# Bugs/Improvements
+
+## Picture order
+## URL fetch order
+## Cache cleanup
+
+# App notifications
+
+## Urban Airship
+
+# Event tracking
+
+## Event tracking
+## Mail link tracking
+
+# Final stages
+
+## Prep App Store
+## Prep Website
