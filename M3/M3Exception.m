@@ -31,7 +31,8 @@
 +(void) raise: (NSString*) error withMessage: (NSString*) message {
   M3Exception* exception = [[M3Exception alloc] initWithError: error andMessage: message];
 
-  NSLog(@"*** Exception: %@\n%@", exception.error, exception.message);
+  NSLog(@"Exception: %@\n%@", exception.error, exception.message);
+  [M3 logBacktrace];
   
   @throw exception;
 }

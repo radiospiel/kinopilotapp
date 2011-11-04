@@ -199,20 +199,27 @@
   if([M3 fileExists: cachePath])
     return [M3 readImageFromPath:cachePath];
 
-  NSData* data = [M3Http requestData: @"GET" 
-                                 url: url
-                         withOptions: nil];
+  NSData* data = nil;
 
-  if(data) {
-    UIImage* image = [UIImage imageWithData:data];
-    if(image) {
-      [M3 writeData: data toPath: cachePath];
-      return image;
+  @try {
+    [M3Http requestData: @"GET" 
+                  url: url
+          withOptions: nil];
+
+    if(data) {
+      UIImage* image = [UIImage imageWithData:data];
+      if(image) {
+        [M3 writeData: data toPath: cachePath];
+        return image;
+      }
     }
+
+    [M3 writeData: [NSData dataWithBytes:self length:0] toPath: cachePath];
   }
-
-  [M3 writeData: [NSData dataWithBytes:self length:0] toPath: cachePath];
-
+  @catch(id exception) {
+    // An exception, e.g. "not online"
+  }
+  
   return nil;
 }
 

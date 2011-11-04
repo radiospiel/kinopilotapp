@@ -60,7 +60,7 @@ static BOOL initialiseADBannerConstants() {
   Class classAdBannerView = NSClassFromString(@"ADBannerView");
   if (!classAdBannerView) return;
 
-  dlog << "requestAdBannerAtIndexPath: good";
+  // dlog << "requestAdBannerAtIndexPath: good";
   
   ADBannerView* adView = [[[classAdBannerView alloc]initWithFrame:CGRectZero] autorelease];
   [adView setRequiredContentSizeIdentifiers:[NSSet setWithObject: kADBannerContentSizePortrait ]];
@@ -77,7 +77,7 @@ static BOOL initialiseADBannerConstants() {
  */
 -(void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
-  dlog << @"*** bannerViewDidLoadAd ";
+  // dlog << @"*** bannerViewDidLoadAd ";
   
   NSIndexPath* indexPath = [[self requestedBannerViews]allKeysForObject:banner].first;
   if(!indexPath) return;
@@ -93,7 +93,7 @@ static BOOL initialiseADBannerConstants() {
 
 -(UIView*) adBannerAtIndexPath: (NSIndexPath*)indexPath
 {
-  dlog << @"*** adBannerAtIndexPath " << indexPath;
+  // dlog << @"*** adBannerAtIndexPath " << indexPath;
   
   UIView* view = [[self requestedBannerViews]objectForKey: indexPath];
   if(view) return view;
