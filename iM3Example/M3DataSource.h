@@ -23,7 +23,7 @@
 
 +(M3TableViewDataSource*)schedulesByTheater: (NSString*)theater_id 
                                    andMovie: (NSString*)movie_id
-                                      onDay: (NSNumber*)day; 
+                                      onDay: (NSDate*)day; 
  
 
 @end

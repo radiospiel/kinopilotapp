@@ -18,6 +18,7 @@
 
 #import "NSObject+Ivars.h"
 
+#import "NSNumber+M3Extensions.h"
 #import "NSString+M3Extensions.h"
 #import "NSArray+M3Extensions.h"
 #import "NSDate+M3Extensions.h"

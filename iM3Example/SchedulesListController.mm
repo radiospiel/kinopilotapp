@@ -18,9 +18,10 @@
   return [app.chairDB.theaters get: self.theater_id];
 }
 
--(NSNumber*)day
+-(NSDate*)day
 {
-  return [self.url.to_url.params objectForKey: @"day"];
+  NSString* dayString = [self.url.to_url.params objectForKey: @"day"];
+  return dayString.to_number.to_date;
 }
 
 -(NSDictionary*)movie

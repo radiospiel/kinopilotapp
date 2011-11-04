@@ -1,6 +1,11 @@
 #import "AppDelegate.h"
 
+#if 1
 #define REMOTE_URL  @"http://kinopilotupdates2.heroku.com/db/berlin"
+#else
+#define REMOTE_URL  @"http://localhost:3000/db/berlin"
+#endif
+
 // #define DB_PATH     @"$documents/chairdb/berlin.json"
 #define DB_PATH     @"$documents/chairdb/kinopilot"
 

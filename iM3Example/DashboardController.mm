@@ -64,11 +64,54 @@
   self.url = @"/info";
 }
 
+- (BOOL)labelAnimationFrame:(NSMutableDictionary*)userInfo
+{
+  M3AssertKindOfAndSet(userInfo, NSMutableDictionary);
+  
+  NSString* pattern = [userInfo objectForKey:@"pattern"];
+  NSString* label = [M3 interpolateString: pattern withValues: userInfo];
+  
+  [self setLabel: label];
+  
+  NSNumber* count = [userInfo objectForKey:@"count"];
+  NSNumber* limit = [userInfo objectForKey:@"limit"];
+  if(count.to_i >= limit.to_i) return NO;
+    
+  [userInfo setObject: [NSNumber numberWithInt: count.to_i+1] forKey:@"count"];
+  return YES;
+}
+
+- (void)animateLabel:(NSTimer*)theTimer
+{
+  NSMutableDictionary* userInfo = theTimer.userInfo;
+  if(![self labelAnimationFrame:userInfo])
+    [theTimer invalidate];
+}
+
+-(void)setLabel: (NSString*)pattern withAnimatedLimit: (int)limit
+{
+  id userInfo = _.hash(@"count", 0, 
+                       @"limit", limit,
+                       @"pattern", pattern);
+  
+  if(![self labelAnimationFrame:userInfo]) 
+    return;
+  
+  NSTimer* timer = [NSTimer timerWithTimeInterval: 0.02 
+                                           target: self 
+                                         selector: @selector(animateLabel:) 
+                                         userInfo: userInfo
+                                          repeats: YES];
+  [[NSRunLoop currentRunLoop] addTimer:timer forMode: NSDefaultRunLoopMode];
+}
+
 -(void)theaters
 {
   rightAligned_ = YES;
 
+  // [self setLabel: @"{{count}} Kinos" withAnimatedLimit: app.chairDB.theaters.count];
   [self setLabel: @"{{chairDB.theaters.count}} Kinos"];
+  
   [self setBackground: @"cinemas.png"];
   self.url = @"/theaters/list";
 }
@@ -84,10 +127,7 @@
 
 -(void)vicinity
 {
-  // rightAligned_ = YES;
-
-  [self setLabel: @"%d Aufführungen nearby"];
-  // [self setLabel2: [NSString stringWithFormat:@"in der Nähe", app.chairDB.movies.count]];
+  [self setLabel: @"{{chairDB.movies.count}} Aufführungen nearby"];
   [self setBackground: @"traffic.png"];
   self.url = @"/vicinity/show";
 }
@@ -122,9 +162,11 @@
   self.textLabel.backgroundColor = [UIColor clearColor];
 
   if(rightAligned_) {
+    self.textLabel.textAlignment = UITextAlignmentRight;
     CGRect frame = self.textLabel.frame;
     CGSize sz = [self.textLabel sizeThatFits: frame.size];
-
+    sz.width = 280;
+    
     self.textLabel.frame = CGRectMake(320 - frame.origin.x - sz.width, frame.origin.y,
                                       sz.width, frame.size.height);
   }

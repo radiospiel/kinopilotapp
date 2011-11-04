@@ -17,9 +17,6 @@
 @property (readonly,nonatomic) NSUInteger second;
 
 @property (readonly,nonatomic) NSDate* to_day;
--(NSDate*)to_day;
-
 @property (readonly,nonatomic) NSNumber* to_number;
--(NSNumber*)to_number;
 
 @end

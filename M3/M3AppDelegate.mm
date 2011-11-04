@@ -77,6 +77,7 @@ M3AppDelegate* app;
 -(void)presentControllerOnTop: (UIViewController*)viewController
 {
   UINavigationController* nc = [self topMostController];
+  [nc.navigationBar setBarStyle:UIBarStyleBlackOpaque];
   [nc pushViewController:viewController animated:YES];
 }
 

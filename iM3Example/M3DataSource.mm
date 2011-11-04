@@ -307,11 +307,13 @@
 
 -(id)initWithTheater: (NSString*)theater_id 
             andMovie: (NSString*)movie_id
-               onDay: (NSNumber*)day
+               onDay: (NSDate*)day
 {
   self = [super init];
 
-  NSUInteger start_of_day = day.to_i;  
+  M3AssertKindOf(day, NSDate);
+  
+  NSUInteger start_of_day = day.to_number.to_i;
   //
   // get all schedules for the theater and for the movie, and 
   // remove all schedules, that are in the past.
@@ -384,10 +386,11 @@
 
 +(M3TableViewDataSource*)schedulesByTheater: (NSString*)theater_id 
                                    andMovie: (NSString*)movie_id
-                                      onDay: (NSNumber*)day
+                                      onDay: (NSDate*)day
 {
   M3AssertKindOfAndSet(theater_id, NSString);
   M3AssertKindOfAndSet(movie_id, NSString);
+  M3AssertKindOfAndSet(day, NSDate);
   
   return [[[SchedulesByTheaterAndMovieDataSource alloc]initWithTheater: theater_id 
                                                               andMovie: movie_id

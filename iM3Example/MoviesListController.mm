@@ -111,9 +111,9 @@
 {
   self = [super init];
 
-  // [self addSegment: @"new" withFilter: @"new" andTitle: @"Neu im Kino"];
-  // [self addSegment: @"all" withFilter: @"all" andTitle: @"Alle Filme"];
-  // [self addSegment: @"art" withFilter: @"art" andTitle: @"Klassiker"];
+  [self addSegment: @"new" withFilter: @"new" andTitle: @"Neu im Kino"];
+  [self addSegment: @"all" withFilter: @"all" andTitle: @"Alle Filme"];
+  [self addSegment: @"art" withFilter: @"art" andTitle: @"Klassiker"];
   // // [self addSegment: @"fav" withFilter: @"fav" andTitle: @"Vorgemerkt"];
 
   // [self activateSegment: 0];

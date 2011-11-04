@@ -110,18 +110,20 @@
   NSNumber* number = [self.movie objectForKey: @"average-community-rating"];
   if(number.to_i <= 0) return;
   
-  self.textLabel.text = @"moviepilot.de Rating:";
+  self.textLabel.text = @"moviepilot.de Rating";
   
-  ratingBackground_.frame = CGRectMake(150, 6, 96, 16);
-  ratingForeground_.frame = CGRectMake(150, 6, (number.to_i * 96 + 50)/100, 16);
+  ratingBackground_.frame = CGRectMake(180, 6, 96, 16);
+  ratingForeground_.frame = CGRectMake(180, 6, (number.to_i * 96 + 50)/100, 16);
   ratingForeground_.contentMode = UIViewContentModeLeft;
   ratingForeground_.clipsToBounds = YES;
-  
+
+  // TODO: make me right aligned
   CGRect labelFrame = self.textLabel.frame;
   
-  ratingLabel_.frame = CGRectMake(260, labelFrame.origin.y, 96, labelFrame.size.height);
+  ratingLabel_.font = [self.stylesheet fontForKey:@"h2"];
+  ratingLabel_.frame = CGRectMake(287, labelFrame.origin.y, 46, labelFrame.size.height);
   ratingLabel_.font = self.textLabel.font;
-  ratingLabel_.text = [NSString stringWithFormat: @"%.1f", rating / 10.0];
+  ratingLabel_.text = [NSString stringWithFormat: @"%.1f", number.to_i / 10.0];
 }
 
 @end
@@ -221,7 +223,8 @@
   NSString* description = [self.movie objectForKey:@"description"];
   NSString* html = _.join(@"<p><b>Beschreibung: </b>", description.cdata, @"</p><br />");
   
-  htmlView.text = [NSAttributedString attributedStringWithSimpleMarkup: html];
+  htmlView.text = [NSAttributedString attributedStringWithMarkup: html 
+                                                   forStylesheet: self.stylesheet];
 }
 
 -(CGSize)htmlViewSize
