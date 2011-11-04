@@ -19,11 +19,7 @@
     return nil;
   }
   
-  if([object respondsToSelector: key.to_sym])
-    return [object performSelector: key.to_sym ];
-  
-  NSLog(@"Cannot interpolate %@ on %@", [key inspect], [object inspect]);
-  return nil;
+  return [object valueForKey:key];
 }
 
 +(NSString*) resolveKey: (NSString*)key fromObject: (id)object
@@ -44,7 +40,7 @@
   return [object description];
 }
 
-+(NSString*) interpolationForKey: (NSString*)key fromValues: (NSDictionary*)values
++(NSString*) interpolationForKey: (NSString*)key fromValues: (id)values
 {
   NSArray* parts = [key componentsSeparatedByString: @":"];
   NSString* format = nil;
@@ -62,7 +58,7 @@
 }
 
 +(NSString*) interpolateString: (NSString*) templateString
-                    withValues: (NSDictionary*) values
+                    withValues: (id) values
 {
   // The regex basically matches everything in double curly braces,
   // and cuts of leading and trailing whitespace.

@@ -1,9 +1,9 @@
 @interface M3(Interpolate)
 
 +(NSString*) interpolateString: (NSString*) templateString
-                    withValues: (NSDictionary*) values;
+                    withValues: (id) values;
 
 +(NSString*) interpolateFile: (NSString*) templateFile
-                  withValues: (NSDictionary*) values;
+                  withValues: (id) values;
 
 @end
