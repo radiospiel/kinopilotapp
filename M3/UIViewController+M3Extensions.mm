@@ -1,9 +1,6 @@
 #import "M3.h"
 #import "UIViewController+M3Extensions.h"
 
-@class AppDelegate;
-extern AppDelegate* app;
-
 @implementation UIViewController(M3UrlExtensions)
 
 -(NSString*) url {

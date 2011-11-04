@@ -1,6 +1,6 @@
 #import "AppDelegate.h"
 
-@implementation AppDelegate(ChairDB)
+@implementation M3AppDelegate(ChairDB)
 
 /*
  * Return an instance 

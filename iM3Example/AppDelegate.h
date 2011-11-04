@@ -14,14 +14,10 @@
 
 #import "Chair.h"
 #import "ChairDatabase+IM3Example.h"
-#import "M3Router.h"
 #import "M3TableViewDataSource.h"
 #import "M3TableViewProfileCell.h"
 #import "M3DataSource.h"
 #import "M3ProfileView.h"
-
-@class AppDelegate;
-extern AppDelegate* app;
 
 @interface NSString (IM3ExampleExtensions)
 
@@ -33,44 +29,9 @@ extern AppDelegate* app;
 
 @end
 
-/*
- * The AppDelegate class and the global app object.
- */
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UINavigationControllerDelegate>
-
-@property (strong, nonatomic) UIProgressView* progressView;
-@property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) UITabBarController *tabBarController;
-@property (retain, nonatomic,readonly) NSDictionary *config;
-
-/*
- * returns the configuration. It is read from "app.json".
- */
--(NSDictionary*) config;
-
-/*
- * returns TRUE if the current device is an iPhone (as opposed to an iPad).
- */
--(BOOL) isIPhone;
-
-/*
- * can this URL be opened?
- */
--(BOOL)canOpen: (NSString*)url;
-
-/*
- * open this URL.
- */
--(void)open: (NSString*)url;
-
--(UINavigationController*)topMostController;
--(void)presentControllerOnTop: (UIViewController*)viewController;
-
-@end
-
 @class ChairDatabase;
 
-@interface AppDelegate(ChairDB)
+@interface M3AppDelegate(ChairDB)
 
 /*
  * Initialize Chair DB.
@@ -82,18 +43,9 @@ extern AppDelegate* app;
 @end
 
 
-@interface AppDelegate(Info)
+@interface M3AppDelegate(Info)
 
 -(NSString*) infoForKey: (NSString*)key;
 
 @end
 
-#import "M3Router.h"
-
-@interface AppDelegate(M3Router)
-
-@property (nonatomic,retain,readonly) M3Router* router;
-
--(M3Router*) router;
-
-@end

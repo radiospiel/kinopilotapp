@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "M3.h"
 #import "M3TableViewProfileCell.h"
 #import "TheatersListController.h"
 

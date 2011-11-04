@@ -28,7 +28,7 @@
 
 @end
 
-@implementation AppDelegate(Info)
+@implementation M3AppDelegate(Info)
 
 -(NSString*)infoForKey: (NSString*)name
 {

@@ -44,8 +44,8 @@
     },
     {
       "actions": [
-        ["Update",  "app:update"],
-        ["Share",   "app:share"]
+        ["Update",  "/action/update"],
+        ["Share",   "/action/share"]
       ]
     },
     {
