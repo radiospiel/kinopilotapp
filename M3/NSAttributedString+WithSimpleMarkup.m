@@ -19,16 +19,9 @@
 #import <CoreText/CoreText.h>
 #endif
 
-@implementation NSString (WithSimpleMarkup)
-
-- (NSAttributedString*)to_attributed_string
-{
-  return [NSAttributedString attributedStringWithSimpleMarkup:self];
-}
-
-@end
-
 @interface M3AttributedStringBuilder: NSObject<NSXMLParserDelegate> {
+  M3Stylesheet* stylesheet;
+  
   NSMutableAttributedString* attributedString_;
   NSString* fontName;
   int fontSize;
@@ -54,17 +47,26 @@
 
 @synthesize fontName, fontSize, bold, italic, uppercase;
 
--(id)init
+-(id)initWithStylesheet: (M3Stylesheet*)theStylesheet
 {
   self = [super init];
   if(!self) return nil;
   
+  stylesheet = theStylesheet;
   attributedString_ = [[NSMutableAttributedString alloc]init];
   
+  UIFont* font = [stylesheet fontForKey:@"p"];
+  
   fontName = @"Helvetica";
-  fontSize = 13;
+  fontSize = font.pointSize;
   
   return self;
+}
+
++(M3AttributedStringBuilder*) builderWithStylesheet: (M3Stylesheet*)stylesheet
+{
+  M3AttributedStringBuilder* builder = [[M3AttributedStringBuilder alloc]initWithStylesheet:stylesheet];
+  return [builder autorelease];
 }
 
 -(void)dealloc
@@ -224,26 +226,25 @@
 
 @implementation NSAttributedString (WithSimpleMarkup)
 
-+ (NSAttributedString*)attributedStringWithSimpleMarkup:(NSString *)html 
++ (NSAttributedString*)attributedStringWithMarkup: (NSString *)html 
+                                    forStylesheet: (M3Stylesheet*)stylesheet
 {
   NSString* format = @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-  "<!DOCTYPE addresses SYSTEM \"addresses.dtd\">\n"   // a fake doctype
+    "<!DOCTYPE addresses SYSTEM \"addresses.dtd\">\n"   // a fake doctype
     "<body>%@</body>\n";
     
   html = [NSString stringWithFormat: format, html];
-    
+
   NSData* xmlData = [html dataUsingEncoding:NSUTF8StringEncoding];
-  NSXMLParser* parser = [[NSXMLParser alloc] initWithData:xmlData];
-    
-  M3AttributedStringBuilder* builder = [[M3AttributedStringBuilder alloc]init];
+  NSXMLParser* parser = [[[NSXMLParser alloc] initWithData:xmlData]autorelease];
+
+  M3AttributedStringBuilder* builder = [M3AttributedStringBuilder builderWithStylesheet: stylesheet];
   [parser setDelegate:builder];
 
   // [parser setShouldResolveExternalEntities:NO];
   [parser parse]; // if not successful, delegate is informed of error
-  [parser release];
     
   NSAttributedString* r = [[builder attributedString]retain];
-  [builder release];
   
   return [r autorelease];
 }

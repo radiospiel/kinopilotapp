@@ -17,8 +17,9 @@
 -(void) setHtmlDescription: (NSString*) html
 {
   htmlView_ = [[[TTTAttributedLabel alloc]init]autorelease];
-  htmlView_.text = [NSAttributedString attributedStringWithSimpleMarkup: html];
-  
+  htmlView_.text = [NSAttributedString attributedStringWithMarkup: html 
+                                                    forStylesheet: self.stylesheet];
+
   CGSize htmlSize = [htmlView_ sizeThatFits: CGSizeMake(220, 1000)];
   htmlView_.frame = CGRectMake(85, 5, htmlSize.width, htmlSize.height);
   

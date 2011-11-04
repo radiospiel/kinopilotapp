@@ -193,6 +193,13 @@
 
 @implementation MovieDescriptionCell
 
++(void)initialize
+{
+  M3Stylesheet* stylesheet = [self stylesheet];
+  [stylesheet setFont: [UIFont systemFontOfSize:14] forKey:@"h2"];
+  [stylesheet setFont: [UIFont systemFontOfSize:14] forKey:@"p"];
+}
+
 -(id) init {
   self = [super init];
   if(!self) return nil;

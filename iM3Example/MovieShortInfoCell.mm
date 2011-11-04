@@ -77,7 +77,9 @@
   self.textLabel.text = @" ";
     
   NSString* html = [self shortInfoASHTML];
-  htmlView.text = [NSAttributedString attributedStringWithSimpleMarkup: html];
+  htmlView.text = [NSAttributedString attributedStringWithMarkup: html 
+                                                   forStylesheet: self.stylesheet];
+
 }
 
 -(CGSize)htmlViewSize

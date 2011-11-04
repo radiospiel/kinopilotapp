@@ -8,15 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class M3Stylesheet;
+
 @interface NSAttributedString (WithSimpleMarkup)
 
-+ (NSAttributedString*)attributedStringWithSimpleMarkup:(NSString *)html;
-
-@end
-
-@interface NSString (WithSimpleMarkup)
-
-@property (nonatomic,readonly) NSAttributedString* to_attributed_string;
-- (NSAttributedString*)to_attributed_string;
++ (NSAttributedString*)attributedStringWithMarkup: (NSString *)html
+                                    forStylesheet: (M3Stylesheet*)stylesheet;
 
 @end
