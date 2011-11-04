@@ -100,6 +100,23 @@ static NSDateFormatter* dateFormatter(NSString* dateFormat)
   return [COMPONENTS second];
 }
 
+-(NSDate*)to_day
+{
+  NSDate* day;
+  
+  [[NSCalendar currentCalendar] rangeOfUnit: NSDayCalendarUnit
+                                  startDate: &day
+                                   interval: NULL
+                                    forDate: self];
+
+  return day;
+}
+
+-(NSNumber*)to_number
+{
+  return [NSNumber numberWithDouble: [self timeIntervalSince1970]];
+}
+
 @end
 
 @implementation NSNumber (M3Extensions) 

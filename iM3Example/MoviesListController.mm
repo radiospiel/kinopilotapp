@@ -72,6 +72,8 @@
   
   NSArray* schedules = [movie objectForKey:@"schedules"];
   schedules = [schedules sortByKey:@"time"];
+  NSNumber* firstSchedule = [schedules.first objectForKey:@"time"];
+  NSDate* day = firstSchedule.to_date.to_day;
   
   schedules = [schedules mapUsingBlock:^id(NSDictionary* schedule) {
     NSString* time = [schedule objectForKey:@"time"];
@@ -79,6 +81,8 @@
     
     return [timeAsString withVersionString: [schedule objectForKey:@"version"]];
   }];
+  
+  DLOG(@"***** heyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyhey");
   
   [self setDetailText: [schedules componentsJoinedByString:@", "]];
 
@@ -90,9 +94,10 @@
   
   MoviesListController* mlc = (MoviesListController*)self.tableViewController;
   
-  self.url = _.join(@"/schedules/list?",
-                      @"important=movie&", 
-                      @"theater_id=", mlc.theater_id, 
+  self.url = _.join(@"/schedules/list",
+                      @"?important=movie", 
+                      @"&day=", day.to_number,
+                      @"&theater_id=", mlc.theater_id, 
                       @"&movie_id=", [self.key objectForKey: @"movie_id"]);
 }
 
