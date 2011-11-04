@@ -1,14 +1,22 @@
 #import "AppDelegate.h"
 
-@interface UpdateAction: NSObject
-
+@interface ActionController: NSObject
+@property (retain,nonatomic) NSString* url;
 @end
 
-@implementation UpdateAction
+@implementation ActionController
 
--(void)perform 
+@synthesize url = _url;
+
+-(void)perform
 {
-  [app.chairDB performSelector:@selector(update) withObject:nil afterDelay:0.3];
+  [self.url.to_url.path matches: @"/action/(.*)"];
+  [self performSelector: $1.to_sym];
 }
 
+-(void)update
+{
+  dlog << "update"; 
+  [app.chairDB performSelector:@selector(update) withObject:nil afterDelay:0.3];
+}
 @end

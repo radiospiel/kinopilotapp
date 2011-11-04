@@ -168,7 +168,6 @@
 		9D594A81143D027C00A4CED4 /* UIButton+ActionButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D594A7E143D027C00A4CED4 /* UIButton+ActionButton.mm */; };
 		9D594A82143D027C00A4CED4 /* UIButton+ActionButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D594A7E143D027C00A4CED4 /* UIButton+ActionButton.mm */; };
 		9D5A96D314200FB8000104CA /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D5A96D114200FB7000104CA /* WebViewController.mm */; };
-		9D5D32C51448AA2900A4BA9F /* M3Router.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D5D32C41448AA2900A4BA9F /* M3Router.mm */; };
 		9D5D32C91448BC6600A4BA9F /* M3DataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D5D32C81448BC6600A4BA9F /* M3DataSource.mm */; };
 		9D72E29A14387FE600D8E5B5 /* MoviesImagesController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D72E29914387FE600D8E5B5 /* MoviesImagesController.mm */; };
 		9D750E8B142273A30056290E /* M3Data.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D750E89142273A30056290E /* M3Data.h */; };
@@ -285,6 +284,11 @@
 		9DDF5D071431F74C001CAC28 /* MovieShortInfoCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDF5D061431F74C001CAC28 /* MovieShortInfoCell.mm */; };
 		9DE40645142CFC490089EAA9 /* InfoController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DE40644142CFC490089EAA9 /* InfoController.mm */; };
 		9DEB834A1444E5280075F65A /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DEB83491444E5280075F65A /* close.png */; };
+		9DFE5C0F14642E850039F536 /* M3AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DFE5C0D14642E850039F536 /* M3AppDelegate.h */; };
+		9DFE5C1014642E850039F536 /* M3AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DFE5C0D14642E850039F536 /* M3AppDelegate.h */; };
+		9DFE5C1114642E850039F536 /* M3AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE5C0E14642E850039F536 /* M3AppDelegate.mm */; };
+		9DFE5C1214642E850039F536 /* M3AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE5C0E14642E850039F536 /* M3AppDelegate.mm */; };
+		9DFE5C151464319F0039F536 /* ActionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE5C141464319F0039F536 /* ActionController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -452,8 +456,6 @@
 		9D594A7E143D027C00A4CED4 /* UIButton+ActionButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIButton+ActionButton.mm"; sourceTree = "<group>"; };
 		9D5A96D014200FB6000104CA /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		9D5A96D114200FB7000104CA /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewController.mm; sourceTree = "<group>"; };
-		9D5D32C31448AA2900A4BA9F /* M3Router.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Router.h; sourceTree = "<group>"; };
-		9D5D32C41448AA2900A4BA9F /* M3Router.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Router.mm; sourceTree = "<group>"; };
 		9D5D32C71448BC6600A4BA9F /* M3DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3DataSource.h; sourceTree = "<group>"; };
 		9D5D32C81448BC6600A4BA9F /* M3DataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3DataSource.mm; sourceTree = "<group>"; };
 		9D72E29814387FE600D8E5B5 /* MoviesImagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesImagesController.h; sourceTree = "<group>"; };
@@ -565,6 +567,9 @@
 		9DE40643142CFC490089EAA9 /* InfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoController.h; sourceTree = "<group>"; };
 		9DE40644142CFC490089EAA9 /* InfoController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InfoController.mm; sourceTree = "<group>"; };
 		9DEB83491444E5280075F65A /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
+		9DFE5C0D14642E850039F536 /* M3AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3AppDelegate.h; sourceTree = "<group>"; };
+		9DFE5C0E14642E850039F536 /* M3AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3AppDelegate.mm; sourceTree = "<group>"; };
+		9DFE5C141464319F0039F536 /* ActionController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ActionController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -748,8 +753,6 @@
 				9D4B701B145D734B00F1DBCE /* M3ActionSheetController.mm */,
 				9D2BF7551450A1F40045C11C /* M3ListViewController.h */,
 				9D2BF7561450A1F40045C11C /* M3ListViewController.mm */,
-				9D5D32C31448AA2900A4BA9F /* M3Router.h */,
-				9D5D32C41448AA2900A4BA9F /* M3Router.mm */,
 				9D750E9E1422AF7F0056290E /* M3ProfileController.h */,
 				9D750E9F1422AF7F0056290E /* M3ProfileController.mm */,
 				9D81D3C1144A139C0013B706 /* M3ProfileView.h */,
@@ -766,6 +769,7 @@
 				9D92E40C1434780900C17299 /* M3TableViewDataSource.mm */,
 				9D9D318F142C89C600C8269A /* M3TableViewProfileCell.h */,
 				9D9D3190142C89C600C8269A /* M3TableViewProfileCell.mm */,
+				9DFE5C141464319F0039F536 /* ActionController.mm */,
 				9DE40643142CFC490089EAA9 /* InfoController.h */,
 				9DE40644142CFC490089EAA9 /* InfoController.mm */,
 				9D72E29814387FE600D8E5B5 /* MoviesImagesController.h */,
@@ -1003,6 +1007,8 @@
 				9D8B8B221413CAD90066ECBB /* M3+JSON.mm */,
 				9D3B0871142A3B7900322C00 /* M3+RuntimeError.h */,
 				9D3B0872142A3B7900322C00 /* M3+RuntimeError.mm */,
+				9DFE5C0D14642E850039F536 /* M3AppDelegate.h */,
+				9DFE5C0E14642E850039F536 /* M3AppDelegate.mm */,
 				9DBCDDFB1440B55A0020EA1F /* M3CachedFactory.h */,
 				9DBCDDED1440919B0020EA1F /* M3CachedFactory.m */,
 				9D750E89142273A30056290E /* M3Data.h */,
@@ -1109,6 +1115,7 @@
 				9DD6431D144E23840042EE57 /* M3+Image.h in Headers */,
 				9D19E137145AD085003343C5 /* NSURL+M3Extensions.h in Headers */,
 				9D934D9F1461BF51001B25C6 /* UIView+M3Stylesheets.h in Headers */,
+				9DFE5C1014642E850039F536 /* M3AppDelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1160,6 +1167,7 @@
 				9DD6431C144E23840042EE57 /* M3+Image.h in Headers */,
 				9D19E136145AD085003343C5 /* NSURL+M3Extensions.h in Headers */,
 				9DACE1BA145F3C5700372415 /* M3+Interpolate.h in Headers */,
+				9DFE5C0F14642E850039F536 /* M3AppDelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1486,6 +1494,7 @@
 				9DD6431F144E23840042EE57 /* M3+Image.mm in Sources */,
 				9D19E139145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */,
 				9D934DA01461BF51001B25C6 /* UIView+M3Stylesheets.mm in Sources */,
+				9DFE5C1214642E850039F536 /* M3AppDelegate.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1522,7 +1531,6 @@
 				9D10C37A1437728300FE19C9 /* MapShowController.mm in Sources */,
 				9D72E29A14387FE600D8E5B5 /* MoviesImagesController.mm in Sources */,
 				9D594A7B143CF97400A4CED4 /* AppDelegate+Info.mm in Sources */,
-				9D5D32C51448AA2900A4BA9F /* M3Router.mm in Sources */,
 				9D5D32C91448BC6600A4BA9F /* M3DataSource.mm in Sources */,
 				9D81D3C3144A139C0013B706 /* M3ProfileView.mm in Sources */,
 				9D2BF7571450A1F40045C11C /* M3ListViewController.mm in Sources */,
@@ -1532,6 +1540,7 @@
 				9D4B7018145D5ECB00F1DBCE /* SchedulesShowController.mm in Sources */,
 				9D4B701C145D734B00F1DBCE /* M3ActionSheetController.mm in Sources */,
 				9DACE1BF145F48B600372415 /* ShareController.mm in Sources */,
+				9DFE5C151464319F0039F536 /* ActionController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1591,6 +1600,7 @@
 				9DD6431E144E23840042EE57 /* M3+Image.mm in Sources */,
 				9D19E138145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */,
 				9DACE1BB145F3C5700372415 /* M3+Interpolate.mm in Sources */,
+				9DFE5C1114642E850039F536 /* M3AppDelegate.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -63,7 +63,7 @@
 -(void)activatedActionButton: (id)sender
 {
   NSString* url = [self instance_variable_get:@selector(action_url)];
-  [[[UIApplication sharedApplication]delegate] open:url];
+  [app open:url];
 }
 
 @end
