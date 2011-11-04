@@ -33,10 +33,6 @@
 
 -(void)setLabel: (NSString*)label
 {
-  self.textLabel.font = [UIFont fontWithName:@"Futura-Medium" size:24];
-  self.textLabel.textColor = [UIColor colorWithName:@"ffffff"];
-  // self.textLabel.highlightedTextColor= [UIColor colorWithName:@"000000"];
-  self.textLabel.backgroundColor = [UIColor clearColor];
   self.textLabel.text = label;
 }
 
@@ -60,7 +56,6 @@
   
   if([key isEqualToString: @"city"]) {
     [self setLabel: @"Berlin"];
-    self.textLabel.font = [UIFont fontWithName:@"Futura-Medium" size:36];
     [self setBackground: @"berlin.png"];
     self.url = @"/info";
   }
@@ -108,6 +103,15 @@
 {
   [super layoutSubviews];
   
+  if([self.key isEqualToString: @"city"])
+    self.textLabel.font = [UIFont fontWithName:@"Futura-Medium" size:36];
+  else
+    self.textLabel.font = [UIFont fontWithName:@"Futura-Medium" size:24];
+  
+  self.textLabel.textColor = [UIColor colorWithName:@"ffffff"];
+  // self.textLabel.highlightedTextColor= [UIColor colorWithName:@"000000"];
+  self.textLabel.backgroundColor = [UIColor clearColor];
+
   if(rightAligned_) {
     CGRect frame = self.textLabel.frame;
     CGSize sz = [self.textLabel sizeThatFits: frame.size];

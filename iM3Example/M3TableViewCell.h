@@ -42,8 +42,4 @@
 
 -(void)selectedCell;
 
-/* private ****************************************************************/
-
--(void)prepareLayout;
-
 @end

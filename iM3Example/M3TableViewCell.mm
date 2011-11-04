@@ -36,17 +36,6 @@
   [super dealloc];
 }
 
--(void)prepareLayout
-{
-  M3AssertNotNil(self.tableViewController);
-  
-  self.textLabel.font = [self.stylesheet fontForKey:@"h2"];
-  self.textLabel.numberOfLines = 0;
-  
-  self.detailTextLabel.font = [self.stylesheet fontForKey:@"details"];
-  self.detailTextLabel.numberOfLines = 0;
-}
-
 - (CGFloat)wantsHeight
 { 
   _.raise(_.join(@"Implementation missing for ", [self class], "#wantsHeight")); 
@@ -59,6 +48,19 @@
 -(void)selectedCell 
 {
   if(self.url) [app open: self.url];
+}
+
+-(void)layoutSubviews
+{
+  [super layoutSubviews];
+
+  M3AssertNotNil(self.tableViewController);
+  
+  self.textLabel.font = [self.stylesheet fontForKey:@"h2"];
+  self.textLabel.numberOfLines = 0;
+  
+  self.detailTextLabel.font = [self.stylesheet fontForKey:@"details"];
+  self.detailTextLabel.numberOfLines = 0;
 }
 
 @end

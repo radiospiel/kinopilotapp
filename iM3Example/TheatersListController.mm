@@ -67,9 +67,9 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
   return 2 + textHeight + detailTextHeight + 3; 
 }
 
--(void)prepareLayout
+-(void)layoutSubviews
 {
-  [super prepareLayout];
+  [super layoutSubviews];
   self.detailTextLabel.numberOfLines = 1;
 }
 

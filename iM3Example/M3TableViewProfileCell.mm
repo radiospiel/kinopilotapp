@@ -10,8 +10,6 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 +(void)initialize {
   textHeight = [self.stylesheet fontForKey:@"h2"].lineHeight;
   detailTextHeight = [self.stylesheet fontForKey:@"detail"].lineHeight;
-  
-  dlog << "init textHeight: " << textHeight << ", detilHeight: " << detailTextHeight;
 }
 
 -(id)init {
@@ -25,23 +23,6 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
   [starView_ release];
   [super dealloc];
 }
-
--(void)prepareLayout
-{
-  //
-  // set basic layout for textLabel and detailTextLabel. 
-  [super prepareLayout];
-  
-  self.detailTextLabel.textColor = [UIColor colorWithName: @"#333"];
-  self.detailTextLabel.numberOfLines = 2;
-  
-  //
-  // Make detail text label background transparent: detailTextLabel and
-  // textLabel are pretty close to each other - this minimize the visible
-  // interference between both.
-  self.detailTextLabel.backgroundColor = [UIColor clearColor];
-}
-
 
 //- (void)tappedStar:(UITapGestureRecognizer *)sender {     
 //  NSLog(@"tappedStar");
@@ -93,6 +74,17 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 {
   [super layoutSubviews];
   
+  //
+  // set colors for text labels 
+  self.detailTextLabel.textColor = [UIColor colorWithName: @"#333"];
+  self.detailTextLabel.numberOfLines = 2;
+  
+  //
+  // Make detail text label background transparent: detailTextLabel and
+  // textLabel are pretty close to each other - this minimize the visible
+  // interference between both.
+  self.detailTextLabel.backgroundColor = [UIColor clearColor];
+
   // left positions for img, and for texts (label and description)
   int left = 7;
   if(starView_) {

@@ -132,7 +132,6 @@
   }
   
   [cell setTableViewController: self.controller];
-  [cell prepareLayout];
   
   cell.indexPath = indexPath;
   cell.key = [self keyForRowAtIndexPath: indexPath];

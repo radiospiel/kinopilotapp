@@ -28,24 +28,28 @@
 
 -(id)init
 {
-  return [super initWithStyle: UITableViewCellStyleDefault];
-}
+  self = [super initWithStyle: UITableViewCellStyleDefault];
 
--(void)setKey: (NSString*)key
-{
-  M3AssertKindOf(key, NSString);
-
-  [super setKey: key];
-  
-  self.textLabel.text = key;
   self.textLabel.numberOfLines = 0;
   self.textLabel.lineBreakMode = UILineBreakModeWordWrap;
   self.textLabel.textAlignment = UITextAlignmentLeft;
   self.selectionStyle = UITableViewCellSelectionStyleNone;
+
+  return self;
+}
+
+-(void)setKey: (NSString*)key
+{
+  [super setKey: key];
+  
+  M3AssertKindOf(key, NSString);
+  self.textLabel.text = key;
 }
 
 - (CGFloat)wantsHeight
 {
+  [self layoutSubviews];
+
   NSString* text = self.key;
   
   CGSize stringSize = [text sizeWithFont:self.textLabel.font
@@ -105,9 +109,8 @@
 {
   [super layoutSubviews];
   
-  CGRect frame;
-  
-  frame = self.textLabel.frame;
+  // right align textLabel and left align detailTextLabel 
+  CGRect frame = self.textLabel.frame;
   frame.size.width = 125;
   self.textLabel.frame = frame;
 
