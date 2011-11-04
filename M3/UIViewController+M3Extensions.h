@@ -14,9 +14,14 @@
 -(BOOL)isFullscreen;
 
 /*
- * The reload method just sets the url to its current value, again.
- *
- * This usually results into reloading the controller's content.
+ * "Do" this controller. This usually presents the controller one way or another.
+ * The default implementation pushs this controller on top of the current 
+ * navigation controller.
+ */
+-(void)presentController;
+
+/*
+ * The reload method just sets the url to its current value, again. 
  */
 -(void)reload;
 

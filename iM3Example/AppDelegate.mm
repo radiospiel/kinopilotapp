@@ -83,17 +83,8 @@ AppDelegate* app;
   return YES;
 }
 
-// Open internal URLs inside application.
--(BOOL)openInternalURL: (NSString*)url 
+-(UINavigationController*)topMostController
 {
-  UIViewController* vc = [[self router] controllerForURL: url];
-  if(!vc) return NO;
-
-  if([vc respondsToSelector:@selector(doShow)]) {
-    [vc performSelector:@selector(doShow)];
-    return YES;
-  }
-
   // Get top-most controller.
   UINavigationController* nc;
   if(!self.tabBarController) {
@@ -106,26 +97,22 @@ AppDelegate* app;
   }
   
   M3AssertKindOf(nc, UINavigationController);
-  [nc.navigationBar setBarStyle:UIBarStyleBlack];
+  return nc;
+}
 
-  // viewmode
-  if([url matches: @"/schedules/show"]) {
-    dlog << "schedules show: " << vc;
-    [vc retain];
-    [vc showOnTopOfView: nc.view]; 
-    return YES;
-  }  
+-(void)presentControllerOnTop: (UIViewController*)viewController
+{
+  UINavigationController* nc = [self topMostController];
+  [nc pushViewController:viewController animated:YES];
+}
 
-  if(NO) { // [vc shouldOpenModally]) {
-    vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    // vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    // vc.modalTransitionStyle = UIModalTransitionStylePartialCurl;
-    [nc presentModalViewController:vc animated:YES];
-  }
-  else {
-    [nc pushViewController:vc animated:YES];
-  }
+// Open internal URLs inside application.
+-(BOOL)openInternalURL: (NSString*)url 
+{
+  UIViewController* vc = [[self router] controllerForURL: url];
+  if(!vc) return NO;
 
+  [vc perform];
   return YES;
 }
 

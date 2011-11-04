@@ -92,10 +92,8 @@
           ];
 }
 
--(void)doShow
+-(void)perform
 {
-  dlog << "doShow";
-  
   if([self.url startsWith:@"/share/email"])
     [self email];
   else if([self.url startsWith:@"/share/twitter"])

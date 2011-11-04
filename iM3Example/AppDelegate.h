@@ -63,6 +63,9 @@ extern AppDelegate* app;
  */
 -(void)open: (NSString*)url;
 
+-(UINavigationController*)topMostController;
+-(void)presentControllerOnTop: (UIViewController*)viewController;
+
 @end
 
 @class ChairDatabase;

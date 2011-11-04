@@ -40,9 +40,12 @@
   return [sheet autorelease];
 }
 
--(void)showOnTopOfView:(UIView*)view
+-(void)perform
 {
-  [[self actionSheet] showInView:view];
+  UINavigationController* nc = [app topMostController];
+  
+  [self retain];
+  [[self actionSheet] showInView:nc.view];
 }
 
 -(void)openAction:(NSString*)label
