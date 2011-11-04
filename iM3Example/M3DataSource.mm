@@ -62,7 +62,7 @@
       NSNumber* production_year = [movie objectForKey:@"production-year"];
       M3AssertKindOf(production_year, NSNumber);
       
-      if(production_year && [production_year intValue] < year_limit) {
+      if(production_year && production_year.to_i < year_limit) {
         [movie_ids addObject: movie_id];
         return;
       }
@@ -119,7 +119,7 @@
   }
   
   NSNumber* time = [schedules.first objectForKey:@"time"];
-  time = [NSNumber numberWithInt: [time intValue] - 6 * 2400];
+  time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
   
   [self addSection: cellKeys 
        withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"ccc dd.MM."])];
@@ -148,9 +148,9 @@
   // group schedules by *day* into sectionsHash
   NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
     NSNumber* time = [schedule objectForKey:@"time"];
-    if([time intValue] < now) return @"old";
+    if(time.to_i < now) return @"old";
     
-    time = [NSNumber numberWithInt: [time intValue] - 6 * 2400];
+    time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
     return [time.to_date stringWithFormat:@"dd.MM."];
   }];
   
@@ -237,7 +237,7 @@
   }
   
   NSNumber* time = [schedules.first objectForKey:@"time"];
-  time = [NSNumber numberWithInt: [time intValue] - 6 * 2400];
+  time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
   
   [self addSection: cellKeys 
        withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"ccc dd.MM."])];
@@ -266,9 +266,9 @@
   // group schedules by *day* into sectionsHash
   NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
     NSNumber* time = [schedule objectForKey:@"time"];
-    if([time intValue] < now) return @"old";
+    if(time.to_i < now) return @"old";
     
-    time = [NSNumber numberWithInt: [time intValue] - 6 * 2400];
+    time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
     return [time.to_date stringWithFormat:@"dd.MM."];
   }];
   
@@ -311,7 +311,7 @@
 {
   self = [super init];
 
-  NSUInteger start_of_day = [day intValue];  
+  NSUInteger start_of_day = day.to_i;  
   //
   // get all schedules for the theater and for the movie, and 
   // remove all schedules, that are in the past.
@@ -324,13 +324,12 @@
     
     NSNumber* time = [schedule objectForKey:@"time"];
 
+    if(time.to_i < now) return NO;
+
     if(start_of_day) {
-      if([time intValue] < start_of_day) return NO;
-      if([time intValue] > start_of_day + 24 * 3600) return NO;
+      if(time.to_i < start_of_day) return NO;
+      if(time.to_i > start_of_day + 24 * 3600) return NO;
     } 
-    else {
-      if([time intValue] < now) return NO;
-    }
        
     return YES;
   }];

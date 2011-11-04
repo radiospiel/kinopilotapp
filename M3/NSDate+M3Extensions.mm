@@ -118,17 +118,3 @@ static NSDateFormatter* dateFormatter(NSString* dateFormat)
 }
 
 @end
-
-@implementation NSNumber (M3Extensions) 
-
--(NSDate*)to_date
-{
-  return [NSDate dateWithTimeIntervalSince1970:[self doubleValue]];
-}
-
--(NSDate*)to_day
-{
-  return self.to_date.to_day;
-}
-
-@end

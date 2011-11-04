@@ -162,9 +162,8 @@
 {
   NSNumber* time = [self.schedule objectForKey: @"time"];
   NSNumber* runtime = [self.movie objectForKey: @"runtime"];
-  NSTimeInterval runtimeInSecs = runtime ? [runtime intValue] * 60 : 90 * 60;
+  NSTimeInterval runtimeInSecs = runtime ? runtime.to_i * 60 : 90 * 60;
   
-
   EKEventStore *eventDB = [[[EKEventStore alloc] init]autorelease];
   EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
 

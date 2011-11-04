@@ -289,6 +289,10 @@
 		9DFE5C1114642E850039F536 /* M3AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE5C0E14642E850039F536 /* M3AppDelegate.mm */; };
 		9DFE5C1214642E850039F536 /* M3AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE5C0E14642E850039F536 /* M3AppDelegate.mm */; };
 		9DFE5C151464319F0039F536 /* ActionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE5C141464319F0039F536 /* ActionController.mm */; };
+		9DFE5C18146445520039F536 /* NSNumber+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DFE5C16146445520039F536 /* NSNumber+M3Extensions.h */; };
+		9DFE5C19146445520039F536 /* NSNumber+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DFE5C16146445520039F536 /* NSNumber+M3Extensions.h */; };
+		9DFE5C1A146445520039F536 /* NSNumber+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE5C17146445520039F536 /* NSNumber+M3Extensions.mm */; };
+		9DFE5C1B146445520039F536 /* NSNumber+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE5C17146445520039F536 /* NSNumber+M3Extensions.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -570,6 +574,8 @@
 		9DFE5C0D14642E850039F536 /* M3AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3AppDelegate.h; sourceTree = "<group>"; };
 		9DFE5C0E14642E850039F536 /* M3AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3AppDelegate.mm; sourceTree = "<group>"; };
 		9DFE5C141464319F0039F536 /* ActionController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ActionController.mm; sourceTree = "<group>"; };
+		9DFE5C16146445520039F536 /* NSNumber+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+M3Extensions.h"; sourceTree = "<group>"; };
+		9DFE5C17146445520039F536 /* NSNumber+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSNumber+M3Extensions.mm"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1033,6 +1039,8 @@
 				9D85437B142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m */,
 				9DA5DD46143276D00003B54A /* NSDate+M3Extensions.h */,
 				9DA5DD47143276D00003B54A /* NSDate+M3Extensions.mm */,
+				9DFE5C16146445520039F536 /* NSNumber+M3Extensions.h */,
+				9DFE5C17146445520039F536 /* NSNumber+M3Extensions.mm */,
 				9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */,
 				9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */,
 				9D3563171423F7AA002AAEAF /* NSString+M3Extensions.h */,
@@ -1116,6 +1124,7 @@
 				9D19E137145AD085003343C5 /* NSURL+M3Extensions.h in Headers */,
 				9D934D9F1461BF51001B25C6 /* UIView+M3Stylesheets.h in Headers */,
 				9DFE5C1014642E850039F536 /* M3AppDelegate.h in Headers */,
+				9DFE5C19146445520039F536 /* NSNumber+M3Extensions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1168,6 +1177,7 @@
 				9D19E136145AD085003343C5 /* NSURL+M3Extensions.h in Headers */,
 				9DACE1BA145F3C5700372415 /* M3+Interpolate.h in Headers */,
 				9DFE5C0F14642E850039F536 /* M3AppDelegate.h in Headers */,
+				9DFE5C18146445520039F536 /* NSNumber+M3Extensions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1495,6 +1505,7 @@
 				9D19E139145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */,
 				9D934DA01461BF51001B25C6 /* UIView+M3Stylesheets.mm in Sources */,
 				9DFE5C1214642E850039F536 /* M3AppDelegate.mm in Sources */,
+				9DFE5C1B146445520039F536 /* NSNumber+M3Extensions.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1601,6 +1612,7 @@
 				9D19E138145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */,
 				9DACE1BB145F3C5700372415 /* M3+Interpolate.mm in Sources */,
 				9DFE5C1114642E850039F536 /* M3AppDelegate.mm in Sources */,
+				9DFE5C1A146445520039F536 /* NSNumber+M3Extensions.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

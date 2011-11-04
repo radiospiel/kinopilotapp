@@ -23,13 +23,3 @@
 -(NSNumber*)to_number;
 
 @end
-
-@interface NSNumber (M3Extensions) 
-
-@property (readonly,nonatomic) NSDate* to_date;
-@property (readonly,nonatomic) NSDate* to_day;
-
--(NSDate*)to_date;
--(NSDate*)to_day;
-
-@end

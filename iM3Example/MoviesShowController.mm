@@ -81,9 +81,7 @@
 -(CGFloat)wantsHeight
 {
   NSNumber* number = [self.movie objectForKey: @"average-community-rating"];
-  int rating = [number intValue];
-  
-  return rating < 0.01 ? 0 : 30;
+  return number.to_i <= 0 ? 0 : 30;
 }
 
 -(id)init
@@ -110,14 +108,12 @@
   
   // Get rating: this is a number between 0 and 100.
   NSNumber* number = [self.movie objectForKey: @"average-community-rating"];
-  int rating = [number intValue];
-  
-  if(rating < 0.01) return;
+  if(number.to_i <= 0) return;
   
   self.textLabel.text = @"moviepilot.de Rating:";
   
   ratingBackground_.frame = CGRectMake(150, 6, 96, 16);
-  ratingForeground_.frame = CGRectMake(150, 6, (rating * 96 + 50)/100, 16);
+  ratingForeground_.frame = CGRectMake(150, 6, (number.to_i * 96 + 50)/100, 16);
   ratingForeground_.contentMode = UIViewContentModeLeft;
   ratingForeground_.clipsToBounds = YES;
   

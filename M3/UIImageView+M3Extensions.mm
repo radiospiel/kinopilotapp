@@ -86,7 +86,7 @@
   if(animationImages.count == 0) return;
   
   NSNumber* rotationIndex = [self instance_variable_get:@selector(rotationIndex)];
-  int rotationNo = [rotationIndex intValue] + 1;
+  int rotationNo = rotationIndex.to_i + 1;
   
   [self instance_variable_set: @selector(rotationIndex) 
                     withValue: [NSNumber numberWithInt:rotationNo]];
