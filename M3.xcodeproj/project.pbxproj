@@ -917,8 +917,6 @@
 		9D8B8AE01413CA8B0066ECBB = {
 			isa = PBXGroup;
 			children = (
-				9DACE1C1145F532300372415 /* EventKit.framework */,
-				9D4B701F145D92E800F1DBCE /* MessageUI.framework */,
 				9D0893A9145351AB00F64AC1 /* berlin.png */,
 				9D0893AA145351AB00F64AC1 /* cinemas.png */,
 				9D0893AB145351AB00F64AC1 /* movies.png */,
@@ -951,6 +949,8 @@
 		9D8B8AED1413CA8B0066ECBB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9DACE1C1145F532300372415 /* EventKit.framework */,
+				9D4B701F145D92E800F1DBCE /* MessageUI.framework */,
 				9D10C37C143774A800FE19C9 /* MapKit.framework */,
 				9DD2ED841435F0F70078AD6A /* CoreLocation.framework */,
 				9DDE1B7B1430946B00FDF9C5 /* iAd.framework */,

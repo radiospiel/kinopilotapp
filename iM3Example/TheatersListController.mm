@@ -152,6 +152,19 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
   return [M3ProfileView profileViewForMovie:movie]; 
 }
 
+-(UIView*)searchBar
+{
+  UISearchBar* bar = [[UISearchBar alloc]initWithFrame: CGRectMake(0, 0, 320, 44)];
+  [bar setBarStyle:UIBarStyleBlackOpaque];
+  bar.delegate = self;
+  return [bar autorelease];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+  dlog << "searching " << searchText;
+}
+
 -(void)loadFromUrl:(NSString*)url
 {
   if(!url) {
@@ -160,11 +173,54 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
   }
 
   NSString* movie_id = [url.to_url param: @"movie_id"];
-    
-  self.dataSource = !movie_id ? [M3DataSource theatersList] :
-    [M3DataSource theatersListFilteredByMovie:movie_id];
   
-  self.tableView.tableHeaderView = [self headerView];
+  if(movie_id) {
+    self.dataSource = [M3DataSource theatersListFilteredByMovie:movie_id];
+    self.tableView.tableHeaderView = [self headerView];
+  }
+  else {
+    self.dataSource = [M3DataSource theatersList];
+    self.tableView.tableHeaderView = [self searchBar];
+  }
+  
+//  [dataSource prependSection:_.array() withOptions:_.hash(@"header", @"yea")];
+  
 }
 
+//- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+//{
+//  if(section != 0)
+//    return [super tableView:tableView heightForHeaderInSection:section];
+//
+//	return 44;
+//}
+//
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//  if(section != 0)
+//    return [super tableView:tableView viewForHeaderInSection:section];
+//
+//  UISearchBar* bar = [[UISearchBar alloc]initWithFrame: CGRectMake(0, 0, 320, 44)];
+//  [bar setBarStyle:UIBarStyleBlackOpaque];
+//  return [bar autorelease];
+////  
+////  NSString* text = [self.dataSource tableView:tableView titleForHeaderInSection:section];
+////  if(!text) return nil;
+////  
+////  UIView* header = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22)]autorelease];
+////  header.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header-background-dark-22.png"]]; 
+////  
+////  UILabel * label = [[[UILabel alloc] initWithFrame:CGRectMake(7, 0, 308, 22)]autorelease];
+////  label.backgroundColor = [UIColor clearColor];
+////  label.opaque = NO;
+////  label.textColor = [UIColor whiteColor];
+////  label.font = [UIFont boldSystemFontOfSize:15];
+////  label.lineBreakMode = UILineBreakModeMiddleTruncation;
+////  label.text = text;
+////  
+////  [header addSubview:label];
+////  
+////  return header;
+//}
+//
 @end

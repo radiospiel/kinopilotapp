@@ -8,7 +8,7 @@
 
 #import "M3ListViewController.h"
 
-@interface TheatersListController: M3ListViewController
+@interface TheatersListController: M3ListViewController<UISearchBarDelegate>
 
 @property (readonly) NSString* movie_id;
 

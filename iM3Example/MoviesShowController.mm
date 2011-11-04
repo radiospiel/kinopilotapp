@@ -81,12 +81,15 @@
 -(CGFloat)wantsHeight
 {
   NSNumber* number = [self.movie objectForKey: @"average-community-rating"];
-  return number.to_i <= 0 ? 0 : 30;
+  return number.to_i <= 0 ? 0 : 44;
 }
 
 -(id)init
 {
   self = [super init];
+
+  self.textLabel.text = @"moviepilot.de Rating";
+
   if(self) {
     ratingBackground_ = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"unstars.png"]];
     [self addSubview: [ratingBackground_ autorelease]];
@@ -110,10 +113,8 @@
   NSNumber* number = [self.movie objectForKey: @"average-community-rating"];
   if(number.to_i <= 0) return;
   
-  self.textLabel.text = @"moviepilot.de Rating";
-  
-  ratingBackground_.frame = CGRectMake(180, 6, 96, 16);
-  ratingForeground_.frame = CGRectMake(180, 6, (number.to_i * 96 + 50)/100, 16);
+  ratingBackground_.frame = CGRectMake(180, 13, 96, 16);
+  ratingForeground_.frame = CGRectMake(180, 13, (number.to_i * 96 + 50)/100, 16);
   ratingForeground_.contentMode = UIViewContentModeLeft;
   ratingForeground_.clipsToBounds = YES;
 
@@ -139,7 +140,7 @@
 
 -(CGFloat)wantsHeight
 { 
-  return 30;
+  return 44;
 }
 
 -(void)setKey: (id)key

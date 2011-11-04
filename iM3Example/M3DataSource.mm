@@ -390,7 +390,7 @@
 {
   M3AssertKindOfAndSet(theater_id, NSString);
   M3AssertKindOfAndSet(movie_id, NSString);
-  M3AssertKindOfAndSet(day, NSDate);
+  M3AssertKindOf(day, NSDate);
   
   return [[[SchedulesByTheaterAndMovieDataSource alloc]initWithTheater: theater_id 
                                                               andMovie: movie_id
