@@ -307,9 +307,11 @@
 
 -(id)initWithTheater: (NSString*)theater_id 
             andMovie: (NSString*)movie_id
+               onDay: (NSNumber*)day
 {
   self = [super init];
 
+  NSUInteger start_of_day = [day intValue];  
   //
   // get all schedules for the theater and for the movie, and 
   // remove all schedules, that are in the past.
@@ -321,8 +323,15 @@
     if(![movie_id isEqualToString:schedule_movie_id]) return NO;
     
     NSNumber* time = [schedule objectForKey:@"time"];
-    if([time intValue] < now) return NO;
-    
+
+    if(start_of_day) {
+      if([time intValue] < start_of_day) return NO;
+      if([time intValue] > start_of_day + 24 * 3600) return NO;
+    } 
+    else {
+      if([time intValue] < now) return NO;
+    }
+       
     return YES;
   }];
 
@@ -331,8 +340,6 @@
   schedules = [schedules sortByBlock:^id(NSDictionary* schedule) {
     return [schedule objectForKey:@"time"];
   }];
-  
-  
   
   NSString* header;
   if(schedules.count > 1) 
@@ -378,11 +385,15 @@
 
 +(M3TableViewDataSource*)schedulesByTheater: (NSString*)theater_id 
                                    andMovie: (NSString*)movie_id
+                                      onDay: (NSNumber*)day
 {
   M3AssertKindOfAndSet(theater_id, NSString);
   M3AssertKindOfAndSet(movie_id, NSString);
   
-  return [[[SchedulesByTheaterAndMovieDataSource alloc]initWithTheater:theater_id andMovie:movie_id]autorelease];
+  return [[[SchedulesByTheaterAndMovieDataSource alloc]initWithTheater: theater_id 
+                                                              andMovie: movie_id
+                                                                 onDay: day]
+          autorelease];
 }
 
 @end

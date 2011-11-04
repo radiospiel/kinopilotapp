@@ -18,6 +18,11 @@
   return [self.url.to_url.params objectForKey: @"theater_id"];
 }
 
+-(NSNumber*)day
+{
+  return [self.url.to_url.params objectForKey: @"day"];
+}
+
 -(NSDictionary*)movie
 {
   return [app.chairDB.movies get: self.movie_id];
@@ -38,8 +43,11 @@
 
 -(void)loadFromUrl:(NSString *)url
 {
+  
   self.dataSource = [M3DataSource schedulesByTheater:self.theater_id 
-                                            andMovie: self.movie_id]; 
+                                            andMovie: self.movie_id
+                                               onDay: [self day]
+                     ]; 
   self.tableView.tableHeaderView = [self headerView];
 }
 

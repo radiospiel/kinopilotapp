@@ -73,31 +73,36 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
   self.detailTextLabel.numberOfLines = 1;
 }
 
+//
+// Example key
+//
+// 
+// {
+//   theater_id: "...", 
+//   schedules: [
+//     {_type: "schedules", ..., time: <__NSDate: 2011-09-25 16:15:00 +0000>, version: "omu"}, 
+//     {_type: "schedules", ..., time: <__NSDate: 2011-09-25 14:00:00 +0000>, version: "omu"}, 
+//     ...
+//   ]
+// }
+
+
+-(NSArray*)schedules
+{
+  return [self.key objectForKey:@"schedules"];
+}
+
 -(void)setKey: (NSDictionary*)key
 {
   [super setKey:key];
-  
-  //
-  // Example key
-  //
-  // 
-  // {
-  //   theater_id: "...", 
-  //   schedules: [
-  //     {_type: "schedules", ..., time: <__NSDate: 2011-09-25 16:15:00 +0000>, version: "omu"}, 
-  //     {_type: "schedules", ..., time: <__NSDate: 2011-09-25 14:00:00 +0000>, version: "omu"}, 
-  //     ...
-  //   ]
-  // }
   
   NSDictionary* theater = [key joinWith: app.chairDB.theaters on: @"theater_id"];
   theater = [app.chairDB adjustMovies: theater];
   
   [self setText: [theater objectForKey: @"name"]];
   
-  NSArray* schedules = [theater objectForKey:@"schedules"];
+  NSArray* schedules = [self schedules];
   schedules = [schedules sortByKey:@"time"];
-  
   schedules = [schedules mapUsingBlock:^id(NSDictionary* schedule) {
     NSString* time = [schedule objectForKey:@"time"];
     NSString* timeAsString = [time.to_date stringWithFormat:@"HH:mm"];
@@ -114,11 +119,15 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 
   TheatersListController* tlc = (TheatersListController*)self.tableViewController;
   M3AssertKindOf(tlc, TheatersListController);
+  M3AssertNotNil(tlc.movie_id);
+  
+  NSDictionary* aSchedule = [self schedules].first;
+  NSNumber* time = [aSchedule objectForKey:@"time"];
 
-  if(!tlc.movie_id)
-    return _.join(@"/movies/list?theater_id=", theater_id);
-
-  return _.join(@"/schedules/list?theater_id=", theater_id, @"&movie_id=", tlc.movie_id);
+  return _.join(@"/schedules/list?theater_id=", theater_id, 
+                                 @"&movie_id=", tlc.movie_id,
+                                 @"&day=", time.to_day.to_number);
+  
 }
 
 @end

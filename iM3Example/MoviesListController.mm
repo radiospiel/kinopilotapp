@@ -47,22 +47,27 @@
 
 @implementation MoviesListFilteredByTheaterCell
 
+//
+// Example key
+//
+// 
+// {
+//   movie_id: "howiendedthissummer|movies", 
+//   schedules: [
+//     {_type: "schedules", ..., time: <__NSDate: 2011-09-25 16:15:00 +0000>, version: "omu"}, 
+//     {_type: "schedules", ..., time: <__NSDate: 2011-09-25 14:00:00 +0000>, version: "omu"}, 
+//     ...
+//   ]
+// }
+
+-(NSArray*)schedules
+{
+  return [self.key objectForKey:@"schedules"];
+}
+
 -(void)setKey: (NSDictionary*)key
 {
   [super setKey:key];
-  
-  //
-  // Example key
-  //
-  // 
-  // {
-  //   movie_id: "howiendedthissummer|movies", 
-  //   schedules: [
-  //     {_type: "schedules", ..., time: <__NSDate: 2011-09-25 16:15:00 +0000>, version: "omu"}, 
-  //     {_type: "schedules", ..., time: <__NSDate: 2011-09-25 14:00:00 +0000>, version: "omu"}, 
-  //     ...
-  //   ]
-  // }
   
   NSDictionary* movie = [key joinWith: app.chairDB.movies on: @"movie_id"];
   movie = [app.chairDB adjustMovies: movie];
@@ -70,9 +75,8 @@
   [self setImageURL: [movie objectForKey: @"image"]];
   [self setText: [movie objectForKey: @"title"]];
   
-  NSArray* schedules = [movie objectForKey:@"schedules"];
+  NSArray* schedules = [self schedules];
   schedules = [schedules sortByKey:@"time"];
-  
   schedules = [schedules mapUsingBlock:^id(NSDictionary* schedule) {
     NSString* time = [schedule objectForKey:@"time"];
     NSString* timeAsString = [time.to_date stringWithFormat:@"HH:mm"];
@@ -81,21 +85,22 @@
   }];
   
   [self setDetailText: [schedules componentsJoinedByString:@", "]];
-
-  // -- set URL for this cell.
-
-  M3AssertKindOf(self.tableViewController, MoviesListController);
-  
-  if(!self.tableViewController) return;
-  
-  MoviesListController* mlc = (MoviesListController*)self.tableViewController;
-  
-  self.url = _.join(@"/schedules/list?",
-                      @"important=movie&", 
-                      @"theater_id=", mlc.theater_id, 
-                      @"&movie_id=", [self.key objectForKey: @"movie_id"]);
 }
 
+-(NSString*) url
+{
+  if(!self.tableViewController) return nil;
+  MoviesListController* mlc = (MoviesListController*)self.tableViewController;
+
+  NSDictionary* aSchedule = [self schedules].first;
+  NSNumber* time = [aSchedule objectForKey:@"time"];
+
+  return _.join(@"/schedules/list",
+                @"?important=movie", 
+                @"&day=", time.to_day.to_number,
+                @"&theater_id=", mlc.theater_id, 
+                @"&movie_id=", [self.key objectForKey: @"movie_id"]);
+}
 @end
 
 /******************************************************************************/
