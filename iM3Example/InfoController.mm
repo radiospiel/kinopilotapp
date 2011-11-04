@@ -111,12 +111,12 @@
   
   // right align textLabel and left align detailTextLabel 
   CGRect frame = self.textLabel.frame;
-  frame.size.width = 125;
+  frame.size.width = 130;
   self.textLabel.frame = frame;
 
   frame = self.detailTextLabel.frame;
-  frame.origin.x = 155;
-  frame.size.width = 140;
+  frame.origin.x = 160;
+  frame.size.width = 130;
   self.detailTextLabel.frame = frame;
 }
 @end

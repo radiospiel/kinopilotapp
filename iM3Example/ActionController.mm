@@ -16,7 +16,6 @@
 
 -(void)update
 {
-  dlog << "update"; 
   [app.chairDB performSelector:@selector(update) withObject:nil afterDelay:0.3];
 }
 @end

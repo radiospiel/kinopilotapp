@@ -4,18 +4,18 @@
 @implementation SchedulesListController
 
 -(NSString*)title
-{
-  return nil;
-}
-
--(NSDictionary*)theater
-{
-  return [app.chairDB.theaters get: self.theater_id];
+{ 
+  return nil; 
 }
 
 -(NSString*)theater_id
 {
   return [self.url.to_url.params objectForKey: @"theater_id"];
+}
+
+-(NSDictionary*)theater
+{
+  return [app.chairDB.theaters get: self.theater_id];
 }
 
 -(NSNumber*)day
@@ -60,14 +60,14 @@
 -(id)init
 { 
   self = [super initWithStyle: UITableViewCellStyleValue1]; 
-  self.textLabel.font = [UIFont boldSystemFontOfSize:14];
+  // self.textLabel.font = [UIFont boldSystemFontOfSize:14];
   
   return self;
 }
 
 +(CGFloat)fixedHeight
 {
-  return 25;
+  return 44;
 }
 
 -(void)layoutSubviews

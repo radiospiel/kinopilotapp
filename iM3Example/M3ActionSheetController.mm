@@ -27,15 +27,20 @@
 {
   UIActionSheet* sheet = [[UIActionSheet alloc]initWithTitle: self.title 
                                                     delegate: self
-                                           cancelButtonTitle: @"Abbruch" 
+                                           cancelButtonTitle: nil
                                       destructiveButtonTitle: nil
                                            otherButtonTitles: nil];
+
+  sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
 
   for(NSArray* action in self.actions) {
     [sheet addButtonWithTitle:action.first];
   }
 
-  sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+  [sheet addButtonWithTitle:@"Abbruch"];
+
+  sheet.cancelButtonIndex = self.actions.count;
+  // sheet.destructiveButtonIndex = self.actions.count;
 
   return [sheet autorelease];
 }
