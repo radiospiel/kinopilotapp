@@ -18,7 +18,7 @@
  * The default implementation pushs this controller on top of the current 
  * navigation controller.
  */
--(void)presentController;
+-(void)perform;
 
 /*
  * The reload method just sets the url to its current value, again. 

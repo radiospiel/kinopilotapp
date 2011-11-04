@@ -96,10 +96,10 @@
 {
   if([self.url startsWith:@"/share/email"])
     [self email];
-  else if([self.url startsWith:@"/share/twitter"])
-    [self twitter];
-  else if([self.url startsWith:@"/share/facebook"])
-    [self facebook];
+//  else if([self.url startsWith:@"/share/twitter"])
+//    [self twitter];
+//  else if([self.url startsWith:@"/share/facebook"])
+//    [self facebook];
   else if([self.url startsWith:@"/share/calendar"])
     [self calendar];
 }

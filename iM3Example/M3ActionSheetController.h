@@ -9,7 +9,6 @@
 -(void)addAction: (NSString*)label withURL: (NSString*)url;
 -(UIActionSheet*) actionSheet;
 
--(void)showOnTopOfView:(UIView*)view;
 -(void)openAction:(NSString*)label;
 
 @end

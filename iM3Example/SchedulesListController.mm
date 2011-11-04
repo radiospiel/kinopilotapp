@@ -43,7 +43,6 @@
 
 -(void)loadFromUrl:(NSString *)url
 {
-  
   self.dataSource = [M3DataSource schedulesByTheater:self.theater_id 
                                             andMovie: self.movie_id
                                                onDay: [self day]
