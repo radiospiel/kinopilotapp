@@ -33,7 +33,7 @@
 
 -(void)setLabel: (NSString*)label
 {
-  self.textLabel.text = label;
+  self.textLabel.text = [M3 interpolateString: label withValues: (id) app];
 }
 
 -(void)setBackground: (NSString*)imageName
@@ -53,50 +53,59 @@
 -(void)setKey: (NSString*)key
 {
   [super setKey: key];
-  
-  if([key isEqualToString: @"city"]) {
-    [self setLabel: @"Berlin"];
-    [self setBackground: @"berlin.png"];
-    self.url = @"/info";
-  }
-  else if([key isEqualToString: @"theaters"]) {
-    rightAligned_ = YES;
+  if(key)
+    [self performSelector: key.to_sym];
+}
 
-    [self setLabel: [NSString stringWithFormat:@"%d Kinos", app.chairDB.theaters.count]];
-     [self setBackground: @"cinemas.png"];
-    self.url = @"/theaters/list";
-  }
-  else if([key isEqualToString: @"movies"]) {
-    rightAligned_ = YES;
-    
-    [self setLabel: [NSString stringWithFormat:@"%d Filme", app.chairDB.movies.count]];
-    [self setBackground: @"movies.png"];
-    self.url = @"/movies/list";
-  }
-  else if([key isEqualToString: @"vicinity"]) {
-    // rightAligned_ = YES;
-    
-    [self setLabel: [NSString stringWithFormat:@"%d Aufführungen nearby", app.chairDB.movies.count]];
-    // [self setLabel2: [NSString stringWithFormat:@"in der Nähe", app.chairDB.movies.count]];
-    [self setBackground: @"traffic.png"];
-    self.url = @"/vicinity/show";
-  }
-  else if([key isEqualToString: @"news"]) {
-    // rightAligned_ = YES;
-    
-    [self setLabel: @"News"];
-    // [self setLabel2: [NSString stringWithFormat:@"in der Nähe", app.chairDB.movies.count]];
-    [self setBackground: @"movies.png"];
-    self.url = @"http://www.moviepilot.de";
-  }
-  else if([key isEqualToString: @"moviepilot"]) {
-    // rightAligned_ = YES;
-    
-    [self setLabel: @"Danke moviepilot!"];
-    // [self setLabel2: [NSString stringWithFormat:@"in der Nähe", app.chairDB.movies.count]];
-    [self setBackground: @"berlin.png"];
-    self.url = @"http://www.moviepilot.de";
-  }
+-(void)city
+{
+  [self setLabel: @"Berlin"];
+  [self setBackground: @"berlin.png"];
+  self.url = @"/info";
+}
+
+-(void)theaters
+{
+  rightAligned_ = YES;
+
+  [self setLabel: @"{{chairDB.theaters.count}} Kinos"];
+  [self setBackground: @"cinemas.png"];
+  self.url = @"/theaters/list";
+}
+
+-(void)movies
+{
+  rightAligned_ = YES;
+
+  [self setLabel: @"{{chairDB.movies.count}} Filme"];
+  [self setBackground: @"movies.png"];
+  self.url = @"/movies/list";
+}
+
+-(void)vicinity
+{
+  // rightAligned_ = YES;
+
+  [self setLabel: @"%d Aufführungen nearby"];
+  // [self setLabel2: [NSString stringWithFormat:@"in der Nähe", app.chairDB.movies.count]];
+  [self setBackground: @"traffic.png"];
+  self.url = @"/vicinity/show";
+}
+
+-(void)news
+{
+  [self setLabel: @"News"];
+  [self setBackground: @"movies.png"];
+  self.url = @"http://www.moviepilot.de";
+}
+
+-(void)moviepilot
+{
+  // rightAligned_ = YES;
+
+  [self setLabel: @"Danke moviepilot!"];
+  [self setBackground: @"berlin.png"];
+  self.url = @"http://www.moviepilot.de";
 }
 
 -(void)layoutSubviews
