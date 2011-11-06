@@ -20,7 +20,7 @@
 
 -(id)initWithFilter:(NSString*)filter
 {
-  self = [super init];
+  self = [super initWithCellClass: @"MoviesListCell"]; 
   
   NSArray* keys = nil;
   
@@ -85,8 +85,6 @@
                             @"index", group.first)];
   }
 
-  self.defaultCellClass = @"MoviesListCell"; 
-
   return self;
 }
 
@@ -125,7 +123,7 @@
 
 -(id)initWithTheaterFilter: (id)theater_id
 {
-  self = [super init];
+  self = [super initWithCellClass: @"MoviesListFilteredByTheaterCell"]; 
 
   //
   // get all schedules for the theater
@@ -166,8 +164,7 @@
     M3AssertKindOf(schedules, NSArray);
     [self addSchedulesSection: schedules];
   }
-
-  self.defaultCellClass = @"MoviesListFilteredByTheaterCell"; 
+  
 
   return self;
 }
@@ -184,8 +181,8 @@
 
 -(id)init
 {
-  self = [super init];
-  
+  self = [super initWithCellClass: @"TheatersListCell"]; 
+
   NSDictionary* groupedHash = [app.chairDB.theaters.keys groupUsingBlock:^id(NSString* theater_id) {
     return [[theater_id substringToIndex:1]uppercaseString];
   }];
@@ -197,9 +194,7 @@
          withOptions:_.hash(@"header", group.first, 
                             @"index", group.first)];
   }
-  
-  self.defaultCellClass = @"TheatersListCell"; 
-
+ 
   return self;
 }
 
@@ -237,8 +232,8 @@
 
 -(id)initWithMovieFilter: (id)movie_id
 {
-  self = [super init];
-  
+  self = [super initWithCellClass: @"TheatersListFilteredByMovieCell"];
+
   //
   // get all schedules for the theater
   NSArray* schedules = [app.chairDB schedulesByMovieId: movie_id];
@@ -279,8 +274,6 @@
     [self addSchedulesSection: schedules];
   }
 
-  self.defaultCellClass = @"TheatersListFilteredByMovieCell";
-
   return self;
 }
 
@@ -298,8 +291,8 @@
             andMovie: (NSString*)movie_id
                onDay: (NSDate*)day
 {
-  self = [super init];
-
+  self = [super initWithCellClass: @"ScheduleListCell"];
+  
   M3AssertKindOf(day, NSDate);
   
   NSUInteger start_of_day = day.to_number.to_i;
@@ -340,8 +333,6 @@
   [self addSection: schedules
        withOptions: _.hash(@"header", header)];
 
-  self.defaultCellClass = @"ScheduleListCell";
-  
   return self;
 }
 

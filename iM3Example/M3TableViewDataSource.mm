@@ -7,20 +7,25 @@
 
 @synthesize controller = controller_, 
               sections = sections_, 
-      defaultCellClass = defaultCellClass_;
+             cellClass = cellClass_;
 
--(id)init
+-(id)initWithCellClass:(id)cellClass
 {
   self = [super init];
   self.sections = [NSMutableArray array];
+  cellClass_ = cellClass;
   
   return self;
+}
+
+-(id)init
+{
+  return [self initWithCellClass:nil];
 }
 
 -(void)dealloc
 {
   self.sections = nil;
-  self.defaultCellClass = nil;
   
   [super dealloc];
 }
@@ -94,9 +99,9 @@
 {
   if(!filterText.length) return [[self retain]autorelease];
 
-  M3TableViewDataSource* dataSource = [[[M3TableViewDataSource alloc]init]autorelease];
-  M3AssertNotNil(self.defaultCellClass);
-  dataSource.defaultCellClass = self.defaultCellClass;
+  M3AssertNotNil(self.cellClass);
+
+  M3TableViewDataSource* dataSource = [[M3TableViewDataSource alloc]initWithCellClass:self.cellClass];
   
   for(NSArray* section in self.sections) {
     section = [self section: section filteredWith:filterText];
@@ -104,15 +109,15 @@
       [dataSource.sections addObject:section];
   }
   
-  return dataSource;
+  return [dataSource autorelease];
 }
 
 #pragma mark - UITableViewDataSource customization
 
 -(Class) cellClassForKey: (id)key
 {
-  if(self.defaultCellClass)
-    return self.defaultCellClass;
+  if(cellClass_)
+    return cellClass_;
   
   return [M3TableViewCell class];
 }

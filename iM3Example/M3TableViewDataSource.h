@@ -12,12 +12,14 @@
 @interface M3TableViewDataSource : NSObject<UITableViewDataSource> {
   NSMutableArray* sections_;
   M3TableViewController* controller_;
-  id defaultCellClass_;
+  id cellClass_;
 }
 
 @property (retain,nonatomic) NSMutableArray* sections;
 @property (assign,nonatomic) M3TableViewController* controller;
-@property (retain,nonatomic) id defaultCellClass;
+@property (readonly,nonatomic) id cellClass;
+
+-(id)initWithCellClass: (id)cellClass;
 
 /** 
  * Adds a section to the receiving data source.
