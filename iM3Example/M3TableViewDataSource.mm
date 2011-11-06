@@ -5,18 +5,23 @@
 
 @implementation M3TableViewDataSource
 
-@synthesize controller = controller_, sections = sections_;
+@synthesize controller = controller_, 
+              sections = sections_, 
+      defaultCellClass = defaultCellClass_;
 
 -(id)init
 {
   self = [super init];
   self.sections = [NSMutableArray array];
+  
   return self;
 }
 
 -(void)dealloc
 {
   self.sections = nil;
+  self.defaultCellClass = nil;
+  
   [super dealloc];
 }
 
@@ -43,10 +48,72 @@
   [self.sections insertObject:section atIndex:0];
 }
 
+#pragma mark - Filtering
+
+- (BOOL)stringItem: (NSString*)item 
+     matchesFilter: (NSString*)filter
+{
+  return [[item uppercaseString] startsWith: [filter uppercaseString]];
+}
+
+- (BOOL)dictionaryItem: (NSDictionary*)item 
+         matchesFilter: (NSString*)filter
+{
+  NSString* itemText = [item objectForKey:@"filter"];
+  if(!itemText) itemText = [item objectForKey:@"title"];
+  if(!itemText) itemText = [item objectForKey:@"label"];
+
+  return [self stringItem:itemText matchesFilter:filter];
+}
+
+- (BOOL)item: (id)item matchesFilter: (NSString*)filter
+{
+  if([item isKindOfClass:[NSString class]]) 
+    return [self stringItem:item matchesFilter:filter];
+  if([item isKindOfClass:[NSDictionary class]]) 
+    return [self dictionaryItem:item matchesFilter:filter];
+  
+  return NO;
+}
+
+- (NSArray*)section: (NSArray*)section filteredWith: (NSString*)filter
+{
+  NSArray* keys = section.first;
+  NSDictionary* options = section.second;
+
+  keys = [ keys selectUsingBlock:^BOOL(id item) {
+    return [self item: item matchesFilter: filter];
+  }];
+  
+  if(keys.count == 0) return nil;
+  
+  return [NSArray arrayWithObjects: keys, options, nil];
+}
+
+- (M3TableViewDataSource*)dataSourceByFilteringWith: (NSString*)filterText;
+{
+  if(!filterText.length) return [[self retain]autorelease];
+
+  M3TableViewDataSource* dataSource = [[[M3TableViewDataSource alloc]init]autorelease];
+  M3AssertNotNil(self.defaultCellClass);
+  dataSource.defaultCellClass = self.defaultCellClass;
+  
+  for(NSArray* section in self.sections) {
+    section = [self section: section filteredWith:filterText];
+    if(section)
+      [dataSource.sections addObject:section];
+  }
+  
+  return dataSource;
+}
+
 #pragma mark - UITableViewDataSource customization
 
 -(Class) cellClassForKey: (id)key
 {
+  if(self.defaultCellClass)
+    return self.defaultCellClass;
+  
   return [M3TableViewCell class];
 }
 

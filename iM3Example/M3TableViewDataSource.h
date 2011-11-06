@@ -12,10 +12,12 @@
 @interface M3TableViewDataSource : NSObject<UITableViewDataSource> {
   NSMutableArray* sections_;
   M3TableViewController* controller_;
+  id defaultCellClass_;
 }
 
 @property (retain,nonatomic) NSMutableArray* sections;
 @property (assign,nonatomic) M3TableViewController* controller;
+@property (retain,nonatomic) id defaultCellClass;
 
 /** 
  * Adds a section to the receiving data source.
@@ -46,5 +48,11 @@
  */
 - (UITableViewCell *)tableView:(UITableView *)tableView 
          cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+
+
+/**
+ * return filtered data source
+ */
+- (M3TableViewDataSource*)dataSourceByFilteringWith: (NSString*)filterText;
 
 @end

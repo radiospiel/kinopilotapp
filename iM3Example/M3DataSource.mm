@@ -84,12 +84,10 @@
          withOptions:_.hash(@"header", group.first, 
                             @"index", group.first)];
   }
-  return self;
-}
 
--(Class)cellClassForKey:(id)key
-{ 
-  return @"MoviesListCell"; 
+  self.defaultCellClass = @"MoviesListCell"; 
+
+  return self;
 }
 
 @end
@@ -168,13 +166,10 @@
     M3AssertKindOf(schedules, NSArray);
     [self addSchedulesSection: schedules];
   }
-  
-  return self;
-}
 
--(id)cellClassForKey:(id)key
-{ 
-  return @"MoviesListFilteredByTheaterCell";
+  self.defaultCellClass = @"MoviesListFilteredByTheaterCell"; 
+
+  return self;
 }
 
 @end
@@ -203,12 +198,9 @@
                             @"index", group.first)];
   }
   
-  return self;
-}
+  self.defaultCellClass = @"TheatersListCell"; 
 
--(Class)cellClassForKey:(id)key
-{ 
-  return @"TheatersListCell";
+  return self;
 }
 
 @end
@@ -286,13 +278,10 @@
     M3AssertKindOf(schedules, NSArray);
     [self addSchedulesSection: schedules];
   }
-  
-  return self;
-}
 
--(id)cellClassForKey:(id)key
-{ 
-  return @"TheatersListFilteredByMovieCell";
+  self.defaultCellClass = @"TheatersListFilteredByMovieCell";
+
+  return self;
 }
 
 @end
@@ -350,13 +339,10 @@
   
   [self addSection: schedules
        withOptions: _.hash(@"header", header)];
+
+  self.defaultCellClass = @"ScheduleListCell";
   
   return self;
-}
-
--(id)cellClassForKey:(id)key
-{ 
-  return @"ScheduleListCell";
 }
 
 @end
