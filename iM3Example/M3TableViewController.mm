@@ -14,8 +14,8 @@
 -(id)init
 {
   self = [super init];
-  
-  
+  self.clearsSelectionOnViewWillAppear = NO;
+
   return self;
 }
 
@@ -23,8 +23,8 @@
 {
   self.dataSource = nil;
 
-  [segmentedControl_ release];
-  [segmentedControlParams_ release];
+  [segmentedControl_ release]; segmentedControl_ = nil;
+  [segmentedControlParams_ release]; segmentedControlParams_ = nil;
   
   [self releaseM3Properties];
 
@@ -72,7 +72,7 @@
 -(M3TableViewDataSource*) dataSource
 { 
   M3AssertKindOf(self.tableView, UITableView);
-  M3AssertKindOf([self.tableView dataSource], M3TableViewDataSource);
+  M3AssertKindOf(self.tableView.dataSource, M3TableViewDataSource);
   
   return dataSource_;
 }

@@ -8,7 +8,8 @@
 +(UIButton*)actionButtonWithURL: (NSString*)url 
                        andTitle: (NSString*)title;
 {
-  UIFont* font = [UIFont boldSystemFontOfSize:15];
+  // UIFont* font = [UIFont boldSystemFontOfSize:15];
+  UIFont* font = [UIFont systemFontOfSize:14];
   
   UIColor* color = [UIColor colorWithName: @"555"];
   UIColor* bgColor = [UIColor colorWithName: @"ddd"];
@@ -37,8 +38,8 @@
   //    button.backgroundColor = [UIColor clearColor];
 
   CALayer* layer = btn.layer;
-  layer.cornerRadius = 6.0f;
-  layer.borderWidth = 1.3f;
+  layer.cornerRadius = 4.0f;
+  layer.borderWidth = 1.0f;
   layer.borderColor = [color CGColor];
   layer.masksToBounds = YES;
 

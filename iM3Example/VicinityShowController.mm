@@ -63,16 +63,27 @@
   [super setKey:schedule];
 
   NSNumber* time = [schedule objectForKey: @"time"];
-  
   self.textLabel.text = [time.to_date stringWithFormat: @"HH:mm"];
 
   NSString* detailText = [schedule objectForKey:@"title"];
-
   self.detailTextLabel.text = [detailText withVersionString: [schedule objectForKey:@"version"]];
+}
+
+-(NSString*)url
+{
+  return _.join(@"/movies/show?movie_id=", [self.key objectForKey: @"movie_id"]);
+}
+
+-(void)layoutSubviews
+{
+  [super layoutSubviews];
+
   self.detailTextLabel.numberOfLines = 1;
   self.detailTextLabel.lineBreakMode = UILineBreakModeMiddleTruncation;
-
-  self.url = _.join(@"/movies/show?movie_id=", [schedule objectForKey: @"movie_id"]);
+  
+  CGRect frame = self.detailTextLabel.frame;
+  frame.origin.y = 4;
+  self.detailTextLabel.frame = frame;
 }
 
 @end

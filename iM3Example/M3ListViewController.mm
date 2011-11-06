@@ -10,8 +10,6 @@
   [app.chairDB on: @selector(updated) notify:self with:@selector(reload)];
   [app on: @selector(resumed) notify:self with:@selector(reload)];
   
-  self.clearsSelectionOnViewWillAppear = NO;
-  
   return self;
 }
 
