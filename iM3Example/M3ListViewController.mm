@@ -45,8 +45,8 @@
 
 -(void)dealloc
 {
-  [originalDataSource_ release]; 
-  [filterText_ release]; 
+  [originalDataSource_ release]; originalDataSource_ = nil;
+  [filterText_ release]; filterText_ = nil;
 
   [super dealloc];
 }

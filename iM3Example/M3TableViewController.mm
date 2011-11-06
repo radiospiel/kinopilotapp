@@ -195,7 +195,7 @@
 
 #pragma mark - Actions
 
-#define ACTIONS_BUTTON_HEIGHT 49
+#define ACTIONS_BUTTON_HEIGHT 33
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectionNo
 {

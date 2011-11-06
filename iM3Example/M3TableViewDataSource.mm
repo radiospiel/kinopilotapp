@@ -12,8 +12,11 @@
 -(id)initWithCellClass:(id)cellClass
 {
   self = [super init];
-  self.sections = [NSMutableArray array];
-  cellClass_ = cellClass;
+
+  if(self) {
+    self.sections = [NSMutableArray array];
+    cellClass_ = [cellClass retain];
+  }
   
   return self;
 }
@@ -27,6 +30,8 @@
 {
   self.sections = nil;
   
+  [cellClass_ release]; cellClass_ = nil;
+
   [super dealloc];
 }
 
