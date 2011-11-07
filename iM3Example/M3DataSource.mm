@@ -296,6 +296,7 @@
   M3AssertKindOf(day, NSDate);
   
   NSUInteger start_of_day = day.to_number.to_i;
+
   //
   // get all schedules for the theater and for the movie, and 
   // remove all schedules, that are in the past.

@@ -108,7 +108,6 @@ static NSDateFormatter* dateFormatter(NSString* dateFormat)
                                   startDate: &day
                                    interval: NULL
                                     forDate: self];
-
   return day;
 }
 

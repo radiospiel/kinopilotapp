@@ -77,6 +77,7 @@
   
   NSArray* schedules = [self schedules];
   schedules = [schedules sortByKey:@"time"];
+
   schedules = [schedules mapUsingBlock:^id(NSDictionary* schedule) {
     NSString* time = [schedule objectForKey:@"time"];
     NSString* timeAsString = [time.to_date stringWithFormat:@"HH:mm"];
