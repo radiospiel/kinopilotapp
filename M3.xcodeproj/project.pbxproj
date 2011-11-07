@@ -514,7 +514,7 @@
 		9D8B8B481413CC010066ECBB /* Underscore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Underscore.mm; sourceTree = "<group>"; };
 		9D8C4B94142896D0005D582A /* UIImageView+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+M3Extensions.h"; sourceTree = "<group>"; };
 		9D8C4B95142896D0005D582A /* UIImageView+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImageView+M3Extensions.mm"; sourceTree = "<group>"; };
-		9D8E04661468688A006EBB44 /* NewsController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = NewsController.h; sourceTree = "<group>"; };
+		9D8E04661468688A006EBB44 /* NewsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsController.h; sourceTree = "<group>"; };
 		9D8E04671468688A006EBB44 /* NewsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NewsController.mm; sourceTree = "<group>"; };
 		9D8EAD53141E839400B21BEA /* M3Http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Http.h; sourceTree = "<group>"; };
 		9D8EAD54141E839400B21BEA /* M3Http.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Http.mm; sourceTree = "<group>"; };
@@ -1788,7 +1788,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1814,7 +1814,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
