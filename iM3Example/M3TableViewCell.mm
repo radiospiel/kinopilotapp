@@ -64,3 +64,81 @@
 }
 
 @end
+
+/*
+ * M3TableViewUrlCell: This cell links a label to an URL.
+ */
+
+@implementation M3TableViewUrlCell
+
++(void)initialize
+{
+  M3Stylesheet* stylesheet = [self stylesheet];
+  [stylesheet setFont: [UIFont boldSystemFontOfSize:14] forKey:@"h2"];
+}
+
++(CGFloat)fixedHeight
+{
+  return 44;
+}
+
+-(id)init
+{
+  self = [super init];
+  self.accessoryType = UITableViewCellAccessoryDisclosureIndicator; 
+  return self;
+}
+
+@end
+
+/*
+ * M3TableViewHtmlCell: This cell shows a HTML description
+ */
+
+@implementation M3TableViewHtmlCell
+
++(void)initialize
+{
+  M3Stylesheet* stylesheet = [self stylesheet];
+  [stylesheet setFont: [UIFont systemFontOfSize:14] forKey:@"h2"];
+  [stylesheet setFont: [UIFont systemFontOfSize:14] forKey:@"p"];
+}
+
+-(id) init {
+  self = [super init];
+  if(!self) return nil;
+  
+  self.selectionStyle = UITableViewCellSelectionStyleNone;
+  
+  htmlView = [[[TTTAttributedLabel alloc]init]autorelease];
+  [self addSubview:htmlView];
+  
+  return self;
+}
+
+-(void)setHtml: (NSString*)html
+{
+  self.textLabel.text = @" ";
+  htmlView.text = [NSAttributedString attributedStringWithMarkup: html 
+                                                   forStylesheet: self.stylesheet];
+}
+
+-(CGSize)htmlViewSize
+{ 
+  return [htmlView sizeThatFits: CGSizeMake(300, 1000)]; 
+}
+
+-(void)layoutSubviews
+{
+  [super layoutSubviews];
+  
+  CGSize sz = [self htmlViewSize];
+  htmlView.frame = CGRectMake(10, 5, sz.width, sz.height);
+}
+
+- (CGFloat)wantsHeight
+{ 
+  return [self htmlViewSize].height + 15; 
+}
+
+@end

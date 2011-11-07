@@ -239,36 +239,4 @@
   return pv;
 }
 
-+(M3ProfileView*) profileViewForNews: (NSDictionary*) news
-{
-  if(!news) return nil;
-  
-  M3ProfileView* pv = [[[M3ProfileView alloc]init]autorelease];
-  
-  // -- set desription
-  
-  {
-    NSNumber* published_at = [news objectForKey:@"published_at"];
-
-    NSDictionary* data = _.hash(@"title",        [news objectForKey:@"title"],
-                                @"published_at", [published_at.to_date stringWithFormat:@"dd. MMMM"]);
-
-    NSString* html = [M3 interpolateString: @"<h2><b>{{title}}</b></h2><p>{{published_at}}</p>" 
-                                withValues: data];
-    [pv setHtmlDescription: html];
-  }
-  
-  // -- add an image view
-  
-  {
-    NSArray* image = [news objectForKey:@"image"];
-    [pv setImageURLs: _.array(image)];
-  }
-  
-  // --- adjust size
-  
-  pv.frame = CGRectMake(0, 0, 320, [pv wantsHeight]);
-  return pv;
-}
-
 @end

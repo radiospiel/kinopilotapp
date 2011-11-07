@@ -43,3 +43,23 @@
 -(void)selectedCell;
 
 @end
+
+/*
+ * M3TableViewUrlCell: This cell links a label to an URL.
+ */
+
+@interface M3TableViewUrlCell: M3TableViewCell
+@end
+
+/*
+ * M3TableViewHtmlCell: This cell shows a HTML description
+ */
+
+@class TTTAttributedLabel;
+@interface M3TableViewHtmlCell: M3TableViewCell {
+  TTTAttributedLabel* htmlView;
+}
+
+-(void)setHtml: (NSString*)html;
+
+@end

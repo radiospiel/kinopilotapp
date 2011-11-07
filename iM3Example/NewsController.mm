@@ -37,13 +37,10 @@
 -(NSString*)url
 {
   NSDictionary* news = self.key;
-  
   return _.join(@"/news/show?news_id=", [news objectForKey:@"_uid"]);
 }
 
 @end
-
-
 
 /*** The datasource for MoviesList *******************************************/
 
@@ -56,9 +53,7 @@
 {
   self = [super initWithCellClass: @"NewsListCell"]; 
   
-  NSArray* all_news = [app.chairDB.news values];
-  [self addSection: all_news  
-       withOptions: nil];
+  [self addSection: app.chairDB.news.values withOptions: nil];
   
   return self;
 }
@@ -68,12 +63,6 @@
 /******************************************************************************/
 
 @implementation NewsListController
-
--(id)init
-{
-  self = [super init];
-  return self;
-}
 
 -(NSString*)title
 {
@@ -92,20 +81,12 @@
 
 @end
 
+/******************************************************************************/
 
-/** M3TableViewHtmlCell *******************************************************/
-
-/*
- * M3TableViewHtmlCell: This cell shows a description of the movie.
- */
-
-@interface M3TableViewHtmlCell: M3TableViewCell {
-  TTTAttributedLabel* htmlView;
-}
-
+@interface NewsShowDescriptionCell: M3TableViewHtmlCell
 @end
 
-@implementation M3TableViewHtmlCell
+@implementation NewsShowDescriptionCell
 
 +(void)initialize
 {
@@ -114,132 +95,64 @@
   [stylesheet setFont: [UIFont systemFontOfSize:14] forKey:@"p"];
 }
 
--(id) init {
-  self = [super init];
-  if(!self) return nil;
-  
-  self.selectionStyle = UITableViewCellSelectionStyleNone;
-  
-  htmlView = [[[TTTAttributedLabel alloc]init]autorelease];
-  [self addSubview:htmlView];
-  
-  return self;
-}
-
--(void)setHtml: (NSString*)html
-{
-  self.textLabel.text = @" ";
-  htmlView.text = [NSAttributedString attributedStringWithMarkup: html 
-                                                   forStylesheet: self.stylesheet];
-}
-
--(CGSize)htmlViewSize
-{ 
-  return [htmlView sizeThatFits: CGSizeMake(300, 1000)]; 
-}
-
--(void)layoutSubviews
-{
-  [super layoutSubviews];
-  
-  CGSize sz = [self htmlViewSize];
-  htmlView.frame = CGRectMake(10, 5, sz.width, sz.height);
-}
-
-- (CGFloat)wantsHeight
-{ 
-  return [self htmlViewSize].height + 15; 
-}
-
-@end
-
-/******************************************************************************/
-
-@interface NewsShowTeaserCell: M3TableViewHtmlCell
-@end
-
-@implementation NewsShowTeaserCell
-
-+(void)initialize
-{
-  M3Stylesheet* stylesheet = [self stylesheet];
-  [stylesheet setFont: [UIFont italicSystemFontOfSize:14] forKey:@"h2"];
-  [stylesheet setFont: [UIFont italicSystemFontOfSize:14] forKey:@"p"];
-}
-
--(void)setKey:(id)key
-{
-  [super setKey:key];
-  
-  NewsShowController* nsc = (NewsShowController*)[self tableViewController]; 
-  M3AssertKindOf(nsc, NewsShowController);
-  
-  NSString* html = [M3 interpolateString:@"<i>{{trailer}}</i>" withValues: nsc.news];
-  [self setHtml: html];
-}
-
-@end
-
-@interface NewsShowDescriptionCell: M3TableViewHtmlCell
-@end
-
-@implementation NewsShowDescriptionCell
-
 -(void)setKey:(id)key
 {
   [super setKey:key];
 
+  NSMutableArray* paragraphs = [NSMutableArray array];
+  
   NewsShowController* nsc = (NewsShowController*)[self tableViewController]; 
   M3AssertKindOf(nsc, NewsShowController);
+  
+  NSNumber* published_at = [nsc.news objectForKey:@"published_at"];
+  
+  NSDictionary* data = _.hash(@"title",        [nsc.news objectForKey:@"title"],
+                              @"published_at", [published_at.to_date stringWithFormat:@"dd. MMMM"],
+                              @"teaser",       [nsc.news objectForKey:@"trailer"]);
+  
+  [paragraphs addObject: [M3 interpolateString: @"<h2><b>{{title}}</b></h2><p>{{published_at}}</p>" withValues:data]];
+  [paragraphs addObject: [M3 interpolateString: @"<p><i>{{teaser}}</i></p>" withValues:data]];
   
   NSString* text = [nsc.news objectForKey:@"text"];
-  NSArray* parts = [[text componentsSeparatedByString:@"\n\n"] mapUsingBlock:^id(NSString* part) {
-    return _.join(@"<p>", part.cdata, @"</p>");
+  NSArray* parts = [text componentsSeparatedByString:@"\n\n"];
+
+  if(parts.count > 0)
+    [paragraphs addObject: parts.first];
+  if(parts.count > 1) {
+    [paragraphs addObject: @""];
+    
+    NSString* part = parts.second;
+    if(parts.count > 2) part = _.join(part, @" ...");
+    [paragraphs addObject: part];
+  }
+
+  paragraphs = [paragraphs mapUsingBlock:^id(NSString* part) {
+    return _.join(@"<p>", part, @"</p>");
   }];
   
-  NSString* html = [parts componentsJoinedByString:@"<p></p>"];
-  [self setHtml: html];
+  [self setHtml: [paragraphs componentsJoinedByString:@""]];
 }
 
 @end
 
-@interface NewsShowMoreCell: M3TableViewHtmlCell
+@interface NewsShowMoreCell: M3TableViewUrlCell
 @end
 
 @implementation NewsShowMoreCell
 
--(CGFloat)wantsHeight
-{
-  return 44;
-}
-
--(id)init
-{
-  self = [super init];
-  
-  self.textLabel.text = @"Weiterlesen auf moviepilot.de";
-  self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-  
-  return self;
-}
-
 -(void)setKey: (id)key
 {
   [super setKey:key];
-  
+
+  self.textLabel.text = @"Weiterlesen auf moviepilot.de";
+
   NewsShowController* nsc = (NewsShowController*)[self tableViewController]; 
   M3AssertKindOf(nsc, NewsShowController);
   
   self.url = [nsc.news objectForKey:@"url"];
 }
 
--(void)layoutSubviews
-{
-  [super layoutSubviews];
-  self.textLabel.font = [UIFont boldSystemFontOfSize:14];
-}
 @end
-
 
 @interface NewsShowDataSource: M3TableViewDataSource
 @end
@@ -254,17 +167,6 @@
 @end
 
 @implementation NewsShowController
-
--(id)init
-{
-  self = [super init];
-  return self;
-}
-  
--(void)setUrl:(NSString *)url
-{
-  [super setUrl:url];
-}
 
 -(NSString*)news_id
 {
@@ -289,11 +191,13 @@
   }
   else {
     NewsShowDataSource* ds = [[[NewsShowDataSource alloc] init] autorelease];
-    [ds addSection: _.array(@"NewsShowTeaserCell", @"NewsShowMoreCell", @"NewsShowDescriptionCell") 
+    [ds addSection: _.array(@"NewsShowDescriptionCell", @"NewsShowMoreCell") 
        withOptions:nil ];
     
     self.dataSource = ds;
-    self.tableView.tableHeaderView = [M3ProfileView profileViewForNews: self.news];
+    UIImageView* iv = [[UIImageView alloc]initWithFrame: CGRectMake(0, 0, 320, 180)];
+    [iv setImageURL: [self.news objectForKey:@"image"]];
+    self.tableView.tableHeaderView = iv; 
   }
 }
   
@@ -301,4 +205,3 @@
 
   
 /******************************************************************************/
-
