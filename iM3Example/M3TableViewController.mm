@@ -40,7 +40,8 @@
   // As M3TableViewController inherits from UITableViewController, the 
   // tableView is initialed with a newly created UITableView. Its dataSource
   // property is set to the controller - this is not what we'll use here,
-  // so we nil it to be on the safe side.
+  // so we nil it to be on the safe side. It will be set properly during
+  // reload, though.
   self.tableView.dataSource = nil;
 
   [self reload];

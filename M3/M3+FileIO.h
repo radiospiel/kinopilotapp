@@ -21,7 +21,14 @@
  */
 +(BOOL) fileExists: (NSString*) path;
 
-          
+/*
+ * returns mtime of a file
+ */
++(NSDate*) mtime: (NSString*) path;
+
+/*
+ * Creates a directory and all needed subdirs
+ */
 +(void) mkdir_p: (NSString*) path;
 
 #if TARGET_OS_IPHONE

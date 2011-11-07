@@ -25,9 +25,9 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
 }
 
 
-+(NSURLRequest*) getRequest: (NSString*) verb 
-                        url: (NSString*) url 
-                withOptions: (NSDictionary*) options
++(NSURLRequest*) requestForURL: (NSString*)url
+                      withVerb: (NSString*) verb 
+                    andOptions: (NSDictionary*) options
 {
   NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url.to_url ];
   request.cachePolicy = NSURLRequestUseProtocolCachePolicy;
@@ -44,9 +44,9 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
 {
   Benchmark(_.join(verb, " ", url));
 
-  NSURLRequest* request = [self getRequest:verb
-                                       url:url
-                               withOptions:options];
+  NSURLRequest* request = [self requestForURL: url 
+                                     withVerb: verb  
+                                   andOptions: options ];
   
   NSHTTPURLResponse* response = 0;
   NSError* error = 0;
@@ -70,10 +70,10 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
 {
   Benchmark(_.join(verb, " ", url));
 
-  NSURLRequest* request = [self getRequest:verb
-                                       url:url
-                               withOptions:options];
-  
+  NSURLRequest* request = [self requestForURL: url 
+                                     withVerb: verb  
+                                   andOptions: options ];
+
   NSHTTPURLResponse *response = 0;
   NSError* error = 0;
   

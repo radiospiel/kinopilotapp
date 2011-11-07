@@ -192,19 +192,36 @@
   return [[self imageWithContentsOfFile: path]decompress];
 }
 
+#define MAX_ERROR_AGE 300  /* 5 mins */
+
 +(UIImage*)imageWithContentsOfURL: (NSString*)url
 {
-  NSString* cachePath = [NSString stringWithFormat: @"$cache/%@.bin", [M3 md5: url]];
-
-  if([M3 fileExists: cachePath])
+  NSString* cachePath = [NSString stringWithFormat: @"$cache/good/%@.bin", [M3 md5: url]];
+  NSString* errCachePath = [NSString stringWithFormat: @"$cache/bad/%@.bin", [M3 md5: url]];
+  
+  if([M3 fileExists: cachePath]) {
     return [M3 readImageFromPath:cachePath];
+  }
+  
+  if([M3 fileExists: errCachePath]) {
+    // TODO: how old is the bad file?
+    NSDate* errTimeStamp= [M3 mtime:errCachePath];
+    if([errTimeStamp timeIntervalSinceNow] > -MAX_ERROR_AGE) {
+      // Don't try to reread to early
+      return nil;
+    }
+
+    NSLog(@"*** reading NULL image from cached file");
+    return nil;
+  }
 
   NSData* data = nil;
 
   @try {
-    [M3Http requestData: @"GET" 
-                  url: url
-          withOptions: nil];
+    // fetch the file. If this succeeds we cache the file.
+    data = [M3Http requestData: @"GET" 
+                           url: url
+                   withOptions: nil];
 
     if(data) {
       UIImage* image = [UIImage imageWithData:data];
@@ -214,9 +231,12 @@
       }
     }
 
-    [M3 writeData: [NSData dataWithBytes:self length:0] toPath: cachePath];
+    // Mark a file as not accessible (at the moment)
+    [M3 writeData: [NSData dataWithBytes:self length:0] toPath: errCachePath];
   }
   @catch(id exception) {
+    NSLog(@"*** caught %@", exception);
+    
     // An exception, e.g. "not online"
   }
   

@@ -67,6 +67,22 @@
   return [[NSFileManager defaultManager] fileExistsAtPath:path];
 }
 
+// TODO: raise on error.
++(NSDictionary*)fileAttributesFor: (NSString*)path
+{
+  path = [self expandPath: path];
+  return [[NSFileManager defaultManager] attributesOfItemAtPath: path error:NULL];
+}
+
+/*
+ * returns true if the file at \a path exists.
+ */
++(NSDate*) mtime: (NSString*) path 
+{
+  NSDictionary* attr = [self fileAttributesFor:path];
+  return [attr objectForKey:NSFileModificationDate];
+}
+
 // TODO: raise exception on error.
 
 +(void) mkdir_p: (NSString*) dir {
