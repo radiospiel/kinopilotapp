@@ -100,11 +100,8 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
   //
   // After adding image and starView 320px - \a left pixels remain. 
   // We reserve some space (30px) to not obstruct the index.
-  // int indexWidth = 30;
-  int indexWidth = 0;
-
+  int indexWidth = 25;
   self.textLabel.frame = CGRectMake(left, 2, 320 - indexWidth - left, textHeight);
-
 
   // top align text in detailTextLabel.
   

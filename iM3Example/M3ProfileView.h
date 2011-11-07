@@ -28,5 +28,6 @@
 
 +(M3ProfileView*) profileViewForTheater: (NSDictionary*) theater;
 +(M3ProfileView*) profileViewForMovie: (NSDictionary*) movie;
++(M3ProfileView*) profileViewForNews: (NSDictionary*) news;
 
 @end

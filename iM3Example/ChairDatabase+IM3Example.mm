@@ -1,9 +1,9 @@
 #import "AppDelegate.h"
 
 #if 1
-#define REMOTE_URL  @"http://kinopilotupdates2.heroku.com/db/berlin"
+#define REMOTE_URL  @"http://kinopilotupdates2.heroku.com/db/news,berlin"
 #else
-#define REMOTE_URL  @"http://localhost:3000/db/berlin"
+#define REMOTE_URL  @"http://localhost:3000/db/news,berlin"
 #endif
 
 // #define DB_PATH     @"$documents/chairdb/berlin.json"
@@ -103,6 +103,11 @@
 -(ChairTable*) schedules
 {
   return [self tableForName:@"schedules"];
+}
+
+-(ChairTable*) news
+{
+  return [self tableForName:@"news"];
 }
 
 -(SEL)adjustSelectorForType: (NSString*) typeName

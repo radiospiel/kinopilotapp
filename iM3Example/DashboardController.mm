@@ -134,9 +134,9 @@
 
 -(void)news
 {
-  [self setLabel: @"News"];
+  [self setLabel: @"{{chairDB.news.count}} News"];
   [self setBackground: @"movies.png"];
-  self.url = @"http://www.moviepilot.de";
+  self.url = @"/news/list";
 }
 
 -(void)moviepilot

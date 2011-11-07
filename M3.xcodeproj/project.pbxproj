@@ -219,6 +219,7 @@
 		9D8C4B97142896D0005D582A /* UIImageView+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8C4B94142896D0005D582A /* UIImageView+M3Extensions.h */; };
 		9D8C4B98142896D0005D582A /* UIImageView+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8C4B95142896D0005D582A /* UIImageView+M3Extensions.mm */; };
 		9D8C4B99142896D0005D582A /* UIImageView+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8C4B95142896D0005D582A /* UIImageView+M3Extensions.mm */; };
+		9D8E04681468688A006EBB44 /* NewsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8E04671468688A006EBB44 /* NewsController.mm */; };
 		9D8EAD55141E839400B21BEA /* M3Http.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8EAD53141E839400B21BEA /* M3Http.h */; };
 		9D8EAD56141E839400B21BEA /* M3Http.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8EAD53141E839400B21BEA /* M3Http.h */; };
 		9D8EAD57141E839400B21BEA /* M3Http.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EAD54141E839400B21BEA /* M3Http.mm */; };
@@ -513,6 +514,8 @@
 		9D8B8B481413CC010066ECBB /* Underscore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Underscore.mm; sourceTree = "<group>"; };
 		9D8C4B94142896D0005D582A /* UIImageView+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+M3Extensions.h"; sourceTree = "<group>"; };
 		9D8C4B95142896D0005D582A /* UIImageView+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImageView+M3Extensions.mm"; sourceTree = "<group>"; };
+		9D8E04661468688A006EBB44 /* NewsController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = NewsController.h; sourceTree = "<group>"; };
+		9D8E04671468688A006EBB44 /* NewsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NewsController.mm; sourceTree = "<group>"; };
 		9D8EAD53141E839400B21BEA /* M3Http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Http.h; sourceTree = "<group>"; };
 		9D8EAD54141E839400B21BEA /* M3Http.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Http.mm; sourceTree = "<group>"; };
 		9D92E40B1434780900C17299 /* M3TableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewDataSource.h; sourceTree = "<group>"; };
@@ -786,6 +789,8 @@
 				9DC682BF142CE24000124E9A /* MoviesShowController.mm */,
 				9DDF5D051431F74C001CAC28 /* MovieShortInfoCell.h */,
 				9DDF5D061431F74C001CAC28 /* MovieShortInfoCell.mm */,
+				9D8E04661468688A006EBB44 /* NewsController.h */,
+				9D8E04671468688A006EBB44 /* NewsController.mm */,
 				9D0893A01452F6C600F64AC1 /* SchedulesListController.h */,
 				9D0893A11452F6C600F64AC1 /* SchedulesListController.mm */,
 				9D4B7016145D5ECB00F1DBCE /* SchedulesShowController.h */,
@@ -1552,6 +1557,7 @@
 				9D4B701C145D734B00F1DBCE /* M3ActionSheetController.mm in Sources */,
 				9DACE1BF145F48B600372415 /* ShareController.mm in Sources */,
 				9DFE5C151464319F0039F536 /* ActionController.mm in Sources */,
+				9D8E04681468688A006EBB44 /* NewsController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
