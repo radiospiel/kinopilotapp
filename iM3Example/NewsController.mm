@@ -102,30 +102,35 @@
   NSNumber* published_at = [nsc.news objectForKey:@"published_at"];
   
   NSDictionary* data = _.hash(@"title",        [nsc.news objectForKey:@"title"],
-                              @"published_at", [published_at.to_date stringWithFormat:@"dd. MMMM"],
-                              @"teaser",       [nsc.news objectForKey:@"trailer"]);
+                              @"published_at", [published_at.to_date stringWithFormat:@"dd. MMMM"]);
   
   [paragraphs addObject: [M3 interpolateString: @"<h2><b>{{title}}</b></h2><p>{{published_at}}</p>" withValues:data]];
-  [paragraphs addObject: [M3 interpolateString: @"<p><i>{{teaser}}</i></p>" withValues:data]];
-  
+
+  NSString* teaser = [nsc.news objectForKey:@"trailer"];
+  [paragraphs addObject: [NSString stringWithFormat: @"<p><i>%@</i></p>", teaser.cdata]];
+   
   NSString* text = [nsc.news objectForKey:@"text"];
   NSArray* parts = [text componentsSeparatedByString:@"\n\n"];
 
-  if(parts.count > 0)
-    [paragraphs addObject: parts.first];
+  if(parts.count > 0) {
+    NSString* part = parts.first;
+    [paragraphs addObject: part.cdata];
+  }
   if(parts.count > 1) {
     [paragraphs addObject: @""];
     
     NSString* part = parts.second;
     if(parts.count > 2) part = _.join(part, @" ...");
-    [paragraphs addObject: part];
+    
+    [paragraphs addObject: part.cdata];
   }
 
   paragraphs = [paragraphs mapUsingBlock:^id(NSString* part) {
     return _.join(@"<p>", part, @"</p>");
   }];
   
-  [self setHtml: [paragraphs componentsJoinedByString:@""]];
+  NSString* html = [paragraphs componentsJoinedByString:@""];
+  [self setHtml: html];
 }
 
 @end

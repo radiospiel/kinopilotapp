@@ -20,9 +20,3 @@
 @property (readonly,nonatomic) NSNumber* to_number;
 
 @end
-
-//@interface NSNumber (M3Extensions) 
-//
-//-(NSDate*)to_date;
-//
-//@end

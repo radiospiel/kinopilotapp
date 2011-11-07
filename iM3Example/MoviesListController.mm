@@ -153,12 +153,14 @@
   NSDictionary* params = url.to_url.params;
 
   if(self.theater_id) {
+    self.navigationItem.rightBarButtonItem = nil;
+    
     self.dataSource = [M3DataSource moviesListFilteredByTheater:[params objectForKey: @"theater_id"]]; 
     self.tableView.tableHeaderView = [self headerView];
   }
   else {
     NSString* filter = [params objectForKey: @"filter"];
-    self.dataSource = [M3DataSource moviesListWithFilter: (filter ? filter : @"new")];
+    self.dataSource = [M3DataSource moviesListWithFilter: (filter ? filter : @"all")];
     self.tableView.tableHeaderView = [self searchBar];
   }
 }
