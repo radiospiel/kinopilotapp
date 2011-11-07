@@ -154,11 +154,6 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 
 -(void)loadFromUrl:(NSString*)url
 {
-  if(!url) {
-    self.dataSource = nil;
-    return;
-  }
-
   NSString* movie_id = [url.to_url param: @"movie_id"];
   
   if(movie_id) {

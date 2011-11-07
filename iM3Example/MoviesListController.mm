@@ -150,11 +150,6 @@
 
 -(void)loadFromUrl:(NSString *)url
 {
-  if(!url) {
-    self.dataSource = nil;
-    return;
-  }
-
   NSDictionary* params = url.to_url.params;
 
   if(self.theater_id) {

@@ -71,11 +71,6 @@
 
 -(void)loadFromUrl:(NSString *)url
 {
-  if(!url) {
-    self.dataSource = nil;
-    return;
-  }
-  
   self.dataSource = [[[NewsListDataSource alloc] init] autorelease];
 }
 
@@ -185,20 +180,14 @@
 
 -(void)loadFromUrl:(NSString *)url
 {
-  if(!url) {
-    self.dataSource = nil;
-    self.tableView.tableHeaderView = nil;
-  }
-  else {
-    NewsShowDataSource* ds = [[[NewsShowDataSource alloc] init] autorelease];
-    [ds addSection: _.array(@"NewsShowDescriptionCell", @"NewsShowMoreCell") 
-       withOptions:nil ];
+  NewsShowDataSource* ds = [[[NewsShowDataSource alloc] init] autorelease];
+  [ds addSection: _.array(@"NewsShowDescriptionCell", @"NewsShowMoreCell") 
+     withOptions:nil ];
     
-    self.dataSource = ds;
-    UIImageView* iv = [[UIImageView alloc]initWithFrame: CGRectMake(0, 0, 320, 180)];
-    [iv setImageURL: [self.news objectForKey:@"image"]];
-    self.tableView.tableHeaderView = iv; 
-  }
+  self.dataSource = ds;
+  UIImageView* iv = [[UIImageView alloc]initWithFrame: CGRectMake(0, 0, 320, 180)];
+  [iv setImageURL: [self.news objectForKey:@"image"]];
+  self.tableView.tableHeaderView = iv; 
 }
   
 @end

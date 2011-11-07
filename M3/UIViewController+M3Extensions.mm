@@ -11,7 +11,8 @@
   if([url isEqualToString: self.url]) return;
   
   [self instance_variable_set: @selector(m3_url) withValue: url];
-  [self loadFromUrl:url];
+  if(url)
+    [self loadFromUrl:url];
 }
 
 -(void)loadFromUrl: (NSString*)url

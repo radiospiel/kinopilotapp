@@ -78,6 +78,13 @@
   return dataSource_;
 }
 
+-(void)setUrl:(NSString *)url
+{
+  [super setUrl:url];
+  if(!url)
+    self.dataSource = nil;
+}
+
 -(void) setDataSource: (M3TableViewDataSource*)dataSource
 { 
   if(dataSource == dataSource_) return;
