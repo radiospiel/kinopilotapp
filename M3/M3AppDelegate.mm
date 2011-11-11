@@ -11,6 +11,11 @@
 #import "M3.h"
 #import "UIViewController+M3Extensions.h"
 
+#import "MixpanelAPI.h"
+
+#define MIXPANEL_TOKEN @"93ab63eb89a79f22a5b777881c916e7a"
+
+
 M3AppDelegate* app;
 
 @implementation M3AppDelegate
@@ -40,7 +45,8 @@ M3AppDelegate* app;
 -(BOOL)openExternalURL: (NSString*)url 
 {
   if(![url matches: @"^([-a-z]+):"]) return NO;
-
+  NSString* protocol = $1;
+  
   if(![self canOpen: url]) {
     dlog << "Cannot open URL " << url;
     return NO;
@@ -53,6 +59,7 @@ M3AppDelegate* app;
             @"Subject", @"Body" ];
   }
 
+  [self trackEvent: _.join(@"open-", protocol)];
   [[UIApplication sharedApplication] openURL: url.to_url];
   return YES;
 }
@@ -117,6 +124,7 @@ M3AppDelegate* app;
 -(UIViewController*)controllerForURL: (NSString*)url
 {
   Class klass = [self controllerClassForURL: url];
+  
   UIViewController* vc = [[klass alloc]init];
   
   vc.url = url;
@@ -135,6 +143,8 @@ M3AppDelegate* app;
   UIViewController* vc = [self controllerForURL: url];
   if(!vc) return NO;
 
+  [self trackEvent: NSStringFromClass([vc class])];
+  
   [vc perform];
   return YES;
 }
@@ -264,15 +274,27 @@ M3AppDelegate* app;
   }
 }
 
+- (void) trackEvent: (NSString*)event 
+{
+  [mixpanel_ track: event];
+}
+
 -(BOOL) application:(UIApplication *)application 
           didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  rlog(1) << "Starting application in " << [ M3 symbolicDir: @"$root" ];
+
   app = self;
+  
+  // Override point for customization after application launch.
+  mixpanel_ = [MixpanelAPI sharedAPIWithToken:MIXPANEL_TOKEN];
+
+  rlog(1) << "Initialized mixpanel";
+  [self trackEvent: @"start"];
+  rlog(1) << "Tracked event";
   
   [M3 enableImageHost:M3SenchaSupportFull scaleForRetinaDisplay:NO];
   
-  rlog(1) << "Starting application in " << [ M3 symbolicDir: @"$root" ];
-
   // [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
   /*
    * Initialise root window

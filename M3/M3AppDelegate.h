@@ -5,10 +5,14 @@
 @class M3AppDelegate;
 extern M3AppDelegate* app;
 
+@class MixpanelAPI;
+
 /*
  * The AppDelegate class and the global app object.
  */
-@interface M3AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UINavigationControllerDelegate>
+@interface M3AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UINavigationControllerDelegate> {
+  MixpanelAPI* mixpanel_;
+}
 
 @property (retain, nonatomic) UIProgressView* progressView;
 @property (retain, nonatomic) UIWindow *window;
