@@ -99,6 +99,10 @@
 		9D3563191423F7AA002AAEAF /* NSString+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D3563171423F7AA002AAEAF /* NSString+M3Extensions.h */; };
 		9D35631B1423F887002AAEAF /* NSString+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D35631A1423F887002AAEAF /* NSString+M3Extensions.mm */; };
 		9D35631C1423F887002AAEAF /* NSString+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D35631A1423F887002AAEAF /* NSString+M3Extensions.mm */; };
+		9D3813901469A2DB00E4BBF4 /* MovieTrailerController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D38138F1469A2DB00E4BBF4 /* MovieTrailerController.mm */; };
+		9D3813931469A6E400E4BBF4 /* libBrightcovePlayerKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3813921469A6E400E4BBF4 /* libBrightcovePlayerKit.a */; };
+		9D3813951469A71600E4BBF4 /* libBrightcoveMediaAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3813941469A71600E4BBF4 /* libBrightcoveMediaAPI.a */; };
+		9D3813971469A73C00E4BBF4 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3813961469A73C00E4BBF4 /* MediaPlayer.framework */; };
 		9D3B0868142A19F700322C00 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3B0867142A19F700322C00 /* libicucore.dylib */; };
 		9D3B086A142A1A0100322C00 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3B0869142A1A0100322C00 /* libicucore.dylib */; };
 		9D3B086D142A255000322C00 /* M3+Inspect.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D3B086B142A255000322C00 /* M3+Inspect.h */; };
@@ -400,6 +404,10 @@
 		9D33FBD61427D39E000A3D69 /* AppDelegate+ChairDB.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "AppDelegate+ChairDB.mm"; sourceTree = "<group>"; };
 		9D3563171423F7AA002AAEAF /* NSString+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+M3Extensions.h"; sourceTree = "<group>"; };
 		9D35631A1423F887002AAEAF /* NSString+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSString+M3Extensions.mm"; sourceTree = "<group>"; };
+		9D38138F1469A2DB00E4BBF4 /* MovieTrailerController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MovieTrailerController.mm; sourceTree = "<group>"; };
+		9D3813921469A6E400E4BBF4 /* libBrightcovePlayerKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBrightcovePlayerKit.a; path = "vendor/bc-ipad-iphone-kit-2.1/lib/libBrightcovePlayerKit.a"; sourceTree = "<group>"; };
+		9D3813941469A71600E4BBF4 /* libBrightcoveMediaAPI.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBrightcoveMediaAPI.a; path = "vendor/bc-media-api-2.1/lib/libBrightcoveMediaAPI.a"; sourceTree = "<group>"; };
+		9D3813961469A73C00E4BBF4 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		9D3B0867142A19F700322C00 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		9D3B0869142A1A0100322C00 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/usr/lib/libicucore.dylib; sourceTree = DEVELOPER_DIR; };
 		9D3B086B142A255000322C00 /* M3+Inspect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Inspect.h"; sourceTree = "<group>"; };
@@ -627,6 +635,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D3813971469A73C00E4BBF4 /* MediaPlayer.framework in Frameworks */,
+				9D3813931469A6E400E4BBF4 /* libBrightcovePlayerKit.a in Frameworks */,
+				9D3813951469A71600E4BBF4 /* libBrightcoveMediaAPI.a in Frameworks */,
 				9DACE1C2145F532300372415 /* EventKit.framework in Frameworks */,
 				9D4B7020145D92E800F1DBCE /* MessageUI.framework in Frameworks */,
 				9D10C37D143774A800FE19C9 /* MapKit.framework in Frameworks */,
@@ -808,6 +819,7 @@
 				9DC682BF142CE24000124E9A /* MoviesShowController.mm */,
 				9DDF5D051431F74C001CAC28 /* MovieShortInfoCell.h */,
 				9DDF5D061431F74C001CAC28 /* MovieShortInfoCell.mm */,
+				9D38138F1469A2DB00E4BBF4 /* MovieTrailerController.mm */,
 				9D8E04661468688A006EBB44 /* NewsController.h */,
 				9D8E04671468688A006EBB44 /* NewsController.mm */,
 				9D0893A01452F6C600F64AC1 /* SchedulesListController.h */,
@@ -941,6 +953,9 @@
 		9D8B8AE01413CA8B0066ECBB = {
 			isa = PBXGroup;
 			children = (
+				9D3813961469A73C00E4BBF4 /* MediaPlayer.framework */,
+				9D3813941469A71600E4BBF4 /* libBrightcoveMediaAPI.a */,
+				9D3813921469A6E400E4BBF4 /* libBrightcovePlayerKit.a */,
 				9D0893A9145351AB00F64AC1 /* berlin.png */,
 				9D0893AA145351AB00F64AC1 /* cinemas.png */,
 				9D0893AB145351AB00F64AC1 /* movies.png */,
@@ -1627,6 +1642,7 @@
 				9DFD23A9146C6641001704CC /* NSData+MPBase64.m in Sources */,
 				9DFD23AA146C6641001704CC /* MixpanelAPI.m in Sources */,
 				9DFD23AB146C6641001704CC /* MixpanelEvent.m in Sources */,
+				9D3813901469A2DB00E4BBF4 /* MovieTrailerController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1849,8 +1865,17 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iM3Example/iM3Example-Prefix.pch";
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"vendor/bc-media-api-2.1/lib/",
+					"vendor/bc-ipad-iphone-kit-2.1/lib/",
+				);
 				INFOPLIST_FILE = "iM3Example/iM3Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/vendor/bc-ipad-iphone-kit-2.1/lib\"",
+					"\"$(SRCROOT)/vendor/bc-media-api-2.1/lib\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -1858,6 +1883,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "vendor/bc-ipad-iphone-kit-2.1/lib/** vendor/bc-media-api-2.1/lib/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1874,8 +1900,17 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iM3Example/iM3Example-Prefix.pch";
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"vendor/bc-media-api-2.1/lib/",
+					"vendor/bc-ipad-iphone-kit-2.1/lib/",
+				);
 				INFOPLIST_FILE = "iM3Example/iM3Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/vendor/bc-ipad-iphone-kit-2.1/lib\"",
+					"\"$(SRCROOT)/vendor/bc-media-api-2.1/lib\"",
+				);
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1884,6 +1919,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "vendor/bc-ipad-iphone-kit-2.1/lib/** vendor/bc-media-api-2.1/lib/**";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
