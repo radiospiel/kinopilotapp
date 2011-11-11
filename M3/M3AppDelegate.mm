@@ -164,7 +164,7 @@ M3AppDelegate* app;
 
   app = self;
   
-  [M3 trackEvent: @"start"];
+  [self trackEvent: @"start"];
 
   [self enableRemoteNotifications];
   

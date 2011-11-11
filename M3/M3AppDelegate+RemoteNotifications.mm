@@ -5,7 +5,7 @@
 #define URBAN_AIRSHIP_SECRET          @"9ir2nj6jTk-aC2NKpPXKiw"
 #define URBAN_AIRSHIP_MASTER_SECRET   @"qXWB90OkTL2HQoGLT0O-lw"
 
-@implementation M3(RemoteNotification)
+@implementation M3AppDelegate(RemoteNotification)
 
 -(void)enableRemoteNotifications 
 {

@@ -21,6 +21,7 @@ extern M3AppDelegate* app;
  */
 @property (retain, nonatomic, readonly) NSDictionary *config;
 
+
 -(UINavigationController*)topMostController;
 -(void)presentControllerOnTop: (UIViewController*)viewController;
 
@@ -41,17 +42,23 @@ extern M3AppDelegate* app;
 -(void)open: (NSString*)url;
 
 /*
- * creates and returns a UIViewController for the passed-in internal URL.
+ * returns an UIViewController for the passed-in URL.
  */
 -(UIViewController*)controllerForURL: (NSString*)url;
 
 @end
 
+@interface M3AppDelegate(EventTracking)
+
+-(void)trackEvent: (NSString*) event 
+       properties: (NSDictionary*) parameters;
+
+-(void)trackEvent: (NSString*) event;
+
+@end
+
 @interface M3AppDelegate(RemoteNotification)
 
-/*
- * Call this method to enable remote notifications.
- */
 -(void)enableRemoteNotifications;
 
 @end

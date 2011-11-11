@@ -14,14 +14,14 @@ static MixpanelAPI* getMixpanelApi()
   return mixpanelApi;
 }
 
-@implementation M3(Tracking)
+@implementation M3AppDelegate(EventTracking)
 
-+(void)trackEvent: (NSString*) event
+-(void)trackEvent: (NSString*) event
 {
   [self trackEvent:event properties:nil];
 }
 
-+(void)trackEvent: (NSString*) event properties: (NSDictionary*) properties
+-(void)trackEvent: (NSString*) event properties: (NSDictionary*) properties
 {
   [mixpanelApi track:event properties:properties];
 }
