@@ -190,7 +190,7 @@
      withOptions:nil ];
     
   self.dataSource = ds;
-  UIImageView* iv = [[UIImageView alloc]initWithFrame: CGRectMake(0, 0, 320, 180)];
+  UIImageView* iv = [[[UIImageView alloc]initWithFrame: CGRectMake(0, 0, 320, 180)]autorelease];
   [iv setImageURL: [self.news objectForKey:@"image"]];
   self.tableView.tableHeaderView = iv; 
 }
