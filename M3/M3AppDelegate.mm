@@ -59,7 +59,7 @@ M3AppDelegate* app;
             @"Subject", @"Body" ];
   }
 
-  [self trackEvent: _.join(@"open-", protocol)];
+  [M3 trackEvent: _.join(@"open-", protocol)];
   [[UIApplication sharedApplication] openURL: url.to_url];
   return YES;
 }
@@ -143,7 +143,7 @@ M3AppDelegate* app;
   UIViewController* vc = [self controllerForURL: url];
   if(!vc) return NO;
 
-  [self trackEvent: NSStringFromClass([vc class])];
+  [M3 trackEvent: NSStringFromClass([vc class])];
   
   [vc perform];
   return YES;
@@ -274,16 +274,15 @@ M3AppDelegate* app;
   }
 }
 
-- (void) trackEvent: (NSString*)event 
-{
-  [mixpanel_ track: event];
-}
-
 -(void)application: (UIApplication*)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
   deviceToken_ = [deviceToken copy];
 
-  dlog << "*** Got notification registration for " << deviceToken;
+  NSString* token = [[[[deviceToken description]
+                      stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                      stringByReplacingOccurrencesOfString: @">" withString: @""]
+                      stringByReplacingOccurrencesOfString: @" " withString: @""];
+  dlog << "*** Got notification registration for " << token;
 }
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err { 
@@ -302,11 +301,8 @@ M3AppDelegate* app;
 
   app = self;
   
-  // Override point for customization after application launch.
-  mixpanel_ = [MixpanelAPI sharedAPIWithToken:MIXPANEL_TOKEN];
-
   rlog(1) << "Initialized mixpanel";
-  [self trackEvent: @"start"];
+  [M3 trackEvent: @"start"];
   rlog(1) << "Tracked event";
 
   dlog << "*** Asking for notifications";

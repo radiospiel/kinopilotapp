@@ -11,7 +11,6 @@ extern M3AppDelegate* app;
  * The AppDelegate class and the global app object.
  */
 @interface M3AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UINavigationControllerDelegate> {
-  MixpanelAPI* mixpanel_;
   NSData* deviceToken_;
 }
 
