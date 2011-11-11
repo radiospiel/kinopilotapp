@@ -4,7 +4,8 @@
     {
       "nurl": "/movies/list?theater_id=adriafilmtheat|2487JHMKNoY",
       "url": "/dashboard",
-      "nurl":  "/theaters/list",
+      "nurl": "/movies/list",
+      "nurl":  "/vicinity/show",
       "nurl": "/movies/show?movie_id=abenteuervonti|2rHUQuUWVnQ",
       "nurl":  "/theaters/list?movie_id=abenteuervonti|2rHUQuUWVnQ",
       "nurl":  "/movies/show?movie_id=abenteuervonti|2rHUQuUWVnQ",

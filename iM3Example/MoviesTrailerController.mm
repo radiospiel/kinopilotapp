@@ -2,7 +2,7 @@
  * see http://docs.brightcove.com/en/iphone-sdk/
  */
 
-#define BRIGHTCOVE_API_KEY @"ABC"
+#define BRIGHTCOVE_API_KEY @"b65cUECRbDDj8TnzDYMYXI8puHwkIigW-8j-tvdADvyxILe17h__-w.."
 
 #import "BCMediaAPI.h"
 #import "BCMoviePlayerController.h"
@@ -11,7 +11,7 @@
 #import "AppDelegate.h"
 #import "UIViewController+M3Extensions.h"
 
-@interface MovieTrailerController: UIViewController {
+@interface MoviesTrailerController: UIViewController {
   BCMoviePlayerController* player_;
 }
 
@@ -19,7 +19,7 @@
 
 @end
 
-@implementation MovieTrailerController
+@implementation MoviesTrailerController
 
 @synthesize player = player_;
 
@@ -56,16 +56,16 @@ static BCMediaAPI *bc = nil;
   NSDictionary* video = [videos objectForKey: @"video"];
 //  NSString* title = [video objectForKey: @"title"];
 //  NSString* thumbnail = [video objectForKey: @"thumbnail"];
-  DLOG(video);
-  NSNumber* brightcove_id = [video objectForKey: @"brightcove_id"];
+
+  NSNumber* brightcove_id = [video objectForKey: @"brightcove-id"];
 
   return [brightcove_id unsignedLongValue];
 }
 
 -(void)loadFromUrl: (NSString*)url
 {
-
   NSError* err = 0;  
+  
   BCVideo *video = [bc findVideoById: [self brightcove_id] error: &err];
   if (!video) {
     NSString *errStr = [bc getErrorsAsString: err];
@@ -73,6 +73,8 @@ static BCMediaAPI *bc = nil;
     return;
   }
 
+  NSLog(@"*** Video is %@", video);
+  
   // limit bitrates
   // [self searchForRenditionsBetweenLowBitRate:[NSNumber numberWithInt:100000] 
   //                             andHighBitRate:[NSNumber numberWithInt:500000]
@@ -80,14 +82,23 @@ static BCMediaAPI *bc = nil;
 
   // set video
   [self.player setContentURL: video];
+}
 
+-(UIView*)view
+{
+  return self.player.view;
 }
 
 -(void)perform
 {
+  [super perform];
+//  UINavigationController* nc = [app topMostController];
+//  
+//  [nc pushViewController:self animated:YES];
+  
   [self.player.view setFrame: CGRectMake(0, 0, 480, 320)];
 
-  [self.view addSubview: self.player.view];
+  //  [nc.view addSubview: self.player.view];
   
   // what does prepare to play do? -- is it needed?
   [self.player prepareToPlay];

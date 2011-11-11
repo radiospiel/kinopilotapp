@@ -30,7 +30,9 @@
   NSMutableArray* section = [NSMutableArray array];
   
   [section addObject:_.array(@"MovieShortInfoCell", movie)];
+  [section addObject:_.array(@"MoviesShowTrailerCell", movie)];
   [section addObject:_.array(@"MovieInCinemasCell", movie)];
+  
   [section addObject:_.array(@"MovieRatingCell", movie)];
   // [section addObject:_.array(@"M3TableViewAdCell", movie)];
   [section addObject:_.array(@"MovieDescriptionCell", movie)];
@@ -125,6 +127,24 @@
   ratingLabel_.frame = CGRectMake(287, labelFrame.origin.y, 46, labelFrame.size.height);
   ratingLabel_.font = self.textLabel.font;
   ratingLabel_.text = [NSString stringWithFormat: @"%.1f", number.to_i / 10.0];
+}
+
+@end
+
+@interface MoviesShowTrailerCell: M3TableViewUrlCell
+@end
+
+@implementation MoviesShowTrailerCell
+
+-(void)setKey: (id)key
+{
+  [super setKey:key];
+  
+  NSDictionary* movie = [self.key objectAtIndex:1];
+  M3AssertKindOf(movie, NSDictionary);
+    
+  self.textLabel.text = @"Show Trailer";
+  self.url = _.join(@"/movies/trailer?movie_id=", [movie objectForKey:@"_uid"]);
 }
 
 @end
