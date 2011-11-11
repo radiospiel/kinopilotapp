@@ -16,3 +16,6 @@
 [submodule "vendor/TTTAttributedLabel"]
 	path = vendor/TTTAttributedLabel
 	url = https://github.com/mattt/TTTAttributedLabel.git
+[submodule "vendor/mixpanel-iphone"]
+	path = vendor/mixpanel-iphone
+	url = https://github.com/mixpanel/mixpanel-iphone.git
