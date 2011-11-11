@@ -176,6 +176,7 @@
 		9D72E29A14387FE600D8E5B5 /* MoviesImagesController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D72E29914387FE600D8E5B5 /* MoviesImagesController.mm */; };
 		9D74BDBF146DCFC400D781F8 /* M3+Tracking.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D74BDBD146DCFC400D781F8 /* M3+Tracking.h */; };
 		9D74BDC0146DCFC400D781F8 /* M3+Tracking.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D74BDBE146DCFC400D781F8 /* M3+Tracking.mm */; };
+		9D74BDC2146DD2EB00D781F8 /* M3+Tracking.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D74BDBE146DCFC400D781F8 /* M3+Tracking.mm */; };
 		9D750E8B142273A30056290E /* M3Data.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D750E89142273A30056290E /* M3Data.h */; };
 		9D750E8C142273A30056290E /* M3Data.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D750E89142273A30056290E /* M3Data.h */; };
 		9D750E8D142273A30056290E /* M3Data.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D750E8A142273A30056290E /* M3Data.mm */; };
@@ -1549,6 +1550,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D74BDC2146DD2EB00D781F8 /* M3+Tracking.mm in Sources */,
 				9DACE1C0145F4BAA00372415 /* M3+Interpolate.mm in Sources */,
 				9D017452141AA7BE0035A4C2 /* Chair.mm in Sources */,
 				9D017453141AA7BE0035A4C2 /* ChairDatabase.mm in Sources */,
@@ -1563,7 +1565,17 @@
 				9D01745D141AA7DF0035A4C2 /* M3+Events.m in Sources */,
 				9D017462141AA7DF0035A4C2 /* M3+FileIO.mm in Sources */,
 				9D017463141AA7DF0035A4C2 /* M3+Filenames.mm in Sources */,
+				9DD6431F144E23840042EE57 /* M3+Image.mm in Sources */,
+				9D750E94142275750056290E /* M3+Inflector.mm in Sources */,
 				9D017464141AA7DF0035A4C2 /* M3+JSON.mm in Sources */,
+				9D3B0870142A255000322C00 /* M3+Inspect.mm in Sources */,
+				9D3B0876142A3B7900322C00 /* M3+RuntimeError.mm in Sources */,
+				9DDF5D001431AEF1001CAC28 /* M3+Caller.m in Sources */,
+				9DBCDDF6144095390020EA1F /* M3-Internals.m in Sources */,
+				9DBCDDEF1440919B0020EA1F /* M3CachedFactory.m in Sources */,
+				9DFE5C1214642E850039F536 /* M3AppDelegate.mm in Sources */,
+				9D750E8E142273A30056290E /* M3Data.mm in Sources */,
+				9DC51243143723A8009A393C /* M3LocationManager.mm in Sources */,
 				9D01745C141AA7DF0035A4C2 /* M3Etest.mm in Sources */,
 				9D017458141AA7DF0035A4C2 /* M3EventCenter.mm in Sources */,
 				9D017459141AA7DF0035A4C2 /* M3EventCenter+DefaultCenter.mm in Sources */,
@@ -1572,30 +1584,20 @@
 				9D8EAD58141E839400B21BEA /* M3Http.mm in Sources */,
 				9D01745B141AA7DF0035A4C2 /* M3StopWatch.mm in Sources */,
 				9D017466141AA7DF0035A4C2 /* NSArray+M3Extensions.mm in Sources */,
+				9D85437F142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m in Sources */,
+				9DA5DD4B143276D00003B54A /* NSDate+M3Extensions.mm in Sources */,
+				9DFE5C1B146445520039F536 /* NSNumber+M3Extensions.mm in Sources */,
+				9D33FBD01427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */,
 				9D017467141AA7DF0035A4C2 /* NSString+Regexp.m in Sources */,
+				9D35631C1423F887002AAEAF /* NSString+M3Extensions.mm in Sources */,
+				9D19E139145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */,
+				9D594A82143D027C00A4CED4 /* UIButton+ActionButton.mm in Sources */,
+				9D9D318E142C6E9800C8269A /* UIColor+M3Extensions.mm in Sources */,
+				9D8C4B99142896D0005D582A /* UIImageView+M3Extensions.mm in Sources */,
+				9D934DA01461BF51001B25C6 /* UIView+M3Stylesheets.mm in Sources */,
+				9D15A6B31446291400F17C91 /* UIViewController+M3Extensions.mm in Sources */,
 				9D017468141AA7DF0035A4C2 /* Underscore.mm in Sources */,
 				9D017469141AA7DF0035A4C2 /* Underscore+Logger.mm in Sources */,
-				9D750E8E142273A30056290E /* M3Data.mm in Sources */,
-				9D750E94142275750056290E /* M3+Inflector.mm in Sources */,
-				9D35631C1423F887002AAEAF /* NSString+M3Extensions.mm in Sources */,
-				9D33FBD01427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */,
-				9D8C4B99142896D0005D582A /* UIImageView+M3Extensions.mm in Sources */,
-				9D3B0870142A255000322C00 /* M3+Inspect.mm in Sources */,
-				9D3B0876142A3B7900322C00 /* M3+RuntimeError.mm in Sources */,
-				9D9D318E142C6E9800C8269A /* UIColor+M3Extensions.mm in Sources */,
-				9D85437F142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m in Sources */,
-				9DDF5D001431AEF1001CAC28 /* M3+Caller.m in Sources */,
-				9DA5DD4B143276D00003B54A /* NSDate+M3Extensions.mm in Sources */,
-				9DC51243143723A8009A393C /* M3LocationManager.mm in Sources */,
-				9D594A82143D027C00A4CED4 /* UIButton+ActionButton.mm in Sources */,
-				9DBCDDEF1440919B0020EA1F /* M3CachedFactory.m in Sources */,
-				9DBCDDF6144095390020EA1F /* M3-Internals.m in Sources */,
-				9D15A6B31446291400F17C91 /* UIViewController+M3Extensions.mm in Sources */,
-				9DD6431F144E23840042EE57 /* M3+Image.mm in Sources */,
-				9D19E139145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */,
-				9D934DA01461BF51001B25C6 /* UIView+M3Stylesheets.mm in Sources */,
-				9DFE5C1214642E850039F536 /* M3AppDelegate.mm in Sources */,
-				9DFE5C1B146445520039F536 /* NSNumber+M3Extensions.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
