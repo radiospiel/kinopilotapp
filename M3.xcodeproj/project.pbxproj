@@ -414,7 +414,7 @@
 		9D3B086C142A255000322C00 /* M3+Inspect.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+Inspect.mm"; sourceTree = "<group>"; };
 		9D3B0871142A3B7900322C00 /* M3+RuntimeError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+RuntimeError.h"; sourceTree = "<group>"; };
 		9D3B0872142A3B7900322C00 /* M3+RuntimeError.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+RuntimeError.mm"; sourceTree = "<group>"; };
-		9D48ACB7141E9E3E00D0D000 /* iM3Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iM3Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D48ACB7141E9E3E00D0D000 /* Kinopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kinopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D48ACBB141E9E3E00D0D000 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		9D48ACBF141E9E3E00D0D000 /* iM3Example-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iM3Example-Info.plist"; sourceTree = "<group>"; };
 		9D48ACC1141E9E3E00D0D000 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -979,7 +979,7 @@
 				9D8B8AFF1413CA8B0066ECBB /* M3Tests.octest */,
 				9D01742A141AA6F10035A4C2 /* libiM3.a */,
 				9D017438141AA6F10035A4C2 /* iM3Tests.octest */,
-				9D48ACB7141E9E3E00D0D000 /* iM3Example.app */,
+				9D48ACB7141E9E3E00D0D000 /* Kinopilot.app */,
 				9D48ACE8141E9E3F00D0D000 /* iM3ExampleTests.octest */,
 			);
 			name = Products;
@@ -1317,7 +1317,7 @@
 			);
 			name = iM3Example;
 			productName = iM3Example;
-			productReference = 9D48ACB7141E9E3E00D0D000 /* iM3Example.app */;
+			productReference = 9D48ACB7141E9E3E00D0D000 /* Kinopilot.app */;
 			productType = "com.apple.product-type.application";
 		};
 		9D48ACE7141E9E3F00D0D000 /* iM3ExampleTests */ = {
@@ -1857,7 +1857,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Enrico Thierbach (GMBQB52YU2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
@@ -1880,7 +1880,8 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Kinopilot;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E8F9E0BA-4FF4-4B5D-8EC3-D8DB9B1F6792";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "vendor/bc-ipad-iphone-kit-2.1/lib/** vendor/bc-media-api-2.1/lib/**";
@@ -1892,7 +1893,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Enrico Thierbach (GMBQB52YU2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
@@ -1916,7 +1917,8 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Kinopilot;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E8F9E0BA-4FF4-4B5D-8EC3-D8DB9B1F6792";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "vendor/bc-ipad-iphone-kit-2.1/lib/** vendor/bc-media-api-2.1/lib/**";

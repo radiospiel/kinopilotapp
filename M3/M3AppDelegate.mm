@@ -279,6 +279,22 @@ M3AppDelegate* app;
   [mixpanel_ track: event];
 }
 
+-(void)application: (UIApplication*)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+  deviceToken_ = [deviceToken copy];
+
+  dlog << "*** Got notification registration for " << deviceToken;
+}
+
+- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err { 
+  NSString *str = [NSString stringWithFormat: @"Error: %@", err];
+  NSLog(@"*** No notification registration: %@",str);    
+}
+
+#define URBAN_AIRSHIP_KEY             @"GtsLZbbmRQ6Kq9XXy3LPbg"
+#define URBAN_AIRSHIP_SECRET          @"9ir2nj6jTk-aC2NKpPXKiw"
+#define URBAN_AIRSHIP_MASTER_SECRET   @"qXWB90OkTL2HQoGLT0O-lw"
+
 -(BOOL) application:(UIApplication *)application 
           didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -292,6 +308,12 @@ M3AppDelegate* app;
   rlog(1) << "Initialized mixpanel";
   [self trackEvent: @"start"];
   rlog(1) << "Tracked event";
+
+  dlog << "*** Asking for notifications";
+  UIRemoteNotificationType notifications = (UIRemoteNotificationType)
+    (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert);
+  [[UIApplication sharedApplication] registerForRemoteNotificationTypes: notifications];
+
   
   [M3 enableImageHost:M3SenchaSupportFull scaleForRetinaDisplay:NO];
   

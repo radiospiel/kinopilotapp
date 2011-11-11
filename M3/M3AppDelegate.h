@@ -12,6 +12,7 @@ extern M3AppDelegate* app;
  */
 @interface M3AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UINavigationControllerDelegate> {
   MixpanelAPI* mixpanel_;
+  NSData* deviceToken_;
 }
 
 @property (retain, nonatomic) UIProgressView* progressView;
