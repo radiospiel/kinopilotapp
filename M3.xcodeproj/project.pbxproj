@@ -1642,7 +1642,7 @@
 				9DFD23A9146C6641001704CC /* NSData+MPBase64.m in Sources */,
 				9DFD23AA146C6641001704CC /* MixpanelAPI.m in Sources */,
 				9DFD23AB146C6641001704CC /* MixpanelEvent.m in Sources */,
-				9D3813901469A2DB00E4BBF4 /* MovieTrailerController.mm in Sources */,
+				9D3813901469A2DB00E4BBF4 /* MoviesTrailerController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1865,9 +1865,9 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iM3Example/iM3Example-Prefix.pch";
-				"HEADER_SEARCH_PATHS[arch=*]" = (
-					"vendor/bc-media-api-2.1/lib/",
-					"vendor/bc-ipad-iphone-kit-2.1/lib/",
+				HEADER_SEARCH_PATHS = (
+					"vendor/bc-ipad-iphone-kit-2.1/lib/**",
+					"vendor/bc-media-api-2.1/lib/**",
 				);
 				INFOPLIST_FILE = "iM3Example/iM3Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
@@ -1900,9 +1900,9 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iM3Example/iM3Example-Prefix.pch";
-				"HEADER_SEARCH_PATHS[arch=*]" = (
-					"vendor/bc-media-api-2.1/lib/",
-					"vendor/bc-ipad-iphone-kit-2.1/lib/",
+				HEADER_SEARCH_PATHS = (
+					"vendor/bc-ipad-iphone-kit-2.1/lib/**",
+					"vendor/bc-media-api-2.1/lib/**",
 				);
 				INFOPLIST_FILE = "iM3Example/iM3Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
