@@ -177,6 +177,10 @@
 		9D74BDBF146DCFC400D781F8 /* M3+Tracking.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D74BDBD146DCFC400D781F8 /* M3+Tracking.h */; };
 		9D74BDC0146DCFC400D781F8 /* M3+Tracking.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D74BDBE146DCFC400D781F8 /* M3+Tracking.mm */; };
 		9D74BDC2146DD2EB00D781F8 /* M3+Tracking.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D74BDBE146DCFC400D781F8 /* M3+Tracking.mm */; };
+		9D74BDCA146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D74BDC9146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm */; };
+		9D74BDCB146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D74BDC9146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm */; };
+		9D74BDCD146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D74BDCC146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm */; };
+		9D74BDCE146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D74BDCC146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm */; };
 		9D750E8B142273A30056290E /* M3Data.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D750E89142273A30056290E /* M3Data.h */; };
 		9D750E8C142273A30056290E /* M3Data.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D750E89142273A30056290E /* M3Data.h */; };
 		9D750E8D142273A30056290E /* M3Data.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D750E8A142273A30056290E /* M3Data.mm */; };
@@ -484,6 +488,8 @@
 		9D72E29914387FE600D8E5B5 /* MoviesImagesController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesImagesController.mm; sourceTree = "<group>"; };
 		9D74BDBD146DCFC400D781F8 /* M3+Tracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Tracking.h"; sourceTree = "<group>"; };
 		9D74BDBE146DCFC400D781F8 /* M3+Tracking.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+Tracking.mm"; sourceTree = "<group>"; };
+		9D74BDC9146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+ApplicationURL.mm"; sourceTree = "<group>"; };
+		9D74BDCC146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+RemoteNotifications.mm"; sourceTree = "<group>"; };
 		9D750E89142273A30056290E /* M3Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Data.h; sourceTree = "<group>"; };
 		9D750E8A142273A30056290E /* M3Data.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Data.mm; sourceTree = "<group>"; };
 		9D750E8F142275750056290E /* M3+Inflector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Inflector.h"; sourceTree = "<group>"; };
@@ -958,9 +964,6 @@
 		9D8B8AE01413CA8B0066ECBB = {
 			isa = PBXGroup;
 			children = (
-				9D3813961469A73C00E4BBF4 /* MediaPlayer.framework */,
-				9D3813941469A71600E4BBF4 /* libBrightcoveMediaAPI.a */,
-				9D3813921469A6E400E4BBF4 /* libBrightcovePlayerKit.a */,
 				9D0893A9145351AB00F64AC1 /* berlin.png */,
 				9D0893AA145351AB00F64AC1 /* cinemas.png */,
 				9D0893AB145351AB00F64AC1 /* movies.png */,
@@ -993,6 +996,9 @@
 		9D8B8AED1413CA8B0066ECBB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D3813961469A73C00E4BBF4 /* MediaPlayer.framework */,
+				9D3813941469A71600E4BBF4 /* libBrightcoveMediaAPI.a */,
+				9D3813921469A6E400E4BBF4 /* libBrightcovePlayerKit.a */,
 				9DACE1C1145F532300372415 /* EventKit.framework */,
 				9D4B701F145D92E800F1DBCE /* MessageUI.framework */,
 				9D10C37C143774A800FE19C9 /* MapKit.framework */,
@@ -1061,6 +1067,8 @@
 				9D74BDBE146DCFC400D781F8 /* M3+Tracking.mm */,
 				9DFE5C0D14642E850039F536 /* M3AppDelegate.h */,
 				9DFE5C0E14642E850039F536 /* M3AppDelegate.mm */,
+				9D74BDC9146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm */,
+				9D74BDCC146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm */,
 				9DBCDDFB1440B55A0020EA1F /* M3CachedFactory.h */,
 				9DBCDDED1440919B0020EA1F /* M3CachedFactory.m */,
 				9D750E89142273A30056290E /* M3Data.h */,
@@ -1598,6 +1606,8 @@
 				9D15A6B31446291400F17C91 /* UIViewController+M3Extensions.mm in Sources */,
 				9D017468141AA7DF0035A4C2 /* Underscore.mm in Sources */,
 				9D017469141AA7DF0035A4C2 /* Underscore+Logger.mm in Sources */,
+				9D74BDCB146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm in Sources */,
+				9D74BDCE146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1714,6 +1724,8 @@
 				9DFE5C1114642E850039F536 /* M3AppDelegate.mm in Sources */,
 				9DFE5C1A146445520039F536 /* NSNumber+M3Extensions.mm in Sources */,
 				9D74BDC0146DCFC400D781F8 /* M3+Tracking.mm in Sources */,
+				9D74BDCA146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm in Sources */,
+				9D74BDCD146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
