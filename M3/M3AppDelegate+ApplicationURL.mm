@@ -8,14 +8,11 @@
 -(void)trackOpenURL: (NSString*)url
 {
   if([url matches: @"^([-a-z]+):"]) {
-    //    [M3 trackEvent: _.join(@"open:", $1)];
+    [self trackEvent: _.join(@"open:", $1)];
   }
   else {
     [url matches: @"^((/[a-zA-Z0-9_]+)+)"];
-    DLOG($1);
-    DLOG($2);
-    
-    // [M3 trackEvent: _.join(@"open:", $1)];
+    [self trackEvent: _.join(@"open:", $1)];
   }
 }
 
@@ -111,8 +108,6 @@
 // Open internal URLs inside application.
 -(BOOL)openInternalURL: (NSString*)url 
 {
-  DLOG(url);
-  
   UIViewController* vc = [self controllerForURL: url];
   if(!vc) return NO;
   
@@ -131,8 +126,6 @@
  */
 -(void)open: (NSString*)url
 {
-  DLOG(url);
-  
   if(!url) return;
   
   // URLs with a scheme part are opened as external URLs.

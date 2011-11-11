@@ -5,12 +5,15 @@
 #define URBAN_AIRSHIP_SECRET          @"9ir2nj6jTk-aC2NKpPXKiw"
 #define URBAN_AIRSHIP_MASTER_SECRET   @"qXWB90OkTL2HQoGLT0O-lw"
 
+#define NOTIFICATIONS                 (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)
+
+// #define NOTIFICATIONS                 (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)
+
 @implementation M3AppDelegate(RemoteNotification)
 
 -(void)enableRemoteNotifications 
 {
-  UIRemoteNotificationType notifications = (UIRemoteNotificationType)
-  (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert);
+  UIRemoteNotificationType notifications = (UIRemoteNotificationType)NOTIFICATIONS;
   [[UIApplication sharedApplication] registerForRemoteNotificationTypes: notifications];
 }
 
@@ -23,8 +26,7 @@
 
   dlog << "*** Got notification registration for " << token;
 
-  // The token could be stored and reused for various aspects of the
-  // Urban Airship API.
+  // The token should be stored and reused for various aspects of the Urban Airship API.
 }
 
 -(void)application: (UIApplication*)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
@@ -38,8 +40,11 @@
 }
 
 - (void)application:(UIApplication *)app didReceiveRemoteNotification:(NSDictionary *)userInfo { 
-  dlog << "*** receive notification " << userInfo;
+  NSDictionary* aps = [userInfo objectForKey:@"aps"];
+  NSString* url = [aps objectForKey:@"url"];
+  if([url isKindOfClass:[NSString class]]) {
+    [self open:url];
+  }
 }
 
 @end
-
