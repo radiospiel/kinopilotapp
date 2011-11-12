@@ -12,7 +12,7 @@
   }
   else {
     [url matches: @"^((/[a-zA-Z0-9_]+)+)"];
-    [self trackEvent: _.join(@"open:", $1)];
+    [self trackEvent: $1];
   }
 }
 

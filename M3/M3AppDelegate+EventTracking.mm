@@ -23,7 +23,7 @@ static MixpanelAPI* getMixpanelApi()
 
 -(void)trackEvent: (NSString*) event properties: (NSDictionary*) properties
 {
-  [mixpanelApi track:event properties:properties];
+  [getMixpanelApi() track:event properties:properties];
 }
 
 @end
