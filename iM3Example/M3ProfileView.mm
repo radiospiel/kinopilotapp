@@ -137,12 +137,17 @@
     
     NSString* address = [theater objectForKey:@"address"];
     
-    if(address)
-      [actions addObject: _.array(@"Fahrinfo", _.join(@"fahrinfo-berlin://connection?to=", address.urlEscape))];
+    if(address) {
+      NSString* addressURL = _.join(@"fahrinfo-berlin://connection?to=", address.urlEscape);
+      [actions addObject: _.array(@"Fahrinfo", addressURL)];
+    }
     
     NSString* fon = [theater objectForKey:@"telephone"];
-    if(fon)
-      [actions addObject: _.array(@"Fon", _.join(@"tel://", fon.urlEscape))];
+    if(fon) {
+      NSString* fonURL = _.join(@"tel://", fon.urlEscape);
+      if([app canOpen:fonURL])
+        [actions addObject: _.array(@"Fon", fonURL)];
+    }
     
     NSString* web = [theater objectForKey:@"website"];
     if(web)
