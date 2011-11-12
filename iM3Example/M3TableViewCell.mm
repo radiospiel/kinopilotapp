@@ -43,12 +43,13 @@
 }
 
 +(CGFloat) fixedHeight;
-  { return 0; }
+{ 
+  return 0; 
+}
 
 -(void)didSelectCell 
 {
   NSString* url = self.url;
-  NSLog(@"opening url: %@", _.ptr(url));
   if(url) [app open: url];
 }
 

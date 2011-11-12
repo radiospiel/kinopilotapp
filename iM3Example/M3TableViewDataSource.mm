@@ -40,6 +40,11 @@
   return [NSString stringWithFormat: @"<%@ @ 0x%08x: %d sections>", NSStringFromClass([self class]), self, self.sections.count];
 }
 
+-(void)addSection:(NSArray*) keys
+{
+  [self addSection: keys withOptions: nil];
+}
+
 -(void)addSection:(NSArray*) keys withOptions: (NSDictionary*) options
 {
   M3AssertKindOf(keys, NSArray);
