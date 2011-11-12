@@ -5,6 +5,9 @@
 
 @implementation M3TableViewProfileCell
 
+// @synthesize imageURL=imageURL_;
+@synthesize image = image_;
+
 static CGFloat textHeight = 0, detailTextHeight = 0;
 
 +(void)initialize {
@@ -63,13 +66,6 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
   self.detailTextLabel.text = description;
 }
 
--(void)setImageURL: (NSString*)imageURL
-{
-  self.imageView.hidden = NO;
-  self.imageView.image = [UIImage imageNamed:@"no_poster.png"];
-  self.imageView.imageURL = imageURL; 
-}
-
 - (void) layoutSubviews
 {
   [super layoutSubviews];
@@ -92,8 +88,11 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
     left = 27;
   }
 
-  if(!self.imageView.hidden) {
+  if(self.image) {
+    self.imageView.hidden = NO;
+    self.imageView.image = self.image; //  [UIImage imageNamed:@"no_poster.png"];
     self.imageView.frame = CGRectMake(left, 4, 36, 47);
+    // self.imageView.imageURL = self.imageURL; 
     left += 42;
   }
 
