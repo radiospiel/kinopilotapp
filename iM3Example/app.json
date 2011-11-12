@@ -4,6 +4,7 @@
     {
       "nurl": "/movies/list?theater_id=adriafilmtheat|2487JHMKNoY",
       "url": "/dashboard",
+      "nurl": "/theaters/list?movie_id=alienjagermyst|btDe8fQQOlg",
       "nurl": "/movies/list",
       "nurl":  "/vicinity/show",
       "nurl": "/movies/show?movie_id=abenteuervonti|2rHUQuUWVnQ",

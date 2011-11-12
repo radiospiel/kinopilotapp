@@ -128,6 +128,8 @@
 {
   if(!url) return;
   
+  dlog << "*** open: " << url;
+  
   // URLs with a scheme part are opened as external URLs.
   BOOL isExternalURL = [url matches: @"^([-a-z]+):"] != nil;
   if(isExternalURL) 
