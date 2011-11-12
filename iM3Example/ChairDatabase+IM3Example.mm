@@ -127,6 +127,18 @@
   return [UIImage imageWithData: data];
 }
 
+-(NSString*)trailerURLForMovie: (NSString*)movie_id
+{
+  NSDictionary* movie = [self.movies get: movie_id];
+  NSDictionary* videos = [movie objectForKey: @"videos"];
+  NSDictionary* video = [videos objectForKey: @"video"];
+
+  NSNumber* brightcove_id = [video objectForKey: @"brightcove-id"];
+  if(!brightcove_id) return nil;
+  
+  return _.join(@"/movies/trailer?brightcove_id=", brightcove_id);
+}
+
 -(SEL)adjustSelectorForType: (NSString*) typeName
 {
   NSString* selectorName = [NSString stringWithFormat: @"adjust%@:", typeName.camelizeWord];

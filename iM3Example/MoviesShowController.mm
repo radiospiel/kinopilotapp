@@ -136,15 +136,33 @@
 
 @implementation MoviesShowTrailerCell
 
--(void)setKey: (id)key
+-(id)init
 {
-  [super setKey:key];
-  
+  self = [super init];
+  self.textLabel.text = @"Show Trailer";
+  return self;
+}
+
+-(NSString*)url
+{
   NSDictionary* movie = [self.key objectAtIndex:1];
   M3AssertKindOf(movie, NSDictionary);
     
-  self.textLabel.text = @"Show Trailer";
-  self.url = _.join(@"/movies/trailer?movie_id=", [movie objectForKey:@"_uid"]);
+  return [app.chairDB trailerURLForMovie: [movie objectForKey:@"_uid"]];
+}
+
+-(CGFloat)wantsHeight
+{
+  return self.url ? 44 : 0;
+}
+
+
+-(void)layoutSubviews
+{
+  [super layoutSubviews];
+  
+  // TODO: make me right aligned
+  self.textLabel.font = [self.stylesheet fontForKey:@"h2"];
 }
 
 @end
@@ -174,7 +192,7 @@
   
   if(!theater_ids.count) {
     self.textLabel.text = @"Für diesen Film liegen uns keine Termine vor.";
-    self.textLabel.font = [UIFont italicSystemFontOfSize:13];
+    self.textLabel.font = [UIFont italicSystemFontOfSize:14];
     self.textLabel.textColor = [UIColor colorWithName:@"#999"];
   }
   else {

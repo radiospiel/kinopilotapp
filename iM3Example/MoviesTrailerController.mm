@@ -2,7 +2,7 @@
  * see http://docs.brightcove.com/en/iphone-sdk/
  */
 
-#define BRIGHTCOVE_API_KEY @"b65cUECRbDDj8TnzDYMYXI8puHwkIigW-8j-tvdADvyxILe17h__-w.."
+#define BRIGHTCOVE_API_KEY @"QeK_7QLEYC-Q4eh-ulEVLfonGwsQhAZlqSaXoUiyYVHfIwheZpv70A.."
 
 #import "BCMediaAPI.h"
 #import "BCMoviePlayerController.h"
@@ -23,6 +23,7 @@
 
 @synthesize player = player_;
 
+/* initialize the BRIGHTCOVE API */
 static BCMediaAPI *bc = nil;
 +(void)initialize
 {
@@ -35,10 +36,25 @@ static BCMediaAPI *bc = nil;
 {
   self = [super init];
 
-  self.player = [[BCMoviePlayerController alloc]init];
-  
-  // [self initWithContentURL: searchForRenditionWithLowBitRate:andHighBitRate:
   return self;
+}
+
+-(BCMoviePlayerController*)player
+{
+  if(player_) return player_;
+  
+  self.player = [[BCMoviePlayerController alloc]init];
+
+  // limit bitrates??
+  //
+  // [self.player searchForRenditionsBetweenLowBitRate:[NSNumber numberWithInt:100000] 
+  //                             andHighBitRate:[NSNumber numberWithInt:500000]
+  // ];
+
+  [self.player.view setFrame: CGRectMake(0, 64, 320, 300)];
+  [self.view addSubview: self.player.view];
+
+  return player_;
 }
 
 -(void)dealloc
@@ -47,69 +63,26 @@ static BCMediaAPI *bc = nil;
   [super dealloc];
 }
 
--(unsigned long)brightcove_id
-{
-  // get movie from url
-  NSString* movie_id = [self.url.to_url param: @"movie_id"];
-  NSDictionary* movie = [app.chairDB.movies get: movie_id];
-  NSDictionary* videos = [movie objectForKey: @"videos"];
-  NSDictionary* video = [videos objectForKey: @"video"];
-//  NSString* title = [video objectForKey: @"title"];
-//  NSString* thumbnail = [video objectForKey: @"thumbnail"];
-
-  NSNumber* brightcove_id = [video objectForKey: @"brightcove-id"];
-
-  return [brightcove_id unsignedLongValue];
-}
-
 -(void)loadFromUrl: (NSString*)url
 {
   NSError* err = 0;  
-  
-  BCVideo *video = [bc findVideoById: [self brightcove_id] error: &err];
+
+  NSString* brightcove_id_string = [url.to_url param: @"brightcove_id"] ;
+
+  NSNumber *brightcove_id = brightcove_id_string.to_number;
+
+  BCVideo *video = [bc findVideoById: [brightcove_id longLongValue] error: &err];
   if (!video) {
     NSString *errStr = [bc getErrorsAsString: err];
+    dlog << "Cannot load video #" << brightcove_id;
     NSLog(@"ERROR: %@", errStr);
     return;
   }
 
-  NSLog(@"*** Video is %@", video);
-  
-  // limit bitrates
-  // [self searchForRenditionsBetweenLowBitRate:[NSNumber numberWithInt:100000] 
-  //                             andHighBitRate:[NSNumber numberWithInt:500000]
-  // ];
+  dlog << "Loading video " << video;
 
-  // set video
+  // --- set video --------------
   [self.player setContentURL: video];
-}
-
--(UIView*)view
-{
-  return self.player.view;
-}
-
--(void)perform
-{
-  [super perform];
-//  UINavigationController* nc = [app topMostController];
-//  
-//  [nc pushViewController:self animated:YES];
-  
-  [self.player.view setFrame: CGRectMake(0, 0, 480, 320)];
-
-  //  [nc.view addSubview: self.player.view];
-  
-  // what does prepare to play do? -- is it needed?
-  [self.player prepareToPlay];
-
-  if ([self.player isPreparedToPlay]) {
-    NSLog(@"prepared to play");
-  }
-  else {
-    NSLog(@"not prepared to play");
-  }
- 
   [self.player play];     // start player
 }
 

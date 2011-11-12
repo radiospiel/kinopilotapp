@@ -40,7 +40,7 @@
  */
 +(CGFloat) fixedHeight;
 
--(void)selectedCell;
+-(void)didSelectCell;
 
 @end
 

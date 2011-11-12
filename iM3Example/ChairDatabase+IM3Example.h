@@ -27,5 +27,6 @@
 -(void)update;
 
 -(UIImage*)thumbnailForMovie: (NSString*)movie_id;
+-(NSString*)trailerURLForMovie: (NSString*)movie_id;
 
 @end
