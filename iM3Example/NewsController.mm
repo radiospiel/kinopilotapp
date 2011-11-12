@@ -186,8 +186,7 @@
 -(void)loadFromUrl:(NSString *)url
 {
   NewsShowDataSource* ds = [[[NewsShowDataSource alloc] init] autorelease];
-  [ds addSection: _.array(@"NewsShowDescriptionCell", @"NewsShowMoreCell") 
-     withOptions:nil ];
+  [ds addSection: _.array(@"NewsShowDescriptionCell", @"NewsShowMoreCell")];
     
   self.dataSource = ds;
   UIImageView* iv = [[[UIImageView alloc]initWithFrame: CGRectMake(0, 0, 320, 180)]autorelease];
