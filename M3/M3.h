@@ -25,6 +25,8 @@
 #import "NSString+Regexp.h"
 #import "NSURL+M3Extensions.h"
 
+#import "M3+Base64.h"
+
 #import "M3+Caller.h"
 #import "M3+Comparison.h"
 #import "M3+Crypto.h"

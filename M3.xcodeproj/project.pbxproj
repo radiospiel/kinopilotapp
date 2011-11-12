@@ -291,6 +291,10 @@
 		9DDF5D071431F74C001CAC28 /* MovieShortInfoCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDF5D061431F74C001CAC28 /* MovieShortInfoCell.mm */; };
 		9DE40645142CFC490089EAA9 /* InfoController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DE40644142CFC490089EAA9 /* InfoController.mm */; };
 		9DEB834A1444E5280075F65A /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DEB83491444E5280075F65A /* close.png */; };
+		9DF13D49146DFCCC00C925CC /* M3+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF13D47146DFCCC00C925CC /* M3+Base64.h */; };
+		9DF13D4A146DFCCC00C925CC /* M3+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF13D47146DFCCC00C925CC /* M3+Base64.h */; };
+		9DF13D4B146DFCCC00C925CC /* M3+Base64.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DF13D48146DFCCC00C925CC /* M3+Base64.mm */; };
+		9DF13D4C146DFCCC00C925CC /* M3+Base64.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DF13D48146DFCCC00C925CC /* M3+Base64.mm */; };
 		9DFD23A6146C6641001704CC /* MPCJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD239A146C6641001704CC /* MPCJSONDataSerializer.m */; };
 		9DFD23A7146C6641001704CC /* MPCJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD239C146C6641001704CC /* MPCJSONSerializer.m */; };
 		9DFD23A8146C6641001704CC /* MPCSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD239E146C6641001704CC /* MPCSerializedJSONData.m */; };
@@ -591,6 +595,8 @@
 		9DE40643142CFC490089EAA9 /* InfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoController.h; sourceTree = "<group>"; };
 		9DE40644142CFC490089EAA9 /* InfoController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InfoController.mm; sourceTree = "<group>"; };
 		9DEB83491444E5280075F65A /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
+		9DF13D47146DFCCC00C925CC /* M3+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Base64.h"; sourceTree = "<group>"; };
+		9DF13D48146DFCCC00C925CC /* M3+Base64.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+Base64.mm"; sourceTree = "<group>"; };
 		9DFD2399146C6641001704CC /* MPCJSONDataSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCJSONDataSerializer.h; sourceTree = "<group>"; };
 		9DFD239A146C6641001704CC /* MPCJSONDataSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCJSONDataSerializer.m; sourceTree = "<group>"; };
 		9DFD239B146C6641001704CC /* MPCJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCJSONSerializer.h; sourceTree = "<group>"; };
@@ -960,6 +966,8 @@
 				9D8B8AF81413CA8B0066ECBB /* M3.m */,
 				9DBCDDF1144094290020EA1F /* M3-Internals.h */,
 				9DBCDDF4144095390020EA1F /* M3-Internals.m */,
+				9DF13D47146DFCCC00C925CC /* M3+Base64.h */,
+				9DF13D48146DFCCC00C925CC /* M3+Base64.mm */,
 				9DDF5CFB1431AEF1001CAC28 /* M3+Caller.h */,
 				9DDF5CFC1431AEF1001CAC28 /* M3+Caller.m */,
 				9D8B8B171413CAD90066ECBB /* M3+Comparison.h */,
@@ -1227,6 +1235,7 @@
 				9D934D9F1461BF51001B25C6 /* UIView+M3Stylesheets.h in Headers */,
 				9DFE5C1014642E850039F536 /* M3AppDelegate.h in Headers */,
 				9DFE5C19146445520039F536 /* NSNumber+M3Extensions.h in Headers */,
+				9DF13D4A146DFCCC00C925CC /* M3+Base64.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1279,6 +1288,7 @@
 				9DACE1BA145F3C5700372415 /* M3+Interpolate.h in Headers */,
 				9DFE5C0F14642E850039F536 /* M3AppDelegate.h in Headers */,
 				9DFE5C18146445520039F536 /* NSNumber+M3Extensions.h in Headers */,
+				9DF13D49146DFCCC00C925CC /* M3+Base64.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1609,6 +1619,7 @@
 				9D74BDCB146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm in Sources */,
 				9D74BDCE146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm in Sources */,
 				9D74BDD1146DE60700D781F8 /* M3AppDelegate+EventTracking.mm in Sources */,
+				9DF13D4C146DFCCC00C925CC /* M3+Base64.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1726,6 +1737,7 @@
 				9D74BDCA146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm in Sources */,
 				9D74BDCD146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm in Sources */,
 				9D74BDD0146DE60700D781F8 /* M3AppDelegate+EventTracking.mm in Sources */,
+				9DF13D4B146DFCCC00C925CC /* M3+Base64.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
