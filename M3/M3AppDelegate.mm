@@ -168,7 +168,7 @@ M3AppDelegate* app;
 
   [self enableRemoteNotifications];
   
-  [M3 enableImageHost:M3SenchaSupportFull scaleForRetinaDisplay:NO];
+  [M3 enableImageHost:M3SenchaSupportFull scaleForRetinaDisplay:YES];
   
   // [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
   /*

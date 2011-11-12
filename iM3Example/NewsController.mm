@@ -20,7 +20,7 @@
 {
   [super setKey:news];
   
-  [self setImageURL: [news objectForKey: @"image"]];
+  // [self setImageURL: [news objectForKey: @"image"]];
   [self setText: [news objectForKey: @"title"]];
 }
 

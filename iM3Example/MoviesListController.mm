@@ -9,6 +9,19 @@
 #import "AppDelegate.h"
 #import "MoviesListController.h"
 
+@interface M3TableViewProfileCell(MovieImage)
+@end
+
+@implementation M3TableViewProfileCell(MovieImage)
+
+-(void)setImageForMovie: (NSString*)movie_id
+{
+  UIImage* image = [app.chairDB thumbnailForMovie:movie_id];
+  self.image = image ? image : [UIImage imageNamed:@"no_poster.png"];
+}
+
+@end
+
 /*** A cell for the MoviesListCell *******************************************/
 
 @interface MoviesListCell: M3TableViewProfileCell
@@ -23,7 +36,7 @@
   NSDictionary* movie = [app.chairDB.movies get: movie_id];
   movie = [app.chairDB adjustMovies: movie];
   
-  [self setImageURL: [movie objectForKey: @"image"]];
+  [self setImageForMovie: movie_id];
   [self setText: [movie objectForKey: @"title"]];
 
   NSArray* theater_ids = [app.chairDB theaterIdsByMovieId: movie_id];
@@ -72,7 +85,8 @@
   NSDictionary* movie = [key joinWith: app.chairDB.movies on: @"movie_id"];
   movie = [app.chairDB adjustMovies: movie];
   
-  [self setImageURL: [movie objectForKey: @"image"]];
+  [self setImageForMovie: [key objectForKey:@"movie_id"]];
+
   [self setText: [movie objectForKey: @"title"]];
   
   NSArray* schedules = [self schedules];

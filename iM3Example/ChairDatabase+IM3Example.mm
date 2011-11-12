@@ -1,9 +1,9 @@
 #import "AppDelegate.h"
 
 #if 1
-#define REMOTE_URL  @"http://kinopilotupdates2.heroku.com/db/news,berlin"
+#define REMOTE_URL  @"http://kinopilotupdates2.heroku.com/db/images,berlin"
 #else
-#define REMOTE_URL  @"http://localhost:3000/db/news,berlin"
+#define REMOTE_URL  @"http://localhost:3000/db/images,berlin"
 #endif
 
 // #define DB_PATH     @"$documents/chairdb/berlin.json"
@@ -108,6 +108,23 @@
 -(ChairTable*) news
 {
   return [self tableForName:@"news"];
+}
+
+-(ChairTable*) images
+{
+  return [self tableForName:@"images"];
+}
+
+-(UIImage*)thumbnailForMovie: (NSString*)movie_id
+{
+  NSDictionary* thumbnailData = [self.images get: movie_id];
+  NSString* encodedImage = [thumbnailData objectForKey:@"data"];
+  if(!encodedImage) return nil;
+  
+  NSData* data = [M3 decodeBase64WithString:encodedImage];
+  if(!data) return nil;
+  
+  return [UIImage imageWithData: data];
 }
 
 -(SEL)adjustSelectorForType: (NSString*) typeName
