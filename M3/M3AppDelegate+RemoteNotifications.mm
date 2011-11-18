@@ -1,3 +1,5 @@
+#if TARGET_OS_IPHONE 
+
 #import "M3.h"
 #import "M3AppDelegate.h"
 
@@ -48,3 +50,5 @@
 }
 
 @end
+
+#endif

@@ -1,3 +1,5 @@
+#if TARGET_OS_IPHONE 
+
 #import "M3.h"
 #import "UIViewController+M3Extensions.h"
 
@@ -214,3 +216,5 @@
 }
 
 @end
+
+#endif

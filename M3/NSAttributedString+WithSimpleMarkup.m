@@ -12,12 +12,12 @@
 // http://iphonedevelopment.blogspot.com/2011/03/attributed-strings-in-ios.html
 //
 
+#if TARGET_OS_IPHONE 
+
 #import "M3.h"
 #import "NSAttributedString+WithSimpleMarkup.h"
 
-#if TARGET_OS_IPHONE 
 #import <CoreText/CoreText.h>
-#endif
 
 @interface M3AttributedStringBuilder: NSObject<NSXMLParserDelegate> {
   M3Stylesheet* stylesheet;
@@ -250,6 +250,8 @@
 }
 
 @end
+
+#endif
 
 #if 0
 

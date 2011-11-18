@@ -1,3 +1,5 @@
+#if TARGET_OS_IPHONE 
+
 #import "M3.h"
 #import "MixpanelAPI.h"
 
@@ -27,3 +29,5 @@ static MixpanelAPI* getMixpanelApi()
 }
 
 @end
+
+#endif
