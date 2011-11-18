@@ -129,6 +129,7 @@
 		9D4B701C145D734B00F1DBCE /* M3ActionSheetController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D4B701B145D734B00F1DBCE /* M3ActionSheetController.mm */; };
 		9D4B701E145D7A6400F1DBCE /* invitation_mail.html in Resources */ = {isa = PBXBuildFile; fileRef = 9D4B701D145D7A6400F1DBCE /* invitation_mail.html */; };
 		9D4B7020145D92E800F1DBCE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D4B701F145D92E800F1DBCE /* MessageUI.framework */; };
+		9D4D03D41476A36400C6F5EC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D4D03D31476A36400C6F5EC /* libsqlite3.dylib */; };
 		9D56161B142641A300D0A484 /* background-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D561574142641A300D0A484 /* background-dark.png */; };
 		9D56161C142641A300D0A484 /* background-light.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D561575142641A300D0A484 /* background-light.png */; };
 		9D56161D142641A300D0A484 /* background-striped.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D561576142641A300D0A484 /* background-striped.png */; };
@@ -176,12 +177,8 @@
 		9D72E29A14387FE600D8E5B5 /* MoviesImagesController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D72E29914387FE600D8E5B5 /* MoviesImagesController.mm */; };
 		9D73416014769C1D00FBB528 /* GTMSqlite+M3Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D73415E14769C1D00FBB528 /* GTMSqlite+M3Additions.h */; };
 		9D73416114769C1D00FBB528 /* GTMSqlite+M3Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D73415E14769C1D00FBB528 /* GTMSqlite+M3Additions.h */; };
-		9D73416214769C1D00FBB528 /* GTMSqlite+M3Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D73415F14769C1D00FBB528 /* GTMSqlite+M3Additions.m */; };
-		9D73416314769C1D00FBB528 /* GTMSqlite+M3Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D73415F14769C1D00FBB528 /* GTMSqlite+M3Additions.m */; };
-		9D750E8B142273A30056290E /* M3Data.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D750E89142273A30056290E /* M3Data.h */; };
-		9D750E8C142273A30056290E /* M3Data.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D750E89142273A30056290E /* M3Data.h */; };
-		9D750E8D142273A30056290E /* M3Data.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D750E8A142273A30056290E /* M3Data.mm */; };
-		9D750E8E142273A30056290E /* M3Data.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D750E8A142273A30056290E /* M3Data.mm */; };
+		9D73416214769C1D00FBB528 /* GTMSqlite+M3Additions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D73415F14769C1D00FBB528 /* GTMSqlite+M3Additions.mm */; };
+		9D73416314769C1D00FBB528 /* GTMSqlite+M3Additions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D73415F14769C1D00FBB528 /* GTMSqlite+M3Additions.mm */; };
 		9D74BDCA146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D74BDC9146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm */; };
 		9D74BDCB146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D74BDC9146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm */; };
 		9D74BDCD146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D74BDCC146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm */; };
@@ -299,15 +296,15 @@
 		9DDF5D071431F74C001CAC28 /* MovieInfoCells.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDF5D061431F74C001CAC28 /* MovieInfoCells.mm */; };
 		9DE40645142CFC490089EAA9 /* InfoController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DE40644142CFC490089EAA9 /* InfoController.mm */; };
 		9DEB834A1444E5280075F65A /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DEB83491444E5280075F65A /* close.png */; };
+		9DF13D49146DFCCC00C925CC /* M3+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF13D47146DFCCC00C925CC /* M3+Base64.h */; };
+		9DF13D4A146DFCCC00C925CC /* M3+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF13D47146DFCCC00C925CC /* M3+Base64.h */; };
+		9DF13D4B146DFCCC00C925CC /* M3+Base64.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DF13D48146DFCCC00C925CC /* M3+Base64.mm */; };
+		9DF13D4C146DFCCC00C925CC /* M3+Base64.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DF13D48146DFCCC00C925CC /* M3+Base64.mm */; };
 		9DF9B2D814744CE10035084F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF9B2D714744CE10035084F /* libsqlite3.dylib */; };
 		9DF9B2DB147459F60035084F /* GTMSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF9B2D9147459F60035084F /* GTMSQLite.h */; };
 		9DF9B2DC147459F60035084F /* GTMSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF9B2D9147459F60035084F /* GTMSQLite.h */; };
 		9DF9B2DD147459F60035084F /* GTMSQLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9B2DA147459F60035084F /* GTMSQLite.m */; };
 		9DF9B2DE147459F60035084F /* GTMSQLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9B2DA147459F60035084F /* GTMSQLite.m */; };
-		9DF13D49146DFCCC00C925CC /* M3+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF13D47146DFCCC00C925CC /* M3+Base64.h */; };
-		9DF13D4A146DFCCC00C925CC /* M3+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF13D47146DFCCC00C925CC /* M3+Base64.h */; };
-		9DF13D4B146DFCCC00C925CC /* M3+Base64.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DF13D48146DFCCC00C925CC /* M3+Base64.mm */; };
-		9DF13D4C146DFCCC00C925CC /* M3+Base64.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DF13D48146DFCCC00C925CC /* M3+Base64.mm */; };
 		9DFD23A6146C6641001704CC /* MPCJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD239A146C6641001704CC /* MPCJSONDataSerializer.m */; };
 		9DFD23A7146C6641001704CC /* MPCJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD239C146C6641001704CC /* MPCJSONSerializer.m */; };
 		9DFD23A8146C6641001704CC /* MPCSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD239E146C6641001704CC /* MPCSerializedJSONData.m */; };
@@ -452,6 +449,7 @@
 		9D4B701B145D734B00F1DBCE /* M3ActionSheetController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3ActionSheetController.mm; sourceTree = "<group>"; };
 		9D4B701D145D7A6400F1DBCE /* invitation_mail.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = invitation_mail.html; sourceTree = "<group>"; };
 		9D4B701F145D92E800F1DBCE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
+		9D4D03D31476A36400C6F5EC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		9D561574142641A300D0A484 /* background-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-dark.png"; sourceTree = "<group>"; };
 		9D561575142641A300D0A484 /* background-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-light.png"; sourceTree = "<group>"; };
 		9D561576142641A300D0A484 /* background-striped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-striped.png"; sourceTree = "<group>"; };
@@ -499,9 +497,7 @@
 		9D72E29814387FE600D8E5B5 /* MoviesImagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesImagesController.h; sourceTree = "<group>"; };
 		9D72E29914387FE600D8E5B5 /* MoviesImagesController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesImagesController.mm; sourceTree = "<group>"; };
 		9D73415E14769C1D00FBB528 /* GTMSqlite+M3Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMSqlite+M3Additions.h"; sourceTree = "<group>"; };
-		9D73415F14769C1D00FBB528 /* GTMSqlite+M3Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMSqlite+M3Additions.m"; sourceTree = "<group>"; };
-		9D750E89142273A30056290E /* M3Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Data.h; sourceTree = "<group>"; };
-		9D750E8A142273A30056290E /* M3Data.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Data.mm; sourceTree = "<group>"; };
+		9D73415F14769C1D00FBB528 /* GTMSqlite+M3Additions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "GTMSqlite+M3Additions.mm"; sourceTree = "<group>"; };
 		9D74BDC9146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+ApplicationURL.mm"; sourceTree = "<group>"; };
 		9D74BDCC146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+RemoteNotifications.mm"; sourceTree = "<group>"; };
 		9D74BDCF146DE60700D781F8 /* M3AppDelegate+EventTracking.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+EventTracking.mm"; sourceTree = "<group>"; };
@@ -611,11 +607,11 @@
 		9DE40643142CFC490089EAA9 /* InfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoController.h; sourceTree = "<group>"; };
 		9DE40644142CFC490089EAA9 /* InfoController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InfoController.mm; sourceTree = "<group>"; };
 		9DEB83491444E5280075F65A /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
+		9DF13D47146DFCCC00C925CC /* M3+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Base64.h"; sourceTree = "<group>"; };
+		9DF13D48146DFCCC00C925CC /* M3+Base64.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+Base64.mm"; sourceTree = "<group>"; };
 		9DF9B2D714744CE10035084F /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/usr/lib/libsqlite3.dylib; sourceTree = DEVELOPER_DIR; };
 		9DF9B2D9147459F60035084F /* GTMSQLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMSQLite.h; path = "vendor/google-toolbox/GTMSQLite.h"; sourceTree = SOURCE_ROOT; };
 		9DF9B2DA147459F60035084F /* GTMSQLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMSQLite.m; path = "vendor/google-toolbox/GTMSQLite.m"; sourceTree = SOURCE_ROOT; };
-		9DF13D47146DFCCC00C925CC /* M3+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Base64.h"; sourceTree = "<group>"; };
-		9DF13D48146DFCCC00C925CC /* M3+Base64.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+Base64.mm"; sourceTree = "<group>"; };
 		9DFD2399146C6641001704CC /* MPCJSONDataSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCJSONDataSerializer.h; sourceTree = "<group>"; };
 		9DFD239A146C6641001704CC /* MPCJSONDataSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCJSONDataSerializer.m; sourceTree = "<group>"; };
 		9DFD239B146C6641001704CC /* MPCJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCJSONSerializer.h; sourceTree = "<group>"; };
@@ -706,6 +702,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D4D03D41476A36400C6F5EC /* libsqlite3.dylib in Frameworks */,
 				9D3B0868142A19F700322C00 /* libicucore.dylib in Frameworks */,
 				9D0EF7531413E04F0051B8FA /* SystemConfiguration.framework in Frameworks */,
 				9D8B8B011413CA8B0066ECBB /* SenTestingKit.framework in Frameworks */,
@@ -1062,6 +1059,7 @@
 		9D8B8AED1413CA8B0066ECBB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D4D03D31476A36400C6F5EC /* libsqlite3.dylib */,
 				9DF9B2D714744CE10035084F /* libsqlite3.dylib */,
 				9D3813961469A73C00E4BBF4 /* MediaPlayer.framework */,
 				9D3813941469A71600E4BBF4 /* libBrightcoveMediaAPI.a */,
@@ -1103,7 +1101,7 @@
 			isa = PBXGroup;
 			children = (
 				9D73415E14769C1D00FBB528 /* GTMSqlite+M3Additions.h */,
-				9D73415F14769C1D00FBB528 /* GTMSqlite+M3Additions.m */,
+				9D73415F14769C1D00FBB528 /* GTMSqlite+M3Additions.mm */,
 				9DF9B2D9147459F60035084F /* GTMSQLite.h */,
 				9DF9B2DA147459F60035084F /* GTMSQLite.m */,
 				9D8B8AF71413CA8B0066ECBB /* M3.h */,
@@ -1674,7 +1672,7 @@
 				9DFE5C1214642E850039F536 /* M3AppDelegate.mm in Sources */,
 				9DFE5C1B146445520039F536 /* NSNumber+M3Extensions.mm in Sources */,
 				9DF9B2DE147459F60035084F /* GTMSQLite.m in Sources */,
-				9D73416314769C1D00FBB528 /* GTMSqlite+M3Additions.m in Sources */,
+				9D73416314769C1D00FBB528 /* GTMSqlite+M3Additions.mm in Sources */,
 				9D15A6B31446291400F17C91 /* UIViewController+M3Extensions.mm in Sources */,
 				9D017468141AA7DF0035A4C2 /* Underscore.mm in Sources */,
 				9D017469141AA7DF0035A4C2 /* Underscore+Logger.mm in Sources */,
@@ -1797,7 +1795,7 @@
 				9DFE5C1114642E850039F536 /* M3AppDelegate.mm in Sources */,
 				9DFE5C1A146445520039F536 /* NSNumber+M3Extensions.mm in Sources */,
 				9DF9B2DD147459F60035084F /* GTMSQLite.m in Sources */,
-				9D73416214769C1D00FBB528 /* GTMSqlite+M3Additions.m in Sources */,
+				9D73416214769C1D00FBB528 /* GTMSqlite+M3Additions.mm in Sources */,
 				9D74BDCA146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm in Sources */,
 				9D74BDCD146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm in Sources */,
 				9D74BDD0146DE60700D781F8 /* M3AppDelegate+EventTracking.mm in Sources */,
