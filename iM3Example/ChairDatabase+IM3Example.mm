@@ -1,9 +1,11 @@
 #import "AppDelegate.h"
+#import "GTMSqlite+M3Additions.h"
 
-#if 1
+#if 0
 #define REMOTE_URL  @"http://kinopilotupdates2.heroku.com/db/images,berlin"
 #else
-#define REMOTE_URL  @"http://localhost:3000/db/images,berlin"
+#define REMOTE_URL      @"http://localhost:3000/db/images,berlin"
+#define REMOTE_SQL_URL  @"http://localhost:3000/db/images,berlin.sql"
 #endif
 
 // #define DB_PATH     @"$documents/chairdb/berlin.json"
@@ -44,85 +46,26 @@
 
 -(BOOL)loadRemoteURL
 {
-#if 0
+#if 1
   {
-    // Benchmark(_.join("Loading SQLite database from ", REMOTE_URL));
+    // NSString* dbPath = [M3 expandPath: @"$documents/kinopilot.sqlite3"];
+    NSString* dbPath = @":memory:";
     
-    SQLiteManager* db = [SQLiteManager databaseNamed: @"kinopilot.sqlite3"];
-    [db openDatabase];
+    M3SqliteDatabase* db = [M3SqliteDatabase databaseWithPath:dbPath
+                                              withCFAdditions:NO 
+                                                         utf8:YES 
+                                                    errorCode:0];
+    
+    [db synchronousMode:NO];
 
-    [db doQuery: @"CREATE TABLE IF NOT EXISTS theaters (id PRIMARY KEY, name, lat, lng, more)"];
-    [db doQuery: @"CREATE TABLE IF NOT EXISTS movies (id PRIMARY KEY, title, cinema_start_date, more)"];
-    [db doQuery: @"CREATE TABLE IF NOT EXISTS schedules (id PRIMARY KEY, movie_id, theater_id, time, version)"];
-    [db doQuery: @"CREATE INDEX IF NOT EXISTS schedules_ix1 ON schedules(movie_id, theater_id)"];
-    [db doQuery: @"CREATE INDEX IF NOT EXISTS schedules_ix2 ON schedules(time)"];
-    [db doQuery: @"CREATE TABLE IF NOT EXISTS images (id PRIMARY KEY, data)"];
-
-
-    NSArray* entries = [M3 readJSON: REMOTE_URL];
-      if(![entries isKindOfClass: [NSArray class]])
-        _.raise("Cannot read file", REMOTE_URL);
-
-    Benchmark(_.join("Importing into SQLite database ", REMOTE_URL));
-
-      // Benchmark(_.join("*** import data ", path));
-      
-      NSMutableDictionary* tables = [[NSMutableDictionary alloc] init]; 
-      
-      // [self emit: @selector(progress)];
-      
-      Class dictionaryClass = [NSDictionary class];
-      
-      for(NSDictionary* entry in entries) {
-        // The header part of the dump might have additional Array
-        // entries describing the dump. These are
-        //
-        // - [diff, { revision: 365005, type: dump }]
-        //   This dump is a diff, of type dump, at revision 365005.
-        //
-        // - [table, theaters]
-        //   This input holds values for theaters.
-        //
-        // We can safely ignore these entries.
-        
-        // Add dictionaries into the respective table.
-        if([entry isKindOfClass: [NSArray class]]) {
-          NSArray* header = (NSArray*) entry;
-
-            // This is an example header:
-            // [ "diff",
-            //    { "records":3220,
-            //      "type":"diff",
-            //      "types":["movies","theaters","schedules"],
-            //      "revision":3534,
-            //      "since":0,
-            //      "deletions":{"theaters":["c-acudkino"]}}
-            // ]
-            //
-            dlog << "header: " << header;
-            continue;
-        }
-
-        dlog << entry;
-        dlog << [entry allKeys];
-        
-        
-//        
-////        x
-////        {"name":"Adria - Filmtheater","address":"12165 Berlin, Schlo\u00dfstra\u00dfe 48","_uid":"c-adriafilmtheater","_type":"theaters","website":"http://www.cineplex.de","fax":"0 30/7 97 01 01 6","latlong":[52.4541925,13.3173542],"telephone":"01805/050711","email":"adria@movieclick.de"}
-//
-//        @throw  @"s";
-        NSString* table_name = [entry objectForKey: @"_type"];
-        ChairTable* table = [ChairDatabase tableWithName:table_name inDictionary: tables];
-        [table upsert: entry];
-      }
-
-    [db closeDatabase];
-
-//      [self mergeTables: tables];
-//      [tables release];
-
-    }
+    NSArray* entries = [M3 readJSON: REMOTE_SQL_URL];
+    if(![entries isKindOfClass: [NSArray class]])
+      _.raise("Cannot read file", REMOTE_SQL_URL);
+    
+    Benchmark(_.join("Importing database from ", REMOTE_SQL_URL));
+  
+    [db importDump:entries];
+  }
 #endif
   
   {

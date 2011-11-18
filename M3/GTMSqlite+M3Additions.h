@@ -44,6 +44,7 @@ typedef enum M3SqliteStatementEnumerationPolicy {
 // [db ask: @"SELECT COUNT(*) FROM foo WHERE id > ? AND id < ?", @"a", @"b"];
 //
 -(id)ask: (NSString*)sql, ...;
+-(id)ask: (NSString*)sql withParameters: (NSArray*)params;
 
 // Execute a select and enumerate over the result set.
 //
@@ -60,5 +61,8 @@ typedef enum M3SqliteStatementEnumerationPolicy {
 // }
 //
 -(id)eachArray: (NSString*)sql, ...;
+
+
+-(void)importDump: (NSArray*)entries;
 
 @end

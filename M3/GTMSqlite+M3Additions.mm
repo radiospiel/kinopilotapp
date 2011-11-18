@@ -52,34 +52,33 @@ static NSString* kUseArrayEnumeration = @"kUseArrayEnumeration";
   }
 }
 
--(int)bindNumber: (NSNumber*)number atPosition: (NSUInteger)position
-{
-  const char* objCType = [number objCType];
-
-  if (!strcmp(objCType, @encode(double)) || !strcmp(objCType, @encode(float)))
-    return [self bindDoubleAtPosition: (int)position value: [number doubleValue]];
-
-  // Instead of discriminate different integer lengths, we just bind all kind
-  // of integers as long longs. The overhead of doing so is probably quite
-  // negliable anyways, and there would be overhead of testing against 
-  // all other @encodings.
-
-  return [self bindNumberAsLongLongAtPosition: (int)position number: number];
-}
-
 -(int)bindObject: (id)obj atPosition: (NSUInteger)position
 {
-  if([obj isKindOfClass:[NSNumber class]])
-    return [self bindNumber: obj atPosition:position];
-
   if([obj isKindOfClass:[NSNull class]])
     return [self bindSQLNullAtPosition: (int)position];
-
+  
   if([obj isKindOfClass:[NSString class]])
     return [self bindStringAtPosition: (int)position string:(NSString *)obj ];
   
   if([obj isKindOfClass:[NSData class]])
     return [self bindBlobAtPosition: (int)position data: (NSData *)obj];
+
+  if([obj isKindOfClass:[NSNumber class]])
+  {
+    NSNumber* number = obj;
+
+    const char* objCType = [number objCType];
+    
+    if (!strcmp(objCType, @encode(double)) || !strcmp(objCType, @encode(float)))
+      return [self bindDoubleAtPosition: (int)position value: [number doubleValue]];
+    
+    // Instead of discriminate different integer lengths, we just bind all kind
+    // of integers as long longs. The overhead of doing so is probably quite
+    // negliable anyways, and there would be overhead of testing against 
+    // all other @encodings.
+    
+    return [self bindNumberAsLongLongAtPosition: (int)position number: number];
+  }
 
   NSLog(@"**** Trying to bind an unsupported object of type %@", [obj class]);
   return -1;
@@ -104,8 +103,10 @@ static StatementType statementTypeForSql(NSString* sql)
   NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: @"^\\s*(INSERT|DELETE|UPDATE|SELECT)"
                                                                          options: NSRegularExpressionCaseInsensitive
                                                                            error: NULL];
-  
+
   NSArray* matches = [regex matchesInString:sql options: 0 range: NSMakeRange(0, [sql length])];
+  if(!matches || [matches count] == 0) return StatementTypeOther;
+
   NSTextCheckingResult* match = [matches objectAtIndex:0];
   
   if(match) {
@@ -151,8 +152,11 @@ static StatementType statementTypeForSql(NSString* sql)
   if(!preparedStatement) {
     int errCode = 0;
     preparedStatement = [GTMSQLiteStatement statementWithSQL:sql inDatabase:self errorCode:&errCode];
-    if(!preparedStatement) return nil; // Error! Do something!
-    
+    if(!preparedStatement) {
+      NSLog(@"Error on preparing %@", sql);
+      return nil; // Error! Do something!
+    }
+
     [prepared_statements_ setObject: preparedStatement forKey:sql];
   }
 
@@ -169,28 +173,16 @@ static StatementType statementTypeForSql(NSString* sql)
 // [db ask: @"SELECT COUNT(*) FROM foo"];
 // [db ask: @"SELECT COUNT(*) FROM foo WHERE id > ? AND id < ?", @"a", @"b"];
 //
--(id)ask: (NSString*)sql, ...;
+-(id)askStatement: (GTMSQLiteStatement*)statement 
+           ofType: (StatementType) statementType
 {
-  va_list args;
-  va_start(args, sql);
-  
-  GTMSQLiteStatement* statement = [self prepareStatement:sql];
-  
-  int count = [statement parameterCount]; 
-
-  for( int i = 0; i < count; i++ ) {
-    id arg = va_arg(args, id);
-    [statement bindObject: arg atPosition: i+1];
-  }
-  va_end(args);
-
   //
   // get the "sensible" return value
   id retVal = nil;
-
+  
   int stepRowResult = [statement stepRow];
-
-  switch(statementTypeForSql(sql)) {
+  
+  switch(statementType) {
     case StatementTypeDelete:
     case StatementTypeUpdate:
       retVal = [NSNumber numberWithInt:[self lastChangeCount]];
@@ -208,9 +200,38 @@ static StatementType statementTypeForSql(NSString* sql)
       retVal = [NSNumber numberWithBool:YES];
       break;
   };
-
+  
   [statement reset];
   return retVal;
+}
+
+-(id)ask: (NSString*)sql, ...;
+{
+  va_list args;
+  va_start(args, sql);
+  
+  GTMSQLiteStatement* statement = [self prepareStatement:sql];
+  
+  int count = [statement parameterCount]; 
+
+  for( int i = 0; i < count; i++ ) {
+    id arg = va_arg(args, id);
+    [statement bindObject: arg atPosition: i+1];
+  }
+  va_end(args);
+
+  return [self askStatement: statement ofType: statementTypeForSql(sql) ];
+}
+
+-(id)ask: (NSString*)sql withParameters: (NSArray*)params
+{
+  GTMSQLiteStatement* statement = [self prepareStatement:sql];
+
+  [params enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [statement bindObject: obj atPosition: idx+1];
+  }];
+
+  return [self askStatement: statement ofType: statementTypeForSql(sql) ];
 }
 
 // Execute a select and enumerate over the result set.
@@ -265,6 +286,36 @@ static StatementType statementTypeForSql(NSString* sql)
   return statement;
 }
 
+-(void)importDump: (NSArray*)entries
+{
+  [entries enumerateObjectsUsingBlock:^(NSArray* obj, NSUInteger idx, BOOL *stop) {
+    if(idx == 0) return;
+
+    NSString* sql = [obj objectAtIndex:0];
+
+    GTMSQLiteStatement* statement = [self prepareStatement:sql];
+    
+    if(obj.count == 1) {
+      int stepRowResult = [statement stepRow];
+      [statement reset];
+
+      return;
+    }
+
+    [obj enumerateObjectsUsingBlock:^(NSArray* params, NSUInteger idx, BOOL *stop) {
+      if(idx == 0)
+        return; // The SQL string is on index 0
+
+      [params enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [statement bindObject: obj atPosition: idx+1];
+      }];
+
+      int stepRowResult = [statement stepRow];
+      [statement reset];
+    }];
+  }];
+}
+
 + (M3SqliteDatabase*)databaseWithPath:(NSString *)path
                       withCFAdditions:(BOOL)additions
                                  utf8:(BOOL)useUTF8
@@ -297,6 +348,19 @@ static StatementType statementTypeForSql(NSString* sql)
 #import "M3.h"
 
 ETest(GTMSQLiteStatementM3SqliteStatement)
+
+-(M3SqliteDatabase*) database
+{
+  M3SqliteDatabase* db = [M3SqliteDatabase databaseInMemory];
+  [db executeSQL:@"CREATE TABLE t1 (x TEXT);"];
+  
+  // Insert data set
+  [db executeSQL:@"INSERT INTO t1 VALUES ('foo');"];
+  [db executeSQL:@"INSERT INTO t1 VALUES ('bar');"];
+  [db executeSQL:@"INSERT INTO t1 VALUES ('yihaa');"];
+  
+  return db;
+} 
 
 -(void)test_sql_query_type
 {
@@ -398,16 +462,18 @@ ETest(GTMSQLiteStatementM3SqliteStatement)
   assert_equal(rows, _.array( _.array("foo")));
 }
 
--(M3SqliteDatabase*) database
+#define REMOTE_SQL_URL  @"http://localhost:3000/db/images,berlin.sql"
+
+-(void)test_import_sql
 {
   M3SqliteDatabase* db = [M3SqliteDatabase databaseInMemory];
-  [db executeSQL:@"CREATE TABLE t1 (x TEXT);"];
   
-  // Insert data set
-  [db executeSQL:@"INSERT INTO t1 VALUES ('foo');"];
-  [db executeSQL:@"INSERT INTO t1 VALUES ('bar');"];
-  [db executeSQL:@"INSERT INTO t1 VALUES ('yihaa');"];
+  NSArray* entries = [M3 readJSON: REMOTE_SQL_URL];
+  if(![entries isKindOfClass: [NSArray class]])
+    _.raise("Cannot read file", REMOTE_SQL_URL);
+  
 
-  return db;
-} 
+  [db importDump: entries];
+}
+
 @end
