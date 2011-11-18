@@ -72,7 +72,7 @@
   if(![entries isKindOfClass: [NSArray class]])
     _.raise("Cannot read file", path);
 
-  // Benchmark(_.join("*** import data ", path));
+  Benchmark(_.join("*** importing data into chairDB ", path));
 
   NSMutableDictionary* tables = [[NSMutableDictionary alloc] init]; 
 
