@@ -5,14 +5,10 @@
 @class M3AppDelegate;
 extern M3AppDelegate* app;
 
-@class MixpanelAPI;
-
 /*
  * The AppDelegate class and the global app object.
  */
 @interface M3AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UINavigationControllerDelegate> {
-  MixpanelAPI* mixpanel_;
-  NSData* deviceToken_;
 }
 
 @property (retain, nonatomic) UIProgressView* progressView;
@@ -20,34 +16,50 @@ extern M3AppDelegate* app;
 @property (retain, nonatomic) UITabBarController *tabBarController;
 
 /*
- * returns the configuration. It is read from "app.json".
+ * returns the aplication configuration. It is read from the 
+ * "app.json" resource file.
  */
 @property (retain, nonatomic, readonly) NSDictionary *config;
 
-/*
- * returns TRUE if the current device is an iPhone (as opposed to an iPad).
- */
--(BOOL) isIPhone;
-
-/*
- * can this URL be opened?
- */
--(BOOL)canOpen: (NSString*)url;
-
-/*
- * open this URL.
- */
--(void)open: (NSString*)url;
 
 -(UINavigationController*)topMostController;
 -(void)presentControllerOnTop: (UIViewController*)viewController;
 
+@end
+
+@interface M3AppDelegate(ApplicationURL)
+
 /*
- * Pass in an URL, and get a controller object which is able to
- * deal with this URL, and which has been initialized and set up,
- * but not yet activated.
+ * can this URL be opened? This method returns NO, if the url is an 
+ * internal URL, or if the URL is an external URL and the respective
+ * application is installed.
  */
--(UIViewController*) controllerForURL: (NSString*)url;
+-(BOOL)canOpen: (NSString*)url;
+
+/*
+ * open the passed-in URL.
+ */
+-(void)open: (NSString*)url;
+
+/*
+ * returns an UIViewController for the passed-in URL.
+ */
+-(UIViewController*)controllerForURL: (NSString*)url;
+
+@end
+
+@interface M3AppDelegate(EventTracking)
+
+-(void)trackEvent: (NSString*) event 
+       properties: (NSDictionary*) parameters;
+
+-(void)trackEvent: (NSString*) event;
+
+@end
+
+@interface M3AppDelegate(RemoteNotification)
+
+-(void)enableRemoteNotifications;
 
 @end
 

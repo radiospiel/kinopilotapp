@@ -43,11 +43,14 @@
 }
 
 +(CGFloat) fixedHeight;
-  { return 0; }
+{ 
+  return 0; 
+}
 
--(void)selectedCell 
+-(void)didSelectCell 
 {
-  if(self.url) [app open: self.url];
+  NSString* url = self.url;
+  if(url) [app open: url];
 }
 
 -(void)layoutSubviews

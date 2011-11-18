@@ -182,6 +182,12 @@
 		9D750E8C142273A30056290E /* M3Data.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D750E89142273A30056290E /* M3Data.h */; };
 		9D750E8D142273A30056290E /* M3Data.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D750E8A142273A30056290E /* M3Data.mm */; };
 		9D750E8E142273A30056290E /* M3Data.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D750E8A142273A30056290E /* M3Data.mm */; };
+		9D74BDCA146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D74BDC9146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm */; };
+		9D74BDCB146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D74BDC9146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm */; };
+		9D74BDCD146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D74BDCC146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm */; };
+		9D74BDCE146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D74BDCC146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm */; };
+		9D74BDD0146DE60700D781F8 /* M3AppDelegate+EventTracking.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D74BDCF146DE60700D781F8 /* M3AppDelegate+EventTracking.mm */; };
+		9D74BDD1146DE60700D781F8 /* M3AppDelegate+EventTracking.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D74BDCF146DE60700D781F8 /* M3AppDelegate+EventTracking.mm */; };
 		9D750E91142275750056290E /* M3+Inflector.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D750E8F142275750056290E /* M3+Inflector.h */; };
 		9D750E92142275750056290E /* M3+Inflector.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D750E8F142275750056290E /* M3+Inflector.h */; };
 		9D750E93142275750056290E /* M3+Inflector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D750E90142275750056290E /* M3+Inflector.mm */; };
@@ -290,7 +296,7 @@
 		9DDF5D001431AEF1001CAC28 /* M3+Caller.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DDF5CFC1431AEF1001CAC28 /* M3+Caller.m */; };
 		9DDF5D031431B30D001CAC28 /* Underscore+Logger.hh in Headers */ = {isa = PBXBuildFile; fileRef = 9DDF5D021431B30D001CAC28 /* Underscore+Logger.hh */; };
 		9DDF5D041431B30D001CAC28 /* Underscore+Logger.hh in Headers */ = {isa = PBXBuildFile; fileRef = 9DDF5D021431B30D001CAC28 /* Underscore+Logger.hh */; };
-		9DDF5D071431F74C001CAC28 /* MovieShortInfoCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDF5D061431F74C001CAC28 /* MovieShortInfoCell.mm */; };
+		9DDF5D071431F74C001CAC28 /* MovieInfoCells.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDF5D061431F74C001CAC28 /* MovieInfoCells.mm */; };
 		9DE40645142CFC490089EAA9 /* InfoController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DE40644142CFC490089EAA9 /* InfoController.mm */; };
 		9DEB834A1444E5280075F65A /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DEB83491444E5280075F65A /* close.png */; };
 		9DF9B2D814744CE10035084F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF9B2D714744CE10035084F /* libsqlite3.dylib */; };
@@ -298,6 +304,10 @@
 		9DF9B2DC147459F60035084F /* GTMSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF9B2D9147459F60035084F /* GTMSQLite.h */; };
 		9DF9B2DD147459F60035084F /* GTMSQLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9B2DA147459F60035084F /* GTMSQLite.m */; };
 		9DF9B2DE147459F60035084F /* GTMSQLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9B2DA147459F60035084F /* GTMSQLite.m */; };
+		9DF13D49146DFCCC00C925CC /* M3+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF13D47146DFCCC00C925CC /* M3+Base64.h */; };
+		9DF13D4A146DFCCC00C925CC /* M3+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF13D47146DFCCC00C925CC /* M3+Base64.h */; };
+		9DF13D4B146DFCCC00C925CC /* M3+Base64.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DF13D48146DFCCC00C925CC /* M3+Base64.mm */; };
+		9DF13D4C146DFCCC00C925CC /* M3+Base64.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DF13D48146DFCCC00C925CC /* M3+Base64.mm */; };
 		9DFD23A6146C6641001704CC /* MPCJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD239A146C6641001704CC /* MPCJSONDataSerializer.m */; };
 		9DFD23A7146C6641001704CC /* MPCJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD239C146C6641001704CC /* MPCJSONSerializer.m */; };
 		9DFD23A8146C6641001704CC /* MPCSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD239E146C6641001704CC /* MPCSerializedJSONData.m */; };
@@ -492,6 +502,9 @@
 		9D73415F14769C1D00FBB528 /* GTMSqlite+M3Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMSqlite+M3Additions.m"; sourceTree = "<group>"; };
 		9D750E89142273A30056290E /* M3Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Data.h; sourceTree = "<group>"; };
 		9D750E8A142273A30056290E /* M3Data.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Data.mm; sourceTree = "<group>"; };
+		9D74BDC9146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+ApplicationURL.mm"; sourceTree = "<group>"; };
+		9D74BDCC146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+RemoteNotifications.mm"; sourceTree = "<group>"; };
+		9D74BDCF146DE60700D781F8 /* M3AppDelegate+EventTracking.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+EventTracking.mm"; sourceTree = "<group>"; };
 		9D750E8F142275750056290E /* M3+Inflector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Inflector.h"; sourceTree = "<group>"; };
 		9D750E90142275750056290E /* M3+Inflector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+Inflector.mm"; sourceTree = "<group>"; };
 		9D750E9E1422AF7F0056290E /* M3ProfileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3ProfileController.h; sourceTree = "<group>"; };
@@ -594,14 +607,15 @@
 		9DDF5CFB1431AEF1001CAC28 /* M3+Caller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Caller.h"; sourceTree = "<group>"; };
 		9DDF5CFC1431AEF1001CAC28 /* M3+Caller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "M3+Caller.m"; sourceTree = "<group>"; };
 		9DDF5D021431B30D001CAC28 /* Underscore+Logger.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "Underscore+Logger.hh"; sourceTree = "<group>"; };
-		9DDF5D051431F74C001CAC28 /* MovieShortInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieShortInfoCell.h; sourceTree = "<group>"; };
-		9DDF5D061431F74C001CAC28 /* MovieShortInfoCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MovieShortInfoCell.mm; sourceTree = "<group>"; };
+		9DDF5D061431F74C001CAC28 /* MovieInfoCells.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MovieInfoCells.mm; sourceTree = "<group>"; };
 		9DE40643142CFC490089EAA9 /* InfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoController.h; sourceTree = "<group>"; };
 		9DE40644142CFC490089EAA9 /* InfoController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InfoController.mm; sourceTree = "<group>"; };
 		9DEB83491444E5280075F65A /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
 		9DF9B2D714744CE10035084F /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/usr/lib/libsqlite3.dylib; sourceTree = DEVELOPER_DIR; };
 		9DF9B2D9147459F60035084F /* GTMSQLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMSQLite.h; path = "vendor/google-toolbox/GTMSQLite.h"; sourceTree = SOURCE_ROOT; };
 		9DF9B2DA147459F60035084F /* GTMSQLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMSQLite.m; path = "vendor/google-toolbox/GTMSQLite.m"; sourceTree = SOURCE_ROOT; };
+		9DF13D47146DFCCC00C925CC /* M3+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Base64.h"; sourceTree = "<group>"; };
+		9DF13D48146DFCCC00C925CC /* M3+Base64.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3+Base64.mm"; sourceTree = "<group>"; };
 		9DFD2399146C6641001704CC /* MPCJSONDataSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCJSONDataSerializer.h; sourceTree = "<group>"; };
 		9DFD239A146C6641001704CC /* MPCJSONDataSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCJSONDataSerializer.m; sourceTree = "<group>"; };
 		9DFD239B146C6641001704CC /* MPCJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCJSONSerializer.h; sourceTree = "<group>"; };
@@ -833,8 +847,7 @@
 				9DC682BE142CE24000124E9A /* MoviesShowController.h */,
 				9DC682BF142CE24000124E9A /* MoviesShowController.mm */,
 				9D38138F1469A2DB00E4BBF4 /* MoviesTrailerController.mm */,
-				9DDF5D051431F74C001CAC28 /* MovieShortInfoCell.h */,
-				9DDF5D061431F74C001CAC28 /* MovieShortInfoCell.mm */,
+				9DDF5D061431F74C001CAC28 /* MovieInfoCells.mm */,
 				9D8E04661468688A006EBB44 /* NewsController.h */,
 				9D8E04671468688A006EBB44 /* NewsController.mm */,
 				9D0893A01452F6C600F64AC1 /* SchedulesListController.h */,
@@ -965,6 +978,55 @@
 			path = static;
 			sourceTree = "<group>";
 		};
+		9D74BDD2146DE71400D781F8 /* M3 */ = {
+			isa = PBXGroup;
+			children = (
+				9D8B8AF71413CA8B0066ECBB /* M3.h */,
+				9D8B8AF81413CA8B0066ECBB /* M3.m */,
+				9DBCDDF1144094290020EA1F /* M3-Internals.h */,
+				9DBCDDF4144095390020EA1F /* M3-Internals.m */,
+				9DF13D47146DFCCC00C925CC /* M3+Base64.h */,
+				9DF13D48146DFCCC00C925CC /* M3+Base64.mm */,
+				9DDF5CFB1431AEF1001CAC28 /* M3+Caller.h */,
+				9DDF5CFC1431AEF1001CAC28 /* M3+Caller.m */,
+				9D8B8B171413CAD90066ECBB /* M3+Comparison.h */,
+				9D8B8B181413CAD90066ECBB /* M3+Comparison.mm */,
+				9D8B8B191413CAD90066ECBB /* M3+Crypto.h */,
+				9D8B8B1A1413CAD90066ECBB /* M3+Crypto.mm */,
+				9D99B2CE1416A3380040768E /* M3+Events.h */,
+				9D99B2D11416A4E50040768E /* M3+Events.m */,
+				9D8B8B1D1413CAD90066ECBB /* M3+FileIO.h */,
+				9D8B8B1E1413CAD90066ECBB /* M3+FileIO.mm */,
+				9D8B8B1F1413CAD90066ECBB /* M3+Filenames.h */,
+				9D8B8B201413CAD90066ECBB /* M3+Filenames.mm */,
+				9DD6431A144E23840042EE57 /* M3+Image.h */,
+				9DD6431B144E23840042EE57 /* M3+Image.mm */,
+				9D750E8F142275750056290E /* M3+Inflector.h */,
+				9D750E90142275750056290E /* M3+Inflector.mm */,
+				9D3B086B142A255000322C00 /* M3+Inspect.h */,
+				9D3B086C142A255000322C00 /* M3+Inspect.mm */,
+				9DACE1B8145F3C5700372415 /* M3+Interpolate.h */,
+				9DACE1B9145F3C5700372415 /* M3+Interpolate.mm */,
+				9D8B8B211413CAD90066ECBB /* M3+JSON.h */,
+				9D8B8B221413CAD90066ECBB /* M3+JSON.mm */,
+				9D3B0871142A3B7900322C00 /* M3+RuntimeError.h */,
+				9D3B0872142A3B7900322C00 /* M3+RuntimeError.mm */,
+			);
+			name = M3;
+			sourceTree = "<group>";
+		};
+		9D74BDD3146DE72200D781F8 /* M3AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				9DFE5C0D14642E850039F536 /* M3AppDelegate.h */,
+				9DFE5C0E14642E850039F536 /* M3AppDelegate.mm */,
+				9D74BDC9146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm */,
+				9D74BDCF146DE60700D781F8 /* M3AppDelegate+EventTracking.mm */,
+				9D74BDCC146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm */,
+			);
+			name = M3AppDelegate;
+			sourceTree = "<group>";
+		};
 		9D8B8AE01413CA8B0066ECBB = {
 			isa = PBXGroup;
 			children = (
@@ -1074,10 +1136,10 @@
 				9D3B0872142A3B7900322C00 /* M3+RuntimeError.mm */,
 				9DFE5C0D14642E850039F536 /* M3AppDelegate.h */,
 				9DFE5C0E14642E850039F536 /* M3AppDelegate.mm */,
+				9D74BDD2146DE71400D781F8 /* M3 */,
+				9D74BDD3146DE72200D781F8 /* M3AppDelegate */,
 				9DBCDDFB1440B55A0020EA1F /* M3CachedFactory.h */,
 				9DBCDDED1440919B0020EA1F /* M3CachedFactory.m */,
-				9D750E89142273A30056290E /* M3Data.h */,
-				9D750E8A142273A30056290E /* M3Data.mm */,
 				9D9656AB14177A6C00884372 /* M3Etest.h */,
 				9D9656AC14177A6C00884372 /* M3Etest.mm */,
 				9D7E3DC6141A2F6800BB80E1 /* M3EventCenter.h */,
@@ -1206,7 +1268,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D8EAD56141E839400B21BEA /* M3Http.h in Headers */,
-				9D750E8C142273A30056290E /* M3Data.h in Headers */,
 				9D750E92142275750056290E /* M3+Inflector.h in Headers */,
 				9D3563191423F7AA002AAEAF /* NSString+M3Extensions.h in Headers */,
 				9D33FBCE1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */,
@@ -1230,6 +1291,7 @@
 				9DFE5C19146445520039F536 /* NSNumber+M3Extensions.h in Headers */,
 				9DF9B2DC147459F60035084F /* GTMSQLite.h in Headers */,
 				9D73416114769C1D00FBB528 /* GTMSqlite+M3Additions.h in Headers */,
+				9DF13D4A146DFCCC00C925CC /* M3+Base64.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1260,7 +1322,6 @@
 				9D9656B314177F9700884372 /* M3StopWatch.h in Headers */,
 				9D7E3DC8141A2F6800BB80E1 /* M3EventCenter.h in Headers */,
 				9D8EAD55141E839400B21BEA /* M3Http.h in Headers */,
-				9D750E8B142273A30056290E /* M3Data.h in Headers */,
 				9D750E91142275750056290E /* M3+Inflector.h in Headers */,
 				9D3563181423F7AA002AAEAF /* NSString+M3Extensions.h in Headers */,
 				9D33FBCD1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */,
@@ -1285,6 +1346,7 @@
 				9DFE5C18146445520039F536 /* NSNumber+M3Extensions.h in Headers */,
 				9DF9B2DB147459F60035084F /* GTMSQLite.h in Headers */,
 				9D73416014769C1D00FBB528 /* GTMSqlite+M3Additions.h in Headers */,
+				9DF13D49146DFCCC00C925CC /* M3+Base64.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1580,7 +1642,16 @@
 				9D01745D141AA7DF0035A4C2 /* M3+Events.m in Sources */,
 				9D017462141AA7DF0035A4C2 /* M3+FileIO.mm in Sources */,
 				9D017463141AA7DF0035A4C2 /* M3+Filenames.mm in Sources */,
+				9DD6431F144E23840042EE57 /* M3+Image.mm in Sources */,
+				9D750E94142275750056290E /* M3+Inflector.mm in Sources */,
 				9D017464141AA7DF0035A4C2 /* M3+JSON.mm in Sources */,
+				9D3B0870142A255000322C00 /* M3+Inspect.mm in Sources */,
+				9D3B0876142A3B7900322C00 /* M3+RuntimeError.mm in Sources */,
+				9DDF5D001431AEF1001CAC28 /* M3+Caller.m in Sources */,
+				9DBCDDF6144095390020EA1F /* M3-Internals.m in Sources */,
+				9DBCDDEF1440919B0020EA1F /* M3CachedFactory.m in Sources */,
+				9DFE5C1214642E850039F536 /* M3AppDelegate.mm in Sources */,
+				9DC51243143723A8009A393C /* M3LocationManager.mm in Sources */,
 				9D01745C141AA7DF0035A4C2 /* M3Etest.mm in Sources */,
 				9D017458141AA7DF0035A4C2 /* M3EventCenter.mm in Sources */,
 				9D017459141AA7DF0035A4C2 /* M3EventCenter+DefaultCenter.mm in Sources */,
@@ -1589,32 +1660,28 @@
 				9D8EAD58141E839400B21BEA /* M3Http.mm in Sources */,
 				9D01745B141AA7DF0035A4C2 /* M3StopWatch.mm in Sources */,
 				9D017466141AA7DF0035A4C2 /* NSArray+M3Extensions.mm in Sources */,
-				9D017467141AA7DF0035A4C2 /* NSString+Regexp.m in Sources */,
-				9D017468141AA7DF0035A4C2 /* Underscore.mm in Sources */,
-				9D017469141AA7DF0035A4C2 /* Underscore+Logger.mm in Sources */,
-				9D750E8E142273A30056290E /* M3Data.mm in Sources */,
-				9D750E94142275750056290E /* M3+Inflector.mm in Sources */,
-				9D35631C1423F887002AAEAF /* NSString+M3Extensions.mm in Sources */,
-				9D33FBD01427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */,
-				9D8C4B99142896D0005D582A /* UIImageView+M3Extensions.mm in Sources */,
-				9D3B0870142A255000322C00 /* M3+Inspect.mm in Sources */,
-				9D3B0876142A3B7900322C00 /* M3+RuntimeError.mm in Sources */,
-				9D9D318E142C6E9800C8269A /* UIColor+M3Extensions.mm in Sources */,
 				9D85437F142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m in Sources */,
-				9DDF5D001431AEF1001CAC28 /* M3+Caller.m in Sources */,
 				9DA5DD4B143276D00003B54A /* NSDate+M3Extensions.mm in Sources */,
-				9DC51243143723A8009A393C /* M3LocationManager.mm in Sources */,
-				9D594A82143D027C00A4CED4 /* UIButton+ActionButton.mm in Sources */,
-				9DBCDDEF1440919B0020EA1F /* M3CachedFactory.m in Sources */,
-				9DBCDDF6144095390020EA1F /* M3-Internals.m in Sources */,
-				9D15A6B31446291400F17C91 /* UIViewController+M3Extensions.mm in Sources */,
-				9DD6431F144E23840042EE57 /* M3+Image.mm in Sources */,
+				9DFE5C1B146445520039F536 /* NSNumber+M3Extensions.mm in Sources */,
+				9D33FBD01427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */,
+				9D017467141AA7DF0035A4C2 /* NSString+Regexp.m in Sources */,
+				9D35631C1423F887002AAEAF /* NSString+M3Extensions.mm in Sources */,
 				9D19E139145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */,
+				9D594A82143D027C00A4CED4 /* UIButton+ActionButton.mm in Sources */,
+				9D9D318E142C6E9800C8269A /* UIColor+M3Extensions.mm in Sources */,
+				9D8C4B99142896D0005D582A /* UIImageView+M3Extensions.mm in Sources */,
 				9D934DA01461BF51001B25C6 /* UIView+M3Stylesheets.mm in Sources */,
 				9DFE5C1214642E850039F536 /* M3AppDelegate.mm in Sources */,
 				9DFE5C1B146445520039F536 /* NSNumber+M3Extensions.mm in Sources */,
 				9DF9B2DE147459F60035084F /* GTMSQLite.m in Sources */,
 				9D73416314769C1D00FBB528 /* GTMSqlite+M3Additions.m in Sources */,
+				9D15A6B31446291400F17C91 /* UIViewController+M3Extensions.mm in Sources */,
+				9D017468141AA7DF0035A4C2 /* Underscore.mm in Sources */,
+				9D017469141AA7DF0035A4C2 /* Underscore+Logger.mm in Sources */,
+				9D74BDCB146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm in Sources */,
+				9D74BDCE146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm in Sources */,
+				9D74BDD1146DE60700D781F8 /* M3AppDelegate+EventTracking.mm in Sources */,
+				9DF13D4C146DFCCC00C925CC /* M3+Base64.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1645,7 +1712,7 @@
 				9DE40645142CFC490089EAA9 /* InfoController.mm in Sources */,
 				9DDE1B761430876A00FDF9C5 /* M3TableViewCell.mm in Sources */,
 				9DDE1B7A1430931900FDF9C5 /* M3TableViewAdCell.mm in Sources */,
-				9DDF5D071431F74C001CAC28 /* MovieShortInfoCell.mm in Sources */,
+				9DDF5D071431F74C001CAC28 /* MovieInfoCells.mm in Sources */,
 				9D92E40D1434780900C17299 /* M3TableViewDataSource.mm in Sources */,
 				9DC1E7601435C145009B41A5 /* VicinityShowController.mm in Sources */,
 				9D10C37A1437728300FE19C9 /* MapShowController.mm in Sources */,
@@ -1709,7 +1776,6 @@
 				9D0EF7171413D1A60051B8FA /* NSString+Regexp.m in Sources */,
 				9D8B8B4A1413CC010066ECBB /* Underscore.mm in Sources */,
 				9D8B8B451413CAD90066ECBB /* Underscore+Logger.mm in Sources */,
-				9D750E8D142273A30056290E /* M3Data.mm in Sources */,
 				9D750E93142275750056290E /* M3+Inflector.mm in Sources */,
 				9D35631B1423F887002AAEAF /* NSString+M3Extensions.mm in Sources */,
 				9D33FBCF1427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */,
@@ -1732,6 +1798,10 @@
 				9DFE5C1A146445520039F536 /* NSNumber+M3Extensions.mm in Sources */,
 				9DF9B2DD147459F60035084F /* GTMSQLite.m in Sources */,
 				9D73416214769C1D00FBB528 /* GTMSqlite+M3Additions.m in Sources */,
+				9D74BDCA146DDEFD00D781F8 /* M3AppDelegate+ApplicationURL.mm in Sources */,
+				9D74BDCD146DE39E00D781F8 /* M3AppDelegate+RemoteNotifications.mm in Sources */,
+				9D74BDD0146DE60700D781F8 /* M3AppDelegate+EventTracking.mm in Sources */,
+				9DF13D4B146DFCCC00C925CC /* M3+Base64.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

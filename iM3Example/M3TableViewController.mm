@@ -111,7 +111,7 @@
   M3TableViewCell* cell = (M3TableViewCell*)[self.dataSource tableView:tableView 
                                                  cellForRowAtIndexPath:indexPath];
 
-  [cell selectedCell];
+  [cell didSelectCell];
 
   [self performSelector:@selector(deselectRowOnTableView:) withObject:tableView afterDelay: 0.1];
 }

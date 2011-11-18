@@ -127,7 +127,7 @@
 
 -(void)vicinity
 {
-  [self setLabel: @"{{chairDB.movies.count}} Aufführungen nearby"];
+  [self setLabel: @"{{chairDB.schedules.count}} Aufführungen nearby"];
   [self setBackground: @"traffic.png"];
   self.url = @"/vicinity/show";
 }
@@ -191,7 +191,7 @@
   self = [super init];
   if(!self) return nil;
 
-  [self addSection: _.array(@"city", @"M3TableViewAdCell", @"theaters", @"movies", @"vicinity", @"news", @"moviepilot") 
+  [self addSection: _.array(@"city", @"M3TableViewAdCell", @"theaters", @"movies", @"vicinity", @"moviepilot") 
        withOptions: nil];
 
   return self;

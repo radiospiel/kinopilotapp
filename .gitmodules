@@ -21,4 +21,4 @@
 	url = https://github.com/mixpanel/mixpanel-iphone.git
 [submodule "vendor/SQLiteManager4iOS"]
 	path = vendor/SQLiteManager4iOS
-	url = https://github.com/misato/SQLiteManager4iOS.git
+	url = https://github.com/radiospiel/SQLiteManager4iOS.git

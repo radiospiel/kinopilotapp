@@ -6,6 +6,7 @@
 @property (nonatomic,retain,readonly) ChairTable* movies;
 @property (nonatomic,retain,readonly) ChairTable* theaters;
 @property (nonatomic,retain,readonly) ChairTable* schedules;
+@property (nonatomic,retain,readonly) ChairTable* images;
 
 @property (nonatomic,retain,readonly) ChairView* schedules_by_theater_id;
 
@@ -24,5 +25,8 @@
 
 -(void)updateIfNeeded;
 -(void)update;
+
+-(UIImage*)thumbnailForMovie: (NSString*)movie_id;
+-(NSString*)trailerURLForMovie: (NSString*)movie_id;
 
 @end

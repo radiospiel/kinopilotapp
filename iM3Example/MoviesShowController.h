@@ -11,4 +11,6 @@
 
 @interface MoviesShowController : M3TableViewController
 
+@property (nonatomic,readonly) NSDictionary* movie;
+
 @end

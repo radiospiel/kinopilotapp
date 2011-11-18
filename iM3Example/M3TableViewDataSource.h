@@ -26,6 +26,8 @@
  */
 -(void)addSection: (NSArray*) keys withOptions: (NSDictionary*)options;
 
+-(void)addSection: (NSArray*) keys;
+
 /** 
  * Adds a section to the receiving data source.
  */

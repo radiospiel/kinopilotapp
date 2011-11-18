@@ -17,7 +17,7 @@
 
 -(void)loadFromUrl: (NSString*)url
 {
-  dlog << "*** loadFromUrl: " << _.ptr(self) << ", url: " << self.url;
+  // dlog << "*** loadFromUrl: " << _.ptr(self) << ", url: " << self.url;
 }
 
 -(void)reload 
