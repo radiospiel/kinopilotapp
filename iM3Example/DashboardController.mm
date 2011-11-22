@@ -64,6 +64,8 @@
   self.url = @"/info";
 }
 
+/*
+
 - (BOOL)labelAnimationFrame:(NSMutableDictionary*)userInfo
 {
   M3AssertKindOfAndSet(userInfo, NSMutableDictionary);
@@ -105,6 +107,7 @@
   [[NSRunLoop currentRunLoop] addTimer:timer forMode: NSDefaultRunLoopMode];
 }
 
+*/
 -(void)theaters
 {
   rightAligned_ = YES;

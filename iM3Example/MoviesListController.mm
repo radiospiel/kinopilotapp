@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "MoviesListController.h"
+#import "M3ProfileView.h"
+#import "M3DataSource.h"
 
 @interface M3TableViewProfileCell(MovieImage)
 @end

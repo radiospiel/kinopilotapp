@@ -296,7 +296,7 @@ static StatementType statementTypeForSql(NSString* sql)
     GTMSQLiteStatement* statement = [self prepareStatement:sql];
     
     if(obj.count == 1) {
-      int stepRowResult = [statement stepRow];
+      /* int stepRowResult = */[statement stepRow];
       [statement reset];
 
       return;
@@ -310,7 +310,7 @@ static StatementType statementTypeForSql(NSString* sql)
         [statement bindObject: obj atPosition: idx+1];
       }];
 
-      int stepRowResult = [statement stepRow];
+      /* int stepRowResult = */[statement stepRow];
       [statement reset];
     }];
   }];

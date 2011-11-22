@@ -9,21 +9,21 @@
 #import <UIKit/UIKit.h>
 
 #import "M3.h"
-#import "UIViewController+M3Extensions.h"
-#import "UIView+M3Stylesheets.h"
 
 #import "Chair.h"
 #import "ChairDatabase+IM3Example.h"
-#import "M3TableViewDataSource.h"
+
+#import "UIViewController+M3Extensions.h"
 #import "M3TableViewProfileCell.h"
-#import "M3DataSource.h"
-#import "M3ProfileView.h"
+
+#import "TTTAttributedLabel.h"
 
 @interface NSString (IM3ExampleExtensions)
 
 /*
  * The versionString contains strings like "omu" etc. This
- * normalizes the version string into proper spelling.
+ * normalizes the version string into proper spelling, and 
+ * appends it to the receiver.
  */
 -(NSString*) withVersionString: (NSString*)versionString;
 
@@ -41,11 +41,3 @@
 @property (retain,nonatomic,readonly) ChairDatabase* chairDB;
 
 @end
-
-
-@interface M3AppDelegate(Info)
-
--(NSString*) infoForKey: (NSString*)key;
-
-@end
-
