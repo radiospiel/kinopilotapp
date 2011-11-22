@@ -74,35 +74,38 @@
 
   Benchmark(_.join("*** importing data into chairDB ", path));
 
-  NSMutableDictionary* tables = [[NSMutableDictionary alloc] init]; 
-
   // [self emit: @selector(progress)];
   
-  Class dictionaryClass = [NSDictionary class];
-  
-  for(NSDictionary* entry in entries) {
-    // The header part of the dump might have additional Array
-    // entries describing the dump. These are
-    //
-    // - [diff, { revision: 365005, type: dump }]
-    //   This dump is a diff, of type dump, at revision 365005.
-    //
-    // - [table, theaters]
-    //   This input holds values for theaters.
-    //
-    // We can safely ignore these entries.
-    
-    // Add dictionaries into the respective table.
-    if(![entry isKindOfClass: dictionaryClass]) 
-      continue;
-    
-    NSString* table_name = [entry objectForKey: @"_type"];
-    ChairTable* table = [ChairDatabase tableWithName:table_name inDictionary: tables];
-    [table upsert: entry];
-  }
+  // The header part of the dump might have additional Array
+  // entries describing the dump. These are
+  //
+  // - [diff, { revision: 365005, type: dump }]
+  //   This dump is a diff, of type dump, at revision 365005.
+  //
+  // - [table, theaters]
+  //   This input holds values for theaters.
+  //
+  // We can safely ignore these entries.
+  NSDictionary* __block header = nil;
+  [entries enumerateObjectsUsingBlock:^(NSDictionary* entry, NSUInteger idx, BOOL *stop) {
+    if(idx == 0) {
+      header = ((NSArray*) entry).second;
+      return;
+    }
 
-  [self mergeTables: tables];
-  [tables release];
+    NSString* table_name = [entry objectForKey: @"_type"];
+    ChairTable* table = [self tableForName:table_name];
+    [table upsert: entry];
+  }];
+  
+  NSDictionary* deletions = [header objectForKey:@"deletions"];
+  [deletions enumerateKeysAndObjectsUsingBlock:^(NSString* table_name, NSArray* uids, BOOL *stop) {
+    ChairTable* table = [self tableForName:table_name];
+    dlog << "delete " << uids.count << " entries from " << table_name;
+    [uids enumerateObjectsUsingBlock:^(NSString* uid, NSUInteger idx, BOOL *stop) {
+      [table upsert: nil withKey: uid];
+    }];
+  }];
 }
 
 -(void) export: (NSString*) path

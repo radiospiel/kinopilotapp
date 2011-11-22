@@ -46,7 +46,7 @@
 
 -(BOOL)loadRemoteURL
 {
-#if 1
+#if 0
   {
     // NSString* dbPath = [M3 expandPath: @"$documents/kinopilot.sqlite3"];
     NSString* dbPath = @":memory:";

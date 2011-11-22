@@ -80,6 +80,8 @@ static NSComparisonResult underscore_compare(id a, id b, void* p) {
           fromArray: (NSMutableArray*) sortedArray;
 {
   NSUInteger index = [self indexForObject:anObject inArray: sortedArray];
+  if(index >= sortedArray.count) 
+    return;
   
   NSComparisonResult diff = _.compare(anObject, [sortedArray objectAtIndex:index]);
   if (diff == 0) 
