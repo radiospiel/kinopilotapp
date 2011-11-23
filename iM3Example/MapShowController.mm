@@ -27,8 +27,9 @@
   self = [super init];
   self.theater_id = [theater objectForKey:@"_uid"];
 
-  NSArray* latlong = [theater objectForKey:@"latlong"];
-  self.coordinate = CLLocationCoordinate2DMake([latlong.first floatValue], [latlong.second floatValue]);
+  NSNumber* lat = [theater objectForKey:@"lat"];
+  NSNumber* lng = [theater objectForKey:@"lng"];
+  self.coordinate = CLLocationCoordinate2DMake([lat floatValue], [lng floatValue]);
 
   self.title = [theater objectForKey:@"name"];
   self.subtitle = [theater objectForKey:@"address"];
@@ -199,9 +200,10 @@
   MKCoordinateRegion region;
   if(theater_id) {
     NSDictionary* theater = [app.chairDB.theaters get: theater_id];
-    NSArray* latlong = [theater objectForKey:@"latlong"];
+    NSNumber* lat = [theater objectForKey:@"lat"];
+    NSNumber* lng = [theater objectForKey:@"lng"];
     
-    region.center = CLLocationCoordinate2DMake([latlong.first floatValue], [latlong.second floatValue]);
+    region.center = CLLocationCoordinate2DMake([lat floatValue], [lng floatValue]);
     region.span.latitudeDelta = 0.012;
     region.span.longitudeDelta = 0.012;
   }

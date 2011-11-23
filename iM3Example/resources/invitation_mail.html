@@ -9,7 +9,7 @@
 <ul>
   <li>{{movie.title}}</li>
   <li>{{nice_time}}</li>
-  <li><a href="http://maps.google.com/?q={{raw:coordinates}}">{{theater.name}}</a></li>
+  <li><a href="http://maps.google.com/?q={{theater.lat}},{{theater.lng}}">{{theater.name}}</a></li>
 </ul>
 <div style='font-size: 85%'>
   {{raw:htmlTeaser}}

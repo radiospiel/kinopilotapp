@@ -80,13 +80,11 @@
 -(NSDictionary*)interpolationContext
 {
   NSNumber* time = [self.schedule objectForKey: @"time"];
-  NSArray* latlong = [self.theater objectForKey:@"latlong"];
 
   return [NSDictionary dictionaryWithObjectsAndKeys:
             self.movie,                                         @"movie",       
             self.theater,                                       @"theater",     
             [time.to_date stringWithFormat: @"dd. MMM HH:mm"],  @"nice_time",   
-            [latlong componentsJoinedByString: @","],           @"coordinates", 
             [self teaserAsHtml],                                @"htmlTeaser",      
             nil 
           ];
