@@ -1,5 +1,8 @@
 #import "GTMSQLite.h"
 
+@class M3SqliteTable;
+
+
 typedef enum M3SqliteStatementEnumerationPolicy {
   M3SqliteStatementEnumerateUsingDictionaries = 0,
   M3SqliteStatementEnumerateUsingArrays = 1
@@ -64,6 +67,28 @@ typedef enum M3SqliteStatementEnumerationPolicy {
 -(id)eachArray: (NSString*)sql, ...;
 
 
+// Execute a query and return the complete result set as an array of dictionaries.
+-(id)all: (NSString*)sql, ...;
+
+// Execute a query and return the complete result set as an array of arrays.
+-(id)allArrays: (NSString*)sql, ...;
+
 -(void)importDump: (NSArray*)entries;
 
+-(M3SqliteTable*)tableWithName: (NSString*)name;
+
 @end
+
+@interface M3SqliteTable: NSObject {
+  NSString* name_;
+  M3SqliteDatabase* database_;
+}
+
++(M3SqliteTable*)tableWithName: (NSString*)name inDatabase: (M3SqliteDatabase*)database;
+
+-(NSDictionary*)get: (id)uid;
+
+@property (retain,nonatomic,readonly) NSNumber* count;
+
+@end
+

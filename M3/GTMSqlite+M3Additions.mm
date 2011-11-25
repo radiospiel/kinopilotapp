@@ -95,7 +95,9 @@ typedef enum {
   StatementTypeInsert,
   StatementTypeUpdate,
   StatementTypeDelete,
-  StatementTypeOther
+  StatementTypeOther,
+  
+  StatementTypeSelectRow
 } StatementType;
 
 static StatementType statementTypeForSql(NSString* sql)
@@ -230,6 +232,11 @@ static StatementType statementTypeForSql(NSString* sql)
         retVal = [row objectAtIndex:0];
       }
       break;
+    case StatementTypeSelectRow:
+      if(stepRowResult != SQLITE_DONE) {
+        retVal = [statement resultRowDictionary];
+      }
+      break;
     case StatementTypeOther:
       retVal = [NSNumber numberWithBool:YES];
       break;
@@ -237,6 +244,25 @@ static StatementType statementTypeForSql(NSString* sql)
   
   [statement reset];
   return retVal;
+}
+
+-(id)askRow: (NSString*)sql, ...;
+{
+  va_list args;
+  va_start(args, sql);
+  
+  GTMSQLiteStatement* statement = [self prepareStatement:sql];
+  [statement reset];
+  
+  int count = [statement parameterCount]; 
+  
+  for( int i = 0; i < count; i++ ) {
+    id arg = va_arg(args, id);
+    [statement bindObject: arg atPosition: i+1];
+  }
+  va_end(args);
+  
+  return [self askStatement: statement ofType: StatementTypeSelectRow ];
 }
 
 -(id)ask: (NSString*)sql, ...;
@@ -320,6 +346,58 @@ static StatementType statementTypeForSql(NSString* sql)
   
   statement.enumerationPolicy = M3SqliteStatementEnumerateUsingArrays;
   return statement;
+}
+
+// Execute a query and return the complete result set as an array of dictionaries.
+-(NSArray*)all: (NSString*)sql, ...;
+{
+  va_list args;
+  va_start(args, sql);
+  
+  GTMSQLiteStatement* statement = [self prepareStatement:sql];
+  
+  int count = [statement parameterCount]; 
+  
+  for( int i = 0; i < count; i++ ) {
+    id arg = va_arg(args, id);
+    [statement bindObject: arg atPosition: i+1];
+  }
+  
+  va_end(args);
+  
+  statement.enumerationPolicy = M3SqliteStatementEnumerateUsingDictionaries;
+  
+  NSMutableArray* array = [NSMutableArray array];
+  for(NSDictionary* record in statement) {
+    [array addObject:record];
+  }
+  return array;
+}
+
+// Execute a query and return the complete result set as an array of arrays.
+-(NSArray*)allArrays: (NSString*)sql, ...;
+{
+  va_list args;
+  va_start(args, sql);
+  
+  GTMSQLiteStatement* statement = [self prepareStatement:sql];
+  
+  int count = [statement parameterCount]; 
+  
+  for( int i = 0; i < count; i++ ) {
+    id arg = va_arg(args, id);
+    [statement bindObject: arg atPosition: i+1];
+  }
+  
+  va_end(args);
+  
+  statement.enumerationPolicy = M3SqliteStatementEnumerateUsingArrays;
+  
+  NSMutableArray* array = [NSMutableArray array];
+  for(NSArray* record in statement) {
+    [array addObject:record];
+  }
+  return array;
 }
 
 -(void)importHeader: (NSArray*)header
@@ -488,7 +566,56 @@ static StatementType statementTypeForSql(NSString* sql)
   return [M3SqliteDatabase databaseWithPath:@":memory:"];
 }
 
+-(M3SqliteTable*)tableWithName: (NSString*)name 
+{
+  return [M3SqliteTable tableWithName:name inDatabase:self];
+}
+
 @end
+
+@implementation M3SqliteTable
+
+-(M3SqliteTable*)initWithName: (NSString*)name 
+                   inDatabase: (M3SqliteDatabase*)database
+{
+  self = [super init];
+  if(!self) return nil;
+  
+  name_ = [name retain];
+  database_ = [database retain];
+  
+  return self;
+}
+
+-(void)dealloc
+{
+  [name_ release]; name_ = nil;
+  [database_ release]; database_ = nil;
+}
+
++(M3SqliteTable*)tableWithName: (NSString*)name 
+                    inDatabase: (M3SqliteDatabase*)database
+{
+  return [[[M3SqliteTable alloc]initWithName:name inDatabase:database]autorelease];
+}
+
+-(NSNumber*) count
+{
+  NSString* sql = [NSString stringWithFormat: @"SELECT COUNT(*) FROM %@", name_];
+  return [database_ ask: sql];
+}
+
+-(NSDictionary*)get: (id)uid
+{
+  NSString* sql = [ NSString stringWithFormat: @"SELECT * FROM %@ WHERE _id=?", name_];
+  NSLog(@"%@ w/uid %@", sql, uid);
+  id r = [database_ askRow: sql, uid];
+  return r;
+}
+
+
+@end
+
 
 /* --- Tests --------------------------------------- */
 
@@ -624,3 +751,4 @@ ETest(GTMSQLiteStatementM3SqliteStatement)
 }
 
 @end
+
