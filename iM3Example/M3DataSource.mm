@@ -183,12 +183,15 @@
 {
   self = [super initWithCellClass: @"TheatersListCell"]; 
 
-  NSDictionary* groupedHash = [app.chairDB.theaters.keys groupUsingBlock:^id(NSString* theater_id) {
-    return [[theater_id substringToIndex:1]uppercaseString];
+  NSArray* theaters = [ app.sqliteDB allArrays: @"SELECT _id FROM theaters ORDER BY _id" ];
+  NSArray* theater_ids = [theaters mapUsingSelector:@selector(first)];
+
+  NSDictionary* groupedHash = [theater_ids groupUsingBlock:^id(NSString* theater_id) {
+    return [[theater_id substringWithRange:NSMakeRange(2, 1)]uppercaseString];
   }];
-  
+
   NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
-  
+                     
   for(NSArray* group in groups) {
     [self addSection: group.second 
          withOptions:_.hash(@"header", group.first, 

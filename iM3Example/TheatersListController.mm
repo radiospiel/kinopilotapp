@@ -23,13 +23,14 @@
 {
   [super setKey:theater_id];
   
-  NSDictionary* theater = [app.chairDB.theaters get: theater_id];
+  NSDictionary* theater = [app.sqliteDB.theaters get: theater_id];
   
   [self setText: [theater objectForKey: @"name"]];
 
-  NSArray* movieIds = [app.chairDB movieIdsByTheaterId: theater_id];
-  NSArray* movies = [[app.chairDB.movies valuesWithKeys: movieIds] pluck: @"title"];
-  movies = [movies.uniq.sort mapUsingSelector:@selector(quote)];
+  NSString* sql = 
+  @"SELECT DISTINCT(title) FROM movies, schedules ON  movies._id = schedules.movie_id WHERE schedules.theater_id=? LIMIT 6";
+  
+  NSArray* movies = [[app.sqliteDB allArrays: sql, theater_id ] mapUsingSelector:@selector(first)];
   [self setDetailText: [movies componentsJoinedByString: @", "]];
 }
 
