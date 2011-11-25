@@ -18,8 +18,10 @@
 
 -(void)setImageForMovie: (NSString*)movie_id
 {
-  UIImage* image = [app.chairDB thumbnailForMovie:movie_id];
-  self.image = image ? image : [UIImage imageNamed:@"no_poster.png"];
+  self.image = [UIImage imageNamed:@"no_poster.png"];
+
+//  UIImage* image = [app.chairDB thumbnailForMovie:movie_id];
+//  self.image = image ? image : [UIImage imageNamed:@"no_poster.png"];
 }
 
 @end
@@ -34,15 +36,17 @@
 -(void)setKey: (id)movie_id
 {
   [super setKey:movie_id];
-  
-  NSDictionary* movie = [app.chairDB.movies get: movie_id];
-  
+
   [self setImageForMovie: movie_id];
+  
+  NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
   [self setText: [movie objectForKey: @"title"]];
 
-  NSArray* theater_ids = [app.chairDB theaterIdsByMovieId: movie_id];
-  NSArray* theaters = [[app.chairDB.theaters valuesWithKeys: theater_ids] pluck: @"name"];
-  [self setDetailText: [theaters.uniq.sort componentsJoinedByString: @", "]];
+  NSString* sql = 
+  @"SELECT DISTINCT(name) FROM theaters, schedules ON theaters._id = schedules.theater_id WHERE schedules.movie_id=? LIMIT 6";
+  
+  NSArray* theaters = [[app.sqliteDB allArrays: sql, movie_id ] mapUsingSelector:@selector(first)];
+  [self setDetailText: [theaters componentsJoinedByString: @", "]];
 
   self.url = _.join(@"/theaters/list?movie_id=", movie_id);
 }
@@ -126,12 +130,13 @@
 {
   self = [super init];
 
-  [self addSegment: @"all" withFilter: @"all" andTitle: @"Alle Filme "];
-  [self addSegment: @"new" withFilter: @"new" andTitle: @"Neu im Kino"];
-  [self addSegment: @"art" withFilter: @"art" andTitle: @"Klassiker  "];
+//  [self addSegment: @"all" withFilter: @"all" andTitle: @"Alle Filme "];
+//  [self addSegment: @"new" withFilter: @"new" andTitle: @"Neu im Kino"];
+//  [self addSegment: @"art" withFilter: @"art" andTitle: @"Klassiker  "];
+
   // // [self addSegment: @"fav" withFilter: @"fav" andTitle: @"Vorgemerkt"];
 
-  [self activateSegment: 0];
+  // [self activateSegment: 0];
 
   return self;
 }
@@ -149,7 +154,9 @@
 
 -(NSDictionary*)theater
 {
-  return [app.chairDB.theaters get: self.theater_id];
+  NSString* theater_id = self.theater_id;
+  if(!theater_id) return nil;
+  return [app.sqliteDB.theaters get: theater_id];
 }
 
 -(NSString*)theater_id

@@ -131,29 +131,39 @@ M3AppDelegate* app;
 -(void)loadTabs
 {
   NSArray* tabs = [[self config] objectForKey: @"tabs"];
-  tabs = [tabs selectUsingBlock:^BOOL(NSDictionary* tab) {
-    return [tab objectForKey: @"url"] != nil;
-  }];
 
-  NSMutableArray* viewControllers = [tabs mapUsingBlock:^id(NSDictionary* tab) {
-    return [self navigationControllerForTab:tab];
+
+  NSString* __block initialURL;
+  
+  NSMutableArray* navigationControllers = [tabs mapUsingBlock:^id(NSDictionary* tab) {
+    NSString* url = [tab objectForKey: @"url"];
+    if(!url) return nil;
+
+    dlog << "loading tab: " << url;
+
+    UINavigationController* nc = [self navigationControllerForTab:tab];
+    if(!nc) return nil;
+    
+    initialURL = url;
+    return nc;
   }];
   
-  viewControllers = [viewControllers selectUsingBlock:^BOOL(id tab) {
-    return tab != nil;
+  navigationControllers = [navigationControllers selectUsingBlock:^BOOL(UINavigationController* nc) {
+    return nc != nil;
   }];
 
-  if(viewControllers.count > 1) {
+  if(navigationControllers.count > 1) {
     UITabBarController* tabBarController = [[[UITabBarController alloc] init] autorelease];
     tabBarController.view.frame = [[UIScreen mainScreen] bounds];
     // tabBarController.wantsFullScreenLayout = YES;
-    tabBarController.viewControllers = viewControllers;
+    tabBarController.viewControllers = navigationControllers;
     
     self.tabBarController = tabBarController;
     self.window.rootViewController = self.tabBarController;
   }
   else {
-    self.window.rootViewController = viewControllers.first;
+    dlog << "opened tab: " << initialURL;
+    self.window.rootViewController = navigationControllers.first;
   }
 }
 

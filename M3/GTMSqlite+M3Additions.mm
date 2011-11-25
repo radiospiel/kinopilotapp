@@ -1,4 +1,5 @@
 #import "GTMSQLite+M3Additions.h"
+#import "M3.h"
 
 #include <objc/runtime.h> // objc_setAssociatedObject & co.
 
@@ -81,6 +82,7 @@ static NSString* kUseArrayEnumeration = @"kUseArrayEnumeration";
   }
 
   NSLog(@"**** Trying to bind an unsupported object of type %@", [obj class]);
+  [M3 logBacktrace];
   return -1;
 }
 
