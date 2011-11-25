@@ -113,7 +113,7 @@
   rightAligned_ = YES;
 
   // [self setLabel: @"{{count}} Kinos" withAnimatedLimit: app.chairDB.theaters.count];
-  [self setLabel: @"{{chairDB.theaters.count}} Kinos"];
+  [self setLabel: @"{{sqliteDB.theaters.count}} Kinos"];
   
   [self setBackground: @"cinemas.png"];
   self.url = @"/theaters/list";
@@ -123,21 +123,21 @@
 {
   rightAligned_ = YES;
 
-  [self setLabel: @"{{chairDB.movies.count}} Filme"];
+  [self setLabel: @"{{sqliteDB.movies.count}} Filme"];
   [self setBackground: @"movies.png"];
   self.url = @"/movies/list";
 }
 
 -(void)vicinity
 {
-  [self setLabel: @"{{chairDB.schedules.count}} Aufführungen nearby"];
+  [self setLabel: @"{{sqliteDB.schedules.count}} Aufführungen nearby"];
   [self setBackground: @"traffic.png"];
   self.url = @"/vicinity/show";
 }
 
 -(void)news
 {
-  [self setLabel: @"{{chairDB.news.count}} News"];
+  [self setLabel: @"{{sqliteDB.news.count}} News"];
   [self setBackground: @"movies.png"];
   self.url = @"/news/list";
 }
