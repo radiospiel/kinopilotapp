@@ -31,28 +31,25 @@
 }
 
 -(BOOL)loadRemoteURL
-{
-  {
-    NSString* dbPath = [M3 expandPath: @"$documents/kinopilot.sqlite3"];
-    // NSString* dbPath = @":memory:";
-    
-    M3SqliteDatabase* db = [M3SqliteDatabase databaseWithPath:dbPath
-                                              withCFAdditions:NO 
-                                                         utf8:YES 
-                                                    errorCode:0];
-    
-    [db synchronousMode:NO];
-
-    NSArray* entries = [M3 readJSON: REMOTE_SQL_URL];
-    if(![entries isKindOfClass: [NSArray class]])
-      _.raise("Cannot read file", REMOTE_SQL_URL);
-    
-    Benchmark(_.join("Importing database from ", REMOTE_SQL_URL));
-  
-    [db importDump:entries];
+{  
+  M3SqliteDatabase* db = [app sqliteDatabase];
+  NSNumber* movie_count = [db ask: @"SELECT COUNT(*) FROM movies"];
+  if(movie_count.to_i > 0) {
+    dlog << "DB already initialized";
+    return YES;
   }
   
+  NSArray* entries = [M3 readJSON: REMOTE_SQL_URL];
+  if(![entries isKindOfClass: [NSArray class]])
+    _.raise("Cannot read file", REMOTE_SQL_URL);
+    
+  Benchmark(_.join("Importing database from ", REMOTE_SQL_URL));
+  
+  [db importDump:entries];
+  
   [self updateCompleted];
+  
+  return YES;
   
 //  {
 //    Benchmark(_.join("Loading database from ", REMOTE_URL));
@@ -65,8 +62,6 @@
 //    Benchmark(_.join("Saving database to ", DB_PATH));
 //    [self save: DB_PATH];
 //  }
-
-  return YES;
 }
 
 -(BOOL)loadLocalCopy

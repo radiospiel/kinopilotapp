@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "M3.h"
+#import "GTMSqlite+M3Additions.h"
 
 #import "Chair.h"
 #import "ChairDatabase+IM3Example.h"
@@ -39,5 +40,22 @@
 -(void) initChairDB;
 
 @property (retain,nonatomic,readonly) ChairDatabase* chairDB;
+
+@end
+
+@interface M3SqliteDatabase(M3Additions)
+
+@property (nonatomic,retain,readonly) M3SqliteTable* movies;
+@property (nonatomic,retain,readonly) M3SqliteTable* theaters;
+@property (nonatomic,retain,readonly) M3SqliteTable* schedules;
+@property (nonatomic,retain,readonly) M3SqliteTable* images;
+
+@end
+
+@interface M3AppDelegate(SqliteDB)
+
+@property (retain,nonatomic,readonly) M3SqliteDatabase* sqliteDB;
+
+-(M3SqliteDatabase*) sqliteDatabase;
 
 @end
