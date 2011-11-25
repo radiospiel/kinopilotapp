@@ -30,26 +30,11 @@
   [self emit:@selector(updated)];
 }
 
--(BOOL)loadLocalCopy
-{
-  if(![M3 fileExists: DB_PATH]) return NO;
-
-  {
-    Benchmark(_.join("Loading database from ", DB_PATH));
-    [self load: DB_PATH];
-  }  
-
-  [self updateCompleted];
-
-  return YES;
-}
-
 -(BOOL)loadRemoteURL
 {
-#if 0
   {
-    // NSString* dbPath = [M3 expandPath: @"$documents/kinopilot.sqlite3"];
-    NSString* dbPath = @":memory:";
+    NSString* dbPath = [M3 expandPath: @"$documents/kinopilot.sqlite3"];
+    // NSString* dbPath = @":memory:";
     
     M3SqliteDatabase* db = [M3SqliteDatabase databaseWithPath:dbPath
                                               withCFAdditions:NO 
@@ -66,22 +51,39 @@
   
     [db importDump:entries];
   }
-#endif
   
-  {
-    Benchmark(_.join("Loading database from ", REMOTE_URL));
-    [self import: REMOTE_URL];
-  }
-
   [self updateCompleted];
-
-  {
-    Benchmark(_.join("Saving database to ", DB_PATH));
-    [self save: DB_PATH];
-  }
+  
+//  {
+//    Benchmark(_.join("Loading database from ", REMOTE_URL));
+//    [self import: REMOTE_URL];
+//  }
+//
+//  [self updateCompleted];
+//
+//  {
+//    Benchmark(_.join("Saving database to ", DB_PATH));
+//    [self save: DB_PATH];
+//  }
 
   return YES;
 }
+
+-(BOOL)loadLocalCopy
+{
+  if(![M3 fileExists: DB_PATH]) return NO;
+  [self loadRemoteURL];
+  return YES;
+  //  {
+  //    Benchmark(_.join("Loading database from ", DB_PATH));
+  //    [self load: DB_PATH];
+  //  }  
+  //
+  //  [self updateCompleted];
+  //
+  //  return YES;
+}
+
 
 /*
  * Updates the database if an update is needed.

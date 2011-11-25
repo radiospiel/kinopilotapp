@@ -191,7 +191,9 @@
   self = [super init];
   if(!self) return nil;
 
-  [self addSection: _.array(@"city", @"M3TableViewAdCell", @"theaters", @"movies", @"vicinity", @"moviepilot") 
+  [self addSection: _.array(@"city", 
+                            //  @"M3TableViewAdCell", 
+                            @"theaters", @"movies", @"vicinity", @"moviepilot") 
        withOptions: nil];
 
   return self;

@@ -408,10 +408,14 @@ static StatementType statementTypeForSql(NSString* sql)
     [placeholders addObject: @"?"];
   }];
 
-  NSString* sql = [NSString stringWithFormat: @"INSERT INTO %@ (%@) VALUES(%@)", 
-                                              table, 
-                                              [columns componentsJoinedByString: @", "],
-                                              [placeholders componentsJoinedByString: @", "]];
+  NSString* sql;
+  sql = [NSString stringWithFormat: @"DELETE FROM %@", table];
+  [self ask: sql];
+  
+  sql = [NSString stringWithFormat: @"INSERT INTO %@ (%@) VALUES(%@)", 
+                                    table, 
+                                    [columns componentsJoinedByString: @", "],
+                                    [placeholders componentsJoinedByString: @", "]];
 
   GTMSQLiteStatement* statement = [self prepareStatement:sql];
 
