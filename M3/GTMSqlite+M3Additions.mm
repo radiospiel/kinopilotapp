@@ -322,34 +322,141 @@ static StatementType statementTypeForSql(NSString* sql)
   return statement;
 }
 
+-(void)importHeader: (NSArray*)header
+{
+  
+}
+
+-(void)createIndexIfNeededOnTable: (NSString*)name forColumn: (NSString*)column
+{
+  if(![column hasSuffix:@"_id"]) return;
+  if([column isEqualToString:@"_id"]) return;
+  
+  NSString* sql = [NSString stringWithFormat: @"CREATE INDEX %@_%@_ix ON %@(%@)", name, column, name, column];
+  [self ask: sql];
+}
+
+-(void)createTable: (NSString*)name withColumns: (NSArray*)columns
+{
+  NSMutableArray* column_definitions = [NSMutableArray array];
+  for(NSString* column in columns) {
+    if(![column isEqualToString:@"_id"]) {
+      [column_definitions addObject: column];
+    }
+
+    NSString* sql_part = [NSString stringWithFormat: @"%@ PRIMARY KEY", column];
+    [column_definitions addObject: sql_part];
+  }
+
+  // create the table
+
+  NSString* sql = [NSString stringWithFormat: @"CREATE TABLE %@ (%@)", name, 
+                   [columns componentsJoinedByString: @", "]
+                  ];
+  [self ask: sql];
+
+  // create designated indices
+
+  for(NSString* column in columns) {
+    [self createIndexIfNeededOnTable: name forColumn: column]; 
+  }
+}
+
+-(NSArray*)columnsForTable: (NSString*)tableName
+{
+  NSMutableArray* existing_columns = [NSMutableArray array];
+  NSString* sql = [NSString stringWithFormat: @"PRAGMA table_info(%@)", tableName];
+  for(NSDictionary* column_description in [self each: sql]) {
+    [existing_columns addObject: [column_description objectForKey:@"name"]];
+  }
+
+  return existing_columns;
+}
+
+-(void)ensureTableExists: (NSString*)name withColumns: (NSArray*)columns
+{
+  // do we have the table already? If not, use createTable:withColumns: 
+  // to create the table.
+  
+  NSString* existing_name = [self ask: @"SELECT name FROM sqlite_master WHERE type=? AND name=?", @"table", name];
+  
+  if(!existing_name) {
+    NSLog(@"creating table %@", name);
+    [self createTable: name withColumns: columns];
+    return;
+  }
+
+  // Create missing columns, and, probably, indices
+  NSArray* existing_columns = [self columnsForTable: name];
+  
+  for(NSString* column in columns) {
+    if([existing_columns indexOfObject:column] != NSNotFound) continue;
+
+    NSString* sql = [NSString stringWithFormat: @"ALTER TABLE %@ ADD COLUMN %@", name, column];
+    [self ask: sql];
+    [self createIndexIfNeededOnTable:name forColumn:column];
+  }
+}
+
+-(void)insertIntoTable: (NSString*)table 
+      fromArrayRecords: (NSArray*)records 
+           withColumns: (NSArray*)columns
+{
+  // create insertion command
+  NSMutableArray* placeholders = [NSMutableArray array];
+  [columns enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *flag) {
+    [placeholders addObject: @"?"];
+  }];
+
+  NSString* sql = [NSString stringWithFormat: @"INSERT INTO %@ (%@) VALUES(%@)", 
+                                              table, 
+                                              [columns componentsJoinedByString: @", "],
+                                              [placeholders componentsJoinedByString: @", "]];
+
+  GTMSQLiteStatement* statement = [self prepareStatement:sql];
+
+  [records enumerateObjectsUsingBlock:^(NSArray* record, NSUInteger idx, BOOL *stop) {
+    [statement reset];
+    [record enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+      [statement bindObject: obj atPosition: idx+1];
+    }];
+
+    [statement stepRow];
+  }];
+  
+  [statement reset];
+
+  sql = [NSString stringWithFormat: @"SELECT COUNT(*) FROM %@", table];
+  NSLog(@"%@ has %@ records now", table, [self ask: sql]);
+}
+
 -(void)importDump: (NSArray*)entries
 {
-  [entries enumerateObjectsUsingBlock:^(NSArray* obj, NSUInteger idx, BOOL *stop) {
-    if(idx == 0) return;
-
-    NSString* sql = [obj objectAtIndex:0];
-
-    GTMSQLiteStatement* statement = [self prepareStatement:sql];
-    
-    if(obj.count == 1) {
-      int stepRowResult = [statement stepRow];
-      [statement reset];
-
+  [self ask: @"BEGIN"];
+  
+  [entries enumerateObjectsUsingBlock:^(NSArray* record, NSUInteger idx, BOOL *stop) {
+    if(idx == 0) {
+      [self importHeader: record];
       return;
     }
 
-    [obj enumerateObjectsUsingBlock:^(NSArray* params, NSUInteger idx, BOOL *stop) {
-      if(idx == 0)
-        return; // The SQL string is on index 0
+    // The first entry is the name of the target table.
+    // The second entry is an array of column names
+    // The third column is an array of updates to insert into the table.  
+    
+    NSString* table_name = [record objectAtIndex:0];
+    if(!table_name || [table_name isKindOfClass: [NSNull class]] ) return;
+    
+    NSArray* columns = [record objectAtIndex:1];
+    
+    [self ensureTableExists: table_name withColumns: columns];
 
-      [params enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [statement bindObject: obj atPosition: idx+1];
-      }];
-
-      int stepRowResult = [statement stepRow];
-      [statement reset];
-    }];
+    [self insertIntoTable: table_name
+         fromArrayRecords: [record objectAtIndex:2] 
+              withColumns: columns ];
   }];
+  
+  [self ask: @"COMMIT"];
 }
 
 + (M3SqliteDatabase*)databaseWithPath:(NSString *)path
