@@ -64,6 +64,8 @@
   self.url = @"/info";
 }
 
+/*
+
 - (BOOL)labelAnimationFrame:(NSMutableDictionary*)userInfo
 {
   M3AssertKindOfAndSet(userInfo, NSMutableDictionary);
@@ -105,6 +107,7 @@
   [[NSRunLoop currentRunLoop] addTimer:timer forMode: NSDefaultRunLoopMode];
 }
 
+*/
 -(void)theaters
 {
   rightAligned_ = YES;
@@ -231,10 +234,8 @@ static double distance(double lat1, double lng1, double lat2, double lng2)
 
 -(double) distanceToTheater:(NSDictionary*) theater
 {
-  NSArray* latlong = [theater objectForKey:@"latlong"];
-  
-  NSNumber* lat = latlong.first;
-  NSNumber* lng = latlong.second;
+  NSNumber* lat = [theater objectForKey:@"lat"];
+  NSNumber* lng = [theater objectForKey:@"lng"];
   
   M3AssertKindOf(lat, NSNumber);
   M3AssertKindOf(lng, NSNumber);

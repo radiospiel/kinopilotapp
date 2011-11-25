@@ -18,12 +18,11 @@
 +(M3TableViewDataSource*)moviesListWithFilter: (NSString*)filter;
 +(M3TableViewDataSource*)moviesListFilteredByTheater:(id)theater_id;
 
-+(M3TableViewDataSource*)theatersListFilteredByMovie:(id)movie_id;
 +(M3TableViewDataSource*)theatersList;
++(M3TableViewDataSource*)theatersListFilteredByMovie:(id)movie_id;
 
 +(M3TableViewDataSource*)schedulesByTheater: (NSString*)theater_id 
                                    andMovie: (NSString*)movie_id
                                       onDay: (NSDate*)day; 
  
-
 @end

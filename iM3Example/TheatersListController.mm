@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "M3TableViewProfileCell.h"
 #import "TheatersListController.h"
+#import "M3ProfileView.h"
+#import "M3DataSource.h"
 
 /*** A cell for the TheatersListController ***************************************************/
 
@@ -22,7 +24,6 @@
   [super setKey:theater_id];
   
   NSDictionary* theater = [app.chairDB.theaters get: theater_id];
-  theater = [app.chairDB adjustTheaters: theater];
   
   [self setText: [theater objectForKey: @"name"]];
 
@@ -96,7 +97,6 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
   [super setKey:key];
   
   NSDictionary* theater = [key joinWith: app.chairDB.theaters on: @"theater_id"];
-  theater = [app.chairDB adjustMovies: theater];
   
   [self setText: [theater objectForKey: @"name"]];
   

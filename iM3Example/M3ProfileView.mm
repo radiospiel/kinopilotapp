@@ -159,8 +159,9 @@
   // -- add a map view
   
   {
-    NSArray* latlong = [theater objectForKey:@"latlong"];
-    [pv setCoordinate: CLLocationCoordinate2DMake([latlong.first floatValue], [latlong.second floatValue])];
+    NSNumber* lat = [theater objectForKey:@"lat"];
+    NSNumber* lng = [theater objectForKey:@"lng"];
+    [pv setCoordinate: CLLocationCoordinate2DMake([lat floatValue], [lng floatValue])];
   }  
   
   // -- set proile URL

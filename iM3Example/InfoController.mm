@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "InfoController.h"
-#import "M3TableViewDataSource.h"
 
 /* 
  * This cell shows one value (i.e. one piece of text). The text might span
@@ -94,8 +93,8 @@
   self.textLabel.text = key.first;
   self.textLabel.textAlignment = UITextAlignmentRight;
   
-  NSString* text = [app infoForKey: key.last];
-  if([key.last matches:@"(http://|https://|mailto:)(.*)"]) {
+  NSString* text = key.last;
+  if([text matches:@"(http://|https://|mailto:)(.*)"]) {
     [self.detailTextLabel onTapOpen: text];
     text = $2;
   }
@@ -125,6 +124,9 @@
  * The data source for the InfoController
  */
 @interface InfoControllerDataSource: M3TableViewDataSource
+
+-(id)infoForKey: (NSString*)key;
+
 @end
 
 @implementation InfoControllerDataSource
@@ -142,12 +144,40 @@
     id content = [section objectForKey:@"content"];
     if(!content)
       content = [NSArray array];
-    
+
+    content = [content mapUsingBlock:^id(NSArray* entry) {
+      if(![entry isKindOfClass:[NSArray class]]) return entry;
+      id key = entry.last;
+      return [NSArray arrayWithObjects:entry.first, [self infoForKey:key], nil];
+    }];
     // Read "header", "footer", and "index" from the configuration.
     [self addSection: content withOptions: section];
   }
   
   return self;
+}
+
+-(id)infoForKey:(NSString *)key
+{
+  if([key isEqualToString: @"updated_at"]) { 
+    NSDictionary* stats = app.chairDB.stats.first;
+    NSNumber* updated_at = [stats objectForKey: @"updated_at"]; 
+    return [updated_at.to_date stringWithFormat: @"dd.MM.yyyy HH:mm"];
+  }
+
+  if([key isEqualToString: @"theaters_count"])
+    return [NSString stringWithFormat: @"%d", app.chairDB.theaters.count];
+
+  if([key isEqualToString: @"movies_count"])
+    return [NSString stringWithFormat: @"%d", app.chairDB.movies.count]; 
+
+  if([key isEqualToString: @"schedules_count"])
+    return [NSString stringWithFormat: @"%d", app.chairDB.schedules.count];
+
+  if([key isEqualToString: @"built_at"])
+    return [NSString stringWithFormat: @"%s %s", __DATE__, __TIME__]; 
+
+  return key;
 }
 
 -(Class) cellClassForKey: (NSArray*)key;

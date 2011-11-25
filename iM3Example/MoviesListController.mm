@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "MoviesListController.h"
+#import "M3ProfileView.h"
+#import "M3DataSource.h"
 
 @interface M3TableViewProfileCell(MovieImage)
 @end
@@ -34,7 +36,6 @@
   [super setKey:movie_id];
   
   NSDictionary* movie = [app.chairDB.movies get: movie_id];
-  movie = [app.chairDB adjustMovies: movie];
   
   [self setImageForMovie: movie_id];
   [self setText: [movie objectForKey: @"title"]];
@@ -83,7 +84,6 @@
   [super setKey:key];
   
   NSDictionary* movie = [key joinWith: app.chairDB.movies on: @"movie_id"];
-  movie = [app.chairDB adjustMovies: movie];
   
   [self setImageForMovie: [key objectForKey:@"movie_id"]];
 

@@ -10,18 +10,12 @@
 
 @property (nonatomic,retain,readonly) ChairView* schedules_by_theater_id;
 
--(NSDictionary*)modelWithURL: (NSString*)url;
--(NSDictionary*)objectForKey: (id)key andType: (NSString*) type;
-
 -(NSArray*) theaterIdsByMovieId: (NSString*)movieID;
 -(NSArray*) movieIdsByTheaterId: (NSString*)theaterID;
 
 -(NSArray*) schedulesByMovieId: (NSString*)movieID;
 -(NSArray*) schedulesByTheaterId: (NSString*)theaterID;
 -(NSArray*) schedulesByMovieId: (NSString*)movieID andTheaterId: (NSString*)theaterID;
-
--(NSDictionary*) adjustMovies:(NSDictionary*)movie;
--(NSDictionary*) adjustTheaters:(NSDictionary*)theater;
 
 -(void)updateIfNeeded;
 -(void)update;

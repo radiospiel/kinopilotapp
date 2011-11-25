@@ -1,5 +1,7 @@
-#import "SchedulesListController.h"
 #import "AppDelegate.h"
+#import "SchedulesListController.h"
+#import "M3ProfileView.h"
+#import "M3DataSource.h"
 
 @implementation SchedulesListController
 
