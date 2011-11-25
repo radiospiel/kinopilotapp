@@ -23,6 +23,8 @@
 {
   [super setKey:theater_id];
   
+  if(!theater_id) return;
+  
   NSDictionary* theater = [app.sqliteDB.theaters get: theater_id];
   
   [self setText: [theater objectForKey: @"name"]];

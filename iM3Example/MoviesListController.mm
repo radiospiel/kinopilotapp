@@ -38,6 +38,8 @@
   [super setKey:movie_id];
 
   [self setImageForMovie: movie_id];
+
+  if(!movie_id) return;
   
   NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
   [self setText: [movie objectForKey: @"title"]];
