@@ -18,7 +18,8 @@ typedef enum M3SqliteStatementEnumerationPolicy {
 @end
 
 @interface M3SqliteDatabase: GTMSQLiteDatabase {
-  NSMutableDictionary* prepared_statements_;
+  NSMutableDictionary* cached_statements_;
+  NSMutableArray* uncacheable_statements_;
 }
 
 // returns an autorelese M3SqliteDatabase

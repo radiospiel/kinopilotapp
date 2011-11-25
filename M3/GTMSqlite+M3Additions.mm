@@ -128,19 +128,48 @@ static StatementType statementTypeForSql(NSString* sql)
 -(void)dealloc
 {
   // finalize all prepared SQL statements.
-  [prepared_statements_ enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+  [cached_statements_ enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
     [obj finalizeStatement];
   }];
   
-  [prepared_statements_ release]; prepared_statements_ = nil;
+  [cached_statements_ release]; cached_statements_ = nil;
+  
+  [uncacheable_statements_ enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [obj finalizeStatement];
+  }];
+  [uncacheable_statements_ release]; uncacheable_statements_ = nil;
   
   [super dealloc];
 }
 
 -(void) init_prepared_statements
 {
-  if(!prepared_statements_) {
-    prepared_statements_ = [[NSMutableDictionary alloc]init];
+  if(!cached_statements_)
+    cached_statements_ = [[NSMutableDictionary alloc]init];
+
+  if(!uncacheable_statements_)
+    uncacheable_statements_ = [[NSMutableArray alloc]init];
+}
+
+-(GTMSQLiteStatement*)uncachedPrepareStatement: (NSString*)sql
+{
+  int errCode = 0;
+  GTMSQLiteStatement* statement = [GTMSQLiteStatement statementWithSQL:sql inDatabase:self errorCode:&errCode];
+  if(statement) return statement;
+  
+  NSLog(@"Error on preparing %@", sql);
+  return nil; // Error! Do something!
+}
+
+-(BOOL)isCacheableStatement: (NSString*)sql
+{
+  switch(statementTypeForSql(sql)) {
+    case StatementTypeSelect:
+    case StatementTypeInsert:
+    case StatementTypeUpdate:
+    case StatementTypeDelete: return YES;
+    
+    default: return NO;
   }
 }
 
@@ -148,19 +177,24 @@ static StatementType statementTypeForSql(NSString* sql)
 {
   [self init_prepared_statements];
   
-  GTMSQLiteStatement* preparedStatement = [prepared_statements_ objectForKey:sql];
-  if(!preparedStatement) {
-    int errCode = 0;
-    preparedStatement = [GTMSQLiteStatement statementWithSQL:sql inDatabase:self errorCode:&errCode];
-    if(!preparedStatement) {
-      NSLog(@"Error on preparing %@", sql);
-      return nil; // Error! Do something!
-    }
+  GTMSQLiteStatement* statement;
+  
+  statement = [cached_statements_ objectForKey:sql];
+  if(statement) return statement;
 
-    [prepared_statements_ setObject: preparedStatement forKey:sql];
+  statement = [self uncachedPrepareStatement: sql];
+  if(!statement) return statement;
+  
+  if([self isCacheableStatement: sql]) {
+    // NSLog(@"*** caching %@", sql);
+    [cached_statements_ setObject: statement forKey:sql];
   }
-
-  return preparedStatement;
+  else {
+    // NSLog(@"*** not caching %@", sql);
+    [uncacheable_statements_ addObject: statement];
+  }
+  
+  return statement;
 }
 
 // Execute a query and returns a single value result.
@@ -211,7 +245,8 @@ static StatementType statementTypeForSql(NSString* sql)
   va_start(args, sql);
   
   GTMSQLiteStatement* statement = [self prepareStatement:sql];
-  
+  [statement reset];
+
   int count = [statement parameterCount]; 
 
   for( int i = 0; i < count; i++ ) {
@@ -226,7 +261,8 @@ static StatementType statementTypeForSql(NSString* sql)
 -(id)ask: (NSString*)sql withParameters: (NSArray*)params
 {
   GTMSQLiteStatement* statement = [self prepareStatement:sql];
-
+  [statement reset];
+  
   [params enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
     [statement bindObject: obj atPosition: idx+1];
   }];
