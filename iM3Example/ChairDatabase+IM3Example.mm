@@ -1,8 +1,9 @@
 #import "AppDelegate.h"
 #import "GTMSqlite+M3Additions.h"
 
-#if 0
+#if 1
 #define REMOTE_URL  @"http://kinopilotupdates2.heroku.com/db/images,berlin"
+#define REMOTE_SQL_URL  @"http://kinopilotupdates2.heroku.com/db/images,berlin.sql"
 #else
 #define REMOTE_URL      @"http://localhost:3000/db/images,berlin"
 #define REMOTE_SQL_URL  @"http://localhost:3000/db/images,berlin.sql"
