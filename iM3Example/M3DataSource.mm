@@ -144,7 +144,7 @@
 
   //
   // get all schedules for the theater
-  NSArray* schedules = [app.chairDB schedulesByTheaterId: theater_id];
+  NSArray* schedules = [app.sqliteDB all: @"SELECT * FROM schedules WHERE theater_id=?", theater_id];
   
   {
     for(NSDictionary* schedule in schedules) {

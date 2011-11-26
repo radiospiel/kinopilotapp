@@ -89,9 +89,10 @@
 {
   [super setKey:key];
   
-  NSDictionary* movie = [key joinWith: app.chairDB.movies on: @"movie_id"];
+  NSString* movie_id = [key objectForKey: @"movie_id"];
+  NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
   
-  [self setImageForMovie: [key objectForKey:@"movie_id"]];
+  [self setImageForMovie: movie_id];
 
   [self setText: [movie objectForKey: @"title"]];
   
