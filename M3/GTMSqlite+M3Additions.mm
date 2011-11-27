@@ -161,7 +161,7 @@ static StatementType statementTypeForSql(NSString* sql)
   GTMSQLiteStatement* statement = [GTMSQLiteStatement statementWithSQL:sql inDatabase:self errorCode:&errCode];
   if(statement) return statement;
   
-  NSLog(@"Error on preparing %@", sql);
+  NSLog(@"Error %d on preparing %@", errCode, sql);
   return nil; // Error! Do something!
 }
 

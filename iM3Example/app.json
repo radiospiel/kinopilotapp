@@ -4,6 +4,7 @@
     {
       "nurl": "/movies/list?theater_id=adriafilmtheat|2487JHMKNoY",
       "url": "/dashboard",
+      "nurl": "/movies/list?theater_id=c-acudkino",
       "nurl": "/movies/list",
       "nurl": "/movies/trailer?brightcove_id=1122282068001",
       "nurl": "/theaters/list?movie_id=alienjagermyst|btDe8fQQOlg",
