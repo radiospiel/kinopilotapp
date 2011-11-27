@@ -199,10 +199,10 @@
   
   NSString* title =           [movie objectForKey:@"title"];
   NSNumber* runtime =         [movie objectForKey:@"runtime"];
-  NSString* genre =           nil; // [[movie objectForKey:@"genres"] objectAtIndex:0];
-  NSNumber* production_year = [movie objectForKey:@"production-year"];
-  NSArray* actors =           nil; // [movie objectForKey:@"actors"];
-  NSArray* directors =        nil; // [movie objectForKey:@"directors"];
+  NSString* genre =           [[movie objectForKey:@"genres"] objectAtIndex:0];
+  NSNumber* production_year = [movie objectForKey:@"production_year"];
+  NSArray* actors =           [movie objectForKey:@"actors"];
+  NSArray* directors =        [movie objectForKey:@"directors"];
   // NSString* original_title =  [movie objectForKey:@"original-title"];
   // NSString* average-community-rating: 56,  
   // NSString* cinema_start_date = [self.movie objectForKey: @"cinema-start-date"]; // e.g. "2011-08-25T00:00:00+02:00"
@@ -293,7 +293,7 @@
     }
   }
   
-  [self.imageView onTapOpen: _.join(@"/movies/images?movie_id=", [movie objectForKey:@"_uid"]) ];
+  [self.imageView onTapOpen: _.join(@"/movies/images?movie_id=", [movie objectForKey:@"_id"]) ];
 }
 
 -(void)layoutSubviews

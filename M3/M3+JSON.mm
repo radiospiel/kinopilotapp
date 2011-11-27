@@ -73,7 +73,7 @@ static NSMutableString* gsub(NSString* string, NSString* regexp, NSString* repla
 
 + (id) parseJSON:(NSString *)data;
 {
-  Benchmark(@"Parsing JSON");
+  // Benchmark(@"Parsing JSON");
   return [data objectFromJSONString];
 }
 

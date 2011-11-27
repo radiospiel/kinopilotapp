@@ -602,12 +602,34 @@ static StatementType statementTypeForSql(NSString* sql)
   return [database_ ask: sql];
 }
 
+-(id)decodeValue: (NSString*)value
+{
+  if([value hasPrefix:@"json:"])
+    return [M3 parseJSON: [value substringFromIndex:5]];
+
+  return value;
+}
+
 -(NSDictionary*)get: (id)uid
 {
+  if(!uid || [uid isKindOfClass:[NSNull class]]) return nil;
+  
   NSString* sql = [ NSString stringWithFormat: @"SELECT * FROM %@ WHERE _id=?", name_];
   NSLog(@"%@ w/uid %@", sql, uid);
-  id r = [database_ askRow: sql, uid];
-  return r;
+  NSDictionary* r = [database_ askRow: sql, uid];
+  if(!r) return nil;
+  
+  NSMutableDictionary* record = [NSMutableDictionary dictionary];
+  [r enumerateKeysAndObjectsUsingBlock:^(NSString* key, id obj, BOOL *stop) {
+    if([obj isKindOfClass:[NSNull class]]) return;
+
+    if([obj isKindOfClass:[NSString class]])
+      obj = [self decodeValue:obj];
+
+    [record setObject:obj forKey:key];
+  }];
+  
+  return record;
 }
 
 

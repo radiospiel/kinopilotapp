@@ -63,8 +63,10 @@
 
 #pragma mark - Image rotation
 
--(NSTimer*)rotationTimer_
+-(NSTimer*)initializeRotation
 {
+  self.contentMode = UIViewContentModeScaleAspectFit;
+  
   NSTimer* timer = [NSTimer timerWithTimeInterval: ROTATION_INTERVAL
                                            target: self
                                          selector: @selector(rotateImage)
@@ -79,7 +81,7 @@
 
 -(NSTimer*)rotationTimer
 {
-  return [self memoized:@selector(rotationTimer) usingSelector:@selector(rotationTimer_)];
+  return [self memoized:@selector(rotationTimer) usingSelector:@selector(initializeRotation)];
 }
 
 -(void)rotateImage
@@ -103,7 +105,7 @@
   
   CGRect frame = self.frame;
   
-  overlay.contentMode = UIViewContentModeScaleAspectFill;
+  overlay.contentMode = UIViewContentModeScaleAspectFit;
   overlay.clipsToBounds = YES;
 
   // Initial setting.

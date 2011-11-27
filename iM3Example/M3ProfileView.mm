@@ -50,16 +50,14 @@
   imageView_ = [[UIImageView alloc]initWithFrame:CGRectMake(5,5,70,100)];
   [self addSubview:[imageView_ autorelease]];
 
-  imageView_.contentMode = UIViewContentModeScaleAspectFill;
+  // imageView_.contentMode = UIViewContentModeScaleAspectFill;
+  imageView_.contentMode = UIViewContentModeScaleAspectFit;
   imageView_.clipsToBounds = YES;
   imageView_.image = [UIImage imageNamed:@"no_poster.png"];
 
-//  DLOG(imageURLs);
-  
   if(!imageURLs.count) return;
   
   imageView_.imageURL = imageURLs.first;
-  
   
   if(imageURLs.count > 1) {
     for(NSString* url in imageURLs)
@@ -230,10 +228,7 @@
   
   // -- add an image view
   
-  {
-    NSArray* images = [movie objectForKey:@"images"];
-    [pv setImageURLs: [images pluck:@"thumbnail"]];
-  }
+  [pv setImageURLs: [movie objectForKey:@"thumbnails"]];
   
   // --- set profile URL
   
