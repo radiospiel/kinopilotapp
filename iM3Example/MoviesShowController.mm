@@ -27,7 +27,7 @@
   return self;
 }
 
--(id) cellClassForKey: (NSArray*)key
+-(id) cellClassForKey: (id)key
 { 
   return key; 
 }
@@ -36,6 +36,8 @@
 
 @implementation MoviesShowController
 
+@synthesize movie=movie_;
+
 -(NSString*)title 
 {
   return @"Details";
@@ -43,13 +45,10 @@
 
 -(void)loadFromUrl:(NSString *)url
 {
-  self.dataSource = [[[MoviesShowControllerDataSource alloc]init]autorelease];
-}
-
--(NSDictionary*)movie
-{
   NSString* movie_id = [self.url.to_url param: @"movie_id"];
-  return [app.sqliteDB.movies get: movie_id];
+  self.movie = [app.sqliteDB.movies get: movie_id];
+
+  self.dataSource = [[[MoviesShowControllerDataSource alloc]init]autorelease];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

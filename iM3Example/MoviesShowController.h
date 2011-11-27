@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "M3TableViewController.h"
 
-@interface MoviesShowController : M3TableViewController
+@interface MoviesShowController : M3TableViewController {
+  NSDictionary* movie_;
+}
 
-@property (nonatomic,readonly) NSDictionary* movie;
+@property (nonatomic,retain) NSDictionary* movie;
 
 @end
