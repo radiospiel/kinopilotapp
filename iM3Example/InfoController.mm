@@ -93,7 +93,7 @@
   self.textLabel.text = key.first;
   self.textLabel.textAlignment = UITextAlignmentRight;
   
-  NSString* text = key.last;
+  NSString* text = [key.last description];
   if([text matches:@"(http://|https://|mailto:)(.*)"]) {
     [self.detailTextLabel onTapOpen: text];
     text = $2;
@@ -159,20 +159,20 @@
 
 -(id)infoForKey:(NSString *)key
 {
-  if([key isEqualToString: @"updated_at"]) { 
-    NSDictionary* stats = app.chairDB.stats.first;
-    NSNumber* updated_at = [stats objectForKey: @"updated_at"]; 
-    return [updated_at.to_date stringWithFormat: @"dd.MM.yyyy HH:mm"];
-  }
+  // if([key isEqualToString: @"updated_at"]) { 
+  //   NSDictionary* stats = app.chairDB.stats.first;
+  //   NSNumber* updated_at = [stats objectForKey: @"updated_at"]; 
+  //   return [updated_at.to_date stringWithFormat: @"dd.MM.yyyy HH:mm"];
+  // }
 
   if([key isEqualToString: @"theaters_count"])
-    return [NSString stringWithFormat: @"%d", app.chairDB.theaters.count];
+    return app.sqliteDB.theaters.count;
 
   if([key isEqualToString: @"movies_count"])
-    return [NSString stringWithFormat: @"%d", app.chairDB.movies.count]; 
+    return app.sqliteDB.movies.count; 
 
   if([key isEqualToString: @"schedules_count"])
-    return [NSString stringWithFormat: @"%d", app.chairDB.schedules.count];
+    return app.sqliteDB.schedules.count;
 
   if([key isEqualToString: @"built_at"])
     return [NSString stringWithFormat: @"%s %s", __DATE__, __TIME__]; 
