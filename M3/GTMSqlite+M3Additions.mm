@@ -615,7 +615,7 @@ static StatementType statementTypeForSql(NSString* sql)
   if(!uid || [uid isKindOfClass:[NSNull class]]) return nil;
   
   NSString* sql = [ NSString stringWithFormat: @"SELECT * FROM %@ WHERE _id=?", name_];
-  NSLog(@"%@ w/uid %@", sql, uid);
+  // NSLog(@"%@ w/uid %@", sql, uid);
   NSDictionary* r = [database_ askRow: sql, uid];
   if(!r) return nil;
   

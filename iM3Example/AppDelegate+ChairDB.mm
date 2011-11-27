@@ -45,7 +45,7 @@
 
 -(M3SqliteTable*) images
 {
-  return [self tableWithName:@"movies"];
+  return [self tableWithName:@"images"];
 }
 
 @end

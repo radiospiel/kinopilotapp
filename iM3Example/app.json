@@ -56,11 +56,10 @@
     {
       "header":  "Über Kinopilot",
       "content": [
-        "Kinopilot.app is built using chair.DB – the database for mobile apps – and a custom framework for rapid iOS application development.",
+        "Kinopilot.app is built using a custom framework for rapid iOS application development.",
         ["Version",               "built_at"],
         ["Umsetzung",             "http://socially.io"],
-        ["Grafische Beratung",    "http://brettmeister.com"],
-        ["chair.DB",              "https://github.com/radiospiel/chairdb"]
+        ["Grafische Beratung",    "http://brettmeister.com"]
       ],
       "footer": "© socially.io UG (haftungsbeschränkt), 2011"
     }

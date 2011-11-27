@@ -11,9 +11,6 @@
 #import "M3.h"
 #import "GTMSqlite+M3Additions.h"
 
-#import "Chair.h"
-#import "ChairDatabase+IM3Example.h"
-
 #import "UIViewController+M3Extensions.h"
 #import "M3TableViewProfileCell.h"
 

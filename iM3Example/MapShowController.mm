@@ -25,7 +25,7 @@
 -(id)initWithTheater: (NSDictionary*)theater
 {
   self = [super init];
-  self.theater_id = [theater objectForKey:@"_uid"];
+  self.theater_id = [theater objectForKey:@"_id"];
 
   NSNumber* lat = [theater objectForKey:@"lat"];
   NSNumber* lng = [theater objectForKey:@"lng"];

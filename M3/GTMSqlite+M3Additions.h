@@ -87,6 +87,7 @@ typedef enum M3SqliteStatementEnumerationPolicy {
 +(M3SqliteTable*)tableWithName: (NSString*)name inDatabase: (M3SqliteDatabase*)database;
 
 -(NSDictionary*)get: (id)uid;
+-(NSArray*)all;
 
 @property (retain,nonatomic,readonly) NSNumber* count;
 

@@ -16,12 +16,32 @@
 
 @implementation M3TableViewProfileCell(MovieImage)
 
+-(UIImage*)cachedThumbnailForMovie: (NSString*)movie_id
+{
+  NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
+  NSString* thumbnail = [movie objectForKey:@"image"];
+  if(!thumbnail) return nil;
+
+  // The thumbnail property contains the original URL for the thumbnail image.
+  // What we need here is the sencha'd URL.
+  NSString* url = _.join(@"http://src.sencha.io/jpg70/72/94/", thumbnail);
+
+  NSDictionary* imageData = [app.sqliteDB.images get: url];
+  NSString* encodedImage = [imageData objectForKey:@"data"];
+  if(!encodedImage) return nil;
+  
+  NSData* data = [M3 decodeBase64WithString:encodedImage];
+  if(!data) return nil;
+  
+  return [UIImage imageWithData: data];
+}
+
 -(void)setImageForMovie: (NSString*)movie_id
 {
-  self.image = [UIImage imageNamed:@"no_poster.png"];
+  UIImage* image = [self cachedThumbnailForMovie:movie_id];
+  if(!image) image = [UIImage imageNamed:@"no_poster.png"];
 
-//  UIImage* image = [app.chairDB thumbnailForMovie:movie_id];
-//  self.image = image ? image : [UIImage imageNamed:@"no_poster.png"];
+  self.image = image;
 }
 
 @end

@@ -164,7 +164,7 @@
   
   // -- set proile URL
   
-  NSString* url = _.join(@"/map/show?theater_id=", [theater objectForKey:@"_uid" ]);
+  NSString* url = _.join(@"/map/show?theater_id=", [theater objectForKey:@"_id" ]);
   [pv setProfileURL:url];
   
   // --- adjust size
@@ -177,7 +177,7 @@
 {
   if(!movie) return nil;
   
-  NSString* movie_id = [movie objectForKey:@"_uid"];
+  NSString* movie_id = [movie objectForKey:@"_id"];
   
   M3ProfileView* pv = [[[M3ProfileView alloc]init]autorelease];
   

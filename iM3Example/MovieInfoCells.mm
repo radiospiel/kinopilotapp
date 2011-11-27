@@ -35,7 +35,7 @@
 
 -(CGFloat)wantsHeight
 {
-  NSNumber* number = [self.movie objectForKey: @"average-community-rating"];
+  NSNumber* number = [self.movie objectForKey: @"average_community_rating"];
   return number.to_i <= 0 ? 0 : 44;
 }
 
@@ -65,7 +65,7 @@
   [super layoutSubviews];
   
   // Get rating: this is a number between 0 and 100.
-  NSNumber* number = [self.movie objectForKey: @"average-community-rating"];
+  NSNumber* number = [self.movie objectForKey: @"average_community_rating"];
   if(number.to_i <= 0) return;
   
   ratingBackground_.frame = CGRectMake(180, 13, 96, 16);

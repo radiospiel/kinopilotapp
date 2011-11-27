@@ -60,8 +60,10 @@ Logger::~Logger()
   };
   
   static M3StopWatch* stopWatch = 0;
-  if(!stopWatch)
+  if(!stopWatch) {
+    NSLog(@"Firing up underscore logger");
     stopWatch = [[M3StopWatch alloc]init];
+  }
 
   
   const char* severityLabel = "";
