@@ -71,7 +71,7 @@
   pageControl.userInteractionEnabled = NO;
   
   closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  closeButton.frame = CGRectMake(270, 10, 32, 32);
+  closeButton.frame = CGRectMake(270, 10, 50, 50);
   closeButton.backgroundColor = [UIColor colorWithWhite:0 alpha:0]; // this has a alpha of 0. 
   [closeButton setImage:[UIImage imageNamed:@"close.png"] forState:UIControlStateNormal]; 
   
@@ -170,10 +170,12 @@
 {
   NSString* movie_id = [url.to_url param: @"movie_id"]; 
 
-  NSDictionary* movie = [app.chairDB.movies get: movie_id];
+  NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
   NSArray* images = [movie objectForKey:@"images"];
-  for(NSString* url in [images pluck: @"fullsize"]) {
-    M3CachedFactory* factory = [UIImage cachedImagesWithURL]; 
+  
+  M3CachedFactory* factory = [UIImage cachedImagesWithURL]; 
+  
+  for(NSString* url in images) {
     [factory buildAsync:[M3 imageURL: url forSize: self.view.frame.size]
              withTarget:self 
             andSelector:@selector(addImage:)];
