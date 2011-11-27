@@ -160,6 +160,42 @@ static CFLocaleRef gCurrentLocale = NULL;
   return [NSString stringWithUTF8String:sqlite3_libversion()];
 }
 
+#define DEG2RAD(degrees) (degrees * 0.01745327) // degrees * pi over 180
+
+static void distanceFunc(sqlite3_context *context, int argc, sqlite3_value **argv)
+{
+  // check that we have four arguments (lat1, lon1, lat2, lon2)
+  assert(argc == 4);
+  // check that all four arguments are non-null
+  if (sqlite3_value_type(argv[0]) == SQLITE_NULL || sqlite3_value_type(argv[1]) == SQLITE_NULL || sqlite3_value_type(argv[2]) == SQLITE_NULL || sqlite3_value_type(argv[3]) == SQLITE_NULL) {
+    sqlite3_result_null(context);
+    return;
+  }
+
+  // get the four argument values
+  double lat1 = sqlite3_value_double(argv[0]);
+  double lng1 = sqlite3_value_double(argv[1]);
+  double lat2 = sqlite3_value_double(argv[2]);
+  double lng2 = sqlite3_value_double(argv[3]);
+
+#define PI_DIVIDED_BY_180   0.0174532925199
+#define DEG_TO_RAD(deg)     deg * PI_DIVIDED_BY_180
+#define RADIUS              6378.1
+    
+  lat1 = DEG_TO_RAD(lat1);
+  lng1 = DEG_TO_RAD(lng1);
+    
+  lat2 = DEG_TO_RAD(lat2);
+  lng2 = DEG_TO_RAD(lng2);
+    
+  double x = (lng2-lng1) * cos((lat1+lat2)/2);
+  double y = (lat2-lat1);
+    
+  double distance = sqrt(x*x + y*y) * RADIUS;
+
+  sqlite3_result_double(context, distance);
+}
+
 - (id)initWithPath:(NSString *)path
    withCFAdditions:(BOOL)additions
               utf8:(BOOL)useUTF8
@@ -188,6 +224,10 @@ static CFLocaleRef gCurrentLocale = NULL;
       rc = sqlite3_open16([mutable bytes], &db_);
     }
 
+    if ((rc == SQLITE_OK) && db_) {
+      rc = sqlite3_create_function(db_, "distance", 4, SQLITE_UTF8, NULL, &distanceFunc, NULL, NULL);
+    }
+    
     if ((rc == SQLITE_OK) && db_) {
       if (additions) {
         userArgDataPool_ = [[NSMutableArray array] retain];
@@ -1716,6 +1756,10 @@ static void Glob16(sqlite3_context *context, int argc, sqlite3_value **argv) {
     // COV_NF_END
   }
   if (err) *err = rc;
+  
+  if(!obj) {
+    NSLog(@"SQLITE ERROR: %s", sqlite3_errmsg([gtmdb sqlite3DB]));
+  }
   return obj;
 }
 
