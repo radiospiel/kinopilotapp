@@ -11,9 +11,6 @@
 #import "AppDelegate.h"
 #import "M3.h"
 
-#define NUMBER_OF_THEATERS    12
-#define SCHEDULES_PER_THEATER 6
-
 /***  VicinityTableCell ****************************************************/
 
 // VicinityTableCell defines some layout for the various Vicinity cells
@@ -58,15 +55,13 @@
 
 -(void)setKey: (NSDictionary*)schedule
 {
-  schedule = [schedule joinWith: app.chairDB.movies on:@"movie_id"];
-
   [super setKey:schedule];
-
+  
   NSNumber* time = [schedule objectForKey: @"time"];
   self.textLabel.text = [time.to_date stringWithFormat: @"HH:mm"];
 
-  NSString* detailText = [schedule objectForKey:@"title"];
-  self.detailTextLabel.text = [detailText withVersionString: [schedule objectForKey:@"version"]];
+  NSString* title = [schedule objectForKey:@"title"];
+  self.detailTextLabel.text = [title withVersionString: [schedule objectForKey:@"version"]];
 }
 
 -(NSString*)url
@@ -106,11 +101,10 @@
   return self;
 }
 
--(void)setKey: (NSDictionary*)theater
+-(void)setKey: (NSDictionary*)theater_id
 {
-  [super setKey: theater];
-
-  self.url = _.join(@"/movies/list?theater_id=", [theater objectForKey: @"_uid"]);
+  [super setKey: theater_id];
+  self.url = _.join(@"/movies/list?theater_id=", theater_id);
 }
 
 @end
@@ -120,8 +114,6 @@
 @interface VicinityShowDataSource: M3TableViewDataSource {
   CLLocationCoordinate2D currentPosition_;
 }
-
--(double) distanceToTheater:(NSDictionary*) theater;
 
 @end
 
@@ -136,6 +128,12 @@
   
   Benchmark(@"Building vicinity data set");
 
+  NSArray* theaters = [
+    app.sqliteDB all: @"SELECT _id, name, lat, lng, distance(lat, lng, ?, ?) AS distance FROM theaters ORDER BY distance LIMIT 12", 
+                      [NSNumber numberWithDouble: currentPosition_.latitude], 
+                      [NSNumber numberWithDouble: currentPosition_.longitude]
+  ];
+
   //
   // Time range: we'll show all schedules in the next 2 hours, i.e. less than
   // *then*. If we'll then have less than 6 (schedulesPerTheater) schedules 
@@ -145,54 +143,36 @@
   NSTimeInterval then = now + 2 * 3600;
   NSTimeInterval then_max = now + 12 * 3600;
 
-  //
-  NSArray* theaters = [app.chairDB.theaters.values sortByBlock:^id(NSDictionary* theater) {
-    return [NSNumber numberWithDouble: [self distanceToTheater: theater]];
-  }];
-  
   for(NSDictionary* theater in theaters) {
-    if(self.sections.count >= NUMBER_OF_THEATERS) break;
-    
-    NSString* theater_id = [theater objectForKey:@"_uid"];
-    
-    NSArray* schedules = [[app.chairDB.schedules_by_theater_id get: theater_id] objectForKey: @"group"];
-    M3AssertKindOf(schedules, NSArray);
+    NSString* theater_id = [theater objectForKey:@"_id"];
 
-    if(!schedules) continue;
-    
-    schedules = [schedules selectUsingBlock:^BOOL(NSDictionary* schedule) {
-      NSNumber* timeAsNumber = [schedule objectForKey: @"time"];
-      double time = [timeAsNumber doubleValue];
-      
-      return time > now && time < then_max;
-    }];
-    
-    schedules = [schedules sortByKey: @"time"];
-    
-    NSMutableArray* schedulesCloseToNow = [NSMutableArray array];
-    for(NSDictionary* schedule in schedules) {
-      NSNumber* timeAsNumber = [schedule objectForKey: @"time"];
-      double time = [timeAsNumber doubleValue];
+    // Add all schedules between now and then, or, if we don't have at least 6 schedules
+    // all schedules between now and then_max
+    NSArray* schedules = [
+      app.sqliteDB all: @"SELECT schedules.*, movies.title FROM schedules INNER JOIN movies ON movies._id=schedules.movie_id WHERE theater_id=? AND time BETWEEN ? AND ? ORDER BY time",
+                        theater_id,
+                        [NSNumber numberWithInt: now],
+                        [NSNumber numberWithInt: then]
+    ];
 
-      // This schedule is between then and then_max? Add only if we
-      // don't have SCHEDULES_PER_THEATER schedules collected yet.
-      if(time > then) {
-        if(schedulesCloseToNow.count >= SCHEDULES_PER_THEATER)
-          break;
-      }
-      [schedulesCloseToNow addObject:schedule];
+    if(schedules.count < 6) {
+      schedules = [
+        app.sqliteDB all: @"SELECT schedules.*, movies.title FROM schedules INNER JOIN movies ON movies._id=schedules.movie_id WHERE theater_id=? AND time BETWEEN ? AND ? ORDER BY time LIMIT 6",
+          theater_id,
+          [NSNumber numberWithInt: now],
+          [NSNumber numberWithInt: then_max]
+        ];
     }
-    
-    // Add this section. 
-    if(schedulesCloseToNow.count == 0) continue;
 
-    [schedulesCloseToNow addObject: theater];
+    if(schedules.count == 0) continue;
     
+    NSNumber* distance = [theater objectForKey: @"distance"];
     NSString* header = [NSString stringWithFormat:@"%@ (%.1f km)", 
                           [theater objectForKey:@"name"], 
-                          [self distanceToTheater: theater]
-                       ];
-    [self addSection: schedulesCloseToNow
+                          [distance doubleValue]
+                        ];
+
+    [self addSection: [schedules arrayByAddingObject:theater_id]
          withOptions: _.hash(@"header", header)];
   }
 
@@ -201,52 +181,10 @@
 
 -(id)cellClassForKey:(id)key
 { 
-  if([key isKindOfClass: [NSString class]]) return key;
-
-  NSDictionary* dict = (NSDictionary*)key;
-
-  NSString* typeName = [dict objectForKey: @"_type"];
-  M3AssertKindOf(typeName, NSString);
-  
-  if([typeName isEqualToString: @"theaters"])
+  if([key isKindOfClass: [NSString class]])
     return [VicinityTheaterCell class];
 
-  if([typeName isEqualToString: @"schedules"])
-    return [VicinityScheduleCell class];
-
-  return nil; 
-}
-
-/* Distance from current position to [lat2,lng2] */
-
-static double distance(double lat1, double lng1, double lat2, double lng2) 
-{
-#define PI_DIVIDED_BY_180   0.0174532925199
-#define DEG_TO_RAD(deg)     deg * PI_DIVIDED_BY_180
-#define RADIUS              6371
-  
-  lat1 = DEG_TO_RAD(lat1);
-  lng1 = DEG_TO_RAD(lng1);
-  
-  lat2 = DEG_TO_RAD(lat2);
-  lng2 = DEG_TO_RAD(lng2);
-  
-  double x = (lng2-lng1) * cos((lat1+lat2)/2);
-  double y = (lat2-lat1);
-  
-  return sqrt(x*x + y*y) * RADIUS;
-}
-
--(double) distanceToTheater:(NSDictionary*) theater
-{
-  NSNumber* lat = [theater objectForKey:@"lat"];
-  NSNumber* lng = [theater objectForKey:@"lng"];
-
-  M3AssertKindOf(lat, NSNumber);
-  M3AssertKindOf(lng, NSNumber);
-  
-  return distance(currentPosition_.latitude, currentPosition_.longitude, 
-                         [lat floatValue], [lng floatValue]);
+  return [VicinityScheduleCell class];
 }
 
 @end
