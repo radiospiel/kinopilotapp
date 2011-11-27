@@ -30,7 +30,7 @@
   [self setText: [theater objectForKey: @"name"]];
 
   NSString* sql = 
-  @"SELECT DISTINCT(title) FROM movies, schedules ON  movies._id = schedules.movie_id WHERE schedules.theater_id=? LIMIT 6";
+  @"SELECT DISTINCT(title) FROM movies, schedules ON movies._id = schedules.movie_id WHERE schedules.theater_id=? LIMIT 6";
   
   NSArray* movies = [[app.sqliteDB allArrays: sql, theater_id ] mapUsingSelector:@selector(first)];
   [self setDetailText: [movies componentsJoinedByString: @", "]];
@@ -99,7 +99,9 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 {
   [super setKey:key];
   
-  NSDictionary* theater = [key joinWith: app.chairDB.theaters on: @"theater_id"];
+  NSString* theater_id = [key objectForKey: @"theater_id"];
+  
+  NSDictionary* theater = [app.sqliteDB.theaters get: theater_id];
   
   [self setText: [theater objectForKey: @"name"]];
   
@@ -138,10 +140,15 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 
 @implementation TheatersListController
 
+
+-(NSDictionary*) movie
+{
+  return [app.sqliteDB.movies get: self.movie_id];
+}
+
 -(NSString*)title
 {
-  NSDictionary* movie = [app.chairDB.movies get: self.movie_id];
-  return [movie objectForKey:@"title"];
+  return [[self movie] objectForKey:@"title"];
 }
 
 -(NSString*) movie_id
@@ -151,8 +158,7 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 
 -(UIView*) headerView
 {
-  NSDictionary* movie = [app.chairDB.movies get: [self movie_id]];
-  return [M3ProfileView profileViewForMovie:movie]; 
+  return [M3ProfileView profileViewForMovie:[self movie]]; 
 }
 
 -(void)loadFromUrl:(NSString*)url

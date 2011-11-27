@@ -17,7 +17,7 @@
 
 -(NSDictionary*)theater
 {
-  return [app.chairDB.theaters get: self.theater_id];
+  return [app.sqliteDB.theaters get: self.theater_id];
 }
 
 -(NSDate*)day
@@ -28,7 +28,7 @@
 
 -(NSDictionary*)movie
 {
-  return [app.chairDB.movies get: self.movie_id];
+  return [app.sqliteDB.movies get: self.movie_id];
 }
 
 -(NSString*)movie_id

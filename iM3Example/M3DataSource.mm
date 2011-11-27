@@ -143,31 +143,24 @@
   self = [super initWithCellClass: @"MoviesListFilteredByTheaterCell"]; 
 
   //
-  // get all schedules for the theater
-  NSArray* schedules = [app.sqliteDB all: @"SELECT * FROM schedules WHERE theater_id=?", theater_id];
-  
-  {
-    for(NSDictionary* schedule in schedules) {
-      NSCParameterAssert([schedule isKindOfClass:[NSDictionary class]]);
-      NSCParameterAssert([[schedule objectForKey: @"time"] isKindOfClass:[NSNumber class]]);
-    }
-  }
-  
-  //
-  // build sections by date, remove old schedules, and combine schedules 
-  // for the same movie into one record.
+  // build sections by date, and combine schedules for the same movie into one record.
   NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+
+  //
+  // get all live schedules for the theater
+  NSArray* schedules = [
+      app.sqliteDB all: @"SELECT * FROM schedules WHERE theater_id=? AND time>?", 
+                        theater_id, 
+                        [NSNumber numberWithInt: now]
+  ];
   
   // group schedules by *day* into sectionsHash
   NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
     NSNumber* time = [schedule objectForKey:@"time"];
-    if(time.to_i < now) return @"old";
     
     time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
     return [time.to_date stringWithFormat:@"dd.MM."];
   }];
-  
-  [sectionsHash removeObjectForKey:@"old"];
   
   NSArray* sectionsArray = [sectionsHash allValues];
   sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
@@ -256,30 +249,25 @@
 
   //
   // get all schedules for the theater
-  NSArray* schedules = [app.chairDB schedulesByMovieId: movie_id];
-  
-  {
-    for(NSDictionary* schedule in schedules) {
-      NSCParameterAssert([schedule isKindOfClass:[NSDictionary class]]);
-      NSCParameterAssert([[schedule objectForKey: @"time"] isKindOfClass:[NSNumber class]]);
-    }
-  }
-  
-  //
-  // build sections by date, remove old schedules, and combine schedules 
-  // for the same movie into one record.
   NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+  
+  NSArray* schedules = [
+    app.sqliteDB all: @"SELECT * FROM schedules WHERE movie_id=? AND time>?", 
+                      movie_id,
+                      [NSNumber numberWithInt: now]
+  ];
+
+  //
+  // build sections by date, and combine schedules 
+  // for the same movie into one record.
   
   // group schedules by *day* into sectionsHash
   NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
     NSNumber* time = [schedule objectForKey:@"time"];
-    if(time.to_i < now) return @"old";
     
     time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
     return [time.to_date stringWithFormat:@"dd.MM."];
   }];
-  
-  [sectionsHash removeObjectForKey:@"old"];
   
   NSArray* sectionsArray = [sectionsHash allValues];
   sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
@@ -316,34 +304,18 @@
   M3AssertKindOf(day, NSDate);
   
   NSUInteger start_of_day = day.to_number.to_i;
+  // NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
 
   //
   // get all schedules for the theater and for the movie, and 
   // remove all schedules, that are in the past.
-  NSArray* schedules = [app.chairDB schedulesByTheaterId: theater_id];
-  NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
-
-  schedules = [schedules selectUsingBlock:^BOOL(NSDictionary* schedule) {
-    NSString* schedule_movie_id = [schedule objectForKey:@"movie_id"];
-    if(![movie_id isEqualToString:schedule_movie_id]) return NO;
-    
-    NSNumber* time = [schedule objectForKey:@"time"];
-
-    if(time.to_i < now) return NO;
-
-    if(start_of_day) {
-      if(time.to_i < start_of_day) return NO;
-      if(time.to_i > start_of_day + 24 * 3600) return NO;
-    } 
-       
-    return YES;
-  }];
-
-  //
-  // sort schedules
-  schedules = [schedules sortByBlock:^id(NSDictionary* schedule) {
-    return [schedule objectForKey:@"time"];
-  }];
+  NSArray* schedules = [
+    app.sqliteDB all: @"SELECT * FROM schedules WHERE theater_id=? AND movie_id=? AND time BETWEEN ? AND ? ORDER BY time", 
+                      theater_id, 
+                      movie_id,
+                      [NSNumber numberWithInt: start_of_day],
+                      [NSNumber numberWithInt: start_of_day + 24 * 3600]
+  ];
   
   NSString* header;
   if(schedules.count > 1) 
