@@ -9,9 +9,6 @@
 #define REMOTE_SQL_URL  @"http://localhost:3000/db/images,berlin.sql"
 #endif
 
-// #define DB_PATH     @"$documents/chairdb/berlin.json"
-#define DB_PATH     @"$documents/chairdb/kinopilot"
-
 @interface ChairDatabase(Private)
 
 -(void)resetMemoizedViews;
@@ -51,35 +48,7 @@
   [self updateCompleted];
   
   return YES;
-  
-//  {
-//    Benchmark(_.join("Loading database from ", REMOTE_URL));
-//    [self import: REMOTE_URL];
-//  }
-//
-//  [self updateCompleted];
-//
-//  {
-//    Benchmark(_.join("Saving database to ", DB_PATH));
-//    [self save: DB_PATH];
-//  }
 }
-
--(BOOL)loadLocalCopy
-{
-  if(![M3 fileExists: DB_PATH]) return NO;
-  [self loadRemoteURL];
-  return YES;
-  //  {
-  //    Benchmark(_.join("Loading database from ", DB_PATH));
-  //    [self load: DB_PATH];
-  //  }  
-  //
-  //  [self updateCompleted];
-  //
-  //  return YES;
-}
-
 
 /*
  * Updates the database if an update is needed.
@@ -94,7 +63,6 @@
 -(void)updateIfNeeded
 {
   if(![self isLoaded]) {
-    if([self loadLocalCopy]) return;
     if([self loadRemoteURL]) return;
   }
   else {

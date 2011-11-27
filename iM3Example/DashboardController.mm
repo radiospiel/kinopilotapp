@@ -112,7 +112,6 @@
 {
   rightAligned_ = YES;
 
-  // [self setLabel: @"{{count}} Kinos" withAnimatedLimit: app.chairDB.theaters.count];
   [self setLabel: @"{{sqliteDB.theaters.count}} Kinos"];
   
   [self setBackground: @"cinemas.png"];

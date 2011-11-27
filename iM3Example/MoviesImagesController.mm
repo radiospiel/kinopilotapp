@@ -23,7 +23,7 @@
 {
   self = [super initWithNibName:nil bundle:nil];
 
-  [app.chairDB on: @selector(updated) notify:self with:@selector(reload)];
+  // [app.chairDB on: @selector(updated) notify:self with:@selector(reload)];
   
   return self;
 }

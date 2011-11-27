@@ -30,19 +30,6 @@
 
 @end
 
-@class ChairDatabase;
-
-@interface M3AppDelegate(ChairDB)
-
-/*
- * Initialize Chair DB.
- */
--(void) initChairDB;
-
-@property (retain,nonatomic,readonly) ChairDatabase* chairDB;
-
-@end
-
 @interface M3SqliteDatabase(M3Additions)
 
 @property (nonatomic,retain,readonly) M3SqliteTable* movies;

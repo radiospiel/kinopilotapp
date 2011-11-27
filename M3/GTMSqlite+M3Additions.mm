@@ -632,6 +632,11 @@ static StatementType statementTypeForSql(NSString* sql)
   return record;
 }
 
+-(NSArray*)all
+{
+  NSString* sql = [ NSString stringWithFormat: @"SELECT * FROM %@", name_];
+  return [database_ all: sql];
+}
 
 @end
 

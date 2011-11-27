@@ -199,7 +199,7 @@
   
   MKCoordinateRegion region;
   if(theater_id) {
-    NSDictionary* theater = [app.chairDB.theaters get: theater_id];
+    NSDictionary* theater = [app.sqliteDB.theaters get: theater_id];
     NSNumber* lat = [theater objectForKey:@"lat"];
     NSNumber* lng = [theater objectForKey:@"lng"];
     
@@ -215,7 +215,7 @@
   
   [mapView setRegion:region];
   
-  NSArray* theaters = app.chairDB.theaters.values;
+  NSArray* theaters = [app.sqliteDB.theaters all];
   NSArray* annotations = [theaters mapUsingBlock:^id(NSDictionary* theater) {
     return [[MapAnnotation alloc]initWithTheater: theater];
   }];

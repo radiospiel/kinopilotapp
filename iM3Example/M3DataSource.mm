@@ -42,67 +42,11 @@
 //  NSArray* keys = nil;
 //  
 //  if([filter isEqualToString:@"new"]) {
-//    
 //    double limit = [[NSDate date]timeIntervalSince1970] - 14 * 24 * 3600;
-//    
-//    NSMutableArray* movie_ids = [NSMutableArray array];
-//    [app.chairDB.movies each:^(NSDictionary *movie, id movie_id) {
-//      NSNumber* cinema_start_date = [movie objectForKey:@"cinema-start-date"];
-//      M3AssertKindOf(cinema_start_date, NSNumber);
-//      
-//      if([cinema_start_date doubleValue] < limit)
-//        return;
-//      
-//      [movie_ids addObject: movie_id];
-//    }];
-//    
-//    keys = movie_ids; 
 //  }
-//  //  else if([filter isEqualToString:@"fav"]) {
-//  //  }
 //  else if([filter isEqualToString:@"art"]) {
-//    
 //    double limit = [[NSDate date]timeIntervalSince1970] - 10 * 365 * 24 * 3600; // ~10 years
-//    
-//    int year_limit = 1999;
-//    
-//    NSMutableArray* movie_ids = [NSMutableArray array];
-//    [app.chairDB.movies each:^(NSDictionary *movie, id movie_id) {
-//      NSNumber* cinema_start_date = [movie objectForKey:@"cinema-start-date"];
-//      M3AssertKindOf(cinema_start_date, NSNumber);
-//      
-//      if(cinema_start_date && [cinema_start_date doubleValue] < limit) {
-//        [movie_ids addObject: movie_id];
-//        return;
-//      }
-//      
-//      NSNumber* production_year = [movie objectForKey:@"production-year"];
-//      M3AssertKindOf(production_year, NSNumber);
-//      
-//      if(production_year && production_year.to_i < year_limit) {
-//        [movie_ids addObject: movie_id];
-//        return;
-//      }
-//    }];
-//    keys = movie_ids; 
 //  }
-//  
-//  if(!keys)
-//    keys = [app.chairDB.movies keys];
-//  
-//  NSDictionary* groupedHash = [keys groupUsingBlock:^id(NSString* movie_id) {
-//    return [[movie_id substringToIndex:1]uppercaseString];
-//  }];
-//  
-//  NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
-//  
-//  for(NSArray* group in groups) {
-//    [self addSection: group.second 
-//         withOptions:_.hash(@"header", group.first, 
-//                            @"index", group.first)];
-//  }
-//
-//  return self;
 }
 
 @end
