@@ -131,7 +131,8 @@
   
   
   NSString* movie_id = [self.movie objectForKey: @"_id"];
-
+  if(!movie_id) return;
+  
   NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
   NSArray* theater_ids = [
     app.sqliteDB allArrays: @"SELECT DISTINCT(theater_id) FROM schedules WHERE schedules.movie_id=? AND schedules.time > ?", 

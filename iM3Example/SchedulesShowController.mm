@@ -11,8 +11,8 @@
   
   NSString* schedule_id = [url param: @"schedule_id"];
   
-  NSDictionary* schedule = [app.chairDB.schedules get: schedule_id];
-  NSDictionary* theater = [app.chairDB.theaters get: [schedule objectForKey: @"theater_id"]];
+  NSDictionary* schedule = [app.sqliteDB.schedules get: schedule_id];
+  NSDictionary* theater = [app.sqliteDB.theaters get: [schedule objectForKey: @"theater_id"]];
   NSNumber* time = [schedule objectForKey: @"time"];
   self.title = [ NSString stringWithFormat: @"%@, im %@", 
                   [time.to_date stringWithFormat: @"dd. MMM HH:mm"],

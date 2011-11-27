@@ -53,7 +53,7 @@
 
 // --- TheatersListFiltered ----------------------------------------------
 
-@interface TheatersListFilteredByMovieCell: TheatersListCell
+@interface TheatersListFilteredByMovieCell: M3TableViewProfileCell
 @end
 
 @implementation TheatersListFilteredByMovieCell

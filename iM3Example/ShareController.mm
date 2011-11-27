@@ -26,9 +26,9 @@
   
   NSDictionary* params = url.to_url.params;
 
-  self.schedule = [app.chairDB.schedules get: [params objectForKey: @"schedule_id"]];
-  self.theater = [app.chairDB.theaters get: [self.schedule objectForKey:@"theater_id"]];
-  self.movie = [app.chairDB.movies get: [self.schedule objectForKey:@"movie_id"]];
+  self.schedule = [app.sqliteDB.schedules get: [params objectForKey: @"schedule_id"]];
+  self.theater = [app.sqliteDB.theaters get: [self.schedule objectForKey:@"theater_id"]];
+  self.movie = [app.sqliteDB.movies get: [self.schedule objectForKey:@"movie_id"]];
 }
 
 -(void)dealloc

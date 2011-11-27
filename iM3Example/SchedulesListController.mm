@@ -91,7 +91,7 @@
   NSString* textLabel = [time.to_date stringWithFormat: @"dd. MMM HH:mm:00"];
   self.textLabel.text = [textLabel withVersionString: [schedule objectForKey:@"version"]];
 
-  self.url = _.join(@"/schedules/show?schedule_id=", [schedule objectForKey: @"_uid"]);
+  self.url = _.join(@"/schedules/show?schedule_id=", [schedule objectForKey: @"_id"]);
 }
 
 @end
