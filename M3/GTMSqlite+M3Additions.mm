@@ -157,12 +157,7 @@ static StatementType statementTypeForSql(NSString* sql)
 
 -(GTMSQLiteStatement*)uncachedPrepareStatement: (NSString*)sql
 {
-  int errCode = 0;
-  GTMSQLiteStatement* statement = [GTMSQLiteStatement statementWithSQL:sql inDatabase:self errorCode:&errCode];
-  if(statement) return statement;
-  
-  NSLog(@"Error %d on preparing %@", errCode, sql);
-  return nil; // Error! Do something!
+  return [GTMSQLiteStatement statementWithSQL:sql inDatabase:self errorCode:NULL];
 }
 
 -(BOOL)isCacheableStatement: (NSString*)sql
