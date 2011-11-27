@@ -4,18 +4,6 @@
     {
       "nurl": "/movies/list?theater_id=adriafilmtheat|2487JHMKNoY",
       "url": "/dashboard",
-      "nurl": "/movies/list?theater_id=c-acudkino",
-      "nurl": "/movies/list",
-      "nurl": "/movies/trailer?brightcove_id=1122282068001",
-      "nurl": "/theaters/list?movie_id=alienjagermyst|btDe8fQQOlg",
-      "nurl": "/movies/list",
-      "nurl":  "/vicinity/show",
-      "nurl": "/movies/show?movie_id=abenteuervonti|2rHUQuUWVnQ",
-      "nurl":  "/theaters/list?movie_id=abenteuervonti|2rHUQuUWVnQ",
-      "nurl":  "/movies/show?movie_id=abenteuervonti|2rHUQuUWVnQ",
-      "nurl": "/schedules/list?theater_id=hackeschehofek|SNWPZc8K448&movie_id=cheyennethismu|Q0xmWu0N+us&day=1320879600",
-      "nurl": "/schedules/show?schedule_id=LM9xtAgl0VY",
-      "nurl": "/schedules/list?important=movie&theater_id=adriafilmtheat|2487JHMKNoY&movie_id=dreiviertelmon|7v1rGV0J82o",
       "label": "Jetzt",
       "ntitle": "Was läuft jetzt?",
       "icon": "tab_tage.png"

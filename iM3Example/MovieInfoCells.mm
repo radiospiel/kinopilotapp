@@ -101,7 +101,21 @@
 
 -(NSString*)url
 {
-  return [app.chairDB trailerURLForMovie: [self.movie objectForKey:@"_uid"]];
+  NSDictionary* videos = [self.movie objectForKey: @"videos"];
+  
+  if(videos.count == 0) return nil;
+
+  NSDictionary* video = [videos  objectForKey: @"video" ];
+  DLOG(video);
+
+  return _.join(@"/movies/trailer?movie_id=", [self.movie objectForKey: @"_id"]);
+
+  if(videos.count == 0) return nil;
+
+  // NSNumber* brightcove_id = [video objectForKey: @"brightcove-id"];
+  // if(!brightcove_id) return nil;
+  
+  // return _.join(@"/movies/trailer?brightcove_id=", brightcove_id);
 }
 
 -(CGFloat)wantsHeight

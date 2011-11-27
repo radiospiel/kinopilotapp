@@ -65,24 +65,27 @@ static BCMediaAPI *bc = nil;
 
 -(void)loadFromUrl: (NSString*)url
 {
+  NSString* movie_id = [url.to_url param: @"movie_id"] ;
+
+  NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
+  NSDictionary* videos = [movie objectForKey: @"videos"];
+  NSDictionary* video = [videos objectForKey: @"video" ];
+
+  NSNumber* brightcove_id = [video objectForKey: @"brightcove-id"];
+  
   NSError* err = 0;  
 
-  NSString* brightcove_id_string = [url.to_url param: @"brightcove_id"] ;
-
-  NSNumber *brightcove_id = brightcove_id_string.to_number;
-
-  BCVideo *video = [bc findVideoById: [brightcove_id longLongValue] error: &err];
-  if (!video) {
+  BCVideo *bc_video = [bc findVideoById: [brightcove_id longLongValue] error: &err];
+  if (!bc_video) {
     NSString *errStr = [bc getErrorsAsString: err];
-    dlog << "Cannot load video #" << brightcove_id;
-    NSLog(@"ERROR: %@", errStr);
+    dlog << "Cannot load video #" << brightcove_id << ": " << errStr;
     return;
   }
 
-  dlog << "Loading video " << video;
+  dlog << "Loading video " << bc_video;
 
   // --- set video --------------
-  [self.player setContentURL: video];
+  [self.player setContentURL: bc_video];
   [self.player play];     // start player
 }
 
