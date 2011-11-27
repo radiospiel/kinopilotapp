@@ -129,9 +129,17 @@
   
   // --- fill in cell.
   
-  NSString* movie_id = [self.movie objectForKey: @"_uid"];
-  NSArray* theater_ids = [app.chairDB theaterIdsByMovieId: movie_id];
   
+  NSString* movie_id = [self.movie objectForKey: @"_id"];
+
+  NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+  NSArray* theater_ids = [
+    app.sqliteDB allArrays: @"SELECT DISTINCT(theater_id) FROM schedules WHERE schedules.movie_id=? AND schedules.time > ?", 
+                            movie_id,
+                            [NSNumber numberWithInt:now]
+  ];
+  theater_ids = [theater_ids mapUsingSelector:@selector(first)];
+
   if(!theater_ids.count) {
     self.textLabel.text = @"Für diesen Film liegen uns keine Termine vor.";
     self.textLabel.font = [UIFont italicSystemFontOfSize:14];
@@ -141,7 +149,7 @@
     NSString* label = nil;
     
     if(theater_ids.count == 1) {
-      NSDictionary* theater = [app.chairDB.theaters get: theater_ids.first];
+      NSDictionary* theater = [app.sqliteDB.theaters get: theater_ids.first];
       label = [NSString stringWithFormat: @"Zur Zeit im %@", [theater objectForKey:@"name"]];
     }
     else {
@@ -190,10 +198,10 @@
   
   NSString* title =           [movie objectForKey:@"title"];
   NSNumber* runtime =         [movie objectForKey:@"runtime"];
-  NSString* genre =           [[movie objectForKey:@"genres"] objectAtIndex:0];
+  NSString* genre =           nil; // [[movie objectForKey:@"genres"] objectAtIndex:0];
   NSNumber* production_year = [movie objectForKey:@"production-year"];
-  NSArray* actors =           [movie objectForKey:@"actors"];
-  NSArray* directors =        [movie objectForKey:@"directors"];
+  NSArray* actors =           nil; // [movie objectForKey:@"actors"];
+  NSArray* directors =        nil; // [movie objectForKey:@"directors"];
   // NSString* original_title =  [movie objectForKey:@"original-title"];
   // NSString* average-community-rating: 56,  
   // NSString* cinema_start_date = [self.movie objectForKey: @"cinema-start-date"]; // e.g. "2011-08-25T00:00:00+02:00"

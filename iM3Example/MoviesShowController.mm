@@ -49,7 +49,7 @@
 -(NSDictionary*)movie
 {
   NSString* movie_id = [self.url.to_url param: @"movie_id"];
-  return [app.chairDB.movies get: movie_id];
+  return [app.sqliteDB.movies get: movie_id];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
