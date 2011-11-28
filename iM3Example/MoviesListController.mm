@@ -153,13 +153,13 @@
 {
   self = [super init];
 
-//  [self addSegment: @"all" withFilter: @"all" andTitle: @"Alle Filme "];
-//  [self addSegment: @"new" withFilter: @"new" andTitle: @"Neu im Kino"];
-//  [self addSegment: @"art" withFilter: @"art" andTitle: @"Klassiker  "];
+ [self addSegment: @"all" withFilter: @"all" andTitle: @"Alle Filme "];
+ [self addSegment: @"new" withFilter: @"new" andTitle: @"Neu im Kino"];
+ [self addSegment: @"art" withFilter: @"art" andTitle: @"Klassiker  "];
 
   // // [self addSegment: @"fav" withFilter: @"fav" andTitle: @"Vorgemerkt"];
 
-  // [self activateSegment: 0];
+  [self activateSegment: 0];
 
   return self;
 }

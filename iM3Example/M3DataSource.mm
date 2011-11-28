@@ -18,11 +18,29 @@
 
 @implementation MoviesListDataSource
 
+-(NSArray*)movieRecordsByFilter: (NSString*)filter
+{
+  if([filter isEqualToString:@"new"]) {
+    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+    NSTimeInterval two_weeks_ago = now - 14 * 24 * 3600;
+
+    return [ app.sqliteDB allArrays: @"SELECT _id FROM movies WHERE cinema_start_date > ? ORDER BY _id", 
+            [NSNumber numberWithInt: two_weeks_ago] 
+          ];
+  }
+  
+  if([filter isEqualToString:@"art"]) {
+    return [ app.sqliteDB allArrays: @"SELECT _id FROM movies WHERE production_year < 1995 ORDER BY _id" ];
+  }
+
+  return [ app.sqliteDB allArrays: @"SELECT _id FROM movies ORDER BY _id" ];
+}
+
 -(id)initWithFilter:(NSString*)filter
 {
   self = [super initWithCellClass: @"MoviesListCell"]; 
-  
-  NSArray* movies = [ app.sqliteDB allArrays: @"SELECT _id FROM movies ORDER BY _id" ];
+
+  NSArray* movies = [self movieRecordsByFilter: filter];
   NSArray* movie_ids = [movies mapUsingSelector:@selector(first)];
   
   NSDictionary* groupedHash = [movie_ids groupUsingBlock:^id(NSString* movie_id) {
