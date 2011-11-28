@@ -1758,7 +1758,8 @@ static void Glob16(sqlite3_context *context, int argc, sqlite3_value **argv) {
   if (err) *err = rc;
   
   if(!obj) {
-    NSLog(@"SQLITE ERROR: %s", sqlite3_errmsg([gtmdb sqlite3DB]));
+    NSLog(@"SQLITE ERROR: %s, on %@", sqlite3_errmsg([gtmdb sqlite3DB]), sql);
+    // [M3 logBacktrace];
   }
   return obj;
 }
