@@ -40,6 +40,4 @@
 
 @property (retain,nonatomic,readonly) M3SqliteDatabase* sqliteDB;
 
--(M3SqliteDatabase*) sqliteDatabase;
-
 @end

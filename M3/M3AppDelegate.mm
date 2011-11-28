@@ -189,8 +189,8 @@ M3AppDelegate* app;
   /*
    * Initialise database
    */
-  // [self initChairDB];
-
+  [self sqliteDB];
+  
   /*
    * Load initial set of tabs
    */
