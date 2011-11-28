@@ -16,6 +16,6 @@
 
 -(void)update
 {
-  // [app.chairDB performSelector:@selector(update) withObject:nil afterDelay:0.3];
+  [app.sqliteDB performSelector:@selector(update) withObject:nil afterDelay:0.3];
 }
 @end

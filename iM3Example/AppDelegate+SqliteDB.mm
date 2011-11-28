@@ -75,13 +75,6 @@
 
 @implementation M3AppDelegate(SqliteDB)
 
--(M3SqliteDatabase*) sqliteDB
-{
-  return [self memoized: @selector(sqliteDB) usingBlock:^() {
-    return [self sqliteDatabase];
-  }];
-}
-
 -(M3SqliteDatabase*)buildSqliteDatabase
 {
   NSString* dbPath = [M3 expandPath: SQLITE_PATH];
@@ -107,5 +100,12 @@
   // and it then has the newly imported data as well. 
   [db loadRemoteURL];
   return [self buildSqliteDatabase];
+}
+
+-(M3SqliteDatabase*) sqliteDB
+{
+  return [self memoized: @selector(sqliteDB) usingBlock:^() {
+    return [self sqliteDatabase];
+  }];
 }
 @end
