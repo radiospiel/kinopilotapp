@@ -116,4 +116,14 @@ static NSDateFormatter* dateFormatter(NSString* dateFormat)
   return [NSNumber numberWithDouble: [self timeIntervalSince1970]];
 }
 
++(NSDate*)now
+{
+  return [NSDate date];
+}
+
++(NSDate*)today
+{
+  return [[NSDate date] to_day];
+}
+
 @end

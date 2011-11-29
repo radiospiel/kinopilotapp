@@ -81,6 +81,13 @@ static NSString* kUseArrayEnumeration = @"kUseArrayEnumeration";
     return [self bindNumberAsLongLongAtPosition: (int)position number: number];
   }
 
+  if([obj isKindOfClass:[NSDate class]])
+  {
+    NSDate* date = (NSDate*)obj;
+    
+    NSNumber* number = [NSNumber numberWithInt: [date timeIntervalSince1970]];
+    return [self bindNumberAsLongLongAtPosition: (int)position number: number];
+  }
   NSLog(@"**** Trying to bind an unsupported object of type %@", [obj class]);
   [M3 logBacktrace];
   return -1;

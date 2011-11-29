@@ -6,6 +6,8 @@
 -(NSString*) stringWithRFC3339Format;
 
 +(NSDate*)epoch;
++(NSDate*)now;
++(NSDate*)today;
 
 +(NSDate*)dateByYear: (int)year andMonth: (int)month andDay: (int)day;
 
