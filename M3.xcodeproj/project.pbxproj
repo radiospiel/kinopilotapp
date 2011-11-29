@@ -1887,7 +1887,7 @@
 					"vendor/bc-media-api-2.1/lib/**",
 				);
 				INFOPLIST_FILE = "iM3Example/iM3Example-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/vendor/bc-ipad-iphone-kit-2.1/lib\"",
@@ -1923,7 +1923,7 @@
 					"vendor/bc-media-api-2.1/lib/**",
 				);
 				INFOPLIST_FILE = "iM3Example/iM3Example-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/vendor/bc-ipad-iphone-kit-2.1/lib\"",
