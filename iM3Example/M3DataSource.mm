@@ -24,16 +24,30 @@
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     NSTimeInterval two_weeks_ago = now - 14 * 24 * 3600;
 
-    return [ app.sqliteDB allArrays: @"SELECT _id FROM movies WHERE cinema_start_date > ? ORDER BY _id", 
-            [NSNumber numberWithInt: two_weeks_ago] 
+    return [ app.sqliteDB allArrays: @"SELECT DISTINCT(movies._id) FROM movies "
+                                      "INNER JOIN schedules ON schedules.movie_id=movies._id "
+                                      "WHERE schedules.time > ? " 
+                                      "AND cinema_start_date > ? ORDER BY movies._id", 
+                                      [NSDate today],
+                                      [NSNumber numberWithInt: two_weeks_ago] 
           ];
   }
   
   if([filter isEqualToString:@"art"]) {
-    return [ app.sqliteDB allArrays: @"SELECT _id FROM movies WHERE production_year < 1995 ORDER BY _id" ];
+    return [ app.sqliteDB allArrays: @"SELECT DISTINCT(movies._id) FROM movies "
+                                      "INNER JOIN schedules ON schedules.movie_id=movies._id "
+                                      "WHERE schedules.time > ? " 
+                                      "AND production_year < 1995 ORDER BY movies._id",
+                                      [NSDate today]
+            ];
   }
 
-  return [ app.sqliteDB allArrays: @"SELECT _id FROM movies ORDER BY _id" ];
+  return [ app.sqliteDB allArrays: @"SELECT DISTINCT(movies._id) FROM movies "
+                                    "INNER JOIN schedules ON schedules.movie_id=movies._id "
+                                    "WHERE  schedules.time > ? " 
+                                    "ORDER BY movies._id",
+                                    [NSDate today]
+          ];
 }
 
 -(id)initWithFilter:(NSString*)filter
@@ -56,15 +70,6 @@
   }
   
   return self;
-
-//  NSArray* keys = nil;
-//  
-//  if([filter isEqualToString:@"new"]) {
-//    double limit = [[NSDate date]timeIntervalSince1970] - 14 * 24 * 3600;
-//  }
-//  else if([filter isEqualToString:@"art"]) {
-//    double limit = [[NSDate date]timeIntervalSince1970] - 10 * 365 * 24 * 3600; // ~10 years
-//  }
 }
 
 @end
@@ -105,15 +110,11 @@
   self = [super initWithCellClass: @"MoviesListFilteredByTheaterCell"]; 
 
   //
-  // build sections by date, and combine schedules for the same movie into one record.
-  NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
-
-  //
   // get all live schedules for the theater
   NSArray* schedules = [
       app.sqliteDB all: @"SELECT * FROM schedules WHERE theater_id=? AND time>?", 
                         theater_id, 
-                        [NSNumber numberWithInt: now]
+                        [NSDate today]
   ];
   
   // group schedules by *day* into sectionsHash

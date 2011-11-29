@@ -64,10 +64,12 @@
   NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
   [self setText: [movie objectForKey: @"title"]];
 
-  NSString* sql = 
-  @"SELECT DISTINCT(name) FROM theaters, schedules ON theaters._id = schedules.theater_id WHERE schedules.movie_id=? LIMIT 6";
-  
-  NSArray* theaters = [[app.sqliteDB allArrays: sql, movie_id ] mapUsingSelector:@selector(first)];
+    NSArray* theaters = [[app.sqliteDB allArrays: 
+                        @"SELECT DISTINCT(name) FROM theaters, schedules ON theaters._id = schedules.theater_id "
+                         "WHERE schedules.movie_id=? AND schedules.time > ? LIMIT 6",
+                          movie_id, 
+                          [NSDate today] 
+                      ] mapUsingSelector:@selector(first)];
   [self setDetailText: [theaters componentsJoinedByString: @", "]];
 
   self.url = _.join(@"/theaters/list?movie_id=", movie_id);
