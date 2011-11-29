@@ -212,12 +212,10 @@
 
   //
   // get all schedules for the theater
-  NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
-  
   NSArray* schedules = [
     app.sqliteDB all: @"SELECT * FROM schedules WHERE movie_id=? AND time>?", 
                       movie_id,
-                      [NSNumber numberWithInt: now]
+                      [NSDate today]
   ];
 
   //
@@ -266,28 +264,38 @@
   
   M3AssertKindOf(day, NSDate);
   
-  NSUInteger start_of_day = day.to_number.to_i;
-  // NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
-
   //
   // get all schedules for the theater and for the movie, and 
   // remove all schedules, that are in the past.
   NSArray* schedules = [
-    app.sqliteDB all: @"SELECT * FROM schedules WHERE theater_id=? AND movie_id=? AND time BETWEEN ? AND ? ORDER BY time", 
+    app.sqliteDB all: @"SELECT * FROM schedules WHERE theater_id=? AND movie_id=? AND time > ? ORDER BY time", 
                       theater_id, 
                       movie_id,
-                      [NSNumber numberWithInt: start_of_day],
-                      [NSNumber numberWithInt: start_of_day + 24 * 3600]
+                      day
   ];
   
-  NSString* header;
-  if(schedules.count > 1) 
-    header = [NSString stringWithFormat: @"%d Aufführungen", schedules.count];
-  else
-    header = @"Eine Aufführung";
+  // group schedules by *day* into sectionsHash
+  NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
+    NSNumber* time = [schedule objectForKey:@"time"];
+    
+    time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
+    return [time.to_date stringWithFormat:@"dd.MM."];
+  }];
   
-  [self addSection: schedules
-       withOptions: _.hash(@"header", header)];
+  NSArray* sectionsArray = [sectionsHash allValues];
+  sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
+    NSNumber* time1 = [schedules1.first objectForKey:@"time"];
+    NSNumber* time2 = [schedules2.first objectForKey:@"time"];
+    
+    return [time1 compare:time2];
+  }];
+  
+  for(NSArray* schedules in sectionsArray) {
+    M3AssertKindOf(schedules, NSArray);
+    NSNumber* time = [schedules.first objectForKey:@"time"];
+    [self addSection: schedules
+         withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"ccc dd.MM."])];
+  }
 
   return self;
 }
