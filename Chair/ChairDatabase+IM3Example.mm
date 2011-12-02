@@ -15,6 +15,8 @@
 
 @end
 
+#error HO
+
 @implementation ChairDatabase(IM3Example)
 
 -(BOOL)isLoaded
