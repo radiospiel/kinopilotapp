@@ -28,7 +28,7 @@
 
 +(CGFloat)fixedHeight
 {
-  return 90;
+  return 80;
 }
 
 -(void)setLabel: (NSString*)label
@@ -62,6 +62,13 @@
   [self setLabel: @"Berlin"];
   [self setBackground: @"berlin.png"];
   self.url = @"/info";
+}
+
+-(void)search
+{
+  [self setLabel: @"Suche..."];
+  [self setBackground: @"berlin.png"];
+  self.url = @"/search";
 }
 
 -(void)theaters
@@ -140,7 +147,7 @@
   self = [super init];
   if(!self) return nil;
 
-  [self addSection: _.array(@"city", 
+  [self addSection: _.array(@"city", @"search",
                             //  @"M3TableViewAdCell", 
                             @"theaters", @"movies", @"vicinity", @"moviepilot") 
        withOptions: nil];
@@ -199,6 +206,8 @@ static double distance(double lat1, double lng1, double lat2, double lng2)
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched; 
   self.tableView.backgroundColor = [UIColor blackColor];
 
+  self.tableView.scrollEnabled = NO;
+  
   self.dataSource = [[[DashboardDataSource alloc]init]autorelease];
 }
 

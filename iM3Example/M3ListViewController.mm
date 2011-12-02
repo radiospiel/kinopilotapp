@@ -51,15 +51,13 @@
 
 #pragma mark - Filtering
 
-@synthesize originalDataSource = originalDataSource_;
-
+@synthesize originalDataSource = originalDataSource_, searchText = searchText_;
 
 -(void)updateFilteredDataSource
 {
   M3TableViewDataSource* dataSource = [self.originalDataSource dataSourceByFilteringWith:self.filterText];
   [super setDataSource: dataSource];
 }
-
 
 -(void)setDataSource:(M3TableViewDataSource *)dataSource
 {
@@ -108,6 +106,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
   [searchBar resignFirstResponder];
+  self.searchText = self.filterText;
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText

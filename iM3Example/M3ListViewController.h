@@ -10,6 +10,7 @@
 }
 
 @property (nonatomic,retain) NSString* filterText;
+@property (nonatomic,retain) NSString* searchText;
 @property (nonatomic,retain) M3TableViewDataSource *originalDataSource;
 
 -(UISearchBar*)searchBar;
