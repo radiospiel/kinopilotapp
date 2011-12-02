@@ -8,6 +8,7 @@
 
 #import "MoviesImagesController.h"
 #import "AppDelegate.h"
+#import "SVProgressHUD.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface MoviesImagesController (PrivateMethods)
@@ -158,6 +159,9 @@
   // The number of the page to be added. Note: pages are 0-based.
   int pageNo = pageControl.numberOfPages;
   
+  if(pageNo == 0) 
+    [SVProgressHUD dismiss];
+  
   UIView* page = [self viewForPage:pageNo withImage:image];
   [scrollView addSubview:page];
   [self.pages addObject:page];
@@ -180,6 +184,8 @@
              withTarget:self 
             andSelector:@selector(addImage:)];
   }
+
+  [SVProgressHUD show];
 }
 
 -(UIView*)page: (int)pageNo

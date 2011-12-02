@@ -151,6 +151,8 @@
 		9D3B0868142A19F700322C00 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3B0867142A19F700322C00 /* libicucore.dylib */; };
 		9D3B086A142A1A0100322C00 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3B0869142A1A0100322C00 /* libicucore.dylib */; };
 		9D3B0877142A6F4900322C00 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3B0869142A1A0100322C00 /* libicucore.dylib */; };
+		9D3D3092148994B300C84FB4 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D3D308F148994B300C84FB4 /* SVProgressHUD.bundle */; };
+		9D3D3093148994B300C84FB4 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D3D3091148994B300C84FB4 /* SVProgressHUD.m */; };
 		9D4368F31489805A00E14CCB /* SearchController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D4368F11489805A00E14CCB /* SearchController.h */; };
 		9D4368F41489805A00E14CCB /* SearchController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D4368F21489805A00E14CCB /* SearchController.mm */; };
 		9D4368F6148981EC00E14CCB /* SearchController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D4368F21489805A00E14CCB /* SearchController.mm */; };
@@ -439,6 +441,9 @@
 		9D3813961469A73C00E4BBF4 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		9D3B0867142A19F700322C00 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		9D3B0869142A1A0100322C00 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/usr/lib/libicucore.dylib; sourceTree = DEVELOPER_DIR; };
+		9D3D308F148994B300C84FB4 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		9D3D3090148994B300C84FB4 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		9D3D3091148994B300C84FB4 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		9D4368F11489805A00E14CCB /* SearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
 		9D4368F21489805A00E14CCB /* SearchController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchController.mm; sourceTree = "<group>"; };
 		9D48ACB7141E9E3E00D0D000 /* Kinopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kinopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -872,9 +877,20 @@
 			name = "UIxxx categories";
 			sourceTree = "<group>";
 		};
+		9D3D308E148994B300C84FB4 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				9D3D308F148994B300C84FB4 /* SVProgressHUD.bundle */,
+				9D3D3090148994B300C84FB4 /* SVProgressHUD.h */,
+				9D3D3091148994B300C84FB4 /* SVProgressHUD.m */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
 		9D48ACBD141E9E3E00D0D000 /* iM3Example */ = {
 			isa = PBXGroup;
 			children = (
+				9D3D308E148994B300C84FB4 /* SVProgressHUD */,
 				9D0203FD14291D040024EDD8 /* app.json */,
 				9D48ACC6141E9E3E00D0D000 /* AppDelegate.h */,
 				9D48ACC7141E9E3E00D0D000 /* AppDelegate.mm */,
@@ -1502,6 +1518,7 @@
 				9D0893AD145429AF00F64AC1 /* traffic.png in Resources */,
 				9D4B701E145D7A6400F1DBCE /* invitation_mail.html in Resources */,
 				9D934DA21461CEF1001B25C6 /* header-background-dark-22.png in Resources */,
+				9D3D3092148994B300C84FB4 /* SVProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1670,6 +1687,7 @@
 				9DFD23AA146C6641001704CC /* MixpanelAPI.m in Sources */,
 				9DFD23AB146C6641001704CC /* MixpanelEvent.m in Sources */,
 				9D3813901469A2DB00E4BBF4 /* MoviesTrailerController.mm in Sources */,
+				9D3D3093148994B300C84FB4 /* SVProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
