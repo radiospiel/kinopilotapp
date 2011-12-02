@@ -899,6 +899,8 @@
 				9D0893AF14542C2400F64AC1 /* DashboardController.mm */,
 				9D4B701A145D734B00F1DBCE /* M3ActionSheetController.h */,
 				9D4B701B145D734B00F1DBCE /* M3ActionSheetController.mm */,
+				9D5D32C71448BC6600A4BA9F /* M3DataSource.h */,
+				9D5D32C81448BC6600A4BA9F /* M3DataSource.mm */,
 				9D2BF7551450A1F40045C11C /* M3ListViewController.h */,
 				9D2BF7561450A1F40045C11C /* M3ListViewController.mm */,
 				9D81D3C1144A139C0013B706 /* M3ProfileView.h */,
@@ -920,6 +922,9 @@
 				9DFE5C141464319F0039F536 /* ActionController.mm */,
 				9DE40643142CFC490089EAA9 /* InfoController.h */,
 				9DE40644142CFC490089EAA9 /* InfoController.mm */,
+				9D10C3771437728300FE19C9 /* MapShowController.h */,
+				9D10C3781437728300FE19C9 /* MapShowController.mm */,
+				9D10C3791437728300FE19C9 /* MapShowController.xib */,
 				9D72E29814387FE600D8E5B5 /* MoviesImagesController.h */,
 				9D72E29914387FE600D8E5B5 /* MoviesImagesController.mm */,
 				9DC682B8142CB50B00124E9A /* MoviesListController.h */,
@@ -945,11 +950,6 @@
 				9DA5DD4414326E120003B54A /* WebViewController.xib */,
 				9D48ACBE141E9E3E00D0D000 /* Supporting Files */,
 				9D5614F0142641A300D0A484 /* resources */,
-				9D10C3771437728300FE19C9 /* MapShowController.h */,
-				9D10C3781437728300FE19C9 /* MapShowController.mm */,
-				9D10C3791437728300FE19C9 /* MapShowController.xib */,
-				9D5D32C71448BC6600A4BA9F /* M3DataSource.h */,
-				9D5D32C81448BC6600A4BA9F /* M3DataSource.mm */,
 			);
 			path = iM3Example;
 			sourceTree = "<group>";
