@@ -132,12 +132,7 @@
 
 /*** The datasource for MoviesList *******************************************/
 
-@interface DashboardDataSource: M3TableViewDataSource {
-  CLLocationCoordinate2D currentPosition_;
-}
-
--(double) distanceToTheater:(NSDictionary*) theater;
-
+@interface DashboardDataSource: M3TableViewDataSource 
 @end
 
 @implementation DashboardDataSource
@@ -163,38 +158,6 @@
     return @"M3TableViewAdCell";
   
   return [DashboardInfoCell class];
-}
-
-/* Distance from current position to [lat2,lng2] */
-
-static double distance(double lat1, double lng1, double lat2, double lng2) 
-{
-#define PI_DIVIDED_BY_180   0.0174532925199
-#define DEG_TO_RAD(deg)     deg * PI_DIVIDED_BY_180
-#define RADIUS              6371
-  
-  lat1 = DEG_TO_RAD(lat1);
-  lng1 = DEG_TO_RAD(lng1);
-  
-  lat2 = DEG_TO_RAD(lat2);
-  lng2 = DEG_TO_RAD(lng2);
-  
-  double x = (lng2-lng1) * cos((lat1+lat2)/2);
-  double y = (lat2-lat1);
-  
-  return sqrt(x*x + y*y) * RADIUS;
-}
-
--(double) distanceToTheater:(NSDictionary*) theater
-{
-  NSNumber* lat = [theater objectForKey:@"lat"];
-  NSNumber* lng = [theater objectForKey:@"lng"];
-  
-  M3AssertKindOf(lat, NSNumber);
-  M3AssertKindOf(lng, NSNumber);
-  
-  return distance(currentPosition_.latitude, currentPosition_.longitude, 
-                         [lat floatValue], [lng floatValue]);
 }
 
 @end
