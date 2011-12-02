@@ -140,7 +140,6 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 
 @implementation TheatersListController
 
-
 -(NSDictionary*) movie
 {
   return [app.sqliteDB.movies get: self.movie_id];
@@ -156,23 +155,15 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
   return [self.url.to_url param: @"movie_id"];
 }
 
--(UIView*) headerView
-{
-  return [M3ProfileView profileViewForMovie:[self movie]]; 
-}
-
 -(void)loadFromUrl:(NSString*)url
 {
   NSString* movie_id = [url.to_url param: @"movie_id"];
   
-  if(movie_id) {
-    self.dataSource = [M3DataSource theatersListFilteredByMovie:movie_id];
-    self.tableView.tableHeaderView = [self headerView];
-  }
-  else {
-    self.dataSource = [M3DataSource theatersList];
-    self.tableView.tableHeaderView = [self searchBar];
-  }
+  self.dataSource = movie_id ? [M3DataSource theatersListFilteredByMovie:movie_id] :
+    [M3DataSource theatersList];
+
+  self.tableView.tableHeaderView = !movie_id ? nil : 
+    [M3ProfileView profileViewForMovie:[self movie]]; 
 }
 
 @end

@@ -189,11 +189,6 @@
   return [self.url.to_url.params objectForKey:@"theater_id"];
 }
 
--(UIView*) headerView
-{
-  return [M3ProfileView profileViewForTheater: self.theater]; 
-}
-
 -(void)loadFromUrl:(NSString *)url
 {
   NSDictionary* params = url.to_url.params;
@@ -202,12 +197,13 @@
     self.navigationItem.rightBarButtonItem = nil;
     
     self.dataSource = [M3DataSource moviesListFilteredByTheater:[params objectForKey: @"theater_id"]]; 
-    self.tableView.tableHeaderView = [self headerView];
+    self.tableView.tableHeaderView = [M3ProfileView profileViewForTheater: self.theater]; 
   }
   else {
     NSString* filter = [params objectForKey: @"filter"];
-    self.dataSource = [M3DataSource moviesListWithFilter: (filter ? filter : @"all")];
-    self.tableView.tableHeaderView = [self searchBar];
+    if(!filter) filter = @"all";
+    self.dataSource = [M3DataSource moviesListWithFilter: filter];
+    self.tableView.tableHeaderView = nil;
   }
 }
 
