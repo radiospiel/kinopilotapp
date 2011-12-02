@@ -29,7 +29,7 @@
       "icon": "tab_about.png"
     }
   ],
-  "info": [
+  "about": [
     {
       "header":  "Dein Kinopilot",
       "content": [
@@ -62,6 +62,20 @@
         ["Grafische Beratung",    "http://brettmeister.com"]
       ],
       "footer": "© socially.io UG (haftungsbeschränkt), 2011"
+    }
+  ],
+  "moviepilot": [
+    {
+      "header":  "Kontakt",
+      "content": [
+      "Bei der Vielzahl unserer Termine kann sich schon mal ein Fehler eingeschlichen haben. Fallen Dir Fehler auf, kontaktiere uns bitte.",
+        ["Kontakt",           "mailto:kinopilotapp@socially.io"]
+      ]
+    },
+    {
+      "actions": [
+        ["Weiter zu moviepilot",  "http://www.moviepilot.de"]
+      ]
     }
   ]
 }

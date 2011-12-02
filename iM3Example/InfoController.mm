@@ -9,6 +9,30 @@
 #import "AppDelegate.h"
 #import "InfoController.h"
 
+static id infoForKey(NSString *key)
+{
+  // if([key isEqualToString: @"updated_at"]) { 
+  //   NSDictionary* stats = app.chairDB.stats.first;
+  //   NSNumber* updated_at = [stats objectForKey: @"updated_at"]; 
+  //   return [updated_at.to_date stringWithFormat: @"dd.MM.yyyy HH:mm"];
+  // }
+  
+  if([key isEqualToString: @"theaters_count"])
+    return app.sqliteDB.theaters.count;
+  
+  if([key isEqualToString: @"movies_count"])
+    return app.sqliteDB.movies.count; 
+  
+  if([key isEqualToString: @"schedules_count"])
+    return app.sqliteDB.schedules.count;
+  
+  if([key isEqualToString: @"built_at"])
+    return [NSString stringWithFormat: @"%s %s", __DATE__, __TIME__]; 
+  
+  return key;
+}
+
+
 /* 
  * This cell shows one value (i.e. one piece of text). The text might span
  * over multiple lines.
@@ -125,18 +149,17 @@
  */
 @interface InfoControllerDataSource: M3TableViewDataSource
 
--(id)infoForKey: (NSString*)key;
-
 @end
 
 @implementation InfoControllerDataSource
 
--(id)init
+-(id)initWithSection: (NSString*) section
 {
   self = [super init];
   if(!self) return nil;
 
-  NSArray* infoSections = [app.config objectForKey: @"info"];
+  NSArray* infoSections = [app.config objectForKey: section];
+  
   M3AssertKindOf(infoSections, NSArray);
   for(NSDictionary* section in infoSections) {
     M3AssertKindOf(section, NSDictionary);
@@ -148,36 +171,13 @@
     content = [content mapUsingBlock:^id(NSArray* entry) {
       if(![entry isKindOfClass:[NSArray class]]) return entry;
       id key = entry.last;
-      return [NSArray arrayWithObjects:entry.first, [self infoForKey:key], nil];
+      return [NSArray arrayWithObjects:entry.first, infoForKey(key), nil];
     }];
     // Read "header", "footer", and "index" from the configuration.
     [self addSection: content withOptions: section];
   }
   
   return self;
-}
-
--(id)infoForKey:(NSString *)key
-{
-  // if([key isEqualToString: @"updated_at"]) { 
-  //   NSDictionary* stats = app.chairDB.stats.first;
-  //   NSNumber* updated_at = [stats objectForKey: @"updated_at"]; 
-  //   return [updated_at.to_date stringWithFormat: @"dd.MM.yyyy HH:mm"];
-  // }
-
-  if([key isEqualToString: @"theaters_count"])
-    return app.sqliteDB.theaters.count;
-
-  if([key isEqualToString: @"movies_count"])
-    return app.sqliteDB.movies.count; 
-
-  if([key isEqualToString: @"schedules_count"])
-    return app.sqliteDB.schedules.count;
-
-  if([key isEqualToString: @"built_at"])
-    return [NSString stringWithFormat: @"%s %s", __DATE__, __TIME__]; 
-
-  return key;
 }
 
 -(Class) cellClassForKey: (NSArray*)key;
@@ -199,16 +199,13 @@
 
 #pragma mark - Low memory management
 
-- (void)viewDidLoad
+-(void)loadFromUrl:(NSString *)url_string
 {
-  [super viewDidLoad];
-  self.dataSource = [[[InfoControllerDataSource alloc]init]autorelease];
-}
-
-- (void)viewDidUnload
-{
-  self.dataSource = nil;
-  [super viewDidLoad];
+  NSURL* url = url_string.to_url;
+  
+  NSString* section = [url param:@"section"];
+  if(!section) section = @"about";
+  self.dataSource = [[[InfoControllerDataSource alloc]initWithSection:section]autorelease];
 }
 
 -(NSString*)title
@@ -217,4 +214,3 @@
 }
 
 @end
-

@@ -101,7 +101,7 @@
 {
   [self setLabel: @"Danke moviepilot!"];
   [self setBackground: @"berlin.png"];
-  self.url = @"http://www.moviepilot.de";
+  self.url = @"/info?section=moviepilot";
 }
 
 -(void)layoutSubviews
