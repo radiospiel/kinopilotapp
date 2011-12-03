@@ -156,7 +156,9 @@
 {
   self = [super initWithCellClass: @"TheatersListCell"]; 
 
-  NSArray* theaters = [ app.sqliteDB allArrays: @"SELECT _id FROM theaters ORDER BY _id" ];
+  NSArray* theaters = [ app.sqliteDB allArrays: @"SELECT DISTINCT(theaters._id) FROM theaters "
+                                                 "INNER JOIN schedules ON schedules.theater_id=theaters._id "
+                                                 "ORDER BY theaters._id" ];
   NSArray* theater_ids = [theaters mapUsingSelector:@selector(first)];
 
   NSDictionary* groupedHash = [theater_ids groupUsingBlock:^id(NSString* theater_id) {
