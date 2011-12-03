@@ -519,7 +519,10 @@ static StatementType statementTypeForSql(NSString* sql)
 -(void)importDump: (NSArray*)entries
 {
   [self ask: @"BEGIN"];
-  
+
+  [self ask: @"DELETE FROM movies"];
+  [self ask: @"DELETE FROM schedules"];
+
   [entries enumerateObjectsUsingBlock:^(NSArray* record, NSUInteger idx, BOOL *stop) {
     if(idx == 0) {
       [self importHeader: record];

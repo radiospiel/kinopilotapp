@@ -109,6 +109,15 @@
 
 @implementation ShareController(Email)
 
+- (void)mailComposeController:(MFMailComposeViewController*)controller 
+          didFinishWithResult:(MFMailComposeResult)result 
+                        error:(NSError*)error
+{
+  dlog << "*** didFinishWithResult";
+  // [controller dismissModalViewControllerAnimated:YES];
+  // [self dismissModalViewControllerAnimated:YES];
+}
+
 -(void)email
 {
   dlog << "*** email";
@@ -117,18 +126,22 @@
   
   // -- compose HTML message.
   
-  MFMailComposeViewController* mailCo = [[[MFMailComposeViewController alloc] init] autorelease];
+  MFMailComposeViewController* mc = [[MFMailComposeViewController alloc] init]; //  autorelease];
+  mc.mailComposeDelegate = self;
   
-  [mailCo setSubject: [M3 interpolateString: @"{{nice_time}}: {{movie.title}} im {{theater.name}}"
-                                 withValues: context]];
+  [mc setSubject: [M3 interpolateString: @"{{nice_time}}: {{movie.title}} im {{theater.name}}"
+                             withValues: context]];
   
-  [mailCo setMessageBody: [M3 interpolateFile: @"$app/invitation_mail.html"
-                                   withValues: context] 
-                  isHTML: YES]; 
+  [mc setMessageBody: [M3 interpolateFile: @"$app/invitation_mail.html"
+                               withValues: context] 
+              isHTML: YES]; 
   
   // -- show message composer.
   
-  [app.window.rootViewController presentModalViewController:mailCo animated:YES];
+  [app.window.rootViewController presentModalViewController:mc animated:YES];
+
+  // be a good memory manager and release mc, as you are responsible for it because your alloc/init
+  [mc release];  
 }
 
 @end
