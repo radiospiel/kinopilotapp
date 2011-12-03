@@ -101,9 +101,11 @@
   }
 
   mc.mailComposeDelegate = [MailComposeDelegate sharedMailComposeDelegate];
+
+  NSLog(@"%@", body);
   
   [mc setSubject: subject];
-  [mc setMessageBody: body 
+  [mc setMessageBody: body
               isHTML: YES];
    
   // -- show message composer.
