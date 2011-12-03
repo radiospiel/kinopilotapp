@@ -606,7 +606,11 @@ static StatementType statementTypeForSql(NSString* sql)
 -(NSNumber*) count
 {
   NSString* sql = [NSString stringWithFormat: @"SELECT COUNT(*) FROM %@", name_];
-  return [database_ ask: sql];
+  NSNumber* count = [database_ ask: sql];
+  if(!count) 
+    count = [NSNumber numberWithInt: 0];
+
+  return count;
 }
 
 -(id)decodeValue: (NSString*)value

@@ -164,6 +164,15 @@
 
 @implementation DashboardController
 
+-(id)init 
+{
+  self = [super init];
+  if(self) {
+    [app on: @selector(updated) notify:self with:@selector(reload)];
+  }
+  return self;
+}
+
 -(void)reload
 {
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched; 

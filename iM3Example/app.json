@@ -4,6 +4,7 @@
     {
       "nurl": "/movies/list?theater_id=adriafilmtheat|2487JHMKNoY",
       "url": "/dashboard",
+      "nurl": "/info",
       "label": "Jetzt",
       "ntitle": "Was läuft jetzt?",
       "icon": "tab_tage.png"

@@ -16,6 +16,6 @@
 
 -(void)update
 {
-  [app.sqliteDB performSelector:@selector(update) withObject:nil afterDelay:0.3];
+  [app update];
 }
 @end

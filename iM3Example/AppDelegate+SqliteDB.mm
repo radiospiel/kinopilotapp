@@ -1,4 +1,5 @@
 #import "AppDelegate.h"
+#import "SVProgressHUD.h"
 
 #define SQLITE_PATH @"$documents/kinopilot.sqlite3"
 
@@ -30,15 +31,9 @@
   return [self tableWithName:@"images"];
 }
 
-
 -(BOOL)isLoaded
 {
-  return self.movies.count > 0;
-}
-
--(void) updateCompleted
-{
-  [self emit:@selector(updated)];
+  return self.movies.count.to_i > 0;
 }
 
 -(BOOL)loadRemoteURL
@@ -51,24 +46,7 @@
   
   [self importDump:entries];
   
-  [self updateCompleted];
-  
   return YES;
-}
-
-/*
- * Updates the database if an update is needed.
- *
- * If the in-memory database is still empty, this method loads the database
- * from the on-disk copy, if it exists, or from the remote URL.
- *-
- * If the in-memory database is not empty, this method loads the database
- * from the remote URL, if the local copy is outdated.
- */
-
--(void)update
-{
-  [self loadRemoteURL];
 }
 
 @end
@@ -89,16 +67,50 @@
 }
 
 
+/*
+ * Updates the database if an update is needed.
+ *
+ * If the in-memory database is still empty, this method loads the database
+ * from the on-disk copy, if it exists, or from the remote URL.
+ *-
+ * If the in-memory database is not empty, this method loads the database
+ * from the remote URL, if the local copy is outdated.
+ */
+
+#define NANOSECS 1000000000
+
+-(void)update
+{
+  dispatch_after(
+    dispatch_time(DISPATCH_TIME_NOW, 0.3 * NANOSECS),
+    dispatch_get_main_queue(), ^{
+    [SVProgressHUD showWithStatus:@"Updating" maskType: SVProgressHUDMaskTypeBlack];
+  });
+
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    M3SqliteDatabase* db = [self buildSqliteDatabase];
+    [db loadRemoteURL];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self emit:@selector(updated)];
+      [SVProgressHUD dismissWithSuccess:@"Update good" ];
+    });
+  });
+}
+
 -(M3SqliteDatabase*)sqliteDatabase
 {
   M3SqliteDatabase* db = [self buildSqliteDatabase];
   if([db isLoaded]) return db;
 
+  dlog << "not loaded";
+
   // For reasons yet unknown the initial import of the database
   // leaves the database's table objects in an unusable state.
   // Just creating a new M3SqliteDatabase object fixes things; 
   // and it then has the newly imported data as well. 
-  [db loadRemoteURL];
+  [self update];
+  // [db loadRemoteURL];
   return [self buildSqliteDatabase];
 }
 
