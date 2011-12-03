@@ -104,44 +104,19 @@
 
 @end
 
-#import <MessageUI/MessageUI.h>
-#import <MessageUI/MFMailComposeViewController.h>
-
 @implementation ShareController(Email)
-
-- (void)mailComposeController:(MFMailComposeViewController*)controller 
-          didFinishWithResult:(MFMailComposeResult)result 
-                        error:(NSError*)error
-{
-  dlog << "*** didFinishWithResult";
-  // [controller dismissModalViewControllerAnimated:YES];
-  // [self dismissModalViewControllerAnimated:YES];
-}
 
 -(void)email
 {
-  dlog << "*** email";
-  
   NSDictionary* context = [self interpolationContext];
-  
-  // -- compose HTML message.
-  
-  MFMailComposeViewController* mc = [[MFMailComposeViewController alloc] init]; //  autorelease];
-  mc.mailComposeDelegate = self;
-  
-  [mc setSubject: [M3 interpolateString: @"{{nice_time}}: {{movie.title}} im {{theater.name}}"
-                             withValues: context]];
-  
-  [mc setMessageBody: [M3 interpolateFile: @"$app/invitation_mail.html"
-                               withValues: context] 
-              isHTML: YES]; 
-  
-  // -- show message composer.
-  
-  [app.window.rootViewController presentModalViewController:mc animated:YES];
 
-  // be a good memory manager and release mc, as you are responsible for it because your alloc/init
-  [mc release];  
+  NSString* subject = [M3 interpolateString: @"{{nice_time}}: {{movie.title}} im {{theater.name}}"
+                                 withValues: context];
+  NSString* body = [M3 interpolateFile: @"$app/invitation_mail.html"
+                            withValues: context]; 
+
+  [app composeEmailWithSubject: subject
+                       andBody: body];  
 }
 
 @end
@@ -189,14 +164,10 @@
   [eventDB saveEvent:myEvent span:EKSpanThisEvent error:&err]; 
 
   if (!err) {
-    UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle: nil //, @"Die Aufführung wurde in Deinen Kalender aufgenommen"
-      message:@"Die Aufführung wurde in Deinen Kalender eingetragen"
-      delegate:nil
-      cancelButtonTitle:@"Schließen"
-      otherButtonTitles:nil];
-    [alert show];
-    [alert release];
+    [app alert: @"Die Aufführung wurde in Deinen Kalender eingetragen"];
+  }
+  else {
+    [app alert: @"Die Aufführung konnte nicht in Deinen Kalender eingetragen werden."];
   }
 }
 

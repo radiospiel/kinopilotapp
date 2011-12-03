@@ -41,3 +41,16 @@
 @property (retain,nonatomic,readonly) M3SqliteDatabase* sqliteDB;
 
 @end
+
+@interface M3AppDelegate(Alert)
+
+-(void)alert: (NSString*)msg;
+
+@end
+
+@interface M3AppDelegate(Email)
+
+-(void)composeEmailWithSubject: (NSString*)subject
+                       andBody: (NSString*)body;
+
+@end

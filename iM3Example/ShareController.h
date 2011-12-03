@@ -1,8 +1,6 @@
 #import "AppDelegate.h"
 
-#import <MessageUI/MessageUI.h>
-
-@interface ShareController: UIViewController<MFMailComposeViewControllerDelegate> {
+@interface ShareController: UIViewController {
   NSDictionary *movie_, *theater_, *schedule_;
 }
 
