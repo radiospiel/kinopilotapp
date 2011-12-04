@@ -312,6 +312,7 @@
 		9DFE5C19146445520039F536 /* NSNumber+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DFE5C16146445520039F536 /* NSNumber+M3Extensions.h */; };
 		9DFE5C1A146445520039F536 /* NSNumber+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE5C17146445520039F536 /* NSNumber+M3Extensions.mm */; };
 		9DFE5C1B146445520039F536 /* NSNumber+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE5C17146445520039F536 /* NSNumber+M3Extensions.mm */; };
+		9DFED726148BDA41000CE7B0 /* EmptyListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFED725148BDA41000CE7B0 /* EmptyListCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -607,6 +608,8 @@
 		9DFE5C141464319F0039F536 /* ActionController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ActionController.mm; sourceTree = "<group>"; };
 		9DFE5C16146445520039F536 /* NSNumber+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+M3Extensions.h"; sourceTree = "<group>"; };
 		9DFE5C17146445520039F536 /* NSNumber+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSNumber+M3Extensions.mm"; sourceTree = "<group>"; };
+		9DFED724148BDA41000CE7B0 /* EmptyListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptyListCell.h; sourceTree = "<group>"; };
+		9DFED725148BDA41000CE7B0 /* EmptyListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptyListCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -920,6 +923,8 @@
 				9D85436D142FAC8C00F495E9 /* TTTAttributedLabel.h */,
 				9D85436E142FAC8C00F495E9 /* TTTAttributedLabel.m */,
 				9DFE5C141464319F0039F536 /* ActionController.mm */,
+				9DFED724148BDA41000CE7B0 /* EmptyListCell.h */,
+				9DFED725148BDA41000CE7B0 /* EmptyListCell.m */,
 				9DE40643142CFC490089EAA9 /* InfoController.h */,
 				9DE40644142CFC490089EAA9 /* InfoController.mm */,
 				9D10C3771437728300FE19C9 /* MapShowController.h */,
@@ -1688,6 +1693,7 @@
 				9DFD23AB146C6641001704CC /* MixpanelEvent.m in Sources */,
 				9D3813901469A2DB00E4BBF4 /* MoviesTrailerController.mm in Sources */,
 				9D3D3093148994B300C84FB4 /* SVProgressHUD.m in Sources */,
+				9DFED726148BDA41000CE7B0 /* EmptyListCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

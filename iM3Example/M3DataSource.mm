@@ -55,6 +55,8 @@
   self = [super initWithCellClass: @"MoviesListCell"]; 
 
   NSArray* movies = [self movieRecordsByFilter: filter];
+  if(movies.count == 0) return nil;
+
   NSArray* movie_ids = [movies mapUsingSelector:@selector(first)];
   
   NSDictionary* groupedHash = [movie_ids groupUsingBlock:^id(NSString* movie_id) {
@@ -116,6 +118,8 @@
                         theater_id, 
                         [NSDate today]
   ];
+  
+  if(schedules.count == 0) return nil;
   
   // group schedules by *day* into sectionsHash
   NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
@@ -304,17 +308,46 @@
 
 @end
 
+@interface EmptyDataSource: M3TableViewDataSource
+@end
+
+@implementation EmptyDataSource
+
+-(id)init 
+{
+  self = [super init];
+  [self addSection: _.array(@"EmptyListCell", @"UpdateActionListCell") ];
+  return self;
+}
+
+-(id) cellClassForKey: (id)key
+{ 
+  return key; 
+}
+
+@end
 
 @implementation M3DataSource(M3Lists)
 
++(M3TableViewDataSource*)emptyDataSource
+{
+  return [[[EmptyDataSource alloc]init]autorelease];
+}
+
 +(M3TableViewDataSource*)moviesListWithFilter:(NSString *)filter
 {
-  return [[[MoviesListDataSource alloc]initWithFilter:filter]autorelease];
+  M3TableViewDataSource* ds = [[[MoviesListDataSource alloc]initWithFilter:filter]autorelease];
+
+  if(ds) return ds;
+  return [self emptyDataSource];
 }
 
 +(M3TableViewDataSource*)moviesListFilteredByTheater:(id)theater_id
 {
-  return [[[MoviesListFilteredByTheaterDataSource alloc]initWithTheaterFilter: theater_id]autorelease];
+  M3TableViewDataSource* ds = [[[MoviesListFilteredByTheaterDataSource alloc]initWithTheaterFilter: theater_id]autorelease];
+  
+  if(ds) return ds;
+  return [self emptyDataSource];
 }
 
 +(M3TableViewDataSource*)theatersListFilteredByMovie:(id)movie_id

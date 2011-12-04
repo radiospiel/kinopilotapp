@@ -6,6 +6,7 @@
       "url": "/dashboard",
       "nurl": "/info",
       "nurl": "/schedules/list?important=movie&day=1322866800&theater_id=c-filmrauschpalastimkulturfabrikmoabit&movie_id=m-guard",
+      "nurl": "/movies/list",
       "label": "Jetzt",
       "ntitle": "Was läuft jetzt?",
       "icon": "tab_tage.png"

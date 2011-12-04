@@ -99,6 +99,15 @@
     [self.tableView setDataSource: dataSource_]; 
     [self.tableView reloadData];
   }
+
+  if([dataSource_ isKindOfClass: @"EmptyDataSource".to_class]) {
+    self.tableView.separatorColor = [UIColor clearColor];
+    self.tableView.scrollEnabled = NO;
+  }
+  else {
+    self.tableView.separatorColor = [UIColor lightGrayColor];
+    self.tableView.scrollEnabled = YES;
+  }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
