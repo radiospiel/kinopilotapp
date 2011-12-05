@@ -92,7 +92,8 @@
 
 -(void)vicinity
 {
-  [self setLabel: @"{{sqliteDB.schedules.count}} in der Nähe"];
+  // [self setLabel: @"{{sqliteDB.schedules.count}} in der Nähe"];
+  [self setLabel: @"In Deiner Nähe…"];
   [self setBackground: @"traffic.png"];
   self.url = @"/vicinity/show";
 }
