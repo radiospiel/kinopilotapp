@@ -114,7 +114,7 @@
     self.tableView.scrollEnabled = NO;
   }
   else {
-    self.tableView.separatorColor = [UIColor lightGrayColor];
+    self.tableView.separatorColor = [UIColor colorWithName: @"#ddd"];
     self.tableView.scrollEnabled = YES;
   }
 }
