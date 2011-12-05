@@ -36,25 +36,15 @@ static BCMediaAPI *bc = nil;
 {
   self = [super init];
 
-  return self;
-}
-
--(BCMoviePlayerController*)player
-{
-  if(player_) return player_;
-  
   self.player = [[BCMoviePlayerController alloc]init];
-
   // limit bitrates??
   //
   // [self.player searchForRenditionsBetweenLowBitRate:[NSNumber numberWithInt:100000] 
   //                             andHighBitRate:[NSNumber numberWithInt:500000]
   // ];
-
-  [self.player.view setFrame: CGRectMake(0, 64, 320, 300)];
-  [self.view addSubview: self.player.view];
-
-  return player_;
+  
+  
+  return self;
 }
 
 -(void)dealloc
@@ -63,30 +53,61 @@ static BCMediaAPI *bc = nil;
   [super dealloc];
 }
 
+-(void)perform {
+  MPMoviePlayerController* moviePlayer = self.player;
+
+  // Register to receive a notification when the movie has finished playing.  
+  [[NSNotificationCenter defaultCenter] addObserver:self  
+                                           selector:@selector(moviePlayBackDidFinish:)  
+                                               name:MPMoviePlayerPlaybackDidFinishNotification  
+                                             object:moviePlayer];  
+
+  [app.topMostController presentModalViewController: self animated:NO];
+  
+  moviePlayer.controlStyle = MPMovieControlStyleFullscreen;  
+  moviePlayer.shouldAutoplay = YES;
+  [app.window  addSubview:moviePlayer.view];  
+  [moviePlayer setFullscreen:YES animated:YES];
+}
+
+-(void)moviePlayBackDidFinish:(NSNotification*)notification
+{
+  MPMoviePlayerController *moviePlayer = [notification object];  
+  [[NSNotificationCenter defaultCenter] removeObserver:self  
+                                                  name:MPMoviePlayerPlaybackDidFinishNotification  
+                                                object:moviePlayer];    
+  
+  [self dismissModalViewControllerAnimated:YES];
+  self.player = nil;
+}
+
 -(void)reloadURL
 {
   NSString* movie_id = [self.url.to_url param: @"movie_id"] ;
-
+  
   NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
   NSDictionary* videos = [movie objectForKey: @"videos"];
   NSDictionary* video = [videos objectForKey: @"video" ];
-
+  
   NSNumber* brightcove_id = [video objectForKey: @"brightcove-id"];
   
   NSError* err = 0;  
-
+  
+  // --- set video --------------
+  
   BCVideo *bc_video = [bc findVideoById: [brightcove_id longLongValue] error: &err];
   if (!bc_video) {
     NSString *errStr = [bc getErrorsAsString: err];
     dlog << "Cannot load video #" << brightcove_id << ": " << errStr;
     return;
   }
-
-  dlog << "Loading video " << bc_video;
-
-  // --- set video --------------
+    
   [self.player setContentURL: bc_video];
-  [self.player play];     // start player
+}
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+  return YES;
 }
 
 @end
