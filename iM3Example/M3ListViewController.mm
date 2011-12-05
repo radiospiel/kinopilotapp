@@ -8,7 +8,7 @@
   self = [super init];
 
   [app on: @selector(updated) notify:self with:@selector(reload)];
-  [app on: @selector(resumed) notify:self with:@selector(reload)];
+  // [app on: @selector(resumed) notify:self with:@selector(reload)];
   
   return self;
 }
