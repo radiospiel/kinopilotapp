@@ -172,23 +172,34 @@
 {
   self = [super initWithCellClass: @"TheatersListCell"]; 
 
-  NSArray* theaters = [ app.sqliteDB allArrays: @"SELECT DISTINCT(theaters._id) FROM theaters "
-                                                 "INNER JOIN schedules ON schedules.theater_id=theaters._id "
-                                                 "ORDER BY theaters._id" ];
-  NSArray* theater_ids = [theaters mapUsingSelector:@selector(first)];
+  NSArray* theaters = [ 
+    app.sqliteDB all: @"SELECT theaters._id, theaters.name, GROUP_CONCAT(movies.title) AS movies FROM theaters "
+                       "INNER JOIN schedules ON schedules.theater_id=theaters._id "
+                       "INNER JOIN movies ON schedules.movie_id=movies._id "
+                       "WHERE schedules.time > ? "
+                       "GROUP BY theaters._id ",
+                       [NSDate today]
+  ];
 
-  NSDictionary* groupedHash = [theater_ids groupUsingBlock:^id(NSString* theater_id) {
-    return [[theater_id substringWithRange:NSMakeRange(2, 1)]uppercaseString];
+  
+  if(theaters.count == 0) return nil;
+
+  NSDictionary* groupedHash = [theaters groupUsingBlock:^id(NSDictionary* theater) {
+    // The theater_id is "c-<sortkey>", and the first character of the sortkey
+    // "makes sense" for the index: this should be the first relevant 
+    // letter from the movie title.
+    NSString* theater_id = [theater objectForKey:@"_id"];
+    return [[theater_id substringWithRange:NSMakeRange(2, 1)] uppercaseString];
   }];
-
+  
   NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
-                     
+  
   for(NSArray* group in groups) {
     [self addSection: group.second 
          withOptions:_.hash(@"header", group.first, 
                             @"index", group.first)];
   }
- 
+  
   return self;
 }
 

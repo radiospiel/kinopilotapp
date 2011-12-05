@@ -19,26 +19,23 @@
 
 @implementation TheatersListCell
 
--(void)setKey: (id)theater_id
+-(void)setKey: (NSDictionary*)theater
 {
-  [super setKey:theater_id];
+  [super setKey:theater];
+  if(!theater) return;
   
-  if(!theater_id) return;
-  
-  NSDictionary* theater = [app.sqliteDB.theaters get: theater_id];
-  
+  Benchmark(_.join(@"set key: ", [theater objectForKey: @"_id"]));
   [self setText: [theater objectForKey: @"name"]];
 
-  NSString* sql = 
-  @"SELECT DISTINCT(title) FROM movies, schedules ON movies._id = schedules.movie_id WHERE schedules.theater_id=? LIMIT 6";
-  
-  NSArray* movies = [[app.sqliteDB allArrays: sql, theater_id ] mapUsingSelector:@selector(first)];
-  [self setDetailText: [movies componentsJoinedByString: @", "]];
+  NSString* moviesSeparatedByComma = [theater objectForKey: @"movies"];
+  NSSet* uniqueMovies = [NSSet setWithArray: [ moviesSeparatedByComma componentsSeparatedByString:@"," ] ];
+  [self setDetailText: [[uniqueMovies allObjects] componentsJoinedByString: @", "]];
 }
 
 -(NSString*)url 
 {
-  NSString* theater_id = self.key;
+  NSDictionary* theater = self.key;
+  NSString* theater_id = [theater objectForKey: @"_id"];
   
   TheatersListController* tlc = (TheatersListController*)self.tableViewController;
   M3AssertKindOf(tlc, TheatersListController);
