@@ -9,7 +9,8 @@
 #import "AppDelegate.h"
 
 @interface EmptyListCell : M3TableViewCell {
-  TTTAttributedLabel* htmlView;
+  // TTTAttributedLabel* htmlView;
+  UIWebView* webView;
 }
 @end
 
@@ -24,10 +25,19 @@
 
 -(id) init {
   self = [super init];
-  
-  self.selectionStyle = UITableViewCellSelectionStyleNone;
-  htmlView = [[[TTTAttributedLabel alloc] init] autorelease];
-  [self addSubview: htmlView];
+
+  webView = [[UIWebView alloc] init]; // WithFrame:webFrame];
+  webView.backgroundColor = [UIColor whiteColor];  
+  [self addSubview:webView]; 
+
+  for (id subview in webView.subviews) {
+    if ([[subview class] isSubclassOfClass: [UIScrollView class]])
+      ((UIScrollView *)subview).bounces = NO;
+  }
+
+  // self.selectionStyle = UITableViewCellSelectionStyleNone;
+  // htmlView = [[[TTTAttributedLabel alloc] init] autorelease];
+  // [self addSubview: htmlView];
   
   return self;
 }
@@ -46,13 +56,18 @@
   
   self.textLabel.text = @" ";
   
-  htmlView.text = [NSAttributedString attributedStringWithMarkup: [self markup] 
-                                                   forStylesheet: self.stylesheet];
+  // NSString *html = @"<html><head><title>The Meaning of Life</title></head><body><p>...really is <b>42</b>!</p></body></html>";  
+  [webView loadHTMLString: [self markup] 
+                  baseURL: nil]; 
+
+  // htmlView.text = [NSAttributedString attributedStringWithMarkup: [self markup] 
+  //                                                  forStylesheet: self.stylesheet];
 }
 
 -(CGSize)htmlViewSize
 {
-  return [htmlView sizeThatFits: CGSizeMake(292, 1000)];
+  return CGSizeMake(292, 200);
+  // return [htmlView sizeThatFits: CGSizeMake(292, 1000)];
 }
 
 -(void)layoutSubviews
@@ -60,7 +75,11 @@
   [super layoutSubviews];
   
   CGSize sz = [self htmlViewSize];
-  htmlView.frame = CGRectMake(14, 7, sz.width, sz.height);
+  // htmlView.frame = CGRectMake(14, 7, sz.width, sz.height);
+  webView.frame = CGRectMake(14, 7, sz.width, sz.height);
+  webView.backgroundColor = [UIColor clearColor];
+  
+  webView.userInteractionEnabled = NO;
 }
 
 - (CGFloat)wantsHeight
