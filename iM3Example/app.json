@@ -8,6 +8,7 @@
       "nurl": "/schedules/list?important=movie&day=1322866800&theater_id=c-filmrauschpalastimkulturfabrikmoabit&movie_id=m-guard",
       "nurl": "/theaters/list",
       "nurl": "/movies/list?theater_id=c-alhambra",
+      "nurl": "/movies/show?movie_id=m-abenteuervontimundstruppidasgeheimnisdereinhorn",
       "label": "Jetzt",
       "ntitle": "Was läuft jetzt?",
       "icon": "tab_tage.png"
@@ -72,13 +73,12 @@
     {
       "header":  "Kontakt",
       "content": [
-      "Bei der Vielzahl unserer Termine kann sich schon mal ein Fehler eingeschlichen haben. Fallen Dir Fehler auf, kontaktiere uns bitte.",
-        ["Kontakt",           "mailto:kinopilotapp@socially.io"]
+        "Ohne die Unterstützung der Freunde und Freundinnen bei moviepilot.de wäre diese App nicht möglich gewesen. moviepilot.de empfiehlt ihren Nutzern auf Basis ihrer Bewertungen von Kino- und Fernsehfilmen weitere Filme, die ihrem Geschmack entsprechen."
       ]
     },
     {
       "actions": [
-        ["Weiter zu moviepilot",  "http://www.moviepilot.de"]
+        ["Weiter zu moviepilot.de",  "http://www.moviepilot.de"]
       ]
     }
   ]
