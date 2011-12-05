@@ -10,21 +10,22 @@
 };
 
 -(void) setUrl: (NSString*)url {
+  if(!url && !self.url) return;
   if([url isEqualToString: self.url]) return;
   
   [self instance_variable_set: @selector(m3_url) withValue: url];
-  if(url)
-    [self loadFromUrl:url];
+  if(url) [self reloadURL];
 }
 
--(void)loadFromUrl: (NSString*)url
+-(void)reloadURL
 {
-  // dlog << "*** loadFromUrl: " << _.ptr(self) << ", url: " << self.url;
+  // dlog << "*** reloadURL: " << _.ptr(self) << ", url: " << self.url;
 }
 
 -(void)reload 
 {
-  [self loadFromUrl:self.url];
+  if(!self.url) return;
+  [self reloadURL];
 }
 
 -(NSString*) title {

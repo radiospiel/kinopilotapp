@@ -80,6 +80,15 @@
 
 -(void)setUrl:(NSString *)url
 {
+  // Note: the tableview should already exist before setting the URL for the
+  // first time. Else a tableview would be created, and the viewDidLoad method
+  // (re)loads the data source, sets it into the tableview, after which the 
+  // loadURL method loads and sets the data source again; consequently building
+  // the data source **twice**. This is only important when setting an URL for 
+  // the first time, though.
+  // 
+  [ self tableView ]; // Make sure the tableView exists.
+  
   [super setUrl:url];
   if(!url)
     self.dataSource = nil;
@@ -94,12 +103,12 @@
   [dataSource_ release];
   dataSource_ = dataSource;
   dataSource_.controller = self;
-  
-  if(self.isViewLoaded) {
-    [self.tableView setDataSource: dataSource_]; 
-    [self.tableView reloadData];
-  }
 
+  if(!self.isViewLoaded) return;
+  
+  [self.tableView setDataSource: dataSource_]; 
+  [self.tableView reloadData];
+  
   if([dataSource_ isKindOfClass: @"EmptyDataSource".to_class]) {
     self.tableView.separatorColor = [UIColor clearColor];
     self.tableView.scrollEnabled = NO;

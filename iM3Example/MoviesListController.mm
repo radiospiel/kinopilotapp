@@ -189,9 +189,9 @@
   return [self.url.to_url.params objectForKey:@"theater_id"];
 }
 
--(void)loadFromUrl:(NSString *)url
+-(void)reloadURL
 {
-  NSDictionary* params = url.to_url.params;
+  NSDictionary* params = self.url.to_url.params;
 
   if(self.theater_id) {
     self.navigationItem.rightBarButtonItem = nil;

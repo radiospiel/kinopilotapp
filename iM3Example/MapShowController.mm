@@ -70,9 +70,9 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
--(void)loadFromUrl:(NSString *)url
+-(void)reloadURL
 {
-  self.theater_id = [url.to_url param: @"theater_id"]; 
+  self.theater_id = [self.url.to_url param: @"theater_id"]; 
 }
 
 -(NSString*)title {

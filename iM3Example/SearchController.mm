@@ -27,7 +27,7 @@
   return @"Suche...";
 }
 
--(void)loadFromUrl:(NSString *)url
+-(void)reloadURL
 {
   self.tableView.tableHeaderView = [self searchBar];
   // self.dataSource = [M3DataSource moviesListFilteredByTheater:[params objectForKey: @"theater_id"]]; 

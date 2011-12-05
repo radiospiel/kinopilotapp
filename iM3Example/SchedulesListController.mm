@@ -44,7 +44,7 @@
     [M3ProfileView profileViewForTheater: self.theater];
 }
 
--(void)loadFromUrl:(NSString *)url
+-(void)reloadURL
 {
   self.dataSource = [M3DataSource schedulesByTheater:self.theater_id 
                                             andMovie: self.movie_id

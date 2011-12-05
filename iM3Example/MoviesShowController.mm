@@ -43,7 +43,7 @@
   return @"Details";
 }
 
--(void)loadFromUrl:(NSString *)url
+-(void)reloadURL
 {
   NSString* movie_id = [self.url.to_url param: @"movie_id"];
   self.movie = [app.sqliteDB.movies get: movie_id];

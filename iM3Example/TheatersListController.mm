@@ -155,9 +155,9 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
   return [self.url.to_url param: @"movie_id"];
 }
 
--(void)loadFromUrl:(NSString*)url
+-(void)reloadURL
 {
-  NSString* movie_id = [url.to_url param: @"movie_id"];
+  NSString* movie_id = [self.url.to_url param: @"movie_id"];
   
   self.dataSource = movie_id ? [M3DataSource theatersListFilteredByMovie:movie_id] :
     [M3DataSource theatersList];

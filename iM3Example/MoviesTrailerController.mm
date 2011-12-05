@@ -63,9 +63,9 @@ static BCMediaAPI *bc = nil;
   [super dealloc];
 }
 
--(void)loadFromUrl: (NSString*)url
+-(void)reloadURL
 {
-  NSString* movie_id = [url.to_url param: @"movie_id"] ;
+  NSString* movie_id = [self.url.to_url param: @"movie_id"] ;
 
   NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
   NSDictionary* videos = [movie objectForKey: @"videos"];

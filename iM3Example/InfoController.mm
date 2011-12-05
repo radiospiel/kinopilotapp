@@ -199,9 +199,9 @@ static id infoForKey(NSString *key)
 
 #pragma mark - Low memory management
 
--(void)loadFromUrl:(NSString *)url_string
+-(void)reloadURL
 {
-  NSURL* url = url_string.to_url;
+  NSURL* url = self.url.to_url;
   
   NSString* section = [url param:@"section"];
   if(!section) section = @"about";
