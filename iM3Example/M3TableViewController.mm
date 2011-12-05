@@ -149,34 +149,23 @@
 // navigation item whenever it is selected, and a filter expression
 // which will be send via setFilter: to the current controller. 
 //
--(void)initializeSegmentedControl
-{
-  // Do any additional setup after loading the view from its nib.
-  if(segmentedControl_) return;
-  
-  segmentedControl_ = [[UISegmentedControl alloc]init];
-  segmentedControl_.segmentedControlStyle = UISegmentedControlStyleBar;
-
-  self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc]initWithCustomView: segmentedControl_]autorelease];
-
-  [segmentedControl_ addTarget:self
-                        action:@selector(activeSegmentChanged:)
-              forControlEvents:UIControlEventValueChanged];
-
-
-  segmentedControlParams_ = [[NSMutableArray alloc]init];
-  // 
-  // if(!self.navigationItem) return;
-  //  
-  // UIView* titleView = self.navigationItem.titleView;
-  // DLOG( NSStringFromCGRect(titleView.frame));
-}
 
 /* add a segment to the segmentedControl_ */
 
 -(void)addSegment:(NSString*)label withFilter: (id)filter andTitle: (NSString*)title
 {
-  [self initializeSegmentedControl];
+  id existingSegmentedControl_ = segmentedControl_;
+  
+  // Is the segmentedControl_ already initialized? If not, build it, but do not
+  // yet wire it to self.
+  if(!segmentedControl_) {
+    segmentedControl_ = [[UISegmentedControl alloc]init];
+    segmentedControl_.segmentedControlStyle = UISegmentedControlStyleBar;
+
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc]initWithCustomView: segmentedControl_]autorelease];
+
+    segmentedControlParams_ = [[NSMutableArray alloc]init];
+  }
   
   [segmentedControl_ insertSegmentWithTitle: label
                                     atIndex: segmentedControl_.numberOfSegments
@@ -185,6 +174,13 @@
   segmentedControl_.frame = CGRectMake(0, 0, segmentedControl_.numberOfSegments*45, 32);
 
   [segmentedControlParams_ addObject: _.hash(@"filter", filter, @"title", title)];
+
+  if(!existingSegmentedControl_) {
+    [segmentedControl_ setSelectedSegmentIndex:0];
+    [segmentedControl_ addTarget:self
+                          action:@selector(activeSegmentChanged:)
+                forControlEvents:UIControlEventValueChanged];
+  }
 }
 
 -(void) setFilter:(id)filter

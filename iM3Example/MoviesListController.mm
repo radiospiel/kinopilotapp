@@ -157,13 +157,9 @@ static UIImage* cachedThumbnailForMovie(NSDictionary* movie)
 {
   self = [super init];
 
- [self addSegment: @"all" withFilter: @"all" andTitle: @"Alle Filme "];
- [self addSegment: @"new" withFilter: @"new" andTitle: @"Neu im Kino"];
- [self addSegment: @"art" withFilter: @"art" andTitle: @"Klassiker  "];
-
-  // // [self addSegment: @"fav" withFilter: @"fav" andTitle: @"Vorgemerkt"];
-
-  [self activateSegment: 0];
+  [self addSegment: @"all" withFilter: @"all" andTitle: @"Alle Filme "];
+  [self addSegment: @"new" withFilter: @"new" andTitle: @"Neu im Kino"];
+  [self addSegment: @"art" withFilter: @"art" andTitle: @"Klassiker  "];
 
   return self;
 }
