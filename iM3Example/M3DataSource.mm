@@ -24,30 +24,33 @@
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     NSTimeInterval two_weeks_ago = now - 14 * 24 * 3600;
 
-    return [ app.sqliteDB allArrays: @"SELECT DISTINCT(movies._id) FROM movies "
-                                      "INNER JOIN schedules ON schedules.movie_id=movies._id "
-                                      "WHERE schedules.time > ? " 
-                                      "AND cinema_start_date > ? ORDER BY movies._id", 
-                                      [NSDate today],
-                                      [NSNumber numberWithInt: two_weeks_ago] 
-          ];
-  }
-  
-  if([filter isEqualToString:@"art"]) {
-    return [ app.sqliteDB allArrays: @"SELECT DISTINCT(movies._id) FROM movies "
-                                      "INNER JOIN schedules ON schedules.movie_id=movies._id "
-                                      "WHERE schedules.time > ? " 
-                                      "AND production_year < 1995 ORDER BY movies._id",
-                                      [NSDate today]
+    return [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image, GROUP_CONCAT(theaters.name) AS theaters FROM movies "
+                                "INNER JOIN schedules ON schedules.movie_id=movies._id "
+                                "INNER JOIN theaters ON schedules.theater_id=theaters._id "
+                                "WHERE schedules.time > ? AND cinema_start_date > ? "
+                                "GROUP BY movies._id ",
+                                [NSDate today],
+                                [NSNumber numberWithInt: two_weeks_ago] 
             ];
   }
-
-  return [ app.sqliteDB allArrays: @"SELECT DISTINCT(movies._id) FROM movies "
-                                    "INNER JOIN schedules ON schedules.movie_id=movies._id "
-                                    "WHERE  schedules.time > ? " 
-                                    "ORDER BY movies._id",
-                                    [NSDate today]
-          ];
+  else if([filter isEqualToString:@"art"]) {
+    return [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image, GROUP_CONCAT(theaters.name) AS theaters FROM movies "
+                                "INNER JOIN schedules ON schedules.movie_id=movies._id "
+                                "INNER JOIN theaters ON schedules.theater_id=theaters._id "
+                                "WHERE schedules.time > ? AND production_year < 1995 "
+                                "GROUP BY movies._id ",
+                                [NSDate today]
+            ];
+  }
+  else {
+    return [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image, GROUP_CONCAT(theaters.name) AS theaters FROM movies "
+                                "INNER JOIN schedules ON schedules.movie_id=movies._id  "
+                                "INNER JOIN theaters ON schedules.theater_id=theaters._id "
+                                "WHERE schedules.time > ? "
+                                "GROUP BY movies._id ",
+                                [NSDate today]
+            ];
+  }
 }
 
 -(id)initWithFilter:(NSString*)filter
@@ -57,10 +60,12 @@
   NSArray* movies = [self movieRecordsByFilter: filter];
   if(movies.count == 0) return nil;
 
-  NSArray* movie_ids = [movies mapUsingSelector:@selector(first)];
-  
-  NSDictionary* groupedHash = [movie_ids groupUsingBlock:^id(NSString* movie_id) {
-    return [[movie_id substringWithRange:NSMakeRange(2, 1)]uppercaseString];
+  NSDictionary* groupedHash = [movies groupUsingBlock:^id(NSDictionary* movie) {
+    // The movie_id is "m-<sortkey>", and the first character of the sortkey
+    // "makes sense" for the index: this should be the first relevant 
+    // letter from the movie title.
+    NSString* movie_id = [movie objectForKey:@"_id"];
+    return [[movie_id substringWithRange:NSMakeRange(2, 1)] uppercaseString];
   }];
   
   NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
@@ -96,8 +101,12 @@
   for(NSArray* schedules in groupedByMovieId) {
     schedules = [schedules sortByKey:@"movie_id"];
     
-    id movie_id = [schedules.first objectForKey:@"movie_id"];
-    [cellKeys addObject: _.hash(@"movie_id", movie_id, @"schedules", schedules)];
+    NSDictionary* schedule = schedules.first;
+    [cellKeys addObject: _.hash(@"movie_id", [schedule objectForKey:@"movie_id"], 
+                                @"title", [schedule objectForKey:@"title"], 
+                                @"image", [schedule objectForKey:@"image"], 
+                                @"schedules", schedules)
+    ];
   }
   
   NSNumber* time = [schedules.first objectForKey:@"time"];
@@ -114,7 +123,10 @@
   //
   // get all live schedules for the theater
   NSArray* schedules = [
-      app.sqliteDB all: @"SELECT * FROM schedules WHERE theater_id=? AND time>?", 
+      app.sqliteDB all: @"SELECT schedules.*, movies.title, movies.image "
+                        "FROM schedules "
+                        "INNER JOIN movies ON movies._id=schedules.movie_id "
+                        "WHERE theater_id=? AND time>?", 
                         theater_id, 
                         [NSDate today]
   ];

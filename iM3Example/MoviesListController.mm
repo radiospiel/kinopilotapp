@@ -16,9 +16,8 @@
 
 @implementation M3TableViewProfileCell(MovieImage)
 
--(UIImage*)cachedThumbnailForMovie: (NSString*)movie_id
+static UIImage* cachedThumbnailForMovie(NSDictionary* movie)
 {
-  NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
   NSString* thumbnail = [movie objectForKey:@"image"];
   if(!thumbnail) return nil;
 
@@ -36,12 +35,10 @@
   return [UIImage imageWithData: data];
 }
 
--(void)setImageForMovie: (NSString*)movie_id
+-(void)setImageForMovie: (NSDictionary*)movie
 {
-  UIImage* image = [self cachedThumbnailForMovie:movie_id];
-  if(!image) image = [UIImage imageNamed:@"no_poster.png"];
-
-  self.image = image;
+  UIImage* image = cachedThumbnailForMovie(movie);
+  self.image = image ? image : [UIImage imageNamed:@"no_poster.png"];
 }
 
 @end
@@ -53,26 +50,20 @@
 
 @implementation MoviesListCell
 
--(void)setKey: (id)movie_id
+-(void)setKey: (NSDictionary*)movie
 {
-  [super setKey:movie_id];
+  [super setKey:movie];
 
-  [self setImageForMovie: movie_id];
-
-  if(!movie_id) return;
+  // Benchmark(_.join(@"setKey: %@", [movie objectForKey:@"_id"]));
   
-  NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
+  [self setImageForMovie: movie];
   [self setText: [movie objectForKey: @"title"]];
+  
+  NSString* theatersSeparatedByComma = [movie objectForKey: @"theaters"];
+  NSSet* uniqueTheaters = [NSSet setWithArray: [ theatersSeparatedByComma componentsSeparatedByString:@"," ] ];
+  [self setDetailText: [[uniqueTheaters allObjects] componentsJoinedByString: @", "]];
 
-    NSArray* theaters = [[app.sqliteDB allArrays: 
-                        @"SELECT DISTINCT(name) FROM theaters, schedules ON theaters._id = schedules.theater_id "
-                         "WHERE schedules.movie_id=? AND schedules.time > ? LIMIT 6",
-                          movie_id, 
-                          [NSDate today] 
-                      ] mapUsingSelector:@selector(first)];
-  [self setDetailText: [theaters componentsJoinedByString: @", "]];
-
-  self.url = _.join(@"/theaters/list?movie_id=", movie_id);
+  self.url = _.join(@"/theaters/list?movie_id=", [movie objectForKey:@"_id"]);
 }
 
 @end
@@ -93,29 +84,40 @@
 // Example key
 //
 // 
-// {
-//   movie_id: "howiendedthissummer|movies", 
-//   schedules: [
-//     {_type: "schedules", ..., time: <__NSDate: 2011-09-25 16:15:00 +0000>, version: "omu"}, 
-//     {_type: "schedules", ..., time: <__NSDate: 2011-09-25 14:00:00 +0000>, version: "omu"}, 
-//     ...
-//   ]
-// }
+//  {
+//  "movie_id": "m-keinsexistauchkeinelosung",
+//  "schedules": [
+//                {
+//                  "_id": "-jPSTvdgn5rg",
+//                  "movie_id": "m-keinsexistauchkeinelosung",
+//                  "theater_id": "c-alhambra",
+//                  "time": 1323103500,
+//                  "title": "Kein Sex ist auch keine Lösung",
+//                  "version": null
+//                },
+//                {
+//                  "_id": "-mr6wZc8nxLc",
+//                  "movie_id": "m-keinsexistauchkeinelosung",
+//                  "theater_id": "c-alhambra",
+//                  "time": 1323112500,
+//                  "title": "Kein Sex ist auch keine Lösung",
+//                  "version": null
+//                }
+//                ],
+//  "title": "Kein Sex ist auch keine Lösung"
+//}
+
 
 -(NSArray*)schedules
 {
   return [self.key objectForKey:@"schedules"];
 }
 
--(void)setKey: (NSDictionary*)key
+-(void)setKey: (NSDictionary*)movie
 {
-  [super setKey:key];
+  [super setKey:movie];
   
-  NSString* movie_id = [key objectForKey: @"movie_id"];
-  NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
-  
-  [self setImageForMovie: movie_id];
-
+  [self setImageForMovie: movie];
   [self setText: [movie objectForKey: @"title"]];
   
   NSArray* schedules = [self schedules];
