@@ -711,3 +711,12 @@
 + (NSString *)quoteAndEscapeString:(NSString *)string;
 
 @end
+
+@interface NSString(SqliteAdditions)
+-(NSString*) sqliteEscape;
+@end
+
+@interface NSNumber(SqliteAdditions)
+-(NSString*) sqliteEscape;
+@end
+

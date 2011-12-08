@@ -404,11 +404,6 @@ static StatementType statementTypeForSql(NSString* sql)
   return array;
 }
 
--(void)importHeader: (NSArray*)header
-{
-  
-}
-
 -(void)createIndexIfNeededOnTable: (NSString*)name forColumn: (NSString*)column
 {
   if(![column hasSuffix:@"_id"]) return;
@@ -420,20 +415,14 @@ static StatementType statementTypeForSql(NSString* sql)
 
 -(void)createTable: (NSString*)name withColumns: (NSArray*)columns
 {
-  NSMutableArray* column_definitions = [NSMutableArray array];
-  for(NSString* column in columns) {
-    if(![column isEqualToString:@"_id"]) {
-      [column_definitions addObject: column];
-    }
-
-    NSString* sql_part = [NSString stringWithFormat: @"%@ PRIMARY KEY", column];
-    [column_definitions addObject: sql_part];
-  }
-
+  NSArray* column_definitions = [columns mapUsingBlock:^id(NSString* column) {
+    return [column isEqualToString:@"_id"] ? @"_id PRIMARY KEY" : column;
+  }];
+  
   // create the table
 
   NSString* sql = [NSString stringWithFormat: @"CREATE TABLE %@ (%@)", name, 
-                   [columns componentsJoinedByString: @", "]
+                   [column_definitions componentsJoinedByString: @", "]
                   ];
   [self ask: sql];
 
@@ -490,11 +479,7 @@ static StatementType statementTypeForSql(NSString* sql)
     [placeholders addObject: @"?"];
   }];
 
-  NSString* sql;
-  sql = [NSString stringWithFormat: @"DELETE FROM %@", table];
-  [self ask: sql];
-  
-  sql = [NSString stringWithFormat: @"INSERT INTO %@ (%@) VALUES(%@)", 
+  NSString* sql = [NSString stringWithFormat: @"INSERT OR REPLACE INTO %@ (%@) VALUES(%@)", 
                                     table, 
                                     [columns componentsJoinedByString: @", "],
                                     [placeholders componentsJoinedByString: @", "]];
@@ -511,39 +496,104 @@ static StatementType statementTypeForSql(NSString* sql)
   }];
   
   [statement reset];
+}
 
-  sql = [NSString stringWithFormat: @"SELECT COUNT(*) FROM %@", table];
-  NSLog(@"%@ has %@ records now", table, [self ask: sql]);
+-(void)logDatabaseStats: (NSString*)msg
+{
+  dlog << @"=== " << msg << " =========================================================================";
+  
+  dlog << "movies: " << [self ask: @"SELECT COUNT(*) FROM movies"];
+  dlog << "schedules: " << [self ask: @"SELECT COUNT(*) FROM schedules"];
+  dlog << "theaters: " << [self ask: @"SELECT COUNT(*) FROM theaters"];
+}
+
+-(void)deleteAllRecordsFromTable: (NSString*)table
+{
+  Benchmark(_.join(@"*** Deleting all entries from ", table));
+  
+  NSString* sql = [NSString stringWithFormat: @"DELETE FROM %@", table];
+  [self ask: sql];
+}
+
+-(void)deleteRecordsFromTable: (NSString*)table withIds: (NSArray*)ids
+{
+  if(ids.count == 0) return;
+
+  Benchmark(_.join(@"*** Deleting ", ids.count, " entries from ", table));
+  
+  ids = [ids mapUsingSelector:@selector(sqliteEscape)];
+  
+  NSString* sql = [
+                   NSString stringWithFormat: @"DELETE FROM %@ WHERE _id IN ('%@')", 
+                   table, 
+                   [ids componentsJoinedByString:@"','"]
+                   ];
+  
+  [self ask: sql];
+}
+
+-(void)importDiffHeader: (NSDictionary*)header
+{
+  NSDictionary* deletions = [header objectForKey:@"deletions"];
+  [deletions enumerateKeysAndObjectsUsingBlock:^(NSString* table, NSArray* ids, BOOL *stop) {
+    [self deleteRecordsFromTable:table withIds:ids];
+  }];
+  
+  [self logDatabaseStats: @"after deletions"];
 }
 
 -(void)importDump: (NSArray*)entries
 {
+  [self logDatabaseStats: @"before update"];
+
   [self ask: @"BEGIN"];
 
-  [self ask: @"DELETE FROM movies"];
-  [self ask: @"DELETE FROM schedules"];
-
-  [entries enumerateObjectsUsingBlock:^(NSArray* record, NSUInteger idx, BOOL *stop) {
-    if(idx == 0) {
-      [self importHeader: record];
-      return;
+  NSDictionary* header = nil;
+  BOOL diffMode = NO;
+  
+  for(NSArray* entry in entries) {
+    if(!header) {
+      header = [entry objectAtIndex:1];
+      NSNumber* since = [header objectForKey:@"since"];
+      diffMode = since.to_i > 0;
+      
+      if(diffMode)
+        [self importDiffHeader: header];
+      
+      continue;
     }
 
     // The first entry is the name of the target table.
     // The second entry is an array of column names
     // The third column is an array of updates to insert into the table.  
     
-    NSString* table_name = [record objectAtIndex:0];
-    if(!table_name || [table_name isKindOfClass: [NSNull class]] ) return;
-    
-    NSArray* columns = [record objectAtIndex:1];
-    
-    [self ensureTableExists: table_name withColumns: columns];
+    NSString* table = [entry objectAtIndex:0];
+    if([table isKindOfClass: [NSNull class]]) continue;
 
-    [self insertIntoTable: table_name
-         fromArrayRecords: [record objectAtIndex:2] 
-              withColumns: columns ];
-  }];
+    NSArray* columns = [entry objectAtIndex:1];
+    NSArray* records = [entry objectAtIndex:2];
+    
+    [self ensureTableExists: table withColumns: columns];
+
+    if(diffMode) {
+      // Delete entries that will be updated. This is probably not
+      // needed, because these records will be replaced anyways.
+      NSArray* ids = [records mapUsingSelector:@selector(first)];
+      [ self deleteRecordsFromTable: table 
+                            withIds: ids ];
+    }
+    else {
+      // deleting all entries saves 100..200 msecs on an inhabited database
+      [ self deleteAllRecordsFromTable: table ];
+    }
+    
+    [self insertIntoTable: table
+         fromArrayRecords: records
+              withColumns: columns 
+    ];
+  }
+  
+  [self logDatabaseStats: @"after import"];
   
   [self ask: @"COMMIT"];
 }

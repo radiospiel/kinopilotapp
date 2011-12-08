@@ -2056,3 +2056,21 @@ static void Glob16(sqlite3_context *context, int argc, sqlite3_value **argv) {
 }
 
 @end
+
+@implementation NSString(SqliteAdditions)
+
+-(NSString*) sqliteEscape;
+{
+  return [GTMSQLiteStatement quoteAndEscapeString: self];
+}
+
+@end
+
+@implementation NSNumber(SqliteAdditions)
+
+-(NSString*) sqliteEscape;
+{
+  return [self description];
+}
+
+@end
