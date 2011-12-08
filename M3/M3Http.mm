@@ -57,8 +57,10 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
   [M3Exception raiseOnError: error];
   M3AssertKindOf(response, NSHTTPURLResponse);
   
-  if(response.statusCode == 200) 
+  if(response.statusCode == 200) {
+    rlog << url << ": received " << [data length] << " byte.";
     return data;
+  }
 
   rlog << url << ": failed with status code " << response.statusCode;
   return nil;

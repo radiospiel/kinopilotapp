@@ -24,7 +24,6 @@
   [super setKey:theater];
   if(!theater) return;
   
-  Benchmark(_.join(@"set key: ", [theater objectForKey: @"_id"]));
   [self setText: [theater objectForKey: @"name"]];
 
   NSString* moviesSeparatedByComma = [theater objectForKey: @"movies"];

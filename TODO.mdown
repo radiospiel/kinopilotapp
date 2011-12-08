@@ -1,3 +1,5 @@
+Make sure the update will be run multiple times, with ~5 secs inbetween
+
 # MS1
 
 ## Auto Sync: when syncing
