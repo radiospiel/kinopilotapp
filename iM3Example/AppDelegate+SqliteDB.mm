@@ -1,7 +1,7 @@
 #import "AppDelegate.h"
 #import "SVProgressHUD.h"
 
-#define SQLITE_PATH @"$documents/kinopilot.sqlite3"
+#define SQLITE_PATH @"$documents/kinopilot2.sqlite3"
 
 #if 1
 #define REMOTE_SQL_URL  @"http://kinopilotupdates2.heroku.com/db/images,berlin.sql"
