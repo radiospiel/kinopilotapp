@@ -524,9 +524,9 @@ static StatementType statementTypeForSql(NSString* sql)
   ids = [ids mapUsingSelector:@selector(sqliteEscape)];
   
   NSString* sql = [
-                   NSString stringWithFormat: @"DELETE FROM %@ WHERE _id IN ('%@')", 
+                   NSString stringWithFormat: @"DELETE FROM %@ WHERE _id IN (%@)", 
                    table, 
-                   [ids componentsJoinedByString:@"','"]
+                   [ids componentsJoinedByString:@","]
                    ];
   
   [self ask: sql];
