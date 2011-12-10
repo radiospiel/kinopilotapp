@@ -2,7 +2,6 @@
 
 @class M3SqliteTable;
 
-
 typedef enum M3SqliteStatementEnumerationPolicy {
   M3SqliteStatementEnumerateUsingDictionaries = 0,
   M3SqliteStatementEnumerateUsingArrays = 1
@@ -76,20 +75,31 @@ typedef enum M3SqliteStatementEnumerationPolicy {
 -(void)importDump: (NSArray*)entries;
 
 -(M3SqliteTable*)tableWithName: (NSString*)name;
+-(M3SqliteTable*)tableWithName: (NSString*)name 
+                    andColumns: (NSArray*)columns;
 
 @end
 
 @interface M3SqliteTable: NSObject {
-  NSString* name_;
+  NSString* tableName_;
   M3SqliteDatabase* database_;
 }
 
 +(M3SqliteTable*)tableWithName: (NSString*)name inDatabase: (M3SqliteDatabase*)database;
++(M3SqliteTable*)tableWithName: (NSString*)name 
+                    andColumns: (NSArray*)column_names
+                    inDatabase: (M3SqliteDatabase*)database;
 
 -(NSDictionary*)get: (id)uid;
--(NSArray*)all;
+-(void)deleteAll;
+-(void)deleteByIds: (NSArray*)ids;
+-(void)insertArrays: (NSArray*)array_of_records withColumns: (NSArray*)columns;
 
+@property (retain,nonatomic,readonly) NSArray* columnNames;
+@property (retain,nonatomic,readonly) NSArray* all;
+@property (assign,nonatomic,readonly) BOOL exists;
 @property (retain,nonatomic,readonly) NSNumber* count;
+@property (retain,nonatomic,readonly) NSString* tableName;
 
 @end
 

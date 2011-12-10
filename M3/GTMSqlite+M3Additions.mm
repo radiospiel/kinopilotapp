@@ -404,100 +404,6 @@ static StatementType statementTypeForSql(NSString* sql)
   return array;
 }
 
--(void)createIndexIfNeededOnTable: (NSString*)name forColumn: (NSString*)column
-{
-  if(![column hasSuffix:@"_id"]) return;
-  if([column isEqualToString:@"_id"]) return;
-  
-  NSString* sql = [NSString stringWithFormat: @"CREATE INDEX %@_%@_ix ON %@(%@)", name, column, name, column];
-  [self ask: sql];
-}
-
--(void)createTable: (NSString*)name withColumns: (NSArray*)columns
-{
-  NSArray* column_definitions = [columns mapUsingBlock:^id(NSString* column) {
-    return [column isEqualToString:@"_id"] ? @"_id PRIMARY KEY" : column;
-  }];
-  
-  // create the table
-
-  NSString* sql = [NSString stringWithFormat: @"CREATE TABLE %@ (%@)", name, 
-                   [column_definitions componentsJoinedByString: @", "]
-                  ];
-  [self ask: sql];
-
-  // create designated indices
-
-  for(NSString* column in columns) {
-    [self createIndexIfNeededOnTable: name forColumn: column]; 
-  }
-}
-
--(NSArray*)columnsForTable: (NSString*)tableName
-{
-  NSMutableArray* existing_columns = [NSMutableArray array];
-  NSString* sql = [NSString stringWithFormat: @"PRAGMA table_info(%@)", tableName];
-  for(NSDictionary* column_description in [self each: sql]) {
-    [existing_columns addObject: [column_description objectForKey:@"name"]];
-  }
-
-  return existing_columns;
-}
-
--(void)ensureTableExists: (NSString*)name withColumns: (NSArray*)columns
-{
-  // do we have the table already? If not, use createTable:withColumns: 
-  // to create the table.
-  
-  NSString* existing_name = [self ask: @"SELECT name FROM sqlite_master WHERE type=? AND name=?", @"table", name];
-  
-  if(!existing_name) {
-    NSLog(@"creating table %@", name);
-    [self createTable: name withColumns: columns];
-    return;
-  }
-
-  // Create missing columns, and, probably, indices
-  NSArray* existing_columns = [self columnsForTable: name];
-  
-  for(NSString* column in columns) {
-    if([existing_columns indexOfObject:column] != NSNotFound) continue;
-
-    NSString* sql = [NSString stringWithFormat: @"ALTER TABLE %@ ADD COLUMN %@", name, column];
-    [self ask: sql];
-    [self createIndexIfNeededOnTable:name forColumn:column];
-  }
-}
-
--(void)insertIntoTable: (NSString*)table 
-      fromArrayRecords: (NSArray*)records 
-           withColumns: (NSArray*)columns
-{
-  // create insertion command
-  NSMutableArray* placeholders = [NSMutableArray array];
-  [columns enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *flag) {
-    [placeholders addObject: @"?"];
-  }];
-
-  NSString* sql = [NSString stringWithFormat: @"INSERT OR REPLACE INTO %@ (%@) VALUES(%@)", 
-                                    table, 
-                                    [columns componentsJoinedByString: @", "],
-                                    [placeholders componentsJoinedByString: @", "]];
-
-  GTMSQLiteStatement* statement = [self prepareStatement:sql];
-
-  [records enumerateObjectsUsingBlock:^(NSArray* record, NSUInteger idx, BOOL *stop) {
-    [statement reset];
-    [record enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-      [statement bindObject: obj atPosition: idx+1];
-    }];
-
-    [statement stepRow];
-  }];
-  
-  [statement reset];
-}
-
 -(void)logDatabaseStats: (NSString*)msg
 {
   dlog << @"=== " << msg << " =========================================================================";
@@ -507,36 +413,12 @@ static StatementType statementTypeForSql(NSString* sql)
   dlog << "theaters: " << [self ask: @"SELECT COUNT(*) FROM theaters"];
 }
 
--(void)deleteAllRecordsFromTable: (NSString*)table
-{
-  Benchmark(_.join(@"*** Deleting all entries from ", table));
-  
-  NSString* sql = [NSString stringWithFormat: @"DELETE FROM %@", table];
-  [self ask: sql];
-}
-
--(void)deleteRecordsFromTable: (NSString*)table withIds: (NSArray*)ids
-{
-  if(ids.count == 0) return;
-
-  Benchmark(_.join(@"*** Deleting ", ids.count, " entries from ", table));
-  
-  ids = [ids mapUsingSelector:@selector(sqliteEscape)];
-  
-  NSString* sql = [
-                   NSString stringWithFormat: @"DELETE FROM %@ WHERE _id IN (%@)", 
-                   table, 
-                   [ids componentsJoinedByString:@","]
-                   ];
-  
-  [self ask: sql];
-}
-
 -(void)importDiffHeader: (NSDictionary*)header
 {
   NSDictionary* deletions = [header objectForKey:@"deletions"];
-  [deletions enumerateKeysAndObjectsUsingBlock:^(NSString* table, NSArray* ids, BOOL *stop) {
-    [self deleteRecordsFromTable:table withIds:ids];
+  [deletions enumerateKeysAndObjectsUsingBlock:^(NSString* tableName, NSArray* ids, BOOL *stop) {
+    M3SqliteTable* table = [self tableWithName:tableName];
+    [table deleteByIds:ids];
   }];
   
   [self logDatabaseStats: @"after deletions"];
@@ -567,30 +449,18 @@ static StatementType statementTypeForSql(NSString* sql)
     // The second entry is an array of column names
     // The third column is an array of updates to insert into the table.  
     
-    NSString* table = [entry objectAtIndex:0];
-    if([table isKindOfClass: [NSNull class]]) continue;
+    NSString* table_name = [entry objectAtIndex:0];
+    if([table_name isKindOfClass: [NSNull class]]) continue;
 
     NSArray* columns = [entry objectAtIndex:1];
     NSArray* records = [entry objectAtIndex:2];
     
-    [self ensureTableExists: table withColumns: columns];
+    M3SqliteTable* table = [self tableWithName:table_name andColumns:columns];
 
-    if(diffMode) {
-      // Delete entries that will be updated. This is probably not
-      // needed, because these records will be replaced anyways.
-      NSArray* ids = [records mapUsingSelector:@selector(first)];
-      [ self deleteRecordsFromTable: table 
-                            withIds: ids ];
-    }
-    else {
-      // deleting all entries saves 100..200 msecs on an inhabited database
-      [ self deleteAllRecordsFromTable: table ];
-    }
-    
-    [self insertIntoTable: table
-         fromArrayRecords: records
-              withColumns: columns 
-    ];
+    if(!diffMode)
+      [table deleteAll];
+
+    [table insertArrays:records withColumns:columns];
   }
   
   [self logDatabaseStats: @"after import"];
@@ -628,17 +498,80 @@ static StatementType statementTypeForSql(NSString* sql)
   return [M3SqliteTable tableWithName:name inDatabase:self];
 }
 
+-(M3SqliteTable*)tableWithName: (NSString*)name andColumns: (NSArray*)columns
+{
+  return [M3SqliteTable tableWithName: name 
+                           andColumns: columns
+                           inDatabase: self];
+}
+
 @end
+
+#pragma mark --- create the table, its columns and indices ---------------------
+
+@implementation M3SqliteTable(TableCreation)
+
+-(void)doAddMissingIndexOnColumn: (NSString*)column
+{
+  if(![column hasSuffix:@"_id"]) return;
+  if([column isEqualToString:@"_id"]) return;
+  
+  NSString* sql = [NSString stringWithFormat: @"CREATE INDEX %@_%@_ix ON %@(%@)", 
+                   self.tableName, column, 
+                   self.tableName, column];
+  [database_ ask: sql];
+}
+
+-(void)doCreateTableWithColumns: (NSArray*)column_names
+{
+  NSLog(@"creating table %@", self.tableName);
+  
+  NSMutableArray* column_definitions = [NSMutableArray array];
+  for(NSString* column in column_names) {
+    if([column isEqualToString:@"_id"])
+      [column_definitions addObject: @"_id PRIMARY KEY"]; 
+    else
+      [column_definitions addObject: column]; 
+  }
+  
+  NSString* sql = [NSString stringWithFormat: @"CREATE TABLE %@ (%@)", self.tableName, 
+                   [column_definitions componentsJoinedByString: @", "]
+                   ];
+  [database_ ask: sql];
+  
+  for(NSString* column in column_names) {
+    [self doAddMissingIndexOnColumn: column];
+  }
+}
+
+-(void)doAddMissingColumns: (NSArray*)column_names
+{
+  NSArray* existing_columns = self.columnNames;
+  
+  for(NSString* column in column_names) {
+    if([existing_columns indexOfObject:column] != NSNotFound) continue;
+    
+    NSString* sql = [NSString stringWithFormat: @"ALTER TABLE %@ ADD COLUMN %@", self.tableName, column];
+    [database_ ask: sql];
+    
+    [self doAddMissingIndexOnColumn: column];
+  }
+}
+
+@end
+
 
 @implementation M3SqliteTable
 
--(M3SqliteTable*)initWithName: (NSString*)name 
+@synthesize tableName = tableName_;
+
+-(M3SqliteTable*)initWithName: (NSString*)tableName 
                    inDatabase: (M3SqliteDatabase*)database
 {
   self = [super init];
   if(!self) return nil;
   
-  name_ = [name retain];
+  tableName_ = [tableName retain];
   database_ = [database retain];
   
   return self;
@@ -646,7 +579,7 @@ static StatementType statementTypeForSql(NSString* sql)
 
 -(void)dealloc
 {
-  [name_ release]; name_ = nil;
+  [tableName_ release]; tableName_ = nil;
   [database_ release]; database_ = nil;
 }
 
@@ -656,15 +589,124 @@ static StatementType statementTypeForSql(NSString* sql)
   return [[[M3SqliteTable alloc]initWithName:name inDatabase:database]autorelease];
 }
 
--(NSNumber*) count
++(M3SqliteTable*)tableWithName: (NSString*)name 
+                    andColumns: (NSArray*)column_names
+                    inDatabase: (M3SqliteDatabase*)database
 {
-  NSString* sql = [NSString stringWithFormat: @"SELECT COUNT(*) FROM %@", name_];
-  NSNumber* count = [database_ ask: sql];
-  if(!count) 
-    count = [NSNumber numberWithInt: 0];
-
-  return count;
+  M3SqliteTable* table = [[[M3SqliteTable alloc]initWithName:name inDatabase:database]autorelease];
+  
+  if(!table.exists)
+    [table doCreateTableWithColumns: column_names];
+  else
+    [table doAddMissingColumns: column_names];
+  
+  return table;
 }
+
+-(BOOL)exists
+{
+  NSString* existing_name = [database_ ask: @"SELECT name FROM sqlite_master WHERE type=? AND name=?", @"table", self.tableName];
+  return existing_name != nil;
+}
+
+#pragma mark --- table properties ----------------------------------------------
+
+-(NSNumber*)count
+{
+  NSString* sql = [NSString stringWithFormat: @"SELECT COUNT(*) FROM %@", self.tableName];
+  NSNumber* count = [database_ ask: sql];
+  return count ? count : [NSNumber numberWithInt: 0];
+}
+
+-(NSArray*)columnNames
+{
+  NSMutableArray* columnNames = [NSMutableArray array];
+  NSString* sql = [NSString stringWithFormat: @"PRAGMA table_info(%@)", self.tableName];
+  for(NSDictionary* column_description in [database_ each: sql]) {
+    [columnNames addObject: [column_description objectForKey:@"name"]];
+  }
+  
+  return columnNames;
+}
+
+-(NSArray*)all
+{
+  NSString* sql = [ NSString stringWithFormat: @"SELECT * FROM %@", self.tableName];
+  return [database_ all: sql];
+}
+
+#pragma mark --- delete from the table -----------------------------------------
+
+-(void)deleteAll
+{
+  Benchmark(_.join(@"*** Deleting all entries from ", self.tableName));
+  
+  NSString* sql = [NSString stringWithFormat: @"DELETE FROM %@", self.tableName];
+  [database_ ask: sql];
+}
+
+-(void)deleteByIds: (NSArray*)ids
+{
+  if(ids.count == 0) return;
+
+  Benchmark(_.join(@"*** Deleting ", ids.count, " entries from ", self.tableName));
+  
+  ids = [ids mapUsingSelector:@selector(sqliteEscape)];
+  
+  NSString* sql = [
+                   NSString stringWithFormat: @"DELETE FROM %@ WHERE _id IN (%@)", 
+                   self.tableName, 
+                   [ids componentsJoinedByString:@","]
+                   ];
+  
+  [database_ ask: sql];
+}
+
+#pragma mark --- insert into the table -----------------------------------------
+
+-(void)insertArrays: (NSArray*)array_of_records 
+        withColumns: (NSArray*)columns
+{
+  int count = [self.count intValue];
+  
+  if(count > 0) {
+    NSUInteger idx_position = [columns indexOfObject: @"_id"];
+    
+    
+    if(idx_position != NSNotFound) {
+      NSMutableArray* ids = [NSMutableArray arrayWithCapacity: count];
+      for(NSArray* record in array_of_records) {
+        [ids addObject:[record objectAtIndex:idx_position]];
+      }
+      
+      [self deleteByIds: ids];
+    }
+  }
+  
+  // create INSERT SQL command
+  NSMutableArray* placeholders = [NSMutableArray array];
+  [columns enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *flag) {
+    [placeholders addObject: @"?"];
+  }];
+
+  NSString* sql = [NSString stringWithFormat: @"INSERT OR REPLACE INTO %@ (%@) VALUES(%@)", 
+                                    self.tableName, 
+                                    [columns componentsJoinedByString: @", "],
+                                    [placeholders componentsJoinedByString: @", "]];
+
+  GTMSQLiteStatement* statement = [database_ prepareStatement:sql];
+
+  [array_of_records enumerateObjectsUsingBlock:^(NSArray* record, NSUInteger idx, BOOL *stop) {
+    [record enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+      [statement bindObject: obj atPosition: idx+1];
+    }];
+
+    [statement stepRow];
+    [statement reset];
+  }];
+}
+
+#pragma mark --- fetch from the table ------------------------------------------
 
 -(id)decodeValue: (NSString*)value
 {
@@ -678,7 +720,7 @@ static StatementType statementTypeForSql(NSString* sql)
 {
   if(!uid || [uid isKindOfClass:[NSNull class]]) return nil;
   
-  NSString* sql = [ NSString stringWithFormat: @"SELECT * FROM %@ WHERE _id=?", name_];
+  NSString* sql = [ NSString stringWithFormat: @"SELECT * FROM %@ WHERE _id=?", self.tableName];
   // NSLog(@"%@ w/uid %@", sql, uid);
   NSDictionary* r = [database_ askRow: sql, uid];
   if(!r) return nil;
@@ -694,12 +736,6 @@ static StatementType statementTypeForSql(NSString* sql)
   }];
   
   return record;
-}
-
--(NSArray*)all
-{
-  NSString* sql = [ NSString stringWithFormat: @"SELECT * FROM %@", name_];
-  return [database_ all: sql];
 }
 
 @end
