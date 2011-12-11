@@ -18,12 +18,8 @@
 
 static UIImage* cachedThumbnailForMovie(NSDictionary* movie)
 {
-  NSString* thumbnail = [movie objectForKey:@"image"];
-  if(!thumbnail) return nil;
-
-  // The thumbnail property contains the original URL for the thumbnail image.
-  // What we need here is the sencha'd URL.
-  NSString* url = _.join(@"http://src.sencha.io/jpg70/72/94/", thumbnail);
+  NSString* url = [movie objectForKey:@"image"];
+  if(!url) return nil;
 
   NSDictionary* imageData = [app.sqliteDB.images get: url];
   NSString* encodedImage = [imageData objectForKey:@"data"];
