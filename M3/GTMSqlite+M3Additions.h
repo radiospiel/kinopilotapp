@@ -78,6 +78,8 @@ typedef enum M3SqliteStatementEnumerationPolicy {
 -(M3SqliteTable*)tableWithName: (NSString*)name 
                     andColumns: (NSArray*)columns;
 
+                  -(void)transaction: (void(^)())block;
+
 @end
 
 @interface M3SqliteTable: NSObject {
@@ -93,11 +95,17 @@ typedef enum M3SqliteStatementEnumerationPolicy {
 -(NSDictionary*)get: (id)uid;
 -(void)deleteAll;
 -(void)deleteByIds: (NSArray*)ids;
--(void)insertArrays: (NSArray*)array_of_records withColumns: (NSArray*)columns;
+
+-(void)insertArray:   (NSArray*)record withColumns: (NSArray*)columns;
+-(void)insertArrays:  (NSArray*)array_of_records withColumns: (NSArray*)columns;
+
+-(id)objectForKey: (NSString*)key;
+-(void)setObject: (id)object forKey: (NSString*)key;
 
 @property (retain,nonatomic,readonly) NSArray* columnNames;
 @property (retain,nonatomic,readonly) NSArray* all;
 @property (assign,nonatomic,readonly) BOOL exists;
+@property (assign,nonatomic,readonly) M3SqliteDatabase* database;
 @property (retain,nonatomic,readonly) NSNumber* count;
 @property (retain,nonatomic,readonly) NSString* tableName;
 

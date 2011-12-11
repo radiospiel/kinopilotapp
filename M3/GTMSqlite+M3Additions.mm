@@ -404,6 +404,21 @@ static StatementType statementTypeForSql(NSString* sql)
   return array;
 }
 
+-(void)transaction: (void(^)())block
+{
+  @try {
+    [self ask: @"BEGIN"];
+    block();
+    [self ask: @"COMMIT"];
+  }
+  @catch (NSException *exception) {
+    [self ask: @"ROLLBACK"];
+  }
+  @finally {
+    ;
+  }
+}
+
 -(void)logDatabaseStats: (NSString*)msg
 {
   dlog << @"=== " << msg << " =========================================================================";
@@ -560,10 +575,9 @@ static StatementType statementTypeForSql(NSString* sql)
 
 @end
 
-
 @implementation M3SqliteTable
 
-@synthesize tableName = tableName_;
+@synthesize tableName = tableName_, database = database_;
 
 -(M3SqliteTable*)initWithName: (NSString*)tableName 
                    inDatabase: (M3SqliteDatabase*)database
@@ -664,15 +678,23 @@ static StatementType statementTypeForSql(NSString* sql)
 
 #pragma mark --- insert into the table -----------------------------------------
 
+-(void)insertArray: (NSArray*)record 
+       withColumns: (NSArray*)columns
+{
+  NSArray* array_of_records = [NSArray arrayWithObject: record];
+  [self insertArrays: array_of_records withColumns: columns ];
+}
+
 -(void)insertArrays: (NSArray*)array_of_records 
         withColumns: (NSArray*)columns
 {
+  [self doAddMissingColumns: columns];
+  
   int count = [self.count intValue];
   
   if(count > 0) {
     NSUInteger idx_position = [columns indexOfObject: @"_id"];
-    
-    
+
     if(idx_position != NSNotFound) {
       NSMutableArray* ids = [NSMutableArray arrayWithCapacity: count];
       for(NSArray* record in array_of_records) {
@@ -710,10 +732,18 @@ static StatementType statementTypeForSql(NSString* sql)
 
 -(id)decodeValue: (NSString*)value
 {
-  if([value hasPrefix:@"json:"])
+  if([value isKindOfClass:[NSString class]] && [value hasPrefix:@"json:"])
     return [M3 parseJSON: [value substringFromIndex:5]];
-
+  
   return value;
+}
+
+-(id)encodeValue: (id)value
+{
+  if(![value respondsToSelector:@selector(JSONString)])
+    return value;
+
+  return [ @"json:" stringByAppendingString: [value performSelector:@selector(JSONString)]];
 }
 
 -(NSDictionary*)get: (id)uid
@@ -721,7 +751,6 @@ static StatementType statementTypeForSql(NSString* sql)
   if(!uid || [uid isKindOfClass:[NSNull class]]) return nil;
   
   NSString* sql = [ NSString stringWithFormat: @"SELECT * FROM %@ WHERE _id=?", self.tableName];
-  // NSLog(@"%@ w/uid %@", sql, uid);
   NSDictionary* r = [database_ askRow: sql, uid];
   if(!r) return nil;
   
@@ -736,6 +765,27 @@ static StatementType statementTypeForSql(NSString* sql)
   }];
   
   return record;
+}
+
+#pragma mark --- k/v storage -------------------------------------------
+
+-(id)objectForKey: (NSString*)key
+{
+  NSString* sql = [NSString stringWithFormat: @"SELECT value FROM %@ WHERE _id=?", self.tableName];
+  NSString* stored_value = [database_ ask: sql, key];
+
+  return [self decodeValue:stored_value];
+}
+
+-(void)setObject: (id)object forKey: (NSString*)key
+{
+  if(object) {
+    [self insertArray:_.array(key, [self encodeValue:object]) 
+          withColumns:_.array(@"_id", @"value")];
+  }
+  else {
+    [self delete:key];
+  }
 }
 
 @end
