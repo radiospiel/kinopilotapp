@@ -22,3 +22,6 @@
 [submodule "vendor/SQLiteManager4iOS"]
 	path = vendor/SQLiteManager4iOS
 	url = https://github.com/radiospiel/SQLiteManager4iOS.git
+[submodule "vendor/SVProgressHUD"]
+	path = vendor/SVProgressHUD
+	url = git@github.com:radiospiel/SVProgressHUD.git
