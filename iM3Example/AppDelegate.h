@@ -33,6 +33,7 @@
 @property (nonatomic,retain,readonly) M3SqliteTable* theaters;
 @property (nonatomic,retain,readonly) M3SqliteTable* schedules;
 @property (nonatomic,retain,readonly) M3SqliteTable* images;
+@property (nonatomic,retain,readonly) M3SqliteTable* settings;
 
 @end
 

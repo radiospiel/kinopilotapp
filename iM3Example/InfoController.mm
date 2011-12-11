@@ -11,11 +11,13 @@
 
 static id infoForKey(NSString *key)
 {
-  // if([key isEqualToString: @"updated_at"]) { 
-  //   NSDictionary* stats = app.chairDB.stats.first;
-  //   NSNumber* updated_at = [stats objectForKey: @"updated_at"]; 
-  //   return [updated_at.to_date stringWithFormat: @"dd.MM.yyyy HH:mm"];
-  // }
+  if([key isEqualToString: @"updated_at"]) { 
+    NSNumber* updated_at = [app.sqliteDB.settings objectForKey: @"updated_at"]; 
+    return [updated_at.to_date stringWithFormat: @"dd.MM.yyyy HH:mm"];
+  }
+ 
+  if([key isEqualToString: @"revision"])
+    return [app.sqliteDB.settings objectForKey: @"revision"]; 
   
   if([key isEqualToString: @"theaters_count"])
     return app.sqliteDB.theaters.count;

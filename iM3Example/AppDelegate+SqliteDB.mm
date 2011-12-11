@@ -31,6 +31,11 @@
   return [self tableWithName:@"images"];
 }
 
+-(M3SqliteTable*) settings
+{
+  return [self tableWithName:@"settings" andColumns:_.array(@"_id", @"value")];
+}
+
 -(BOOL)isLoaded
 {
   return self.movies.count.to_i > 0;
@@ -43,9 +48,17 @@
     _.raise("Cannot read file", REMOTE_SQL_URL);
   
   Benchmark(_.join("Importing database from ", REMOTE_SQL_URL));
-  
-  [self importDump:entries];
-  
+
+  [self transaction:^() {
+    [self importDump:entries];
+    
+    NSArray* headerArray = entries.first;
+    NSDictionary* header = headerArray.second;
+
+    [self.settings setObject: [header objectForKey: @"revision"] forKey:@"revision"];
+    [self.settings setObject: [NSDate now].to_number forKey:@"updated_at"];
+  }];
+
   return YES;
 }
 
