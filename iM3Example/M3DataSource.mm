@@ -65,7 +65,10 @@
     // "makes sense" for the index: this should be the first relevant 
     // letter from the movie title.
     NSString* movie_id = [movie objectForKey:@"_id"];
-    return [[movie_id substringWithRange:NSMakeRange(2, 1)] uppercaseString];
+    NSString* index_key = [[movie_id substringWithRange:NSMakeRange(2, 1)] uppercaseString];
+    if([index_key compare:@"A"] == NSOrderedAscending || [@"Z" compare: index_key] == NSOrderedAscending)
+      return @"#";
+    return index_key;
   }];
   
   NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
