@@ -1,5 +1,7 @@
 Make sure the update will be run multiple times, with ~5 secs inbetween
 
+- The images table should match the original URL to the thumbnail data, not the sencha URL.
+
 # MS1
 
 ## Auto Sync: when syncing
