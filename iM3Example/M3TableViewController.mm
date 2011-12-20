@@ -217,13 +217,13 @@
 
 #pragma mark - Actions
 
-#define ACTIONS_BUTTON_HEIGHT 33
+#define ACTIONS_BUTTON_HEIGHT 29
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectionNo
 {
   NSArray* section = [self.dataSource.sections objectAtIndex: sectionNo];
   NSDictionary* actions = [section.second objectForKey:@"actions"];
-  return actions ? ACTIONS_BUTTON_HEIGHT : 33;
+  return actions ? 29 : 33;
 }
 
 
@@ -231,7 +231,7 @@
             viewForHeaderInSection:(NSInteger)sectionNo
 {
   NSArray* section = [self.dataSource.sections objectAtIndex: sectionNo];
-  NSDictionary* actions = [section.second objectForKey:@"actions"];
+  NSArray* actions = [section.second objectForKey:@"actions"];
   if(!actions) return nil;
   
   // 
@@ -240,15 +240,18 @@
   UIView* headerView = [[[UIView alloc]init]autorelease];
   headerView.frame = CGRectMake(0, 0, 320, ACTIONS_BUTTON_HEIGHT);
 
-  int btnWidth = (300 - (actions.count - 1) * 20) / actions.count;
-  int x = 10;
-  
-  for(NSArray* action in actions) {
-    UIButton* btn = [UIButton actionButtonWithURL:action.second
-                                         andTitle:action.first];
-  
-    btn.frame = CGRectMake(x, 5, btnWidth, ACTIONS_BUTTON_HEIGHT - 5);
-    x += btnWidth + 20;
+  NSArray* buttons = [actions mapUsingBlock:^id(NSArray* action) {
+    return [UIButton actionButtonWithURL: action.second
+                                andTitle: action.first];
+    
+  }];
+
+  [ UIButton layoutButtons: (NSArray*)buttons 
+             	   withWidth: 320 
+            	  andPadding: EVEN_PADDING
+                 andMargin: 10 ];
+
+  for(UIButton* btn in buttons) {
     [headerView addSubview: btn];
   }
   
