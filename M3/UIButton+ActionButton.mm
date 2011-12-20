@@ -8,45 +8,56 @@
 
 @implementation UIButton(M3ActionButton)
 
++(int)widthForButtons: (NSArray*)buttons 
+{
+  int button_width = 0;
+  for(UIButton* btn in buttons) {
+    button_width = MAX(button_width, btn.frame.size.width);
+  }
+  return button_width > 90 ? 90 : button_width;
+}
+
++(void)layoutButtons: (NSArray*)buttons 
+           withWidth: (int)button_width
+            andSpace: (int)space
+           andOffset: (int)x_offset
+{
+  if(!button_width)
+    button_width = [self widthForButtons: buttons];
+  
+  for(UIButton* btn in buttons) {
+    CGRect frame = btn.frame;
+    frame.origin.x = x_offset;
+    frame.size.width = button_width;
+    btn.frame = frame;
+
+    x_offset += button_width + space;
+  }
+}
+
 +(void)layoutButtons: (NSArray*)buttons 
            withWidth: (int)width 
           andPadding: (int)padding
            andMargin: (int)margin
 {
+  int button_count = [buttons count];
   int availableWidth = width - 2 * margin;
 
-  int button_width = 0;
-  for(UIButton* btn in buttons) {
-    button_width = MAX(button_width, btn.frame.size.width);
-  }
-
-  int button_count = [buttons count];
-  int space_between_buttons = 0;
+  int button_width = [self widthForButtons: buttons];
+  int space = 0;
   
 	if(padding == EVEN_PADDING) { // uniform padding: left and right padding is same as space between buttons 
-    space_between_buttons = (availableWidth - button_width * button_count) / (button_count + 1); 
-	  padding = (availableWidth - button_width * button_count - space_between_buttons * (button_count - 1)) / 2;
+    space = (availableWidth - button_width * button_count) / (button_count + 1); 
+	  padding = (availableWidth - button_width * button_count - space * (button_count - 1)) / 2;
   }
   else if([buttons count] > 1) {
-    space_between_buttons = (availableWidth - padding - button_width * button_count) / (button_count - 1); 
+    space = (availableWidth - padding - button_width * button_count) / (button_count - 1); 
   }
   
-  int x = margin + padding;
-
-  dlog << "x " << x;
-  dlog << "space_between_buttons " << space_between_buttons;
-  dlog << "button_width " << button_width;
-  dlog << "padding " << padding;
-  
-
-  for(UIButton* btn in buttons) {
-    CGRect frame = btn.frame;
-    frame.origin.x = x;
-    frame.size.width = button_width;
-    btn.frame = frame;
-      
-    x += button_width + space_between_buttons;
-  }
+  [ self layoutButtons: buttons 
+             withWidth: button_width
+              andSpace: space
+             andOffset: margin + padding ];
 }
 
 static UIImage* stretchableImageNamed(NSString* name) {

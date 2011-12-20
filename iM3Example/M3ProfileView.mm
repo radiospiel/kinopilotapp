@@ -28,11 +28,7 @@
 
 -(void) setActions: (NSArray*) actions
 {
-  int h = 26;
-  int w = 90;
-  int r = 305;
-  
-  int y = htmlView_.frame.origin.y + htmlView_.frame.size.height + 16;
+  NSMutableArray* buttons = [NSMutableArray array];
   
   for(int idx=0; idx < 2; ++idx) { 
     if(idx >= actions.count) break;
@@ -40,7 +36,17 @@
     NSArray* action = [actions objectAtIndex:idx];
   
     UIButton* button = [UIButton actionButtonWithURL:action.second andTitle:action.first];
-    button.frame = CGRectMake(r - w, y, w, h); r -= (w+10);
+    [buttons addObject:button];
+  }
+
+  [UIButton layoutButtons:buttons withWidth: 0 andSpace: 10 andOffset: htmlView_.frame.origin.x];
+
+  int y = htmlView_.frame.origin.y + htmlView_.frame.size.height + 8;
+  for(UIButton* button in buttons) {
+    CGRect frame = button.frame;
+    frame.origin.y = y;
+    button.frame = frame;
+    
     [self addSubview:button];
   }
 }

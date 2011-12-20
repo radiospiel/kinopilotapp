@@ -12,4 +12,9 @@
           andPadding: (int)padding
            andMargin: (int)margin;
 
++(void)layoutButtons: (NSArray*)buttons 
+           withWidth: (int)width
+            andSpace: (int)space
+           andOffset: (int)x_offset;
+
 @end
