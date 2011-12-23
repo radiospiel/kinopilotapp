@@ -95,6 +95,34 @@ static NSDictionary *titlesByKey, *urlsByKey;
   return btn;
 }
 
+// --- some buttons can have additional values.
+
+-(NSString*)calculateValueForKey: (NSString*) key
+{
+  id value = nil;
+  
+  if([key isEqualToString:@"movies"]) 
+    value = [app.sqliteDB ask: @"SELECT COUNT(*) FROM movies"];
+  else if([key isEqualToString:@"theaters"]) 
+    value = [app.sqliteDB ask: @"SELECT COUNT(*) FROM theaters"];
+  
+  return value;
+}
+
+-(UIView*)valueViewForKey: (NSString*) key
+{
+  NSString* value = [[self calculateValueForKey: key] description];
+  if(!value) return nil;
+  
+  UILabel* label = [[[UILabel alloc]init]autorelease];
+  label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:56];
+  label.text = value;
+  label.textColor = [UIColor whiteColor];
+  label.backgroundColor = [UIColor clearColor];
+  
+  return label;
+}
+
 -(void)setKey: (NSString*)key
 {
   if(!key) return;
@@ -112,6 +140,19 @@ static NSDictionary *titlesByKey, *urlsByKey;
     button.frame = frame;
     
     [self addSubview:button];
+
+    // add a value view, if needed.
+    
+    UIView* valueView = [self valueViewForKey: key];
+    if(!valueView) return;
+    
+    [valueView sizeToFit];
+    CGRect valueFrame = valueView.frame;
+    valueFrame.origin.x = frame.size.width - 10 - valueFrame.size.width;
+    valueFrame.origin.y = 0; // frame.size.height - 36 - valueFrame.size.height;
+    valueView.frame = valueFrame;
+    
+    [button addSubview: valueView];
   }];
 }
 
@@ -175,11 +216,8 @@ static NSDictionary *titlesByKey, *urlsByKey;
 
 -(void)reload
 {
-  self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched; 
-  // self.tableView.separatorColor = [UIColor blackColor];
+  self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   self.tableView.backgroundColor = [UIColor blackColor];
-  // self.tableView.bor
-  // x
   self.tableView.scrollEnabled = NO;
   
   self.dataSource = [[[DashboardDataSource alloc]init]autorelease];
