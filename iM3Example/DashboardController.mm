@@ -8,125 +8,122 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "VicinityShowController.h"
 #import "M3TableViewProfileCell.h"
 #import "AppDelegate.h"
 #import "M3.h"
 
-#define NUMBER_OF_THEATERS    12
-#define SCHEDULES_PER_THEATER 6
-
 /*** VicinityShowController cells *******************************************/
 
 @interface DashboardInfoCell: M3TableViewCell {
-  BOOL rightAligned_;
 }
+
+@property (nonatomic,retain) NSArray* keys;
 
 @end
 
 @implementation DashboardInfoCell
 
+@synthesize keys;
+
+static NSDictionary *titlesByKey, *urlsByKey;
+
++(void)initialize
+{
+  titlesByKey = [_.hash(@"city",     @"Berlin",
+                       @"theaters", @"Kinos",
+                       @"movies",   @"Filme",
+                       @"about",    @"about",
+                       @"vicinity", @"Jetzt")retain];
+  
+  urlsByKey = [_.hash( @"city",     @"/map/show",
+                      @"theaters", @"/theaters/list",
+                      @"movies",   @"/movies/list",
+                      @"about",    @"/info", // ?section=moviepilot",
+                      @"vicinity", @"/vicinity/show")retain];
+}
+
 +(CGFloat)fixedHeight
 {
-  return 80;
+  return 143;
 }
 
--(void)setLabel: (NSString*)label
+-(UIImage*)tileImageWithTile: (NSString*)tile
 {
-  self.textLabel.text = [M3 interpolateString: label withValues: (id) app];
+  NSString* imageName = [ NSString stringWithFormat: @"Dashboard.bundle/background/%@.png", tile ];
+  return [UIImage imageNamed: imageName ];
 }
 
--(void)setBackground: (NSString*)imageName
+-(UIImage*)backgroundImageWithKey: (NSString*)key
 {
-  self.backgroundColor = [UIColor blackColor];
+  UIImage* image = [self tileImageWithTile: key];
+  if(image) return image;
+  
+  return [self tileImageWithTile: self.keys.count == 1 ? @"wide" : @"narrow"];
+}
 
-  UIImageView* imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imageName]];
-  self.backgroundView = [imageView autorelease];
+// set title, adjust button size
 
-  [[self contentView] setBackgroundColor: [UIColor colorWithName:@"00000060"]];
+-(UIButton*) dashboardButtonWithKey: (NSString*)key 
+{
+  UIButton* btn = [UIButton buttonWithType: UIButtonTypeCustom];
+  
+  // set background images, colors and font.
+  
+  btn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
+  [btn setTitleColor: [UIColor colorWithName: @"4c4b4b"] forState: UIControlStateNormal];
+  
+  [btn setTitleShadowColor: [UIColor whiteColor] forState: UIControlStateNormal];
+  btn.titleLabel.shadowOffset = CGSizeMake(1.0, 1.0);
 
-  UIView* bgView = [[UIView alloc]init];
-  [bgView setBackgroundColor:[UIColor clearColor]];
-  self.selectedBackgroundView = [bgView autorelease];
+  UIImage* backgroundImage = [self backgroundImageWithKey: key];
+  [btn setBackgroundImage: backgroundImage forState: UIControlStateNormal];
+  
+  // set URL and title
+
+  btn.actionURL = [urlsByKey objectForKey: key];
+  [btn setTitle: [titlesByKey objectForKey: key] forState:UIControlStateNormal];
+
+  // adjust button size
+  btn.frame = CGRectMake(0, 0, backgroundImage.size.width, backgroundImage.size.height);
+
+  return btn;
 }
 
 -(void)setKey: (NSString*)key
 {
-  [super setKey: key];
-  if(key)
-    [self performSelector: key.to_sym];
-}
+  if(!key) return;
 
--(void)city
-{
-  [self setLabel: @"Berlin"];
-  [self setBackground: @"berlin.png"];
-  self.url = @"/info";
-}
+  // The key is either a single key string of a string consisting of 
+  // key components joined by "/"
+  self.keys = [key componentsSeparatedByString:@"/"];
 
--(void)search
-{
-  [self setLabel: @"Suche..."];
-  [self setBackground: @"berlin.png"];
-  self.url = @"/search";
-}
-
--(void)theaters
-{
-  rightAligned_ = YES;
-
-  [self setLabel: @"{{sqliteDB.theaters.count}} Kinos"];
-  
-  [self setBackground: @"cinemas.png"];
-  self.url = @"/theaters/list";
-}
-
--(void)movies
-{
-  rightAligned_ = YES;
-
-  [self setLabel: @"{{sqliteDB.movies.count}} Filme"];
-  [self setBackground: @"movies.png"];
-  self.url = @"/movies/list";
-}
-
--(void)vicinity
-{
-  // [self setLabel: @"{{sqliteDB.schedules.count}} in der Nähe"];
-  [self setLabel: @"In Deiner Nähe…"];
-  [self setBackground: @"traffic.png"];
-  self.url = @"/vicinity/show";
-}
-
--(void)moviepilot
-{
-  [self setLabel: @"Danke moviepilot!"];
-  [self setBackground: @"berlin.png"];
-  self.url = @"/info?section=moviepilot";
+  [self.keys enumerateObjectsUsingBlock:^(NSString* key, NSUInteger idx, BOOL *stop) {
+    UIButton* button = [self dashboardButtonWithKey:key];
+    
+    CGRect frame = button.frame;
+    frame.origin.x = 10 + idx * 156;
+    frame.origin.y = 10;
+    button.frame = frame;
+    
+    [self addSubview:button];
+  }];
 }
 
 -(void)layoutSubviews
 {
   [super layoutSubviews];
   
-  if([self.key isEqualToString: @"city"])
-    self.textLabel.font = [UIFont fontWithName:@"Futura-Medium" size:36];
-  else
-    self.textLabel.font = [UIFont fontWithName:@"Futura-Medium" size:24];
+  // add buttons
   
-  self.textLabel.textColor = [UIColor colorWithName:@"ffffff"];
-  // self.textLabel.highlightedTextColor= [UIColor colorWithName:@"000000"];
-  self.textLabel.backgroundColor = [UIColor clearColor];
-
-  if(rightAligned_) {
-    self.textLabel.textAlignment = UITextAlignmentRight;
-    CGRect frame = self.textLabel.frame;
-    CGSize sz = [self.textLabel sizeThatFits: frame.size];
-    sz.width = 280;
-    
-    self.textLabel.frame = CGRectMake(320 - frame.origin.x - sz.width, frame.origin.y,
-                                      sz.width, frame.size.height);
-  }
+  
+  // if([self.key isEqualToString: @"city"])
+  //   self.textLabel.font = [UIFont fontWithName:@"Futura-Medium" size:36];
+  // else
+  //   self.textLabel.font = [UIFont fontWithName:@"Futura-Medium" size:24];
+  // 
+  // self.textLabel.textColor = [UIColor colorWithName:@"ffffff"];
+  // // self.textLabel.highlightedTextColor= [UIColor colorWithName:@"000000"];
+  // self.textLabel.backgroundColor = [UIColor clearColor];
 }
 
 @end
@@ -141,11 +138,7 @@
 -(id)init
 {
   self = [super init];
-  if(!self) return nil;
-
-  [self addSection: _.array(@"city", @"search",
-                            //  @"M3TableViewAdCell", 
-                            @"theaters", @"movies", @"vicinity", @"moviepilot") 
+  [self addSection: _.array(@"city/theaters", @"movies", @"about/vicinity") 
        withOptions: nil];
 
   return self;
@@ -177,8 +170,10 @@
 -(void)reload
 {
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched; 
-  self.tableView.backgroundColor = [UIColor blackColor];
-
+  self.tableView.separatorColor = [UIColor blackColor];
+  // self.tableView.backgroundColor = [UIColor blackColor];
+  // self.tableView.bor
+  // x
   self.tableView.scrollEnabled = NO;
   
   self.dataSource = [[[DashboardDataSource alloc]init]autorelease];
