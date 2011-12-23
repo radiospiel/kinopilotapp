@@ -14,7 +14,8 @@
   for(UIButton* btn in buttons) {
     button_width = MAX(button_width, btn.frame.size.width);
   }
-  return button_width > 90 ? 90 : button_width;
+  return button_width;
+  // return button_width > 90 ? 90 : button_width;
 }
 
 +(void)layoutButtons: (NSArray*)buttons 
