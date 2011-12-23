@@ -32,8 +32,8 @@ static NSDictionary *titlesByKey, *urlsByKey;
   titlesByKey = [_.hash(@"city",     @"Berlin",
                        @"theaters", @"Kinos",
                        @"movies",   @"Filme",
-                       @"about",    @"about",
-                       @"vicinity", @"Jetzt")retain];
+                       @"about",    @"",
+                       @"vicinity", @"Was läuft jetzt?!")retain];
   
   urlsByKey = [_.hash( @"city",     @"/map/show",
                       @"theaters", @"/theaters/list",
@@ -67,24 +67,30 @@ static NSDictionary *titlesByKey, *urlsByKey;
 {
   UIButton* btn = [UIButton buttonWithType: UIButtonTypeCustom];
   
-  // set background images, colors and font.
+  // --- set background images, colors and font.
   
-  btn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
-  [btn setTitleColor: [UIColor colorWithName: @"4c4b4b"] forState: UIControlStateNormal];
-  
-  [btn setTitleShadowColor: [UIColor whiteColor] forState: UIControlStateNormal];
-  btn.titleLabel.shadowOffset = CGSizeMake(1.0, 1.0);
-
   UIImage* backgroundImage = [self backgroundImageWithKey: key];
   [btn setBackgroundImage: backgroundImage forState: UIControlStateNormal];
   
-  // set URL and title
+  btn.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:26];
+  // btn.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:24];
+
+  // --- set URL and title
 
   btn.actionURL = [urlsByKey objectForKey: key];
   [btn setTitle: [titlesByKey objectForKey: key] forState:UIControlStateNormal];
 
-  // adjust button size
+  // --- adjust button size
   btn.frame = CGRectMake(0, 0, backgroundImage.size.width, backgroundImage.size.height);
+
+  // --- make the buttons content appear in the top-left
+  [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+  [btn setContentVerticalAlignment:UIControlContentVerticalAlignmentBottom];
+  
+  btn.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+  
+  // --- move text 10 pixels down and right
+  [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 6, 10)];
 
   return btn;
 }
@@ -170,8 +176,8 @@ static NSDictionary *titlesByKey, *urlsByKey;
 -(void)reload
 {
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched; 
-  self.tableView.separatorColor = [UIColor blackColor];
-  // self.tableView.backgroundColor = [UIColor blackColor];
+  // self.tableView.separatorColor = [UIColor blackColor];
+  self.tableView.backgroundColor = [UIColor blackColor];
   // self.tableView.bor
   // x
   self.tableView.scrollEnabled = NO;
