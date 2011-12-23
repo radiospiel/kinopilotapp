@@ -91,7 +91,7 @@
 {
   // -- compose HTML message.
   
-  MFMailComposeViewController* mc;
+  MFMailComposeViewController* mc = nil;
   if([MFMailComposeViewController canSendMail])
     mc = [[MFMailComposeViewController alloc] init];
 
