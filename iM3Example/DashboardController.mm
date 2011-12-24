@@ -156,24 +156,124 @@ static NSDictionary *titlesByKey, *urlsByKey;
   }];
 }
 
+@end
+
+/*** The DashboardMoviesCell adds animated teaeser images ********************/
+
+@interface DashboardMoviesTeaserView: UIView
+
+@property (nonatomic,retain) UIImageView* imageView;
+@property (nonatomic,retain) UILabel* label;
+
+@end
+
+@implementation DashboardMoviesTeaserView: UIView
+
+@synthesize imageView, label;
+
+-(id)initWithFrame:(CGRect)frame
+{
+  self = [super initWithFrame:frame];
+
+  self.label = [[UILabel alloc]initWithFrame:frame];
+  self.label.backgroundColor = [UIColor clearColor];
+  self.label.textColor = [UIColor whiteColor];
+  self.label.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+  self.label.textAlignment = UITextAlignmentCenter;
+  self.label.lineBreakMode = UILineBreakModeTailTruncation;
+  self.label.numberOfLines = 1;
+
+  self.imageView = [[UIImageView alloc]initWithFrame:frame];
+  self.imageView.contentMode = UIViewContentModeCenter; // UIViewContentModeScaleAspectFit;
+
+  [self addSubview: self.imageView];
+  [self addSubview: self.label];
+
+  return self;
+}
+
+-(void)dealloc
+{
+  self.label = nil;
+  self.imageView = nil;
+  
+  [super dealloc];
+}
+
 -(void)layoutSubviews
 {
   [super layoutSubviews];
+
+  CGRect frame = self.frame;
+
+  self.imageView.frame = CGRectMake(0, 0, frame.size.width, 94); /* our thumbnails are 72x94 */
+
+  [self.label sizeToFit];
+  self.label.frame = CGRectMake(0, 98, frame.size.width, self.label.frame.size.height);
+}
+@end
+
+/*** The DashboardMoviesCell *****************************************/
+
+@interface DashboardMoviesCell: DashboardInfoCell<M3RotatorDelegate>
+
+@property (nonatomic,retain) M3Rotator* rotator;
+@property (nonatomic,assign) NSUInteger numberOfMovies;
+
+@end
+
+@implementation DashboardMoviesCell
+
+@synthesize rotator, numberOfMovies;
+
+-(id)init
+{
+  self = [super init];
+  if(!self) return nil;
   
-  // add buttons
+  numberOfMovies = [[app.sqliteDB ask: @"SELECT COUNT(*) FROM movies"] to_i];
   
+  return self;
+}
+
+-(void)dealloc
+{
+  self.rotator = nil;
   
-  // if([self.key isEqualToString: @"city"])
-  //   self.textLabel.font = [UIFont fontWithName:@"Futura-Medium" size:36];
-  // else
-  //   self.textLabel.font = [UIFont fontWithName:@"Futura-Medium" size:24];
-  // 
-  // self.textLabel.textColor = [UIColor colorWithName:@"ffffff"];
-  // // self.textLabel.highlightedTextColor= [UIColor colorWithName:@"000000"];
-  // self.textLabel.backgroundColor = [UIColor clearColor];
+  [super dealloc];
+}
+
+-(void)setKey: (NSString*)key
+{
+  [super setKey:key];
+
+  self.rotator = [[M3Rotator alloc] initWithFrame:CGRectMake(17, 21, 140, 120)];
+  self.rotator.delegate = self;
+  [self.rotator start];
+  
+	[self addSubview:self.rotator];
+}
+
+- (NSUInteger)numberOfViewsInRotator: (M3Rotator*)rotator
+{
+  return numberOfMovies;
+}
+
+- (UIView *)rotator:(M3Rotator*)rotator viewForItemAtIndex:(NSUInteger)index
+{
+  NSDictionary* movie;
+  movie = [app.sqliteDB first: @"SELECT * FROM movies INNER JOIN images ON images._id=movies.image LIMIT 1 OFFSET ?", 
+                                             [NSNumber numberWithInt: index]];
+
+  DashboardMoviesTeaserView* view = [[DashboardMoviesTeaserView alloc]init];
+  view.label.text = [movie objectForKey:@"title"];
+  view.imageView.image = [app thumbnailForMovie:movie];
+
+  return [view autorelease];
 }
 
 @end
+
 
 /*** The datasource for MoviesList *******************************************/
 
@@ -197,6 +297,9 @@ static NSDictionary *titlesByKey, *urlsByKey;
   
   if([key isEqualToString:@"M3TableViewAdCell"])
     return @"M3TableViewAdCell";
+  
+  if([key isEqualToString:@"movies"])
+    return @"DashboardMoviesCell";
   
   return [DashboardInfoCell class];
 }

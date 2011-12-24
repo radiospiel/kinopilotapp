@@ -54,9 +54,6 @@
   
   viewOnTop = view;
   
-  view.borderColor = [UIColor blackColor];
-  view.borderWidth = 1;
-  
   // CGRect frame = self.frame;
   // 
   // overlay.contentMode = UIViewContentModeScaleAspectFit;
