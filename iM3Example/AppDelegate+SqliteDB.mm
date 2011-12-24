@@ -118,4 +118,20 @@
     return [self sqliteDatabase];
   }];
 }
+
+-(UIImage*) thumbnailForMovie: (NSDictionary*) movie;
+{
+  NSString* url = [movie objectForKey:@"image"];
+  if(!url) return nil;
+
+  NSDictionary* imageData = [app.sqliteDB.images get: url];
+  NSString* encodedImage = [imageData objectForKey:@"data"];
+  if(!encodedImage) return nil;
+  
+  NSData* data = [M3 decodeBase64WithString:encodedImage];
+  if(!data) return nil;
+  
+  return [UIImage imageWithData: data];
+}
+
 @end

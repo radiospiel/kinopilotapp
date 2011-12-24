@@ -41,6 +41,8 @@
 
 @property (retain,nonatomic,readonly) M3SqliteDatabase* sqliteDB;
 
+-(UIImage*) thumbnailForMovie: (NSDictionary*) movie;
+
 @end
 
 @interface M3AppDelegate(Alert)
