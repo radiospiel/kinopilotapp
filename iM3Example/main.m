@@ -14,6 +14,6 @@ int main(int argc, char *argv[])
 {
   @autoreleasepool {
     NSLog(@"Starting application");
-    return UIApplicationMain(argc, argv, nil, NSStringFromClass([M3AppDelegate class]));
+    return UIApplicationMain(argc, argv, nil, @"M3AppDelegate");
   }
 }
