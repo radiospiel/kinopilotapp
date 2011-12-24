@@ -65,6 +65,7 @@
 #import "UIView+M3Extensions.h"
 #import "UIView+M3Stylesheets.h"
 #import "M3LocationManager.h"
+#import "M3Rotator.h"
 
 #endif
 

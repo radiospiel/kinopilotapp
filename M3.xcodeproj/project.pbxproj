@@ -289,6 +289,8 @@
 		9DC682BD142CBF2200124E9A /* TheatersListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682BC142CBF2200124E9A /* TheatersListController.mm */; };
 		9DC682C0142CE24100124E9A /* MoviesShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC682BF142CE24000124E9A /* MoviesShowController.mm */; };
 		9DD2ED851435F0F70078AD6A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD2ED841435F0F70078AD6A /* CoreLocation.framework */; };
+		9DD552E014A66E4600ECE5B5 /* M3Rotator.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DD552DE14A66E4600ECE5B5 /* M3Rotator.h */; };
+		9DD552E114A66E4600ECE5B5 /* M3Rotator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DD552DF14A66E4600ECE5B5 /* M3Rotator.m */; };
 		9DDE1B761430876A00FDF9C5 /* M3TableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDE1B751430876A00FDF9C5 /* M3TableViewCell.mm */; };
 		9DDE1B7A1430931900FDF9C5 /* M3TableViewAdCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDE1B791430931900FDF9C5 /* M3TableViewAdCell.mm */; };
 		9DDE1B7C1430946B00FDF9C5 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDE1B7B1430946B00FDF9C5 /* iAd.framework */; };
@@ -580,6 +582,8 @@
 		9DC682BE142CE24000124E9A /* MoviesShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesShowController.h; sourceTree = "<group>"; };
 		9DC682BF142CE24000124E9A /* MoviesShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesShowController.mm; sourceTree = "<group>"; };
 		9DD2ED841435F0F70078AD6A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
+		9DD552DE14A66E4600ECE5B5 /* M3Rotator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Rotator.h; sourceTree = "<group>"; };
+		9DD552DF14A66E4600ECE5B5 /* M3Rotator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3Rotator.m; sourceTree = "<group>"; };
 		9DDE1B741430876A00FDF9C5 /* M3TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewCell.h; sourceTree = "<group>"; };
 		9DDE1B751430876A00FDF9C5 /* M3TableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewCell.mm; sourceTree = "<group>"; };
 		9DDE1B781430931900FDF9C5 /* M3TableViewAdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewAdCell.h; sourceTree = "<group>"; };
@@ -823,6 +827,8 @@
 				9D8EAD54141E839400B21BEA /* M3Http.mm */,
 				9DC5123E143723A8009A393C /* M3LocationManager.h */,
 				9DC5123F143723A8009A393C /* M3LocationManager.mm */,
+				9DD552DE14A66E4600ECE5B5 /* M3Rotator.h */,
+				9DD552DF14A66E4600ECE5B5 /* M3Rotator.m */,
 				9D9656B114177F9700884372 /* M3StopWatch.h */,
 				9D9656B214177F9700884372 /* M3StopWatch.mm */,
 			);
@@ -1259,6 +1265,7 @@
 				9D3117111476C32C0003D964 /* M3+JSON.h in Headers */,
 				9D3117151476C32C0003D964 /* M3+RuntimeError.h in Headers */,
 				9D31171B1476C3770003D964 /* M3-Internals.h in Headers */,
+				9DD552E014A66E4600ECE5B5 /* M3Rotator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1638,6 +1645,7 @@
 				9D3117131476C32C0003D964 /* M3+JSON.mm in Sources */,
 				9D3117171476C32C0003D964 /* M3+RuntimeError.mm in Sources */,
 				9D31171D1476C3770003D964 /* M3-Internals.m in Sources */,
+				9DD552E114A66E4600ECE5B5 /* M3Rotator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
