@@ -62,6 +62,7 @@
 #import "UIButton+ActionButton.h"
 #import "UIImageView+M3Extensions.h"
 #import "UIColor+M3Extensions.h"
+#import "UIView+M3Extensions.h"
 #import "UIView+M3Stylesheets.h"
 #import "M3LocationManager.h"
 

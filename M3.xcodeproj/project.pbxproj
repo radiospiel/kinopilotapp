@@ -273,6 +273,8 @@
 		9DA6564014A12D1F00F96508 /* button_grey_pushed.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DA6563E14A12D1F00F96508 /* button_grey_pushed.png */; };
 		9DACE1BF145F48B600372415 /* ShareController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DACE1BE145F48B600372415 /* ShareController.mm */; };
 		9DACE1C2145F532300372415 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DACE1C1145F532300372415 /* EventKit.framework */; };
+		9DBC934514A64AA2001EEDAA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DBC934414A64AA2001EEDAA /* QuartzCore.framework */; };
+		9DBC934814A66413001EEDAA /* UIView+M3Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBC934714A66412001EEDAA /* UIView+M3Extensions.m */; };
 		9DBCDDEE1440919B0020EA1F /* M3CachedFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBCDDED1440919B0020EA1F /* M3CachedFactory.m */; };
 		9DBCDDEF1440919B0020EA1F /* M3CachedFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBCDDED1440919B0020EA1F /* M3CachedFactory.m */; };
 		9DBCDDFC1440B55A0020EA1F /* M3CachedFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DBCDDFB1440B55A0020EA1F /* M3CachedFactory.h */; };
@@ -561,6 +563,9 @@
 		9DACE1BD145F48B600372415 /* ShareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareController.h; sourceTree = "<group>"; };
 		9DACE1BE145F48B600372415 /* ShareController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShareController.mm; sourceTree = "<group>"; };
 		9DACE1C1145F532300372415 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/EventKit.framework; sourceTree = DEVELOPER_DIR; };
+		9DBC934414A64AA2001EEDAA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		9DBC934614A66412001EEDAA /* UIView+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+M3Extensions.h"; sourceTree = "<group>"; };
+		9DBC934714A66412001EEDAA /* UIView+M3Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+M3Extensions.m"; sourceTree = "<group>"; };
 		9DBCDDED1440919B0020EA1F /* M3CachedFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3CachedFactory.m; sourceTree = "<group>"; };
 		9DBCDDFB1440B55A0020EA1F /* M3CachedFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3CachedFactory.h; sourceTree = "<group>"; };
 		9DC1E75E1435C145009B41A5 /* VicinityShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VicinityShowController.h; sourceTree = "<group>"; };
@@ -634,6 +639,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DBC934514A64AA2001EEDAA /* QuartzCore.framework in Frameworks */,
 				9DF9B2D814744CE10035084F /* libsqlite3.dylib in Frameworks */,
 				9D3813971469A73C00E4BBF4 /* MediaPlayer.framework in Frameworks */,
 				9D3813931469A6E400E4BBF4 /* libBrightcovePlayerKit.a in Frameworks */,
@@ -870,6 +876,8 @@
 				9D15A6AF1446291400F17C91 /* UIViewController+M3Extensions.mm */,
 				9D934D9D1461BF51001B25C6 /* UIView+M3Stylesheets.h */,
 				9D934D9E1461BF51001B25C6 /* UIView+M3Stylesheets.mm */,
+				9DBC934614A66412001EEDAA /* UIView+M3Extensions.h */,
+				9DBC934714A66412001EEDAA /* UIView+M3Extensions.m */,
 			);
 			name = "UIxxx categories";
 			sourceTree = "<group>";
@@ -1106,6 +1114,7 @@
 				9D8B8B001413CA8B0066ECBB /* SenTestingKit.framework */,
 				9D01742B141AA6F10035A4C2 /* Foundation.framework */,
 				9D01743A141AA6F10035A4C2 /* UIKit.framework */,
+				9DBC934414A64AA2001EEDAA /* QuartzCore.framework */,
 				9D48ACBB141E9E3E00D0D000 /* CoreGraphics.framework */,
 				9D8B8AF01413CA8B0066ECBB /* Other Frameworks */,
 			);
@@ -1682,6 +1691,7 @@
 				9D3813901469A2DB00E4BBF4 /* MoviesTrailerController.mm in Sources */,
 				9D3D3093148994B300C84FB4 /* SVProgressHUD.m in Sources */,
 				9DFED726148BDA41000CE7B0 /* EmptyListCell.mm in Sources */,
+				9DBC934814A66413001EEDAA /* UIView+M3Extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

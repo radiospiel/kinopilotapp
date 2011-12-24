@@ -65,10 +65,4 @@
 
 @end
 
-@interface UIView(M3Extensions)
-
--(void)onTapOpen: (NSString*)url;
-
-@end
-
 #endif
