@@ -34,6 +34,9 @@
 
 -(void)dealloc
 {
+  [self stop];
+  
+  [self.timer invalidate]; 
   self.timer = nil;
   self.viewOnTop = nil;
   self.viewBelowTop = nil;
@@ -54,14 +57,6 @@
   
   viewOnTop = view;
   
-  // CGRect frame = self.frame;
-  // 
-  // overlay.contentMode = UIViewContentModeScaleAspectFit;
-  // overlay.clipsToBounds = YES;
-  // 
-  // // Initial setting.
-  // overlay.frame = CGRectMake(frame.origin.x + frame.size.width,   frame.origin.y,
-  //                            0,                                   frame.size.height);
   viewOnTop.alpha = 0.0;
   viewBelowTop.alpha = 1.0;
   // 
@@ -86,9 +81,16 @@
   [self stackOnTop: view];
 }
 
+-(void)stop
+{
+  [self.timer invalidate]; 
+  self.timer = nil;
+}
+
 -(void)start
 {
   [self showNext];
+  
   self.timer = [NSTimer timerWithTimeInterval: ROTATION_INTERVAL
                                        target: self
                                      selector: @selector(showNext)
@@ -97,9 +99,6 @@
   
   [[NSRunLoop mainRunLoop] addTimer:self.timer 
                             forMode:NSDefaultRunLoopMode];
-  
 }
 
 @end
-
-

@@ -23,5 +23,6 @@
 @property (nonatomic, assign) id<M3RotatorDelegate> delegate;
 
 -(void)start;
+-(void)stop;
 
 @end

@@ -238,6 +238,7 @@ static NSDictionary *titlesByKey, *urlsByKey;
 
 -(void)dealloc
 {
+  [self.rotator stop];
   self.rotator = nil;
   
   [super dealloc];
@@ -247,6 +248,8 @@ static NSDictionary *titlesByKey, *urlsByKey;
 {
   [super setKey:key];
 
+  if(!key) return;
+  
   self.rotator = [[M3Rotator alloc] initWithFrame:CGRectMake(17, 21, 140, 120)];
   self.rotator.delegate = self;
   [self.rotator start];
