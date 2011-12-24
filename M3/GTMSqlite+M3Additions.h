@@ -65,12 +65,14 @@ typedef enum M3SqliteStatementEnumerationPolicy {
 //
 -(id)eachArray: (NSString*)sql, ...;
 
+// Execute a query and return the first result set as NSDictionary
+-(NSDictionary*)first: (NSString*)sql, ...;
 
 // Execute a query and return the complete result set as an array of dictionaries.
--(id)all: (NSString*)sql, ...;
+-(NSArray*)all: (NSString*)sql, ...;
 
 // Execute a query and return the complete result set as an array of arrays.
--(id)allArrays: (NSString*)sql, ...;
+-(NSArray*)allArrays: (NSString*)sql, ...;
 
 -(void)importDump: (NSArray*)entries;
 

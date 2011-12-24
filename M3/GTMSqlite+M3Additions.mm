@@ -352,6 +352,35 @@ static StatementType statementTypeForSql(NSString* sql)
   return statement;
 }
 
+// Execute a query and return the first result set as NSDictionary
+-(NSDictionary*)first: (NSString*)sql, ...;
+{
+  va_list args;
+  va_start(args, sql);
+  
+  GTMSQLiteStatement* statement = [self prepareStatement:sql];
+  
+  int count = [statement parameterCount]; 
+  
+  for( int i = 0; i < count; i++ ) {
+    id arg = va_arg(args, id);
+    [statement bindObject: arg atPosition: i+1];
+  }
+  
+  va_end(args);
+  
+  statement.enumerationPolicy = M3SqliteStatementEnumerateUsingDictionaries;
+
+  NSDictionary* result = nil;
+  for(NSDictionary* record in statement) {
+    result = record;
+    break;
+  }
+
+  [statement reset];
+  return result;
+}
+
 // Execute a query and return the complete result set as an array of dictionaries.
 -(NSArray*)all: (NSString*)sql, ...;
 {
