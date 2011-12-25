@@ -46,6 +46,8 @@
 
 -(void)reloadURL
 {
+  [self setRightButtonReloadAction];
+  
   self.dataSource = [M3DataSource schedulesByTheater:self.theater_id 
                                             andMovie: self.movie_id
                                                onDay: [self day]

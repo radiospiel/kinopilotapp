@@ -174,7 +174,7 @@
   NSDictionary* params = self.url.to_url.params;
 
   if(self.theater_id) {
-    self.navigationItem.rightBarButtonItem = nil;
+    [self setRightButtonReloadAction];
     
     self.dataSource = [M3DataSource moviesListFilteredByTheater:[params objectForKey: @"theater_id"]]; 
     self.tableView.tableHeaderView = [M3ProfileView profileViewForTheater: self.theater]; 

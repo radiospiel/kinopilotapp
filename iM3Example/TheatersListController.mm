@@ -153,6 +153,8 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 
 -(void)reloadURL
 {
+  [self setRightButtonReloadAction];
+
   NSString* movie_id = [self.url.to_url param: @"movie_id"];
   
   self.dataSource = movie_id ? [M3DataSource theatersListFilteredByMovie:movie_id] :

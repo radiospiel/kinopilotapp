@@ -92,6 +92,8 @@
 
 @end
 
+@class M3AppDelegate;
+extern M3AppDelegate* app;
 
 @implementation UIViewController(M3Extensions)
 
@@ -153,26 +155,22 @@
                         target: (id)target
                         action: (SEL)action;
 {
-  UIBarButtonItem* item;
-  item = [[UIBarButtonItem alloc]initWithImage: image 
-                                         style: UIBarButtonItemStyleBordered
-                                        target: target 
-                                        action: action];
+  UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+  [button setBackgroundImage: image forState:UIControlStateNormal];
   
+  button.frame = CGRectMake(0.0, 0.0, 32, 32);
+  
+  [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+  
+  UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:button];
   self.navigationItem.rightBarButtonItem = [item autorelease];
 }
 
--(void)setRightButtonWithImage: (UIImage*)image
-                           url: (NSString*)url;
+-(void)setRightButtonReloadAction
 {
-  M3UIBarButtonItem* item;
-  item = [[M3UIBarButtonItem alloc]initWithImage: image 
-                                           style: UIBarButtonItemStyleBordered
-                                          target: nil
-                                          action: nil];
-  item.url = url;
-  
-  self.navigationItem.rightBarButtonItem = [item autorelease];
+  [self setRightButtonWithImage: [UIImage imageNamed:@"icon_72px.png"] 
+                         target: app 
+                         action: @selector(restartApplication)];
 }
 
 @end
