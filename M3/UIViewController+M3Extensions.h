@@ -63,6 +63,19 @@
                                 url: (NSString*)url;
 
 
+/*
+ * Setting the right button action.
+ */
+-(void)setRightButtonWithImage: (UIImage*)image
+                        target: (id)target
+                        action: (SEL)action;
+
+/*
+ * Setting the right button action.
+ */
+-(void)setRightButtonWithImage: (UIImage*)image
+                           url: (NSString*)url;
+
 @end
 
 #endif

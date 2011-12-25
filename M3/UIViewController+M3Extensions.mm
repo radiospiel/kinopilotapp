@@ -149,6 +149,32 @@
   self.navigationItem.rightBarButtonItem = [item autorelease];
 }
 
+-(void)setRightButtonWithImage: (UIImage*)image
+                        target: (id)target
+                        action: (SEL)action;
+{
+  UIBarButtonItem* item;
+  item = [[UIBarButtonItem alloc]initWithImage: image 
+                                         style: UIBarButtonItemStyleBordered
+                                        target: target 
+                                        action: action];
+  
+  self.navigationItem.rightBarButtonItem = [item autorelease];
+}
+
+-(void)setRightButtonWithImage: (UIImage*)image
+                           url: (NSString*)url;
+{
+  M3UIBarButtonItem* item;
+  item = [[M3UIBarButtonItem alloc]initWithImage: image 
+                                           style: UIBarButtonItemStyleBordered
+                                          target: nil
+                                          action: nil];
+  item.url = url;
+  
+  self.navigationItem.rightBarButtonItem = [item autorelease];
+}
+
 @end
 
 #endif
