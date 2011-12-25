@@ -1,7 +1,8 @@
 #import "AppDelegate.h"
 #import "SVProgressHUD.h"
 
-#define SQLITE_PATH @"$documents/kinopilot2.sqlite3"
+#define SQLITE_PATH       @"$documents/kinopilot2.sqlite3"
+#define UPDATE_TIME_SPAN  18 * 3600
 
 #if 1
 #define REMOTE_SQL_URL  @"http://kinopilotupdates2.heroku.com/db/images,berlin.sql"
@@ -41,13 +42,13 @@
   return self.movies.count.to_i > 0;
 }
 
--(BOOL)loadRemoteURL
+-(BOOL)importDatabaseFromURL: (NSString*)url
 {  
-  NSArray* entries = [M3 readJSON: REMOTE_SQL_URL];
+  NSArray* entries = [M3 readJSON: url];
   if(![entries isKindOfClass: [NSArray class]])
-    _.raise("Cannot read file", REMOTE_SQL_URL);
+    _.raise("Cannot read file", url);
   
-  Benchmark(_.join("Importing database from ", REMOTE_SQL_URL));
+  Benchmark(_.join("Importing database from ", url));
 
   [self transaction:^() {
     [self importDump:entries];
@@ -79,20 +80,30 @@
   return db;
 }
 
--(void)update
+-(void)updateDatabase
 {
   [SVProgressHUD showWithStatus:@"Updating" maskType: SVProgressHUDMaskTypeBlack];
   
   // run in background...
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     M3SqliteDatabase* db = [self buildSqliteDatabase];
-    [db loadRemoteURL];
+    [db importDatabaseFromURL: REMOTE_SQL_URL];
     
     dispatch_async(dispatch_get_main_queue(), ^{
       [self emit:@selector(updated)];
       [SVProgressHUD dismissWithSuccess:@"Update good" ];
     });
   });
+}
+
+-(void)updateDatabaseIfNeeded
+{
+  NSNumber* updated_at = [self.sqliteDB.settings objectForKey: @"updated_at"];
+  int diff = [NSDate now].to_number.to_i - updated_at.to_i;
+  if(diff < UPDATE_TIME_SPAN)                          // 18 hours.
+    return;
+
+  [self updateDatabase];
 }
 
 -(M3SqliteDatabase*)sqliteDatabase
@@ -107,8 +118,8 @@
   // Just creating a new M3SqliteDatabase object fixes things; 
   // and it then has the newly imported data as well. 
 
-  [self update];
-  // [db loadRemoteURL];
+  [self updateDatabase];
+  // [db importDatabaseFromURL: REMOTE_SQL_URL];
   return [self buildSqliteDatabase];
 }
 

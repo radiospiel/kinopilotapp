@@ -44,6 +44,9 @@
 
 -(UIImage*) thumbnailForMovie: (NSDictionary*) movie;
 
+-(void)updateDatabase;
+-(void)updateDatabaseIfNeeded;
+
 @end
 
 @interface M3AppDelegate(Alert)

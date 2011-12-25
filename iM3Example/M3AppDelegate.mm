@@ -262,15 +262,6 @@ M3AppDelegate* app;
    Called as part of the transition from the background to the inactive state; 
    here you can undo many of the changes made on entering the background.
    */
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-  /*
-   Restart any tasks that were paused (or not yet started) while the 
-   application was inactive. If the application was previously in the 
-   background, optionally refresh the user interface.
-  */
 
   NSNumber* resumed_at = [self.sqliteDB.settings objectForKey: @"resumed_at"];
   int diff = [NSDate now].to_number.to_i - resumed_at.to_i;
@@ -281,7 +272,18 @@ M3AppDelegate* app;
   else {
     [app emit:@selector(resumed)];
   }
+
+  [self updateDatabaseIfNeeded];
 }
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+  /*
+   Restart any tasks that were paused (or not yet started) while the 
+   application was inactive. If the application was previously in the 
+   background, optionally refresh the user interface.
+  */
+ }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {

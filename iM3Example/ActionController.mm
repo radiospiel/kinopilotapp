@@ -16,6 +16,6 @@
 
 -(void)update
 {
-  [app update];
+  [app updateDatabase];
 }
 @end
