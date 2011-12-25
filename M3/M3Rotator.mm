@@ -29,6 +29,9 @@
   
   self.currentIndex = -1;
   
+  UIGestureRecognizer* recognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
+  [self addGestureRecognizer: recognizer];
+
   return self;
 }
 
@@ -106,6 +109,17 @@
   [[NSRunLoop mainRunLoop] addTimer:self.timer 
                             forMode:NSDefaultRunLoopMode];
 }
+
+-(void)handleTap:(UITapGestureRecognizer *)sender 
+{
+  id del = delegate;
+  
+  if(![del respondsToSelector:@selector(rotator:activatedIndex:)])
+    return;
+
+  [delegate rotator:self activatedIndex: currentIndex];
+}
+
 
 @end
 

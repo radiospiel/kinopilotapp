@@ -16,6 +16,10 @@
 - (NSUInteger)numberOfViewsInRotator: (M3Rotator*)rotator;
 - (UIView *)rotator:(M3Rotator*)rotator viewForItemAtIndex:(NSUInteger)index;
 
+@optional
+
+- (UIView *)rotator:(M3Rotator*)rotator activatedIndex:(NSUInteger)index;
+
 @end
 
 @interface M3Rotator: UIView

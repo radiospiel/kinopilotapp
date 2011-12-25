@@ -262,17 +262,28 @@ static NSDictionary *titlesByKey, *urlsByKey;
   return numberOfMovies;
 }
 
+-(NSDictionary*)movieAtIndex: (NSUInteger)index;
+{
+  return [app.sqliteDB first: @"SELECT movies.* FROM movies INNER JOIN images ON images._id=movies.image LIMIT 1 OFFSET ?", 
+                              [NSNumber numberWithInt: index]];
+}
+
 - (UIView *)rotator:(M3Rotator*)rotator viewForItemAtIndex:(NSUInteger)index
 {
-  NSDictionary* movie;
-  movie = [app.sqliteDB first: @"SELECT * FROM movies INNER JOIN images ON images._id=movies.image LIMIT 1 OFFSET ?", 
-                                             [NSNumber numberWithInt: index]];
+  NSDictionary* movie = [self movieAtIndex: index];
 
   DashboardMoviesTeaserView* view = [[DashboardMoviesTeaserView alloc]init];
   view.label.text = [movie objectForKey:@"title"];
   view.imageView.image = [app thumbnailForMovie:movie];
 
   return [view autorelease];
+}
+
+- (void)rotator:(M3Rotator*)rotator activatedIndex:(NSUInteger)index
+{
+  NSDictionary* movie = [self movieAtIndex: index];
+  NSString* url = _.join("/movies/show?movie_id=", [movie objectForKey: @"_id"]);
+  [app open: url];
 }
 
 @end
