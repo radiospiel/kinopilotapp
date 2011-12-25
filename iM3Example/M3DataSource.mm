@@ -61,25 +61,25 @@
   self = [super initWithCellClass: @"MoviesListCell"]; 
 
   NSArray* movies = [self movieRecordsByFilter: filter];
-  if(movies.count == 0) return nil;
-
-  NSDictionary* groupedHash = [movies groupUsingBlock:^id(NSDictionary* movie) {
-    // The movie_id is "m-<sortkey>", and the first character of the sortkey
-    // "makes sense" for the index: this should be the first relevant 
-    // letter from the movie title.
-    NSString* movie_id = [movie objectForKey:@"_id"];
-    NSString* index_key = [[movie_id substringWithRange:NSMakeRange(2, 1)] uppercaseString];
-    if([index_key compare:@"A"] == NSOrderedAscending || [@"Z" compare: index_key] == NSOrderedAscending)
-      return @"#";
-    return index_key;
-  }];
-  
-  NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
-  
-  for(NSArray* group in groups) {
-    [self addSection: group.second 
-         withOptions:_.hash(@"header", group.first, 
-                            @"index", group.first)];
+  if(movies.count > 0) {
+    NSDictionary* groupedHash = [movies groupUsingBlock:^id(NSDictionary* movie) {
+      // The movie_id is "m-<sortkey>", and the first character of the sortkey
+      // "makes sense" for the index: this should be the first relevant 
+      // letter from the movie title.
+      NSString* movie_id = [movie objectForKey:@"_id"];
+      NSString* index_key = [[movie_id substringWithRange:NSMakeRange(2, 1)] uppercaseString];
+      if([index_key compare:@"A"] == NSOrderedAscending || [@"Z" compare: index_key] == NSOrderedAscending)
+        return @"#";
+      return index_key;
+    }];
+    
+    NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
+    
+    for(NSArray* group in groups) {
+      [self addSection: group.second 
+           withOptions:_.hash(@"header", group.first, 
+                              @"index", group.first)];
+    }
   }
   
   return self;
@@ -137,30 +137,29 @@
                         [NSDate today]
   ];
   
-  if(schedules.count == 0) return nil;
-  
-  // group schedules by *day* into sectionsHash
-  NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
-    NSNumber* time = [schedule objectForKey:@"time"];
+  if(schedules.count > 0) {
+    // group schedules by *day* into sectionsHash
+    NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
+      NSNumber* time = [schedule objectForKey:@"time"];
+      
+      time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
+      return [time.to_date stringWithFormat:@"dd.MM."];
+    }];
     
-    time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
-    return [time.to_date stringWithFormat:@"dd.MM."];
-  }];
-  
-  NSArray* sectionsArray = [sectionsHash allValues];
-  sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
-    NSNumber* time1 = [schedules1.first objectForKey:@"time"];
-    NSNumber* time2 = [schedules2.first objectForKey:@"time"];
+    NSArray* sectionsArray = [sectionsHash allValues];
+    sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
+      NSNumber* time1 = [schedules1.first objectForKey:@"time"];
+      NSNumber* time2 = [schedules2.first objectForKey:@"time"];
+      
+      return [time1 compare:time2];
+    }];
     
-    return [time1 compare:time2];
-  }];
-  
-  for(NSArray* schedules in sectionsArray) {
-    M3AssertKindOf(schedules, NSArray);
-    [self addSchedulesSection: schedules];
+    for(NSArray* schedules in sectionsArray) {
+      M3AssertKindOf(schedules, NSArray);
+      [self addSchedulesSection: schedules];
+    }
   }
   
-
   return self;
 }
 
@@ -188,23 +187,25 @@
   ];
 
   
-  if(theaters.count == 0) return nil;
-
-  NSDictionary* groupedHash = [theaters groupUsingBlock:^id(NSDictionary* theater) {
-    // The theater_id is "c-<sortkey>", and the first character of the sortkey
-    // "makes sense" for the index: this should be the first relevant 
-    // letter from the movie title.
-    NSString* theater_id = [theater objectForKey:@"_id"];
-    return [[theater_id substringWithRange:NSMakeRange(2, 1)] uppercaseString];
-  }];
+  if(theaters.count > 0) {
+    
+    NSDictionary* groupedHash = [theaters groupUsingBlock:^id(NSDictionary* theater) {
+      // The theater_id is "c-<sortkey>", and the first character of the sortkey
+      // "makes sense" for the index: this should be the first relevant 
+      // letter from the movie title.
+      NSString* theater_id = [theater objectForKey:@"_id"];
+      return [[theater_id substringWithRange:NSMakeRange(2, 1)] uppercaseString];
+    }];
   
-  NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
+    NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
   
-  for(NSArray* group in groups) {
-    [self addSection: group.second 
-         withOptions:_.hash(@"header", group.first, 
-                            @"index", group.first)];
+    for(NSArray* group in groups) {
+      [self addSection: group.second 
+           withOptions:_.hash(@"header", group.first, 
+                              @"index", group.first)];
+    }
   }
+  
   
   return self;
 }
@@ -358,35 +359,40 @@
 
 @implementation M3DataSource(M3Lists)
 
-+(M3TableViewDataSource*)emptyDataSource
++(M3TableViewDataSource*) checked: (M3TableViewDataSource*) dataSource
 {
+  if(dataSource.sections.count > 0) return dataSource;
+  
   return [[[EmptyDataSource alloc]init]autorelease];
 }
 
 +(M3TableViewDataSource*)moviesListWithFilter:(NSString *)filter
 {
-  M3TableViewDataSource* ds = [[[MoviesListDataSource alloc]initWithFilter:filter]autorelease];
+  M3TableViewDataSource* ds = [[MoviesListDataSource alloc]initWithFilter:filter];
 
-  if(ds) return ds;
-  return [self emptyDataSource];
+  return [self checked: [ds autorelease]];
 }
 
 +(M3TableViewDataSource*)moviesListFilteredByTheater:(id)theater_id
 {
-  M3TableViewDataSource* ds = [[[MoviesListFilteredByTheaterDataSource alloc]initWithTheaterFilter: theater_id]autorelease];
-  
-  if(ds) return ds;
-  return [self emptyDataSource];
+  M3TableViewDataSource* ds = [[MoviesListFilteredByTheaterDataSource alloc]initWithTheaterFilter: theater_id];
+
+  return [self checked: [ds autorelease]];
 }
 
 +(M3TableViewDataSource*)theatersListFilteredByMovie:(id)movie_id
 {
-  return [[[TheatersListFilteredByMovieDataSource alloc]initWithMovieFilter: movie_id]autorelease];
+  M3TableViewDataSource* ds;
+  ds = [[TheatersListFilteredByMovieDataSource alloc]initWithMovieFilter: movie_id];
+  
+  return [self checked: [ds autorelease]];
 }
 
 +(M3TableViewDataSource*)theatersList
 {
-  return [[[TheatersListDateSource alloc]init]autorelease];
+  M3TableViewDataSource* ds = [[TheatersListDateSource alloc]init];
+  
+  return [self checked: [ds autorelease]];
 }
 
 +(M3TableViewDataSource*)schedulesByTheater: (NSString*)theater_id 
@@ -397,10 +403,12 @@
   M3AssertKindOfAndSet(movie_id, NSString);
   M3AssertKindOf(day, NSDate);
   
-  return [[[SchedulesByTheaterAndMovieDataSource alloc]initWithTheater: theater_id 
+  M3TableViewDataSource* ds;
+  ds = [[SchedulesByTheaterAndMovieDataSource alloc]initWithTheater: theater_id 
                                                               andMovie: movie_id
-                                                                 onDay: day]
-          autorelease];
+                                                                 onDay: day];
+  
+  return [self checked: [ds autorelease]];
 }
 
 @end
