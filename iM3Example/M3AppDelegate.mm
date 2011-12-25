@@ -8,9 +8,7 @@
 
 #if TARGET_OS_IPHONE 
 
-#import "M3.h"
 #import "M3AppDelegate.h"
-#import "AppDelegate.h"
 #import "UIViewController+M3Extensions.h"
 
 #import "MixpanelAPI.h"
@@ -25,14 +23,13 @@ M3AppDelegate* app;
 
 @implementation M3AppDelegate
 
-@synthesize splashScreen;
-@synthesize window = _window, tabBarController = _tabBarController, progressView = progressView_;
+@synthesize splashScreen, window, tabBarController;
 
 - (void)dealloc
 {
   self.window = nil;
   self.tabBarController = nil;
-  self.progressView = nil;
+  self.splashScreen = nil;
   
   [super dealloc];
 }
@@ -159,13 +156,12 @@ M3AppDelegate* app;
   }];
 
   if(navigationControllers.count > 1) {
-    UITabBarController* tabBarController = [[[UITabBarController alloc] init] autorelease];
-    tabBarController.view.frame = [[UIScreen mainScreen] bounds];
+    UITabBarController* tbc = [[[UITabBarController alloc] init] autorelease];
+    tbc.view.frame = [[UIScreen mainScreen] bounds];
     // tabBarController.wantsFullScreenLayout = YES;
-    tabBarController.viewControllers = navigationControllers;
+    tbc.viewControllers = navigationControllers;
     
-    self.tabBarController = tabBarController;
-    self.window.rootViewController = self.tabBarController;
+    self.window.rootViewController = self.tabBarController = tbc;
   }
   else {
     dlog << "opened tab: " << initialURL;
@@ -173,19 +169,19 @@ M3AppDelegate* app;
   }
 }
 
+-(void)createRootWindow
+{
+  UIWindow* wnd = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]; 
+  self.window = [wnd autorelease];  
+}
+
 -(void)restartApplication
 {
-  // Create root window
-  UIWindow* window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]; 
-  self.window = [window autorelease];  
-
-  // Load initial set of tabs
+  [self createRootWindow];
   [self loadTabs];
-
   [self.window makeKeyAndVisible];
 
-  // track start
-  [self trackEvent: @"start"];
+  [self trackEvent: @"start"];          // track a start event
 }
 
 -(BOOL) application:(UIApplication *)application 
@@ -210,26 +206,6 @@ M3AppDelegate* app;
 {
   return [ self.tabBarController.viewControllers objectAtIndex:0];
   //  return (UINavigationController*)[self.tabBarController selectedViewController];
-}
-
-- (UIProgressView*)progressView
-{
-  if(progressView_) return progressView_;
-
-  UINavigationItem* item = [[[self currentTab]navigationBar]topItem];
-  dlog << @"topItem: " << [self currentTab];
-
-  progressView_ = [[UIProgressView alloc]initWithProgressViewStyle: UIProgressViewStyleDefault];
-
-  item.titleView = progressView_;
-  [progressView_ setProgress:0.5f];
-
-  item.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle: @"right"
-                                                            style:UIBarButtonItemStylePlain 
-                                                           target:self 
-                                                           action:@selector(right)];
-
-  return progressView_;
 }
 
 #pragma mark splashscreen

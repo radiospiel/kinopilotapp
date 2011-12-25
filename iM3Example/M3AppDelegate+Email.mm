@@ -6,34 +6,7 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "AppDelegate.h"
-
-@implementation NSString (IM3ExampleExtensions)
-
--(NSString*) withVersionString: (NSString*)versionString;
-{
-  if(!versionString) return self;
-  if([versionString isKindOfClass:[NSNull class]]) return self;
-  return [self stringByAppendingFormat:@" (%@)", versionString];
-}
-
-@end
-
-@implementation M3AppDelegate(Alert)
-
--(void)alert: (NSString*)msg;
-{
-  UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle: nil
-                                message: msg
-                               delegate: nil
-                      cancelButtonTitle: @"Schließen"
-                      otherButtonTitles: nil];
-
-  [alert show];
-  [alert release];
-}
-@end
+#import "M3AppDelegate.h"
 
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>

@@ -4,12 +4,12 @@
 
 #define BRIGHTCOVE_API_KEY @"QeK_7QLEYC-Q4eh-ulEVLfonGwsQhAZlqSaXoUiyYVHfIwheZpv70A.."
 
+#import "M3AppDelegate.h"
+
 #import "BCMediaAPI.h"
 #import "BCMoviePlayerController.h"
 
-#import "M3.h"
-#import "AppDelegate.h"
-#import "UIViewController+M3Extensions.h"
+// #import "UIViewController+M3Extensions.h"
 
 @interface MoviesTrailerController: UIViewController {
   BCMoviePlayerController* player_;

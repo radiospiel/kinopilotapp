@@ -142,7 +142,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionNo
 {
   NSArray* section = [self.sections objectAtIndex:sectionNo]; 
-  return [section.first count];
+  NSArray* first = section.first;
+  return [first count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)sectionNo

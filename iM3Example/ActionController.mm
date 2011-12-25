@@ -1,4 +1,4 @@
-#import "AppDelegate.h"
+#import "M3AppDelegate.h"
 
 @interface ActionController: NSObject
 @property (retain,nonatomic) NSString* url;

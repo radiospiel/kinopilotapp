@@ -1,4 +1,4 @@
-#import "AppDelegate.h"
+#import "M3AppDelegate.h"
 #import "TTTAttributedLabel.h"
 #import "M3TableViewCell.h"
 #import "MoviesShowController.h"

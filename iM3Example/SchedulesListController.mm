@@ -1,4 +1,4 @@
-#import "AppDelegate.h"
+#import "M3AppDelegate.h"
 #import "SchedulesListController.h"
 #import "M3ProfileView.h"
 #import "M3DataSource.h"

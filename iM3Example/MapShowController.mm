@@ -6,9 +6,8 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
+#import "M3AppDelegate.h"
 #import "MapShowController.h"
-#import "M3.h"
-#import "AppDelegate.h"
 
 @interface MapAnnotation: MKPointAnnotation {
   NSString* theater_id_;

@@ -6,8 +6,6 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "AppDelegate.h"
-
 @interface M3DataSource: NSObject
 @end
 

@@ -1,4 +1,4 @@
-#import "AppDelegate.h"
+#import "M3AppDelegate.h"
 
 @interface ShareController: UIViewController {
   NSDictionary *movie_, *theater_, *schedule_;

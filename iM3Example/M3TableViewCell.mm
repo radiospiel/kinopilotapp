@@ -1,6 +1,6 @@
-#import "AppDelegate.h"
-
+#import "M3AppDelegate.h"
 #import "M3TableViewCell.h"
+#import "TTTAttributedLabel.h"
 
 @implementation M3TableViewCell
 

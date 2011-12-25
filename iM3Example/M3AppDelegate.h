@@ -2,16 +2,32 @@
 
 #import <UIKit/UIKit.h>
 
+#import "M3.h"
+#ifdef __cplusplus
+#import "Underscore.hh"
+#endif
+
+#import "UIViewController+M3Extensions.h"
+
+@interface NSString (IM3ExampleExtensions)
+
+/*
+ * The versionString contains strings like "omu" etc. This
+ * normalizes the version string into proper spelling, and 
+ * appends it to the receiver.
+ */
+-(NSString*) withVersionString: (NSString*)versionString;
+
+@end
+
 @class M3AppDelegate;
 extern M3AppDelegate* app;
 
 /*
  * The AppDelegate class and the global app object.
  */
-@interface M3AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UINavigationControllerDelegate> {
-}
+@interface M3AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UINavigationControllerDelegate>
 
-@property (retain, nonatomic) UIProgressView* progressView;
 @property (retain, nonatomic) UIWindow *window;
 @property (retain, nonatomic) UITabBarController *tabBarController;
 
@@ -63,4 +79,42 @@ extern M3AppDelegate* app;
 
 @end
 
+#import "GTMSqlite+M3Additions.h"
+
+@interface M3SqliteDatabase(M3Additions)
+
+@property (nonatomic,retain,readonly) M3SqliteTable* movies;
+@property (nonatomic,retain,readonly) M3SqliteTable* theaters;
+@property (nonatomic,retain,readonly) M3SqliteTable* schedules;
+@property (nonatomic,retain,readonly) M3SqliteTable* images;
+@property (nonatomic,retain,readonly) M3SqliteTable* settings;
+
+@end
+
+@interface M3AppDelegate(SqliteDB)
+
+@property (retain,nonatomic,readonly) M3SqliteDatabase* sqliteDB;
+
+-(UIImage*) thumbnailForMovie: (NSDictionary*) movie;
+
+-(void)updateDatabase;
+-(void)updateDatabaseIfNeeded;
+
+@end
+
+@interface M3AppDelegate(Alert)
+
+-(void)alert: (NSString*)msg;
+
+@end
+
+@interface M3AppDelegate(Email)
+
+-(void)composeEmailWithSubject: (NSString*)subject
+                       andBody: (NSString*)body;
+
+@end
+
 #endif
+
+

@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "M3AppDelegate.h"
 #import "WebViewController.h"
 
 #include "Underscore.hh"

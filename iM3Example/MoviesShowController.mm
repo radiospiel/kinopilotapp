@@ -6,9 +6,8 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
+#import "M3AppDelegate.h"
 #import "MoviesShowController.h"
-#import "AppDelegate.h"
-#import "M3.h"
 
 #import "TTTAttributedLabel/TTTAttributedLabel.h"
 
