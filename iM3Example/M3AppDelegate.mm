@@ -10,6 +10,7 @@
 
 #import "M3.h"
 #import "M3AppDelegate.h"
+#import "AppDelegate.h"
 #import "UIViewController+M3Extensions.h"
 
 #import "MixpanelAPI.h"
@@ -232,6 +233,8 @@ M3AppDelegate* app;
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+  [self.sqliteDB.settings setObject: [NSDate now].to_number forKey:@"resumed_at"];
+  
   /*
    Sent when the application is about to move from active to inactive state. 
    This can occur for certain types of temporary interruptions (such as an 
@@ -266,6 +269,10 @@ M3AppDelegate* app;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+  NSNumber* resumed_at = [self.sqliteDB.settings objectForKey: @"resumed_at"];
+  int diff = [NSDate now].to_number.to_i - resumed_at.to_i;
+
+  dlog << "*** resuming after " << diff << " seconds.";
   /*
    Restart any tasks that were paused (or not yet started) while the 
    application was inactive. If the application was previously in the 

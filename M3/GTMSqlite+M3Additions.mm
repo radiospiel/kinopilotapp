@@ -692,8 +692,6 @@ static StatementType statementTypeForSql(NSString* sql)
 {
   if(ids.count == 0) return;
 
-  Benchmark(_.join(@"*** Deleting ", ids.count, " entries from ", self.tableName));
-  
   ids = [ids mapUsingSelector:@selector(sqliteEscape)];
   
   NSString* sql = [
