@@ -169,6 +169,21 @@ M3AppDelegate* app;
   }
 }
 
+-(void)restartApplication
+{
+  // Create root window
+  UIWindow* window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]; 
+  self.window = [window autorelease];  
+
+  // Load initial set of tabs
+  [self loadTabs];
+
+  [self.window makeKeyAndVisible];
+
+  // track start
+  [self trackEvent: @"start"];
+}
+
 -(BOOL) application:(UIApplication *)application 
           didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -176,32 +191,14 @@ M3AppDelegate* app;
 
   app = self;
   
-  [self trackEvent: @"start"];
-
   [self enableRemoteNotifications];
-  
   [M3 enableImageHost:M3SenchaSupportFull scaleForRetinaDisplay:YES];
   
-  // [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-  /*
-   * Initialise root window
-   */
-  self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+  [self sqliteDB];            // Initialise database
   
-  /*
-   * Initialise database
-   */
-  [self sqliteDB];
+  self.window = nil;
+  [self restartApplication];  // restart app
   
-  /*
-   * Load initial set of tabs
-   */
-  
-  [self loadTabs];
-  
-
-  [self.window makeKeyAndVisible];
-
   return YES;
 }
 
@@ -221,7 +218,7 @@ M3AppDelegate* app;
   progressView_ = [[UIProgressView alloc]initWithProgressViewStyle: UIProgressViewStyleDefault];
 
   item.titleView = progressView_;
-  [  progressView_ setProgress:0.5f];
+  [progressView_ setProgress:0.5f];
 
   item.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle: @"right"
                                                             style:UIBarButtonItemStylePlain 
@@ -269,16 +266,21 @@ M3AppDelegate* app;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-  NSNumber* resumed_at = [self.sqliteDB.settings objectForKey: @"resumed_at"];
-  int diff = [NSDate now].to_number.to_i - resumed_at.to_i;
-
-  dlog << "*** resuming after " << diff << " seconds.";
   /*
    Restart any tasks that were paused (or not yet started) while the 
    application was inactive. If the application was previously in the 
    background, optionally refresh the user interface.
   */
-  [app emit:@selector(resumed)];
+
+  NSNumber* resumed_at = [self.sqliteDB.settings objectForKey: @"resumed_at"];
+  int diff = [NSDate now].to_number.to_i - resumed_at.to_i;
+
+  if(diff > 5 * 60) {                         // 300 seconds.
+    [self restartApplication];
+  }
+  else {
+    [app emit:@selector(resumed)];
+  }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
