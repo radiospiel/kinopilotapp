@@ -1,5 +1,3 @@
-#import "DashboardController.h"
-
 //
 //  DashboardController.m
 //  M3
@@ -8,9 +6,14 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "M3TableViewProfileCell.h"
+#import "DashboardController.h"
+#import "M3AppDelegate.h"
 #import "AppDelegate.h"
+
+// #import "M3AppDelegate+SqliteDB.h"
 #import "M3.h"
+
+#import "M3TableViewProfileCell.h"
 
 /*** VicinityShowController cells *******************************************/
 
@@ -268,6 +271,13 @@ static NSDictionary *titlesByKey, *urlsByKey;
                               [NSNumber numberWithInt: index]];
 }
 
+- (void)rotator:(M3Rotator*)rotator activatedIndex:(NSUInteger)index
+{
+  NSDictionary* movie = [self movieAtIndex: index];
+  NSString* url = _.join("/movies/show?movie_id=", [movie objectForKey: @"_id"]);
+  [app open: url];
+}
+
 - (UIView *)rotator:(M3Rotator*)rotator viewForItemAtIndex:(NSUInteger)index
 {
   NSDictionary* movie = [self movieAtIndex: index];
@@ -277,13 +287,6 @@ static NSDictionary *titlesByKey, *urlsByKey;
   view.imageView.image = [app thumbnailForMovie:movie];
 
   return [view autorelease];
-}
-
-- (void)rotator:(M3Rotator*)rotator activatedIndex:(NSUInteger)index
-{
-  NSDictionary* movie = [self movieAtIndex: index];
-  NSString* url = _.join("/movies/show?movie_id=", [movie objectForKey: @"_id"]);
-  [app open: url];
 }
 
 @end

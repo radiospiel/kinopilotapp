@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "M3.h"
+#import "M3AppDelegate.h"
 #import "GTMSqlite+M3Additions.h"
 
 #import "UIViewController+M3Extensions.h"

@@ -9,6 +9,7 @@
 #if TARGET_OS_IPHONE 
 
 #import "M3.h"
+#import "M3AppDelegate.h"
 #import "UIViewController+M3Extensions.h"
 
 #import "MixpanelAPI.h"

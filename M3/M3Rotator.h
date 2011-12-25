@@ -18,7 +18,7 @@
 
 @optional
 
-- (UIView *)rotator:(M3Rotator*)rotator activatedIndex:(NSUInteger)index;
+- (void)rotator:(M3Rotator*)rotator activatedIndex:(NSUInteger)index;
 
 @end
 

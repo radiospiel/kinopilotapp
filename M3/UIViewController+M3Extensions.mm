@@ -46,7 +46,8 @@
 }
 
 -(void)perform {
-  [app presentControllerOnTop: self];
+  id app = [[UIApplication sharedApplication]delegate];
+  [app performSelector:@selector(presentControllerOnTop:) withObject:self];
 }
 
 @end
