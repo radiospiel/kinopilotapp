@@ -346,7 +346,7 @@
 -(id)init 
 {
   self = [super init];
-  [self addSection: _.array(@"EmptyListCell", @"UpdateActionListCell") ];
+  [self addSection: _.array(@"EmptyListCell", @"EmptyListUpdateActionCell") ];
   return self;
 }
 
