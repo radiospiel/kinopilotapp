@@ -26,3 +26,9 @@
 -(void)stop;
 
 @end
+
+@interface M3ImageRotator: M3Rotator
+
+@property (nonatomic, retain) NSArray* imageURLs;
+
+@end

@@ -102,20 +102,9 @@
 -(NSString*)url
 {
   NSDictionary* videos = [self.movie objectForKey: @"videos"];
-  
   if(videos.count == 0) return nil;
-
-  NSDictionary* video = [videos  objectForKey: @"video" ];
-  DLOG(video);
 
   return _.join(@"/movies/trailer?movie_id=", [self.movie objectForKey: @"_id"]);
-
-  if(videos.count == 0) return nil;
-
-  // NSNumber* brightcove_id = [video objectForKey: @"brightcove-id"];
-  // if(!brightcove_id) return nil;
-  
-  // return _.join(@"/movies/trailer?brightcove_id=", brightcove_id);
 }
 
 -(CGFloat)wantsHeight
@@ -189,21 +178,36 @@
 
 /* === MovieShortInfoCell: short info ====== */
 
-@interface MovieShortInfoCell: MovieInfoCell {
-  TTTAttributedLabel* htmlView;
-}
+@interface MovieShortInfoCell: MovieInfoCell;
+
+@property (nonatomic,retain) TTTAttributedLabel* htmlView;
+@property (nonatomic,retain) M3ImageRotator* rotator;
+
 @end
 
 @implementation MovieShortInfoCell
 
+@synthesize htmlView, rotator;
+
 -(id) init {
   self = [super init];
-
   self.selectionStyle = UITableViewCellSelectionStyleNone;
-  htmlView = [[[TTTAttributedLabel alloc] init] autorelease];
+
+  self.rotator = [[M3ImageRotator alloc] initWithFrame: CGRectMake(10, 10, 90, 120)];
+  [self addSubview: rotator];
+  
+  self.htmlView = [[TTTAttributedLabel alloc] init];
   [self addSubview: htmlView];
 
   return self;
+}
+
+-(void)dealloc
+{
+  self.rotator = nil;
+  self.htmlView = nil;
+  
+  [super dealloc];
 }
 
 -(NSString*)markup
@@ -260,71 +264,29 @@
   return [parts componentsJoinedByString:@""];
 }
 
--(void)setKey: (id)key
-{
-  [super setKey:key];
-  
-  self.textLabel.text = @" ";
-
-  htmlView.text = [NSAttributedString attributedStringWithMarkup: [self markup] 
-                                                   forStylesheet: self.stylesheet];
-}
-
 -(CGSize)htmlViewSize
 {
   return [htmlView sizeThatFits: CGSizeMake(212, 1000)];
 }
 
-/* 
- * usually we would prepare the image views already in setKey:. However, as
- * setKey: is called for determining a cell's height on a temporary cell
- * object, we'll prepare the image later, during layoutSubviews, to prevent 
- * double loading of URLs.
- *
- * The imageView's imageURL attribute is used to determine whether preparing
- * is still needed.
- */ 
--(void)prepareImageView
+-(void)setKey:(id)key
 {
-  NSDictionary* movie = self.movie;
-  M3AssertKindOf(movie, NSDictionary);
+  [super setKey:key];
+  if(!key) return;
 
-  if([self.imageView.imageURL isEqualToString: [movie objectForKey:@"image"]]) 
-    return; 
-
-  /* set imageView */
+  self.textLabel.text = @" ";
   
-  self.imageView.image = [UIImage imageNamed:@"no_poster.png"];
-  self.imageView.imageURL = [movie objectForKey:@"image"];
-  self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-  self.imageView.clipsToBounds = YES;
-  
-  NSArray* thumbnails = [movie objectForKey:@"thumbnails"];
-  
-  if(thumbnails.count > 1) {
-    for(NSString* thumbnail in [movie objectForKey:@"thumbnails"]) {
-      [self.imageView addImageURLToRotation: thumbnail];
-    }
-  }
-  
-  [self.imageView onTapOpen: _.join(@"/movies/images?movie_id=", [movie objectForKey:@"_id"]) ];
-}
-
--(void)layoutSubviews
-{
-  [super layoutSubviews];
-
-  self.imageView.frame = CGRectMake(10, 10, 90, 120);
+  htmlView.text = [NSAttributedString attributedStringWithMarkup: [self markup] 
+                                                   forStylesheet: self.stylesheet];
 
   CGSize sz = [self htmlViewSize];
   htmlView.frame = CGRectMake(107, 7, sz.width, sz.height);
 
-  [self prepareImageView]; 
-}
-
--(void)prepareForReuse
-{
-  self.imageView.imageURL = nil;
+  self.rotator.frame = CGRectMake(10, 10, 90, 120);
+  self.rotator.imageURLs = [self.movie objectForKey:@"thumbnails"];
+  
+  [self.rotator onTapOpen: _.join(@"/movies/images?movie_id=", [self.movie objectForKey:@"_id"]) ];
+  [self.rotator start];
 }
 
 - (CGFloat)wantsHeight

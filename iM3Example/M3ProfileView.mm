@@ -64,11 +64,6 @@
   if(!imageURLs.count) return;
   
   imageView_.imageURL = imageURLs.first;
-  
-  if(imageURLs.count > 1) {
-    for(NSString* url in imageURLs)
-      [imageView_ addImageURLToRotation: url];
-  }
 }
 
 -(void) setProfileURL: (NSString*)url

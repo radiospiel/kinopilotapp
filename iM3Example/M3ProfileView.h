@@ -19,7 +19,6 @@
 
 -(void) setHtmlDescription: (NSString*)html;
 -(void) setActions: (NSArray*) actions;
--(void) setImageURLs: (NSArray*) imageURLs;
 -(void) setCoordinate: (CLLocationCoordinate2D) coordinate;
 
 -(void) setProfileURL: (NSString*)url;
