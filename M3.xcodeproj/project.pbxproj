@@ -63,6 +63,7 @@
 		9D19E138145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D19E135145AD085003343C5 /* NSURL+M3Extensions.mm */; };
 		9D19E139145AD085003343C5 /* NSURL+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D19E135145AD085003343C5 /* NSURL+M3Extensions.mm */; };
 		9D19E166145B0188003343C5 /* M3TableViewController+AdSupport.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D19E165145B0188003343C5 /* M3TableViewController+AdSupport.mm */; };
+		9D2580AE14A7E5D90052E36F /* M3AppDelegate+Info.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D2580AD14A7E5D90052E36F /* M3AppDelegate+Info.mm */; };
 		9D29B14B14A4B0E8001DF310 /* Dashboard.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D29B14A14A4B0E8001DF310 /* Dashboard.bundle */; };
 		9D2BF7571450A1F40045C11C /* M3ListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D2BF7561450A1F40045C11C /* M3ListViewController.mm */; };
 		9D3116E01476C32C0003D964 /* M3.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D3116C41476C32C0003D964 /* M3.h */; };
@@ -387,6 +388,7 @@
 		9D19E135145AD085003343C5 /* NSURL+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSURL+M3Extensions.mm"; sourceTree = "<group>"; };
 		9D19E164145B0188003343C5 /* M3TableViewController+AdSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3TableViewController+AdSupport.h"; sourceTree = "<group>"; };
 		9D19E165145B0188003343C5 /* M3TableViewController+AdSupport.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3TableViewController+AdSupport.mm"; sourceTree = "<group>"; };
+		9D2580AD14A7E5D90052E36F /* M3AppDelegate+Info.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+Info.mm"; sourceTree = "<group>"; };
 		9D29B14A14A4B0E8001DF310 /* Dashboard.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Dashboard.bundle; sourceTree = "<group>"; };
 		9D2BF7551450A1F40045C11C /* M3ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3ListViewController.h; sourceTree = "<group>"; };
 		9D2BF7561450A1F40045C11C /* M3ListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3ListViewController.mm; sourceTree = "<group>"; };
@@ -885,6 +887,7 @@
 		9D48ACBD141E9E3E00D0D000 /* iM3Example */ = {
 			isa = PBXGroup;
 			children = (
+				9D2580AD14A7E5D90052E36F /* M3AppDelegate+Info.mm */,
 				9D01499214A7BCDF00B27DC7 /* M3AppDelegate+SqliteDB.mm */,
 				9D01498E14A7BCA900B27DC7 /* M3AppDelegate+Email.mm */,
 				9D01498F14A7BCA900B27DC7 /* NSString+IM3ExampleExtensions.mm */,
@@ -1712,6 +1715,7 @@
 				9DFED726148BDA41000CE7B0 /* EmptyListCell.mm in Sources */,
 				9DBC934814A66413001EEDAA /* UIView+M3Extensions.m in Sources */,
 				9D01499114A7BCA900B27DC7 /* NSString+IM3ExampleExtensions.mm in Sources */,
+				9D2580AE14A7E5D90052E36F /* M3AppDelegate+Info.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

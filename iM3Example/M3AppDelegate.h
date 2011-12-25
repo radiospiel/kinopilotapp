@@ -115,6 +115,10 @@ extern M3AppDelegate* app;
 
 @end
 
+@interface M3AppDelegate(AppInfo)
+
+@property (nonatomic,readonly) NSDictionary* infoDictionary;
+
+@end
+
 #endif
-
-

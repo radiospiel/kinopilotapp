@@ -9,32 +9,6 @@
 #import "M3AppDelegate.h"
 #import "InfoController.h"
 
-static id infoForKey(NSString *key)
-{
-  if([key isEqualToString: @"updated_at"]) { 
-    NSNumber* updated_at = [app.sqliteDB.settings objectForKey: @"updated_at"]; 
-    return [updated_at.to_date stringWithFormat: @"dd.MM.yyyy HH:mm"];
-  }
- 
-  if([key isEqualToString: @"revision"])
-    return [app.sqliteDB.settings objectForKey: @"revision"]; 
-  
-  if([key isEqualToString: @"theaters_count"])
-    return app.sqliteDB.theaters.count;
-  
-  if([key isEqualToString: @"movies_count"])
-    return app.sqliteDB.movies.count; 
-  
-  if([key isEqualToString: @"schedules_count"])
-    return app.sqliteDB.schedules.count;
-  
-  if([key isEqualToString: @"built_at"])
-    return [NSString stringWithFormat: @"%s %s", __DATE__, __TIME__]; 
-  
-  return key;
-}
-
-
 /* 
  * This cell shows one value (i.e. one piece of text). The text might span
  * over multiple lines.
@@ -160,6 +134,9 @@ static id infoForKey(NSString *key)
   self = [super init];
   if(!self) return nil;
 
+  NSDictionary* infoDictionary = app.infoDictionary;
+  DLOG(infoDictionary);
+
   NSArray* infoSections = [app.config objectForKey: section];
   
   M3AssertKindOf(infoSections, NSArray);
@@ -173,7 +150,9 @@ static id infoForKey(NSString *key)
     content = [content mapUsingBlock:^id(NSArray* entry) {
       if(![entry isKindOfClass:[NSArray class]]) return entry;
       id key = entry.last;
-      return [NSArray arrayWithObjects:entry.first, infoForKey(key), nil];
+      id value = [infoDictionary objectForKey:key];
+      
+      return [NSArray arrayWithObjects:entry.first, value ? value : key, nil];
     }];
     // Read "header", "footer", and "index" from the configuration.
     [self addSection: content withOptions: section];
