@@ -17,11 +17,15 @@
 
 #define MIXPANEL_TOKEN @"93ab63eb89a79f22a5b777881c916e7a"
 
-
 M3AppDelegate* app;
+
+@interface M3AppDelegate()
+@property (nonatomic,retain) UIImageView* splashScreen;
+@end
 
 @implementation M3AppDelegate
 
+@synthesize splashScreen;
 @synthesize window = _window, tabBarController = _tabBarController, progressView = progressView_;
 
 - (void)dealloc
@@ -228,10 +232,36 @@ M3AppDelegate* app;
   return progressView_;
 }
 
+#pragma mark splashscreen
+
+-(void) showSplashScreen
+{
+  self.splashScreen = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"default.png"]];
+  self.splashScreen.frame = [[UIScreen mainScreen]bounds];
+
+  [self.window addSubview:self.splashScreen];
+}  
+  
+-(void) hideSplashScreen
+{
+  if(!self.splashScreen) return;
+  
+  [UIView animateWithDuration:0.3
+                   animations:^{ self.splashScreen.alpha = 0.0; }
+                   completion:^(BOOL finished) { 
+                     [self.splashScreen removeFromSuperview];
+                     self.splashScreen = nil;
+                   }
+  ];
+}
+
+#pragma mark livecycle callbacks
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
   [self.sqliteDB.settings setObject: [NSDate now].to_number forKey:@"resumed_at"];
-  
+  [self showSplashScreen];
+
   /*
    Sent when the application is about to move from active to inactive state. 
    This can occur for certain types of temporary interruptions (such as an 
@@ -278,12 +308,14 @@ M3AppDelegate* app;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+  [self hideSplashScreen];
+  
   /*
    Restart any tasks that were paused (or not yet started) while the 
    application was inactive. If the application was previously in the 
    background, optionally refresh the user interface.
   */
- }
+}
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
@@ -299,10 +331,10 @@ M3AppDelegate* app;
 }
 
 // Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed
+- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers 
+                                                                                         changed:(BOOL)changed
 {
 }
-
 @end
 
 #endif
