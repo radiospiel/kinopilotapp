@@ -44,6 +44,11 @@
 
 -(BOOL)importDatabaseFromURL: (NSString*)url
 {  
+  NSNumber* current_revision = [self.settings objectForKey: @"revision"];
+  if(current_revision.to_i > 0) {
+    url = [url stringByAppendingFormat:@"?since=%@", current_revision];
+  }
+
   NSArray* entries = [M3 readJSON: url];
   if(![entries isKindOfClass: [NSArray class]])
     _.raise("Cannot read file", url);
