@@ -139,6 +139,33 @@ extern M3AppDelegate* app;
   self.navigationItem.rightBarButtonItem = [item autorelease];
 }
 
+-(void)setRightButtonWithImage: (UIImage*)image
+                        target: (id)target
+                        action: (SEL)action;
+{
+  UIBarButtonItem* item;
+  item = [[UIBarButtonItem alloc]initWithImage: image 
+                                         style: UIBarButtonItemStyleBordered
+                                        target: target 
+                                        action: action];
+  
+  self.navigationItem.rightBarButtonItem = [item autorelease];
+}
+
+-(void)setRightButtonWithImage: (UIImage*)image
+                           url: (NSString*)url;
+{
+  M3UIBarButtonItem* item;
+  item = [[M3UIBarButtonItem alloc]initWithImage: image
+                                           style: UIBarButtonItemStyleBordered
+                                          target: nil 
+                                          action: nil];
+  item.url = url;
+  
+  self.navigationItem.rightBarButtonItem = [item autorelease];
+}
+
+
 -(void)setRightButtonWithSystemItem: (UIBarButtonSystemItem)systemItem
                                 url: (NSString*)url
 {
@@ -151,7 +178,7 @@ extern M3AppDelegate* app;
   self.navigationItem.rightBarButtonItem = [item autorelease];
 }
 
--(void)setRightButtonWithImage: (UIImage*)image
+-(void)setRightButtonWithFlatImage: (UIImage*)image
                         target: (id)target
                         action: (SEL)action;
 {
@@ -168,7 +195,7 @@ extern M3AppDelegate* app;
 
 -(void)setRightButtonReloadAction
 {
-  [self setRightButtonWithImage: [UIImage imageNamed:@"icon_72px.png"] 
+  [self setRightButtonWithFlatImage: [UIImage imageNamed:@"icon_72px.png"] 
                          target: app 
                          action: @selector(restartApplication)];
 }

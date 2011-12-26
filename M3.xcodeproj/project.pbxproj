@@ -252,6 +252,8 @@
 		9D934DA01461BF51001B25C6 /* UIView+M3Stylesheets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D934D9E1461BF51001B25C6 /* UIView+M3Stylesheets.mm */; };
 		9D934DA21461CEF1001B25C6 /* header-background-dark-22.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D934DA11461CEF1001B25C6 /* header-background-dark-22.png */; };
 		9D94B56614A8D02C00C1262D /* seed.sqlite3 in Resources */ = {isa = PBXBuildFile; fileRef = 9D94B56514A8D02C00C1262D /* seed.sqlite3 */; };
+		9D94B56914A8D5C200C1262D /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D94B56714A8D5C200C1262D /* location.png */; };
+		9D94B56A14A8D5C200C1262D /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D94B56814A8D5C200C1262D /* location@2x.png */; };
 		9D9656AD14177A6C00884372 /* M3Etest.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D9656AB14177A6C00884372 /* M3Etest.h */; };
 		9D9656AE14177A6C00884372 /* M3Etest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D9656AC14177A6C00884372 /* M3Etest.mm */; };
 		9D9656B314177F9700884372 /* M3StopWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D9656B114177F9700884372 /* M3StopWatch.h */; };
@@ -547,6 +549,8 @@
 		9D934D9E1461BF51001B25C6 /* UIView+M3Stylesheets.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIView+M3Stylesheets.mm"; sourceTree = "<group>"; };
 		9D934DA11461CEF1001B25C6 /* header-background-dark-22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header-background-dark-22.png"; sourceTree = "<group>"; };
 		9D94B56514A8D02C00C1262D /* seed.sqlite3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = seed.sqlite3; sourceTree = "<group>"; };
+		9D94B56714A8D5C200C1262D /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
+		9D94B56814A8D5C200C1262D /* location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location@2x.png"; sourceTree = "<group>"; };
 		9D9656AB14177A6C00884372 /* M3Etest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Etest.h; sourceTree = "<group>"; };
 		9D9656AC14177A6C00884372 /* M3Etest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Etest.mm; sourceTree = "<group>"; };
 		9D9656B114177F9700884372 /* M3StopWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3StopWatch.h; sourceTree = "<group>"; };
@@ -952,6 +956,8 @@
 		9D561573142641A300D0A484 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				9D94B56714A8D5C200C1262D /* location.png */,
+				9D94B56814A8D5C200C1262D /* location@2x.png */,
 				9DA6563D14A12D1F00F96508 /* button_grey_normal.png */,
 				9DA6563E14A12D1F00F96508 /* button_grey_pushed.png */,
 				9D934DA11461CEF1001B25C6 /* header-background-dark-22.png */,
@@ -1542,6 +1548,8 @@
 				9DA6564014A12D1F00F96508 /* button_grey_pushed.png in Resources */,
 				9D29B14B14A4B0E8001DF310 /* Dashboard.bundle in Resources */,
 				9D94B56614A8D02C00C1262D /* seed.sqlite3 in Resources */,
+				9D94B56914A8D5C200C1262D /* location.png in Resources */,
+				9D94B56A14A8D5C200C1262D /* location@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

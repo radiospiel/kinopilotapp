@@ -9,9 +9,7 @@
 #import "M3AppDelegate.h"
 #import "MapShowController.h"
 
-@interface MapAnnotation: MKPointAnnotation {
-  NSString* theater_id_;
-}
+@interface MapAnnotation: MKPointAnnotation
 
 @property (nonatomic,retain) NSString* theater_id;
 
@@ -19,7 +17,7 @@
 
 @implementation MapAnnotation
 
-@synthesize theater_id = theater_id_;
+@synthesize theater_id;
 
 -(id)initWithTheater: (NSDictionary*)theater
 {
@@ -97,7 +95,9 @@
 
 -(void)setUpdateIsNotRunning
 {
-  [self setRightButtonWithTitle: @"cur" target: self action: @selector(startUpdate)];
+  [self setRightButtonWithImage:[UIImage imageNamed:@"location.png"] 
+                         target:self 
+                         action:@selector(startUpdate)];
 }
 
 -(void)setUpdateIsRunning

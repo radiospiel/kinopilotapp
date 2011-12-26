@@ -49,6 +49,13 @@
 -(void)setRightButtonWithTitle: (NSString*)title_or_image
                            url: (NSString*)url;
 
+-(void)setRightButtonWithImage: (UIImage*)image
+                        target: (id)target
+                        action: (SEL)action;
+
+-(void)setRightButtonWithImage: (UIImage*)image
+                           url: (NSString*)url;
+
 /*
  * Setting the right button action.
  */
@@ -66,12 +73,13 @@
 /*
  * Setting the right button action.
  */
--(void)setRightButtonWithImage: (UIImage*)image
-                        target: (id)target
-                        action: (SEL)action;
+-(void)setRightButtonWithFlatImage: (UIImage*)image
+                            target: (id)target
+                            action: (SEL)action;
 
 
 -(void)setRightButtonReloadAction;
+
 
 @end
 
