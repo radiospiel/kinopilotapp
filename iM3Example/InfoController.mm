@@ -135,8 +135,6 @@
   if(!self) return nil;
 
   NSDictionary* infoDictionary = app.infoDictionary;
-  DLOG(infoDictionary);
-
   NSArray* infoSections = [app.config objectForKey: section];
   
   M3AssertKindOf(infoSections, NSArray);
