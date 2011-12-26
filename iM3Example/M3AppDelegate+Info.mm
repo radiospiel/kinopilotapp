@@ -6,7 +6,10 @@ static id infoForKey(NSString *key)
 {
   if([key isEqualToString: @"updated_at"]) { 
     NSNumber* updated_at = [app.sqliteDB.settings objectForKey: @"updated_at"]; 
-    return [updated_at.to_date stringWithFormat: @"dd.MM.yyyy HH:mm"];
+    if(updated_at)
+      return [updated_at.to_date stringWithFormat: @"dd.MM.yyyy HH:mm"];
+  
+    return @"never";
   }
  
   if([key isEqualToString: @"revision"])
@@ -33,7 +36,10 @@ static id infoForKey(NSString *key)
 
   NSMutableDictionary* dictionary = [NSMutableDictionary dictionary];
   for(NSString* key in keys) {
-    [dictionary setObject: infoForKey(key) forKey: key];
+    id value = infoForKey(key);
+    if(!value) continue;
+    
+    [dictionary setObject: value forKey: key];
   }
   
   return dictionary;

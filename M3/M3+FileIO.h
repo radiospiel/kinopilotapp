@@ -31,6 +31,11 @@
  */
 +(void) mkdir_p: (NSString*) path;
 
+/*
+ * Creates a directory and all needed subdirs
+ */
++(void) copyFrom: (NSString*) path to: (NSString*)dest;
+
 #if TARGET_OS_IPHONE
 
 +(UIImage*) readImageFromPath: (NSString*) path;

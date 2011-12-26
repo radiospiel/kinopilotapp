@@ -2,6 +2,8 @@
 #import "SVProgressHUD.h"
 
 #define SQLITE_PATH       @"$documents/kinopilot2.sqlite3"
+#define SEED_PATH         @"$app/seed.sqlite3"
+
 #define UPDATE_TIME_SPAN  18 * 3600
 
 #if 1
@@ -74,6 +76,10 @@
 
 -(M3SqliteDatabase*)buildSqliteDatabase
 {
+  if(![M3 fileExists: SQLITE_PATH]) {
+    [M3 copyFrom:SEED_PATH to:SQLITE_PATH];
+  }
+  
   NSString* dbPath = [M3 expandPath: SQLITE_PATH];
   M3SqliteDatabase* db = [M3SqliteDatabase databaseWithPath:dbPath
                                             withCFAdditions:NO 
@@ -116,15 +122,12 @@
   M3SqliteDatabase* db = [self buildSqliteDatabase];
   if([db isLoaded]) return db;
 
-  dlog << "not loaded";
-
   // For reasons yet unknown the initial import of the database
   // leaves the database's table objects in an unusable state.
   // Just creating a new M3SqliteDatabase object fixes things; 
   // and it then has the newly imported data as well. 
 
   [self updateDatabase];
-  // [db importDatabaseFromURL: REMOTE_SQL_URL];
   return [self buildSqliteDatabase];
 }
 

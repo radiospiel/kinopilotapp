@@ -97,6 +97,23 @@
 }
 
 
+/*
+ * Creates a directory and all needed subdirs
+ */
++(void) copyFrom: (NSString*) sourcePath to: (NSString*)destPath;
+{
+  sourcePath = [M3 expandPath: sourcePath];
+  destPath = [M3 expandPath: destPath];
+
+  NSFileManager *fileManager = [NSFileManager defaultManager];
+  
+  NSError* error = nil;
+  
+  [fileManager copyItemAtPath:sourcePath
+                       toPath:destPath
+                        error:&error];
+}
+
 @end
 
 ETest(M3FileIO)
