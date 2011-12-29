@@ -359,8 +359,12 @@
 
 @implementation M3DataSource(M3Lists)
 
-+(M3TableViewDataSource*) checked: (M3TableViewDataSource*) dataSource
++(M3TableViewDataSource*) datasourceWithName: (NSString*)name 
+                                   fromBlock: (M3TableViewDataSource* (^)())block
 {
+  Benchmark(_.join("*** Building datasource ", name));
+  
+  M3TableViewDataSource* dataSource = block();
   if(dataSource.sections.count > 0) return dataSource;
   
   return [[[EmptyDataSource alloc]init]autorelease];
@@ -368,31 +372,42 @@
 
 +(M3TableViewDataSource*)moviesListWithFilter:(NSString *)filter
 {
-  M3TableViewDataSource* ds = [[MoviesListDataSource alloc]initWithFilter:filter];
-
-  return [self checked: [ds autorelease]];
+  return [self datasourceWithName: @"moviesListWithFilter" 
+                        fromBlock: ^M3TableViewDataSource*() {
+                          M3TableViewDataSource* ds;
+                          ds = [[MoviesListDataSource alloc]initWithFilter:filter];
+                          return [ds autorelease];
+                        }];
 }
 
 +(M3TableViewDataSource*)moviesListFilteredByTheater:(id)theater_id
 {
-  M3TableViewDataSource* ds = [[MoviesListFilteredByTheaterDataSource alloc]initWithTheaterFilter: theater_id];
-
-  return [self checked: [ds autorelease]];
+  return [self datasourceWithName: @"moviesListFilteredByTheater" 
+                        fromBlock: ^M3TableViewDataSource*() {
+                          M3TableViewDataSource* ds;
+                          ds = [[MoviesListFilteredByTheaterDataSource alloc]initWithTheaterFilter: theater_id];
+                          return [ds autorelease];
+                        }];
 }
 
 +(M3TableViewDataSource*)theatersListFilteredByMovie:(id)movie_id
 {
-  M3TableViewDataSource* ds;
-  ds = [[TheatersListFilteredByMovieDataSource alloc]initWithMovieFilter: movie_id];
-  
-  return [self checked: [ds autorelease]];
+  return [self datasourceWithName: @"theatersListFilteredByMovie" 
+                        fromBlock: ^M3TableViewDataSource*() {
+                          M3TableViewDataSource* ds;
+                          ds = [[TheatersListFilteredByMovieDataSource alloc]initWithMovieFilter: movie_id];
+                          return [ds autorelease];
+                        }];
 }
 
 +(M3TableViewDataSource*)theatersList
 {
-  M3TableViewDataSource* ds = [[TheatersListDateSource alloc]init];
-  
-  return [self checked: [ds autorelease]];
+  return [self datasourceWithName: @"theatersList" 
+                        fromBlock: ^M3TableViewDataSource*() {
+                          M3TableViewDataSource* ds;
+                          ds = [[TheatersListDateSource alloc]init];
+                          return [ds autorelease];
+                        }];
 }
 
 +(M3TableViewDataSource*)schedulesByTheater: (NSString*)theater_id 
@@ -402,13 +417,15 @@
   M3AssertKindOfAndSet(theater_id, NSString);
   M3AssertKindOfAndSet(movie_id, NSString);
   M3AssertKindOf(day, NSDate);
-  
-  M3TableViewDataSource* ds;
-  ds = [[SchedulesByTheaterAndMovieDataSource alloc]initWithTheater: theater_id 
-                                                              andMovie: movie_id
-                                                                 onDay: day];
-  
-  return [self checked: [ds autorelease]];
+ 
+  return [self datasourceWithName: @"schedulesByTheater:andMovie:onDay" 
+                        fromBlock: ^M3TableViewDataSource*() {
+                          M3TableViewDataSource* ds;
+                          ds = [[SchedulesByTheaterAndMovieDataSource alloc]initWithTheater: theater_id 
+                                                                                   andMovie: movie_id
+                                                                                      onDay: day];
+                          return [ds autorelease];
+                        }];
 }
 
 @end
