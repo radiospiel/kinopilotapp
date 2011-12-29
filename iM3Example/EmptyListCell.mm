@@ -32,8 +32,8 @@
 
   self.selectionStyle = UITableViewCellSelectionStyleNone;
 
-  self.htmlView = [[TTTAttributedLabel alloc]init];
-  [self addSubview:self.htmlView]; 
+  htmlView = [[TTTAttributedLabel alloc]init];
+  [self addSubview:htmlView]; 
 
   // Disable scrolling in WebView
   //

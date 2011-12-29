@@ -36,7 +36,7 @@ static BCMediaAPI *bc = nil;
 {
   self = [super init];
 
-  self.player = [[BCMoviePlayerController alloc]init];
+  self.player = [[[BCMoviePlayerController alloc]init] autorelease];
   // limit bitrates??
   //
   // [self.player searchForRenditionsBetweenLowBitRate:[NSNumber numberWithInt:100000] 

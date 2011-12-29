@@ -193,10 +193,10 @@
   self = [super init];
   self.selectionStyle = UITableViewCellSelectionStyleNone;
 
-  self.rotator = [[M3ImageRotator alloc] initWithFrame: CGRectMake(10, 10, 90, 120)];
+  rotator = [[M3ImageRotator alloc] initWithFrame: CGRectMake(10, 10, 90, 120)];
   [self addSubview: rotator];
   
-  self.htmlView = [[TTTAttributedLabel alloc] init];
+  htmlView = [[TTTAttributedLabel alloc] init];
   [self addSubview: htmlView];
 
   return self;

@@ -184,17 +184,17 @@ static NSDictionary *titlesByKey, *urlsByKey;
 {
   self = [super initWithFrame:frame];
 
-  self.label = [[UILabel alloc]initWithFrame:frame];
-  self.label.backgroundColor = [UIColor clearColor];
-  self.label.textColor = [UIColor whiteColor];
-  self.label.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
-  self.label.textAlignment = UITextAlignmentCenter;
-  self.label.lineBreakMode = UILineBreakModeTailTruncation;
-  self.label.numberOfLines = 1;
+  label = [[UILabel alloc]initWithFrame:frame];
+  label.backgroundColor = [UIColor clearColor];
+  label.textColor = [UIColor whiteColor];
+  label.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+  label.textAlignment = UITextAlignmentCenter;
+  label.lineBreakMode = UILineBreakModeTailTruncation;
+  label.numberOfLines = 1;
 
-  self.imageView = [[UIImageView alloc]initWithFrame:frame];
-  self.imageView.contentMode = UIViewContentModeCenter; // UIViewContentModeScaleAspectFit;
-
+  imageView = [[UIImageView alloc]initWithFrame:frame];
+  imageView.contentMode = UIViewContentModeCenter;
+  
   [self addSubview: self.imageView];
   [self addSubview: self.label];
 
@@ -259,8 +259,8 @@ static NSDictionary *titlesByKey, *urlsByKey;
 
   if(!key) return;
   
-  self.rotator = [[M3Rotator alloc] initWithFrame:CGRectMake(10, 10, BUTTON_WIDTH - 20, 120)];
-  
+  M3Rotator* aRotator = [[M3Rotator alloc] initWithFrame:CGRectMake(10, 10, BUTTON_WIDTH - 20, 120)];
+  self.rotator = [aRotator autorelease];
   self.rotator.delegate = self;
   [self.rotator start];
   

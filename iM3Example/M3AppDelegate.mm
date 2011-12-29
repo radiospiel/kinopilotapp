@@ -212,7 +212,7 @@ M3AppDelegate* app;
 
 -(void) showSplashScreen
 {
-  self.splashScreen = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"default.png"]];
+  self.splashScreen = [[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"default.png"]]autorelease];
   self.splashScreen.frame = [[UIScreen mainScreen]bounds];
 
   [self.window addSubview:self.splashScreen];

@@ -29,8 +29,9 @@
   
   self.currentIndex = -1;
   
-  UIGestureRecognizer* recognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
-  [self addGestureRecognizer: recognizer];
+  UITapGestureRecognizer* recognizer = 
+    [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
+  [self addGestureRecognizer: [recognizer autorelease]];
 
   return self;
 }
@@ -190,7 +191,7 @@
   imageView.clipsToBounds = YES;
   imageView.image = image;
   
-  return imageView;
+  return [imageView autorelease];
 }
 
 - (UIView *)rotator:(M3Rotator*)rotator viewForItemAtIndex:(NSUInteger)index;
