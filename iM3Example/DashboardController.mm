@@ -11,6 +11,10 @@
 
 #import "M3TableViewProfileCell.h"
 
+#define BUTTON_WIDTH    156
+#define BUTTON_HEIGHT   135
+#define BUTTON_PADDING  8
+
 /*** VicinityShowController cells *******************************************/
 
 @interface DashboardInfoCell: M3TableViewCell {
@@ -56,8 +60,11 @@ static NSDictionary *titlesByKey, *urlsByKey;
 {
   UIImage* image = [self tileImageWithTile: key];
   if(image) return image;
-  
-  return [self tileImageWithTile: self.keys.count == 1 ? @"wide" : @"narrow"];
+
+  image = [self tileImageWithTile: @"narrow"];
+  if(self.keys.count > 1)
+    image = [image stretchableImageWithLeftCapWidth:7 topCapHeight:0];
+  return image;
 }
 
 // set title, adjust button size
@@ -72,7 +79,6 @@ static NSDictionary *titlesByKey, *urlsByKey;
   [btn setBackgroundImage: backgroundImage forState: UIControlStateNormal];
   
   btn.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:26];
-  // btn.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:24];
 
   // --- set URL and title
 
@@ -80,7 +86,11 @@ static NSDictionary *titlesByKey, *urlsByKey;
   [btn setTitle: [titlesByKey objectForKey: key] forState:UIControlStateNormal];
 
   // --- adjust button size
-  btn.frame = CGRectMake(0, 0, backgroundImage.size.width, backgroundImage.size.height);
+  
+  int buttonWidth = self.keys.count > 1 ? BUTTON_WIDTH :
+                                          BUTTON_PADDING + 2 * BUTTON_WIDTH;
+  int buttonHeight = MAX(BUTTON_HEIGHT, backgroundImage.size.height);
+  btn.frame = CGRectMake(0, 0, buttonWidth, buttonHeight);
 
   // --- make the buttons content appear in the top-left
   [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
@@ -134,8 +144,8 @@ static NSDictionary *titlesByKey, *urlsByKey;
     UIButton* button = [self dashboardButtonWithKey:key];
     
     CGRect frame = button.frame;
-    frame.origin.x = 10 + idx * 156;
-    frame.origin.y = 10;
+    frame.origin.x = idx * (BUTTON_PADDING + BUTTON_WIDTH);
+    frame.origin.y = 0;
     button.frame = frame;
     
     [self addSubview:button];
@@ -208,7 +218,7 @@ static NSDictionary *titlesByKey, *urlsByKey;
   self.imageView.frame = CGRectMake(0, 0, frame.size.width, 94); /* our thumbnails are 72x94 */
 
   [self.label sizeToFit];
-  self.label.frame = CGRectMake(0, 98, frame.size.width, self.label.frame.size.height);
+  self.label.frame = CGRectMake(0, 99, frame.size.width, self.label.frame.size.height);
 }
 @end
 
@@ -249,7 +259,8 @@ static NSDictionary *titlesByKey, *urlsByKey;
 
   if(!key) return;
   
-  self.rotator = [[M3Rotator alloc] initWithFrame:CGRectMake(17, 21, 140, 120)];
+  self.rotator = [[M3Rotator alloc] initWithFrame:CGRectMake(10, 10, BUTTON_WIDTH - 20, 120)];
+  
   self.rotator.delegate = self;
   [self.rotator start];
   
@@ -287,6 +298,20 @@ static NSDictionary *titlesByKey, *urlsByKey;
 
 @end
 
+#import "M3TableViewAdCell.h"
+
+@interface DashboardAdCell: M3TableViewAdCell
+@end
+
+@implementation DashboardAdCell
+
+-(CGFloat)wantsHeight
+{
+  ADBannerView* adView = (ADBannerView*) [self.tableViewController adBannerAtIndexPath: self.indexPath];
+  return adView.bannerLoaded ? 50 + BUTTON_PADDING : 0;
+}
+
+@end
 
 /*** The datasource for MoviesList *******************************************/
 
@@ -298,7 +323,9 @@ static NSDictionary *titlesByKey, *urlsByKey;
 -(id)init
 {
   self = [super init];
-  [self addSection: _.array(@"city/theaters", @"movies", @"about/vicinity") 
+  [self addSection: _.array(@"city/theaters", 
+                            @"DashboardAdCell",
+                            @"movies", @"about/vicinity") 
        withOptions: nil];
 
   return self;
@@ -308,11 +335,10 @@ static NSDictionary *titlesByKey, *urlsByKey;
 { 
   M3AssertKindOf(key, NSString);
   
-  if([key isEqualToString:@"M3TableViewAdCell"])
-    return @"M3TableViewAdCell";
+  if([key isEqualToString:@"M3TableViewAdCell"]) return @"M3TableViewAdCell";
+  if([key isEqualToString:@"DashboardAdCell"]) return @"DashboardAdCell";
   
-  if([key isEqualToString:@"movies"])
-    return @"DashboardMoviesCell";
+  if([key isEqualToString:@"movies"]) return @"DashboardMoviesCell";
   
   return [DashboardInfoCell class];
 }
