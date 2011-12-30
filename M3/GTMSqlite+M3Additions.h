@@ -97,6 +97,7 @@ typedef enum M3SqliteStatementEnumerationPolicy {
 -(NSDictionary*)get: (id)uid;
 -(void)deleteAll;
 -(void)deleteByIds: (NSArray*)ids;
+-(void)deleteById: (id)theId;
 
 -(void)insertArray:   (NSArray*)record withColumns: (NSArray*)columns;
 -(void)insertArrays:  (NSArray*)array_of_records withColumns: (NSArray*)columns;

@@ -688,6 +688,12 @@ static StatementType statementTypeForSql(NSString* sql)
   [database_ ask: sql];
 }
 
+-(void)deleteById: (id)theId
+{
+  NSString* sql = [NSString stringWithFormat: @"DELETE FROM %@ WHERE _id=?", self.tableName];
+  [database_ ask: sql, theId];
+}
+
 -(void)deleteByIds: (NSArray*)ids
 {
   if(ids.count == 0) return;
@@ -811,7 +817,7 @@ static StatementType statementTypeForSql(NSString* sql)
           withColumns:_.array(@"_id", @"value")];
   }
   else {
-    [self delete:key];
+    [self deleteById:key];
   }
 }
 
