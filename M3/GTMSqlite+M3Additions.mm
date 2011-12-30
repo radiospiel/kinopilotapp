@@ -776,6 +776,9 @@ static StatementType statementTypeForSql(NSString* sql)
   if(![value respondsToSelector:@selector(JSONString)])
     return value;
 
+  if([value isKindOfClass:[NSString class]])
+    return value;
+
   return [ @"json:" stringByAppendingString: [value performSelector:@selector(JSONString)]];
 }
 
