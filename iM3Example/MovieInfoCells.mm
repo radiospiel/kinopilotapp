@@ -178,7 +178,7 @@
 
 /* === MovieShortInfoCell: short info ====== */
 
-@interface MovieShortInfoCell: MovieInfoCell;
+@interface MovieShortInfoCell: MovieInfoCell
 
 @property (nonatomic,retain) TTTAttributedLabel* htmlView;
 @property (nonatomic,retain) M3ImageRotator* rotator;
@@ -204,6 +204,7 @@
 
 -(void)dealloc
 {
+  [self.rotator stop];
   self.rotator = nil;
   self.htmlView = nil;
   
@@ -212,6 +213,8 @@
 
 -(NSString*)markup
 {
+  return nil;
+  
   NSDictionary* movie = self.movie;
   if(!movie) return nil;
   

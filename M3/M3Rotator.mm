@@ -106,9 +106,6 @@
 {
   // if(!self.timer) return;
   
-  // dlog << "*** M3Rotator#stop " << _.ptr(self);
-  // [M3 logBacktrace];
-  
   [self.timer invalidate]; 
   self.timer = nil;
 
@@ -118,11 +115,9 @@
 -(void)start
 {
   NSUInteger numberOfViewsInRotator = [delegate numberOfViewsInRotator: self];
-  if(numberOfViewsInRotator <= 1) return;
 
-  currentIndex = rand() % numberOfViewsInRotator;
-  
-  dlog << "*** M3Rotator#start " << _.ptr(self) << " at position " << currentIndex;
+  // set current index
+  currentIndex = numberOfViewsInRotator > 1 ? rand() % numberOfViewsInRotator : 0;
   
   [self showNext];
   
@@ -204,7 +199,7 @@
 
 - (NSUInteger)numberOfViewsInRotator: (M3Rotator*)rotator
 {
-  return imageURLs.count;
+  return imageURLs.count == 0 ? 1 : imageURLs.count;
 }
 
 - (UIImageView *)imageViewWithImage:(UIImage*)image;
@@ -221,9 +216,16 @@
 
 - (UIView *)rotator:(M3Rotator*)rotator viewForItemAtIndex:(NSUInteger)index;
 {
-  M3CachedFactory* factory = [UIImage cachedImagesWithURL];
-  UIImage* image = [factory build: [imageURLs objectAtIndex:index]];
+  UIImage* image = nil;
   
+  if(imageURLs.count > index) {
+    M3CachedFactory* factory = [UIImage cachedImagesWithURL];
+    image = [factory build: [imageURLs objectAtIndex:index]];
+  }
+  
+  if(!image)
+    image = [UIImage imageNamed:@"no_poster.png"];
+
   return [self imageViewWithImage: image];
 }
 
