@@ -258,13 +258,18 @@ static NSDictionary *titlesByKey, *urlsByKey;
   [super setKey:key];
 
   if(!key) return;
+ 
+  [self.rotator removeFromSuperview];
+  self.rotator = nil;
   
-  M3Rotator* aRotator = [[M3Rotator alloc] initWithFrame:CGRectMake(10, 10, BUTTON_WIDTH - 20, 120)];
-  self.rotator = [aRotator autorelease];
-  self.rotator.delegate = self;
+//  self.rotator = aRotator; // autorelease];
+//                           // rotator.delegate = self;
+  
+  rotator = [[M3Rotator alloc] initWithFrame:CGRectMake(10, 10, BUTTON_WIDTH - 20, 120)];
+  [rotator retain];
+  rotator.delegate = self;
+	[self addSubview:rotator];
   [self.rotator start];
-  
-	[self addSubview:self.rotator];
 }
 
 - (NSUInteger)numberOfViewsInRotator: (M3Rotator*)rotator
