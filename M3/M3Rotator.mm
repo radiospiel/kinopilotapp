@@ -117,7 +117,12 @@
 
 -(void)start
 {
-  // dlog << "*** M3Rotator#start " << _.ptr(self);
+  NSUInteger numberOfViewsInRotator = [delegate numberOfViewsInRotator: self];
+  if(numberOfViewsInRotator <= 1) return;
+
+  currentIndex = rand() % numberOfViewsInRotator;
+  
+  dlog << "*** M3Rotator#start " << _.ptr(self) << " at position " << currentIndex;
   
   [self showNext];
   
