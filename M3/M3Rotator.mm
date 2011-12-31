@@ -8,6 +8,17 @@
 
 #import "M3.h"
 
+// 
+// Note on memory management:
+//
+// "Perhaps more importantly, a timer also maintains a strong reference to its target. 
+// This means that as long as a timer remains valid (and you otherwise properly abide 
+// by memory management rules), its target will not be deallocated. As a corollary, 
+// this means that it does not make sense for a timer’s target to try to invalidate
+// the timer in its dealloc or finalize method—neither method will be invoked as 
+// long as the timer is valid."
+//
+
 #define ROTATION_INTERVAL 2.5
 
 @interface M3Rotator()
@@ -93,12 +104,21 @@
 
 -(void)stop
 {
+  // if(!self.timer) return;
+  
+  // dlog << "*** M3Rotator#stop " << _.ptr(self);
+  // [M3 logBacktrace];
+  
   [self.timer invalidate]; 
   self.timer = nil;
+
+  // dlog << "*** M3Rotator#stop done." << _.ptr(self);
 }
 
 -(void)start
 {
+  // dlog << "*** M3Rotator#start " << _.ptr(self);
+  
   [self showNext];
   
   self.timer = [NSTimer timerWithTimeInterval: ROTATION_INTERVAL
