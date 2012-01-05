@@ -229,6 +229,7 @@
 		9D85437E142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D85437B142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m */; };
 		9D85437F142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D85437B142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m */; };
 		9D8543821430084C00F495E9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8543811430084C00F495E9 /* CoreGraphics.framework */; };
+		9D8A3FA014B1E783009BF75F /* NSNumber+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE5C17146445520039F536 /* NSNumber+M3Extensions.mm */; };
 		9D8B8AEF1413CA8B0066ECBB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8B8AEE1413CA8B0066ECBB /* Cocoa.framework */; };
 		9D8B8B011413CA8B0066ECBB /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8B8B001413CA8B0066ECBB /* SenTestingKit.framework */; };
 		9D8B8B021413CA8B0066ECBB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8B8AEE1413CA8B0066ECBB /* Cocoa.framework */; };
@@ -312,7 +313,6 @@
 		9DFE5C18146445520039F536 /* NSNumber+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DFE5C16146445520039F536 /* NSNumber+M3Extensions.h */; };
 		9DFE5C19146445520039F536 /* NSNumber+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DFE5C16146445520039F536 /* NSNumber+M3Extensions.h */; };
 		9DFE5C1A146445520039F536 /* NSNumber+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE5C17146445520039F536 /* NSNumber+M3Extensions.mm */; };
-		9DFE5C1B146445520039F536 /* NSNumber+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE5C17146445520039F536 /* NSNumber+M3Extensions.mm */; };
 		9DFED726148BDA41000CE7B0 /* EmptyListCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DFED725148BDA41000CE7B0 /* EmptyListCell.mm */; };
 /* End PBXBuildFile section */
 
@@ -1634,7 +1634,7 @@
 				9D017466141AA7DF0035A4C2 /* NSArray+M3Extensions.mm in Sources */,
 				9D85437F142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m in Sources */,
 				9DA5DD4B143276D00003B54A /* NSDate+M3Extensions.mm in Sources */,
-				9DFE5C1B146445520039F536 /* NSNumber+M3Extensions.mm in Sources */,
+				9D8A3FA014B1E783009BF75F /* NSNumber+M3Extensions.mm in Sources */,
 				9D33FBD01427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */,
 				9D017467141AA7DF0035A4C2 /* NSString+Regexp.m in Sources */,
 				9D35631C1423F887002AAEAF /* NSString+M3Extensions.mm in Sources */,
@@ -1643,7 +1643,6 @@
 				9D9D318E142C6E9800C8269A /* UIColor+M3Extensions.mm in Sources */,
 				9D8C4B99142896D0005D582A /* UIImageView+M3Extensions.mm in Sources */,
 				9D934DA01461BF51001B25C6 /* UIView+M3Stylesheets.mm in Sources */,
-				9DFE5C1B146445520039F536 /* NSNumber+M3Extensions.mm in Sources */,
 				9DF9B2DE147459F60035084F /* GTMSQLite.m in Sources */,
 				9D73416314769C1D00FBB528 /* GTMSqlite+M3Additions.mm in Sources */,
 				9D15A6B31446291400F17C91 /* UIViewController+M3Extensions.mm in Sources */,
