@@ -213,8 +213,6 @@
 
 -(NSString*)markup
 {
-  return nil;
-  
   NSDictionary* movie = self.movie;
   if(!movie) return nil;
   
