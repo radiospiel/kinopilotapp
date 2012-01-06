@@ -24,6 +24,19 @@
   return [me isEqualToString: other];
 }
 
+-(BOOL)containsString: (NSString*)aString
+{
+  return [self indexOfString: aString] != NSNotFound;
+}
+
+-(NSUInteger)indexOfString: (NSString*)aString
+{
+  if(!aString) return NSNotFound;
+  
+  NSRange range = [self rangeOfString:aString];
+  return range.location;
+}
+
 -(NSString*)camelizeWord;
 {
   if(self.length == 0)

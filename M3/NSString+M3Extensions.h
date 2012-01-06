@@ -9,42 +9,22 @@
 @interface NSString(M3Extensions)
 
 -(BOOL)startsWith: (NSString*) other;
+-(BOOL)containsString: (NSString*)aString;
+-(NSUInteger)indexOfString: (NSString*)aString;
+
 -(NSString*)camelizeWord;
--(NSNumber*)to_number;
 
 @property (readonly,nonatomic,retain) NSNumber* to_number;
-
 @property (readonly,nonatomic,retain) NSString* dquote;
--(NSString*)dquote;
-
 @property (readonly,nonatomic,retain) NSString* squote;
--(NSString*)squote;
-
 @property (readonly,nonatomic,retain) NSString* quote;
--(NSString*)quote;
-
 @property (readonly,nonatomic,retain) NSString* cdata;
--(NSString*)cdata;
-
 @property (readonly,nonatomic,retain) NSDate* to_date;
--(NSDate*)to_date;
-
 @property (readonly,nonatomic,retain) NSString* htmlEscape;
--(NSString*)htmlEscape;
-
 @property (readonly,nonatomic,retain) NSString* htmlUnescape;
--(NSString*)htmlUnescape;
-
 @property (readonly,nonatomic,retain) NSString* urlEscape;
--(NSString*)urlEscape;
-
 @property (readonly,nonatomic,retain) NSString* urlUnescape;
--(NSString*)urlUnescape;
-
 @property (readonly,nonatomic,assign) SEL to_sym;
--(SEL)to_sym;
-
 @property (readonly,nonatomic,assign) Class to_class;
--(Class)to_class;
 
 @end
