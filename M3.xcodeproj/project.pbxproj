@@ -216,6 +216,10 @@
 		9D73416314769C1D00FBB528 /* GTMSqlite+M3Additions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D73415F14769C1D00FBB528 /* GTMSqlite+M3Additions.mm */; };
 		9D767936142134CE00AB82DD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01746E141AA9D00035A4C2 /* CFNetwork.framework */; };
 		9D767937142134CE00AB82DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01746C141AA9C00035A4C2 /* SystemConfiguration.framework */; };
+		9D7BA92414B7A33100226304 /* M3Timer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D7BA92214B7A33100226304 /* M3Timer.h */; };
+		9D7BA92514B7A33100226304 /* M3Timer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D7BA92314B7A33100226304 /* M3Timer.m */; };
+		9D7BA92914B7B0B400226304 /* M3Timer.h in Sources */ = {isa = PBXBuildFile; fileRef = 9D7BA92214B7A33100226304 /* M3Timer.h */; };
+		9D7BA92A14B7B0B400226304 /* M3Timer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D7BA92314B7A33100226304 /* M3Timer.m */; };
 		9D7E3DC8141A2F6800BB80E1 /* M3EventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D7E3DC6141A2F6800BB80E1 /* M3EventCenter.h */; };
 		9D7E3DCD141A347C00BB80E1 /* M3EventCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E3DCB141A347C00BB80E1 /* M3EventCenter.mm */; };
 		9D7E3DD5141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E3DD1141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm */; };
@@ -510,6 +514,8 @@
 		9D72E29914387FE600D8E5B5 /* MoviesImagesController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesImagesController.mm; sourceTree = "<group>"; };
 		9D73415E14769C1D00FBB528 /* GTMSqlite+M3Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMSqlite+M3Additions.h"; sourceTree = "<group>"; };
 		9D73415F14769C1D00FBB528 /* GTMSqlite+M3Additions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "GTMSqlite+M3Additions.mm"; sourceTree = "<group>"; };
+		9D7BA92214B7A33100226304 /* M3Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Timer.h; sourceTree = "<group>"; };
+		9D7BA92314B7A33100226304 /* M3Timer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3Timer.m; sourceTree = "<group>"; };
 		9D7E3DC6141A2F6800BB80E1 /* M3EventCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3EventCenter.h; sourceTree = "<group>"; };
 		9D7E3DCB141A347C00BB80E1 /* M3EventCenter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3EventCenter.mm; sourceTree = "<group>"; };
 		9D7E3DD1141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3EventCenter+DefaultCenter.mm"; sourceTree = "<group>"; };
@@ -821,6 +827,8 @@
 				9DD552DF14A66E4600ECE5B5 /* M3Rotator.mm */,
 				9D9656B114177F9700884372 /* M3StopWatch.h */,
 				9D9656B214177F9700884372 /* M3StopWatch.mm */,
+				9D7BA92214B7A33100226304 /* M3Timer.h */,
+				9D7BA92314B7A33100226304 /* M3Timer.m */,
 			);
 			name = M3;
 			sourceTree = "<group>";
@@ -1336,6 +1344,7 @@
 				9D3117141476C32C0003D964 /* M3+RuntimeError.h in Headers */,
 				9D31171A1476C3770003D964 /* M3-Internals.h in Headers */,
 				9D4368F31489805A00E14CCB /* SearchController.h in Headers */,
+				9D7BA92414B7A33100226304 /* M3Timer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1620,6 +1629,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D7BA92914B7B0B400226304 /* M3Timer.h in Sources */,
+				9D7BA92A14B7B0B400226304 /* M3Timer.m in Sources */,
 				9D6FAECB14A7535300C31703 /* M3Rotator.mm in Sources */,
 				9D017450141AA7AF0035A4C2 /* LoggerClient.m in Sources */,
 				9DBCDDEF1440919B0020EA1F /* M3CachedFactory.m in Sources */,
@@ -1780,6 +1791,7 @@
 				9D3117161476C32C0003D964 /* M3+RuntimeError.mm in Sources */,
 				9D31171C1476C3770003D964 /* M3-Internals.m in Sources */,
 				9D4368F41489805A00E14CCB /* SearchController.mm in Sources */,
+				9D7BA92514B7A33100226304 /* M3Timer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
