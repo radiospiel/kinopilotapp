@@ -8,22 +8,10 @@
 
 #import "M3.h"
 
-// 
-// Note on memory management:
-//
-// "Perhaps more importantly, a timer also maintains a strong reference to its target. 
-// This means that as long as a timer remains valid (and you otherwise properly abide 
-// by memory management rules), its target will not be deallocated. As a corollary, 
-// this means that it does not make sense for a timer’s target to try to invalidate
-// the timer in its dealloc or finalize method—neither method will be invoked as 
-// long as the timer is valid."
-//
-
 #define ROTATION_INTERVAL 2.5
 
 @interface M3Rotator()
 
-@property (nonatomic,retain) NSTimer* timer;
 @property (nonatomic,retain) UIView* viewOnTop;
 @property (nonatomic,retain) UIView* viewBelowTop;
 @property (nonatomic,assign) NSUInteger currentIndex;
@@ -32,7 +20,7 @@
 
 @implementation M3Rotator
 
-@synthesize timer, viewOnTop, viewBelowTop, delegate, currentIndex;
+@synthesize viewOnTop, viewBelowTop, delegate, currentIndex;
 
 -(id)initWithFrame: (CGRect)frame
 {
@@ -49,10 +37,6 @@
 
 -(void)dealloc
 {
-  [self stop];
-  
-  [self.timer invalidate]; 
-  self.timer = nil;
   self.viewOnTop = nil;
   self.viewBelowTop = nil;
   self.delegate = nil;
@@ -102,16 +86,6 @@
   [self advance: -1];
 }
 
--(void)stop
-{
-  // if(!self.timer) return;
-  
-  [self.timer invalidate]; 
-  self.timer = nil;
-
-  // dlog << "*** M3Rotator#stop done." << _.ptr(self);
-}
-
 -(void)start
 {
   NSUInteger numberOfViewsInRotator = [delegate numberOfViewsInRotator: self];
@@ -121,14 +95,11 @@
   
   [self showNext];
   
-  self.timer = [NSTimer timerWithTimeInterval: ROTATION_INTERVAL
-                                       target: self
-                                     selector: @selector(showNext)
-                                     userInfo: nil
-                                      repeats: YES];
-  
-  [[NSRunLoop mainRunLoop] addTimer:self.timer 
-                            forMode:NSDefaultRunLoopMode];
+  [M3Timer timerWithTimeInterval: ROTATION_INTERVAL
+                          target: self
+                        selector: @selector(showNext)
+                        userInfo: nil
+                         repeats: YES];
 }
 
 -(void)handleTap:(UITapGestureRecognizer *)sender 

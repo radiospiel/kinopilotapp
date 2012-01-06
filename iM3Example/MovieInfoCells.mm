@@ -204,7 +204,6 @@
 
 -(void)dealloc
 {
-  [self.rotator stop];
   self.rotator = nil;
   self.htmlView = nil;
   

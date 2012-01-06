@@ -247,7 +247,6 @@ static NSDictionary *titlesByKey, *urlsByKey;
 
 -(void)dealloc
 {
-  [self.rotator stop];
   self.rotator = nil;
   
   [super dealloc];
