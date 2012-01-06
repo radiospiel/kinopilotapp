@@ -49,6 +49,7 @@
 #import "M3EventCenter.h"
 
 #import "M3Http.h"
+#import "M3Timer.h"
 
 #ifdef __cplusplus
 #import "underscore.hh"
@@ -64,6 +65,7 @@
 #import "UIView+M3Extensions.h"
 #import "UIView+M3Stylesheets.h"
 #import "M3LocationManager.h"
+#import "M3Timer.h"
 #import "M3Rotator.h"
 
 #endif
