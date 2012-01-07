@@ -62,8 +62,7 @@ static NSDictionary *titlesByKey, *urlsByKey;
   if(image) return image;
 
   image = [self tileImageWithTile: @"narrow"];
-  if(self.keys.count > 1)
-    image = [image stretchableImageWithLeftCapWidth:7 topCapHeight:0];
+  image = [image stretchableImageWithLeftCapWidth:7 topCapHeight:0];
   return image;
 }
 
