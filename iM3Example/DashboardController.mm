@@ -110,7 +110,7 @@ static NSDictionary *titlesByKey, *urlsByKey;
   id value = nil;
   
   if([key isEqualToString:@"movies"]) 
-    value = [app.sqliteDB ask: @"SELECT COUNT(*) FROM movies"];
+    value = [app.sqliteDB ask: @"SELECT COUNT(DISTINCT movie_id) FROM schedules"];
   else if([key isEqualToString:@"theaters"]) 
     value = [app.sqliteDB ask: @"SELECT COUNT(*) FROM theaters"];
   

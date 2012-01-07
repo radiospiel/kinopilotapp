@@ -27,7 +27,7 @@
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     NSTimeInterval two_weeks_ago = now - 14 * 24 * 3600;
 
-    return [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image, GROUP_CONCAT(theaters.name) AS theaters FROM movies "
+    return [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image, GROUP_CONCAT(DISTINCT theaters.name) AS theaters FROM movies "
                                 "INNER JOIN schedules ON schedules.movie_id=movies._id "
                                 "INNER JOIN theaters ON schedules.theater_id=theaters._id "
                                 "WHERE schedules.time > ? AND cinema_start_date > ? "
@@ -37,7 +37,7 @@
             ];
   }
   else if([filter isEqualToString:@"art"]) {
-    return [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image, GROUP_CONCAT(theaters.name) AS theaters FROM movies "
+    return [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image, GROUP_CONCAT(DISTINCT theaters.name) AS theaters FROM movies "
                                 "INNER JOIN schedules ON schedules.movie_id=movies._id "
                                 "INNER JOIN theaters ON schedules.theater_id=theaters._id "
                                 "WHERE schedules.time > ? AND production_year < 1995 "
@@ -46,7 +46,7 @@
             ];
   }
   else {
-    return [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image, GROUP_CONCAT(theaters.name) AS theaters FROM movies "
+    return [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image, GROUP_CONCAT(DISTINCT theaters.name) AS theaters FROM movies "
                                 "INNER JOIN schedules ON schedules.movie_id=movies._id  "
                                 "INNER JOIN theaters ON schedules.theater_id=theaters._id "
                                 "WHERE schedules.time > ? "
@@ -165,28 +165,26 @@
 
 @end
 
-/**** TheatersListDateSource **********************************/
+/**** TheatersListDataSource **********************************/
 
-@interface TheatersListDateSource: M3TableViewDataSource
+@interface TheatersListDataSource: M3TableViewDataSource
 
 @end
 
-@implementation TheatersListDateSource
+@implementation TheatersListDataSource
 
 -(id)init
 {
   self = [super initWithCellClass: @"TheatersListCell"]; 
 
   NSArray* theaters = [ 
-    app.sqliteDB all: @"SELECT theaters._id, theaters.name, GROUP_CONCAT(movies.title) AS movies FROM theaters "
-                       "INNER JOIN schedules ON schedules.theater_id=theaters._id "
-                       "INNER JOIN movies ON schedules.movie_id=movies._id "
-                       "WHERE schedules.time > ? "
+    app.sqliteDB all: @"SELECT theaters._id, theaters.name, GROUP_CONCAT(DISTINCT movies.title) AS movies FROM theaters "
+                       "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
+                       "LEFT JOIN movies ON schedules.movie_id=movies._id "
                        "GROUP BY theaters._id ",
                        [NSDate today]
   ];
 
-  
   if(theaters.count > 0) {
     
     NSDictionary* groupedHash = [theaters groupUsingBlock:^id(NSDictionary* theater) {
@@ -405,7 +403,7 @@
   return [self datasourceWithName: @"theatersList" 
                         fromBlock: ^M3TableViewDataSource*() {
                           M3TableViewDataSource* ds;
-                          ds = [[TheatersListDateSource alloc]init];
+                          ds = [[TheatersListDataSource alloc]init];
                           return [ds autorelease];
                         }];
 }

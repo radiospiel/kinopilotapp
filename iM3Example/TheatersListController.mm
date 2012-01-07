@@ -19,6 +19,13 @@
 
 @implementation TheatersListCell
 
+-(BOOL)theaterHasSchedules
+{
+  NSDictionary* theater = self.key;
+  NSString* movies = [theater objectForKey: @"movies"];
+  return [movies isKindOfClass:[NSString class]];
+}
+
 -(void)setKey: (NSDictionary*)theater
 {
   [super setKey:theater];
@@ -26,9 +33,23 @@
   
   [self setText: [theater objectForKey: @"name"]];
 
-  NSString* moviesSeparatedByComma = [theater objectForKey: @"movies"];
-  NSSet* uniqueMovies = [NSSet setWithArray: [ moviesSeparatedByComma componentsSeparatedByString:@"," ] ];
-  [self setDetailText: [[uniqueMovies allObjects] componentsJoinedByString: @", "]];
+  NSString* movies = [theater objectForKey: @"movies"];
+  if([self theaterHasSchedules]) {  // i.e. if it is not NSNull null
+    [self setDetailText: [movies stringByReplacingOccurrencesOfString:@"," 
+                                                           withString:@", "]
+    ];
+  }
+  else {
+    [self setDetailText: @"Für dieses Kino liegen uns keine Termine vor."];
+  }
+}
+
+-(void)layoutSubviews
+{
+  [super layoutSubviews];
+
+  if(![self theaterHasSchedules])
+    self.detailTextLabel.textColor = [UIColor grayColor];
 }
 
 -(NSString*)url 
@@ -39,10 +60,13 @@
   TheatersListController* tlc = (TheatersListController*)self.tableViewController;
   M3AssertKindOf(tlc, TheatersListController);
 
-  if(!tlc.movie_id)
-    return _.join(@"/movies/list?theater_id=", theater_id);
+  if(tlc.movie_id)
+    return _.join(@"/schedules/list?theater_id=", theater_id, @"&movie_id=", tlc.movie_id);
 
-  return _.join(@"/schedules/list?theater_id=", theater_id, @"&movie_id=", tlc.movie_id);
+  if(![self theaterHasSchedules])
+    return nil;
+  
+  return _.join(@"/movies/list?theater_id=", theater_id);
 }
 
 @end
