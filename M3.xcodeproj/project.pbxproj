@@ -218,7 +218,6 @@
 		9D767937142134CE00AB82DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01746C141AA9C00035A4C2 /* SystemConfiguration.framework */; };
 		9D7BA92414B7A33100226304 /* M3Timer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D7BA92214B7A33100226304 /* M3Timer.h */; };
 		9D7BA92514B7A33100226304 /* M3Timer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D7BA92314B7A33100226304 /* M3Timer.m */; };
-		9D7BA92914B7B0B400226304 /* M3Timer.h in Sources */ = {isa = PBXBuildFile; fileRef = 9D7BA92214B7A33100226304 /* M3Timer.h */; };
 		9D7BA92A14B7B0B400226304 /* M3Timer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D7BA92314B7A33100226304 /* M3Timer.m */; };
 		9D7E3DC8141A2F6800BB80E1 /* M3EventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D7E3DC6141A2F6800BB80E1 /* M3EventCenter.h */; };
 		9D7E3DCD141A347C00BB80E1 /* M3EventCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E3DCB141A347C00BB80E1 /* M3EventCenter.mm */; };
@@ -1629,7 +1628,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D7BA92914B7B0B400226304 /* M3Timer.h in Sources */,
 				9D7BA92A14B7B0B400226304 /* M3Timer.m in Sources */,
 				9D6FAECB14A7535300C31703 /* M3Rotator.mm in Sources */,
 				9D017450141AA7AF0035A4C2 /* LoggerClient.m in Sources */,
