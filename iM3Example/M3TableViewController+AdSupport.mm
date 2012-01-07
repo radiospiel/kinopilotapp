@@ -7,10 +7,10 @@
 static NSString *kADBannerContentSizePortrait = nil;
 static NSString *kADBannerContentSizeLandscape = nil;
 
-static BOOL initialiseADBannerConstants() {
-  Class cls = NSClassFromString(@"ADBannerView");
-  if (!cls) return NO;
-  
+@implementation M3TableViewController(AdSupport)
+
++(void)initialize
+{
   if (&ADBannerContentSizeIdentifierPortrait != nil)
     kADBannerContentSizePortrait = ADBannerContentSizeIdentifierPortrait;
   else
@@ -20,32 +20,21 @@ static BOOL initialiseADBannerConstants() {
     kADBannerContentSizeLandscape = ADBannerContentSizeIdentifierLandscape;
   else
     kADBannerContentSizeLandscape = ADBannerContentSizeIdentifier480x32;
-  
-  return YES;
 }
-
-
-@implementation M3TableViewController(AdSupport)
 
 -(void)releaseRequestedBannerViews
 {
-  if(!requestedAdBanners_) return;
-  
-  for(id key in requestedAdBanners_) {
-    ADBannerView* bannerView = [requestedAdBanners_ objectForKey: key];
+  [requestedAdBanners_ enumerateKeysAndObjectsUsingBlock:^(id key, ADBannerView* bannerView, BOOL *stop) {
     bannerView.delegate = nil;
     [bannerView release];
-  }
+  }];
 }
 
+// This method returns a NSMutableDictionary mapping index paths to ADBannerView
 -(NSMutableDictionary*)requestedBannerViews
 {
-  if(!requestedAdBanners_) {
-    static BOOL initialisedADBannerConstants = initialiseADBannerConstants();
-    (void)initialisedADBannerConstants;
-    
+  if(!requestedAdBanners_)
     requestedAdBanners_ = [[NSMutableDictionary alloc]init];
-  }
 
   return requestedAdBanners_;
 }
@@ -55,12 +44,7 @@ static BOOL initialiseADBannerConstants() {
  */
 -(void)requestAdBannerAtIndexPath_: (NSIndexPath*)indexPath
 {
-  Class classAdBannerView = NSClassFromString(@"ADBannerView");
-  if (!classAdBannerView) return;
-
-  // dlog << "requestAdBannerAtIndexPath: good";
-  
-  ADBannerView* adView = [[[classAdBannerView alloc]initWithFrame:CGRectZero] autorelease];
+  ADBannerView* adView = [[[ADBannerView alloc]initWithFrame:CGRectZero] autorelease];
   [adView setRequiredContentSizeIdentifiers:[NSSet setWithObject: kADBannerContentSizePortrait ]];
   [adView setCurrentContentSizeIdentifier: kADBannerContentSizePortrait];            
   // [adView setFrame:CGRectOffset([bannerView_ frame], 0, 50)];
@@ -70,34 +54,48 @@ static BOOL initialiseADBannerConstants() {
   [requestedBannerViews setObject: adView forKey: indexPath];
 }
 
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
+{
+  [app trackEvent: @"/ad/clicked"];
+  return YES;
+}
+
 /*
  * a banner was properly loaded -> reload the AdCell at the cell's indexPath. 
  */
 -(void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
-  // dlog << @"*** bannerViewDidLoadAd ";
-  
   NSIndexPath* indexPath = [[self requestedBannerViews]allKeysForObject:banner].first;
   if(!indexPath) return;
-  
+
+  [app trackEvent: @"/ad/loaded"];
+
   [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject: indexPath]
-                        withRowAnimation:UITableViewRowAnimationFade];
+                        withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
 {
-  dlog << @"*** Did not receive a banner " << error;
+  NSIndexPath* indexPath = [[self requestedBannerViews]allKeysForObject:banner].first;
+  if(!indexPath) return;
+  
+  dlog << @"*** Did not receive a banner on " << indexPath 
+       << "; reason: " << indexPath;
 }
 
 -(UIView*) adBannerAtIndexPath: (NSIndexPath*)indexPath
 {
-  // dlog << @"*** adBannerAtIndexPath " << indexPath;
-  
   UIView* view = [[self requestedBannerViews]objectForKey: indexPath];
   if(view) return view;
   
   [self requestAdBannerAtIndexPath_:indexPath];
   return nil;
+}
+
+-(BOOL)hasAdBannerAtIndexPath: (NSIndexPath*)indexPath
+{
+  ADBannerView* adView = [[self requestedBannerViews]objectForKey: indexPath];
+  return adView.bannerLoaded;
 }
 
 @end

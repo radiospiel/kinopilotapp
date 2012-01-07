@@ -6,7 +6,6 @@
 
 -(id) init {
   self = [super init];
-  if(!self) return nil;
 
   self.textLabel.text = @"";
   self.textLabel.textColor = [UIColor clearColor];
@@ -22,7 +21,7 @@
   [super layoutSubviews];
 
   ADBannerView* adView = (ADBannerView*) [self.tableViewController adBannerAtIndexPath: self.indexPath];
-  if(adView && adView.bannerLoaded) {
+  if(adView.bannerLoaded) {
     adView.frame = CGRectMake(0,0,320,50);
     [self addSubview: adView];
   }
@@ -30,8 +29,7 @@
 
 -(CGFloat)wantsHeight
 {
-  ADBannerView* adView = (ADBannerView*) [self.tableViewController adBannerAtIndexPath: self.indexPath];
-  return adView.bannerLoaded ? 50 : 0;
+  return [self.tableViewController hasAdBannerAtIndexPath: self.indexPath] ? 50 : 0;
 }
 
 @end

@@ -311,8 +311,8 @@ static NSDictionary *titlesByKey, *urlsByKey;
 
 -(CGFloat)wantsHeight
 {
-  ADBannerView* adView = (ADBannerView*) [self.tableViewController adBannerAtIndexPath: self.indexPath];
-  return adView.bannerLoaded ? 50 + BUTTON_PADDING : 0;
+  CGFloat wantsHeight = [super wantsHeight];
+  return wantsHeight > 0 ? wantsHeight + BUTTON_PADDING : 0;
 }
 
 @end
