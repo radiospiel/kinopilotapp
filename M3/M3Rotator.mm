@@ -35,6 +35,12 @@
   return self;
 }
 
++(M3Rotator*)rotatorWithFrame: (CGRect)frame
+{
+  M3Rotator* rotator = [[M3Rotator alloc] initWithFrame:frame];
+  return [rotator autorelease];
+}
+
 -(void)dealloc
 {
   self.viewOnTop = nil;
@@ -50,18 +56,18 @@
   view.clipsToBounds = YES;
   [view layoutSubviews];
   
-  [viewBelowTop removeFromSuperview];
-  viewBelowTop = viewOnTop;
+  [self.viewBelowTop removeFromSuperview];
+  self.viewBelowTop = viewOnTop;
   [self addSubview: view];
   
-  viewOnTop = view;
+  self.viewOnTop = view;
   
-  viewOnTop.alpha = 0.0;
-  viewBelowTop.alpha = 1.0;
+  self.viewOnTop.alpha = 0.0;
+  self.viewBelowTop.alpha = 1.0;
   // 
   // 
   [UIView animateWithDuration:0.3
-                   animations:^{ viewOnTop.alpha = 1.0; viewBelowTop.alpha = 0.0; }
+                   animations:^{ self.viewOnTop.alpha = 1.0; self.viewBelowTop.alpha = 0.0; }
                    completion:^(BOOL finished) { }
    ];
 }

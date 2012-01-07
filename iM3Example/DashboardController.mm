@@ -193,7 +193,7 @@ static NSDictionary *titlesByKey, *urlsByKey;
 
   imageView = [[UIImageView alloc]initWithFrame:frame];
   imageView.contentMode = UIViewContentModeCenter;
-  
+
   [self addSubview: self.imageView];
   [self addSubview: self.label];
 
@@ -244,29 +244,28 @@ static NSDictionary *titlesByKey, *urlsByKey;
   return self;
 }
 
+-(void)unrotate
+{
+  self.rotator.delegate = nil;
+  self.rotator = nil;
+}
+
 -(void)dealloc
 {
-  self.rotator = nil;
-  
+  [self unrotate];
   [super dealloc];
 }
 
 -(void)setKey: (NSString*)key
 {
   [super setKey:key];
+  [self unrotate];
 
   if(!key) return;
- 
-  [self.rotator removeFromSuperview];
-  self.rotator = nil;
   
-//  self.rotator = aRotator; // autorelease];
-//                           // rotator.delegate = self;
-  
-  rotator = [[M3Rotator alloc] initWithFrame:CGRectMake(10, 10, BUTTON_WIDTH - 20, 120)];
-  [rotator retain];
-  rotator.delegate = self;
-	[self addSubview:rotator];
+  self.rotator = [M3Rotator rotatorWithFrame: CGRectMake(10, 10, BUTTON_WIDTH - 20, 120)];
+  self.rotator.delegate = self;
+  [self addSubview:self.rotator];
   [self.rotator start];
 }
 

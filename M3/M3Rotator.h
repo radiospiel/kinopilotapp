@@ -26,6 +26,8 @@
 
 @property (nonatomic, assign) id<M3RotatorDelegate> delegate;
 
++(M3Rotator*)rotatorWithFrame: (CGRect)frame;
+
 -(void)start;
 
 @end

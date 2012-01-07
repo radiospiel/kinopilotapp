@@ -27,7 +27,7 @@
 
 @interface M3Timer()
 
-@property (nonatomic,retain) NSTimer* timer;
+@property (nonatomic,assign) NSTimer* timer;
 @property (nonatomic,retain) MAZeroingWeakRef* refToTarget;
 @property (nonatomic,assign) SEL targetSelector;
 @property (nonatomic,assign) BOOL targetSelectorTakesParameter;
@@ -46,8 +46,6 @@
 {
   self = [super init];
 
-  NSLog(@"**** creating M3Timer with target %@ and selector %s", target, aSelector);
-
   self.refToTarget = [MAZeroingWeakRef refWithTarget: target];
   self.targetSelector = aSelector;
   self.targetSelectorTakesParameter = [NSStringFromSelector(aSelector) containsString: @":"];
@@ -64,21 +62,14 @@
   return self;
 }
 
--(void)dealloc
-{
-  NSLog(@"**** dealloc M3Timer");
-  [super dealloc];
-}
-
 - (void)timerFireMethod:(NSTimer*)theTimer
 {
   id target = [self.refToTarget target];
   if(!target) {
     [self.timer invalidate];
-    return;
+    self.timer = nil;
   }
-  
-  if(self.targetSelectorTakesParameter) {
+  else if(self.targetSelectorTakesParameter) {
     [target performSelector: self.targetSelector
                  withObject: theTimer];
   }
