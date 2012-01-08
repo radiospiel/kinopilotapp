@@ -35,7 +35,10 @@
 
 -(void)setImageURL: (NSString*)url
 {
-  if(!url) return;
+  if(!url) {
+    [self setImage: [UIImage imageNamed:@"no_poster.png"]];
+    return;
+  }
 
   url = [M3 imageURL:url forSize: self.frame.size];
 

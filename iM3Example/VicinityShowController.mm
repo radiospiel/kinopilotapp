@@ -192,7 +192,9 @@
 
 -(void)setUpdateIsNotRunning
 {
-  [self setRightButtonWithTitle: @"cur" target: self action: @selector(startUpdate)];
+  [self setRightButtonWithImage:[UIImage imageNamed:@"location.png"] 
+                         target:self 
+                         action:@selector(startUpdate)];
 }
 
 -(void)setUpdateIsRunning
@@ -200,7 +202,7 @@
   [self setRightButtonWithSystemItem: UIBarButtonSystemItemStop 
                               target: self 
                               action: @selector(setUpdateIsNotRunning) // <-- fake: we do not stop the update.
-  ];
+   ];
 }
 
 -(id)init
