@@ -59,9 +59,10 @@ static NSDictionary *titlesByKey, *urlsByKey;
 -(UIImage*)backgroundImageWithKey: (NSString*)key
 {
   UIImage* image = [self tileImageWithTile: key];
-  if(!image)
+  if(!image) {
     image = [self tileImageWithTile: @"narrow"];
-  image = [image stretchableImageWithLeftCapWidth:7 topCapHeight:0];
+    image = [image stretchableImageWithLeftCapWidth:7 topCapHeight:0];
+  }
   return image;
 }
 
