@@ -225,20 +225,17 @@ static NSDictionary *titlesByKey, *urlsByKey;
 @interface DashboardMoviesCell: DashboardInfoCell<M3RotatorDelegate>
 
 @property (nonatomic,retain) M3Rotator* rotator;
-@property (nonatomic,assign) NSUInteger numberOfMovies;
 
 @end
 
 @implementation DashboardMoviesCell
 
-@synthesize rotator, numberOfMovies;
+@synthesize rotator;
 
 -(id)init
 {
   self = [super init];
   if(!self) return nil;
-  
-  numberOfMovies = [[app.sqliteDB ask: @"SELECT COUNT(*) FROM movies"] to_i];
   
   return self;
 }
@@ -270,7 +267,7 @@ static NSDictionary *titlesByKey, *urlsByKey;
 
 - (NSUInteger)numberOfViewsInRotator: (M3Rotator*)rotator
 {
-  return numberOfMovies;
+  return [[app.sqliteDB ask: @"SELECT COUNT(*) FROM movies"] to_i];
 }
 
 -(NSDictionary*)movieAtIndex: (NSUInteger)index;
@@ -299,6 +296,16 @@ static NSDictionary *titlesByKey, *urlsByKey;
 
 @end
 
+@interface DashboardVSpacer: M3TableViewCell
+@end
+
+@implementation DashboardVSpacer
+
++(CGFloat)fixedHeight
+  { return 5; }
+
+@end
+
 #import "M3TableViewAdCell.h"
 
 @interface DashboardAdCell: M3TableViewAdCell
@@ -324,7 +331,8 @@ static NSDictionary *titlesByKey, *urlsByKey;
 -(id)init
 {
   self = [super init];
-  [self addSection: _.array(@"city/theaters", 
+  [self addSection: _.array(@"DashboardVSpacer",
+                            @"city/theaters", 
                             @"DashboardAdCell",
                             @"movies", @"about/vicinity") 
        withOptions: nil];
@@ -338,6 +346,7 @@ static NSDictionary *titlesByKey, *urlsByKey;
   
   if([key isEqualToString:@"M3TableViewAdCell"]) return @"M3TableViewAdCell";
   if([key isEqualToString:@"DashboardAdCell"]) return @"DashboardAdCell";
+  if([key isEqualToString:@"DashboardVSpacer"]) return @"DashboardVSpacer";
   
   if([key isEqualToString:@"movies"]) return @"DashboardMoviesCell";
   
