@@ -181,21 +181,21 @@
 @interface MovieShortInfoCell: MovieInfoCell
 
 @property (nonatomic,retain) TTTAttributedLabel* htmlView;
-@property (nonatomic,retain) M3ImageRotator* rotator;
+@property (nonatomic,retain) UIImageView* posterView;
 
 @end
 
 @implementation MovieShortInfoCell
 
-@synthesize htmlView, rotator;
+@synthesize htmlView, posterView;
 
 -(id) init {
   self = [super init];
   self.selectionStyle = UITableViewCellSelectionStyleNone;
 
-  rotator = [[M3ImageRotator alloc] initWithFrame: CGRectMake(10, 10, 90, 120)];
-  [self addSubview: rotator];
-  
+  posterView = [[UIImageView alloc] initWithFrame: CGRectMake(10, 10, 90, 120)];
+  [self addSubview: posterView];
+
   htmlView = [[TTTAttributedLabel alloc] init];
   [self addSubview: htmlView];
 
@@ -204,7 +204,7 @@
 
 -(void)dealloc
 {
-  self.rotator = nil;
+  self.posterView = nil;
   self.htmlView = nil;
   
   [super dealloc];
@@ -282,11 +282,17 @@
   CGSize sz = [self htmlViewSize];
   htmlView.frame = CGRectMake(107, 7, sz.width, sz.height);
 
-  self.rotator.frame = CGRectMake(10, 10, 90, 120);
-  self.rotator.imageURLs = [self.movie objectForKey:@"thumbnails"];
-  
-  [self.rotator onTapOpen: _.join(@"/movies/images?movie_id=", [self.movie objectForKey:@"_id"]) ];
-  [self.rotator start];
+  NSArray* thumbnails = [self.movie objectForKey:@"thumbnails"];
+  posterView.imageURL = thumbnails.first;
+
+  if(thumbnails.first) {
+    UIImageView* tapReceiver = [[UIImageView alloc] initWithFrame: CGRectMake(57, 86, 30, 30)];
+    tapReceiver.image = [UIImage imageNamed:@"42-photos.png"];
+    tapReceiver.contentMode = UIViewContentModeCenter;
+    [posterView addSubview: [tapReceiver autorelease]];
+
+    [self.posterView onTapOpen: _.join(@"/movies/images?movie_id=", [self.movie objectForKey:@"_id"]) ];
+  }
 }
 
 - (CGFloat)wantsHeight
