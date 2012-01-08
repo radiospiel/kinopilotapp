@@ -17,7 +17,6 @@
 		9D01743F141AA6F10035A4C2 /* libiM3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01742A141AA6F10035A4C2 /* libiM3.a */; };
 		9D017445141AA6F10035A4C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D017443141AA6F10035A4C2 /* InfoPlist.strings */; };
 		9D017448141AA6F10035A4C2 /* iM3Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D017447141AA6F10035A4C2 /* iM3Tests.m */; };
-		9D017450141AA7AF0035A4C2 /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF74B1413DFF50051B8FA /* LoggerClient.m */; };
 		9D017458141AA7DF0035A4C2 /* M3EventCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E3DCB141A347C00BB80E1 /* M3EventCenter.mm */; };
 		9D017459141AA7DF0035A4C2 /* M3EventCenter+DefaultCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E3DD1141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm */; };
 		9D01745A141AA7DF0035A4C2 /* M3EventCenter+Disconnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E3DD2141A3DD400BB80E1 /* M3EventCenter+Disconnect.m */; };
@@ -41,9 +40,6 @@
 		9D0EF71F1413D45C0051B8FA /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 9D0EF71B1413D45C0051B8FA /* CHANGELOG.md */; };
 		9D0EF7201413D45C0051B8FA /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF71C1413D45C0051B8FA /* JSONKit.h */; };
 		9D0EF7231413D45C0051B8FA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9D0EF71E1413D45C0051B8FA /* README.md */; };
-		9D0EF74D1413DFF50051B8FA /* LoggerClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF74A1413DFF50051B8FA /* LoggerClient.h */; };
-		9D0EF74E1413DFF50051B8FA /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF74B1413DFF50051B8FA /* LoggerClient.m */; };
-		9D0EF7501413DFF50051B8FA /* LoggerCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF74C1413DFF50051B8FA /* LoggerCommon.h */; };
 		9D0EF7521413E0400051B8FA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */; };
 		9D0EF7531413E04F0051B8FA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */; };
 		9D10C37A1437728300FE19C9 /* MapShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D10C3781437728300FE19C9 /* MapShowController.mm */; };
@@ -348,9 +344,6 @@
 		9D0EF71C1413D45C0051B8FA /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		9D0EF71D1413D45C0051B8FA /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		9D0EF71E1413D45C0051B8FA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		9D0EF74A1413DFF50051B8FA /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoggerClient.h; path = "vendor/NSLogger/Client Logger/iOS/LoggerClient.h"; sourceTree = "<group>"; };
-		9D0EF74B1413DFF50051B8FA /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoggerClient.m; path = "vendor/NSLogger/Client Logger/iOS/LoggerClient.m"; sourceTree = "<group>"; };
-		9D0EF74C1413DFF50051B8FA /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoggerCommon.h; path = "vendor/NSLogger/Client Logger/iOS/LoggerCommon.h"; sourceTree = "<group>"; };
 		9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9D10C3771437728300FE19C9 /* MapShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapShowController.h; sourceTree = "<group>"; };
 		9D10C3781437728300FE19C9 /* MapShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MapShowController.mm; sourceTree = "<group>"; };
@@ -707,20 +700,9 @@
 			isa = PBXGroup;
 			children = (
 				9DFD2396146C6641001704CC /* MPLib */,
-				9D0EF7491413DFE10051B8FA /* NSLogger */,
 				9D0EF71A1413D45C0051B8FA /* JSONKit */,
 			);
 			name = vendor;
-			sourceTree = "<group>";
-		};
-		9D0EF7491413DFE10051B8FA /* NSLogger */ = {
-			isa = PBXGroup;
-			children = (
-				9D0EF74A1413DFF50051B8FA /* LoggerClient.h */,
-				9D0EF74B1413DFF50051B8FA /* LoggerClient.m */,
-				9D0EF74C1413DFF50051B8FA /* LoggerCommon.h */,
-			);
-			name = NSLogger;
 			sourceTree = "<group>";
 		};
 		9D3116C31476C3100003D964 /* M3 */ = {
@@ -1227,8 +1209,6 @@
 				9D0EF7131413D1A60051B8FA /* NSArray+M3Extensions.h in Headers */,
 				9D0EF7161413D1A60051B8FA /* NSString+Regexp.h in Headers */,
 				9D0EF7201413D45C0051B8FA /* JSONKit.h in Headers */,
-				9D0EF74D1413DFF50051B8FA /* LoggerClient.h in Headers */,
-				9D0EF7501413DFF50051B8FA /* LoggerCommon.h in Headers */,
 				9D9656AD14177A6C00884372 /* M3Etest.h in Headers */,
 				9D9656B314177F9700884372 /* M3StopWatch.h in Headers */,
 				9D7E3DC8141A2F6800BB80E1 /* M3EventCenter.h in Headers */,
@@ -1526,7 +1506,6 @@
 			files = (
 				9D7BA92A14B7B0B400226304 /* M3Timer.m in Sources */,
 				9D6FAECB14A7535300C31703 /* M3Rotator.mm in Sources */,
-				9D017450141AA7AF0035A4C2 /* LoggerClient.m in Sources */,
 				9DBCDDEF1440919B0020EA1F /* M3CachedFactory.m in Sources */,
 				9DC51243143723A8009A393C /* M3LocationManager.mm in Sources */,
 				9D01745C141AA7DF0035A4C2 /* M3Etest.mm in Sources */,
@@ -1643,7 +1622,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D0EF74E1413DFF50051B8FA /* LoggerClient.m in Sources */,
 				9D9656AE14177A6C00884372 /* M3Etest.mm in Sources */,
 				9D7E3DCD141A347C00BB80E1 /* M3EventCenter.mm in Sources */,
 				9D7E3DD5141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm in Sources */,
