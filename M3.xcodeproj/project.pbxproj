@@ -150,7 +150,7 @@
 		9D48ACFE141EAB5A00D0D000 /* libiM3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01742A141AA6F10035A4C2 /* libiM3.a */; };
 		9D4B7018145D5ECB00F1DBCE /* SchedulesShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D4B7017145D5ECB00F1DBCE /* SchedulesShowController.mm */; };
 		9D4B701C145D734B00F1DBCE /* M3ActionSheetController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D4B701B145D734B00F1DBCE /* M3ActionSheetController.mm */; };
-		9D4B701E145D7A6400F1DBCE /* invitation_mail.html in Resources */ = {isa = PBXBuildFile; fileRef = 9D4B701D145D7A6400F1DBCE /* invitation_mail.html */; };
+		9D4B701E145D7A6400F1DBCE /* share_schedule_email.html in Resources */ = {isa = PBXBuildFile; fileRef = 9D4B701D145D7A6400F1DBCE /* share_schedule_email.html */; };
 		9D4B7020145D92E800F1DBCE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D4B701F145D92E800F1DBCE /* MessageUI.framework */; };
 		9D4D03D41476A36400C6F5EC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D4D03D31476A36400C6F5EC /* libsqlite3.dylib */; };
 		9D56161B142641A300D0A484 /* background-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D561574142641A300D0A484 /* background-dark.png */; };
@@ -254,6 +254,8 @@
 		9DBCDDFC1440B55A0020EA1F /* M3CachedFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DBCDDFB1440B55A0020EA1F /* M3CachedFactory.h */; };
 		9DBCDDFD1440B55A0020EA1F /* M3CachedFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DBCDDFB1440B55A0020EA1F /* M3CachedFactory.h */; };
 		9DC0A30E14BF829F003FF7F7 /* ShareScheduleController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC0A30D14BF829F003FF7F7 /* ShareScheduleController.mm */; };
+		9DC0A31914BF9544003FF7F7 /* ShareMovieController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC0A31814BF9544003FF7F7 /* ShareMovieController.mm */; };
+		9DC0A31B14BF97F6003FF7F7 /* share_movie_email.html in Resources */ = {isa = PBXBuildFile; fileRef = 9DC0A31A14BF97F6003FF7F7 /* share_movie_email.html */; };
 		9DC1E7601435C145009B41A5 /* VicinityShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1E75F1435C145009B41A5 /* VicinityShowController.mm */; };
 		9DC51240143723A8009A393C /* M3LocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DC5123E143723A8009A393C /* M3LocationManager.h */; };
 		9DC51241143723A8009A393C /* M3LocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DC5123E143723A8009A393C /* M3LocationManager.h */; };
@@ -420,7 +422,7 @@
 		9D4B7017145D5ECB00F1DBCE /* SchedulesShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SchedulesShowController.mm; sourceTree = "<group>"; };
 		9D4B701A145D734B00F1DBCE /* M3ActionSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3ActionSheetController.h; sourceTree = "<group>"; };
 		9D4B701B145D734B00F1DBCE /* M3ActionSheetController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3ActionSheetController.mm; sourceTree = "<group>"; };
-		9D4B701D145D7A6400F1DBCE /* invitation_mail.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = invitation_mail.html; sourceTree = "<group>"; };
+		9D4B701D145D7A6400F1DBCE /* share_schedule_email.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = share_schedule_email.html; sourceTree = "<group>"; };
 		9D4B701F145D92E800F1DBCE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
 		9D4D03D31476A36400C6F5EC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		9D561574142641A300D0A484 /* background-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-dark.png"; sourceTree = "<group>"; };
@@ -518,6 +520,8 @@
 		9DBCDDED1440919B0020EA1F /* M3CachedFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3CachedFactory.m; sourceTree = "<group>"; };
 		9DBCDDFB1440B55A0020EA1F /* M3CachedFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3CachedFactory.h; sourceTree = "<group>"; };
 		9DC0A30D14BF829F003FF7F7 /* ShareScheduleController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShareScheduleController.mm; sourceTree = "<group>"; };
+		9DC0A31814BF9544003FF7F7 /* ShareMovieController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShareMovieController.mm; sourceTree = "<group>"; };
+		9DC0A31A14BF97F6003FF7F7 /* share_movie_email.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = share_movie_email.html; sourceTree = "<group>"; };
 		9DC1E75E1435C145009B41A5 /* VicinityShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VicinityShowController.h; sourceTree = "<group>"; };
 		9DC1E75F1435C145009B41A5 /* VicinityShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VicinityShowController.mm; sourceTree = "<group>"; };
 		9DC5123E143723A8009A393C /* M3LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3LocationManager.h; sourceTree = "<group>"; };
@@ -883,7 +887,8 @@
 			children = (
 				9D94B56514A8D02C00C1262D /* seed.sqlite3 */,
 				9D29B14A14A4B0E8001DF310 /* Dashboard.bundle */,
-				9D4B701D145D7A6400F1DBCE /* invitation_mail.html */,
+				9DC0A31A14BF97F6003FF7F7 /* share_movie_email.html */,
+				9D4B701D145D7A6400F1DBCE /* share_schedule_email.html */,
 				9D561573142641A300D0A484 /* images */,
 				9D561594142641A300D0A484 /* static */,
 			);
@@ -967,6 +972,7 @@
 				9D4368F21489805A00E14CCB /* SearchController.mm */,
 				9DACE1BD145F48B600372415 /* ShareController.h */,
 				9DACE1BE145F48B600372415 /* ShareController.mm */,
+				9DC0A31814BF9544003FF7F7 /* ShareMovieController.mm */,
 				9DC0A30D14BF829F003FF7F7 /* ShareScheduleController.mm */,
 				9DC682BB142CBF2200124E9A /* TheatersListController.h */,
 				9DC682BC142CBF2200124E9A /* TheatersListController.mm */,
@@ -1422,7 +1428,7 @@
 				9DC5124B143736F8009A393C /* header-background-22.png in Resources */,
 				9D10C37B1437728300FE19C9 /* MapShowController.xib in Resources */,
 				9DEB834A1444E5280075F65A /* close.png in Resources */,
-				9D4B701E145D7A6400F1DBCE /* invitation_mail.html in Resources */,
+				9D4B701E145D7A6400F1DBCE /* share_schedule_email.html in Resources */,
 				9D934DA21461CEF1001B25C6 /* header-background-dark-22.png in Resources */,
 				9D3D3092148994B300C84FB4 /* SVProgressHUD.bundle in Resources */,
 				9DA6563F14A12D1F00F96508 /* button_grey_normal.png in Resources */,
@@ -1433,6 +1439,7 @@
 				9D94B56A14A8D5C200C1262D /* location@2x.png in Resources */,
 				9D834F5B14B9D97C00DDE3CD /* 42-photos.png in Resources */,
 				9D834F5C14B9D97C00DDE3CD /* 42-photos@2x.png in Resources */,
+				9DC0A31B14BF97F6003FF7F7 /* share_movie_email.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1607,6 +1614,7 @@
 				9D01499114A7BCA900B27DC7 /* NSString+IM3ExampleExtensions.mm in Sources */,
 				9D2580AE14A7E5D90052E36F /* M3AppDelegate+Info.mm in Sources */,
 				9DC0A30E14BF829F003FF7F7 /* ShareScheduleController.mm in Sources */,
+				9DC0A31914BF9544003FF7F7 /* ShareMovieController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
