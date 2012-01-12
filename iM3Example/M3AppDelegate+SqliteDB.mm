@@ -44,7 +44,7 @@
   return self.movies.count.to_i > 0;
 }
 
--(BOOL)importDatabaseFromURL: (NSString*)url
+-(void)importDatabaseFromURL: (NSString*)url
 {  
   NSNumber* current_revision = [self.settings objectForKey: @"revision"];
   if(current_revision.to_i > 0) {
@@ -71,8 +71,6 @@
     [self.settings setObject: [header objectForKey: @"uuid"] forKey:@"uuid"];
     [self.settings setObject: [NSDate now].to_number forKey:@"updated_at"];
   }];
-
-  return YES;
 }
 
 @end
@@ -103,12 +101,19 @@
   // run in background...
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     M3SqliteDatabase* db = [self buildSqliteDatabase];
-    [db importDatabaseFromURL: REMOTE_SQL_URL];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [self emit:@selector(updated)];
-      [SVProgressHUD dismissWithSuccess:@"Update good" ];
-    });
+    @try {
+      [db importDatabaseFromURL: REMOTE_SQL_URL];
+
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self emit:@selector(updated)];
+        [SVProgressHUD dismissWithSuccess:@"Kinopilot hat seinen Datenbestand aktualisiert!" ];
+      });
+    }
+    @catch (M3Exception* exception) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [SVProgressHUD dismissWithError: [exception description] afterDelay: 2.5 ];
+      });
+    }
   });
 }
 
