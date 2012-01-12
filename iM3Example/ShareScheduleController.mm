@@ -92,8 +92,8 @@
 
 -(void)shareViaEmail
 {
-  [ self composeEmailWithTemplateFile: @"$app/invitation_mail.html"
-                            andValues: [self interpolationContext] 
+  [ app composeEmailWithTemplateFile: @"$app/invitation_mail.html"
+                           andValues: [self interpolationContext] 
   ];
 }
 

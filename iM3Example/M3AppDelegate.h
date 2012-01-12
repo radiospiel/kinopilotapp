@@ -113,6 +113,9 @@ extern M3AppDelegate* app;
 -(void)composeEmailWithSubject: (NSString*)subject
                        andBody: (NSString*)body;
 
+-(void)composeEmailWithTemplateFile: (NSString*)path 
+                          andValues: (NSDictionary*)values;
+
 @end
 
 @interface M3AppDelegate(AppInfo)

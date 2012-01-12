@@ -75,8 +75,6 @@
 
   mc.mailComposeDelegate = [MailComposeDelegate sharedMailComposeDelegate];
 
-  NSLog(@"%@", body);
-  
   [mc setSubject: subject];
   [mc setMessageBody: body
               isHTML: YES];
@@ -84,6 +82,19 @@
   // -- show message composer.
   
   [app.window.rootViewController presentModalViewController:mc animated:YES];
+}
+
+-(void)composeEmailWithTemplateFile: (NSString*)path 
+                          andValues: (NSDictionary*)values
+{
+  NSString* email = [M3 interpolateFile: @"$app/invitation_mail.html"
+                            withValues: values]; 
+  
+  
+  NSArray* parts = [email componentsSeparatedByString: @"\n---\n"];
+  
+  [app composeEmailWithSubject: parts.first
+                       andBody: parts.second];  
 }
 
 @end

@@ -11,9 +11,6 @@
 
 // --- Helper methods
 
--(void)composeEmailWithTemplateFile: (NSString*)path 
-                          andValues: (NSDictionary*)values;
-
 -(BOOL)addCalendarEvent: (NSString*)title
            withLocation: (NSString*)location
            andStartDate: (NSDate*)startDate

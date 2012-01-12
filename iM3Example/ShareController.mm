@@ -18,21 +18,6 @@
 
 // --- Helper methods
 
--(void)composeEmailWithTemplateFile: (NSString*)path 
-                          andValues: (NSDictionary*)values
-{
-  NSString* email = [M3 interpolateFile: @"$app/invitation_mail.html"
-                            withValues: values]; 
-  
-  
-  NSArray* parts = [email componentsSeparatedByString: @"\n---\n"];
-  
-  DLOG(parts.first);
-  
-  [app composeEmailWithSubject: parts.first
-                       andBody: parts.second];  
-}
-
 -(BOOL)addCalendarEvent: (NSString*)title
            withLocation: (NSString*)location
            andStartDate: (NSDate*)startDate
