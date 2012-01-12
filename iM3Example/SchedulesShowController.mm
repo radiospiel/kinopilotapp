@@ -1,4 +1,3 @@
-#import "M3AppDelegate.h"
 #import "M3ActionSheetController.h"
 
 /*
@@ -29,10 +28,10 @@
                   [theater objectForKey: @"name"]
                 ];
 
-  // [self addAction:@"Twitter"  withURL: _.join(@"/share/twitter?schedule_id=", schedule_id)];
-  // [self addAction:@"Facebook" withURL: _.join(@"/share/facebook?schedule_id=", schedule_id)];
-  [self addAction:@"Email"    withURL: _.join(@"/share/email?schedule_id=", schedule_id)];
-  [self addAction:@"Kalender" withURL: _.join(@"/share/calendar?schedule_id=", schedule_id)];
+  // [self addAction:@"Twitter"  withURL: _.join(@"/share/schedule/twitter?schedule_id=", schedule_id)];
+  // [self addAction:@"Facebook" withURL: _.join(@"/share/schedule/facebook?schedule_id=", schedule_id)];
+  [self addAction:@"Email"    withURL: _.join(@"/share/schedule/email?schedule_id=", schedule_id)];
+  [self addAction:@"Kalender" withURL: _.join(@"/share/schedule/calendar?schedule_id=", schedule_id)];
 }
 @end
 
@@ -43,9 +42,9 @@
 
 -(void)setUrl: (NSString*)urlString
 {
-  // [self addAction:@"Twitter"  withURL: _.join(@"/share/twitter?schedule_id=", schedule_id)];
-  // [self addAction:@"Facebook" withURL: _.join(@"/share/facebook?schedule_id=", schedule_id)];
-  [self addAction:@"Email"    withURL: @"/share/app/email"];
+  // [self addAction:@"Twitter"  withURL: _.join(@"/share/schedule/twitter?schedule_id=", schedule_id)];
+  // [self addAction:@"Facebook" withURL: _.join(@"/share/schedule/facebook?schedule_id=", schedule_id)];
+  [self addAction:@"Email"    withURL: @"/share/schedule/app/email"];
   // [self addAction:@"Kalender" withURL: _.join(@"/application/share/calendar?schedule_id=", schedule_id)];
 }
 @end
