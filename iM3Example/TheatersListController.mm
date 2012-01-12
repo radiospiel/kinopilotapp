@@ -63,8 +63,8 @@
   if(tlc.movie_id)
     return _.join(@"/schedules/list?theater_id=", theater_id, @"&movie_id=", tlc.movie_id);
 
-  if(![self theaterHasSchedules])
-    return nil;
+  // if(![self theaterHasSchedules])
+  //   return nil;
   
   return _.join(@"/movies/list?theater_id=", theater_id);
 }

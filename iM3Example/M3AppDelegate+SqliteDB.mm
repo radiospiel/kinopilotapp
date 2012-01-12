@@ -106,7 +106,7 @@
 
       dispatch_async(dispatch_get_main_queue(), ^{
         [self emit:@selector(updated)];
-        [SVProgressHUD dismissWithSuccess:@"Kinopilot hat seinen Datenbestand aktualisiert!" ];
+        [SVProgressHUD dismissWithSuccess:@"Aktualisierung erfolgreich!" ];
       });
     }
     @catch (M3Exception* exception) {
