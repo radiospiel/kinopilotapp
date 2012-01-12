@@ -1,11 +1,22 @@
 #import "M3AppDelegate.h"
 
-@interface ShareController: UIViewController {
-  NSDictionary *movie_, *theater_, *schedule_;
-}
+@interface ShareController: UIViewController
 
-@property (nonatomic,retain) NSDictionary* movie;
-@property (nonatomic,retain) NSDictionary* theater;
-@property (nonatomic,retain) NSDictionary* schedule;
+// --- Subclasses must override these methods (if needed)
+
+-(void)shareViaEmail;
+-(void)shareViaTwitter;
+-(void)shareViaFacebook;
+-(void)shareViaCalendar;
+
+// --- Helper methods
+
+-(void)composeEmailWithTemplateFile: (NSString*)path 
+                          andValues: (NSDictionary*)values;
+
+-(BOOL)addCalendarEvent: (NSString*)title
+           withLocation: (NSString*)location
+           andStartDate: (NSDate*)startDate
+            andDuration: (NSTimeInterval)duration;
 
 @end
