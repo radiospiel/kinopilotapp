@@ -135,7 +135,7 @@ static NSArray *ClassGetSubclasses(Class parentClass)
   
   NSMutableArray* testMethods = [ NSMutableArray array ]; 
   for(NSString* method in methods) {
-    if([method startsWith: @"test"])
+    if([method hasPrefix: @"test"])
       [testMethods addObject: method];
   }
   

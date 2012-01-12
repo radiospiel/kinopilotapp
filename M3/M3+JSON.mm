@@ -46,7 +46,7 @@ static NSMutableString* gsub(NSString* string, NSString* regexp, NSString* repla
   NSError* error = 0;
   id returnValue;
 
-  if([path startsWith: @"http://"]) {
+  if([path hasPrefix: @"http://"]) {
     NSData* data = [M3Http requestData: @"GET" 
                                    url: path
                            withOptions: nil];

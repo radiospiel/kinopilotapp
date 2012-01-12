@@ -68,7 +68,7 @@
 - (BOOL)stringItem: (NSString*)item 
      matchesFilter: (NSString*)filter
 {
-  return [[item uppercaseString] startsWith: [filter uppercaseString]];
+  return [[item uppercaseString] hasPrefix: [filter uppercaseString]];
 }
 
 - (BOOL)dictionaryItem: (NSDictionary*)item 

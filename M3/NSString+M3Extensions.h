@@ -8,7 +8,7 @@
 
 @interface NSString(M3Extensions)
 
--(BOOL)startsWith: (NSString*) other;
+-(BOOL)hasPrefix: (NSString*) other;
 -(BOOL)containsString: (NSString*)aString;
 -(NSUInteger)indexOfString: (NSString*)aString;
 

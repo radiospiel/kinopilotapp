@@ -17,7 +17,7 @@
 
 + (NSString*) symbolicDir: (NSString*)name
 {
-  if(![name startsWith: @"$"]) return name;
+  if(![name hasPrefix: @"$"]) return name;
 
   if([name isEqualToString: @"$cache"])
   {

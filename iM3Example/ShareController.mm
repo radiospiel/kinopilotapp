@@ -92,13 +92,13 @@
 
 -(void)perform
 {
-  if([self.url startsWith:@"/share/email"])
+  if([self.url hasPrefix:@"/share/email"])
     [self email];
-//  else if([self.url startsWith:@"/share/twitter"])
+//  else if([self.url hasPrefix:@"/share/twitter"])
 //    [self twitter];
-//  else if([self.url startsWith:@"/share/facebook"])
+//  else if([self.url hasPrefix:@"/share/facebook"])
 //    [self facebook];
-  else if([self.url startsWith:@"/share/calendar"])
+  else if([self.url hasPrefix:@"/share/calendar"])
     [self calendar];
 }
 
