@@ -24,7 +24,7 @@
 
 -(void)setUrl:(NSString*)url
 {
-  dlog << "setUrl: " << url;
+  [super setUrl:url];
   
   NSDictionary* params = url.to_url.params;
 
