@@ -87,8 +87,8 @@
 -(void)composeEmailWithTemplateFile: (NSString*)path 
                           andValues: (NSDictionary*)values
 {
-  NSString* email = [M3 interpolateFile: @"$app/invitation_mail.html"
-                            withValues: values]; 
+  NSString* email = [M3 interpolateFile: path
+                             withValues: values]; 
   
   
   NSArray* parts = [email componentsSeparatedByString: @"\n---\n"];
