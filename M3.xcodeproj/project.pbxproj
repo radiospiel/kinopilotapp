@@ -256,6 +256,7 @@
 		9DC0A30E14BF829F003FF7F7 /* ShareScheduleController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC0A30D14BF829F003FF7F7 /* ShareScheduleController.mm */; };
 		9DC0A31914BF9544003FF7F7 /* ShareMovieController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC0A31814BF9544003FF7F7 /* ShareMovieController.mm */; };
 		9DC0A31B14BF97F6003FF7F7 /* share_movie_email.html in Resources */ = {isa = PBXBuildFile; fileRef = 9DC0A31A14BF97F6003FF7F7 /* share_movie_email.html */; };
+		9DC0A31D14BFA4DC003FF7F7 /* M3AppDelegate+Alert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC0A31C14BFA4DC003FF7F7 /* M3AppDelegate+Alert.mm */; };
 		9DC1E7601435C145009B41A5 /* VicinityShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DC1E75F1435C145009B41A5 /* VicinityShowController.mm */; };
 		9DC51240143723A8009A393C /* M3LocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DC5123E143723A8009A393C /* M3LocationManager.h */; };
 		9DC51241143723A8009A393C /* M3LocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DC5123E143723A8009A393C /* M3LocationManager.h */; };
@@ -522,6 +523,7 @@
 		9DC0A30D14BF829F003FF7F7 /* ShareScheduleController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShareScheduleController.mm; sourceTree = "<group>"; };
 		9DC0A31814BF9544003FF7F7 /* ShareMovieController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShareMovieController.mm; sourceTree = "<group>"; };
 		9DC0A31A14BF97F6003FF7F7 /* share_movie_email.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = share_movie_email.html; sourceTree = "<group>"; };
+		9DC0A31C14BFA4DC003FF7F7 /* M3AppDelegate+Alert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+Alert.mm"; sourceTree = "<group>"; };
 		9DC1E75E1435C145009B41A5 /* VicinityShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VicinityShowController.h; sourceTree = "<group>"; };
 		9DC1E75F1435C145009B41A5 /* VicinityShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VicinityShowController.mm; sourceTree = "<group>"; };
 		9DC5123E143723A8009A393C /* M3LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3LocationManager.h; sourceTree = "<group>"; };
@@ -936,6 +938,7 @@
 			children = (
 				9D6FAEC214A7530000C31703 /* M3AppDelegate.h */,
 				9D6FAEC314A7530100C31703 /* M3AppDelegate.mm */,
+				9DC0A31C14BFA4DC003FF7F7 /* M3AppDelegate+Alert.mm */,
 				9D2580AD14A7E5D90052E36F /* M3AppDelegate+Info.mm */,
 				9D01499214A7BCDF00B27DC7 /* M3AppDelegate+SqliteDB.mm */,
 				9D01498E14A7BCA900B27DC7 /* M3AppDelegate+Email.mm */,
@@ -1615,6 +1618,7 @@
 				9D2580AE14A7E5D90052E36F /* M3AppDelegate+Info.mm in Sources */,
 				9DC0A30E14BF829F003FF7F7 /* ShareScheduleController.mm in Sources */,
 				9DC0A31914BF9544003FF7F7 /* ShareMovieController.mm in Sources */,
+				9DC0A31D14BFA4DC003FF7F7 /* M3AppDelegate+Alert.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
