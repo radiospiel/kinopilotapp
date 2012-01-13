@@ -17,6 +17,7 @@
 -(void) setHtmlDescription: (NSString*) html
 {
   htmlView_ = [[[TTTAttributedLabel alloc]init]autorelease];
+  htmlView_.numberOfLines = 0;
   htmlView_.text = [NSAttributedString attributedStringWithMarkup: html 
                                                     forStylesheet: self.stylesheet];
 

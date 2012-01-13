@@ -122,6 +122,7 @@
 -(void)setHtml: (NSString*)html
 {
   self.textLabel.text = @" ";
+  htmlView.numberOfLines = 0;
   htmlView.text = [NSAttributedString attributedStringWithMarkup: html 
                                                    forStylesheet: self.stylesheet];
 }

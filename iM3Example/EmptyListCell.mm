@@ -68,6 +68,7 @@
   // [webView loadHTMLString: [self markup] 
   //                baseURL: nil]; 
 
+  htmlView.numberOfLines = 0;
   htmlView.text = [NSAttributedString attributedStringWithMarkup: [self markup]
                                                    forStylesheet: self.stylesheet];
 }

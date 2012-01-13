@@ -275,7 +275,8 @@
   if(!key) return;
 
   self.textLabel.text = @" ";
-  
+
+  htmlView.numberOfLines = 0;
   htmlView.text = [NSAttributedString attributedStringWithMarkup: [self markup] 
                                                    forStylesheet: self.stylesheet];
 
@@ -341,7 +342,7 @@
   
   NSString* description = [self.movie objectForKey:@"description"];
   NSString* html = _.join(@"<p><b>Beschreibung: </b>", description.cdata, @"</p><br />");
-  
+  htmlView.numberOfLines = 0;
   htmlView.text = [NSAttributedString attributedStringWithMarkup: html 
                                                    forStylesheet: self.stylesheet];
 }
