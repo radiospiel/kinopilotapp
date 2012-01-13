@@ -28,3 +28,6 @@
 [submodule "vendor/ShareKit"]
 	path = vendor/ShareKit
 	url = git://github.com/ShareKit/ShareKit.git
+[submodule "vendor/facebook-ios-sdk"]
+	path = vendor/facebook-ios-sdk
+	url = git://github.com/facebook/facebook-ios-sdk.git
