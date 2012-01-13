@@ -23,7 +23,7 @@ M3AppDelegate* app;
 
 @implementation M3AppDelegate
 
-@synthesize splashScreen, window, tabBarController;
+@synthesize splashScreen, window, tabBarController, facebook;
 
 - (void)dealloc
 {
@@ -184,6 +184,22 @@ M3AppDelegate* app;
   [self trackEvent: @"start"];          // track a start event
 }
 
+// For 4.2+ support
+- (BOOL)application: (UIApplication *)application 
+            openURL: (NSURL *)url
+  sourceApplication: (NSString *)sourceApplication 
+         annotation: (id)annotation 
+{
+  return [self.facebook handleOpenURL:url]; 
+}
+
+- (void)fbDidLogin {
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  [defaults setObject:[facebook accessToken] forKey:@"FBAccessTokenKey"];
+  [defaults setObject:[facebook expirationDate] forKey:@"FBExpirationDateKey"];
+  [defaults synchronize];
+}
+
 -(BOOL) application:(UIApplication *)application 
           didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -191,11 +207,28 @@ M3AppDelegate* app;
 
   app = self;
   
+  // --- log into facebook
+  self.facebook = [[[Facebook alloc] initWithAppId:@"323168154384101" andDelegate:self] autorelease];
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  if ([defaults objectForKey:@"FBAccessTokenKey"] && 
+      [defaults objectForKey:@"FBExpirationDateKey"]) {
+    facebook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
+    facebook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
+  }
+  if (![facebook isSessionValid]) {
+    [facebook authorize:_.array(@"publish_stream")];
+  }
+
+  // --- enable Urban Airship remote notifications
   [self enableRemoteNotifications];
+
+  // --- enable sencha.io image source
   [M3 enableImageHost:M3SenchaSupportFull scaleForRetinaDisplay:YES];
   
-  [self sqliteDB];            // Initialise database
+  // --- init database
+  [self sqliteDB];    
   
+  // --- shoot!
   self.window = nil;
   [self restartApplication];  // restart app
   
