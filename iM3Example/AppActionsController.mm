@@ -16,10 +16,8 @@
 -(void)setUrl: (NSString*)urlString
 {
   [self addAction:@"Twitter"    withURL: @"/app/share/twitter"];
-  // [self addAction:@"Twitter"  withURL: _.join(@"/share/schedule/twitter?schedule_id=", schedule_id)];
-  // [self addAction:@"Facebook" withURL: _.join(@"/share/schedule/facebook?schedule_id=", schedule_id)];
+  [self addAction:@"Facebook"   withURL: @"/app/share/facebook"];
   [self addAction:@"Email"    withURL: @"/app/share/email"];
-  // [self addAction:@"Kalender" withURL: _.join(@"/application/share/calendar?schedule_id=", schedule_id)];
 }
 @end
 
@@ -43,5 +41,14 @@
   [app sendTweet: @"Welcome from kinopilot! #kinopilot"
          withURL: nil 
         andImage: nil];
+}
+
+-(void)shareViaFacebook
+{
+  [app sendToFacebook: @"Ich hab mir die Kinopilot-App auf meinem iPhone installiert. Jetzt hab ich alle Berliner Kinotermine immer dabei!"
+            withTitle: @"Kinopilot.app"
+          andImageURL: @"http://kinopilotupdates2.heroku.com/images/icon_72px.png"
+               andURL: @"http://kinopilotapp.de"
+  ];
 }
 @end

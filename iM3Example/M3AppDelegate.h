@@ -28,7 +28,7 @@ extern M3AppDelegate* app;
  * The AppDelegate class and the global app object.
  */
 @interface M3AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, 
-                                           UINavigationControllerDelegate, FBSessionDelegate>
+                                           UINavigationControllerDelegate, FBSessionDelegate, FBDialogDelegate>
 
 @property (nonatomic, retain) Facebook *facebook;
 @property (retain, nonatomic) UIWindow *window;
@@ -131,6 +131,15 @@ extern M3AppDelegate* app;
 -(void)sendTweet: (NSString*)tweet 
          withURL: (NSString*)url 
         andImage: (UIImage*)image;
+
+@end
+
+@interface M3AppDelegate(Facebook)
+
+-(void)sendToFacebook: (NSString*)message 
+            withTitle: (NSString*)title 
+          andImageURL: (NSString*)imageURL
+               andURL: (NSString*)url;
 
 @end
 
