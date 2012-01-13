@@ -108,3 +108,53 @@
 }
 
 @end
+
+#if defined(__IPHONE_5_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0
+#import <Twitter/Twitter.h>
+#import <Accounts/Accounts.h>
+#endif
+
+@implementation M3AppDelegate(Twitter)
+
+-(void)sendTweet: (NSString*)tweet withURL: (NSString*)url andImage: (UIImage*)image
+{
+  Class TWTweetComposeViewControllerClass = NSClassFromString(@"TWTweetComposeViewController");
+  
+  if (TWTweetComposeViewControllerClass != nil) {
+    if([TWTweetComposeViewControllerClass respondsToSelector:@selector(canSendTweet)]) {
+      UIViewController *twitterViewController = [[TWTweetComposeViewControllerClass alloc] init];
+      
+      [twitterViewController performSelector:@selector(setInitialText:) 
+                                  withObject:tweet];
+
+      if(url) {
+        [twitterViewController performSelector:@selector(addURL:) 
+                                    withObject:url];
+      }
+
+      if(image) {
+        [twitterViewController performSelector:@selector(addImage:) 
+                                    withObject:image];
+      }
+
+      [app.window.rootViewController presentModalViewController:twitterViewController animated:YES];
+      [twitterViewController release];
+    }
+  } 
+  else {
+    [app alertMessage:@"To use Twitter w/Kinopilot please upgrade to iOS5"];
+  }
+
+//  else {
+//    [SHK flushOfflineQueue];
+//    SHKItem *item = [SHKItem URL:url title:NSLocalizedString(@"TwitterMessage", @"")];
+//    
+//    // Get the ShareKit action sheet
+//    SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
+//    
+//    // Display the action sheet
+//    [actionSheet showInView:[self.view superview].window];
+//  }
+}
+
+@end

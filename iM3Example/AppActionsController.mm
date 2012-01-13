@@ -15,6 +15,7 @@
 
 -(void)setUrl: (NSString*)urlString
 {
+  [self addAction:@"Twitter"    withURL: @"/app/share/twitter"];
   // [self addAction:@"Twitter"  withURL: _.join(@"/share/schedule/twitter?schedule_id=", schedule_id)];
   // [self addAction:@"Facebook" withURL: _.join(@"/share/schedule/facebook?schedule_id=", schedule_id)];
   [self addAction:@"Email"    withURL: @"/app/share/email"];
@@ -37,4 +38,10 @@
    ];
 }
 
+-(void)shareViaTwitter
+{
+  [app sendTweet: @"Welcome from kinopilot! #kinopilot"
+         withURL: nil 
+        andImage: nil];
+}
 @end

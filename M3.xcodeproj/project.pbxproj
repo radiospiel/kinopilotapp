@@ -190,6 +190,7 @@
 		9D7BA92414B7A33100226304 /* M3Timer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D7BA92214B7A33100226304 /* M3Timer.h */; };
 		9D7BA92514B7A33100226304 /* M3Timer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D7BA92314B7A33100226304 /* M3Timer.m */; };
 		9D7BA92A14B7B0B400226304 /* M3Timer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D7BA92314B7A33100226304 /* M3Timer.m */; };
+		9D7E0FDF14C096A8004DE9E4 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7E0FDE14C096A8004DE9E4 /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9D7E3DC8141A2F6800BB80E1 /* M3EventCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D7E3DC6141A2F6800BB80E1 /* M3EventCenter.h */; };
 		9D7E3DCD141A347C00BB80E1 /* M3EventCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E3DCB141A347C00BB80E1 /* M3EventCenter.mm */; };
 		9D7E3DD5141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E3DD1141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm */; };
@@ -462,6 +463,7 @@
 		9D73415F14769C1D00FBB528 /* GTMSqlite+M3Additions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "GTMSqlite+M3Additions.mm"; sourceTree = "<group>"; };
 		9D7BA92214B7A33100226304 /* M3Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Timer.h; sourceTree = "<group>"; };
 		9D7BA92314B7A33100226304 /* M3Timer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3Timer.m; sourceTree = "<group>"; };
+		9D7E0FDE14C096A8004DE9E4 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/Twitter.framework; sourceTree = DEVELOPER_DIR; };
 		9D7E3DC6141A2F6800BB80E1 /* M3EventCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3EventCenter.h; sourceTree = "<group>"; };
 		9D7E3DCB141A347C00BB80E1 /* M3EventCenter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3EventCenter.mm; sourceTree = "<group>"; };
 		9D7E3DD1141A3DD400BB80E1 /* M3EventCenter+DefaultCenter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3EventCenter+DefaultCenter.mm"; sourceTree = "<group>"; };
@@ -603,6 +605,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D7E0FDF14C096A8004DE9E4 /* Twitter.framework in Frameworks */,
 				9DBC934514A64AA2001EEDAA /* QuartzCore.framework in Frameworks */,
 				9DF9B2D814744CE10035084F /* libsqlite3.dylib in Frameworks */,
 				9D3813971469A73C00E4BBF4 /* MediaPlayer.framework in Frameworks */,
@@ -1049,6 +1052,7 @@
 		9D8B8AED1413CA8B0066ECBB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D7E0FDE14C096A8004DE9E4 /* Twitter.framework */,
 				9D4D03D31476A36400C6F5EC /* libsqlite3.dylib */,
 				9DF9B2D714744CE10035084F /* libsqlite3.dylib */,
 				9D3813961469A73C00E4BBF4 /* MediaPlayer.framework */,
