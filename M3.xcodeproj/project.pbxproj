@@ -122,6 +122,7 @@
 		9D33FBCE1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */; };
 		9D33FBCF1427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */; };
 		9D33FBD01427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */; };
+		9D355F7514C04EE400D5EE69 /* MovieActionsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D355F7414C04EE400D5EE69 /* MovieActionsController.mm */; };
 		9D3563181423F7AA002AAEAF /* NSString+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D3563171423F7AA002AAEAF /* NSString+M3Extensions.h */; };
 		9D3563191423F7AA002AAEAF /* NSString+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D3563171423F7AA002AAEAF /* NSString+M3Extensions.h */; };
 		9D35631B1423F887002AAEAF /* NSString+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D35631A1423F887002AAEAF /* NSString+M3Extensions.mm */; };
@@ -396,6 +397,7 @@
 		9D3117191476C3770003D964 /* M3-Internals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "M3-Internals.m"; sourceTree = "<group>"; };
 		9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Ivars.h"; sourceTree = "<group>"; };
 		9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Ivars.mm"; sourceTree = "<group>"; };
+		9D355F7414C04EE400D5EE69 /* MovieActionsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MovieActionsController.mm; sourceTree = "<group>"; };
 		9D3563171423F7AA002AAEAF /* NSString+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+M3Extensions.h"; sourceTree = "<group>"; };
 		9D35631A1423F887002AAEAF /* NSString+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSString+M3Extensions.mm"; sourceTree = "<group>"; };
 		9D38138F1469A2DB00E4BBF4 /* MoviesTrailerController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesTrailerController.mm; sourceTree = "<group>"; };
@@ -850,6 +852,7 @@
 				9DDF5D061431F74C001CAC28 /* MovieInfoCells.mm */,
 				9D48ACBE141E9E3E00D0D000 /* Supporting Files */,
 				9D5614F0142641A300D0A484 /* resources */,
+				9D355F7414C04EE400D5EE69 /* MovieActionsController.mm */,
 			);
 			path = iM3Example;
 			sourceTree = "<group>";
@@ -1619,6 +1622,7 @@
 				9DC0A30E14BF829F003FF7F7 /* ShareScheduleController.mm in Sources */,
 				9DC0A31914BF9544003FF7F7 /* ShareMovieController.mm in Sources */,
 				9DC0A31D14BFA4DC003FF7F7 /* M3AppDelegate+Alert.mm in Sources */,
+				9D355F7514C04EE400D5EE69 /* MovieActionsController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

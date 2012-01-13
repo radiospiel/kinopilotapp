@@ -47,7 +47,7 @@
   NSString* movie_id = [self.url.to_url param: @"movie_id"];
 
   [self setRightButtonWithSystemItem: UIBarButtonSystemItemAction
-                                 url: _.join(@"/share/movie/email?movie_id=", movie_id)];
+                                 url: _.join(@"/movie/actions?movie_id=", movie_id)];
   
   self.movie = [app.sqliteDB.movies get: movie_id];
 

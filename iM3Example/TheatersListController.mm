@@ -181,7 +181,7 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
   
   if(movie_id) {
     [self setRightButtonWithSystemItem: UIBarButtonSystemItemAction
-                                   url: _.join(@"/share/movie/email?movie_id=", movie_id)];
+                                   url: _.join(@"/movie/actions?movie_id=", movie_id)];
   
     self.dataSource = [M3DataSource theatersListFilteredByMovie:movie_id];
     self.tableView.tableHeaderView = [M3ProfileView profileViewForMovie:[self movie]]; 
