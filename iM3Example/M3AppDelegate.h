@@ -104,7 +104,12 @@ extern M3AppDelegate* app;
 
 @interface M3AppDelegate(Alert)
 
--(void)alert: (NSString*)msg;
+-(void)alertMessage: (NSString*)msg;
+-(void)alertMessage: (NSString*)msg onDialogClose: (void(^)())onDialogClose;
+
+-(void)oneTimeHint: (NSString*)msg
+           withKey: (NSString*)key
+     beforeCalling: (void(^)())callback;
 
 @end
 

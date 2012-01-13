@@ -39,18 +39,18 @@
   
     case MFMailComposeResultSaved:
       // The email message was saved in the user’s Drafts folder.
-      [app alert: @"Deine Email wurde im Entwurfordner gesichert."];
+      [app alertMessage: @"Deine Email wurde im Entwurfordner gesichert."];
       break;
 
     case MFMailComposeResultSent:   
       // The email message was queued in the user’s outbox. It is ready to 
       // send the next time the user connects to email.
-      [app alert: @"Deine Email wird demnächst versendet."];
+      [app alertMessage: @"Deine Email wird demnächst versendet."];
       break;
 
     case MFMailComposeResultFailed: 
       // The email message was not saved or queued, possibly due to an error.
-      [app alert: @"Deine Email konnte nicht versendet werden."];
+      [app alertMessage: @"Deine Email konnte nicht versendet werden."];
       break;
   }
 }
@@ -59,17 +59,16 @@
 
 @implementation M3AppDelegate(Email)
 
--(void)composeEmailWithSubject: (NSString*)subject
-                       andBody: (NSString*)body
+-(void)doComposeEmailWithSubject: (NSString*)subject
+                         andBody: (NSString*)body
 {
   // -- compose HTML message.
-  
   MFMailComposeViewController* mc = nil;
   if([MFMailComposeViewController canSendMail])
     mc = [[MFMailComposeViewController alloc] init];
 
   if(!mc) {
-    [app alert: @"kinopilot kann auf Deinem Gerät keine Emails versenden. Ist Dein Email-Account korrekt eingerichtet?"];
+    [app alertMessage: @"kinopilot kann auf Deinem Gerät keine Emails versenden. Ist Dein Email-Account korrekt eingerichtet?"];
     return;  
   }
 
@@ -82,6 +81,17 @@
   // -- show message composer.
   
   [app.window.rootViewController presentModalViewController:mc animated:YES];
+}
+
+-(void)composeEmailWithSubject: (NSString*)subject
+                       andBody: (NSString*)body
+{
+  [app oneTimeHint: @"Mit Kinopilot kannst Du Emails über Deine Email-Anwendung versenden. "
+                     "Oft schlagen wir Dir einen Text für Deine Email vor - "
+                     "aber natürlich kannst Du diesen noch nach Belieben verändern."
+           withKey: @"email22"
+     beforeCalling:^{ [self doComposeEmailWithSubject: subject andBody: body]; }
+   ];
 }
 
 -(void)composeEmailWithTemplateFile: (NSString*)path 

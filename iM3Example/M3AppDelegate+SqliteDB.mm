@@ -67,9 +67,12 @@
     NSArray* headerArray = entries.first;
     NSDictionary* header = headerArray.second;
 
-    [self.settings setObject: [header objectForKey: @"revision"] forKey:@"revision"];
-    [self.settings setObject: [header objectForKey: @"uuid"] forKey:@"uuid"];
-    [self.settings setObject: [NSDate now].to_number forKey:@"updated_at"];
+    [self.settings setObject: [header objectForKey: @"revision"] 
+                      forKey: @"revision"];
+    [self.settings setObject: [header objectForKey: @"uuid"] 
+                      forKey: @"uuid"];
+    [self.settings setObject: [NSDate now].to_number 
+                      forKey: @"updated_at"];
   }];
 }
 

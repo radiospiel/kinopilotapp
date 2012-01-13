@@ -111,10 +111,10 @@
                    ];
 
   if (fSuccess) {
-    [app alert: @"Die Aufführung wurde in Deinen Kalender eingetragen"];
+    [app alertMessage: @"Die Aufführung wurde in Deinen Kalender eingetragen"];
   }
   else {
-    [app alert: @"Die Aufführung konnte nicht in Deinen Kalender eingetragen werden."];
+    [app alertMessage: @"Die Aufführung konnte nicht in Deinen Kalender eingetragen werden."];
   }
 }
 
