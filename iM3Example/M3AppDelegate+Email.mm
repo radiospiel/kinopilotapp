@@ -89,7 +89,7 @@
   [app oneTimeHint: @"Mit Kinopilot kannst Du Emails über Deine Email-Anwendung versenden. "
                      "Oft schlagen wir Dir einen Text für Deine Email vor - "
                      "aber natürlich kannst Du diesen noch nach Belieben verändern."
-           withKey: @"email22"
+           withKey: @"email"
      beforeCalling:^{ [self doComposeEmailWithSubject: subject andBody: body]; }
    ];
 }
