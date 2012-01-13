@@ -116,8 +116,17 @@
 
 @implementation M3AppDelegate(Twitter)
 
+#define MAX_TWEET_LEN 120
+
 -(void)sendTweet: (NSString*)tweet withURL: (NSString*)url andImage: (UIImage*)image
 {
+  int max_tweet_len = MAX_TWEET_LEN - url.length;
+
+  if([tweet length] > max_tweet_len) {
+    tweet = [[tweet substringToIndex: (max_tweet_len-1)] stringByAppendingString:@"…"];
+  }
+  tweet = [tweet stringByAppendingString: @" (via @kinopilot)"];
+  
   Class TWTweetComposeViewControllerClass = NSClassFromString(@"TWTweetComposeViewController");
   
   if (TWTweetComposeViewControllerClass != nil) {
@@ -129,7 +138,7 @@
 
       if(url) {
         [twitterViewController performSelector:@selector(addURL:) 
-                                    withObject:url];
+                                    withObject:url.to_url];
       }
 
       if(image) {
@@ -142,19 +151,8 @@
     }
   } 
   else {
-    [app alertMessage:@"To use Twitter w/Kinopilot please upgrade to iOS5"];
+    [app alertMessage:@"Für die Twitter-Unterstützung benötigst Du mindestens iOS Version 5."];
   }
-
-//  else {
-//    [SHK flushOfflineQueue];
-//    SHKItem *item = [SHKItem URL:url title:NSLocalizedString(@"TwitterMessage", @"")];
-//    
-//    // Get the ShareKit action sheet
-//    SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
-//    
-//    // Display the action sheet
-//    [actionSheet showInView:[self.view superview].window];
-//  }
 }
 @end
 
@@ -188,14 +186,28 @@
   }
 }
 
+-(BOOL)isLoggedIntoFacebook
+{
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  if ([defaults objectForKey:@"FBAccessTokenKey"] && 
+      [defaults objectForKey:@"FBExpirationDateKey"]) {
+    self.facebook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
+    self.facebook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
+  }
+  if (![self.facebook isSessionValid]) {
+    [self.facebook authorize:_.array(@"publish_stream")];
+  }
+  
+  return [self.facebook isSessionValid];
+}
 
 -(void)sendToFacebook: (NSString*)message 
             withTitle: (NSString*)title 
           andImageURL: (NSString*)imageURL
                andURL: (NSString*)url
 {
-  SBJSON *jsonWriter = [[SBJSON new] autorelease];
-
+  if(![app isLoggedIntoFacebook]) return;
+  
   // Dialog parameters
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
   if(title) {
@@ -212,6 +224,8 @@
   }
   
 #if 0
+  SBJSON *jsonWriter = [[SBJSON new] autorelease];
+  
   // The action links to be shown with the post in the feed
   NSDictionary* actionLink = _.hash(@"name", @"See more", @"link", @"http://kinopilotapp.de");
   NSArray* actionLinks = [NSArray arrayWithObject:actionLink];

@@ -25,9 +25,9 @@
   NSDictionary* movie = [app.sqliteDB.movies get: movie_id ];
 
   self.title = [ movie objectForKey: @"title"];
-    
-  // [self addAction:@"Twitter"  withURL: _.join(@"/share/schedule/twitter?schedule_id=", schedule_id)];
-  // [self addAction:@"Facebook" withURL: _.join(@"/share/schedule/facebook?schedule_id=", schedule_id)];
+
+  [self addAction:@"Twitter"  withURL: _.join(@"/share/movie/twitter?movie_id=", movie_id)];
+  [self addAction:@"Facebook" withURL: _.join(@"/share/movie/facebook?movie_id=", movie_id)];
   [self addAction:@"Email"    withURL: _.join(@"/share/movie/email?movie_id=", movie_id)];
 }
 @end

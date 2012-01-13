@@ -16,4 +16,6 @@
            andStartDate: (NSDate*)startDate
             andDuration: (NSTimeInterval)duration;
 
+-(NSString*)teaserForMovie: (NSDictionary*)movie;
+
 @end

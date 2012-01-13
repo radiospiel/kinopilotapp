@@ -38,7 +38,7 @@
 
 -(void)shareViaTwitter
 {
-  [app sendTweet: @"Welcome from kinopilot! #kinopilot"
+  [app sendTweet: @"Ich hab die #kinopilot App auf meinem iPhone installiert. Jetzt hab ich alle Berliner Kinotermine immer dabei!"
          withURL: nil 
         andImage: nil];
 }

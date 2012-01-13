@@ -8,8 +8,6 @@
 
 #import "ShareController.h"
 
-#define TEASER_LENGTH 200
-
 @interface ShareMovieController : ShareController
 
 @property (nonatomic,retain) NSDictionary* movie;
@@ -34,27 +32,7 @@
   [super dealloc];
 }
 
-// get a teaser string for the movie
-
--(NSString*)teaser
-{
-  NSString* description = [self.movie objectForKey:@"description"];
-  if(!description) return nil;
-  
-  NSArray* sentences = [description componentsSeparatedByString:@". "];
-  sentences = [sentences mapUsingBlock:^id(NSString* sentence) {
-    return [sentence stringByAppendingString:@"."];
-  }];
-  
-  NSMutableString* teaser = [NSMutableString stringWithCapacity: TEASER_LENGTH + 100];
-  
-  for(NSString* sentence in sentences) {
-    [teaser appendFormat:@" %@", sentence];
-    if(teaser.length > TEASER_LENGTH) return teaser;
-  }
-  
-  return description;
-}
+#define TEASER_LENGTH 200
 
 // get a teaser string for the movie, as HTML, potentially a link added.
 
@@ -63,7 +41,7 @@
   NSString* description = [self.movie objectForKey:@"description"];
   if(!description) return nil;
   
-  NSString* teaser = [self teaser ];
+  NSString* teaser = [self teaserForMovie: self.movie];
   NSString* url = [self.movie objectForKey:@"url"];
   
   if(!url || teaser.length > description.length - 15) 
@@ -86,6 +64,26 @@
   [ app composeEmailWithTemplateFile: @"$app/share_movie_email.html"
                            andValues: [self interpolationContext] 
    ];
+}
+
+-(void)shareViaTwitter
+{
+  NSString* tweet = [NSString stringWithFormat: @"%@: %@", 
+                     [self.movie objectForKey:@"title"], 
+                     [self teaserForMovie:self.movie]];
+
+  [app sendTweet: tweet
+         withURL: [self.movie objectForKey:@"url"] // [self.movie objectForKey:@"url"] 
+        andImage: [self.movie objectForKey:@"thumbnail"]];
+}
+
+-(void)shareViaFacebook
+{
+  [app sendToFacebook: [self teaserForMovie:self.movie]
+            withTitle: [self.movie objectForKey:@"title"]
+          andImageURL: [self.movie objectForKey:@"thumbnail"]
+               andURL: [self.movie objectForKey:@"url"]
+  ];
 }
 
 @end

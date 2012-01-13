@@ -136,6 +136,8 @@ extern M3AppDelegate* app;
 
 @interface M3AppDelegate(Facebook)
 
+-(BOOL)isLoggedIntoFacebook;
+
 -(void)sendToFacebook: (NSString*)message 
             withTitle: (NSString*)title 
           andImageURL: (NSString*)imageURL

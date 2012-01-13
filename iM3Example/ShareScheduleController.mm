@@ -118,4 +118,33 @@
   }
 }
 
+
+-(NSString*)shortMessage
+{
+  NSNumber* time = [self.schedule objectForKey: @"time"];
+  
+  return [ NSString stringWithFormat: @"%@: %@, im %@", 
+                                      [self.movie objectForKey: @"title"],
+                                      [time.to_date stringWithFormat: @"dd. MMM HH:mm"],
+                                      [self.theater objectForKey: @"name"]
+          ];
+}
+
+-(void)shareViaTwitter
+{
+  [app sendTweet: [self shortMessage]
+         withURL: [self.movie objectForKey:@"url"] 
+        andImage: nil
+  ];
+}
+
+-(void)shareViaFacebook
+{
+  [app sendToFacebook: [self teaserForMovie: self.movie]
+            withTitle: [self shortMessage]
+          andImageURL: [self.movie objectForKey:@"thumbnail"]
+               andURL: [self.movie objectForKey:@"url"]
+  ];
+}
+
 @end

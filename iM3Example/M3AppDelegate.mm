@@ -209,15 +209,6 @@ M3AppDelegate* app;
   
   // --- log into facebook
   self.facebook = [[[Facebook alloc] initWithAppId:@"323168154384101" andDelegate:self] autorelease];
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  if ([defaults objectForKey:@"FBAccessTokenKey"] && 
-      [defaults objectForKey:@"FBExpirationDateKey"]) {
-    facebook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
-    facebook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
-  }
-  if (![facebook isSessionValid]) {
-    [facebook authorize:_.array(@"publish_stream")];
-  }
 
   // --- enable Urban Airship remote notifications
   [self enableRemoteNotifications];

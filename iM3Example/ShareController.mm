@@ -39,6 +39,30 @@
   return err != nil;
 }
 
+// --- get a teaser string for a movie
+
+#define TEASER_LENGTH 200
+
+-(NSString*)teaserForMovie: (NSDictionary*)movie
+{
+  NSString* description = [movie objectForKey:@"description"];
+  if(!description) return nil;
+  
+  NSArray* sentences = [description componentsSeparatedByString:@". "];
+  sentences = [sentences mapUsingBlock:^id(NSString* sentence) {
+    return [sentence stringByAppendingString:@"."];
+  }];
+  
+  NSMutableString* teaser = [NSMutableString stringWithCapacity: TEASER_LENGTH + 100];
+  
+  for(NSString* sentence in sentences) {
+    [teaser appendFormat:@" %@", sentence];
+    if(teaser.length > TEASER_LENGTH) return teaser;
+  }
+  
+  return description;
+}
+
 // --- Subclasses must override these methods (if needed)
 
 -(void)shareViaEmail
