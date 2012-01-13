@@ -123,6 +123,8 @@
 		9D33FBCF1427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */; };
 		9D33FBD01427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */; };
 		9D355F7514C04EE400D5EE69 /* MovieActionsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D355F7414C04EE400D5EE69 /* MovieActionsController.mm */; };
+		9D355F7914C0521800D5EE69 /* AppActionsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D355F7814C0521800D5EE69 /* AppActionsController.mm */; };
+		9D355F7B14C0544D00D5EE69 /* share_app_email.html in Resources */ = {isa = PBXBuildFile; fileRef = 9D355F7A14C0544D00D5EE69 /* share_app_email.html */; };
 		9D3563181423F7AA002AAEAF /* NSString+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D3563171423F7AA002AAEAF /* NSString+M3Extensions.h */; };
 		9D3563191423F7AA002AAEAF /* NSString+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D3563171423F7AA002AAEAF /* NSString+M3Extensions.h */; };
 		9D35631B1423F887002AAEAF /* NSString+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D35631A1423F887002AAEAF /* NSString+M3Extensions.mm */; };
@@ -149,7 +151,7 @@
 		9D48ACF3141E9E3F00D0D000 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D48ACF1141E9E3F00D0D000 /* InfoPlist.strings */; };
 		9D48ACF6141E9E3F00D0D000 /* iM3ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D48ACF5141E9E3F00D0D000 /* iM3ExampleTests.m */; };
 		9D48ACFE141EAB5A00D0D000 /* libiM3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01742A141AA6F10035A4C2 /* libiM3.a */; };
-		9D4B7018145D5ECB00F1DBCE /* SchedulesShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D4B7017145D5ECB00F1DBCE /* SchedulesShowController.mm */; };
+		9D4B7018145D5ECB00F1DBCE /* SchedulesActionsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D4B7017145D5ECB00F1DBCE /* SchedulesActionsController.mm */; };
 		9D4B701C145D734B00F1DBCE /* M3ActionSheetController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D4B701B145D734B00F1DBCE /* M3ActionSheetController.mm */; };
 		9D4B701E145D7A6400F1DBCE /* share_schedule_email.html in Resources */ = {isa = PBXBuildFile; fileRef = 9D4B701D145D7A6400F1DBCE /* share_schedule_email.html */; };
 		9D4B7020145D92E800F1DBCE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D4B701F145D92E800F1DBCE /* MessageUI.framework */; };
@@ -398,6 +400,8 @@
 		9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Ivars.h"; sourceTree = "<group>"; };
 		9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Ivars.mm"; sourceTree = "<group>"; };
 		9D355F7414C04EE400D5EE69 /* MovieActionsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MovieActionsController.mm; sourceTree = "<group>"; };
+		9D355F7814C0521800D5EE69 /* AppActionsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppActionsController.mm; sourceTree = "<group>"; };
+		9D355F7A14C0544D00D5EE69 /* share_app_email.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = share_app_email.html; sourceTree = "<group>"; };
 		9D3563171423F7AA002AAEAF /* NSString+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+M3Extensions.h"; sourceTree = "<group>"; };
 		9D35631A1423F887002AAEAF /* NSString+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSString+M3Extensions.mm"; sourceTree = "<group>"; };
 		9D38138F1469A2DB00E4BBF4 /* MoviesTrailerController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesTrailerController.mm; sourceTree = "<group>"; };
@@ -422,7 +426,7 @@
 		9D48ACF2141E9E3F00D0D000 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9D48ACF4141E9E3F00D0D000 /* iM3ExampleTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iM3ExampleTests.h; sourceTree = "<group>"; };
 		9D48ACF5141E9E3F00D0D000 /* iM3ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iM3ExampleTests.m; sourceTree = "<group>"; };
-		9D4B7017145D5ECB00F1DBCE /* SchedulesShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SchedulesShowController.mm; sourceTree = "<group>"; };
+		9D4B7017145D5ECB00F1DBCE /* SchedulesActionsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SchedulesActionsController.mm; sourceTree = "<group>"; };
 		9D4B701A145D734B00F1DBCE /* M3ActionSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3ActionSheetController.h; sourceTree = "<group>"; };
 		9D4B701B145D734B00F1DBCE /* M3ActionSheetController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3ActionSheetController.mm; sourceTree = "<group>"; };
 		9D4B701D145D7A6400F1DBCE /* share_schedule_email.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = share_schedule_email.html; sourceTree = "<group>"; };
@@ -852,7 +856,6 @@
 				9DDF5D061431F74C001CAC28 /* MovieInfoCells.mm */,
 				9D48ACBE141E9E3E00D0D000 /* Supporting Files */,
 				9D5614F0142641A300D0A484 /* resources */,
-				9D355F7414C04EE400D5EE69 /* MovieActionsController.mm */,
 			);
 			path = iM3Example;
 			sourceTree = "<group>";
@@ -892,6 +895,7 @@
 			children = (
 				9D94B56514A8D02C00C1262D /* seed.sqlite3 */,
 				9D29B14A14A4B0E8001DF310 /* Dashboard.bundle */,
+				9D355F7A14C0544D00D5EE69 /* share_app_email.html */,
 				9DC0A31A14BF97F6003FF7F7 /* share_movie_email.html */,
 				9D4B701D145D7A6400F1DBCE /* share_schedule_email.html */,
 				9D561573142641A300D0A484 /* images */,
@@ -965,6 +969,7 @@
 				9D10C3771437728300FE19C9 /* MapShowController.h */,
 				9D10C3781437728300FE19C9 /* MapShowController.mm */,
 				9D10C3791437728300FE19C9 /* MapShowController.xib */,
+				9D355F7414C04EE400D5EE69 /* MovieActionsController.mm */,
 				9D72E29814387FE600D8E5B5 /* MoviesImagesController.h */,
 				9D72E29914387FE600D8E5B5 /* MoviesImagesController.mm */,
 				9DC682B8142CB50B00124E9A /* MoviesListController.h */,
@@ -973,7 +978,7 @@
 				9DC682BF142CE24000124E9A /* MoviesShowController.mm */,
 				9D38138F1469A2DB00E4BBF4 /* MoviesTrailerController.mm */,
 				9D0893A11452F6C600F64AC1 /* SchedulesListController.mm */,
-				9D4B7017145D5ECB00F1DBCE /* SchedulesShowController.mm */,
+				9D4B7017145D5ECB00F1DBCE /* SchedulesActionsController.mm */,
 				9D4368F11489805A00E14CCB /* SearchController.h */,
 				9D4368F21489805A00E14CCB /* SearchController.mm */,
 				9DACE1BD145F48B600372415 /* ShareController.h */,
@@ -987,6 +992,7 @@
 				9D5A96D014200FB6000104CA /* WebViewController.h */,
 				9D5A96D114200FB7000104CA /* WebViewController.mm */,
 				9DA5DD4414326E120003B54A /* WebViewController.xib */,
+				9D355F7814C0521800D5EE69 /* AppActionsController.mm */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1446,6 +1452,7 @@
 				9D834F5B14B9D97C00DDE3CD /* 42-photos.png in Resources */,
 				9D834F5C14B9D97C00DDE3CD /* 42-photos@2x.png in Resources */,
 				9DC0A31B14BF97F6003FF7F7 /* share_movie_email.html in Resources */,
+				9D355F7B14C0544D00D5EE69 /* share_app_email.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1604,7 +1611,7 @@
 				9DE40645142CFC490089EAA9 /* InfoController.mm in Sources */,
 				9D0893A21452F6C600F64AC1 /* SchedulesListController.mm in Sources */,
 				9D0893B014542C2500F64AC1 /* DashboardController.mm in Sources */,
-				9D4B7018145D5ECB00F1DBCE /* SchedulesShowController.mm in Sources */,
+				9D4B7018145D5ECB00F1DBCE /* SchedulesActionsController.mm in Sources */,
 				9DACE1BF145F48B600372415 /* ShareController.mm in Sources */,
 				9DFE5C151464319F0039F536 /* ActionController.mm in Sources */,
 				9DFD23A6146C6641001704CC /* MPCJSONDataSerializer.m in Sources */,
@@ -1623,6 +1630,7 @@
 				9DC0A31914BF9544003FF7F7 /* ShareMovieController.mm in Sources */,
 				9DC0A31D14BFA4DC003FF7F7 /* M3AppDelegate+Alert.mm in Sources */,
 				9D355F7514C04EE400D5EE69 /* MovieActionsController.mm in Sources */,
+				9D355F7914C0521800D5EE69 /* AppActionsController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

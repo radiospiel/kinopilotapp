@@ -41,7 +41,7 @@
     {
       "header":  "Dein Kinopilot",
       "content": [
-        ["Kinopilot im Netz", "http://kinopilotapp.de"],
+        ["Kinopilot im Netz", "http://kinopilotapp.de/p/kinopilot"],
         ["Aktualisiert",      "updated_at"],
         ["Revision",          "revision"],
         ["Kinos",             "theaters_count"],
@@ -52,7 +52,7 @@
     {
       "actions": [
         ["Update",  "/action/update"],
-        ["Share",   "/shareApp"]
+        ["Share",   "/app/actions"]
       ]
     },
     {

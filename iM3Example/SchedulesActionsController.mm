@@ -7,10 +7,10 @@
  *
  */
 
-@interface SchedulesShowController : M3ActionSheetController
+@interface SchedulesActionsController : M3ActionSheetController
 @end
 
-@implementation SchedulesShowController
+@implementation SchedulesActionsController
 
 -(void)setUrl: (NSString*)urlString
 {
@@ -35,16 +35,3 @@
 }
 @end
 
-@interface ShareAppController : M3ActionSheetController
-@end
-
-@implementation ShareAppController
-
--(void)setUrl: (NSString*)urlString
-{
-  // [self addAction:@"Twitter"  withURL: _.join(@"/share/schedule/twitter?schedule_id=", schedule_id)];
-  // [self addAction:@"Facebook" withURL: _.join(@"/share/schedule/facebook?schedule_id=", schedule_id)];
-  [self addAction:@"Email"    withURL: @"/share/schedule/app/email"];
-  // [self addAction:@"Kalender" withURL: _.join(@"/application/share/calendar?schedule_id=", schedule_id)];
-}
-@end

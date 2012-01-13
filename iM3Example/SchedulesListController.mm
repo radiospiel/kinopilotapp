@@ -11,7 +11,7 @@
  cell contains a description a la "&lt;movie title&gt; in &lt;theater name&gt;".
  Below is a list of schedules, grouped by day. Clicking on a schedule opens a
  schedule (modal) view, which allows to share the schedule, 
- under *`/schedules/show?schedule_id=<schedule_id>`*
+ under *`/schedule/actions?schedule_id=<schedule_id>`*
  
  */
 @interface SchedulesListController: M3ListViewController
@@ -114,7 +114,7 @@
   NSString* textLabel = [time.to_date stringWithFormat: @"dd. MMM HH:mm"];
   self.textLabel.text = [textLabel withVersionString: [schedule objectForKey:@"version"]];
 
-  self.url = _.join(@"/schedules/show?schedule_id=", [schedule objectForKey: @"_id"]);
+  self.url = _.join(@"/schedules/actions?schedule_id=", [schedule objectForKey: @"_id"]);
 }
 
 @end
