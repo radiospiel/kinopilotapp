@@ -11,3 +11,4 @@ Frameworks
 Frameworks
 .idea
 *.sublime-workspace
+.tm_properties
