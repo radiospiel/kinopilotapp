@@ -175,6 +175,14 @@
   return pv;
 }
 
++(NSString*) imdbURLForTitle: (NSString*)title
+{
+  NSString* imdbURL = _.join(@"imdb:///find?q=", title.urlEscape);
+  if([app canOpen:imdbURL]) return imdbURL;
+  
+  return _.join(@"http://imdb.de/?q=", title.urlEscape);
+}
+
 +(M3ProfileView*) profileViewForMovie: (NSDictionary*) movie
 {
   if(!movie) return nil;
@@ -219,12 +227,7 @@
     
     // add imdb URL
     NSString* title =           [movie objectForKey:@"title"];
-    
-    NSString* imdbURL = _.join(@"imdb:///find?q=", title.urlEscape);
-    if(![app canOpen:imdbURL])
-      imdbURL = _.join(@"http://imdb.de/?q=", title.urlEscape);
-    
-    [actions addObject: _.array(@"IMDB", imdbURL)];
+    [actions addObject: _.array(@"IMDB", [self imdbURLForTitle: title])];
     
     [pv setActions: actions];
   }

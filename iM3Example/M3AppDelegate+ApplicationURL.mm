@@ -35,6 +35,16 @@
   return [[UIApplication sharedApplication] canOpenURL:url.to_url];
 }
 
+-(void)cannotOpen: (NSString*)url 
+{
+  if([url containsString: @"fahrinfo-berlin"]) {
+    [app alertMessage: @"Um die Fahrinfo für diese Adresse zu sehen, installiere die Anwendung "
+                        "\"Fahrinfo-Berlin\" im iTunes Store."];
+  }
+
+  dlog << "Cannot open URL " << url;
+}
+
 /*
  * Opening an application action?
  */
@@ -43,7 +53,7 @@
   if(![url matches: @"^([-a-z]+):"]) return NO;
   
   if(![self canOpen: url]) {
-    dlog << "Cannot open URL " << url;
+    [self cannotOpen: url];
     return NO;
   }
   

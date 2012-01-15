@@ -247,7 +247,7 @@ M3AppDelegate* app;
 {
   if(!self.splashScreen) return;
   
-  [UIView animateWithDuration:0.3
+  [UIView animateWithDuration:1
                    animations:^{ self.splashScreen.alpha = 0.0; }
                    completion:^(BOOL finished) { 
                      [self.splashScreen removeFromSuperview];
