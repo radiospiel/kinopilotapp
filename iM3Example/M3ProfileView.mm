@@ -125,7 +125,7 @@
     
     NSString* address = [theater objectForKey:@"address"];
     if(address)
-      [html appendFormat: @"<p>%@</p>", address.cdata]; 
+      [html appendFormat: @"<p>%@</p><br />", address.cdata]; 
     
     [pv setHtmlDescription:html];
   }
@@ -204,8 +204,9 @@
       [parts addObject: [p componentsJoinedByString:@", "]];
       [parts addObject: @"</p>"];
     }
-    
-    [pv setHtmlDescription: [parts componentsJoinedByString:@""]];
+
+    NSString* html = [parts componentsJoinedByString:@""];
+    [pv setHtmlDescription: [html stringByAppendingString:@"<br />"]];
   }
   
   // -- set actions
