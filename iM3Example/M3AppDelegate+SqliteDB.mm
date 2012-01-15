@@ -132,15 +132,6 @@
 
 -(M3SqliteDatabase*)sqliteDatabase
 {
-  M3SqliteDatabase* db = [self buildSqliteDatabase];
-  if([db isLoaded]) return db;
-
-  // For reasons yet unknown the initial import of the database
-  // leaves the database's table objects in an unusable state.
-  // Just creating a new M3SqliteDatabase object fixes things; 
-  // and it then has the newly imported data as well. 
-
-  [self updateDatabase];
   return [self buildSqliteDatabase];
 }
 

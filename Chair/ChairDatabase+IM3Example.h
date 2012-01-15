@@ -17,7 +17,6 @@
 -(NSArray*) schedulesByTheaterId: (NSString*)theaterID;
 -(NSArray*) schedulesByMovieId: (NSString*)movieID andTheaterId: (NSString*)theaterID;
 
--(void)updateIfNeeded;
 -(void)update;
 
 -(UIImage*)thumbnailForMovie: (NSString*)movie_id;

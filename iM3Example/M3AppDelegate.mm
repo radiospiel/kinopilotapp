@@ -217,8 +217,9 @@ M3AppDelegate* app;
   [M3 enableImageHost:M3SenchaSupportFull scaleForRetinaDisplay:YES];
   
   // --- init database
-  [self sqliteDB];    
-  
+  [self sqliteDB];
+  [self updateDatabaseIfNeeded];
+
   // --- shoot!
   self.window = nil;
   [self restartApplication];  // restart app

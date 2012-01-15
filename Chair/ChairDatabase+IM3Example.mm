@@ -62,16 +62,6 @@
  * from the remote URL, if the local copy is outdated.
  */
 
--(void)updateIfNeeded
-{
-  if(![self isLoaded]) {
-    if([self loadRemoteURL]) return;
-  }
-  else {
-    // TODO: check for updates
-  }
-}
-
 -(void)update
 {
   [self loadRemoteURL];
