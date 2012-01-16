@@ -33,8 +33,6 @@
 
 -(void)viewDidLoad
 {
-  // dlog << "viewDidLoad: " << _.ptr(self) << (self.isViewLoaded ? " Loaded" : " Not loaded");
-
   [super viewDidLoad];
 
   // As M3TableViewController inherits from UITableViewController, the 
@@ -46,12 +44,6 @@
 
   [self reload];
 }
-
--(void)viewDidUnload
-{
-  [super viewDidUnload];
-}
-
 
 #if TARGET_IPHONE_SIMULATOR
 #ifdef DEBUG

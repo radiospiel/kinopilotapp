@@ -216,40 +216,4 @@
   // that are no longer visible
 }
 
-#if 0
-
-// If we had an active pageControl, we would want to determine whether
-// or not a scrollViewDidScroll: event originates in a user action or
-// in te pageView's changePage: handler.
-
-// At the begin of scroll dragging, reset the boolean used when scrolls 
-// originate from the UIPageControl
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-  pageControlUsed = NO;
-}
-
-// At the end of scroll animation, reset the boolean used when scrolls 
-// originate from the UIPageControl
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-  pageControlUsed = NO;
-}
-
-- (IBAction)changePage:(id)sender
-{
-  int page = pageControl.currentPage;
-  
-	// update the scroll view to the appropriate page
-  CGRect frame = scrollView.frame;
-  frame.origin.x = frame.size.width * page;
-  frame.origin.y = 0;
-  [scrollView scrollRectToVisible:frame animated:YES];
-  
-	// Set the boolean used when scrolls originate from the UIPageControl. See scrollViewDidScroll: above.
-  pageControlUsed = YES;
-}
-
-#endif
-
 @end

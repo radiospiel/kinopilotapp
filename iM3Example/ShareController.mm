@@ -1,174 +1,88 @@
 #import "ShareController.h"
 
-@interface ShareController(Email)
--(void)email;
-@end
-
-//@interface ShareController(Twitter)
-//-(void)twitter;
-//@end
-//
-//@interface ShareController(Facebook)
-//-(void)facebook;
-//@end
-
-@interface ShareController(Calendar)
--(void)calendar;
-@end
+#import <EventKit/EventKit.h> // EKEventStore, for calendar access 
 
 @implementation ShareController
 
-@synthesize movie = movie_, theater = theater_, schedule = schedule_;
-
--(void)setUrl:(NSString*)url
+-(void)perform
 {
-  [super setUrl:url];
+  if([self.url containsString: @"/email"])
+    [self shareViaEmail];
+  else if([self.url containsString: @"/twitter"])
+    [self shareViaTwitter];
+  else if([self.url containsString: @"/facebook"])
+    [self shareViaFacebook];
+  else if([self.url containsString: @"/calendar"])
+    [self shareViaCalendar];
+}
+
+// --- Helper methods
+
+-(BOOL)addCalendarEvent: (NSString*)title
+           withLocation: (NSString*)location
+           andStartDate: (NSDate*)startDate
+            andDuration: (NSTimeInterval)duration
+{
+  EKEventStore *eventDB = [[[EKEventStore alloc] init]autorelease];
+  EKEvent *event  = [EKEvent eventWithEventStore:eventDB];
   
-  NSDictionary* params = url.to_url.params;
-
-  self.schedule = [app.sqliteDB.schedules get: [params objectForKey: @"schedule_id"]];
-  self.theater = [app.sqliteDB.theaters get: [self.schedule objectForKey:@"theater_id"]];
-  self.movie = [app.sqliteDB.movies get: [self.schedule objectForKey:@"movie_id"]];
+  event.title     = title;
+  event.location  = location;
+  event.startDate = startDate;
+  event.endDate   = [startDate dateByAddingTimeInterval: duration];
+  
+  [event setCalendar:[eventDB defaultCalendarForNewEvents]];
+  
+  NSError *err;
+  [eventDB saveEvent:event span:EKSpanThisEvent error:&err]; 
+  
+  return err != nil;
 }
 
--(void)dealloc
-{
-  self.movie = self.theater = self.schedule = nil;
-  [super dealloc];
-}
+// --- get a teaser string for a movie
 
+#define TEASER_LENGTH 200
 
-+(NSString*)teaserForDescription: (NSString*) description 
-                        ofLength: (int)minLength
+-(NSString*)teaserForMovie: (NSDictionary*)movie
 {
+  NSString* description = [movie objectForKey:@"description"];
+  if(!description) return nil;
   
   NSArray* sentences = [description componentsSeparatedByString:@". "];
   sentences = [sentences mapUsingBlock:^id(NSString* sentence) {
     return [sentence stringByAppendingString:@"."];
   }];
   
-  NSMutableString* teaser = [NSMutableString stringWithCapacity: 300];
+  NSMutableString* teaser = [NSMutableString stringWithCapacity: TEASER_LENGTH + 100];
   
   for(NSString* sentence in sentences) {
     [teaser appendFormat:@" %@", sentence];
-    if(teaser.length > minLength) return teaser;
+    if(teaser.length > TEASER_LENGTH) return teaser;
   }
   
   return description;
 }
 
--(NSString*)teaser
+// --- Subclasses must override these methods (if needed)
+
+-(void)shareViaEmail
 {
-  NSString* description = [self.movie objectForKey:@"description"];
-  if(!description) return nil;
-  return [ShareController teaserForDescription:description ofLength:200];
+  dlog << "Missing implementation: shareViaEmail";
 }
 
--(NSString*)teaserAsHtml
+-(void)shareViaTwitter
 {
-  NSString* description = [self.movie objectForKey:@"description"];
-  if(!description) return nil;
-  NSString* teaser = [ShareController teaserForDescription:description ofLength:200];
-  NSString* url = [self.movie objectForKey:@"url"];
-  
-  if(!url || teaser.length > description.length - 15) 
-    return teaser.htmlEscape;
-  
-  return [teaser.htmlEscape stringByAppendingFormat:@"... <a href='%@'>Mehr auf moviepilot.de</a>", url];
+  dlog << "Missing implementation: shareViaTwitter";
 }
 
--(NSDictionary*)interpolationContext
+-(void)shareViaFacebook
 {
-  NSNumber* time = [self.schedule objectForKey: @"time"];
-
-  return [NSDictionary dictionaryWithObjectsAndKeys:
-            self.movie,                                         @"movie",       
-            self.theater,                                       @"theater",     
-            [time.to_date stringWithFormat: @"dd. MMM HH:mm"],  @"nice_time",   
-            [self teaserAsHtml],                                @"htmlTeaser",      
-            nil 
-          ];
+  dlog << "Missing implementation: shareViaFacebook";
 }
 
--(void)perform
+-(void)shareViaCalendar
 {
-  if([self.url hasPrefix:@"/share/email"])
-    [self email];
-//  else if([self.url hasPrefix:@"/share/twitter"])
-//    [self twitter];
-//  else if([self.url hasPrefix:@"/share/facebook"])
-//    [self facebook];
-  else if([self.url hasPrefix:@"/share/calendar"])
-    [self calendar];
-}
-
-@end
-
-@implementation ShareController(Email)
-
--(void)email
-{
-  NSDictionary* context = [self interpolationContext];
-
-  NSString* subject = [M3 interpolateString: @"{{nice_time}}: {{movie.title}} im {{theater.name}}"
-                                 withValues: context];
-  NSString* body = [M3 interpolateFile: @"$app/invitation_mail.html"
-                            withValues: context]; 
-
-  [app composeEmailWithSubject: subject
-                       andBody: body];  
-}
-
-@end
-//
-//
-//@implementation ShareController(Twitter)
-//
-//-(void)twitter
-//{
-//  
-//}
-//
-//@end
-//
-//@implementation ShareController(Facebook)
-//
-//-(void)facebook
-//{
-//  
-//}
-//
-//@end
-
-#import <EventKit/EventKit.h>
-
-@implementation ShareController(Calendar)
-
--(void)calendar
-{
-  NSNumber* time = [self.schedule objectForKey: @"time"];
-  NSNumber* runtime = [self.movie objectForKey: @"runtime"];
-  NSTimeInterval runtimeInSecs = runtime ? runtime.to_i * 60 : 90 * 60;
-  
-  EKEventStore *eventDB = [[[EKEventStore alloc] init]autorelease];
-  EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
-
-  myEvent.title     = [self.movie objectForKey:@"title"];
-  myEvent.startDate = time.to_date;
-  myEvent.endDate   = [myEvent.startDate dateByAddingTimeInterval: runtimeInSecs + 30 * 60];
-  myEvent.location  = [self.theater objectForKey:@"name"];
-
-  [myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
-
-  NSError *err;
-  [eventDB saveEvent:myEvent span:EKSpanThisEvent error:&err]; 
-
-  if (!err) {
-    [app alert: @"Die Aufführung wurde in Deinen Kalender eingetragen"];
-  }
-  else {
-    [app alert: @"Die Aufführung konnte nicht in Deinen Kalender eingetragen werden."];
-  }
+  dlog << "Missing implementation: shareViaCalendar";
 }
 
 @end

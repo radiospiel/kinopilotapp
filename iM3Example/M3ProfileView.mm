@@ -17,6 +17,7 @@
 -(void) setHtmlDescription: (NSString*) html
 {
   htmlView_ = [[[TTTAttributedLabel alloc]init]autorelease];
+  htmlView_.numberOfLines = 0;
   htmlView_.text = [NSAttributedString attributedStringWithMarkup: html 
                                                     forStylesheet: self.stylesheet];
 
@@ -124,7 +125,7 @@
     
     NSString* address = [theater objectForKey:@"address"];
     if(address)
-      [html appendFormat: @"<p>%@</p>", address.cdata]; 
+      [html appendFormat: @"<p>%@</p><br />", address.cdata]; 
     
     [pv setHtmlDescription:html];
   }
@@ -174,6 +175,14 @@
   return pv;
 }
 
++(NSString*) imdbURLForTitle: (NSString*)title
+{
+  NSString* imdbURL = _.join(@"imdb:///find?q=", title.urlEscape);
+  if([app canOpen:imdbURL]) return imdbURL;
+  
+  return _.join(@"http://imdb.de/?q=", title.urlEscape);
+}
+
 +(M3ProfileView*) profileViewForMovie: (NSDictionary*) movie
 {
   if(!movie) return nil;
@@ -203,8 +212,9 @@
       [parts addObject: [p componentsJoinedByString:@", "]];
       [parts addObject: @"</p>"];
     }
-    
-    [pv setHtmlDescription: [parts componentsJoinedByString:@""]];
+
+    NSString* html = [parts componentsJoinedByString:@""];
+    [pv setHtmlDescription: [html stringByAppendingString:@"<br />"]];
   }
   
   // -- set actions
@@ -217,12 +227,7 @@
     
     // add imdb URL
     NSString* title =           [movie objectForKey:@"title"];
-    
-    NSString* imdbURL = _.join(@"imdb:///find?q=", title.urlEscape);
-    if(![app canOpen:imdbURL])
-      imdbURL = _.join(@"http://imdb.de/?q=", title.urlEscape);
-    
-    [actions addObject: _.array(@"IMDB", imdbURL)];
+    [actions addObject: _.array(@"IMDB", [self imdbURLForTitle: title])];
     
     [pv setActions: actions];
   }

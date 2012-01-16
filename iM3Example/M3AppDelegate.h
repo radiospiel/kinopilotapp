@@ -8,6 +8,7 @@
 #endif
 
 #import "UIViewController+M3Extensions.h"
+#import "FBConnect.h"
 
 @interface NSString (IM3ExampleExtensions)
 
@@ -26,8 +27,10 @@ extern M3AppDelegate* app;
 /*
  * The AppDelegate class and the global app object.
  */
-@interface M3AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UINavigationControllerDelegate>
+@interface M3AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, 
+                                           UINavigationControllerDelegate, FBSessionDelegate, FBDialogDelegate>
 
+@property (nonatomic, retain) Facebook *facebook;
 @property (retain, nonatomic) UIWindow *window;
 @property (retain, nonatomic) UITabBarController *tabBarController;
 
@@ -104,7 +107,12 @@ extern M3AppDelegate* app;
 
 @interface M3AppDelegate(Alert)
 
--(void)alert: (NSString*)msg;
+-(void)alertMessage: (NSString*)msg;
+-(void)alertMessage: (NSString*)msg onDialogClose: (void(^)())onDialogClose;
+
+-(void)oneTimeHint: (NSString*)msg
+           withKey: (NSString*)key
+     beforeCalling: (void(^)())callback;
 
 @end
 
@@ -112,6 +120,28 @@ extern M3AppDelegate* app;
 
 -(void)composeEmailWithSubject: (NSString*)subject
                        andBody: (NSString*)body;
+
+-(void)composeEmailWithTemplateFile: (NSString*)path 
+                          andValues: (NSDictionary*)values;
+
+@end
+
+@interface M3AppDelegate(Twitter)
+
+-(void)sendTweet: (NSString*)tweet 
+         withURL: (NSString*)url 
+        andImage: (UIImage*)image;
+
+@end
+
+@interface M3AppDelegate(Facebook)
+
+-(BOOL)isLoggedIntoFacebook;
+
+-(void)sendToFacebook: (NSString*)message 
+            withTitle: (NSString*)title 
+          andImageURL: (NSString*)imageURL
+               andURL: (NSString*)url;
 
 @end
 

@@ -1,7 +1,28 @@
-#import "M3AppDelegate.h"
-#import "SchedulesListController.h"
+#import "M3ListViewController.h"
 #import "M3ProfileView.h"
 #import "M3DataSource.h"
+
+/*
+ 
+ ## Schedules List
+ 
+ - **`/schedules/list?theater_id=<theater_id>&movie_id=<movie_id>`** show a list 
+ of play times for a given theater and movie combination. The header 
+ cell contains a description a la "&lt;movie title&gt; in &lt;theater name&gt;".
+ Below is a list of schedules, grouped by day. Clicking on a schedule opens a
+ schedule (modal) view, which allows to share the schedule, 
+ under *`/schedule/actions?schedule_id=<schedule_id>`*
+ 
+ */
+@interface SchedulesListController: M3ListViewController
+
+@property (readonly) NSString* theater_id;
+@property (readonly) NSDictionary* theater;
+
+@property (readonly) NSString* movie_id;
+@property (readonly) NSDictionary* movie;
+
+@end
 
 @implementation SchedulesListController
 
@@ -90,10 +111,10 @@
 
   NSNumber* time = [schedule objectForKey: @"time"];
   
-  NSString* textLabel = [time.to_date stringWithFormat: @"dd. MMM HH:mm:00"];
+  NSString* textLabel = [time.to_date stringWithFormat: @"dd. MMM HH:mm"];
   self.textLabel.text = [textLabel withVersionString: [schedule objectForKey:@"version"]];
 
-  self.url = _.join(@"/schedules/show?schedule_id=", [schedule objectForKey: @"_id"]);
+  self.url = _.join(@"/schedules/actions?schedule_id=", [schedule objectForKey: @"_id"]);
 }
 
 @end

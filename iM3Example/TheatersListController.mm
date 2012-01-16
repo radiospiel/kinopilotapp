@@ -177,15 +177,21 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 
 -(void)reloadURL
 {
-  [self setRightButtonReloadAction];
-
-  NSString* movie_id = [self.url.to_url param: @"movie_id"];
+  NSString* movie_id = [self movie_id];
   
-  self.dataSource = movie_id ? [M3DataSource theatersListFilteredByMovie:movie_id] :
-    [M3DataSource theatersList];
-
-  self.tableView.tableHeaderView = !movie_id ? nil : 
-    [M3ProfileView profileViewForMovie:[self movie]]; 
+  if(movie_id) {
+    [self setRightButtonWithSystemItem: UIBarButtonSystemItemAction
+                                   url: _.join(@"/movie/actions?movie_id=", movie_id)];
+  
+    self.dataSource = [M3DataSource theatersListFilteredByMovie:movie_id];
+    self.tableView.tableHeaderView = [M3ProfileView profileViewForMovie:[self movie]]; 
+  }
+  else {
+    [self setRightButtonReloadAction];
+  
+    self.dataSource = [M3DataSource theatersList];
+    self.tableView.tableHeaderView = nil;
+  }
 }
 
 @end

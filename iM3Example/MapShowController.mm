@@ -52,35 +52,14 @@
 
 @synthesize theatersToAdd = theatersToAdd_, theater_id = theater_id_;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-
-  return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
 -(void)reloadURL
 {
   self.theater_id = [self.url.to_url param: @"theater_id"]; 
 }
 
--(NSString*)title {
-  return @"Berlin";
-}
-
-- (void)viewDidUnload
+-(NSString*)title 
 {
-  [super viewDidUnload];
-  // Release any retained subviews of the main view.
-  // e.g. self.myOutlet = nil;
+  return @"Berlin";
 }
 
 #pragma mark - updating location
@@ -91,7 +70,6 @@
   region.center = [M3LocationManager coordinates];
   [mapView setRegion:region];
 }
-
 
 -(void)setUpdateIsNotRunning
 {

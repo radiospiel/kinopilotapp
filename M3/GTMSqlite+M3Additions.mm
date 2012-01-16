@@ -450,11 +450,10 @@ static StatementType statementTypeForSql(NSString* sql)
 
 -(void)logDatabaseStats: (NSString*)msg
 {
-  dlog << @"=== " << msg << " =========================================================================";
-  
-  dlog << "movies: " << [self ask: @"SELECT COUNT(*) FROM movies"];
-  dlog << "schedules: " << [self ask: @"SELECT COUNT(*) FROM schedules"];
-  dlog << "theaters: " << [self ask: @"SELECT COUNT(*) FROM theaters"];
+  dlog << @"=== " << msg 
+       << [self ask: @"SELECT COUNT(*) FROM movies"] << "movies, "
+       << [self ask: @"SELECT COUNT(*) FROM schedules"] << " schedules, " 
+       << [self ask: @"SELECT COUNT(*) FROM theaters"] << " theaters";
 }
 
 -(void)importDiffHeader: (NSDictionary*)header
@@ -464,14 +463,10 @@ static StatementType statementTypeForSql(NSString* sql)
     M3SqliteTable* table = [self tableWithName:tableName];
     [table deleteByIds:ids];
   }];
-  
-  [self logDatabaseStats: @"after deletions"];
 }
 
 -(void)importDump: (NSArray*)entries
 {
-  [self logDatabaseStats: @"before update"];
-
   [self ask: @"BEGIN"];
 
   NSDictionary* header = nil;

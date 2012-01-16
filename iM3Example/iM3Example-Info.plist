@@ -61,6 +61,15 @@
 	<array>
 		<string>location-services</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb323168154384101</string>
+			</array>
+		</dict>
+	</array>
 	<key>UIStatusBarHidden</key>
 	<false/>
 	<key>UISupportedInterfaceOrientations</key>

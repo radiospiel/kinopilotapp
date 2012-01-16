@@ -11,10 +11,13 @@ BenchmarkLogger::BenchmarkLogger(NSString* msg) {
 }
 
 BenchmarkLogger::~BenchmarkLogger() {
-  NSString* msg = [NSString stringWithFormat: @"%@: %d msecs", msg_, [stopWatch_ milliSeconds]];
-  NSString* caller = [M3 callerWithIndex: 3];
+  int milliSeconds = [stopWatch_ milliSeconds];
+  if(milliSeconds > 50) {
+    NSString* msg = [NSString stringWithFormat: @"%@: %d msecs", msg_, milliSeconds];
+    NSString* caller = [M3 callerWithIndex: 3];
 
-  rlog.setSource(caller).append(msg);
+    rlog.setSource(caller).append(msg);
+  }
   
   [stopWatch_ release];
 }

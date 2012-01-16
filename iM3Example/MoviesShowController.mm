@@ -44,9 +44,11 @@
 
 -(void)reloadURL
 {
-  [self setRightButtonReloadAction];
-  
   NSString* movie_id = [self.url.to_url param: @"movie_id"];
+
+  [self setRightButtonWithSystemItem: UIBarButtonSystemItemAction
+                                 url: _.join(@"/movie/actions?movie_id=", movie_id)];
+  
   self.movie = [app.sqliteDB.movies get: movie_id];
 
   self.dataSource = [[[MoviesShowControllerDataSource alloc]init]autorelease];
