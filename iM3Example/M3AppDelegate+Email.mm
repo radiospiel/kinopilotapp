@@ -116,7 +116,7 @@
 
 @implementation M3AppDelegate(Twitter)
 
-#define MAX_TWEET_LEN 120
+#define MAX_TWEET_LEN 126
 
 -(void)sendTweet: (NSString*)tweet withURL: (NSString*)url andImage: (UIImage*)image
 {
@@ -125,7 +125,7 @@
   if([tweet length] > max_tweet_len) {
     tweet = [[tweet substringToIndex: (max_tweet_len-1)] stringByAppendingString:@"…"];
   }
-  tweet = [tweet stringByAppendingString: @" (via @kinopilot)"];
+  tweet = [tweet stringByAppendingString: @" #kinopilot"];  // 11 chars.
   
   Class TWTweetComposeViewControllerClass = NSClassFromString(@"TWTweetComposeViewController");
   
