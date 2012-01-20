@@ -213,6 +213,7 @@
 		9D85437E142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D85437B142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m */; };
 		9D85437F142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D85437B142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m */; };
 		9D8543821430084C00F495E9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8543811430084C00F495E9 /* CoreGraphics.framework */; };
+		9D8982F814C9760E007B31CC /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8982F714C9760E007B31CC /* libFlurryAnalytics.a */; };
 		9D8A3FA014B1E783009BF75F /* NSNumber+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE5C17146445520039F536 /* NSNumber+M3Extensions.mm */; };
 		9D8B8AEF1413CA8B0066ECBB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8B8AEE1413CA8B0066ECBB /* Cocoa.framework */; };
 		9D8B8B011413CA8B0066ECBB /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8B8B001413CA8B0066ECBB /* SenTestingKit.framework */; };
@@ -500,6 +501,8 @@
 		9D85437A142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+WithSimpleMarkup.h"; sourceTree = "<group>"; };
 		9D85437B142FE32800F495E9 /* NSAttributedString+WithSimpleMarkup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+WithSimpleMarkup.m"; sourceTree = "<group>"; };
 		9D8543811430084C00F495E9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		9D8982F614C9760E007B31CC /* FlurryAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAnalytics.h; sourceTree = "<group>"; };
+		9D8982F714C9760E007B31CC /* libFlurryAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAnalytics.a; sourceTree = "<group>"; };
 		9D8B8AEB1413CA8B0066ECBB /* libM3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libM3.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D8B8AEE1413CA8B0066ECBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9D8B8AF11413CA8B0066ECBB /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -646,6 +649,7 @@
 				9D48ACFE141EAB5A00D0D000 /* libiM3.a in Frameworks */,
 				9D48ACB9141E9E3E00D0D000 /* UIKit.framework in Frameworks */,
 				9D48ACBA141E9E3E00D0D000 /* Foundation.framework in Frameworks */,
+				9D8982F814C9760E007B31CC /* libFlurryAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -896,6 +900,7 @@
 		9D48ACBD141E9E3E00D0D000 /* iM3Example */ = {
 			isa = PBXGroup;
 			children = (
+				9D8982F514C9760E007B31CC /* FlurryAnalytics */,
 				9D38DE6914C0B14F00666D2A /* FBConnect */,
 				9D01498F14A7BCA900B27DC7 /* NSString+IM3ExampleExtensions.mm */,
 				9D3D308E148994B300C84FB4 /* SVProgressHUD */,
@@ -1074,6 +1079,16 @@
 			);
 			name = "Table View";
 			sourceTree = "<group>";
+		};
+		9D8982F514C9760E007B31CC /* FlurryAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				9D8982F614C9760E007B31CC /* FlurryAnalytics.h */,
+				9D8982F714C9760E007B31CC /* libFlurryAnalytics.a */,
+			);
+			name = FlurryAnalytics;
+			path = vendor/FlurryAnalytics;
+			sourceTree = SOURCE_ROOT;
 		};
 		9D8B8AE01413CA8B0066ECBB = {
 			isa = PBXGroup;
@@ -1924,6 +1939,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/vendor/bc-ipad-iphone-kit-2.1/lib\"",
 					"\"$(SRCROOT)/vendor/bc-media-api-2.1/lib\"",
+					"\"$(SRCROOT)/vendor/FlurryAnalytics\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1960,6 +1976,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/vendor/bc-ipad-iphone-kit-2.1/lib\"",
 					"\"$(SRCROOT)/vendor/bc-media-api-2.1/lib\"",
+					"\"$(SRCROOT)/vendor/FlurryAnalytics\"",
 				);
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
