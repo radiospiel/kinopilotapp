@@ -29,7 +29,10 @@
                 ];
 
   [self addAction:@"Twitter"  withURL: _.join(@"/share/schedule/twitter?schedule_id=", schedule_id)];
-  [self addAction:@"Facebook" withURL: _.join(@"/share/schedule/facebook?schedule_id=", schedule_id)];
+
+  if(FACEBOOK)
+    [self addAction:@"Facebook" withURL: _.join(@"/share/schedule/facebook?schedule_id=", schedule_id)];
+
   [self addAction:@"Email"    withURL: _.join(@"/share/schedule/email?schedule_id=", schedule_id)];
   [self addAction:@"Kalender" withURL: _.join(@"/share/schedule/calendar?schedule_id=", schedule_id)];
 }

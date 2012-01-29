@@ -10,6 +10,9 @@
 #import "UIViewController+M3Extensions.h"
 #import "FBConnect.h"
 
+// Show "Facebook" sharing?
+#define FACEBOOK NO
+
 @interface NSString (IM3ExampleExtensions)
 
 /*
