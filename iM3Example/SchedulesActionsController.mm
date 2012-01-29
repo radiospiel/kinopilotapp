@@ -22,10 +22,13 @@
   
   NSDictionary* schedule = [app.sqliteDB.schedules get: schedule_id];
   NSDictionary* theater = [app.sqliteDB.theaters get: [schedule objectForKey: @"theater_id"]];
+  NSDictionary* movie = [app.sqliteDB.movies get: [schedule objectForKey: @"movie_id"]];
+  
   NSNumber* time = [schedule objectForKey: @"time"];
-  self.title = [ NSString stringWithFormat: @"%@, im %@", 
-                  [time.to_date stringWithFormat: @"dd. MMM HH:mm"],
-                  [theater objectForKey: @"name"]
+  self.title = [ NSString stringWithFormat: @"%@:\n%@, im %@", 
+                      [movie objectForKey: @"title"],
+                      [time.to_date stringWithFormat: @"dd. MMM HH:mm"],
+                      [theater objectForKey: @"name"]
                 ];
 
   [self addAction:@"Twitter"  withURL: _.join(@"/share/schedule/twitter?schedule_id=", schedule_id)];
