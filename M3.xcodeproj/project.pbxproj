@@ -259,6 +259,10 @@
 		9DA6564014A12D1F00F96508 /* button_grey_pushed.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DA6563E14A12D1F00F96508 /* button_grey_pushed.png */; };
 		9DACE1BF145F48B600372415 /* ShareController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DACE1BE145F48B600372415 /* ShareController.mm */; };
 		9DACE1C2145F532300372415 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DACE1C1145F532300372415 /* EventKit.framework */; };
+		9DAD4F8414D5C81600B20333 /* stars.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DAD4F8014D5C81600B20333 /* stars.png */; };
+		9DAD4F8514D5C81600B20333 /* stars@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DAD4F8114D5C81600B20333 /* stars@2x.png */; };
+		9DAD4F8614D5C81600B20333 /* unstars.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DAD4F8214D5C81600B20333 /* unstars.png */; };
+		9DAD4F8714D5C81600B20333 /* unstars@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DAD4F8314D5C81600B20333 /* unstars@2x.png */; };
 		9DBC934514A64AA2001EEDAA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DBC934414A64AA2001EEDAA /* QuartzCore.framework */; };
 		9DBC934814A66413001EEDAA /* UIView+M3Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBC934714A66412001EEDAA /* UIView+M3Extensions.m */; };
 		9DBCDDEE1440919B0020EA1F /* M3CachedFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBCDDED1440919B0020EA1F /* M3CachedFactory.m */; };
@@ -548,6 +552,10 @@
 		9DACE1BD145F48B600372415 /* ShareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareController.h; sourceTree = "<group>"; };
 		9DACE1BE145F48B600372415 /* ShareController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShareController.mm; sourceTree = "<group>"; };
 		9DACE1C1145F532300372415 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/EventKit.framework; sourceTree = DEVELOPER_DIR; };
+		9DAD4F8014D5C81600B20333 /* stars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stars.png; sourceTree = "<group>"; };
+		9DAD4F8114D5C81600B20333 /* stars@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stars@2x.png"; sourceTree = "<group>"; };
+		9DAD4F8214D5C81600B20333 /* unstars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unstars.png; sourceTree = "<group>"; };
+		9DAD4F8314D5C81600B20333 /* unstars@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unstars@2x.png"; sourceTree = "<group>"; };
 		9DBC934414A64AA2001EEDAA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		9DBC934614A66412001EEDAA /* UIView+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+M3Extensions.h"; sourceTree = "<group>"; };
 		9DBC934714A66412001EEDAA /* UIView+M3Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+M3Extensions.m"; sourceTree = "<group>"; };
@@ -969,6 +977,10 @@
 		9D561573142641A300D0A484 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				9DAD4F8014D5C81600B20333 /* stars.png */,
+				9DAD4F8114D5C81600B20333 /* stars@2x.png */,
+				9DAD4F8214D5C81600B20333 /* unstars.png */,
+				9DAD4F8314D5C81600B20333 /* unstars@2x.png */,
 				9D94B56714A8D5C200C1262D /* location.png */,
 				9D94B56814A8D5C200C1262D /* location@2x.png */,
 				9D834F5914B9D97C00DDE3CD /* 42-photos.png */,
@@ -1527,6 +1539,10 @@
 				9DC0A31B14BF97F6003FF7F7 /* share_movie_email.html in Resources */,
 				9D355F7B14C0544D00D5EE69 /* share_app_email.html in Resources */,
 				9D38DE8214C0B14F00666D2A /* FBDialog.bundle in Resources */,
+				9DAD4F8414D5C81600B20333 /* stars.png in Resources */,
+				9DAD4F8514D5C81600B20333 /* stars@2x.png in Resources */,
+				9DAD4F8614D5C81600B20333 /* unstars.png in Resources */,
+				9DAD4F8714D5C81600B20333 /* unstars@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
