@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'iM3' target in the 'iM3' project
+//
+
+#ifdef __OBJC__
+  #import <Foundation/Foundation.h>
+#endif

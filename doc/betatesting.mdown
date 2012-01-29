@@ -1,0 +1,93 @@
+# Thank you...
+
+...for participating in the Kinopilot beta test. Here are some notes:
+
+# Known issues
+
+- The app allows you to update and even might try to update its database without user intervention even if there is no internet connection available. This probably results in a grey overlay which appears for some timeout period (~ 1 Minute). It should go away after that time. 
+
+- When trying to share something on Facebook you will be asked for your facebook login first. After that you cannot just write whatever you would like to write; you will have to click the "(Share on) Facebook" button again.
+
+# Time frame for the next release
+
+I will fix the issues from the list above and all reported **level 1** bugs before releasing the next version, which hopefully will be a release candidate already. I guess that it will become available in the week from Jan 30th .. Feb 3rd. 
+
+# Beta testing guidelines
+
+Here are some guidelines for betatesting, in the hope that betatesting goes as effectively as possible.
+
+## 0: feel free to disobey!
+
+A note beforehand: Any application should just "make sense". So let your imagination run wild: click wherever you want to click, do whatever - this app should not crash. If it does, it is a bug, and I would like to hear about it. If you are at any point surprised at what you see: tell me, too - probably the UI flow could be improved then.
+
+And if you don't feel like doing anything: hey, that is up to you. Thanks for at least considering it, and enjoy the kinopilot application.
+
+## 1: Installation hint
+
+To install the kinopilot application just drag both the mobile provision file (.mobileprovision) and the application package into iTunes, and then sync your device. 
+
+There is no way to find out in iTunes whether there is a mobile provision file, but your iDevice tells you this in Settings/General/Profiles. You should see something called "Kinopilot Mobile." Make sure it is the device that you sent me the UDID for. (Reminder: use UDIDit http://itunes.apple.com/de/app/udidit/id326123820?mt=8 to see and send the UDID)
+
+If this process doesn't work for you let me know. 
+
+## 2: how to test the application
+
+I am assuming that you like to go to the movies. Just imagine you would be a casual theatre lover: how would you want to use an application like this? At home, at work, in the U-bahn? Just try it, click around, and tell me your experience with it.
+
+What is really hard to test for me is how kinopilot behaves when one moves around, and how it behaves in low/no network situations. Remember: it should not crash, it should not block, it should make sense.
+
+## 3: what I would especially like to hear about
+
+If you find bugs or see room for improvement just tell me. Note that this version is more or less feature complete. Regardless of that you should tell me if you find a feature missing from the app.
+
+What information you should include:
+
+- your iOS version (4 or 5, mainly)
+- your device (iPhone, iPod, iPad)
+- what do you feel is wrong in the app
+- did you have wifi or 3G when you encountered the issue?
+- did you enable location services when asked by the app?
+- did you enable notifications when asked by the app?
+- what did you do to see the bug
+- can you reproduce the error?
+- when did the app update its data set for the last time (you see this in the app settings: click on the popcorn on the bottom left of the start page)
+- is this update older than, say, 24 hrs from when the error appeared?
+- how annoyed you are
+- imagine you had the app installed from the iTunes store for free: are you so annoyed that you would stop using it?
+- Do you have any of the following apps installed on your device: "imdb", "fahrinfo berlin", "facebook".
+- Do you have a Twitter account enabled in your system? (iOS5 only)
+ 
+The more complete a report the more helpful it will be, even though I can do with incomplete reports too. 
+
+### 3a: Level 1 bugs
+
+Everything that stops the app from being useful at all I consider **level 1 bugs**, and will be fixed before publishing the software on the iTunes store.
+
+- If the application crashes
+- if the application becomes unresponsive
+- If there are wrong play times for movies, 
+- clicks that would bring you somewhere don't work or end up in a different target.
+
+Everything that stops the app from being useful in some aspects only or occurring only rarely I consider level 2 bugs. These will hopefully be fixed soon, but won't necessarily keep me from publishing the software.
+
+## 4: Twittering, Facebooking etc.
+
+There is no need to keep this a secret: If you feel like it just tell your friends and followers about Kinopilot. A few things to remember:
+ 
+- this will be the app's homepage: http://kinopilotapp.de/p/kinopilot
+- a Twitter hash tag should be #kinopilot
+- if you meet someone who wants to enter the beta test: just ask them to contact me: I still have a small numbers of invites available 
+
+Note that all links that are contained in facebook or twitter postings should work and should resolve via bit.ly to something on http://www.moviepilot.de/<...>). Application links, however, do end up at http://kinopilotapp.de/p/kinopilot now, which is ok - but of course noone can get the app from the app store yet. (The website, however, says this too.)
+
+## 5: feel free to disobey these rules!
+
+This goes without saying… Have fun!
+
+## 6: Some notes on iOS
+
+You probably will know this already, but just in case:
+
+a) if you feel like reinstalling the app, you must remove it from the device. Tap the app icon on the home screen for a few seconds, and when it starts to wobble press the (X). After that sync your device with iTunes again. Reinstalling starts the application with a "clean sheet".
+
+b) to "kill" the running up - because it hangs or for whatever other reason - you press the home button to see the home screen, then double tap the home button to see the list of "running" apps, then tap the kinopilot icon in there and wait until it wobbles then click the "x". The next time you start the app it runs from the start screen again.

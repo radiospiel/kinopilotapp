@@ -1,0 +1,93 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'term/ansicolor' # gem install 'term-ansicolor'
+
+class Color
+  extend Term::ANSIColor
+end
+
+COLORS = {
+  :red    => %w(red bold),
+  :green  => %w(green bold),
+  :gray   => %w(white),
+  :white  => %w(bold)
+}
+
+COLORS.each do |color, attrs|
+  (class << self; self; end).send :define_method, color do |*parts|
+    intro = *attrs.map do |attr| Color.send(attr) end.join("")
+    outro = Color.clear
+    puts "#{intro}#{parts.join}#{outro}"
+  end
+end
+
+etests = ARGV.map do |p| p if p != "-n" end.compact
+unless etests.empty?
+  ENV["ETESTS"] = etests.join(",")
+end
+
+def readline(f)
+  f.readline
+rescue EOFError
+end
+
+targets = %w(M3Tests)
+while target = targets.shift
+  puts "=== #{target}"
+  command = "xcodebuild -configuration Debug -target #{target} build"
+  puts command
+  
+  f = IO.popen(command)
+  fShowLine = false
+  
+  testTarget = nil
+  
+  while line = readline(f)
+    line.sub!(/\n$/, "")
+    fShowLine ||= line =~ /\/Tools\/RunPlatformUnitTests/
+
+    case line
+    when "", /^    (setenv|cd) /
+      next
+    end
+    
+    if !fShowLine
+      if line =~ /\/Developer\/usr\/bin\/clang/ 
+        parts = line.strip.split(/\s+/)
+        line = "#{parts[0]} ... #{parts[-1]}"
+      end
+      
+      gray(line)
+      next
+    end
+    
+    case line
+    when /Test Case (.*) started/
+      test_case = $1
+    when /Test Suite (.*) finished/
+    when /Run test case /
+    when /Run test suite (\w+)/
+      test_suite = $1
+    when /Test Case .* passed/
+      green(line)
+    when /Test Case .* (failed|crashed)/
+      red(line)
+    when /error:/
+      red(line)
+    when /BUILD FAILED/
+      red(line)
+    when /Executed.*with/,
+      /Test Suite .* started/,
+      /Run test suite .*/,
+      /(Started|Running) tests for architecture/
+      gray("    ", line)
+    else
+      if line =~ /\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d [^\[]+\[[^\]]+\] (.*)/
+        white($1)
+      else
+        white(line)
+      end
+    end
+  end
+end
+
