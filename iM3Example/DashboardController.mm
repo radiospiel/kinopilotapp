@@ -280,6 +280,8 @@ static NSDictionary *titlesByKey, *urlsByKey;
 - (void)rotator:(M3Rotator*)rotator activatedIndex:(NSUInteger)index
 {
   NSDictionary* movie = [self movieAtIndex: index];
+  if(!movie) return;
+  
   NSString* url = _.join("/movies/show?movie_id=", [movie objectForKey: @"_id"]);
   [app open: url];
 }
