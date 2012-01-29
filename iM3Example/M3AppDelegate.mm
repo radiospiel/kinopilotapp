@@ -20,18 +20,16 @@
 M3AppDelegate* app;
 
 @interface M3AppDelegate()
-@property (nonatomic,retain) UIImageView* splashScreen;
 @end
 
 @implementation M3AppDelegate
 
-@synthesize splashScreen, window, tabBarController, facebook;
+@synthesize window, tabBarController, facebook;
 
 - (void)dealloc
 {
   self.window = nil;
   self.tabBarController = nil;
-  self.splashScreen = nil;
   
   [super dealloc];
 }
@@ -93,7 +91,7 @@ M3AppDelegate* app;
 }
 
 -(void)navigationController:(UINavigationController *) nc 
-     didShowViewController:(UIViewController *) vc 
+      didShowViewController:(UIViewController *) vc 
                    animated:(BOOL)anmated
 {
 }
@@ -171,6 +169,8 @@ M3AppDelegate* app;
   }
 }
 
+#pragma mark restart
+
 -(void)createRootWindow
 {
   UIWindow* wnd = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]; 
@@ -180,9 +180,10 @@ M3AppDelegate* app;
 -(void)restartApplication
 {
   [self createRootWindow];
+  
   [self loadTabs];
   [self.window makeKeyAndVisible];
-
+  
   [self trackEvent: @"start"];          // track a start event
 }
 
@@ -238,35 +239,11 @@ M3AppDelegate* app;
   //  return (UINavigationController*)[self.tabBarController selectedViewController];
 }
 
-#pragma mark splashscreen
-
--(void) showSplashScreen
-{
-  self.splashScreen = [[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"default.png"]]autorelease];
-  self.splashScreen.frame = [[UIScreen mainScreen]bounds];
-
-  [self.window addSubview:self.splashScreen];
-}  
-  
--(void) hideSplashScreen
-{
-  if(!self.splashScreen) return;
-  
-  [UIView animateWithDuration:1
-                   animations:^{ self.splashScreen.alpha = 0.0; }
-                   completion:^(BOOL finished) { 
-                     [self.splashScreen removeFromSuperview];
-                     self.splashScreen = nil;
-                   }
-  ];
-}
-
 #pragma mark livecycle callbacks
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-  [self.sqliteDB.settings setObject: [NSDate now].to_number forKey:@"resumed_at"];
-  [self showSplashScreen];
+  [self.sqliteDB.settings setObject: [NSDate now].to_number forKey:@"resigned_at"];
 
   /*
    Sent when the application is about to move from active to inactive state. 
@@ -278,6 +255,8 @@ M3AppDelegate* app;
    OpenGL ES frame rates. Games should use this method to pause the game.
   */
   [app emit:@selector(paused)];
+  
+  self.window.hidden = YES;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -299,8 +278,8 @@ M3AppDelegate* app;
    here you can undo many of the changes made on entering the background.
    */
 
-  NSNumber* resumed_at = [self.sqliteDB.settings objectForKey: @"resumed_at"];
-  int diff = [NSDate now].to_number.to_i - resumed_at.to_i;
+  NSNumber* resigned_at = [self.sqliteDB.settings objectForKey: @"resigned_at"];
+  int diff = [NSDate now].to_number.to_i - resigned_at.to_i;
 
   if(diff > 5 * 60) {                         // 300 seconds.
     [self restartApplication];
@@ -314,8 +293,8 @@ M3AppDelegate* app;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-  [self hideSplashScreen];
-  
+  self.window.hidden = NO;
+
   /*
    Restart any tasks that were paused (or not yet started) while the 
    application was inactive. If the application was previously in the 
