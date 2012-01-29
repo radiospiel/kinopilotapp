@@ -62,6 +62,7 @@ extern M3AppDelegate* app;
  * open the passed-in URL.
  */
 -(void)open: (NSString*)url;
+-(void)openFromModalView: (NSString*)url;
 
 /*
  * returns an UIViewController for the passed-in URL.

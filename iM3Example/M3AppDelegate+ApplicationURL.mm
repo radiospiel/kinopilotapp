@@ -136,7 +136,7 @@
  * - "app:<action>" executes an action name via AppDelegate#executeAction:
  * - "<protocol>:<protocol-parameters>" executes an external URL.
  */
--(void)open: (NSString*)url
+-(void)open: (NSString*)url withDelay: (BOOL)delay
 {
   if(!url) return;
   
@@ -149,13 +149,28 @@
     return;
   }
 
-  // internal URLs will be opened only after a short delay. This is
-  // to make sure the OS can start any animation needed.
+  if(!delay) {
+    [self openInternalURL: url];
+    return;
+  }
+  
+  // internal URLs will usually be opened only after a short delay.
+  // This is to make sure the OS can start any animation needed.
   int64_t nanosecs = 0.05 * 1e09;
   dispatch_after( dispatch_time(DISPATCH_TIME_NOW, nanosecs),
                    dispatch_get_main_queue(), ^{
                      [self openInternalURL: url];
                    });
+}
+
+-(void)open: (NSString*)url
+{
+  [self open:url withDelay:YES]; 
+}
+
+-(void)openFromModalView: (NSString*)url
+{
+  [self open:url withDelay:NO]; 
 }
 
 @end

@@ -203,6 +203,18 @@ M3AppDelegate* app;
   [defaults synchronize];
 }
 
+//-(void)initTwitter
+//{
+//  Class TWTweetComposeViewControllerClass = NSClassFromString(@"TWTweetComposeViewController");
+//  if([TWTweetComposeViewControllerClass respondsToSelector:@selector(canSendTweet)]) {
+//    UIViewController *twitterViewController = [[TWTweetComposeViewControllerClass alloc] init];
+//    
+//    [twitterViewController performSelector:@selector(setInitialText:) 
+//                                withObject:@"tweet"];
+//    [twitterViewController release];
+//  }
+//}
+
 -(BOOL) application:(UIApplication *)application 
           didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

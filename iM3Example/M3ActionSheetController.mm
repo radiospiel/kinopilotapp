@@ -59,7 +59,7 @@
     return [label isEqualToString:obj.first];
   }];
   
-  [app open: action.second];
+  [app openFromModalView: action.second];
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
