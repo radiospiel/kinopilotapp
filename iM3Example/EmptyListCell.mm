@@ -126,7 +126,9 @@
 
 @end
 
-/** specific implementations**/
+#pragma mark -- specific implementations
+
+#pragma mark -- "No data for selection"
 
 @interface EmptyListCell: StaticListCell
 @end
@@ -156,6 +158,8 @@
 }
 @end
 
+#pragma mark -- No favorites yet
+
 @interface NoFavsCell: StaticListCell
 @end
 
@@ -171,3 +175,31 @@
 }
 @end
 
+#pragma mark -- No location read, yet.
+
+@interface NoLocationCell: StaticListCell
+@end
+
+@implementation NoLocationCell
+
+-(id)init {
+  return [super initWithTemplate: @""];
+}
+@end
+
+#pragma mark -- No location read, yet.
+
+@interface LocationErrorCell: StaticListCell
+@end
+
+@implementation LocationErrorCell
+
+-(id)init {
+  NSString* tmpl = @"<h2><b>Keine Position verfügbar!</b></h2>"
+  "<p></p>"
+  "<p>Falls Du Kinopilot keinen Zugriff auf Deine Location gestattet hast, ist dise Funktion nicht verfügbar. In dem Fall kannst Du das in den Einstellungen Deines Geräts nachträglich ändern.</p>"
+  "<p></p>";
+  
+  return [super initWithTemplate: tmpl];
+}
+@end
