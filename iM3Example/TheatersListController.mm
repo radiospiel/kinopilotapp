@@ -181,7 +181,10 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 
 -(NSString*)title
 {
-  return [[self movie] objectForKey:@"title"];
+  if(self.movie)
+    return [self.movie objectForKey:@"title"];
+
+  return @"Alle Kinos";
 }
 
 -(NSString*) movie_id
@@ -191,7 +194,7 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 
 -(void)reloadURL
 {
-  NSString* movie_id = [self movie_id];
+  NSString* movie_id = self.movie_id;
   
   if(movie_id) {
     [self setRightButtonWithSystemItem: UIBarButtonSystemItemAction
@@ -199,13 +202,35 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
   
     self.dataSource = [M3DataSource theatersListFilteredByMovie:movie_id];
     self.tableView.tableHeaderView = [M3ProfileView profileViewForMovie:[self movie]]; 
+
+    return;
   }
   else {
-    [self setRightButtonReloadAction];
-  
-    self.dataSource = [M3DataSource theatersList];
+    if(![self hasSegmentedControl]) {
+      [self addSegment: @"Alle" 
+            withFilter: @"all" 
+              andTitle: @"Alle Kinos"];
+      [self addSegment: [UIImage imageNamed:@"unstar16.png"] 
+            withFilter: @"fav" 
+              andTitle: @"Favorites"];
+    }
+
+    NSDictionary* params = self.url.to_url.params;
+    NSString* filter = [params objectForKey: @"filter"];
+    if(!filter) filter = @"all";
+    self.dataSource = [M3DataSource theatersListWithFilter: filter];
     self.tableView.tableHeaderView = nil;
   }
+}
+
+-(void)setFilter:(NSString*)filter
+{
+  if(self.movie_id) return;
+  
+  if([filter isEqualToString:@"all"])
+    self.url = _.join(@"/theaters/list");
+  else    
+    self.url = _.join(@"/theaters/list?filter=", filter);
 }
 
 @end

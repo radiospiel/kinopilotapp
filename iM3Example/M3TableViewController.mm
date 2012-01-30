@@ -144,7 +144,12 @@
 
 /* add a segment to the segmentedControl_ */
 
--(void)addSegment:(NSString*)label withFilter: (id)filter andTitle: (NSString*)title
+-(BOOL)hasSegmentedControl;
+{
+  return segmentedControl_ != nil;
+}
+
+-(void)addSegment:(id)labelOrImage withFilter: (id)filter andTitle: (NSString*)title;
 {
   id existingSegmentedControl_ = segmentedControl_;
   
@@ -159,13 +164,20 @@
     segmentedControlParams_ = [[NSMutableArray alloc]init];
   }
   
-  [segmentedControl_ insertSegmentWithTitle: label
-                                    atIndex: segmentedControl_.numberOfSegments
-                                   animated: NO];  
-  
-  segmentedControl_.frame = CGRectMake(0, 0, segmentedControl_.numberOfSegments*45, 32);
+  if([labelOrImage isKindOfClass:[UIImage class]]) {
+    [segmentedControl_ insertSegmentWithImage: labelOrImage
+                                      atIndex: segmentedControl_.numberOfSegments
+                                     animated: NO];
+  }
+  else {
+    [segmentedControl_ insertSegmentWithTitle: labelOrImage
+                                      atIndex: segmentedControl_.numberOfSegments
+                                     animated: NO];
+  }
 
   [segmentedControlParams_ addObject: _.hash(@"filter", filter, @"title", title)];
+
+  segmentedControl_.frame = CGRectMake(0, 0, segmentedControl_.numberOfSegments*45, 32);
 
   if(!existingSegmentedControl_) {
     [segmentedControl_ setSelectedSegmentIndex:0];

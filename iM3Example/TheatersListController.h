@@ -11,5 +11,6 @@
 @interface TheatersListController: M3ListViewController
 
 @property (readonly) NSString* movie_id;
+@property (readonly) NSDictionary* movie;
 
 @end

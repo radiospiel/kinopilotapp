@@ -30,7 +30,9 @@
 
 @property (retain,nonatomic) M3TableViewDataSource* dataSource;
 
--(void)addSegment:(NSString*)label withFilter: (id)filter andTitle: (NSString*)title;
+-(BOOL)hasSegmentedControl;
+
+-(void)addSegment:(id)labelOrImage withFilter: (id)filter andTitle: (NSString*)title;
 -(void)activateSegment:(NSUInteger)segmentNo;
 
 -(void)setFilter: (id)filter;

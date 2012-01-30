@@ -173,17 +173,28 @@
 
 @implementation TheatersListDataSource
 
--(id)init
+-(id)initWithFilter: (NSString*)filter
 {
+  // make sure the flags table exists.
+  [app isFlagged:@"nop"];
+
   self = [super initWithCellClass: @"TheatersListCell"]; 
 
-  NSArray* theaters = [ 
-    app.sqliteDB all: @"SELECT theaters._id, theaters.name, GROUP_CONCAT(DISTINCT movies.title) AS movies FROM theaters "
-                       "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
-                       "LEFT JOIN movies ON schedules.movie_id=movies._id "
-                       "GROUP BY theaters._id ",
-                       [NSDate today]
-  ];
+  
+  NSString* sql = @"SELECT theaters._id, theaters.name, GROUP_CONCAT(DISTINCT movies.title) AS movies FROM theaters "
+      "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
+      "LEFT JOIN movies ON schedules.movie_id=movies._id "
+      "GROUP BY theaters._id ";
+  
+  if([filter isEqualToString:@"fav"]) {
+    sql = @"SELECT theaters._id, theaters.name, GROUP_CONCAT(DISTINCT movies.title) AS movies FROM theaters "
+      "INNER JOIN flags ON flags.key_id=theaters._id "
+      "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
+      "LEFT JOIN movies ON schedules.movie_id=movies._id "
+      "GROUP BY theaters._id ";
+  }
+  
+  NSArray* theaters = [app.sqliteDB all: sql];
 
   if(theaters.count > 0) {
     
@@ -203,7 +214,6 @@
                               @"index", group.first)];
     }
   }
-  
   
   return self;
 }
@@ -398,12 +408,12 @@
                         }];
 }
 
-+(M3TableViewDataSource*)theatersList
++(M3TableViewDataSource*)theatersListWithFilter:(NSString *)filter
 {
-  return [self datasourceWithName: @"theatersList" 
+  return [self datasourceWithName: @"theatersListWithFilter" 
                         fromBlock: ^M3TableViewDataSource*() {
                           M3TableViewDataSource* ds;
-                          ds = [[TheatersListDataSource alloc]init];
+                          ds = [[TheatersListDataSource alloc]initWithFilter: filter];
                           return [ds autorelease];
                         }];
 }
