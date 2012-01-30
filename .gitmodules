@@ -30,4 +30,4 @@
 	url = git://github.com/ShareKit/ShareKit.git
 [submodule "vendor/facebook-ios-sdk"]
 	path = vendor/facebook-ios-sdk
-	url = git://github.com/facebook/facebook-ios-sdk.git
+	url = git@github.com:radiospiel/facebook-ios-sdk.git
