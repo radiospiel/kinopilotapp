@@ -33,6 +33,10 @@
  */
 -(void)prependSection: (NSArray*) keys withOptions: (NSDictionary*)options;
 
+-(void)insertKey:(id)key 
+         atIndex:(int)index
+     intoSection:(int)sectionIndex;
+
 /** 
  * Returns the class for the cell with the given key. Keys are whatever
  * is put into the section.

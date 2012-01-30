@@ -63,6 +63,25 @@
   [self.sections insertObject:section atIndex:0];
 }
 
+-(void)insertKey:(id)key 
+         atIndex:(int)index
+     intoSection:(int)sectionIndex
+{
+  NSArray* section = [self.sections objectAtIndex:sectionIndex];
+  
+  // make sure the keys are, in fact, mutable.
+  NSMutableArray* keys = section.first;
+  if(![keys isKindOfClass:[NSMutableArray class]])
+    keys = [NSMutableArray arrayWithArray:keys];
+  
+  [keys insertObject:key atIndex:index];
+
+  NSArray* newSection = [NSArray arrayWithObjects:keys, section.second, nil];
+  [self.sections replaceObjectAtIndex: sectionIndex 
+                           withObject: newSection]; 
+}
+
+
 #pragma mark - Filtering
 
 - (BOOL)stringItem: (NSString*)item 
@@ -126,6 +145,9 @@
 
 -(Class) cellClassForKey: (id)key
 {
+  if([key isEqual: @"M3TableViewAdCell"])
+    return @"M3TableViewAdCell".to_class;
+  
   if(cellClass_)
     return cellClass_;
   
