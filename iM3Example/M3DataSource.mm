@@ -175,11 +175,7 @@
 
 -(id)initWithFilter: (NSString*)filter
 {
-  // make sure the flags table exists.
-  [app isFlagged:@"nop"];
-
   self = [super initWithCellClass: @"TheatersListCell"]; 
-
   
   NSString* sql = @"SELECT theaters._id, theaters.name, GROUP_CONCAT(DISTINCT movies.title) AS movies FROM theaters "
       "LEFT JOIN schedules ON schedules.theater_id=theaters._id "

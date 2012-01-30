@@ -226,6 +226,9 @@ M3AppDelegate* app;
 
   app = self;
   
+  // --- prepare database
+  [app.sqliteDB migrate];
+  
   // --- log into facebook
   self.facebook = [[[Facebook alloc] initWithAppId:@"323168154384101" andDelegate:self] autorelease];
 

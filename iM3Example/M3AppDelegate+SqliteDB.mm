@@ -36,7 +36,18 @@
 
 -(M3SqliteTable*) settings
 {
-  return [self tableWithName:@"settings" andColumns:_.array(@"_id", @"value")];
+  return [self tableWithName:@"settings"];
+}
+
+-(M3SqliteTable*) flags
+{
+  return [self tableWithName:@"flags"];
+}
+
+-(void)migrate
+{
+  [self tableWithName:@"settings" andColumns:_.array(@"_id", @"value")];
+  [self tableWithName:@"flags" andColumns:_.array(@"key_id")];
 }
 
 -(BOOL)isLoaded
@@ -159,23 +170,13 @@
 
 #pragma mark -- flagging
 
--(void)prepareFlagTable
-{
-  [self memoized:@selector(flag_table) usingBlock:^id{
-    return [self.sqliteDB tableWithName:@"flags" andColumns:_.array(@"key_id")];
-  }];
-}
-
 -(BOOL)isFlagged: (NSString*)key
 {
-  [self prepareFlagTable];
   return [self.sqliteDB ask: @"SELECT key_id FROM flags WHERE key_id=?", key] != nil; 
 }
 
 -(void)setFlagged: (BOOL)flag onKey: (NSString*)key
 {
-  [self prepareFlagTable];
-
   if(flag)
     [self.sqliteDB ask: @"INSERT INTO flags (key_id) VALUES(?)",  key]; 
   else
