@@ -210,7 +210,7 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
       [self addSegment: @"Alle" 
             withFilter: @"all" 
               andTitle: @"Alle Kinos"];
-      [self addSegment: [UIImage imageNamed:@"unstar16.png"] 
+      [self addSegment: [UIImage imageNamed:@"unstar15.png"] 
             withFilter: @"fav" 
               andTitle: @"Favorites"];
     }
