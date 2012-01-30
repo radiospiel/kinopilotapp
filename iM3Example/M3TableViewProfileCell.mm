@@ -99,7 +99,7 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
   // left positions for img, and for texts (label and description)
   int left = 7;
   if(flagView) {
-    flagView.frame = CGRectMake(13, 20, 16, 16);
+    flagView.frame = CGRectMake(9, 16, 24, 24);
     left = 44;
   }
 
