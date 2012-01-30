@@ -26,10 +26,24 @@
   return [movies isKindOfClass:[NSString class]];
 }
 
+-(NSString*)theater_id
+{
+  NSDictionary* theater = self.key;
+  return [theater objectForKey: @"_id"];
+}
+
+-(BOOL)onFlagging: (BOOL)isNowFlagged;
+{
+  [app setFlagged:isNowFlagged onKey: [self theater_id]];
+  return isNowFlagged;
+}
+
 -(void)setKey: (NSDictionary*)theater
 {
   [super setKey:theater];
   if(!theater) return;
+  
+  [super setFlagged: [app isFlagged: [self theater_id]]];
   
   [self setText: [theater objectForKey: @"name"]];
 

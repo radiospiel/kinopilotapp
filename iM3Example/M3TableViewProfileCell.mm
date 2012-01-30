@@ -64,7 +64,7 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 
 -(void)setFlagged: (BOOL)newFlagged
 {
-  if(newFlagged == self.flagged) return;
+  if(flagView && newFlagged == self.flagged) return;
   
   NSString* flagImage = newFlagged ? @"star.png" : @"unstar.png";
   self.flagView.image = [UIImage imageNamed: flagImage]; 
