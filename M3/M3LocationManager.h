@@ -25,19 +25,19 @@
  * to the M3LocationManager object.
  */
 
-@interface M3LocationManager: NSObject<CLLocationManagerDelegate> {
-  CLLocationManager* locationManager_;
-  CGFloat accuracy_;
-  CLLocationCoordinate2D coordinates_;
-}
+@interface M3LocationManager: NSObject<CLLocationManagerDelegate>
 
-+(M3LocationManager*) defaultManager;
+/** starts updating the location once. */
 +(void) updateLocation;
+
+/** returns the currently read coordinates */
 +(CLLocationCoordinate2D) coordinates;
 
-@property (assign,nonatomic) CGFloat accuracy;
-@property (nonatomic,retain) CLLocationManager* locationManager;
-@property (assign,nonatomic) CLLocationCoordinate2D coordinates;
+/** returns the last error, if any. */
++(NSError*) lastError;
+
+/** returns true if a position is available */
++(BOOL)locationAvailable;
 
 @end
 

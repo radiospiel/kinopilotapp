@@ -16,23 +16,40 @@
 #define FRIEDRICH_STRASSE CLLocationCoordinate2DMake(52.5198, 13.3881)      // Berlin Friedrichstrasse
 
 
+@interface M3LocationManager()
+
+@property (nonatomic,retain) CLLocationManager* locationManager;
+@property (nonatomic,assign) BOOL locationAvailable;
+@property (nonatomic,assign) CLLocationCoordinate2D coordinates;
+@property (nonatomic,assign) CLLocationAccuracy accuracy;
+@property (nonatomic,retain) NSError* lastError;
+
+@end
+
 @implementation M3LocationManager
 
-@synthesize locationManager = locationManager_, accuracy = accuracy_, coordinates = coordinates_;
+@synthesize locationManager, accuracy, coordinates, lastError, locationAvailable;
 
 #pragma mark - Lifecycle
 
--(id)initWithAccuracy: (CGFloat)accuracy
+-(id)initWithAccuracy: (CGFloat)theAccuracy
 {
   self = [super init];
-  self.accuracy = accuracy;
+  self.accuracy = theAccuracy;
   self.coordinates = FRIEDRICH_STRASSE;
+
+  self.locationManager = [[CLLocationManager alloc] init];
+  self.locationManager.delegate = self; // send location updates to myself
+  
+  self.locationAvailable = NO;
   
   return self;
 }
 
 -(id)init
-  { return [self initWithAccuracy:200]; }
+{ 
+  return [self initWithAccuracy:200]; 
+}
 
 +(M3LocationManager*) locationManager
 {
@@ -42,38 +59,35 @@
 -(void)dealloc
 {
   self.locationManager = nil;
+  self.lastError = nil;
+  
   [super dealloc];
 }
 
+// Start a location update. Stop the update and set to timeout after 15 secs.
 -(void) updateLocation
 {
-  dlog << "*** updateLocation";
+  self.locationAvailable = NO;
+  self.lastError = nil;
   
-  if(!self.locationManager) {
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self; // send loc updates to myself
-  }
-
   [self.locationManager startUpdatingLocation];
-}
+  
+  int64_t nanosecs = 15 * 1e09; // 15 secs.
 
-#pragma mark - M3LocationManager singleton object
+#if TARGET_IPHONE_SIMULATOR
+  nanosecs = 1 * 1e09;
+#endif
 
-+(M3LocationManager*) defaultManager
-{
-  static M3LocationManager* defaultManager_ = [[M3LocationManager alloc]init];
+  dispatch_after( dispatch_time(DISPATCH_TIME_NOW, nanosecs),
+    dispatch_get_main_queue(), ^{
+      if(![self locationAvailable]) {
+        NSError* timeout = [NSError errorWithDomain:@"Timeout" code:0 userInfo: nil];
 
-  return defaultManager_;
-}
-
-+(void) updateLocation
-{
-  [[self defaultManager]updateLocation];
-}
-
-+(CLLocationCoordinate2D) coordinates
-{
-  return [[self defaultManager]coordinates];
+        [self locationManager:self.locationManager 
+             didFailWithError:timeout];
+      }
+      [self.locationManager stopUpdatingLocation];
+    });
 }
 
 #pragma mark - CLLocationManager delegate callbacks
@@ -82,23 +96,55 @@
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-  CLLocationAccuracy accuracy = [newLocation horizontalAccuracy];
-  if(accuracy > self.accuracy) return;
+  // Not yet good enough?
+  if([newLocation horizontalAccuracy] > self.accuracy) 
+    return;
   
-  dlog << "Got location " << newLocation;
-
+  // Got update
+  self.locationAvailable = YES;
   self.coordinates = newLocation.coordinate;
   [self.locationManager stopUpdatingLocation];
-
+  
   [[self class] emit: @selector(onUpdatedLocation) withParameter: self];
 }
 
--(void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+-(void) locationManager:(CLLocationManager *)manager 
+       didFailWithError:(NSError *)error
 {
   dlog << "Got location error " << error;
-
+  self.lastError = error;
+  
   [self.locationManager stopUpdatingLocation];
-  [[self class] emit: @selector(onError) withParameter: self];
+  [[self class] emit: @selector(onError) withParameter: error];
+}
+
+#pragma mark - M3LocationManager singleton object
+
+static M3LocationManager* defaultManager = nil;
+
++(void) initialize
+{
+  defaultManager = [[M3LocationManager alloc]init];
+}
+
++(void) updateLocation
+{
+  [defaultManager updateLocation];
+}
+
++(CLLocationCoordinate2D) coordinates
+{
+  return defaultManager.coordinates;
+}
+
++(BOOL)locationAvailable
+{
+  return defaultManager.locationAvailable;
+}
+
++(NSError*)lastError
+{
+  return defaultManager.lastError;
 }
 
 @end

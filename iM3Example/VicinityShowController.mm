@@ -9,6 +9,7 @@
 #import "M3AppDelegate.h"
 #import "VicinityShowController.h"
 #import "M3TableViewProfileCell.h"
+#import "SVProgressHUD.h"
 
 /***  VicinityTableCell ****************************************************/
 
@@ -118,12 +119,12 @@
 
 @implementation VicinityShowDataSource
 
--(id)init
+-(id)initWithPosition: (CLLocationCoordinate2D)position
 {
   self = [super init];
   if(!self) return nil;
 
-  currentPosition_ = [M3LocationManager coordinates];
+  currentPosition_ = position;
   
   Benchmark(@"Building vicinity data set");
 
@@ -188,22 +189,52 @@
 
 @end
 
+@interface VicinityShowController(LocationManager)
+
+-(void)listenToLocationManager;
+
+@end
+
+@implementation VicinityShowController(LocationManager)
+
+-(void)listenToLocationManager
+{
+  [M3LocationManager on: @selector(onUpdatedLocation) 
+                 notify: self
+                   with: @selector(onUpdatedLocation) ];
+
+  [M3LocationManager on: @selector(onError) 
+                 notify: self
+                   with: @selector(onUpdateLocationFailed:)];
+}
+
+-(void)startUpdateLocation
+{
+  [M3LocationManager updateLocation];
+  [SVProgressHUD showWithStatus:@"Position bestimmen" maskType: SVProgressHUDMaskTypeBlack];
+}
+
+-(void)onUpdatedLocation
+{
+  [SVProgressHUD dismiss];
+  [self reload];
+}
+
+-(void)onUpdateLocationFailed: (NSError*)error
+{
+  dlog << "*** Got location error " << error;
+
+  [SVProgressHUD dismissWithError: @"Deine Position konnte nicht bestimmt werden."];
+  /*
+   * The reload is not strictly necessary, as we now have identical messages
+   * for unavailable and for on errors situations.
+   */
+  [self reload];
+}
+
+@end
+
 @implementation VicinityShowController
-
--(void)setUpdateIsNotRunning
-{
-  [self setRightButtonWithImage:[UIImage imageNamed:@"location.png"] 
-                         target:self 
-                         action:@selector(startUpdate)];
-}
-
--(void)setUpdateIsRunning
-{
-  [self setRightButtonWithSystemItem: UIBarButtonSystemItemStop 
-                              target: self 
-                              action: @selector(setUpdateIsNotRunning) // <-- fake: we do not stop the update.
-   ];
-}
 
 -(id)init
 {
@@ -212,40 +243,26 @@
 
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched; 
 
-  [M3LocationManager on: @selector(onUpdatedLocation) 
-                 notify: self 
-                   with: @selector(onUpdatedLocation:) ];
-  
-  [M3LocationManager on: @selector(onError) 
-                 notify: self 
-                   with: @selector(onUpdateLocationFailed)];
-  
-  [self setUpdateIsNotRunning];
+  [self listenToLocationManager];
   
   return self;
 }
 
 -(void)reload
 {
-  self.dataSource = [[[VicinityShowDataSource alloc]init]autorelease];
-}
+  if([M3LocationManager locationAvailable]) {
+    M3TableViewDataSource* ds = [[VicinityShowDataSource alloc]initWithPosition:[M3LocationManager coordinates]];
+    self.dataSource = [ds autorelease];
+  }
+  else if([M3LocationManager lastError]) {
+    self.dataSource = [M3TableViewDataSource dataSourceWithSection:_.array(@"LocationErrorCell")];
+  }
+  else {
+    self.dataSource = [M3TableViewDataSource dataSourceWithSection:_.array(@"NoLocationCell")];
 
--(void)startUpdate
-{
-  [[M3LocationManager class] updateLocation]; 
-  [self setUpdateIsRunning];
-}
-
-- (void)onUpdatedLocation: (M3LocationManager*)locationManager
-{
-  [self setUpdateIsRunning];
-  [self reload];
-}
-
-- (void)onUpdateLocationFailed: (NSError*)error
-{
-  [self setUpdateIsNotRunning];
-  dlog << "Got location error " << error;
+    [M3LocationManager updateLocation];
+    [SVProgressHUD showWithStatus:@"Position bestimmen" maskType: SVProgressHUDMaskTypeBlack];
+  }
 }
 
 @end
