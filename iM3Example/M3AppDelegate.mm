@@ -169,23 +169,7 @@ M3AppDelegate* app;
   }
 }
 
-#pragma mark restart
-
--(void)createRootWindow
-{
-  UIWindow* wnd = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]; 
-  self.window = [wnd autorelease];  
-}
-
--(void)restartApplication
-{
-  [self createRootWindow];
-  
-  [self loadTabs];
-  [self.window makeKeyAndVisible];
-  
-  [self trackEvent: @"start"];          // track a start event
-}
+#pragma facebook support
 
 // For 4.2+ support
 - (BOOL)application: (UIApplication *)application 
@@ -203,6 +187,8 @@ M3AppDelegate* app;
   [defaults synchronize];
 }
 
+#pragma twitter support
+
 //-(void)initTwitter
 //{
 //  Class TWTweetComposeViewControllerClass = NSClassFromString(@"TWTweetComposeViewController");
@@ -214,6 +200,24 @@ M3AppDelegate* app;
 //    [twitterViewController release];
 //  }
 //}
+
+#pragma mark restart
+
+-(void)createRootWindow
+{
+  UIWindow* wnd = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]; 
+  self.window = [wnd autorelease];  
+}
+
+-(void)restartApplication
+{
+  [self createRootWindow];
+  
+  [self loadTabs];
+  [self.window makeKeyAndVisible];
+  
+  [self trackEvent: @"start"];          // track a start event
+}
 
 -(BOOL) application:(UIApplication *)application 
           didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
