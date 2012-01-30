@@ -5,7 +5,7 @@
 @implementation M3TableViewProfileCell
 
 // @synthesize imageURL=imageURL_;
-@synthesize image = image_;
+@synthesize flagged, flagView, image;
 
 static CGFloat textHeight = 0, detailTextHeight = 0;
 
@@ -22,37 +22,53 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 
 -(void)dealloc
 {
-  [starView_ release];
+  self.flagView = nil;
   [super dealloc];
 }
-
-//- (void)tappedStar:(UITapGestureRecognizer *)sender {     
-//  NSLog(@"tappedStar");
-//  if (sender.state == UIGestureRecognizerStateEnded) { // handling code     
-//  } 
-//}
 
 + (CGFloat)fixedHeight
 { 
   return 2 + textHeight + 2 * detailTextHeight + 3;
 }
 
--(void)setStarred: (BOOL)starred
-{
-  if(!starView_) {
-    starView_ = [[UIImageView alloc]init];
-    [self.contentView  addSubview: starView_];
-    
-    // UITapGestureRecognizer *recognizer = [[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tappedStar:)] autorelease];
-    // starView_.userInteractionEnabled = YES;
-    // [starView_ addGestureRecognizer:recognizer];
-  }
+#pragma mark --- starring
 
-  NSString* starImage = starred ? @"star.png" : @"unstar.png";
+-(BOOL)onFlagging: (BOOL)isNowFlagged;
+{
+  return isNowFlagged;
+}
+
+- (void)tappedFlag:(UITapGestureRecognizer *)sender {   
+  BOOL newFlagged = [self onFlagging: !self.flagged];
+  [self setFlagged: newFlagged];
+}
+
+/** return the starView; create if needed. */
+
+-(UIImageView*)flagView
+{
+  if(flagView) return flagView;
   
-  M3AssertKindOf(starView_, UIImageView);
+  flagView = [[UIImageView alloc]init];
+  [self.contentView addSubview: flagView];
   
-  starView_.image = [UIImage imageNamed: starImage]; 
+  flagView.userInteractionEnabled = YES;
+  
+  UITapGestureRecognizer *recognizer;
+  recognizer = [[UITapGestureRecognizer alloc]initWithTarget:self 
+                                                      action:@selector(tappedFlag:)];
+  [flagView addGestureRecognizer:[recognizer autorelease]];
+
+  return flagView;
+}
+
+-(void)setFlagged: (BOOL)newFlagged
+{
+  if(newFlagged == self.flagged) return;
+  
+  NSString* flagImage = newFlagged ? @"star.png" : @"unstar.png";
+  self.flagView.image = [UIImage imageNamed: flagImage]; 
+  flagged = newFlagged;
 }
 
 -(void)setText: (NSString*)text
@@ -82,9 +98,9 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 
   // left positions for img, and for texts (label and description)
   int left = 7;
-  if(starView_) {
-    starView_.frame = CGRectMake(7, 20, 16, 16);
-    left = 27;
+  if(flagView) {
+    flagView.frame = CGRectMake(13, 20, 16, 16);
+    left = 44;
   }
 
   if(self.image) {

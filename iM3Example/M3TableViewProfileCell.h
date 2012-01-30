@@ -1,20 +1,28 @@
 #import "M3TableViewController.h"
 
-/*
- * The M3TableViewProfileCell adds support for a "star" image, which is wired 
- * up with the chairDB "stars" table.
- */
+/**
+ 
+ A profile cell.
+ 
+ Implements title, description, an optional image, and an optional "star".
+
+*/
+
 @interface M3TableViewProfileCell: M3TableViewCell {
-  UIImageView* starView_;
-  // NSString* imageURL_;
-  UIImage* image_;
 };
 
-// @property (nonatomic,copy) NSString* imageURL;
 @property (nonatomic,retain) UIImage* image;
+@property (nonatomic,retain) UIImageView* flagView;
+@property (nonatomic,assign) BOOL flagged;
 
--(void)setStarred: (BOOL)starred;
 -(void)setText: (NSString*)text;
 -(void)setDetailText: (NSString*)description;
+
+/** 
+  callback when the user toggles the flag.
+ 
+  return the new flagging status.
+*/
+-(BOOL)onFlagging: (BOOL)isNowFlagged;
 
 @end
