@@ -182,6 +182,9 @@
 		9D594A82143D027C00A4CED4 /* UIButton+ActionButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D594A7E143D027C00A4CED4 /* UIButton+ActionButton.mm */; };
 		9D5A96D314200FB8000104CA /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D5A96D114200FB7000104CA /* WebViewController.mm */; };
 		9D5D32C91448BC6600A4BA9F /* M3DataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D5D32C81448BC6600A4BA9F /* M3DataSource.mm */; };
+		9D5DB91514D74858007CCBD4 /* iRate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D5DB91314D74858007CCBD4 /* iRate.h */; };
+		9D5DB91614D74858007CCBD4 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D5DB91414D74858007CCBD4 /* iRate.m */; };
+		9D5DB91714D74858007CCBD4 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D5DB91414D74858007CCBD4 /* iRate.m */; };
 		9D6FAEC714A7530100C31703 /* M3AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FAEC314A7530100C31703 /* M3AppDelegate.mm */; };
 		9D6FAEC814A7530100C31703 /* M3AppDelegate+ApplicationURL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FAEC414A7530100C31703 /* M3AppDelegate+ApplicationURL.mm */; };
 		9D6FAEC914A7530100C31703 /* M3AppDelegate+EventTracking.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FAEC514A7530100C31703 /* M3AppDelegate+EventTracking.mm */; };
@@ -485,6 +488,8 @@
 		9D5A96D114200FB7000104CA /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewController.mm; sourceTree = "<group>"; };
 		9D5D32C71448BC6600A4BA9F /* M3DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3DataSource.h; sourceTree = "<group>"; };
 		9D5D32C81448BC6600A4BA9F /* M3DataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3DataSource.mm; sourceTree = "<group>"; };
+		9D5DB91314D74858007CCBD4 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
+		9D5DB91414D74858007CCBD4 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
 		9D6FAEC214A7530000C31703 /* M3AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3AppDelegate.h; sourceTree = "<group>"; };
 		9D6FAEC314A7530100C31703 /* M3AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3AppDelegate.mm; sourceTree = "<group>"; };
 		9D6FAEC414A7530100C31703 /* M3AppDelegate+ApplicationURL.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+ApplicationURL.mm"; sourceTree = "<group>"; };
@@ -922,6 +927,7 @@
 		9D48ACBD141E9E3E00D0D000 /* iM3Example */ = {
 			isa = PBXGroup;
 			children = (
+				9D5DB91214D74858007CCBD4 /* iRate */,
 				9D8982F514C9760E007B31CC /* FlurryAnalytics */,
 				9D38DE6914C0B14F00666D2A /* FBConnect */,
 				9D01498F14A7BCA900B27DC7 /* NSString+IM3ExampleExtensions.mm */,
@@ -1035,6 +1041,16 @@
 			);
 			path = static;
 			sourceTree = "<group>";
+		};
+		9D5DB91214D74858007CCBD4 /* iRate */ = {
+			isa = PBXGroup;
+			children = (
+				9D5DB91314D74858007CCBD4 /* iRate.h */,
+				9D5DB91414D74858007CCBD4 /* iRate.m */,
+			);
+			name = iRate;
+			path = vendor/iRate/iRate;
+			sourceTree = SOURCE_ROOT;
 		};
 		9D6FAECC14A753CE00C31703 /* AppDelegate code */ = {
 			isa = PBXGroup;
@@ -1370,6 +1386,7 @@
 				9D31171A1476C3770003D964 /* M3-Internals.h in Headers */,
 				9D4368F31489805A00E14CCB /* SearchController.h in Headers */,
 				9D7BA92414B7A33100226304 /* M3Timer.h in Headers */,
+				9D5DB91514D74858007CCBD4 /* iRate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1755,6 +1772,7 @@
 				9D38DE8A14C0B14F00666D2A /* Facebook.m in Sources */,
 				9D38DE8B14C0B14F00666D2A /* FBLoginDialog.m in Sources */,
 				9D38DE8C14C0B14F00666D2A /* FBDialog.m in Sources */,
+				9D5DB91714D74858007CCBD4 /* iRate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1812,6 +1830,7 @@
 				9D31171C1476C3770003D964 /* M3-Internals.m in Sources */,
 				9D4368F41489805A00E14CCB /* SearchController.mm in Sources */,
 				9D7BA92514B7A33100226304 /* M3Timer.m in Sources */,
+				9D5DB91614D74858007CCBD4 /* iRate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

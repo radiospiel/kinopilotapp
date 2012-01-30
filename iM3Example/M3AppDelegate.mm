@@ -17,6 +17,8 @@
 #import "FlurryAnalytics.h"
 #define FLURRY_API_KEY @"KJ96KEEHE5Y58NZURG2H"
 
+#import "iRate.h"
+
 M3AppDelegate* app;
 
 @interface M3AppDelegate()
@@ -25,6 +27,23 @@ M3AppDelegate* app;
 @implementation M3AppDelegate
 
 @synthesize window, tabBarController, facebook;
+
++ (void)initialize
+{
+  // -- configure iRate
+  iRate* r = [iRate sharedInstance];
+  r.appStoreID = 355313284;
+  r.applicationName = @"Kinopilot";
+  r.daysUntilPrompt = 3;
+  r.remindPeriod = 5;
+  r.messageTitle = @"Kinopilot bewerten...";
+  r.message = @"Gefällt Dir unser Kinopilot? "
+               "Dann bewerte die App doch im Appstore. "
+               "Danke für Deine Unterstützung!";
+  r.cancelButtonLabel = @"Nein, danke!";
+  r.rateButtonLabel = @"Vielleicht später.";
+  r.remindButtonLabel  = @"Ja, gern!";
+}
 
 - (void)dealloc
 {

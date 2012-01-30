@@ -31,3 +31,6 @@
 [submodule "vendor/facebook-ios-sdk"]
 	path = vendor/facebook-ios-sdk
 	url = git@github.com:radiospiel/facebook-ios-sdk.git
+[submodule "vendor/iRate"]
+	path = vendor/iRate
+	url = https://github.com/nicklockwood/iRate.git
