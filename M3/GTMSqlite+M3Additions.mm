@@ -450,7 +450,7 @@ static StatementType statementTypeForSql(NSString* sql)
 
 -(void)logDatabaseStats: (NSString*)msg
 {
-  dlog << @"=== " << msg 
+  dlog << @"=== " << msg << @" "
        << [self ask: @"SELECT COUNT(*) FROM movies"] << "movies, "
        << [self ask: @"SELECT COUNT(*) FROM schedules"] << " schedules, " 
        << [self ask: @"SELECT COUNT(*) FROM theaters"] << " theaters";
