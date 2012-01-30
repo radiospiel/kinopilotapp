@@ -104,6 +104,9 @@ extern M3AppDelegate* app;
 
 -(UIImage*) thumbnailForMovie: (NSDictionary*) movie;
 
+-(BOOL)isFlagged: (NSString*) key;
+-(void)setFlagged: (BOOL)flag onKey: (NSString*)key;
+
 -(void)updateDatabase;
 -(void)updateDatabaseIfNeeded;
 
