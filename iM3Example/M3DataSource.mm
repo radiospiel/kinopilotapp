@@ -346,36 +346,26 @@
 
 @end
 
-@interface EmptyDataSource: M3TableViewDataSource
-@end
-
-@implementation EmptyDataSource
-
--(id)init 
-{
-  self = [super init];
-  [self addSection: _.array(@"EmptyListCell", @"EmptyListUpdateActionCell") ];
-  return self;
-}
-
--(id) cellClassForKey: (id)key
-{ 
-  return key; 
-}
-
-@end
-
 @implementation M3DataSource(M3Lists)
 
 +(M3TableViewDataSource*) datasourceWithName: (NSString*)name 
+                          andFallbackSection: (NSString*)fallbackSection
                                    fromBlock: (M3TableViewDataSource* (^)())block
 {
   Benchmark(_.join("*** Building datasource ", name));
   
   M3TableViewDataSource* dataSource = block();
   if(dataSource.sections.count > 0) return dataSource;
-  
-  return [[[EmptyDataSource alloc]init]autorelease];
+ 
+  return [M3TableViewDataSource dataSourceWithSection: [fallbackSection componentsSeparatedByString:@","]];
+}
+
++(M3TableViewDataSource*) datasourceWithName: (NSString*)name 
+                                   fromBlock: (M3TableViewDataSource* (^)())block
+{
+  return [self datasourceWithName: name 
+               andFallbackSection: @"EmptyListCell,EmptyListUpdateActionCell"
+                        fromBlock: block];
 }
 
 +(M3TableViewDataSource*)moviesListWithFilter:(NSString *)filter
@@ -410,7 +400,12 @@
 
 +(M3TableViewDataSource*)theatersListWithFilter:(NSString *)filter
 {
+  NSString* fallbackSection = @"EmptyListCell,EmptyListUpdateActionCell";
+  if([filter isEqualToString:@"fav"])
+    fallbackSection = @"NoFavsCell";
+  
   return [self datasourceWithName: @"theatersListWithFilter" 
+               andFallbackSection: fallbackSection
                         fromBlock: ^M3TableViewDataSource*() {
                           M3TableViewDataSource* ds;
                           ds = [[TheatersListDataSource alloc]initWithFilter: filter];

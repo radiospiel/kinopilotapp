@@ -223,3 +223,28 @@
 }
 
 @end
+
+#pragma mark -- default data source
+
+@interface M3TableViewDefaultDataSource: M3TableViewDataSource
+@end
+
+@implementation M3TableViewDefaultDataSource
+
+-(id)cellClassForKey: (id)key
+{ 
+  return key; 
+}
+
+@end
+
+@implementation M3TableViewDataSource(defaultDataSource)
+
++(M3TableViewDataSource*)dataSourceWithSection: (NSArray*)section;
+{
+  M3TableViewDataSource* dataSource = [[M3TableViewDefaultDataSource alloc]init];
+  [dataSource addSection: section];
+  return [dataSource autorelease];
+}
+
+@end

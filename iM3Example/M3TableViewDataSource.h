@@ -60,3 +60,10 @@
 - (M3TableViewDataSource*)dataSourceByFilteringWith: (NSString*)filterText;
 
 @end
+
+@interface M3TableViewDataSource(defaultDataSource)
+
++(M3TableViewDataSource*)dataSourceWithSection: (NSArray*)section;
+
+@end
+

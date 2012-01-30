@@ -101,7 +101,7 @@
   [self.tableView setDataSource: dataSource_]; 
   [self.tableView reloadData];
   
-  if([dataSource_ isKindOfClass: @"EmptyDataSource".to_class]) {
+  if([dataSource_ isKindOfClass: @"M3TableViewDefaultDataSource".to_class]) {
     self.tableView.separatorColor = [UIColor clearColor];
     self.tableView.scrollEnabled = NO;
   }
