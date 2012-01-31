@@ -87,7 +87,7 @@
 - (BOOL)stringItem: (NSString*)item 
      matchesFilter: (NSString*)filter
 {
-  return [[item uppercaseString] hasPrefix: [filter uppercaseString]];
+  return [[item uppercaseString] containsString: [filter uppercaseString]];
 }
 
 - (BOOL)dictionaryItem: (NSDictionary*)item 
@@ -95,6 +95,7 @@
 {
   NSString* itemText = [item objectForKey:@"filter"];
   if(!itemText) itemText = [item objectForKey:@"title"];
+  if(!itemText) itemText = [item objectForKey:@"name"];
   if(!itemText) itemText = [item objectForKey:@"label"];
 
   return [self stringItem:itemText matchesFilter:filter];
@@ -113,7 +114,6 @@
 - (NSArray*)section: (NSArray*)section filteredWith: (NSString*)filter
 {
   NSArray* keys = section.first;
-  NSDictionary* options = section.second;
 
   keys = [ keys selectUsingBlock:^BOOL(id item) {
     return [self item: item matchesFilter: filter];
@@ -121,7 +121,9 @@
   
   if(keys.count == 0) return nil;
   
-  return [NSArray arrayWithObjects: keys, options, nil];
+  // Build a filtered section *without* the original section's options:
+  // we do not want headers or footers here.
+  return [NSArray arrayWithObject: keys];
 }
 
 - (M3TableViewDataSource*)dataSourceByFilteringWith: (NSString*)filterText;

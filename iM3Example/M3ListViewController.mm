@@ -88,14 +88,24 @@
 
 #pragma mark - Search Bar
 
--(UISearchBar*)searchBar
+-(void)setSearchBarEnabled: (BOOL)enabled
 {
+  // --- create the search bar.
   UISearchBar* searchBar = [[UISearchBar alloc]initWithFrame: CGRectMake(0, 0, 290, 44)];
-  [searchBar setBarStyle:UIBarStyleBlackOpaque];
-  //searchBar.showsCancelButton = YES;
-  // bar 
   searchBar.delegate = self;
-  return [searchBar autorelease];
+  searchBar.barStyle = UIBarStyleBlackOpaque;
+  
+  // --- create a navigation bar dummy, which covers the space between pixels 290 and 20.
+  UINavigationBar *dummyNavigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+  dummyNavigationBar.barStyle = searchBar.barStyle;
+  
+  UIView *customTableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+  [customTableHeaderView addSubview:[dummyNavigationBar autorelease]];
+  [customTableHeaderView addSubview:[searchBar autorelease]];
+  self.tableView.tableHeaderView = [customTableHeaderView autorelease];
+
+  // --- hide search bar: user must pull the list down.
+  self.tableView.contentOffset = CGPointMake(0, 44);
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
@@ -112,28 +122,13 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
   self.filterText = searchText;
+
+  if(searchText.length) return;
+  
+  // The user clicked [X] or otherwise removed the filter text.
+  [searchBar performSelector: @selector(resignFirstResponder) 
+                  withObject: nil 
+                  afterDelay: 0.1];
 }
-
-// - (void) searchBarTextDidBeginEditing:(UISearchBar *)theSearchBar {
-//   // letUserSelectRow = NO;
-//   // self.tableView.scrollEnabled = NO;
-  
-//   // TODO: disable or hide index
-  
-//   //Add the done button.
-// //  self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc]
-// //                                             initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-// //                                             target:self action:@selector(doneSearching_Clicked:)] autorelease];
-// }
-
-//- (void) doneSearching_Clicked:(UIBarButtonItem *)sender {
-//  
-//}
-
-//- (NSIndexPath *)tableView :(UITableView *)theTableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath 
-//{
-//  if(searchMode_) return nil;
-//  return indexPath;
-//}
 
 @end

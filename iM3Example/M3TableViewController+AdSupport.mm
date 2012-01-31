@@ -1,6 +1,7 @@
 #import "M3AppDelegate.h"
 #import "M3TableViewController.h"
 #import "M3TableViewController+AdSupport.h"
+#import "M3ListViewController.h"
 
 // --- iAds ------------------------------------------------------------------
 
@@ -69,7 +70,17 @@ static NSString *kADBannerContentSizeLandscape = nil;
   if(!indexPath) return;
 
   [app trackEvent: @"/ad/loaded"];
-
+  
+  // TODO:
+  //
+  // If this is a list view controller which is currently filtering 
+  // we do not update the table view. This is because the indexPath
+  // here refers to the index path in the original datasource, not
+  // in the filtered one!
+  if([self isKindOfClass: [M3ListViewController class]]) {
+    if([((M3ListViewController*)self) filterText].length > 0) return;
+  }
+  
   [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject: indexPath]
                         withRowAnimation:UITableViewRowAnimationNone];
 }

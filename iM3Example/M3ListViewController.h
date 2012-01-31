@@ -13,6 +13,6 @@
 @property (nonatomic,retain) NSString* searchText;
 @property (nonatomic,retain) M3TableViewDataSource *originalDataSource;
 
--(UISearchBar*)searchBar;
+-(void)setSearchBarEnabled: (BOOL)searchBarEnabled;
 
 @end

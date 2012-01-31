@@ -15,13 +15,6 @@
 
 @implementation SearchController
 
--(id)init
-{
-  self = [super init];
-  
-  return self;
-}
-
 -(NSString*)title
 {
   return @"Suche...";
@@ -29,8 +22,7 @@
 
 -(void)reloadURL
 {
-  self.tableView.tableHeaderView = [self searchBar];
-  // self.dataSource = [M3DataSource moviesListFilteredByTheater:[params objectForKey: @"theater_id"]]; 
+  [self setSearchBarEnabled:YES];
 }
 
 -(void)setFilterText: (NSString*)filterText

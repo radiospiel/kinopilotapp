@@ -186,7 +186,8 @@
     NSString* filter = [params objectForKey: @"filter"];
     if(!filter) filter = @"all";
     self.dataSource = [M3DataSource moviesListWithFilter: filter];
-    self.tableView.tableHeaderView = nil;
+
+    [self setSearchBarEnabled: YES];
   }
 }
 

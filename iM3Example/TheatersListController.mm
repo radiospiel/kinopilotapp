@@ -219,7 +219,8 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
     NSString* filter = [params objectForKey: @"filter"];
     if(!filter) filter = @"all";
     self.dataSource = [M3DataSource theatersListWithFilter: filter];
-    self.tableView.tableHeaderView = nil;
+
+    [self setSearchBarEnabled: YES];
   }
 }
 
