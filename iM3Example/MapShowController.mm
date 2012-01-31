@@ -48,14 +48,12 @@
 
 @end
 
+// The MapShow controller either shows a map around a cinema - in which 
+// case a theater_id is set - or just a general map around the city.
+//
+// Note that the MapShowController is actually loaded from a .xib file.
+
 @implementation MapShowController
-
-@synthesize theatersToAdd = theatersToAdd_, theater_id = theater_id_;
-
--(void)reloadURL
-{
-  self.theater_id = [self.url.to_url param: @"theater_id"]; 
-}
 
 -(NSString*)title 
 {
@@ -86,45 +84,93 @@
    ];
 }
 
--(void)startUpdate
+#pragma mark - View lifecycle
+
+-(NSString*)theater_id
 {
-  [[M3LocationManager class] updateLocation]; 
-  [self setUpdateIsRunning];
+  return [self.url.to_url param: @"theater_id"]; 
 }
 
-- (void)onUpdatedLocation: (M3LocationManager*)locationManager
+-(MKCoordinateRegion)regionFromTheater
 {
-  [self setUpdateIsRunning];
-  [self setLocation];
-}
-
-- (void)onUpdateLocationFailed: (NSError*)error
-{
-  [self setUpdateIsNotRunning];
-  dlog << "Got location error " << error;
-}
-
-
--(void)initLocationUpdates
-{
-  [M3LocationManager on: @selector(onUpdatedLocation) 
-                 notify: self 
-                   with: @selector(onUpdatedLocation:) ];
+  NSDictionary* theater = [app.sqliteDB.theaters get: self.theater_id];
   
-  [M3LocationManager on: @selector(onError) 
-                 notify: self 
-                   with: @selector(onUpdateLocationFailed)];
+  NSNumber* lat = [theater objectForKey:@"lat"];
+  NSNumber* lng = [theater objectForKey:@"lng"];
   
-  [self setLocation];
-  [self setUpdateIsNotRunning];
+  MKCoordinateRegion region;
+
+  region.center = CLLocationCoordinate2DMake([lat floatValue], [lng floatValue]);
+  region.span.latitudeDelta = 0.012;
+  region.span.longitudeDelta = 0.012;
+
+  return region;
 }
 
+-(MKCoordinateRegion)regionFromUserLocation
+{
+  MKCoordinateRegion region;
+  
+  MKUserLocation* location = mapView.userLocation;
+  #if TARGET_IPHONE_SIMULATOR
+  location = nil;
+  #endif
+  
+  if(location) {
+    region.center = mapView.userLocation.coordinate;
+    
+    region.span.latitudeDelta = 0.03;
+    region.span.longitudeDelta = 0.03;
+  }
+  else {
+    region.center = CLLocationCoordinate2DMake(52.5198, 13.3881); // Berlin Friedrichstrasse
+
+    region.span.latitudeDelta = 0.08;
+    region.span.longitudeDelta = 0.08;
+  }
+  
+  return region;
+}
+
+-(void)setMapViewRegion
+{
+  mapView.region = self.theater_id ? 
+    [self regionFromTheater] : 
+    [self regionFromUserLocation];
+}
+
+-(void)addTheaterAnnotations
+{
+  NSArray* theaters = [app.sqliteDB.theaters all];
+  NSArray* annotations = [theaters mapUsingBlock:^id(NSDictionary* theater) {
+    return [[MapAnnotation alloc]initWithTheater: theater];
+  }];
+  [mapView addAnnotations:annotations];
+}
+
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  
+  mapView.delegate = self;
+
+  [self setMapViewRegion];
+  [self addTheaterAnnotations];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+  return YES;
+}
 
 #pragma mark - mapView delegate
 
 - (MKAnnotationView*) mapView:(MKMapView *)mv 
             viewForAnnotation:(MapAnnotation*)annotation 
 {
+  if ([annotation isKindOfClass:[MKUserLocation class]])
+    return nil;
+  
   // Try to dequeue an existing pin view first.
   static NSString* identifier = @"CustomPinAnnotationView";
   
@@ -138,7 +184,7 @@
   // If an existing pin view was not available, create one.
   pinView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation
                                              reuseIdentifier:identifier]
-              autorelease];
+             autorelease];
   
   if([[self theater_id] isEqualToString: annotation.theater_id]) {
     pinView.pinColor = MKPinAnnotationColorGreen;
@@ -148,65 +194,26 @@
     pinView.pinColor = MKPinAnnotationColorRed;
     pinView.animatesDrop = YES;
   }
-
+  
   pinView.canShowCallout = YES;
   
   // Add a detail disclosure button to the callout.
   UIButton* rightButton = [UIButton buttonWithType: UIButtonTypeDetailDisclosure];
-
+  
   [rightButton addTarget:annotation 
                   action:@selector(showDetails:)
         forControlEvents:UIControlEventTouchUpInside];
   
   pinView.rightCalloutAccessoryView = rightButton;
-    
+  
   return pinView;
 }
 
-
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
+-(void)mapView:(MKMapView *)aMapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-  [super viewDidLoad];
-  
-  mapView.delegate = self;
-
-  NSString* theater_id = [self theater_id];
-  
-  MKCoordinateRegion region;
-  if(theater_id) {
-    NSDictionary* theater = [app.sqliteDB.theaters get: theater_id];
-    NSNumber* lat = [theater objectForKey:@"lat"];
-    NSNumber* lng = [theater objectForKey:@"lng"];
-    
-    region.center = CLLocationCoordinate2DMake([lat floatValue], [lng floatValue]);
-    region.span.latitudeDelta = 0.012;
-    region.span.longitudeDelta = 0.012;
+  if(!self.theater_id) {
+    [self setMapViewRegion];
   }
-  else {
-    region.center = [M3LocationManager coordinates];
-    region.span.latitudeDelta = 0.08;
-    region.span.longitudeDelta = 0.08;
-  }
-  
-  [mapView setRegion:region];
-  
-  NSArray* theaters = [app.sqliteDB.theaters all];
-  NSArray* annotations = [theaters mapUsingBlock:^id(NSDictionary* theater) {
-    return [[MapAnnotation alloc]initWithTheater: theater];
-  }];
-  
-  if(!theater_id)
-    [self initLocationUpdates];
-  
-  [mapView addAnnotations:annotations];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-  // Return YES for supported orientations
-  return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end
