@@ -7,11 +7,25 @@
 //
 
 #import "M3AppDelegate.h"
-#import "VicinityShowController.h"
 #import "M3TableViewProfileCell.h"
 #import "SVProgressHUD.h"
+#import "M3ListViewController.h"
 
-/***  VicinityTableCell ****************************************************/
+#pragma mark -- VicinityShowController
+
+@interface VicinityController: M3ListViewController
+@end
+
+@implementation VicinityController
+
+-(void)perform
+{
+  [M3LocationManager updateLocationAndOpen: @"/vicinity/show"];
+}
+
+@end
+
+#pragma mark -- VicinityTableCell
 
 // VicinityTableCell defines some layout for the various Vicinity cells
 //
@@ -109,29 +123,26 @@
 
 @end
 
-/*** The datasource for MoviesList *******************************************/
+#pragma mark -- The datasource for /vicinity/show
 
-@interface VicinityShowDataSource: M3TableViewDataSource {
-  CLLocationCoordinate2D currentPosition_;
-}
-
+@interface VicinityShowDataSource: M3TableViewDataSource
 @end
 
 @implementation VicinityShowDataSource
 
--(id)initWithPosition: (CLLocationCoordinate2D)position
+-(id)init
 {
   self = [super init];
   if(!self) return nil;
 
-  currentPosition_ = position;
-  
+  CLLocationCoordinate2D position = [M3LocationManager coordinates];
+
   Benchmark(@"Building vicinity data set");
 
   NSArray* theaters = [
     app.sqliteDB all: @"SELECT _id, name, lat, lng, distance(lat, lng, ?, ?) AS distance FROM theaters ORDER BY distance LIMIT 12", 
-                      [NSNumber numberWithDouble: currentPosition_.latitude], 
-                      [NSNumber numberWithDouble: currentPosition_.longitude]
+                      [NSNumber numberWithDouble: position.latitude], 
+                      [NSNumber numberWithDouble: position.longitude]
   ];
 
   //
@@ -189,49 +200,9 @@
 
 @end
 
-@interface VicinityShowController(LocationManager)
+#pragma mark -- /vicinity/show
 
--(void)listenToLocationManager;
-
-@end
-
-@implementation VicinityShowController(LocationManager)
-
--(void)listenToLocationManager
-{
-  [M3LocationManager on: @selector(onUpdatedLocation) 
-                 notify: self
-                   with: @selector(onUpdatedLocation) ];
-
-  [M3LocationManager on: @selector(onError) 
-                 notify: self
-                   with: @selector(onUpdateLocationFailed:)];
-}
-
--(void)startUpdateLocation
-{
-  [M3LocationManager updateLocation];
-  [SVProgressHUD showWithStatus:@"Position bestimmen" maskType: SVProgressHUDMaskTypeBlack];
-}
-
--(void)onUpdatedLocation
-{
-  [SVProgressHUD dismiss];
-  [self reload];
-}
-
--(void)onUpdateLocationFailed: (NSError*)error
-{
-  dlog << "*** Got location error " << error;
-
-  [SVProgressHUD dismissWithError: @"Deine Position konnte nicht bestimmt werden."];
-  /*
-   * The reload is not strictly necessary, as we now have identical messages
-   * for unavailable and for on errors situations.
-   */
-  [self reload];
-}
-
+@interface VicinityShowController : M3ListViewController
 @end
 
 @implementation VicinityShowController
@@ -239,30 +210,13 @@
 -(id)init
 {
   self = [super init];
-  if(!self) return nil;
-
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched; 
-
-  [self listenToLocationManager];
-  
   return self;
 }
 
 -(void)reload
 {
-  if([M3LocationManager locationAvailable]) {
-    M3TableViewDataSource* ds = [[VicinityShowDataSource alloc]initWithPosition:[M3LocationManager coordinates]];
-    self.dataSource = [ds autorelease];
-  }
-  else if([M3LocationManager lastError]) {
-    self.dataSource = [M3TableViewDataSource dataSourceWithSection:_.array(@"LocationErrorCell")];
-  }
-  else {
-    self.dataSource = [M3TableViewDataSource dataSourceWithSection:_.array(@"NoLocationCell")];
-
-    [M3LocationManager updateLocation];
-    [SVProgressHUD showWithStatus:@"Position bestimmen" maskType: SVProgressHUDMaskTypeBlack];
-  }
+  self.dataSource = [[[VicinityShowDataSource alloc]init] autorelease];
 }
 
 @end

@@ -41,8 +41,8 @@ static NSDictionary *titlesByKey, *urlsByKey;
   urlsByKey = [_.hash( @"city",     @"/map/show",
                       @"theaters", @"/theaters/list",
                       @"movies",   @"/movies/list",
-                      @"about",    @"/info", // ?section=moviepilot",
-                      @"vicinity", @"/vicinity/show")retain];
+                      @"about",    @"/info",
+                      @"vicinity", @"/vicinity")retain];
 }
 
 +(CGFloat)fixedHeight

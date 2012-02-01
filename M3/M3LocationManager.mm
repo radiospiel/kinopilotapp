@@ -6,7 +6,8 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "M3.h"
+#import "M3AppDelegate.h"
+#import "SVProgressHUD.h"
 
 #if TARGET_OS_IPHONE
 
@@ -14,63 +15,50 @@
  * This is the default location. 
  */
 #define FRIEDRICH_STRASSE CLLocationCoordinate2DMake(52.5198, 13.3881)      // Berlin Friedrichstrasse
-
+#define ACCURACY          200
 
 @interface M3LocationManager()
 
 @property (nonatomic,retain) CLLocationManager* locationManager;
-@property (nonatomic,assign) BOOL locationAvailable;
 @property (nonatomic,assign) CLLocationCoordinate2D coordinates;
-@property (nonatomic,assign) CLLocationAccuracy accuracy;
-@property (nonatomic,retain) NSError* lastError;
+@property (nonatomic,retain) NSString* urlToOpen;
+@property (nonatomic,assign) BOOL locationAvailable;
 
 @end
 
 @implementation M3LocationManager
 
-@synthesize locationManager, accuracy, coordinates, lastError, locationAvailable;
+@synthesize locationManager, coordinates, urlToOpen, locationAvailable;
 
 #pragma mark - Lifecycle
 
--(id)initWithAccuracy: (CGFloat)theAccuracy
+-(id)init
 {
   self = [super init];
-  self.accuracy = theAccuracy;
-  self.coordinates = FRIEDRICH_STRASSE;
 
+  self.coordinates = FRIEDRICH_STRASSE;
   self.locationManager = [[[CLLocationManager alloc] init] autorelease];
   self.locationManager.delegate = self; // send location updates to myself
   
-  self.locationAvailable = NO;
-  
   return self;
-}
-
--(id)init
-{ 
-  return [self initWithAccuracy:200]; 
-}
-
-+(M3LocationManager*) locationManager
-{
-  return [[[self alloc]init]autorelease];
 }
 
 -(void)dealloc
 {
   self.locationManager = nil;
-  self.lastError = nil;
+  self.urlToOpen = nil;
   
   [super dealloc];
 }
 
 // Start a location update. Stop the update and set to timeout after 15 secs.
--(void) updateLocation
+-(void) updateLocationAndOpenURL: (NSString*)url
 {
+  self.urlToOpen = url;
   self.locationAvailable = NO;
-  self.lastError = nil;
-  
+
   [self.locationManager startUpdatingLocation];
+  [SVProgressHUD showWithStatus:@"Position bestimmen" maskType: SVProgressHUDMaskTypeBlack];
   
   int64_t nanosecs = 15 * 1e09; // 15 secs.
 
@@ -80,7 +68,7 @@
 
   dispatch_after( dispatch_time(DISPATCH_TIME_NOW, nanosecs),
     dispatch_get_main_queue(), ^{
-      if(![self locationAvailable]) {
+      if(!self.locationAvailable) {
         NSError* timeout = [NSError errorWithDomain:@"Timeout" code:0 userInfo: nil];
 
         [self locationManager:self.locationManager 
@@ -97,25 +85,24 @@
            fromLocation:(CLLocation *)oldLocation
 {
   // Not yet good enough?
-  if([newLocation horizontalAccuracy] > self.accuracy) 
+  if([newLocation horizontalAccuracy] > ACCURACY) 
     return;
   
   // Got update
   self.locationAvailable = YES;
   self.coordinates = newLocation.coordinate;
   [self.locationManager stopUpdatingLocation];
+  [SVProgressHUD dismiss];
   
-  [[self class] emit: @selector(onUpdatedLocation) withParameter: self];
+  [app open: self.urlToOpen];
 }
 
 -(void) locationManager:(CLLocationManager *)manager 
        didFailWithError:(NSError *)error
 {
-  dlog << "Got location error " << error;
-  self.lastError = error;
+  [SVProgressHUD dismissWithError: @"Deine Position konnte nicht bestimmt werden."];
   
   [self.locationManager stopUpdatingLocation];
-  [[self class] emit: @selector(onError) withParameter: error];
 }
 
 #pragma mark - M3LocationManager singleton object
@@ -127,24 +114,14 @@ static M3LocationManager* defaultManager = nil;
   defaultManager = [[M3LocationManager alloc]init];
 }
 
-+(void) updateLocation
++(void) updateLocationAndOpen:(NSString *)url
 {
-  [defaultManager updateLocation];
+  [defaultManager updateLocationAndOpenURL:url];
 }
 
 +(CLLocationCoordinate2D) coordinates
 {
   return defaultManager.coordinates;
-}
-
-+(BOOL)locationAvailable
-{
-  return defaultManager.locationAvailable;
-}
-
-+(NSError*)lastError
-{
-  return defaultManager.lastError;
 }
 
 @end

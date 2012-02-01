@@ -584,7 +584,6 @@
 		9DC0A31814BF9544003FF7F7 /* ShareMovieController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShareMovieController.mm; sourceTree = "<group>"; };
 		9DC0A31A14BF97F6003FF7F7 /* share_movie_email.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = share_movie_email.html; sourceTree = "<group>"; };
 		9DC0A31C14BFA4DC003FF7F7 /* M3AppDelegate+Alert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+Alert.mm"; sourceTree = "<group>"; };
-		9DC1E75E1435C145009B41A5 /* VicinityShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VicinityShowController.h; sourceTree = "<group>"; };
 		9DC1E75F1435C145009B41A5 /* VicinityShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VicinityShowController.mm; sourceTree = "<group>"; };
 		9DC5123E143723A8009A393C /* M3LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3LocationManager.h; sourceTree = "<group>"; };
 		9DC5123F143723A8009A393C /* M3LocationManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3LocationManager.mm; sourceTree = "<group>"; };
@@ -1099,7 +1098,6 @@
 				9DC0A30D14BF829F003FF7F7 /* ShareScheduleController.mm */,
 				9DC682BB142CBF2200124E9A /* TheatersListController.h */,
 				9DC682BC142CBF2200124E9A /* TheatersListController.mm */,
-				9DC1E75E1435C145009B41A5 /* VicinityShowController.h */,
 				9DC1E75F1435C145009B41A5 /* VicinityShowController.mm */,
 				9D5A96D014200FB6000104CA /* WebViewController.h */,
 				9D5A96D114200FB7000104CA /* WebViewController.mm */,

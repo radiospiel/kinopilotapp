@@ -28,16 +28,10 @@
 @interface M3LocationManager: NSObject<CLLocationManagerDelegate>
 
 /** starts updating the location once. */
-+(void) updateLocation;
++(void)updateLocationAndOpen: (NSString*)url;
 
 /** returns the currently read coordinates */
 +(CLLocationCoordinate2D) coordinates;
-
-/** returns the last error, if any. */
-+(NSError*) lastError;
-
-/** returns true if a position is available */
-+(BOOL)locationAvailable;
 
 @end
 
