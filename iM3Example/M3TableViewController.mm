@@ -108,6 +108,7 @@
   else {
     self.tableView.separatorColor = [UIColor colorWithName: @"#ddd"];
     self.tableView.scrollEnabled = YES;
+    [self.tableView setScrollsToTop:YES];
   }
 }
 
