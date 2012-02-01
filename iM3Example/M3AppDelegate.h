@@ -47,6 +47,9 @@ extern M3AppDelegate* app;
 -(UINavigationController*)topMostController;
 -(void)presentControllerOnTop: (UIViewController*)viewController;
 
+/** returns @"WIFI", @"CELL", or nil */
+-(NSString*)currentReachability;
+
 @end
 
 @interface M3AppDelegate(ApplicationURL)

@@ -17,6 +17,11 @@
 #import "FlurryAnalytics.h"
 #define FLURRY_API_KEY @"KJ96KEEHE5Y58NZURG2H"
 
+// for network status
+#include <netdb.h>
+#include <arpa/inet.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+
 #import "iRate.h"
 
 M3AppDelegate* app;
@@ -236,6 +241,32 @@ M3AppDelegate* app;
   [self.window makeKeyAndVisible];
   
   [self trackEvent: @"start"];          // track a start event
+}
+
+// Returns nil, @"WIFI", or @"CELL"
+-(NSString*)currentReachability
+{
+  // Part 1 - Create Internet socket addr of zero
+  struct sockaddr_in zeroAddr;
+  bzero(&zeroAddr, sizeof(zeroAddr));
+  zeroAddr.sin_len = sizeof(zeroAddr);
+  zeroAddr.sin_family = AF_INET;
+  
+  // Part 2- Create target in format need by SCNetwork
+  SCNetworkReachabilityRef target = 
+  SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *) &zeroAddr);
+  
+  // Part 3 - Get the flags
+  SCNetworkReachabilityFlags flags;
+  SCNetworkReachabilityGetFlags(target, &flags);
+  
+  // Part 4 - Create output
+  if(!(flags & kSCNetworkFlagsReachable)) 
+    return nil;
+  else if (flags & kSCNetworkReachabilityFlagsIsWWAN)
+    return @"CELL";
+  else
+    return @"WIFI";
 }
 
 -(BOOL) application:(UIApplication *)application 
