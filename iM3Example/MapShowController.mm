@@ -97,7 +97,9 @@
   return [self.url.to_url param: @"theater_id"]; 
 }
 
--(MKCoordinateRegion)regionFromTheater
+#pragma mark - theater regions
+
+-(void)setRegionFromTheater
 {
   NSDictionary* theater = [app.sqliteDB.theaters get: self.theater_id];
   
@@ -110,13 +112,14 @@
   region.span.latitudeDelta = 0.012;
   region.span.longitudeDelta = 0.012;
 
-  return region;
+  [mapView setRegion:region];
 }
+
+#pragma mark - user locations
 
 -(CLLocationCoordinate2D)defaultLocation
 {
   return CLLocationCoordinate2DMake(52.5198, 13.3881); // Berlin Friedrichstrasse
-
 }
 
 -(BOOL)validLocation: (MKUserLocation*)location
@@ -132,36 +135,38 @@
   return YES;
 }
 
--(MKCoordinateRegion)regionFromUserLocation
+-(MKCoordinateRegion)setRegionFromUserLocation
 {
-  MKCoordinateRegion region;
-  
   MKUserLocation* location = mapView.userLocation;
   
-  // If the location is outside a certain area we just default
-  // to friedrichstrasse.
-  
   if([self validLocation:location]) {
+    MKCoordinateRegion region;
+    
     region.center = location.coordinate;
     
     region.span.latitudeDelta = 0.03;
     region.span.longitudeDelta = 0.03;
+
+    [mapView setRegion:region animated:YES];
   }
   else {
+    MKCoordinateRegion region;
+    
     region.center = [self defaultLocation];
     
     region.span.latitudeDelta = 0.08;
     region.span.longitudeDelta = 0.08;
+    
+    [mapView setRegion:region];
   }
-  
-  return region;
 }
 
 -(void)setMapViewRegion
 {
-  mapView.region = self.theater_id ? 
-    [self regionFromTheater] : 
-    [self regionFromUserLocation];
+  if(self.theater_id)
+    [self setRegionFromTheater];
+  else
+    [self setRegionFromUserLocation];
 }
 
 -(void)addTheaterAnnotations
