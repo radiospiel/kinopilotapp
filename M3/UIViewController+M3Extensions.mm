@@ -15,6 +15,8 @@
   
   [self instance_variable_set: @selector(m3_url) withValue: url];
   if(url) [self reloadURL];
+  
+  self.navigationItem.title = self.title;
 }
 
 -(void)reloadURL
@@ -27,14 +29,6 @@
   if(!self.url) return;
   [self reloadURL];
 }
-
--(NSString*) title {
-  return [ self instance_variable_get: @selector(m3_title) ];
-};
-
--(void) setTitle: (NSString*)title {
-  [ self instance_variable_set: @selector(m3_title) withValue: title ];
-};
 
 -(void)releaseM3Properties {
   [self instance_variable_set: @selector(m3_url) withValue: nil];
