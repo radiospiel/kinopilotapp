@@ -297,7 +297,7 @@
   posterView.image = [app thumbnailForMovie: self.movie];
   posterView.imageURL = thumbnails.first;
 
-  if(thumbnails.first) {
+  if(thumbnails.first && [app currentReachability]) {
     UIImageView* tapReceiver = [[UIImageView alloc] initWithFrame: CGRectMake(57, 86, 30, 30)];
     tapReceiver.image = [UIImage imageNamed:@"42-photos.png"];
     tapReceiver.contentMode = UIViewContentModeCenter;
