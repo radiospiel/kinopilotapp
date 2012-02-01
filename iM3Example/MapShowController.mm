@@ -60,6 +60,12 @@
   return @"Berlin";
 }
 
+-(void)dealloc
+{
+  mapView.delegate = nil;
+  [super dealloc];
+}
+
 #pragma mark - updating location
 
 -(void)setLocation
@@ -156,6 +162,13 @@
 
   [self setMapViewRegion];
   [self addTheaterAnnotations];
+}
+
+-(void)viewDidUnload
+{
+  mapView.delegate = nil;
+  
+  [super viewDidUnload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
