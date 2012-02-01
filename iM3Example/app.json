@@ -41,11 +41,8 @@
     {
       "header":  "Dein Kinopilot",
       "content": [
-        ["Kinopilot im Netz", "http://kinopilotapp.de/p/kinopilot"],
+        ["Kinopilot im Netz", "http://kinopilotapp.de"],
         ["Aktualisiert",      "updated_at"],
-        ["Revision",          "revision"],
-        ["Kinos",             "theaters_count"],
-        ["Filme",             "movies_count"],
         ["Aufführungen",      "schedules_count"]
       ]
     },
@@ -76,12 +73,10 @@
     {
       "header":  "Über Kinopilot",
       "content": [
-        "Kinopilot.app is built using a custom framework for rapid iOS application development.",
-        ["Version",               "built_at"],
         ["Umsetzung",             "http://socially.io"],
         ["Grafische Beratung",    "http://brettmeister.com"]
       ],
-      "footer": "© socially.io UG (haftungsbeschränkt), 2011"
+      "footer": "© radiospiel UG (haftungsbeschränkt), 2011"
     }
   ],
   "moviepilot": [
