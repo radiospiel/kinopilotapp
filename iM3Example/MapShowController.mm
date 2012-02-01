@@ -117,7 +117,7 @@
   #endif
   
   if(location) {
-    region.center = mapView.userLocation.coordinate;
+    region.center = location.coordinate;
     
     region.span.latitudeDelta = 0.03;
     region.span.longitudeDelta = 0.03;

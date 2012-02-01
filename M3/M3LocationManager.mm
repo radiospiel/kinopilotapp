@@ -38,7 +38,7 @@
   self.accuracy = theAccuracy;
   self.coordinates = FRIEDRICH_STRASSE;
 
-  self.locationManager = [[CLLocationManager alloc] init];
+  self.locationManager = [[[CLLocationManager alloc] init] autorelease];
   self.locationManager.delegate = self; // send location updates to myself
   
   self.locationAvailable = NO;
