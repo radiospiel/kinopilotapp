@@ -130,6 +130,7 @@
 
 -(void)popNavigationController
 {
+  [SVProgressHUD dismiss]; // just in case...
   [self.navigationController popViewControllerAnimated:YES];
 }
 
