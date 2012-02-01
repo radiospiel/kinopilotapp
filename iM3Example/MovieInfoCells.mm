@@ -284,6 +284,7 @@
   htmlView.frame = CGRectMake(107, 7, sz.width, sz.height);
 
   NSArray* thumbnails = [self.movie objectForKey:@"thumbnails"];
+  posterView.image = [app thumbnailForMovie: self.movie];
   posterView.imageURL = thumbnails.first;
 
   if(thumbnails.first) {
