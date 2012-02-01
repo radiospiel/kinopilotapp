@@ -107,6 +107,16 @@
   return _.join(@"/movies/trailer?movie_id=", [self.movie objectForKey: @"_id"]);
 }
 
+-(void)didSelectCell
+{
+  if(![app currentReachability]) {
+    [app alertMessage:@"Um Trailer sehen zu können, benötigst Du eine Verbindung ins Internet."];
+    return;
+  }
+
+  [super didSelectCell];
+}
+
 -(CGFloat)wantsHeight
 {
   return self.url ? 44 : 0;
