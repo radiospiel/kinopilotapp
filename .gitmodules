@@ -4,9 +4,6 @@
 [submodule "vendor/MAZeroingWeakRef"]
 	path = vendor/MAZeroingWeakRef
 	url = https://github.com/mikeash/MAZeroingWeakRef.git
-[submodule "vendor/EGOTextView"]
-	path = vendor/EGOTextView
-	url = https://github.com/enormego/EGOTextView.git
 [submodule "vendor/TTTAttributedLabel.git"]
 	path = vendor/TTTAttributedLabel.git
 	url = https://github.com/mattt/TTTAttributedLabel.git
@@ -16,9 +13,6 @@
 [submodule "vendor/mixpanel-iphone"]
 	path = vendor/mixpanel-iphone
 	url = https://github.com/mixpanel/mixpanel-iphone.git
-[submodule "vendor/SQLiteManager4iOS"]
-	path = vendor/SQLiteManager4iOS
-	url = https://github.com/radiospiel/SQLiteManager4iOS.git
 [submodule "vendor/SVProgressHUD"]
 	path = vendor/SVProgressHUD
 	url = git@github.com:radiospiel/SVProgressHUD.git
