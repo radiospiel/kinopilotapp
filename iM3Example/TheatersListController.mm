@@ -181,10 +181,10 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 
 -(NSString*)title
 {
-  if(self.movie)
-    return [self.movie objectForKey:@"title"];
-
-  return @"Alle Kinos";
+  NSString* title = [self.movie objectForKey:@"title"];
+  if(title) return title;
+    
+  return [super title];
 }
 
 -(NSString*) movie_id

@@ -148,10 +148,10 @@
 
 -(NSString*)title
 {
-  if(self.theater)
-    return [self.theater objectForKey:@"name"];
-
-  return @"Alle Filme";
+  NSString* title = [self.theater objectForKey:@"name"];
+  if(title) return title;
+  
+  return [super title];
 }
 
 -(void)setFilter:(NSString*)filter
