@@ -197,7 +197,7 @@
     NSString* title =           [movie objectForKey:@"title"];
     NSNumber* runtime =         [movie objectForKey:@"runtime"];
     NSArray* genres =           [movie objectForKey:@"genres"];
-    NSNumber* production_year = [movie objectForKey:@"production-year"];
+    NSNumber* production_year = [movie objectForKey:@"production_year"];
     
     NSMutableArray* parts = [NSMutableArray array];
     [parts addObject: [NSString stringWithFormat: @"<h2><b>%@</b></h2>", title]];
@@ -213,8 +213,10 @@
       [parts addObject: @"</p>"];
     }
 
+    [parts addObject:@"<br />"];
+
     NSString* html = [parts componentsJoinedByString:@""];
-    [pv setHtmlDescription: [html stringByAppendingString:@"<br />"]];
+    [pv setHtmlDescription: html];
   }
   
   // -- set actions
