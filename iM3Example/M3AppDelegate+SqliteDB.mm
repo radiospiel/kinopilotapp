@@ -75,7 +75,7 @@
   NSArray* diff = [data mutableObjectFromJSONDataWithParseOptions: 0 error: &error];
 
   if(![diff isKindOfClass: [NSArray class]])
-    _.raise("Cannot read file", url);
+    _.raise("Cannot read file ", url);
 
   return diff;
 }
@@ -143,6 +143,13 @@
       if(feedback) {
         dispatch_async(dispatch_get_main_queue(), ^{
           [SVProgressHUD dismissWithError: [exception description] afterDelay: 2.5 ];
+        });
+      }
+    }
+    @catch (id exception) {
+      if(feedback) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+          [SVProgressHUD dismissWithError: @"Aktualisierung fehlgeschlagen!" afterDelay: 2.5 ];
         });
       }
     }

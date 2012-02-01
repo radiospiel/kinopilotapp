@@ -949,7 +949,7 @@ ETest(GTMSQLiteStatementM3SqliteStatement)
   
   NSArray* entries = [M3 readJSON: REMOTE_SQL_URL];
   if(![entries isKindOfClass: [NSArray class]])
-    _.raise("Cannot read file", REMOTE_SQL_URL);
+    _.raise("Cannot read file ", REMOTE_SQL_URL);
   
 
   [db importDump: entries];
