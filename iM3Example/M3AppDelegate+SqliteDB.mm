@@ -1,5 +1,6 @@
 #import "M3AppDelegate.h"
 #import "SVProgressHUD.h"
+#import "JSONKit.h"
 
 #define SQLITE_PATH       @"$documents/kinopilot2.sqlite3"
 #define SEED_PATH         @"$app/seed.sqlite3"
@@ -55,8 +56,8 @@
   return self.movies.count.to_i > 0;
 }
 
--(void)importDatabaseFromURL: (NSString*)url
-{  
+-(NSArray*)fetchDiffFromURL: (NSString*)url
+{
   NSNumber* current_revision = [self.settings objectForKey: @"revision"];
   if(current_revision.to_i > 0) {
     url = [url stringByAppendingFormat:@"?since=%@", current_revision];
@@ -65,10 +66,23 @@
   if(db_uuid) {
     url = [url stringByAppendingFormat:@"&uuid=%@", db_uuid];
   }
+  
+  NSData* data = [M3Http requestData: @"GET" 
+                                 url: url
+                         withOptions: nil];
+  
+  NSError* error = nil;
+  NSArray* diff = [data mutableObjectFromJSONDataWithParseOptions: 0 error: &error];
 
-  NSArray* entries = [M3 readJSON: url];
-  if(![entries isKindOfClass: [NSArray class]])
+  if(![diff isKindOfClass: [NSArray class]])
     _.raise("Cannot read file", url);
+
+  return diff;
+}
+
+-(void)importDatabaseFromURL: (NSString*)url
+{  
+  NSArray* entries = [self fetchDiffFromURL: url];
   
   Benchmark(_.join("Importing database from ", url));
 
@@ -108,9 +122,10 @@
   return db;
 }
 
--(void)updateDatabase
+-(void)updateDatabaseWithFeedback: (BOOL)feedback
 {
-  [SVProgressHUD showWithStatus:@"Updating" maskType: SVProgressHUDMaskTypeBlack];
+  if(feedback)
+    [SVProgressHUD showWithStatus:@"Updating" maskType: SVProgressHUDMaskTypeBlack];
   
   // run in background...
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -120,17 +135,27 @@
 
       dispatch_async(dispatch_get_main_queue(), ^{
         [self emit:@selector(updated)];
-        [SVProgressHUD dismissWithSuccess:@"Aktualisierung erfolgreich!" ];
+        if(feedback)
+          [SVProgressHUD dismissWithSuccess:@"Aktualisierung erfolgreich!" ];
       });
     }
     @catch (M3Exception* exception) {
-      dispatch_async(dispatch_get_main_queue(), ^{
-        [SVProgressHUD dismissWithError: [exception description] afterDelay: 2.5 ];
-      });
+      if(feedback) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+          [SVProgressHUD dismissWithError: [exception description] afterDelay: 2.5 ];
+        });
+      }
     }
   });
 }
 
+// Database update was explicitely requested
+-(void)updateDatabase
+{
+  [self updateDatabaseWithFeedback:YES];
+}
+
+// Database update if needed
 -(void)updateDatabaseIfNeeded
 {
   NSNumber* updated_at = [self.sqliteDB.settings objectForKey: @"updated_at"];
@@ -138,7 +163,10 @@
   if(diff < UPDATE_TIME_SPAN)                          // 18 hours.
     return;
 
-  [self updateDatabase];
+  // If there are still future schedules in the database, the user probably 
+  // does not need error feedback. 
+  id aFutureSchedule = [app.sqliteDB ask: @"SELECT * FROM schedules WHERE time>? LIMIT 1", [NSDate today]];
+  [self updateDatabaseWithFeedback: (aFutureSchedule == nil)];
 }
 
 -(M3SqliteDatabase*)sqliteDatabase
