@@ -113,24 +113,43 @@
   return region;
 }
 
+-(CLLocationCoordinate2D)defaultLocation
+{
+  return CLLocationCoordinate2DMake(52.5198, 13.3881); // Berlin Friedrichstrasse
+
+}
+
+-(BOOL)validLocation: (MKUserLocation*)location
+{
+  if(!location) return NO;
+  
+  CLLocationCoordinate2D coordinate = location.coordinate;
+  CLLocationCoordinate2D defaultLocation = [self defaultLocation];
+
+  if(1 < fabs(coordinate.latitude - defaultLocation.latitude)) return NO;
+  if(1 < fabs(coordinate.longitude - defaultLocation.longitude)) return NO;
+  
+  return YES;
+}
+
 -(MKCoordinateRegion)regionFromUserLocation
 {
   MKCoordinateRegion region;
   
   MKUserLocation* location = mapView.userLocation;
-  #if TARGET_IPHONE_SIMULATOR
-  location = nil;
-  #endif
   
-  if(location) {
+  // If the location is outside a certain area we just default
+  // to friedrichstrasse.
+  
+  if([self validLocation:location]) {
     region.center = location.coordinate;
     
     region.span.latitudeDelta = 0.03;
     region.span.longitudeDelta = 0.03;
   }
   else {
-    region.center = CLLocationCoordinate2DMake(52.5198, 13.3881); // Berlin Friedrichstrasse
-
+    region.center = [self defaultLocation];
+    
     region.span.latitudeDelta = 0.08;
     region.span.longitudeDelta = 0.08;
   }
