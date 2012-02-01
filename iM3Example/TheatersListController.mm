@@ -54,7 +54,7 @@
     ];
   }
   else {
-    [self setDetailText: @"Für dieses Kino liegen uns keine Termine vor."];
+    [self setDetailText: @"Für dieses Kino liegen uns keine Vorführungen vor."];
   }
 }
 

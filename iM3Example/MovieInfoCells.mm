@@ -155,7 +155,7 @@
   theater_ids = [theater_ids mapUsingSelector:@selector(first)];
 
   if(!theater_ids.count) {
-    self.textLabel.text = @"Für diesen Film liegen uns keine Termine vor.";
+    self.textLabel.text = @"Für diesen Film liegen uns keine Vorführungen vor.";
     self.textLabel.font = [UIFont italicSystemFontOfSize:14];
     self.textLabel.textColor = [UIColor colorWithName:@"#999"];
   }
