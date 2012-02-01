@@ -77,9 +77,9 @@ static NSString *kADBannerContentSizeLandscape = nil;
   // we do not update the table view. This is because the indexPath
   // here refers to the index path in the original datasource, not
   // in the filtered one!
-  if([self isKindOfClass: [M3ListViewController class]]) {
-    if([((M3ListViewController*)self) filterText].length > 0) return;
-  }
+//  if([self isKindOfClass: [M3ListViewController class]]) {
+//    if([((M3ListViewController*)self) filterText].length > 0) return;
+//  }
   
   [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject: indexPath]
                         withRowAnimation:UITableViewRowAnimationNone];
