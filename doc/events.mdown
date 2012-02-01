@@ -1,0 +1,41 @@
+# /action/update
+
+# /ad/clicked
+
+# /ad/loaded
+
+# /info
+
+# /map/show
+
+# /movie/actions
+
+# /movies/images
+
+# /movies/list
+
+# /movies/show
+
+# /movies/trailer
+
+# /schedules/actions
+
+# /schedules/list
+
+# /share/schedule/twitter
+
+# /theaters/list
+
+# /vicinity
+
+# /vicinity/show
+
+# open:fahrinfo-berlin
+
+# open:http
+
+# open:imdb
+
+# open:tel
+
+# start
