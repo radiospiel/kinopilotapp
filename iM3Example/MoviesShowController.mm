@@ -19,9 +19,9 @@
 -(id)init
 {
   self = [super init];
-  [self addSection: _.array(@"MovieShortInfoCell", @"MovieTrailerCell", 
+  [self addSection: _.array(@"MovieActionsCell", 
                             @"MovieInCinemasCell", @"MovieRatingCell", 
-                            @"MovieDescriptionCell")];
+                            @"MoviePersonsCell", @"MovieDescriptionCell")];
   
   return self;
 }
