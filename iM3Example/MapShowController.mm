@@ -135,7 +135,7 @@
   return YES;
 }
 
--(MKCoordinateRegion)setRegionFromUserLocation
+-(void)setRegionFromUserLocation
 {
   MKUserLocation* location = mapView.userLocation;
   
