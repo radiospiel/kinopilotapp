@@ -2,6 +2,7 @@
 #import "TTTAttributedLabel.h"
 #import "M3TableViewCell.h"
 #import "MoviesShowController.h"
+#import "TheatersListController.h"
 
 /* === MovieInfoCells: a base class which returns the movie object ============== */
 
@@ -15,9 +16,12 @@
 
 -(NSDictionary*)movie
 { 
-  MoviesShowController* msc = (MoviesShowController*)self.tableViewController;
-  M3AssertKindOf(msc, MoviesShowController);
-  return msc.movie;
+  return [self.tableViewController performSelector:@selector(movie)];
+}
+
+-(NSString*)movie_id
+{ 
+  return [self.movie objectForKey: @"_id"];
 }
 
 @end
@@ -84,46 +88,6 @@
 
 @end
 
-/* === MovieTrailerCell: a link to a movie trailer controller =================== */
-
-@interface MovieTrailerCell: MovieInfoCell
-@end
-
-@implementation MovieTrailerCell
-
--(id)init
-{
-  self = [super init];
-  self.textLabel.text = @"Show Trailer";
-  self.accessoryType = UITableViewCellAccessoryDisclosureIndicator; 
-  return self;
-}
-
--(NSString*)url
-{
-  NSDictionary* videos = [self.movie objectForKey: @"videos"];
-  if(videos.count == 0) return nil;
-
-  return _.join(@"/movies/trailer?movie_id=", [self.movie objectForKey: @"_id"]);
-}
-
--(void)didSelectCell
-{
-  if(![app currentReachability]) {
-    [app alertMessage:@"Um Trailer sehen zu können, benötigst Du eine Verbindung ins Internet."];
-    return;
-  }
-
-  [super didSelectCell];
-}
-
--(CGFloat)wantsHeight
-{
-  return self.url ? 44 : 0;
-}
-
-@end
-
 /* === MovieInCinemasCell: a link to a list of cinemas that show the movie ====== */
 
 @interface MovieInCinemasCell: MovieInfoCell
@@ -142,8 +106,7 @@
   
   // --- fill in cell.
   
-  
-  NSString* movie_id = [self.movie objectForKey: @"_id"];
+  NSString* movie_id = self.movie_id;
   if(!movie_id) return;
   
   NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
@@ -203,7 +166,7 @@
   self = [super init];
   self.selectionStyle = UITableViewCellSelectionStyleNone;
 
-  posterView = [[UIImageView alloc] initWithFrame: CGRectMake(10, 10, 90, 120)];
+  posterView = [[UIImageView alloc] initWithFrame: CGRectMake(7, 10, 90, 120)];
   [self addSubview: posterView];
 
   htmlView = [[TTTAttributedLabel alloc] init];
@@ -229,11 +192,6 @@
   NSNumber* runtime =         [movie objectForKey:@"runtime"];
   NSString* genre =           [[movie objectForKey:@"genres"] objectAtIndex:0];
   NSNumber* production_year = [movie objectForKey:@"production_year"];
-  NSArray* actors =           [movie objectForKey:@"actors"];
-  NSArray* directors =        [movie objectForKey:@"directors"];
-  // NSString* original_title =  [movie objectForKey:@"original-title"];
-  // NSString* average-community-rating: 56,  
-  // NSString* cinema_start_date = [self.movie objectForKey: @"cinema-start-date"]; // e.g. "2011-08-25T00:00:00+02:00"
 
   NSMutableArray* parts = [NSMutableArray array];
 
@@ -249,26 +207,6 @@
     [parts addObject: [p componentsJoinedByString:@", "]];
     [parts addObject: @"</p>"];
     [parts addObject: @"<br />"];
-  }
-
-  if(directors) {
-    NSMutableArray* p = [NSMutableArray array];
-    [p addObject: @"<b>Regie:</b> "];
-    [p addObject: [directors.uniq componentsJoinedByString:@", "]];
-
-    [parts addObject: @"<p>"];
-    [parts addObject: [p componentsJoinedByString:@""]];
-    [parts addObject: @"</p>"];
-  }
-  
-  if(actors) {
-    NSMutableArray* p = [NSMutableArray array];
-    [p addObject: @"<b>Darsteller:</b> "];
-    [p addObject: [actors.uniq componentsJoinedByString:@", "]];
-
-    [parts addObject: @"<p>"];
-    [parts addObject: [p componentsJoinedByString:@""]];
-    [parts addObject: @"</p>"];
   }
 
   return [parts componentsJoinedByString:@""];
@@ -287,7 +225,9 @@
   self.textLabel.text = @" ";
 
   htmlView.numberOfLines = 0;
-  htmlView.text = [NSAttributedString attributedStringWithMarkup: [self markup] 
+  NSString* markup = [self markup];
+  if(!markup) markup = @"";
+  htmlView.text = [NSAttributedString attributedStringWithMarkup: markup
                                                    forStylesheet: self.stylesheet];
 
   CGSize sz = [self htmlViewSize];
@@ -296,14 +236,14 @@
   NSArray* thumbnails = [self.movie objectForKey:@"thumbnails"];
   posterView.image = [app thumbnailForMovie: self.movie];
   posterView.imageURL = thumbnails.first;
-
+  
   if(thumbnails.first && [app currentReachability]) {
     UIImageView* tapReceiver = [[UIImageView alloc] initWithFrame: CGRectMake(57, 86, 30, 30)];
     tapReceiver.image = [UIImage imageNamed:@"42-photos.png"];
     tapReceiver.contentMode = UIViewContentModeCenter;
     [posterView addSubview: [tapReceiver autorelease]];
-
-    [self.posterView onTapOpen: _.join(@"/movies/images?movie_id=", [self.movie objectForKey:@"_id"]) ];
+    
+    [posterView onTapOpen: _.join(@"/movies/images?movie_id=", self.movie_id) ];
   }
 }
 
@@ -317,14 +257,99 @@
 
 @end
 
+@interface MovieShortActionsCell: MovieShortInfoCell
+@end
+
+@implementation MovieShortActionsCell
+
+-(void)addMediaActionToActions: (NSMutableArray*)actions
+{
+  NSDictionary* movie = self.movie;
+  
+  // Trailer? We always show the trailer link even if the app is not reachable.
+  NSDictionary* videos = [movie objectForKey: @"videos"];
+  if(videos.count) {
+    [actions addObject: _.array(@"Trailer", _.join(@"/movies/trailer?movie_id=", self.movie_id))];
+    return;
+  }
+
+  // No trailer, but reachable and images?
+  NSArray* thumbnails = [movie objectForKey:@"thumbnails"];
+  if([app currentReachability] && thumbnails.first)
+    [actions addObject: _.array(@"Bilder", _.join(@"/movies/images?movie_id=", self.movie_id))];
+}
+
+-(NSArray*)actions
+{
+  NSMutableArray* actions = [NSMutableArray array];
+  
+  [self addMediaActionToActions: actions];
+  [actions addObject: _.array(@"Mehr...", _.join(@"/movies/show?movie_id=", self.movie_id))];
+  
+  return actions;
+}
+
+-(void)setKey:(id)key
+{
+  [super setKey:key];
+  
+  // build buttons
+  NSArray* buttons = [self.actions mapUsingBlock:^id(NSArray* action) {
+    return [UIButton actionButtonWithURL:action.second andTitle:action.first];
+  }];
+
+  [UIButton layoutButtons:buttons withWidth: 90 andSpace: 10 andOffset:107];
+
+  CGRect posterFrame = self.posterView.frame;
+  
+  int y = posterFrame.origin.y + posterFrame.size.height - 44;
+  for(UIButton* button in buttons) {
+    CGRect frame = button.frame;
+    frame.origin.y = y;
+    button.frame = frame;
+    
+    [self addSubview:button];
+  }
+}
+
+@end
+
+
+@interface MovieActionsCell: MovieShortActionsCell
+@end
+
+@implementation MovieActionsCell
+
+-(NSString*) imdbURLForTitle: (NSString*)title
+{
+  NSString* imdbURL = _.join(@"imdb:///find?q=", title.urlEscape);
+  if([app canOpen:imdbURL]) return imdbURL;
+  
+  return _.join(@"http://imdb.de/?q=", title.urlEscape);
+}
+
+-(NSArray*)actions
+{
+  NSMutableArray* actions = [NSMutableArray array];
+  
+  [self addMediaActionToActions: actions];
+  
+  NSString* title = [self.movie objectForKey:@"title"];
+  [actions addObject: _.array(@"IMDB", [self imdbURLForTitle: title])];
+  
+  return actions;
+}
+
+@end
+
 /* === MovieDescriptionCell: full movie description ============================= */
 
-@interface MovieDescriptionCell: MovieInfoCell {
+@interface MovieInfoHTMLCell: MovieInfoCell {
   TTTAttributedLabel* htmlView;
 }
 @end
 
-@implementation MovieDescriptionCell
+@implementation MovieInfoHTMLCell
 
 +(void)initialize
 {
@@ -345,16 +370,21 @@
   return self;
 }
 
+-(NSString*)markup
+{
+  return @"<p>Dummy Markup</p>";
+}
+
 -(void)setKey: (NSArray*)class_and_movie
 {
   [super setKey:class_and_movie];
   
   self.textLabel.text = @" ";
   
-  NSString* description = [self.movie objectForKey:@"description"];
-  NSString* html = _.join(@"<p><b>Beschreibung: </b>", description.cdata, @"</p><br />");
   htmlView.numberOfLines = 0;
-  htmlView.text = [NSAttributedString attributedStringWithMarkup: html 
+  NSString* markup = [self markup];
+  if(!markup) markup = @"";
+  htmlView.text = [NSAttributedString attributedStringWithMarkup: markup
                                                    forStylesheet: self.stylesheet];
 }
 
@@ -373,7 +403,60 @@
 
 - (CGFloat)wantsHeight
 { 
+  if(![self markup]) return 0;
   return [self htmlViewSize].height + 15; 
 }
 
+@end
+
+@interface MovieDescriptionCell: MovieInfoHTMLCell
+@end
+
+@implementation MovieDescriptionCell
+
+-(NSString*)markup
+{
+  NSString* description = [self.movie objectForKey:@"description"];
+  return _.join(@"<p><b>Beschreibung: </b>", description.cdata, @"</p><br />");
+}
+
+@end
+
+@interface MoviePersonsCell: MovieInfoHTMLCell
+@end
+
+@implementation MoviePersonsCell
+
+-(NSString*)markup
+{
+  NSArray* actors =           [self.movie objectForKey:@"actors"];
+  NSArray* directors =        [self.movie objectForKey:@"directors"];
+
+  if(!actors.count && !directors.count) return nil;
+  return nil;
+  
+  NSMutableArray* parts = [NSMutableArray array];
+  
+  if(directors) {
+    NSMutableArray* p = [NSMutableArray array];
+    [p addObject: @"<b>Regie:</b> "];
+    [p addObject: [directors.uniq componentsJoinedByString:@", "]];
+      
+    [parts addObject: @"<p>"];
+    [parts addObject: [p componentsJoinedByString:@""]];
+    [parts addObject: @"</p>"];
+  }
+    
+  if(actors) {
+    NSMutableArray* p = [NSMutableArray array];
+    [p addObject: @"<b>Darsteller:</b> "];
+    [p addObject: [actors.uniq componentsJoinedByString:@", "]];
+      
+    [parts addObject: @"<p>"];
+    [parts addObject: [p componentsJoinedByString:@""]];
+    [parts addObject: @"</p>"];
+  }
+
+  return [parts componentsJoinedByString:@""];
+}
 @end

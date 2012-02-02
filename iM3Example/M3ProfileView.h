@@ -24,8 +24,6 @@
 -(void) setProfileURL: (NSString*)url;
 -(CGFloat) wantsHeight;
 
-
 +(M3ProfileView*) profileViewForTheater: (NSDictionary*) theater;
-+(M3ProfileView*) profileViewForMovie: (NSDictionary*) movie;
 
 @end

@@ -57,23 +57,26 @@
   return [self.url.to_url.params objectForKey: @"movie_id"];
 }
 
--(UIView*) headerView
-{
-  NSString* important = [self.url.to_url param: @"important"];
-  return [important isEqualToString: @"movie"] ? 
-    [M3ProfileView profileViewForMovie: self.movie] :
-    [M3ProfileView profileViewForTheater: self.theater];
-}
-
 -(void)reloadURL
 {
   [self setRightButtonReloadAction];
   
-  self.dataSource = [M3DataSource schedulesByTheater:self.theater_id 
-                                            andMovie: self.movie_id
-                                               onDay: [self day]
-                     ]; 
-  self.tableView.tableHeaderView = [self headerView];
+  M3TableViewDataSource* dataSource = [M3DataSource schedulesByTheater: self.theater_id 
+                                                              andMovie: self.movie_id
+                                                                 onDay: [self day]];
+
+  // The "important" key defines the content of the top cell or the header view.
+                     
+  NSString* important = [self.url.to_url param: @"important"];
+  if(![important isEqualToString: @"movie"]) {
+    self.tableView.tableHeaderView = [M3ProfileView profileViewForTheater: self.theater];
+  }
+  else {
+    [dataSource prependSection: _.array(@"MovieShortActionsCell")
+                   withOptions: nil];
+  }
+
+  self.dataSource = dataSource;
 }
 
 @end

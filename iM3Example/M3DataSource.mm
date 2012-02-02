@@ -283,11 +283,12 @@
     [self addSchedulesSection: schedules];
   }
 
+  [self prependSection:_.array(@"MovieShortActionsCell") withOptions:nil];
+  
   return self;
 }
 
 @end
-
 
 /**** TheatersListFilteredByMovieDataSource **********************************/
 

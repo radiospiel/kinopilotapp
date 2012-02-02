@@ -149,7 +149,16 @@
 {
   if([key isEqual: @"M3TableViewAdCell"])
     return @"M3TableViewAdCell".to_class;
-  
+
+  if([key isEqual: @"MovieShortInfoCell"])
+    return @"MovieShortInfoCell".to_class;
+
+  if([key isEqual: @"MovieActionsCell"])
+    return @"MovieActionsCell".to_class;
+
+  if([key isEqual: @"MovieShortActionsCell"])
+    return @"MovieShortActionsCell".to_class;
+
   if(cellClass_)
     return cellClass_;
   
