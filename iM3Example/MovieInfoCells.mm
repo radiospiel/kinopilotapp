@@ -433,7 +433,6 @@
   NSArray* directors =        [self.movie objectForKey:@"directors"];
 
   if(!actors.count && !directors.count) return nil;
-  return nil;
   
   NSMutableArray* parts = [NSMutableArray array];
   

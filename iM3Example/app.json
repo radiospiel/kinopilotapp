@@ -43,7 +43,7 @@
       "content": [
         ["Kinopilot im Netz", "http://kinopilotapp.de"],
         ["Aktualisiert",      "updated_at"],
-        ["Aufführungen",      "schedules_count"]
+        ["Vorführungen",      "schedules_count"]
       ]
     },
     {
