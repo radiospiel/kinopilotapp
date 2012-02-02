@@ -33,10 +33,10 @@
   
   [event setCalendar:[eventDB defaultCalendarForNewEvents]];
   
-  NSError *err;
+  NSError *err = nil;
   [eventDB saveEvent:event span:EKSpanThisEvent error:&err]; 
   
-  return err != nil;
+  return err == nil;
 }
 
 // --- get a teaser string for a movie
