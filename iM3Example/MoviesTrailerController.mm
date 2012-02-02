@@ -53,7 +53,13 @@ static BCMediaAPI *bc = nil;
   [super dealloc];
 }
 
--(void)perform {
+-(void)perform
+{
+  if(![app currentReachability]) {
+    [app alertMessage:@"Um Trailer sehen zu können, benötigst Du eine Verbindung ins Internet."];
+    return;
+  }
+
   // Register to receive a notification when the movie has finished playing.  
   NSNotificationCenter* defaultCenter = [NSNotificationCenter defaultCenter];
   
