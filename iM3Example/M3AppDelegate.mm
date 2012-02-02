@@ -325,11 +325,38 @@ M3AppDelegate* app;
   */
   [app emit:@selector(paused)];
   
-  self.window.hidden = YES;
 }
+
+static BOOL goingToQuit = NO;
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+  // set up a "timer" to quit the app after 5 minutes.
+  
+  goingToQuit = YES;
+  
+  UIApplication* app = [UIApplication sharedApplication];
+  UIBackgroundTaskIdentifier __block bgTask;
+  bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
+    // Clean up any unfinished task business by marking where you.
+    // stopped or ending the task outright.
+    [app endBackgroundTask:bgTask];
+    bgTask = UIBackgroundTaskInvalid;
+  }];
+  
+  if(UIBackgroundTaskInvalid != bgTask) {
+    // Start the long-running task and return immediately.
+    // kill app after 5 secs.
+    int64_t nanosecs = 5 * 60 * 1e09;
+    dispatch_after( dispatch_time(DISPATCH_TIME_NOW, nanosecs), 
+                   dispatch_get_main_queue(), ^{
+                     [app endBackgroundTask: bgTask];
+                     if(goingToQuit) 
+                       exit(0);
+                   });
+    
+  }
+
   /*
    Use this method to release shared resources, save user data, invalidate 
    timers, and store enough application state information to restore your
@@ -342,6 +369,8 @@ M3AppDelegate* app;
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+  goingToQuit = NO;
+  
   /*
    Called as part of the transition from the background to the inactive state; 
    here you can undo many of the changes made on entering the background.
@@ -362,8 +391,6 @@ M3AppDelegate* app;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-  self.window.hidden = NO;
-
   /*
    Restart any tasks that were paused (or not yet started) while the 
    application was inactive. If the application was previously in the 
