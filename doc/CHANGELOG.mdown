@@ -1,0 +1,23 @@
+# 2020120203
+
+- reworked UX flow. Instead of MoviesList -> Movie Info with IMDB and "More..." -> Movie Info with "Show Trailer" we now
+  have MoviesList -> Movie Info with "Trailer" and "More..." -> Movie Info with "Trailer" and "IMDB"
+- Fixed calender result display: it showed an error when there was none and vice versa.
+- No longer black out app when backgrounding
+
+# 2020120201a
+
+- removed most of the ads again (there are some issues with when and how to show them, so that it makes sense to the user and to the app)
+- fixed crashes when loading the map with invalid or late readings from the location sensor
+- fixed listview titles, listviews scrolls to top when tapping the status bar
+- some minor stuff.
+
+# 2020120201
+
+- Facebook is out, for now
+- Tweeting is improved
+- The app should deal with lo or no network conditions in better ways, i.e. doesn't let you see trailers or images that are not downloaded yet, gives warnings on updates etc.
+- Adds searching for movies and theaters
+- Adds favorite theaters
+- In map and "Whats up now" sections the user need not (in fact: cannot) click to fetch the current location. It is either there or not.
+- A few more ads :)
