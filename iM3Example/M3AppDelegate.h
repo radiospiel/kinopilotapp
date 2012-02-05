@@ -13,6 +13,7 @@
 // Show "Facebook" sharing?
 #define FACEBOOK NO
 
+#define APP_STORE_ID 500555600
 @interface NSString (IM3ExampleExtensions)
 
 /*

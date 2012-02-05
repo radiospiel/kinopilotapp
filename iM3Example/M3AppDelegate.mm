@@ -37,7 +37,7 @@ M3AppDelegate* app;
 {
   // -- configure iRate
   iRate* r = [iRate sharedInstance];
-  r.appStoreID = 355313284;
+  r.appStoreID = APP_STORE_ID;
   r.applicationName = @"Kinopilot";
   r.daysUntilPrompt = 3;
   r.remindPeriod = 5;
