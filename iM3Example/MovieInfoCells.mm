@@ -56,36 +56,47 @@
     ratingForeground_ = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"stars.png"]];
     [self addSubview: [ratingForeground_ autorelease]];
     
-    ratingLabel_ = [[UILabel alloc]init];
-    [self addSubview: [ratingLabel_ autorelease]];
+    //    ratingLabel_ = [[UILabel alloc]init];
+    //    [self addSubview: [ratingLabel_ autorelease]];
     
     self.clipsToBounds = YES;
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
   }
   return self;
 }
 
--(void)layoutSubviews
+-(void)setKey: (NSDictionary*)key
 {
-  [super layoutSubviews];
+  [super setKey:key];
   
   // Get rating: this is a number between 0 and 100.
   NSNumber* number = [self.movie objectForKey: @"average_community_rating"];
   if(number.to_i <= 0) return;
   
-  ratingBackground_.frame = CGRectMake(180, 13, 96, 16);
-  ratingForeground_.frame = CGRectMake(180, 13, (number.to_i * 96 + 50)/100, 16);
+  ratingBackground_.frame = CGRectMake(190, 13, 96, 16);
+  
+  // We have 5 stars. Each star is 16 px wide. Between stars there is a 
+  // 4 px distance. That means a rating of 
+  //  0 .. 20 is mapped onto 0 .. 16
+  // 20 .. 40 is mapped into 20 .. 36, 
+  // etc.
+  //
+  int complete_stars = number.to_i / 20;                    // Each complete star is 20px wide.
+  int incomplete_star = number.to_i - 20 * complete_stars;  // The incomplete star is in the range 0..19, and maps onto 0..16.
+  ratingForeground_.frame = CGRectMake(190, 13, complete_stars * 20 + (incomplete_star * 16 + 10) / 20, 16);
   ratingForeground_.contentMode = UIViewContentModeLeft;
   ratingForeground_.clipsToBounds = YES;
-  
-  // TODO: make me right aligned
-  CGRect labelFrame = self.textLabel.frame;
-  
-  ratingLabel_.font = [self.stylesheet fontForKey:@"h2"];
-  ratingLabel_.frame = CGRectMake(287, labelFrame.origin.y, 46, labelFrame.size.height);
-  ratingLabel_.font = self.textLabel.font;
-  ratingLabel_.text = [NSString stringWithFormat: @"%.1f", number.to_i / 10.0];
-}
 
+  // Link to moviepilot
+  self.url = [self.movie objectForKey:@"url"];
+  
+  //  CGRect labelFrame = self.textLabel.frame;
+  //  
+  //  ratingLabel_.font = [self.stylesheet fontForKey:@"h2"];
+  //  ratingLabel_.frame = CGRectMake(267, labelFrame.origin.y, 46, labelFrame.size.height);
+  //  ratingLabel_.font = self.textLabel.font;
+  //  ratingLabel_.text = [NSString stringWithFormat: @"%.1f", number.to_i / 10.0];
+}
 @end
 
 /* === MovieInCinemasCell: a link to a list of cinemas that show the movie ====== */
