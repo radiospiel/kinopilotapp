@@ -1,3 +1,6 @@
+- adds user voice feedback
+- movie rating cell links to moviepilot website
+
 # 2020120203
 
 - reworked UX flow. Instead of MoviesList -> Movie Info with IMDB and "More..." -> Movie Info with "Show Trailer" we now
