@@ -53,6 +53,17 @@
       ]
     },
     {
+      "header":  "Feedback",
+      "content": [
+        "Bei der Vielzahl unserer Termine kann sich schon mal ein Fehler eingeschlichen haben. Fallen Dir Fehler auf, kontaktiere uns bitte.\n\nAuch Deine Verbesserungsvorschläge zur App hören wir gern."
+      ]
+    },
+    {
+      "actions": [
+        ["Feedback",  "/user/voice"]
+      ]
+    },
+    {
       "header":  "moviepilot.de",
       "content": [
         "Ohne die Unterstützung der Freunde und Freundinnen bei moviepilot.de wäre diese App nicht möglich gewesen. moviepilot.de empfiehlt ihren Nutzern auf Basis ihrer Bewertungen von Kino- und Fernsehfilmen weitere Filme, die ihrem Geschmack entsprechen."
@@ -62,20 +73,8 @@
       "actions": [
         ["moviepilot.de",  "http://www.moviepilot.de"]
       ]
-      },
-    {
-      "header":  "Kontakt",
-      "content": [
-        "Bei der Vielzahl unserer Termine kann sich schon mal ein Fehler eingeschlichen haben. Fallen Dir Fehler auf, kontaktiere uns bitte.",
-        ["Kontakt",           "mailto:kinopilotapp@socially.io"]
-      ]
     },
     {
-      "header":  "Über Kinopilot",
-      "content": [
-        ["Umsetzung",             "http://socially.io"],
-        ["Grafische Beratung",    "http://brettmeister.com"]
-      ],
       "footer": "© radiospiel UG (haftungsbeschränkt), 2011"
     }
   ],
