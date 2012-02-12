@@ -277,12 +277,13 @@
 @interface DashboardMoviesCell: DashboardInfoCell<M3RotatorDelegate>
 
 @property (nonatomic,retain) M3Rotator* rotator;
-
+@property (nonatomic,retain) NSArray* rotatorMovieIds;
+  
 @end
 
 @implementation DashboardMoviesCell
 
-@synthesize rotator;
+@synthesize rotator, rotatorMovieIds;
 
 -(id)init
 {
@@ -295,6 +296,7 @@
 -(void)unrotate
 {
   self.rotator.delegate = nil;
+  self.rotatorMovieIds = nil;
   self.rotator = nil;
 }
 
@@ -310,7 +312,17 @@
   [self unrotate];
 
   if(!key) return;
+
+  // load movie_ids for current movies w/images
+  NSArray* recs = [app.sqliteDB all: @"SELECT movies._id FROM movies "
+                                      "INNER JOIN images ON images._id=movies.image "
+                                      "INNER JOIN schedules ON schedules.movie_id=movies._id "
+                                      "WHERE schedules.time > ?",
+                                      [NSDate today]];
+
+  self.rotatorMovieIds = [recs pluck: @"_id"];
   
+  // create rotator
   self.rotator = [M3Rotator rotatorWithFrame: CGRectMake(10, 7, BUTTON_WIDTH - 20, BUTTON_HEIGHT - 14)];
   self.rotator.delegate = self;
   [self addSubview:self.rotator];
@@ -319,28 +331,30 @@
 
 - (NSUInteger)numberOfViewsInRotator: (M3Rotator*)rotator
 {
-  return [[app.sqliteDB ask: @"SELECT COUNT(*) FROM movies"] to_i];
+  return self.rotatorMovieIds.count;
 }
 
--(NSDictionary*)movieAtIndex: (NSUInteger)index;
+-(NSString*)movieIdAtIndex: (NSUInteger)index;
 {
-  return [app.sqliteDB first: @"SELECT movies.* FROM movies INNER JOIN images ON images._id=movies.image LIMIT 1 OFFSET ?", 
-                              [NSNumber numberWithInt: index]];
+  return [self.rotatorMovieIds get:index]; 
 }
 
 - (void)rotator:(M3Rotator*)rotator activatedIndex:(NSUInteger)index
 {
-  NSDictionary* movie = [self movieAtIndex: index];
-  if(!movie) return;
+  NSString* movie_id = [self.rotatorMovieIds get:index];
+  if(!movie_id) return;
   
-  NSString* url = _.join("/movies/show?movie_id=", [movie objectForKey: @"_id"]);
-  [app open: url];
+  [app open: _.join("/movies/show?movie_id=", movie_id)];
 }
 
 - (UIView *)rotator:(M3Rotator*)rotator viewForItemAtIndex:(NSUInteger)index
 {
-  NSDictionary* movie = [self movieAtIndex: index];
+  NSString* movie_id = [self.rotatorMovieIds get:index];
+  if(!movie_id) return nil;
 
+  NSDictionary* movie = [app.sqliteDB first: @"SELECT movies.* FROM movies WHERE _id=?", movie_id ];
+  if(!movie) return nil;
+  
   DashboardMoviesTeaserView* view = [[DashboardMoviesTeaserView alloc]init];
   view.label.text = [movie objectForKey:@"title"];
   view.imageView.image = [app thumbnailForMovie:movie];
