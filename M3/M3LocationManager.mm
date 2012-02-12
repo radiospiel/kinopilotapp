@@ -107,14 +107,14 @@
 
   dispatch_after( dispatch_time(DISPATCH_TIME_NOW, nanosecs),
     dispatch_get_main_queue(), ^{
+      if(![self isWaitingForLocationUpdate]) return;
+      
       [self stopUpdatingLocation];
 
-      if(!self.locationUpdatedAt) {
-        NSError* timeout = [NSError errorWithDomain:@"Timeout" code:0 userInfo: nil];
+      NSError* timeout = [NSError errorWithDomain:@"Timeout" code:0 userInfo: nil];
 
-        [self locationManager:self.locationManager 
-             didFailWithError:timeout];
-      }
+      [self locationManager:self.locationManager 
+           didFailWithError:timeout];
     });
 }
 
