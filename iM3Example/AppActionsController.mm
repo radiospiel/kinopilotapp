@@ -41,14 +41,14 @@
 
 -(void)shareViaTwitter
 {
-  [app sendTweet: @"Ich hab die #kinopilot App auf meinem iPhone installiert. Jetzt hab ich alle Berliner Kinotermine immer dabei!"
-         withURL: nil 
+  [app sendTweet: @"Mit der Kinopilot-App hab ich jetzt die Berliner Kinotermine immer auf meinem iPhone dabei! http://bit.ly/wJNpfb"
+         withURL: nil
         andImage: nil];
 }
 
 -(void)shareViaFacebook
 {
-  [app sendToFacebook: @"Ich hab mir die Kinopilot-App auf meinem iPhone installiert. Jetzt hab ich alle Berliner Kinotermine immer dabei!"
+  [app sendToFacebook: @"Mit der Kinopilot-App hab ich jetzt die Berliner Kinotermine immer auf meinem iPhone dabei!"
             withTitle: @"Kinopilot.app"
           andImageURL: @"http://kinopilotupdates2.heroku.com/images/icon_72px.png"
                andURL: @"http://kinopilotapp.de"
