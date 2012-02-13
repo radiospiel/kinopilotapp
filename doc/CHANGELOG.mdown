@@ -3,8 +3,7 @@
 
 # 2020120203
 
-- reworked UX flow. Instead of MoviesList -> Movie Info with IMDB and "More..." -> Movie Info with "Show Trailer" we now
-  have MoviesList -> Movie Info with "Trailer" and "More..." -> Movie Info with "Trailer" and "IMDB"
+- reworked UX flow. Instead of MoviesList -> Movie Info with IMDB and "More..." -> Movie Info with "Show Trailer" we now have MoviesList -> Movie Info with "Trailer" and "More..." -> Movie Info with "Trailer" and "IMDB".
 - Fixed calender result display: it showed an error when there was none and vice versa.
 - No longer black out app when backgrounding
 

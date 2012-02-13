@@ -22,13 +22,14 @@
 @property (nonatomic,retain) CLLocationManager* locationManager;
 @property (nonatomic,assign) CLLocationCoordinate2D coordinates;
 @property (nonatomic,retain) NSString* urlToOpen;
-@property (nonatomic,assign) BOOL locationAvailable;
+@property (nonatomic,retain) NSDate* locationUpdateStartedAt;
+@property (nonatomic,retain) NSDate* locationUpdatedAt;
 
 @end
 
 @implementation M3LocationManager
 
-@synthesize locationManager, coordinates, urlToOpen, locationAvailable;
+@synthesize locationManager, coordinates, urlToOpen, locationUpdateStartedAt, locationUpdatedAt;
 
 #pragma mark - Lifecycle
 
@@ -47,17 +48,55 @@
 {
   self.locationManager = nil;
   self.urlToOpen = nil;
+  self.locationUpdateStartedAt = nil;
+  self.locationUpdatedAt = nil;
   
   [super dealloc];
+}
+
+-(BOOL)isWaitingForLocationUpdate
+{
+  return self.locationUpdateStartedAt != nil;
+}
+
+-(void)stopUpdatingLocation
+{
+  self.locationUpdateStartedAt = nil;
+  [self.locationManager stopUpdatingLocation];
+}
+
+-(void)startUpdatingLocation
+{
+  self.locationUpdateStartedAt = [NSDate now];
+  self.locationUpdatedAt = nil;
+
+  [self.locationManager startUpdatingLocation];
+}
+
+-(BOOL)gotRecentLocationUpdate
+{
+  if(!self.locationUpdatedAt) return NO;
+  
+  NSTimeInterval interval = [[NSDate now] timeIntervalSinceDate:self.locationUpdatedAt];
+  return interval < 5 * 60; // 5 minutes
 }
 
 // Start a location update. Stop the update and set to timeout after 15 secs.
 -(void) updateLocationAndOpenURL: (NSString*)url
 {
   self.urlToOpen = url;
-  self.locationAvailable = NO;
-
-  [self.locationManager startUpdatingLocation];
+  
+  // Don't start a new location update if we are waiting for an update 
+  if([self isWaitingForLocationUpdate]) 
+    return;
+  
+  // If we have a recent location we'll use that one.
+  if([self gotRecentLocationUpdate]) {
+    [app open: self.urlToOpen];
+    return;
+  }
+  
+  [self startUpdatingLocation];
   [SVProgressHUD showWithStatus:@"Position bestimmen" maskType: SVProgressHUDMaskTypeBlack];
   
   int64_t nanosecs = 15 * 1e09; // 15 secs.
@@ -68,13 +107,14 @@
 
   dispatch_after( dispatch_time(DISPATCH_TIME_NOW, nanosecs),
     dispatch_get_main_queue(), ^{
-      if(!self.locationAvailable) {
-        NSError* timeout = [NSError errorWithDomain:@"Timeout" code:0 userInfo: nil];
+      if(![self isWaitingForLocationUpdate]) return;
+      
+      [self stopUpdatingLocation];
 
-        [self locationManager:self.locationManager 
-             didFailWithError:timeout];
-      }
-      [self.locationManager stopUpdatingLocation];
+      NSError* timeout = [NSError errorWithDomain:@"Timeout" code:0 userInfo: nil];
+
+      [self locationManager:self.locationManager 
+           didFailWithError:timeout];
     });
 }
 
@@ -89,9 +129,11 @@
     return;
   
   // Got update
-  self.locationAvailable = YES;
+  [self stopUpdatingLocation];
+
+  self.locationUpdatedAt = [NSDate now];
   self.coordinates = newLocation.coordinate;
-  [self.locationManager stopUpdatingLocation];
+  
   [SVProgressHUD dismiss];
   
   [app open: self.urlToOpen];
@@ -102,7 +144,7 @@
 {
   [SVProgressHUD dismissWithError: @"Deine Position konnte nicht bestimmt werden."];
   
-  [self.locationManager stopUpdatingLocation];
+  [self stopUpdatingLocation];
 }
 
 #pragma mark - M3LocationManager singleton object

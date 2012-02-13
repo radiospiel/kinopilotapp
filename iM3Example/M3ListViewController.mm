@@ -105,7 +105,7 @@
   self.tableView.tableHeaderView = [customTableHeaderView autorelease];
 
   // --- hide search bar: user must pull the list down.
-  self.tableView.contentOffset = CGPointMake(0, 44);
+  // self.tableView.contentOffset = CGPointMake(0, 44);
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar

@@ -70,7 +70,7 @@
 {
   NSString* tweet = [NSString stringWithFormat: @"%@: %@", 
                      [self.movie objectForKey:@"title"], 
-                     [self teaserForMovie:self.movie]];
+                     [self.movie objectForKey:@"url"]];
 
   [app sendTweet: tweet
          withURL: [self.movie objectForKey:@"url"] // [self.movie objectForKey:@"url"] 

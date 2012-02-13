@@ -12,95 +12,173 @@
 #import "M3TableViewProfileCell.h"
 
 #define BUTTON_WIDTH    156
-#define BUTTON_HEIGHT   135
-#define BUTTON_PADDING  8
+#define BUTTON_HEIGHT   129 // 135
+#define BUTTON_PADDING  7
 
 /*** VicinityShowController cells *******************************************/
 
-@interface DashboardInfoCell: M3TableViewCell {
+@interface DashboardButton: UIButton {
+  UILabel* valueLabel;
+  UIImageView* fgImageView;
 }
 
-@property (nonatomic,retain) NSArray* keys;
+@property (nonatomic,retain) NSString* dashboardKey;
 
+-(id)initWithFrame: (CGRect)frame andKey: (NSString*)key;
+-(void)setButtonValue: (id)value;
+
+@end
+
+@implementation DashboardButton
+
+@synthesize dashboardKey;
+
++(UIImage*) dashboardImage: (NSString*)name
+{
+  NSString* imageName = [ NSString stringWithFormat: @"Dashboard.bundle/%@.png", name ];
+  return [UIImage imageNamed: imageName ];
+}
+
+-(void)setBackgroundImageByKey
+{
+  if([dashboardKey isEqualToString:@"about"]) return;
+
+  UIImage* image = [DashboardButton dashboardImage:@"background"];
+  image = [image stretchableImageWithLeftCapWidth:7 topCapHeight:0];
+  [self setBackgroundImage: image forState: UIControlStateNormal];
+}
+
+-(void)setForegroundImageByKey
+{
+  UIImage* image = [DashboardButton dashboardImage: [@"fg/" stringByAppendingString:dashboardKey]];
+  if(!image) return;
+  
+  fgImageView = [[[UIImageView alloc]initWithImage:image]autorelease];
+  fgImageView.userInteractionEnabled = NO;
+  fgImageView.exclusiveTouch = NO;
+  
+  CGRect frame = self.frame;
+  if(image.size.height > frame.size.height) {
+    frame.size.height = image.size.height;
+    self.frame = frame; 
+  }
+
+  [self addSubview:fgImageView];
+}
+
+-(void)setTitleByKey
+{
+  NSString* title = @"";
+  
+  if([dashboardKey isEqualToString: @"city"])      title = @"Berlin";
+  if([dashboardKey isEqualToString: @"theaters"])  title = @"Kinos";
+  if([dashboardKey isEqualToString: @"movies"])    title = @"Filme";
+  if([dashboardKey isEqualToString: @"vicinity"])  title = @"Was läuft jetzt?!";
+  
+  [self setTitle: title forState:UIControlStateNormal];
+  self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:26];
+  self.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+  self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 6, 10);
+}
+
+-(void)setActionURLByKey
+{
+  if([dashboardKey isEqualToString: @"city"])      self.actionURL = @"/map/show";
+  if([dashboardKey isEqualToString: @"theaters"])  self.actionURL = @"/theaters/list";
+  if([dashboardKey isEqualToString: @"movies"])    self.actionURL = @"/movies/list";
+  if([dashboardKey isEqualToString: @"about"])     self.actionURL = @"/info";
+  if([dashboardKey isEqualToString: @"vicinity"])  self.actionURL = @"/vicinity";
+}
+
+-(id)initWithFrame: (CGRect)frame andKey: (NSString*)key
+{
+  self = [super initWithFrame: frame];
+  if(!self) return nil;
+  
+  self.dashboardKey = key;
+
+  [self setBackgroundImageByKey];
+  [self setForegroundImageByKey];
+  [self setTitleByKey];
+  [self setActionURLByKey];
+  
+  // --- make the buttons content appear in the top-left
+  [self setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+  [self setContentVerticalAlignment:UIControlContentVerticalAlignmentBottom];
+  
+  [self layoutSubviews];
+  return self;
+}
+
+-(void)dealloc
+{
+  self.dashboardKey = nil;
+  
+  [super dealloc];
+}
+
+-(BOOL)fgIsTopAligned
+{
+  // if([dashboardKey isEqualToString: @"city"])      return NO;
+  // if([dashboardKey isEqualToString: @"theaters"])  return NO;
+  // if([dashboardKey isEqualToString: @"movies"])    return NO;
+  // if([dashboardKey isEqualToString: @"about"])     return NO;
+  if([dashboardKey isEqualToString: @"vicinity"])  return YES;
+
+  return NO;
+}
+
+-(void)layoutFgImageView
+{
+  CGRect fgFrame = fgImageView.frame;
+  if([self fgIsTopAligned])
+    fgFrame.origin = CGPointMake(0, 0);
+  else
+    fgFrame.origin = CGPointMake(0, self.frame.size.height - fgImageView.image.size.height);
+  
+  fgImageView.frame = fgFrame;
+}
+
+-(void)layoutValueLabel
+{
+  CGRect valueFrame = valueLabel.frame;
+  valueFrame.origin.x = self.frame.size.width - 10 - valueFrame.size.width;
+  valueFrame.origin.y = 0;
+  valueLabel.frame = valueFrame;
+}
+
+-(void)layoutSubviews
+{
+  [super layoutSubviews];
+
+  if(fgImageView) [self layoutFgImageView];
+  if(valueLabel)  [self layoutValueLabel];
+}
+
+-(void)setButtonValue: (id)value
+{
+  if(!value) return;
+  
+  valueLabel = [[UILabel alloc]init];
+  valueLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:56];
+  valueLabel.text = [value description];
+  valueLabel.textColor = [UIColor whiteColor];
+  valueLabel.backgroundColor = [UIColor clearColor];
+  [valueLabel sizeToFit];
+  
+  [self addSubview: valueLabel];
+}
+
+@end
+
+@interface DashboardInfoCell: M3TableViewCell
 @end
 
 @implementation DashboardInfoCell
 
-@synthesize keys;
-
-static NSDictionary *titlesByKey, *urlsByKey;
-
-+(void)initialize
-{
-  titlesByKey = [_.hash(@"city",     @"Berlin",
-                       @"theaters", @"Kinos",
-                       @"movies",   @"Filme",
-                       @"about",    @"",
-                       @"vicinity", @"Was läuft jetzt?!")retain];
-  
-  urlsByKey = [_.hash( @"city",     @"/map/show",
-                      @"theaters", @"/theaters/list",
-                      @"movies",   @"/movies/list",
-                      @"about",    @"/info",
-                      @"vicinity", @"/vicinity")retain];
-}
-
 +(CGFloat)fixedHeight
 {
-  return 143;
-}
-
--(UIImage*)tileImageWithTile: (NSString*)tile
-{
-  NSString* imageName = [ NSString stringWithFormat: @"Dashboard.bundle/background/%@.png", tile ];
-  return [UIImage imageNamed: imageName ];
-}
-
--(UIImage*)backgroundImageWithKey: (NSString*)key
-{
-  UIImage* image = [self tileImageWithTile: key];
-  if(!image) {
-    image = [self tileImageWithTile: @"narrow"];
-    image = [image stretchableImageWithLeftCapWidth:7 topCapHeight:0];
-  }
-  return image;
-}
-
-// set title, adjust button size
-
--(UIButton*) dashboardButtonWithKey: (NSString*)key 
-{
-  UIButton* btn = [UIButton buttonWithType: UIButtonTypeCustom];
-  
-  // --- set background images, colors and font.
-  
-  UIImage* backgroundImage = [self backgroundImageWithKey: key];
-  [btn setBackgroundImage: backgroundImage forState: UIControlStateNormal];
-  
-  btn.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:26];
-
-  // --- set URL and title
-
-  btn.actionURL = [urlsByKey objectForKey: key];
-  [btn setTitle: [titlesByKey objectForKey: key] forState:UIControlStateNormal];
-
-  // --- adjust button size
-  
-  int buttonWidth = self.keys.count > 1 ? BUTTON_WIDTH :
-                                          BUTTON_PADDING + 2 * BUTTON_WIDTH;
-  int buttonHeight = MAX(BUTTON_HEIGHT, backgroundImage.size.height);
-  btn.frame = CGRectMake(0, 0, buttonWidth, buttonHeight);
-
-  // --- make the buttons content appear in the top-left
-  [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-  [btn setContentVerticalAlignment:UIControlContentVerticalAlignmentBottom];
-  
-  btn.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
-  
-  // --- move text 10 pixels down and right
-  [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 6, 10)];
-
-  return btn;
+  return BUTTON_HEIGHT + BUTTON_PADDING;
 }
 
 // --- some buttons can have additional values.
@@ -117,51 +195,24 @@ static NSDictionary *titlesByKey, *urlsByKey;
   return value;
 }
 
--(UIView*)valueViewForKey: (NSString*) key
-{
-  NSString* value = [[self calculateValueForKey: key] description];
-  if(!value) return nil;
-  
-  UILabel* label = [[[UILabel alloc]init]autorelease];
-  label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:56];
-  label.text = value;
-  label.textColor = [UIColor whiteColor];
-  label.backgroundColor = [UIColor clearColor];
-  
-  return label;
-}
-
 -(void)setKey: (NSString*)key
 {
   if(!key) return;
 
   // The key is either a single key string of a string consisting of 
   // key components joined by "/"
-  self.keys = [key componentsSeparatedByString:@"/"];
+  NSArray* buttonKeys = [key componentsSeparatedByString:@"/"];
 
-  [self.keys enumerateObjectsUsingBlock:^(NSString* key, NSUInteger idx, BOOL *stop) {
-    UIButton* button = [self dashboardButtonWithKey:key];
-    
-    CGRect frame = button.frame;
-    frame.origin.x = idx * (BUTTON_PADDING + BUTTON_WIDTH);
-    frame.origin.y = 0;
-    button.frame = frame;
-    
+  int idx = 0;
+  for(NSString* buttonKey in buttonKeys) {
+    CGRect frame = CGRectMake(idx++ * (BUTTON_PADDING + BUTTON_WIDTH),                                  0, 
+                              buttonKeys.count > 1 ? BUTTON_WIDTH : BUTTON_PADDING + 2 * BUTTON_WIDTH,  BUTTON_HEIGHT);
+    DashboardButton* button = [[[DashboardButton alloc]initWithFrame: frame andKey:buttonKey]autorelease];
     [self addSubview:button];
-
-    // add a value view, if needed.
     
-    UIView* valueView = [self valueViewForKey: key];
-    if(!valueView) return;
-    
-    [valueView sizeToFit];
-    CGRect valueFrame = valueView.frame;
-    valueFrame.origin.x = frame.size.width - 10 - valueFrame.size.width;
-    valueFrame.origin.y = 0; // frame.size.height - 36 - valueFrame.size.height;
-    valueView.frame = valueFrame;
-    
-    [button addSubview: valueView];
-  }];
+    id value = [self calculateValueForKey: buttonKey];
+    [button setButtonValue: value];
+  }
 }
 
 @end
@@ -226,12 +277,13 @@ static NSDictionary *titlesByKey, *urlsByKey;
 @interface DashboardMoviesCell: DashboardInfoCell<M3RotatorDelegate>
 
 @property (nonatomic,retain) M3Rotator* rotator;
-
+@property (nonatomic,retain) NSArray* rotatorMovieIds;
+  
 @end
 
 @implementation DashboardMoviesCell
 
-@synthesize rotator;
+@synthesize rotator, rotatorMovieIds;
 
 -(id)init
 {
@@ -244,6 +296,7 @@ static NSDictionary *titlesByKey, *urlsByKey;
 -(void)unrotate
 {
   self.rotator.delegate = nil;
+  self.rotatorMovieIds = nil;
   self.rotator = nil;
 }
 
@@ -259,8 +312,18 @@ static NSDictionary *titlesByKey, *urlsByKey;
   [self unrotate];
 
   if(!key) return;
+
+  // load movie_ids for current movies w/images
+  NSArray* recs = [app.sqliteDB all: @"SELECT movies._id FROM movies "
+                                      "INNER JOIN images ON images._id=movies.image "
+                                      "INNER JOIN schedules ON schedules.movie_id=movies._id "
+                                      "WHERE schedules.time > ?",
+                                      [NSDate today]];
+
+  self.rotatorMovieIds = [recs pluck: @"_id"];
   
-  self.rotator = [M3Rotator rotatorWithFrame: CGRectMake(10, 10, BUTTON_WIDTH - 20, 120)];
+  // create rotator
+  self.rotator = [M3Rotator rotatorWithFrame: CGRectMake(10, 7, BUTTON_WIDTH - 20, BUTTON_HEIGHT - 14)];
   self.rotator.delegate = self;
   [self addSubview:self.rotator];
   [self.rotator start];
@@ -268,28 +331,30 @@ static NSDictionary *titlesByKey, *urlsByKey;
 
 - (NSUInteger)numberOfViewsInRotator: (M3Rotator*)rotator
 {
-  return [[app.sqliteDB ask: @"SELECT COUNT(*) FROM movies"] to_i];
+  return self.rotatorMovieIds.count;
 }
 
--(NSDictionary*)movieAtIndex: (NSUInteger)index;
+-(NSString*)movieIdAtIndex: (NSUInteger)index;
 {
-  return [app.sqliteDB first: @"SELECT movies.* FROM movies INNER JOIN images ON images._id=movies.image LIMIT 1 OFFSET ?", 
-                              [NSNumber numberWithInt: index]];
+  return [self.rotatorMovieIds get:index]; 
 }
 
 - (void)rotator:(M3Rotator*)rotator activatedIndex:(NSUInteger)index
 {
-  NSDictionary* movie = [self movieAtIndex: index];
-  if(!movie) return;
+  NSString* movie_id = [self.rotatorMovieIds get:index];
+  if(!movie_id) return;
   
-  NSString* url = _.join("/movies/show?movie_id=", [movie objectForKey: @"_id"]);
-  [app open: url];
+  [app open: _.join("/movies/show?movie_id=", movie_id)];
 }
 
 - (UIView *)rotator:(M3Rotator*)rotator viewForItemAtIndex:(NSUInteger)index
 {
-  NSDictionary* movie = [self movieAtIndex: index];
+  NSString* movie_id = [self.rotatorMovieIds get:index];
+  if(!movie_id) return nil;
 
+  NSDictionary* movie = [app.sqliteDB first: @"SELECT movies.* FROM movies WHERE _id=?", movie_id ];
+  if(!movie) return nil;
+  
   DashboardMoviesTeaserView* view = [[DashboardMoviesTeaserView alloc]init];
   view.label.text = [movie objectForKey:@"title"];
   view.imageView.image = [app thumbnailForMovie:movie];
