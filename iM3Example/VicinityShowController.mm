@@ -210,7 +210,7 @@
 -(id)init
 {
   self = [super init];
-  self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched; 
+  self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   return self;
 }
 
