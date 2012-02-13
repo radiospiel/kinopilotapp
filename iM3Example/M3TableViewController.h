@@ -24,11 +24,12 @@
   UISegmentedControl* segmentedControl_;
   NSMutableArray* segmentedControlParams_;
   M3TableViewDataSource* dataSource_;
-  
-  NSMutableDictionary* requestedAdBanners_;
 }
 
 @property (retain,nonatomic) M3TableViewDataSource* dataSource;
+@property (retain,nonatomic) ADBannerView* topBannerView;
+
+-(void)requestAdBannerOnTop;
 
 -(BOOL)hasSegmentedControl;
 

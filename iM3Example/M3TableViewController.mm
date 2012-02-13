@@ -11,6 +11,8 @@
 
 @implementation M3TableViewController
 
+@synthesize topBannerView;
+
 -(id)init
 {
   self = [super init];
@@ -22,6 +24,9 @@
 -(void)dealloc
 {
   self.dataSource = nil;
+
+  self.topBannerView.delegate = nil; 
+  self.topBannerView = nil; 
 
   [segmentedControl_ release]; segmentedControl_ = nil;
   [segmentedControlParams_ release]; segmentedControlParams_ = nil;

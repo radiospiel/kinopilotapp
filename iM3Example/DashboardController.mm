@@ -12,7 +12,7 @@
 #import "M3TableViewProfileCell.h"
 
 #define BUTTON_WIDTH    156
-#define BUTTON_HEIGHT   129 // 135
+#define BUTTON_HEIGHT   130 // 135
 #define BUTTON_PADDING  7
 
 /*** VicinityShowController cells *******************************************/
@@ -374,21 +374,6 @@
 
 @end
 
-#import "M3TableViewAdCell.h"
-
-@interface DashboardAdCell: M3TableViewAdCell
-@end
-
-@implementation DashboardAdCell
-
--(CGFloat)wantsHeight
-{
-  CGFloat wantsHeight = [super wantsHeight];
-  return wantsHeight > 0 ? wantsHeight + BUTTON_PADDING : 0;
-}
-
-@end
-
 /*** The datasource for MoviesList *******************************************/
 
 @interface DashboardDataSource: M3TableViewDataSource 
@@ -401,7 +386,6 @@
   self = [super init];
   [self addSection: _.array(@"DashboardVSpacer",
                             @"city/theaters", 
-                            @"DashboardAdCell",
                             @"movies", @"about/vicinity") 
        withOptions: nil];
 
@@ -412,8 +396,6 @@
 { 
   M3AssertKindOf(key, NSString);
   
-  if([key isEqualToString:@"M3TableViewAdCell"]) return @"M3TableViewAdCell";
-  if([key isEqualToString:@"DashboardAdCell"]) return @"DashboardAdCell";
   if([key isEqualToString:@"DashboardVSpacer"]) return @"DashboardVSpacer";
   
   if([key isEqualToString:@"movies"]) return @"DashboardMoviesCell";
@@ -440,6 +422,7 @@
   self.tableView.backgroundColor = [UIColor blackColor];
   self.tableView.scrollEnabled = NO;
   
+  [self requestAdBannerOnTop];
   self.dataSource = [[[DashboardDataSource alloc]init]autorelease];
 }
 

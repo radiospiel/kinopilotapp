@@ -147,9 +147,6 @@
 
 -(Class) cellClassForKey: (id)key
 {
-  if([key isEqual: @"M3TableViewAdCell"])
-    return @"M3TableViewAdCell".to_class;
-
   if([key isEqual: @"MovieShortInfoCell"])
     return @"MovieShortInfoCell".to_class;
 

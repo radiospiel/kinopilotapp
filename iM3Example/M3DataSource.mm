@@ -345,35 +345,6 @@
 
 @implementation M3DataSource(M3Lists)
 
-//+(M3TableViewDataSource*) mixAdCellsIntoDataSource: (M3TableViewDataSource*)dataSource 
-//{
-//  int sections_count = dataSource.sections.count;
-//  if(sections_count < 10) return dataSource;
-//
-//  // insert up to 3 ad cells. 
-//  int adCellsToInsert = 3;
-//  
-//  for(int i = 0; adCellsToInsert > 0 && i < sections_count; ++i) {
-//    NSArray* section = [dataSource.sections objectAtIndex:i];
-//    NSArray* keys = section.first;
-//
-//    // ad cells go only into sections with more than 5 entries.
-//    if(keys.count < 5) continue;
-//
-//    // ad cells appear somewhere inbetween the section.
-//    int adCellIndex = 1 + (rand() % (keys.count - 2));
-//
-//    [dataSource insertKey: @"M3TableViewAdCell"
-//                  atIndex: adCellIndex
-//              intoSection: i];
-//    
-//    adCellsToInsert--; // one less left to go.
-//    i += 2; // skip next 3 sections.
-//  }
-//
-//  return dataSource;
-//}
-
 +(M3TableViewDataSource*) datasourceWithName: (NSString*)name 
                           andFallbackSection: (NSString*)fallbackSection
                                    fromBlock: (M3TableViewDataSource* (^)())block
