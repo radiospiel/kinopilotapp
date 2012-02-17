@@ -13,7 +13,7 @@
 
 #define BUTTON_WIDTH    156
 #define BUTTON_HEIGHT   130 // 135
-#define BUTTON_PADDING  7
+#define BUTTON_PADDING  8
 
 /*** VicinityShowController cells *******************************************/
 
@@ -205,6 +205,7 @@
 
   int idx = 0;
   for(NSString* buttonKey in buttonKeys) {
+    
     CGRect frame = CGRectMake(idx++ * (BUTTON_PADDING + BUTTON_WIDTH),                                  0, 
                               buttonKeys.count > 1 ? BUTTON_WIDTH : BUTTON_PADDING + 2 * BUTTON_WIDTH,  BUTTON_HEIGHT);
     DashboardButton* button = [[[DashboardButton alloc]initWithFrame: frame andKey:buttonKey]autorelease];
@@ -370,7 +371,7 @@
 @implementation DashboardVSpacer
 
 +(CGFloat)fixedHeight
-  { return 5; }
+  { return 6; }
 
 @end
 
