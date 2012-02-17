@@ -29,13 +29,17 @@
 @property (retain,nonatomic) M3TableViewDataSource* dataSource;
 @property (retain,nonatomic) ADBannerView* topBannerView;
 
--(void)requestAdBannerOnTop;
-
 -(BOOL)hasSegmentedControl;
 
 -(void)addSegment:(id)labelOrImage withFilter: (id)filter andTitle: (NSString*)title;
 -(void)activateSegment:(NSUInteger)segmentNo;
 
 -(void)setFilter: (id)filter;
+
+@end
+
+@interface M3TableViewController(AdSupport)
+
+-(void)requestAdBannerOnTop;
 
 @end
