@@ -32,18 +32,27 @@
 
 @implementation MoviesListCell
 
+-(NSArray*)theaterNamesForMovie: (NSDictionary*)movie
+{
+  NSArray* theaters = [app.sqliteDB all: @"SELECT DISTINCT(theaters.name) FROM theaters "
+                                          "INNER JOIN schedules ON schedules.theater_id=theaters._id "
+                                          "WHERE schedules.movie_id=? AND schedules.time > ?", 
+                                          [movie objectForKey: @"_id"],
+                                          [NSDate today]];
+  
+  return [theaters mapUsingBlock:^id(NSDictionary* theater) { return [theater objectForKey:@"name"]; }];
+}
+
 -(void)setKey: (NSDictionary*)movie
 {
   [super setKey:movie];
+  if(!movie) return;
 
-  // Benchmark(_.join(@"setKey: %@", [movie objectForKey:@"_id"]));
-  
   [self setImageForMovie: movie];
   [self setText: [movie objectForKey: @"title"]];
   
-  NSString* theatersSeparatedByComma = [movie objectForKey: @"theaters"];
-  NSSet* uniqueTheaters = [NSSet setWithArray: [ theatersSeparatedByComma componentsSeparatedByString:@"," ] ];
-  [self setDetailText: [[uniqueTheaters allObjects] componentsJoinedByString: @", "]];
+  NSArray* theaterNames = [self theaterNamesForMovie: movie];
+  [self setDetailText: [theaterNames componentsJoinedByString: @", "]];
 
   self.url = _.join(@"/theaters/list?movie_id=", [movie objectForKey:@"_id"]);
 }

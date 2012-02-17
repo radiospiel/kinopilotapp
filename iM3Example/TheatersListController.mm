@@ -14,17 +14,12 @@
 
 /*** A cell for the TheatersListController ***************************************************/
 
-@interface TheatersListCell: M3TableViewProfileCell
+@interface TheatersListCell: M3TableViewProfileCell {
+  BOOL hasSchedules;
+}
 @end
 
 @implementation TheatersListCell
-
--(BOOL)theaterHasSchedules
-{
-  NSDictionary* theater = self.key;
-  NSString* movies = [theater objectForKey: @"movies"];
-  return [movies isKindOfClass:[NSString class]];
-}
 
 -(NSString*)theater_id
 {
@@ -38,6 +33,17 @@
   return isNowFlagged;
 }
 
+-(NSArray*)movieTitlesForTheater: (NSDictionary*)theater
+{
+  NSArray* movies = [app.sqliteDB all: @"SELECT DISTINCT(movies.title) FROM movies "
+                                        "INNER JOIN schedules ON schedules.movie_id=movies._id "
+                                        "WHERE schedules.theater_id=? AND schedules.time > ?", 
+                                        [theater objectForKey: @"_id"],
+                                        [NSDate today]];
+  
+  return [movies mapUsingBlock:^id(NSDictionary* movie) { return [movie objectForKey:@"title"]; }];
+}
+
 -(void)setKey: (NSDictionary*)theater
 {
   [super setKey:theater];
@@ -47,11 +53,11 @@
   
   [self setText: [theater objectForKey: @"name"]];
 
-  NSString* movies = [theater objectForKey: @"movies"];
-  if([self theaterHasSchedules]) {  // i.e. if it is not NSNull null
-    [self setDetailText: [movies stringByReplacingOccurrencesOfString:@"," 
-                                                           withString:@", "]
-    ];
+  NSArray* titles = [self movieTitlesForTheater: theater];
+  hasSchedules = titles.count > 0;
+  
+  if(hasSchedules) {
+    [self setDetailText: [titles componentsJoinedByString: @", "]];
   }
   else {
     [self setDetailText: @"Für dieses Kino liegen uns keine Vorführungen vor."];
@@ -61,8 +67,7 @@
 -(void)layoutSubviews
 {
   [super layoutSubviews];
-
-  if(![self theaterHasSchedules])
+  if(!hasSchedules)
     self.detailTextLabel.textColor = [UIColor grayColor];
 }
 
