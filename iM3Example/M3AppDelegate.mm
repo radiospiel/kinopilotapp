@@ -327,7 +327,19 @@ M3AppDelegate* app;
   
 }
 
+
+/*
+ Use this method to release shared resources, save user data, invalidate 
+ timers, and store enough application state information to restore your
+ application to its current state in case it is terminated later. 
+ 
+ If your application supports background execution, this method is 
+ called instead of applicationWillTerminate: when the user quits.
+ */
+
 static BOOL goingToQuit = NO;
+
+#define KILL_IN_BACKGROUND_AFTER_SECS 300
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
@@ -345,30 +357,18 @@ static BOOL goingToQuit = NO;
   }];
   
   if(UIBackgroundTaskInvalid != bgTask) {
-    // Start the long-running task and return immediately.
-    // kill app after 5 secs.
-    int64_t nanosecs = 5 * 60 * 1e09;
-    dispatch_after( dispatch_time(DISPATCH_TIME_NOW, nanosecs), 
-                   dispatch_get_main_queue(), ^{
-                     [app endBackgroundTask: bgTask];
-                     if(goingToQuit) 
-                       exit(0);
-                   });
-    
+    // Start the long-running task to kill app after some secs and return immediately.
+    dispatch_after( dispatch_time(DISPATCH_TIME_NOW, KILL_IN_BACKGROUND_AFTER_SECS * 1e09), 
+      dispatch_get_main_queue(), ^{
+        if(goingToQuit) exit(0);
+        [app endBackgroundTask: bgTask];
+      });
   }
-
-  /*
-   Use this method to release shared resources, save user data, invalidate 
-   timers, and store enough application state information to restore your
-   application to its current state in case it is terminated later. 
-   
-   If your application supports background execution, this method is 
-   called instead of applicationWillTerminate: when the user quits.
-  */
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+  // cancel ongoing background suicide.
   goingToQuit = NO;
   
   /*
