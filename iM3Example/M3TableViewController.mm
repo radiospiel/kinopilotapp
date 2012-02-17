@@ -50,6 +50,14 @@
   [self reload];
 }
 
+-(void)viewDidUnload
+{
+  self.topBannerView = nil; 
+  self.tableView = nil;
+
+  [super viewDidUnload];
+}
+
 #if TARGET_IPHONE_SIMULATOR
 #ifdef DEBUG
 - (void) viewDidAppear:(BOOL)animated
