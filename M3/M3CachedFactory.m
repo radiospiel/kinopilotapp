@@ -211,7 +211,7 @@
       return nil;
     }
 
-    NSLog(@"*** reading NULL image from cached file");
+    // NSLog(@"*** reading NULL image from cached file");
     return nil;
   }
 

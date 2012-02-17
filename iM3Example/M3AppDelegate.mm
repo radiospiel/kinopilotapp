@@ -272,7 +272,11 @@ M3AppDelegate* app;
 -(BOOL) application:(UIApplication *)application 
           didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  rlog(1) << "Starting application in " << [ M3 symbolicDir: @"$root" ];
+#if DEBUG
+  NSLog(@"Starting application in DEBUG mode in %@", [ M3 symbolicDir: @"$root" ]);
+#else
+  NSLog(@"Starting application in %@", [ M3 symbolicDir: @"$root" ]);
+#endif
 
   app = self;
   

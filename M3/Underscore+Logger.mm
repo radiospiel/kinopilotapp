@@ -64,7 +64,9 @@ Logger::~Logger()
   
   static M3StopWatch* stopWatch = 0;
   if(!stopWatch) {
+    #if DEBUG
     NSLog(@"Firing up underscore logger");
+    #endif
     stopWatch = [[M3StopWatch alloc]init];
   }
 

@@ -42,7 +42,7 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
                     url: (NSString*) url 
             withOptions: (NSDictionary*) options
 {
-  Benchmark(_.join(verb, " ", url));
+  // Benchmark(_.join(verb, " ", url));
 
   NSURLRequest* request = [self requestForURL: url 
                                      withVerb: verb  
@@ -58,7 +58,7 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
   M3AssertKindOf(response, NSHTTPURLResponse);
   
   if(response.statusCode == 200) {
-    rlog << url << ": received " << [data length] << " byte.";
+    dlog << url << ": received " << [data length] << " byte.";
     return data;
   }
 
@@ -70,7 +70,7 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
                           url: (NSString*) url 
                   withOptions: (NSDictionary*) options 
 {
-  Benchmark(_.join(verb, " ", url));
+  // Benchmark(_.join(verb, " ", url));
 
   NSURLRequest* request = [self requestForURL: url 
                                      withVerb: verb  
