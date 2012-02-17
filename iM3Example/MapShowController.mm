@@ -195,11 +195,6 @@
   [super viewDidUnload];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-  return YES;
-}
-
 #pragma mark - mapView delegate
 
 - (MKAnnotationView*) mapView:(MKMapView *)mv 
