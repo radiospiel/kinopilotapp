@@ -6,6 +6,7 @@
   you will see the startscreen and then the startpage with no further ado.
 - FIXED: You can no longer rotate the map, as this messed up the layout for the
   following cinemas.
+- Speeds up loading of cinema/movie lists by ~ a factor of 2 to 3.
 
 # 2020120214
 
