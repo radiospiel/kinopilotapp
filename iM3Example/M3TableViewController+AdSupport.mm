@@ -12,7 +12,7 @@
 
 -(void)requestAdBannerOnTop
 {
-  ADBannerView* bannerView = [[[ADBannerView alloc]initWithFrame:CGRectMake(0,0,0,0)] autorelease];
+  ADBannerView* bannerView = [[[ADBannerView alloc]initWithFrame:CGRectMake(0,0,320,50)] autorelease];
   bannerView.delegate = self;
   bannerView.requiredContentSizeIdentifiers = [NSSet setWithObject: ADBannerContentSizeIdentifierPortrait];
   bannerView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;            
@@ -33,7 +33,13 @@
 -(void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
   [app trackEvent: @"/ad/loaded"];
-  
+
+  if(self.tableView.tableHeaderView) {
+    // header view is already set; changing (or probably not even changing) it. 
+    self.tableView.tableHeaderView = banner;
+    return;
+  }
+
   [UIView animateWithDuration:0.25
                    animations:^ { self.tableView.contentOffset = CGPointMake(0, -50); }
                    completion:^(BOOL finished){ self.tableView.tableHeaderView = banner; }
@@ -42,7 +48,7 @@
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
 {
-  self.tableView.contentOffset = CGPointMake(0, -50);
+  self.tableView.contentOffset = CGPointMake(0, 0);
   self.tableView.tableHeaderView = nil;
 }
 
