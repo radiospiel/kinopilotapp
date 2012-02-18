@@ -304,6 +304,7 @@
   self = [super initWithCellClass: @"ScheduleListCell"];
   
   M3AssertKindOf(day, NSDate);
+  if(!day) day = [NSDate today];
   
   //
   // get all schedules for the theater and for the movie, and 
