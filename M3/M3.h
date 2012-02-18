@@ -70,6 +70,7 @@
 
 #endif
 
+#if DEBUG 
 #define M3AssertNotNil(var) do {                          \
           if(!var) { NSLog(@"%s must not be nil", #var);  \
             [M3 logBacktrace];                            \
@@ -97,5 +98,14 @@
             NSCParameterAssert([var isKindOfClass: [type class]]);  \
           }                                                         \
         } while(0) 
+#else
+
+#define M3Nop                           ((void)(0))
+#define M3AssertNotNil(var)             M3Nop
+#define M3AssertKindOfAndSet(var, type) M3Nop
+#define M3AssertKindOf(var, type)       M3Nop
+
+#endif
+
 
 #import "NSAttributedString+WithSimpleMarkup.h"
