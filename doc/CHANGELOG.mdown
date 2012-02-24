@@ -1,4 +1,10 @@
-# 2020120217
+# 20120224
+
+- FIXED: movie listing for a specific cinema could be empty, when in fact there were listings.
+- FIXED: image rotator on dashboard does not rotate to the same movie multiple times
+- IMPROVED: background behaviour
+
+# 20120217
 
 - FIXED: Sometimes an iAd could be added twice to the start page.
 - FIXED: When reactivating an inactive app you only see the screenshot of
@@ -8,7 +14,7 @@
   following cinemas.
 - Speeds up loading of cinema/movie lists by ~ a factor of 2 to 3.
 
-# 2020120214
+# 20120214
 
 - Sometimes the app could not pinpoint a devices location, which resulted in strange behaviour
 - Repositioned the iAd at the start view to conform to Apples guidelines
@@ -17,25 +23,25 @@
 - Connects movie show pages ("More Info…") to moviepilot movie page
 - Adds Uservoice feedback (in info area)
 
-# 2020120203
+# 20120203
 
 - adds user voice feedback
 - movie rating cell links to moviepilot website
 
-# 2020120203
+# 20120203
 
 - reworked UX flow. Instead of MoviesList -> Movie Info with IMDB and "More..." -> Movie Info with "Show Trailer" we now have MoviesList -> Movie Info with "Trailer" and "More..." -> Movie Info with "Trailer" and "IMDB".
 - Fixed calender result display: it showed an error when there was none and vice versa.
 - No longer black out app when backgrounding
 
-# 2020120201a
+# 20120201a
 
 - removed most of the ads again (there are some issues with when and how to show them, so that it makes sense to the user and to the app)
 - fixed crashes when loading the map with invalid or late readings from the location sensor
 - fixed listview titles, listviews scrolls to top when tapping the status bar
 - some minor stuff.
 
-# 2020120201
+# 20120201
 
 - Facebook is out, for now
 - Tweeting is improved
