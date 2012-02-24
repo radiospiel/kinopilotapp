@@ -125,7 +125,7 @@
 -(void)updateDatabaseWithFeedback: (BOOL)feedback
 {
   if(feedback)
-    [SVProgressHUD showWithStatus:@"Updating" maskType: SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:@"Aktualisieren..." maskType: SVProgressHUDMaskTypeBlack];
   
   // run in background...
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
