@@ -315,7 +315,7 @@
   if(!key) return;
 
   // load movie_ids for current movies w/images
-  NSArray* recs = [app.sqliteDB all: @"SELECT movies._id FROM movies "
+  NSArray* recs = [app.sqliteDB all: @"SELECT DISTINCT(movies._id) FROM movies "
                                       "INNER JOIN images ON images._id=movies.image "
                                       "INNER JOIN schedules ON schedules.movie_id=movies._id "
                                       "WHERE schedules.time > ?",
