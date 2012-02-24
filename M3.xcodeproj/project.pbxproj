@@ -2365,7 +2365,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Enrico Thierbach (GMBQB52YU2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: socially.io UG (haftungsbeschrankt)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
@@ -2391,6 +2391,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = Kinopilot;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8B019FF9-84C5-4577-AC1C-8D8FDF897054";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "vendor/uservoice-iphone-sdk/Include/ vendor/bc-ipad-iphone-kit-2.1/lib/** vendor/bc-media-api-2.1/lib/**";
