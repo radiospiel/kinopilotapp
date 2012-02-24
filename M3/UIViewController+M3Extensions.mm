@@ -191,7 +191,7 @@ extern M3AppDelegate* app;
 {
   [self setRightButtonWithFlatImage: [UIImage imageNamed:@"icon_72px.png"] 
                          target: app 
-                         action: @selector(restartApplication)];
+                         action: @selector(popToRootViewController)];
 }
 
 @end

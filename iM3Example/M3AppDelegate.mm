@@ -31,7 +31,7 @@ M3AppDelegate* app;
 
 @implementation M3AppDelegate
 
-@synthesize window, tabBarController, facebook;
+@synthesize window, tabBarController, facebook, withheldViewControllers;
 
 + (void)initialize
 {
@@ -227,20 +227,9 @@ M3AppDelegate* app;
 
 #pragma mark restart
 
--(void)createRootWindow
+-(NSArray*)popToRootViewController
 {
-  UIWindow* wnd = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]; 
-  self.window = [wnd autorelease];  
-}
-
--(void)restartApplication
-{
-  [self createRootWindow];
-  
-  [self loadTabs];
-  [self.window makeKeyAndVisible];
-  
-  [self trackEvent: @"start"];          // track a start event
+  return [app.topMostController popToRootViewControllerAnimated:NO];
 }
 
 // Returns nil, @"WIFI", or @"CELL"
@@ -301,7 +290,14 @@ M3AppDelegate* app;
 
   // --- shoot!
   self.window = nil;
-  [self restartApplication];  // restart app
+  
+  UIWindow* wnd = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]; 
+  self.window = [wnd autorelease];  
+    
+  [self loadTabs];
+  [self.window makeKeyAndVisible];
+    
+  [self trackEvent: @"start"];          // track a start event
   
   return YES;
 }
@@ -341,53 +337,46 @@ M3AppDelegate* app;
  called instead of applicationWillTerminate: when the user quits.
  */
 
-static BOOL goingToQuit = NO;
-
 #define KILL_IN_BACKGROUND_AFTER_SECS 300
+
+-(void)withholdViewControllers
+{
+  self.withheldViewControllers = [self popToRootViewController];
+}
+
+-(void)putBackWithheldViewControllers
+{
+  for(UIViewController* vc in self.withheldViewControllers) {
+    [app.topMostController pushViewController:vc animated:NO];
+  }
+  
+  self.withheldViewControllers = nil;
+}
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-  // set up a "timer" to quit the app after 5 minutes.
-  
-  goingToQuit = YES;
-  
-  UIApplication* app = [UIApplication sharedApplication];
-  UIBackgroundTaskIdentifier __block bgTask;
-  bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
-    // Clean up any unfinished task business by marking where you.
-    // stopped or ending the task outright.
-    [app endBackgroundTask:bgTask];
-    bgTask = UIBackgroundTaskInvalid;
-  }];
-  
-  if(UIBackgroundTaskInvalid != bgTask) {
-    // Start the long-running task to kill app after some secs and return immediately.
-    dispatch_after( dispatch_time(DISPATCH_TIME_NOW, KILL_IN_BACKGROUND_AFTER_SECS * 1e09), 
-      dispatch_get_main_queue(), ^{
-        if(goingToQuit) exit(0);
-        [app endBackgroundTask: bgTask];
-      });
-  }
+  [self withholdViewControllers];
 }
+
+#define TIME_IN_BACKGROUND_BEFORE_RESTART 10 * 60
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-  // cancel ongoing background suicide.
-  goingToQuit = NO;
-  
   /*
    Called as part of the transition from the background to the inactive state; 
    here you can undo many of the changes made on entering the background.
    */
-
   NSNumber* resigned_at = [self.sqliteDB.settings objectForKey: @"resigned_at"];
-  int diff = [NSDate now].to_number.to_i - resigned_at.to_i;
+  int timeInBackground = [NSDate now].to_number.to_i - resigned_at.to_i;
 
-  if(diff > 5 * 60) {                         // 300 seconds.
-    [self restartApplication];
+  // After a certain time the application reopens at the Dashboard view again,
+  // i.e. does not put back the withheldViewControllers
+  if(timeInBackground > TIME_IN_BACKGROUND_BEFORE_RESTART) {
+    [self trackEvent: @"start"];
+    self.withheldViewControllers = nil;
   }
   else {
-    [app emit:@selector(resumed)];
+    [self putBackWithheldViewControllers];
   }
 
   [self updateDatabaseIfNeeded];

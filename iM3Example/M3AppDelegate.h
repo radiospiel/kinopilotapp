@@ -37,6 +37,7 @@ extern M3AppDelegate* app;
 @property (nonatomic, retain) Facebook *facebook;
 @property (retain, nonatomic) UIWindow *window;
 @property (retain, nonatomic) UITabBarController *tabBarController;
+@property (retain, nonatomic) NSArray *withheldViewControllers;
 
 /*
  * returns the aplication configuration. It is read from the 
