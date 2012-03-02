@@ -19,6 +19,8 @@
 {
   // Add the image on top of the current image
   UIImageView *overlay = [[UIImageView alloc] initWithImage:image];
+  overlay.contentMode = UIViewContentModeScaleAspectFill;
+  overlay.clipsToBounds = YES;
   
   [self.superview addSubview: overlay];
   overlay.frame = self.frame;
@@ -28,6 +30,9 @@
                    animations:^{ overlay.alpha = 1.0; }
                    completion:^(BOOL finished){
                      self.image = overlay.image;
+                     self.clipsToBounds = YES;
+                     self.contentMode = UIViewContentModeScaleAspectFill;
+
                      [overlay removeFromSuperview];
                      [overlay release];
                    }];
@@ -48,8 +53,11 @@
                                 [self instance_variable_set:@selector(imageURL) withValue:url];
                                 if(!image) return;
                                 
-                                if(didExist)
-                                  [self setImage: image];
+                                if(didExist) {
+                                  self.image = image;
+                                  self.contentMode = UIViewContentModeScaleAspectFill;
+                                  self.clipsToBounds = YES;
+                                }
                                 else
                                   [self setImageWithAnimation: image];
                               }];

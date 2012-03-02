@@ -21,6 +21,8 @@
 {
   UIImage* image = [app thumbnailForMovie: movie];
   self.image = image ? image : [UIImage imageNamed:@"no_poster.png"];
+  self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+  self.imageView.clipsToBounds = YES;
 }
 
 @end
