@@ -103,12 +103,27 @@
 
 @end
 
+#include <sys/xattr.h>
+
 @implementation M3AppDelegate(SqliteDB)
+
+- (BOOL)addSkipBackupAttributeToItemAtPath:(NSString *)path
+{
+  path = [M3 expandPath: path];
+  const char* filePath = [path UTF8String];
+  
+  const char* attrName = "com.apple.MobileBackup";
+  u_int8_t attrValue = 1;
+  
+  int result = setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
+  return result == 0;
+}
 
 -(M3SqliteDatabase*)buildSqliteDatabase
 {
   if(![M3 fileExists: SQLITE_PATH]) {
     [M3 copyFrom:SEED_PATH to:SQLITE_PATH];
+    [self addSkipBackupAttributeToItemAtPath: SQLITE_PATH];
   }
   
   NSString* dbPath = [M3 expandPath: SQLITE_PATH];
