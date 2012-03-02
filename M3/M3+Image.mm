@@ -7,6 +7,7 @@
 //
 
 #import "M3.h"
+#import "M3AppDelegate.h"
 
 const char* M3SenchaSupportFull = "M3SenchaSupportFull";
 const char* M3SenchaSupportLarge = "M3SenchaSupportLarge";
@@ -35,6 +36,14 @@ static const char* sencha_format = "jpg70";
   sencha_retina_display = supportingRetinaDisplay;
 }
 
++(NSString*)urlTemplate
+{
+  NSString* urlTemplate = [app.sqliteDB.settings objectForKey:@"imgio"];
+  if(!urlTemplate) urlTemplate = @"http://src.sencha.io/{{format}}/{{width}}/{{height}}/{{url}}";
+
+  return urlTemplate;
+}
+
 /**
  * converts the source image URL into the image URL to actually fetch the image
  */
@@ -49,14 +58,14 @@ static const char* sencha_format = "jpg70";
   // if(enabled_sencha == M3SenchaSupportLarge && (w+h) < 200) return url;
   
 #if TARGET_OS_IPHONE
+
   if(sencha_retina_display && [[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
     w = w * [UIScreen mainScreen].scale; 
     h = h * [UIScreen mainScreen].scale;
   }
 #endif
   
-  NSString* shard = @"";
-  return [NSString stringWithFormat: @"http://src%@.sencha.io/%s/%d/%d/%@", shard, sencha_format, w, h, url];
+  return [M3 interpolateString:[self urlTemplate]
+                    withValues:_.hash(@"format", sencha_format, @"width", w, @"height", h, @"url", url)];
 }
-
 @end
