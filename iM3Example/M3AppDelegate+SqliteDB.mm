@@ -80,8 +80,25 @@
   return diff;
 }
 
--(void)importDatabaseFromURL: (NSString*)url
+-(void)saveHeaderValue: (id)value 
+                forKey: (NSString*)key
+{
+  if(!value) return;
+  
+  [self.settings setObject: value forKey: key];
+}
+
+-(void)saveHeaderValueWithName: (NSString*)name 
+                    fromHeader: (NSDictionary*)header
+{
+  [self saveHeaderValue: [header objectForKey: name] forKey: name];
+}
+
+-(void)importDatabaseFromRemote
 {  
+  NSString* url = [self.settings objectForKey:@"update_url"];
+  if(!url) url = REMOTE_SQL_URL;
+
   NSArray* entries = [self fetchDiffFromURL: url];
   
   Benchmark(_.join("Importing database from ", url));
@@ -92,12 +109,11 @@
     NSArray* headerArray = entries.first;
     NSDictionary* header = headerArray.second;
 
-    [self.settings setObject: [header objectForKey: @"revision"] 
-                      forKey: @"revision"];
-    [self.settings setObject: [header objectForKey: @"uuid"] 
-                      forKey: @"uuid"];
-    [self.settings setObject: [NSDate now].to_number 
-                      forKey: @"updated_at"];
+    [self saveHeaderValueWithName:@"imgio"        fromHeader:header];
+    [self saveHeaderValueWithName:@"update_url"   fromHeader:header];
+    [self saveHeaderValueWithName:@"revision"     fromHeader:header];
+    [self saveHeaderValueWithName:@"uuid"         fromHeader:header];
+    [self saveHeaderValue:[NSDate now].to_number forKey:@"updated_at"];
   }];
 }
 
@@ -146,8 +162,8 @@
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     M3SqliteDatabase* db = [self buildSqliteDatabase];
     @try {
-      [db importDatabaseFromURL: REMOTE_SQL_URL];
-
+      [db importDatabaseFromRemote];
+    
       dispatch_async(dispatch_get_main_queue(), ^{
         [self emit:@selector(updated)];
         if(feedback)
