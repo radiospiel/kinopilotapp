@@ -1777,7 +1777,7 @@
 		9D8B8AE21413CA8B0066ECBB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = n/a;
 			};
 			buildConfigurationList = 9D8B8AE51413CA8B0066ECBB /* Build configuration list for PBXProject "M3" */;
