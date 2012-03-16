@@ -22,9 +22,12 @@ static MixpanelAPI* getMixpanelApi()
 
 -(void)trackEvent: (NSString*) event properties: (NSDictionary*) properties
 {
+#ifdef DEBUG
+  NSLog(@"Ignoring trackEvent: %@", event);
+#else
   [getMixpanelApi() track:event properties:properties];
-
   [FlurryAnalytics logEvent:event withParameters:properties];
+#endif
 }
 
 -(void)trackEvent: (NSString*) event
