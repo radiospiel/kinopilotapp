@@ -619,6 +619,7 @@ static StatementType statementTypeForSql(NSString* sql)
 {
   [tableName_ release]; tableName_ = nil;
   [database_ release]; database_ = nil;
+  [super dealloc];
 }
 
 +(M3SqliteTable*)tableWithName: (NSString*)name 

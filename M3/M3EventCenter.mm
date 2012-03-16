@@ -209,6 +209,7 @@ public:
 -(void)dealloc {
   delete pimpl;
   pimpl_ = 0;
+  [super dealloc];
 }
 
 -(void)clear {
