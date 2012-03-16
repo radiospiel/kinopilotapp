@@ -242,20 +242,28 @@ M3AppDelegate* app;
   zeroAddr.sin_family = AF_INET;
   
   // Part 2- Create target in format need by SCNetwork
-  SCNetworkReachabilityRef target = 
+  SCNetworkReachabilityRef reach = 
   SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *) &zeroAddr);
   
   // Part 3 - Get the flags
   SCNetworkReachabilityFlags flags;
-  SCNetworkReachabilityGetFlags(target, &flags);
+  SCNetworkReachabilityGetFlags(reach, &flags);
   
   // Part 4 - Create output
-  if(!(flags & kSCNetworkFlagsReachable)) 
-    return nil;
-  else if (flags & kSCNetworkReachabilityFlagsIsWWAN)
-    return @"CELL";
-  else
-    return @"WIFI";
+  NSString* reachability = @"WIFI";
+  
+  if(!(flags & kSCNetworkFlagsReachable)) {
+    reachability = nil;
+  }
+  else if (flags & kSCNetworkReachabilityFlagsIsWWAN) { 
+    // reachability = @"CELL";
+    // This is CELL reachability. We disable all wifi functionality though.
+    reachability = nil;   
+  }
+
+  CFRelease(reach);
+
+  return reachability;
 }
 
 -(BOOL) application:(UIApplication *)application 
