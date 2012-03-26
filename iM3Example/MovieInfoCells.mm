@@ -202,15 +202,17 @@
   NSString* title =           [movie objectForKey:@"title"];
   NSNumber* runtime =         [movie objectForKey:@"runtime"];
   NSString* genre =           [[movie objectForKey:@"genres"] objectAtIndex:0];
+  genre = [genre gsub:@"&amp;" with: @"&"];
+
   NSNumber* production_year = [movie objectForKey:@"production_year"];
 
   NSMutableArray* parts = [NSMutableArray array];
 
-  [parts addObject: [NSString stringWithFormat: @"<h2><b>%@</b></h2>", title]];
+  [parts addObject: [NSString stringWithFormat: @"<h2><b>%@</b></h2>", title.htmlEscape]];
 
   if(genre || production_year || runtime) {
     NSMutableArray* p = [NSMutableArray array];
-    if(genre) [p addObject: genre];
+    if(genre) [p addObject: genre.htmlEscape];
     if(production_year) [p addObject: production_year];
     if(runtime) [p addObject: [NSString stringWithFormat:@"%@ min", runtime]];
     
