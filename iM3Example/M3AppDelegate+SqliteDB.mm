@@ -12,7 +12,7 @@
 #elif APP_FLK
 
   #define SQLITE_PATH       @"$documents/flk2.sqlite3"
-  #define SEED_PATH         @"$app/seed.sqlite3"
+  #define SEED_PATH         @"$app/seed-flk.sqlite3"
   #define REMOTE_SQL_URL    @"http://update.16b.org/flk"
   #define DEBUG_SQL_URL     @"http://localhost:9292/flk"
 
