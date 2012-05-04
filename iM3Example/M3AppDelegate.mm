@@ -35,6 +35,7 @@ M3AppDelegate* app;
 
 + (void)initialize
 {
+#if APP_KINOPILOT
   // -- configure iRate
   iRate* r = [iRate sharedInstance];
   r.appStoreID = APP_STORE_ID;
@@ -48,6 +49,7 @@ M3AppDelegate* app;
   r.cancelButtonLabel = @"Nein, danke!";
   r.rateButtonLabel = @"Vielleicht später.";
   r.remindButtonLabel  = @"Ja, gern!";
+#endif
 }
 
 - (void)dealloc
