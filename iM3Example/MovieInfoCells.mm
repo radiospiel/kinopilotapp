@@ -248,8 +248,6 @@
 
   posterView.image = [app thumbnailForMovie: self.movie];
 
-  NSArray* thumbnails = [self.movie objectForKey:@"thumbnails"];
-
   if(![app currentReachability])
     return;
     

@@ -380,12 +380,6 @@
 		9DF9B2DC147459F60035084F /* GTMSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF9B2D9147459F60035084F /* GTMSQLite.h */; };
 		9DF9B2DD147459F60035084F /* GTMSQLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9B2DA147459F60035084F /* GTMSQLite.m */; };
 		9DF9B2DE147459F60035084F /* GTMSQLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9B2DA147459F60035084F /* GTMSQLite.m */; };
-		9DFD23A6146C6641001704CC /* MPCJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD239A146C6641001704CC /* MPCJSONDataSerializer.m */; };
-		9DFD23A7146C6641001704CC /* MPCJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD239C146C6641001704CC /* MPCJSONSerializer.m */; };
-		9DFD23A8146C6641001704CC /* MPCSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD239E146C6641001704CC /* MPCSerializedJSONData.m */; };
-		9DFD23A9146C6641001704CC /* NSData+MPBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD23A1146C6641001704CC /* NSData+MPBase64.m */; };
-		9DFD23AA146C6641001704CC /* MixpanelAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD23A3146C6641001704CC /* MixpanelAPI.m */; };
-		9DFD23AB146C6641001704CC /* MixpanelEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD23A5146C6641001704CC /* MixpanelEvent.m */; };
 		9DFE5C151464319F0039F536 /* ActionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE5C141464319F0039F536 /* ActionController.mm */; };
 		9DFE5C18146445520039F536 /* NSNumber+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DFE5C16146445520039F536 /* NSNumber+M3Extensions.h */; };
 		9DFE5C19146445520039F536 /* NSNumber+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DFE5C16146445520039F536 /* NSNumber+M3Extensions.h */; };
@@ -770,18 +764,6 @@
 		9DF9B2D714744CE10035084F /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/usr/lib/libsqlite3.dylib; sourceTree = DEVELOPER_DIR; };
 		9DF9B2D9147459F60035084F /* GTMSQLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMSQLite.h; path = "vendor/google-toolbox/GTMSQLite.h"; sourceTree = SOURCE_ROOT; };
 		9DF9B2DA147459F60035084F /* GTMSQLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMSQLite.m; path = "vendor/google-toolbox/GTMSQLite.m"; sourceTree = SOURCE_ROOT; };
-		9DFD2399146C6641001704CC /* MPCJSONDataSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCJSONDataSerializer.h; sourceTree = "<group>"; };
-		9DFD239A146C6641001704CC /* MPCJSONDataSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCJSONDataSerializer.m; sourceTree = "<group>"; };
-		9DFD239B146C6641001704CC /* MPCJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCJSONSerializer.h; sourceTree = "<group>"; };
-		9DFD239C146C6641001704CC /* MPCJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCJSONSerializer.m; sourceTree = "<group>"; };
-		9DFD239D146C6641001704CC /* MPCSerializedJSONData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCSerializedJSONData.h; sourceTree = "<group>"; };
-		9DFD239E146C6641001704CC /* MPCSerializedJSONData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCSerializedJSONData.m; sourceTree = "<group>"; };
-		9DFD23A0146C6641001704CC /* NSData+MPBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+MPBase64.h"; sourceTree = "<group>"; };
-		9DFD23A1146C6641001704CC /* NSData+MPBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MPBase64.m"; sourceTree = "<group>"; };
-		9DFD23A2146C6641001704CC /* MixpanelAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixpanelAPI.h; sourceTree = "<group>"; };
-		9DFD23A3146C6641001704CC /* MixpanelAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixpanelAPI.m; sourceTree = "<group>"; };
-		9DFD23A4146C6641001704CC /* MixpanelEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixpanelEvent.h; sourceTree = "<group>"; };
-		9DFD23A5146C6641001704CC /* MixpanelEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixpanelEvent.m; sourceTree = "<group>"; };
 		9DFE5C141464319F0039F536 /* ActionController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ActionController.mm; sourceTree = "<group>"; };
 		9DFE5C16146445520039F536 /* NSNumber+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+M3Extensions.h"; sourceTree = "<group>"; };
 		9DFE5C17146445520039F536 /* NSNumber+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSNumber+M3Extensions.mm"; sourceTree = "<group>"; };
@@ -927,7 +909,6 @@
 		9D0EF7481413DFD40051B8FA /* vendor */ = {
 			isa = PBXGroup;
 			children = (
-				9DFD2396146C6641001704CC /* MPLib */,
 				9D0EF71A1413D45C0051B8FA /* JSONKit */,
 			);
 			name = vendor;
@@ -1524,50 +1505,6 @@
 			path = "vendor/uservoice-iphone-sdk/Categories";
 			sourceTree = SOURCE_ROOT;
 		};
-		9DFD2396146C6641001704CC /* MPLib */ = {
-			isa = PBXGroup;
-			children = (
-				9DFD2397146C6641001704CC /* lib */,
-				9DFD23A2146C6641001704CC /* MixpanelAPI.h */,
-				9DFD23A3146C6641001704CC /* MixpanelAPI.m */,
-				9DFD23A4146C6641001704CC /* MixpanelEvent.h */,
-				9DFD23A5146C6641001704CC /* MixpanelEvent.m */,
-			);
-			name = MPLib;
-			path = "vendor/mixpanel-iphone/MPLib";
-			sourceTree = "<group>";
-		};
-		9DFD2397146C6641001704CC /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				9DFD2398146C6641001704CC /* JSON */,
-				9DFD239F146C6641001704CC /* NSData_Base64 */,
-			);
-			path = lib;
-			sourceTree = "<group>";
-		};
-		9DFD2398146C6641001704CC /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-				9DFD2399146C6641001704CC /* MPCJSONDataSerializer.h */,
-				9DFD239A146C6641001704CC /* MPCJSONDataSerializer.m */,
-				9DFD239B146C6641001704CC /* MPCJSONSerializer.h */,
-				9DFD239C146C6641001704CC /* MPCJSONSerializer.m */,
-				9DFD239D146C6641001704CC /* MPCSerializedJSONData.h */,
-				9DFD239E146C6641001704CC /* MPCSerializedJSONData.m */,
-			);
-			path = JSON;
-			sourceTree = "<group>";
-		};
-		9DFD239F146C6641001704CC /* NSData_Base64 */ = {
-			isa = PBXGroup;
-			children = (
-				9DFD23A0146C6641001704CC /* NSData+MPBase64.h */,
-				9DFD23A1146C6641001704CC /* NSData+MPBase64.m */,
-			);
-			path = NSData_Base64;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -2080,12 +2017,6 @@
 				9D4B7018145D5ECB00F1DBCE /* SchedulesActionsController.mm in Sources */,
 				9DACE1BF145F48B600372415 /* ShareController.mm in Sources */,
 				9DFE5C151464319F0039F536 /* ActionController.mm in Sources */,
-				9DFD23A6146C6641001704CC /* MPCJSONDataSerializer.m in Sources */,
-				9DFD23A7146C6641001704CC /* MPCJSONSerializer.m in Sources */,
-				9DFD23A8146C6641001704CC /* MPCSerializedJSONData.m in Sources */,
-				9DFD23A9146C6641001704CC /* NSData+MPBase64.m in Sources */,
-				9DFD23AA146C6641001704CC /* MixpanelAPI.m in Sources */,
-				9DFD23AB146C6641001704CC /* MixpanelEvent.m in Sources */,
 				9D3813901469A2DB00E4BBF4 /* MoviesTrailerController.mm in Sources */,
 				9D3D3093148994B300C84FB4 /* SVProgressHUD.m in Sources */,
 				9DFED726148BDA41000CE7B0 /* EmptyListCell.mm in Sources */,
