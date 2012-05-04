@@ -11,6 +11,30 @@
 #import "M3DataSource.h"
 #import "M3TableViewDataSource.h"
 
+// returns the sortkey in a dictionary.
+static NSString* sortkey(NSDictionary* dict) 
+{
+  NSString* sortkey = [dict objectForKey:@"sortkey"];
+  if([sortkey isKindOfClass:[NSString class]])
+    return sortkey;
+  
+  id objId = [dict objectForKey:@"_id"];
+  if(!objId) objId = [dict objectForKey:@"id"];
+  NSString* index_key = [objId description];
+  
+  // [LEGACY] is this a "c-" or "m-" index key? 
+  // The theater_id is "c-<sortkey>", and the first character of the sortkey
+  // "makes sense" for the index: this should be the first relevant 
+  // letter from the movie title.
+  if([[index_key substringWithRange:NSMakeRange(1, 1)] isEqualToString:@"-"]) {
+    index_key = [[[objId description] substringWithRange:NSMakeRange(2, 1)] uppercaseString];
+  }
+
+  if([index_key compare:@"A"] == NSOrderedAscending || [@"Z" compare: index_key] == NSOrderedAscending)
+    return @"#";
+  return index_key;
+}
+
 @implementation M3DataSource
 @end
 
@@ -66,11 +90,7 @@
       // The movie_id is "m-<sortkey>", and the first character of the sortkey
       // "makes sense" for the index: this should be the first relevant 
       // letter from the movie title.
-      NSString* movie_id = [movie objectForKey:@"_id"];
-      NSString* index_key = [[movie_id substringWithRange:NSMakeRange(2, 1)] uppercaseString];
-      if([index_key compare:@"A"] == NSOrderedAscending || [@"Z" compare: index_key] == NSOrderedAscending)
-        return @"#";
-      return index_key;
+      return sortkey(movie);
     }];
     
     NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
@@ -195,11 +215,7 @@
   if(theaters.count > 0) {
     
     NSDictionary* groupedHash = [theaters groupUsingBlock:^id(NSDictionary* theater) {
-      // The theater_id is "c-<sortkey>", and the first character of the sortkey
-      // "makes sense" for the index: this should be the first relevant 
-      // letter from the movie title.
-      NSString* theater_id = [theater objectForKey:@"_id"];
-      return [[theater_id substringWithRange:NSMakeRange(2, 1)] uppercaseString];
+      return sortkey(theater);
     }];
   
     NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];

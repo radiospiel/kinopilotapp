@@ -467,6 +467,8 @@ static StatementType statementTypeForSql(NSString* sql)
 
 -(void)importDump: (NSArray*)entries
 {
+  M3AssertKindOf(entries, NSArray);
+  
   [self ask: @"BEGIN"];
 
   NSDictionary* header = nil;
