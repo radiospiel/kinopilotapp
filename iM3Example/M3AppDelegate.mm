@@ -11,9 +11,6 @@
 #import "M3AppDelegate.h"
 #import "UIViewController+M3Extensions.h"
 
-#import "MixpanelAPI.h"
-#define MIXPANEL_TOKEN @"93ab63eb89a79f22a5b777881c916e7a"
-
 #import "FlurryAnalytics.h"
 #define FLURRY_API_KEY @"KJ96KEEHE5Y58NZURG2H"
 
