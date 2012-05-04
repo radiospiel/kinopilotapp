@@ -25,4 +25,9 @@
   return self.to_date.to_day;
 }
 
+-(NSNumber*)to_number
+{
+  return self;
+}
+
 @end
