@@ -11,5 +11,6 @@
 @property (readonly,nonatomic) int to_i;
 @property (readonly,nonatomic) NSDate* to_date;
 @property (readonly,nonatomic) NSDate* to_day;
+@property (readonly,nonatomic) NSNumber* to_number;
 
 @end

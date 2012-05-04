@@ -246,16 +246,19 @@
   CGSize sz = [self htmlViewSize];
   htmlView.frame = CGRectMake(107, 7, sz.width, sz.height);
 
-  NSArray* thumbnails = [self.movie objectForKey:@"thumbnails"];
   posterView.image = [app thumbnailForMovie: self.movie];
-  posterView.imageURL = thumbnails.first;
-  
-  if(thumbnails.first && [app currentReachability]) {
+
+  NSArray* thumbnails = [self.movie objectForKey:@"thumbnails"];
+
+  if(![app currentReachability])
+    return;
+    
+  if([self.movie objectForKey:@"images"] || [self.movie objectForKey:@"image"]) {
     UIImageView* tapReceiver = [[UIImageView alloc] initWithFrame: CGRectMake(57, 86, 30, 30)];
     tapReceiver.image = [UIImage imageNamed:@"42-photos.png"];
     tapReceiver.contentMode = UIViewContentModeCenter;
     [posterView addSubview: [tapReceiver autorelease]];
-    
+
     [posterView onTapOpen: _.join(@"/movies/images?movie_id=", self.movie_id) ];
   }
 }

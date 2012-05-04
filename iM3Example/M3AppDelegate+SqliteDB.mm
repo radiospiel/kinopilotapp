@@ -2,15 +2,27 @@
 #import "SVProgressHUD.h"
 #import "JSONKit.h"
 
-#define SQLITE_PATH       @"$documents/kinopilot2.sqlite3"
-#define SEED_PATH         @"$app/seed.sqlite3"
+#if APP_KINOPILOT
+
+  #define SQLITE_PATH       @"$documents/kinopilot2.sqlite3"
+  #define SEED_PATH         @"$app/seed.sqlite3"
+  #define REMOTE_SQL_URL    @"http://kinopilotupdates2.heroku.com/db/images,berlin.sql"
+  #define DEBUG_SQL_URL     @"http://localhost:3000/db/images,berlin.sql"
+
+#elif APP_FLK
+
+  #define SQLITE_PATH       @"$documents/flk2.sqlite3"
+  #define SEED_PATH         @"$app/seed-flk.sqlite3"
+  #define REMOTE_SQL_URL    @"http://update.16b.org/flk"
+  #define DEBUG_SQL_URL     @"http://localhost:9292/flk"
+
+#endif
 
 #define UPDATE_TIME_SPAN  18 * 3600
 
 #if 1
-#define REMOTE_SQL_URL  @"http://kinopilotupdates2.heroku.com/db/images,berlin.sql"
-#else
-#define REMOTE_SQL_URL  @"http://localhost:3000/db/images,berlin.sql"
+  #undef REMOTE_SQL_URL
+  #define REMOTE_SQL_URL DEBUG_SQL_URL
 #endif
 
 @implementation M3SqliteDatabase(M3Additions)

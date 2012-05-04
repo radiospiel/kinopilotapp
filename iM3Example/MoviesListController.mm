@@ -113,6 +113,15 @@
   [self setImageForMovie: movie];
   [self setText: [movie objectForKey: @"title"]];
   
+#if APP_FLK
+
+  NSString* time = [movie objectForKey:@"time"];
+  NSString* timeAsString = [time.to_date stringWithFormat:@"dd.MM. HH:mm"];
+
+  [self setDetailText: timeAsString];
+
+#else
+  
   NSArray* schedules = [self schedules];
   schedules = [schedules sortByKey:@"time"];
 
@@ -124,6 +133,7 @@
   }];
   
   [self setDetailText: [schedules componentsJoinedByString:@", "]];
+#endif
 }
 
 -(NSString*) url
@@ -150,10 +160,12 @@
 {
   self = [super init];
 
+#if APP_KINOPILOT
   [self addSegment: @"Alle" withFilter: @"all" andTitle: @"Alle Filme"];
   [self addSegment: @"Neu"  withFilter: @"new" andTitle: @"Neue Filme"];
   [self addSegment: @"Art"  withFilter: @"art" andTitle: @"Klassiker"];
-
+#endif
+  
   return self;
 }
 

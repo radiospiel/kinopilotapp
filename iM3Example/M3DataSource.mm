@@ -11,6 +11,38 @@
 #import "M3DataSource.h"
 #import "M3TableViewDataSource.h"
 
+// [LEGACY] is this a "c-" or "m-" index key? 
+// The theater_id is "c-<sortkey>", and the first character of the sortkey
+// "makes sense" for the index: this should be the first relevant 
+// letter from the movie title.
+static NSString* legacyIndexKey(NSDictionary* dict) 
+{
+  id objId = [dict objectForKey:@"_id"];
+  if(!objId) objId = [dict objectForKey:@"id"];
+  NSString* index_key = [objId description];
+
+  if([[index_key substringWithRange:NSMakeRange(1, 1)] isEqualToString:@"-"])
+    return [index_key substringFromIndex:2];
+  
+  return index_key;
+}
+
+// returns the sortkey in a dictionary.
+static NSString* indexKey(NSDictionary* dict) 
+{
+  NSString* indexKey = [dict objectForKey:@"sortkey"];
+
+  if(![indexKey isKindOfClass:[NSString class]])
+    indexKey = legacyIndexKey(dict);
+    
+  indexKey = [[indexKey substringToIndex:1] uppercaseString];
+  
+  if([indexKey compare:@"A"] == NSOrderedAscending || [@"Z" compare: indexKey] == NSOrderedAscending)
+    return @"#";
+
+  return indexKey;
+}
+
 @implementation M3DataSource
 @end
 
@@ -27,7 +59,7 @@
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     NSTimeInterval two_weeks_ago = now - 14 * 24 * 3600;
 
-    return [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image FROM movies "
+    return [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image, movies.sortkey FROM movies "
                                 "INNER JOIN schedules ON schedules.movie_id=movies._id "
                                 "INNER JOIN theaters ON schedules.theater_id=theaters._id "
                                 "WHERE schedules.time > ? AND cinema_start_date > ? "
@@ -37,7 +69,7 @@
             ];
   }
   else if([filter isEqualToString:@"art"]) {
-    return [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image FROM movies "
+    return [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image, movies.sortkey FROM movies "
                                 "INNER JOIN schedules ON schedules.movie_id=movies._id "
                                 "INNER JOIN theaters ON schedules.theater_id=theaters._id "
                                 "WHERE schedules.time > ? AND production_year < 1995 "
@@ -46,7 +78,7 @@
             ];
   }
   else {
-    return [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image FROM movies "
+    return [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image, movies.sortkey FROM movies "
                                 "INNER JOIN schedules ON schedules.movie_id=movies._id  "
                                 "INNER JOIN theaters ON schedules.theater_id=theaters._id "
                                 "WHERE schedules.time > ? "
@@ -66,11 +98,7 @@
       // The movie_id is "m-<sortkey>", and the first character of the sortkey
       // "makes sense" for the index: this should be the first relevant 
       // letter from the movie title.
-      NSString* movie_id = [movie objectForKey:@"_id"];
-      NSString* index_key = [[movie_id substringWithRange:NSMakeRange(2, 1)] uppercaseString];
-      if([index_key compare:@"A"] == NSOrderedAscending || [@"Z" compare: index_key] == NSOrderedAscending)
-        return @"#";
-      return index_key;
+      return indexKey(movie);
     }];
     
     NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
@@ -126,6 +154,9 @@
 {
   self = [super initWithCellClass: @"MoviesListFilteredByTheaterCell"]; 
 
+  NSDictionary* theaters = [app.sqliteDB.theaters get: theater_id];
+  theater_id = [theaters objectForKey:@"_id"];
+
   //
   // get all live schedules for the theater
   NSArray* schedules = [
@@ -136,29 +167,40 @@
                         theater_id, 
                         [NSDate today]
   ];
+
+  if(schedules.count == 0) return self;
   
-  if(schedules.count > 0) {
-    // group schedules by *day* into sectionsHash
-    NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
-      NSNumber* time = [schedule objectForKey:@"time"];
-      
-      time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
-      return [time.to_date stringWithFormat:@"dd.MM."];
-    }];
+#if APP_FLK
+  
+  schedules = [schedules sortByBlock:^id(NSDictionary* dict) {
+    return [dict objectForKey:@"time"];
+  }];
+  [self addSection: schedules];
+
+#else
     
-    NSArray* sectionsArray = [sectionsHash allValues];
-    sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
-      NSNumber* time1 = [schedules1.first objectForKey:@"time"];
-      NSNumber* time2 = [schedules2.first objectForKey:@"time"];
-      
-      return [time1 compare:time2];
-    }];
+  // group schedules by *day* into sectionsHash
+  NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
+    NSNumber* time = [schedule objectForKey:@"time"];
     
-    for(NSArray* schedules in sectionsArray) {
-      M3AssertKindOf(schedules, NSArray);
-      [self addSchedulesSection: schedules];
-    }
+    time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
+    return [time.to_date stringWithFormat:@"dd.MM."];
+  }];
+  
+  NSArray* sectionsArray = [sectionsHash allValues];
+  sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
+    NSNumber* time1 = [schedules1.first objectForKey:@"time"];
+    NSNumber* time2 = [schedules2.first objectForKey:@"time"];
+    
+    return [time1 compare:time2];
+  }];
+  
+  for(NSArray* schedules in sectionsArray) {
+    M3AssertKindOf(schedules, NSArray);
+    [self addSchedulesSection: schedules];
   }
+
+#endif
   
   return self;
 }
@@ -195,11 +237,7 @@
   if(theaters.count > 0) {
     
     NSDictionary* groupedHash = [theaters groupUsingBlock:^id(NSDictionary* theater) {
-      // The theater_id is "c-<sortkey>", and the first character of the sortkey
-      // "makes sense" for the index: this should be the first relevant 
-      // letter from the movie title.
-      NSString* theater_id = [theater objectForKey:@"_id"];
-      return [[theater_id substringWithRange:NSMakeRange(2, 1)] uppercaseString];
+      return indexKey(theater);
     }];
   
     NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
@@ -250,6 +288,9 @@
 {
   self = [super initWithCellClass: @"TheatersListFilteredByMovieCell"];
 
+  NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
+  movie_id = [movie objectForKey:@"_id"];
+  
   //
   // get all schedules for the theater
   NSArray* schedules = [
@@ -417,9 +458,10 @@
                                    andMovie: (NSString*)movie_id
                                       onDay: (NSDate*)day
 {
-  M3AssertKindOfAndSet(theater_id, NSString);
-  M3AssertKindOfAndSet(movie_id, NSString);
   M3AssertKindOf(day, NSDate);
+
+  movie_id = [[app.sqliteDB.movies get:movie_id] objectForKey:@"_id"];
+  theater_id = [[app.sqliteDB.theaters get:theater_id] objectForKey:@"_id"];
  
   return [self datasourceWithName: @"schedulesByTheater:andMovie:onDay" 
                         fromBlock: ^M3TableViewDataSource*() {

@@ -5,7 +5,11 @@
       "nurl": "/movies/list?theater_id=adriafilmtheat|2487JHMKNoY",
       "url": "/dashboard",
       "nurl": "/movies/show?movie_id=m-abenteuervontimundstruppidasgeheimnisdereinhorn",
-      "nurl": "/info",
+      "nurl": "/movies/list",
+      "nurl": "/movies/show?movie_id=78313",
+      
+      "nurl": "/theaters/list?movie_id=55721",
+      "nurl": "/movies/list?theater_id=1772782850741985845",
       "nurl": "/movies/show?movie_id=m-gestiefeltekater",
       "nurl": "/info",
       "nurl": "/schedules/list?important=movie&day=1322866800&theater_id=c-filmrauschpalastimkulturfabrikmoabit&movie_id=m-guard",

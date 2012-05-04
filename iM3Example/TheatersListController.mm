@@ -188,13 +188,30 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 {
   NSString* title = [self.movie objectForKey:@"title"];
   if(title) return title;
-    
+  
+#if APP_FLK
+  return @"Freiluftkinos";
+#else
+  
   return [super title];
+#endif
 }
 
 -(NSString*) movie_id
 {
   return [self.url.to_url param: @"movie_id"];
+}
+
+-(void)addSegmentedFilters
+{
+  if([self hasSegmentedControl]) return;
+  
+  [self addSegment: @"Alle" 
+        withFilter: @"all" 
+          andTitle: @"Alle Kinos"];
+  [self addSegment: [UIImage imageNamed:@"unstar15.png"] 
+        withFilter: @"fav" 
+          andTitle: @"Favorites"];
 }
 
 -(void)reloadURL
@@ -208,21 +225,18 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
     self.dataSource = [M3DataSource theatersListFilteredByMovie:movie_id];
   }
   else {
-    if(![self hasSegmentedControl]) {
-      [self addSegment: @"Alle" 
-            withFilter: @"all" 
-              andTitle: @"Alle Kinos"];
-      [self addSegment: [UIImage imageNamed:@"unstar15.png"] 
-            withFilter: @"fav" 
-              andTitle: @"Favorites"];
-    }
-
+#if APP_KINOPILOT
+    [self addSegmentedFilters];
+#endif
+    
     NSDictionary* params = self.url.to_url.params;
     NSString* filter = [params objectForKey: @"filter"];
     if(!filter) filter = @"all";
     self.dataSource = [M3DataSource theatersListWithFilter: filter];
 
+#if APP_KINOPILOT
     [self setSearchBarEnabled: YES];
+#endif
   }
 }
 
