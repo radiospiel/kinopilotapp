@@ -11,28 +11,36 @@
 #import "M3DataSource.h"
 #import "M3TableViewDataSource.h"
 
-// returns the sortkey in a dictionary.
-static NSString* sortkey(NSDictionary* dict) 
+// [LEGACY] is this a "c-" or "m-" index key? 
+// The theater_id is "c-<sortkey>", and the first character of the sortkey
+// "makes sense" for the index: this should be the first relevant 
+// letter from the movie title.
+static NSString* legacyIndexKey(NSDictionary* dict) 
 {
-  NSString* sortkey = [dict objectForKey:@"sortkey"];
-  if([sortkey isKindOfClass:[NSString class]])
-    return sortkey;
-  
   id objId = [dict objectForKey:@"_id"];
   if(!objId) objId = [dict objectForKey:@"id"];
   NSString* index_key = [objId description];
-  
-  // [LEGACY] is this a "c-" or "m-" index key? 
-  // The theater_id is "c-<sortkey>", and the first character of the sortkey
-  // "makes sense" for the index: this should be the first relevant 
-  // letter from the movie title.
-  if([[index_key substringWithRange:NSMakeRange(1, 1)] isEqualToString:@"-"]) {
-    index_key = [[[objId description] substringWithRange:NSMakeRange(2, 1)] uppercaseString];
-  }
 
-  if([index_key compare:@"A"] == NSOrderedAscending || [@"Z" compare: index_key] == NSOrderedAscending)
-    return @"#";
+  if([[index_key substringWithRange:NSMakeRange(1, 1)] isEqualToString:@"-"])
+    return [index_key substringFromIndex:2];
+  
   return index_key;
+}
+
+// returns the sortkey in a dictionary.
+static NSString* indexKey(NSDictionary* dict) 
+{
+  NSString* indexKey = [dict objectForKey:@"sortkey"];
+
+  if(![indexKey isKindOfClass:[NSString class]])
+    indexKey = legacyIndexKey(dict);
+    
+  indexKey = [[indexKey substringToIndex:1] uppercaseString];
+  
+  if([indexKey compare:@"A"] == NSOrderedAscending || [@"Z" compare: indexKey] == NSOrderedAscending)
+    return @"#";
+
+  return indexKey;
 }
 
 @implementation M3DataSource
@@ -90,7 +98,7 @@ static NSString* sortkey(NSDictionary* dict)
       // The movie_id is "m-<sortkey>", and the first character of the sortkey
       // "makes sense" for the index: this should be the first relevant 
       // letter from the movie title.
-      return sortkey(movie);
+      return indexKey(movie);
     }];
     
     NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
@@ -215,7 +223,7 @@ static NSString* sortkey(NSDictionary* dict)
   if(theaters.count > 0) {
     
     NSDictionary* groupedHash = [theaters groupUsingBlock:^id(NSDictionary* theater) {
-      return sortkey(theater);
+      return indexKey(theater);
     }];
   
     NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
