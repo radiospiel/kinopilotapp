@@ -154,6 +154,9 @@ static NSString* indexKey(NSDictionary* dict)
 {
   self = [super initWithCellClass: @"MoviesListFilteredByTheaterCell"]; 
 
+  NSDictionary* theaters = [app.sqliteDB.theaters get: theater_id];
+  theater_id = [theaters objectForKey:@"_id"];
+
   //
   // get all live schedules for the theater
   NSArray* schedules = [
@@ -164,29 +167,40 @@ static NSString* indexKey(NSDictionary* dict)
                         theater_id, 
                         [NSDate today]
   ];
+
+  if(schedules.count == 0) return self;
   
-  if(schedules.count > 0) {
-    // group schedules by *day* into sectionsHash
-    NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
-      NSNumber* time = [schedule objectForKey:@"time"];
-      
-      time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
-      return [time.to_date stringWithFormat:@"dd.MM."];
-    }];
+#if APP_FLK
+  
+  schedules = [schedules sortByBlock:^id(NSDictionary* dict) {
+    return [dict objectForKey:@"time"];
+  }];
+  [self addSection: schedules];
+
+#else
     
-    NSArray* sectionsArray = [sectionsHash allValues];
-    sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
-      NSNumber* time1 = [schedules1.first objectForKey:@"time"];
-      NSNumber* time2 = [schedules2.first objectForKey:@"time"];
-      
-      return [time1 compare:time2];
-    }];
+  // group schedules by *day* into sectionsHash
+  NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
+    NSNumber* time = [schedule objectForKey:@"time"];
     
-    for(NSArray* schedules in sectionsArray) {
-      M3AssertKindOf(schedules, NSArray);
-      [self addSchedulesSection: schedules];
-    }
+    time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
+    return [time.to_date stringWithFormat:@"dd.MM."];
+  }];
+  
+  NSArray* sectionsArray = [sectionsHash allValues];
+  sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
+    NSNumber* time1 = [schedules1.first objectForKey:@"time"];
+    NSNumber* time2 = [schedules2.first objectForKey:@"time"];
+    
+    return [time1 compare:time2];
+  }];
+  
+  for(NSArray* schedules in sectionsArray) {
+    M3AssertKindOf(schedules, NSArray);
+    [self addSchedulesSection: schedules];
   }
+
+#endif
   
   return self;
 }
@@ -274,6 +288,9 @@ static NSString* indexKey(NSDictionary* dict)
 {
   self = [super initWithCellClass: @"TheatersListFilteredByMovieCell"];
 
+  NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
+  movie_id = [movie objectForKey:@"_id"];
+  
   //
   // get all schedules for the theater
   NSArray* schedules = [
