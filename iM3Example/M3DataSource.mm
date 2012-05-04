@@ -458,9 +458,10 @@ static NSString* indexKey(NSDictionary* dict)
                                    andMovie: (NSString*)movie_id
                                       onDay: (NSDate*)day
 {
-  M3AssertKindOfAndSet(theater_id, NSString);
-  M3AssertKindOfAndSet(movie_id, NSString);
   M3AssertKindOf(day, NSDate);
+
+  movie_id = [[app.sqliteDB.movies get:movie_id] objectForKey:@"_id"];
+  theater_id = [[app.sqliteDB.theaters get:theater_id] objectForKey:@"_id"];
  
   return [self datasourceWithName: @"schedulesByTheater:andMovie:onDay" 
                         fromBlock: ^M3TableViewDataSource*() {

@@ -177,6 +177,14 @@
 
   NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
   NSArray* images = [movie objectForKey:@"images"];
+  if(!images) {
+    NSString* image = [movie objectForKey:@"image"];
+    if(image) {
+      images = [NSMutableArray arrayWithObject: image];
+    }
+  }
+  
+  if(!images) return;
   
   M3CachedFactory* factory = [UIImage cachedImagesWithURL]; 
   
