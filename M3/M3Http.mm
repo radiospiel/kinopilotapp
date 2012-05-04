@@ -54,7 +54,8 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
                                         returningResponse: &response
                                                     error: &error ];
   
-  [M3Exception raiseOnError: error];
+  if(error) return nil;
+  
   M3AssertKindOf(response, NSHTTPURLResponse);
   
   if(response.statusCode == 200) {
@@ -83,7 +84,7 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
                                         returningResponse: &response 
                                                     error: &error ];
   
-  [M3Exception raiseOnError: error];
+  if(error) return nil;
   
   M3AssertKindOf(response, NSHTTPURLResponse);
   
