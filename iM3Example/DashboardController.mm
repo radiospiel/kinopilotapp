@@ -100,7 +100,7 @@
   if([dashboardKey isEqualToString: @"movies"])    self.actionURL = @"/movies/list";
   if([dashboardKey isEqualToString: @"about"])     self.actionURL = @"/info";
   if([dashboardKey isEqualToString: @"vicinity"])  self.actionURL = @"/vicinity";
-  if([dashboardKey isEqualToString: @"today"])     self.actionURL = @"/today";
+  if([dashboardKey isEqualToString: @"today"])     self.actionURL = @"/movies/calendar";
 }
 
 -(id)initWithFrame: (CGRect)frame andKey: (NSString*)key

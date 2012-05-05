@@ -118,6 +118,7 @@
 		9D31171B1476C3770003D964 /* M3-Internals.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D3117181476C3770003D964 /* M3-Internals.h */; };
 		9D31171C1476C3770003D964 /* M3-Internals.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D3117191476C3770003D964 /* M3-Internals.m */; };
 		9D31171D1476C3770003D964 /* M3-Internals.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D3117191476C3770003D964 /* M3-Internals.m */; };
+		9D32FDDF15541C9E002B2E7E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D561595142641A300D0A484 /* Default.png */; };
 		9D33FBCD1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */; };
 		9D33FBCE1427C7AA000A3D69 /* NSObject+Ivars.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D33FBCB1427C7AA000A3D69 /* NSObject+Ivars.h */; };
 		9D33FBCF1427C7AA000A3D69 /* NSObject+Ivars.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D33FBCC1427C7AA000A3D69 /* NSObject+Ivars.mm */; };
@@ -172,7 +173,6 @@
 		9D561622142641A300D0A484 /* header-background-23.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D56157B142641A300D0A484 /* header-background-23.png */; };
 		9D561623142641A300D0A484 /* icon_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D56157C142641A300D0A484 /* icon_back.png */; };
 		9D561624142641A300D0A484 /* no_poster.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D56157D142641A300D0A484 /* no_poster.png */; };
-		9D56163B142641A300D0A484 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D561595142641A300D0A484 /* Default.png */; };
 		9D56163C142641A300D0A484 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D561596142641A300D0A484 /* Default@2x.png */; };
 		9D56163D142641A300D0A484 /* icon_114px.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D561597142641A300D0A484 /* icon_114px.png */; };
 		9D56163E142641A300D0A484 /* icon_57px.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D561598142641A300D0A484 /* icon_57px.png */; };
@@ -375,6 +375,7 @@
 		9DDF5D071431F74C001CAC28 /* MovieInfoCells.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDF5D061431F74C001CAC28 /* MovieInfoCells.mm */; };
 		9DE40645142CFC490089EAA9 /* InfoController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DE40644142CFC490089EAA9 /* InfoController.mm */; };
 		9DEB834A1444E5280075F65A /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DEB83491444E5280075F65A /* close.png */; };
+		9DF8DB20155549C20041BDA5 /* MoviesCalendarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DF8DB1F155549C20041BDA5 /* MoviesCalendarController.mm */; };
 		9DF9B2D814744CE10035084F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF9B2D714744CE10035084F /* libsqlite3.dylib */; };
 		9DF9B2DB147459F60035084F /* GTMSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF9B2D9147459F60035084F /* GTMSQLite.h */; };
 		9DF9B2DC147459F60035084F /* GTMSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF9B2D9147459F60035084F /* GTMSQLite.h */; };
@@ -761,6 +762,8 @@
 		9DE40643142CFC490089EAA9 /* InfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoController.h; sourceTree = "<group>"; };
 		9DE40644142CFC490089EAA9 /* InfoController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InfoController.mm; sourceTree = "<group>"; };
 		9DEB83491444E5280075F65A /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
+		9DF8DB1E155549C20041BDA5 /* MoviesCalendarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesCalendarController.h; sourceTree = "<group>"; };
+		9DF8DB1F155549C20041BDA5 /* MoviesCalendarController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesCalendarController.mm; sourceTree = "<group>"; };
 		9DF9B2D714744CE10035084F /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/usr/lib/libsqlite3.dylib; sourceTree = DEVELOPER_DIR; };
 		9DF9B2D9147459F60035084F /* GTMSQLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMSQLite.h; path = "vendor/google-toolbox/GTMSQLite.h"; sourceTree = SOURCE_ROOT; };
 		9DF9B2DA147459F60035084F /* GTMSQLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMSQLite.m; path = "vendor/google-toolbox/GTMSQLite.m"; sourceTree = SOURCE_ROOT; };
@@ -1225,6 +1228,8 @@
 				9D10C3781437728300FE19C9 /* MapShowController.mm */,
 				9D10C3791437728300FE19C9 /* MapShowController.xib */,
 				9D355F7414C04EE400D5EE69 /* MovieActionsController.mm */,
+				9DF8DB1E155549C20041BDA5 /* MoviesCalendarController.h */,
+				9DF8DB1F155549C20041BDA5 /* MoviesCalendarController.mm */,
 				9D72E29814387FE600D8E5B5 /* MoviesImagesController.h */,
 				9D72E29914387FE600D8E5B5 /* MoviesImagesController.mm */,
 				9DC682B8142CB50B00124E9A /* MoviesListController.h */,
@@ -1761,7 +1766,6 @@
 				9D561622142641A300D0A484 /* header-background-23.png in Resources */,
 				9D561623142641A300D0A484 /* icon_back.png in Resources */,
 				9D561624142641A300D0A484 /* no_poster.png in Resources */,
-				9D56163B142641A300D0A484 /* Default.png in Resources */,
 				9D56163C142641A300D0A484 /* Default@2x.png in Resources */,
 				9D56163D142641A300D0A484 /* icon_114px.png in Resources */,
 				9D56163E142641A300D0A484 /* icon_57px.png in Resources */,
@@ -1857,6 +1861,7 @@
 				9DDC8DE714E4075E00BB7C70 /* uv_vote_chicklet@2x.png in Resources */,
 				9DDC8DE814E4075E00BB7C70 /* uv_vote_chicklet_empty.png in Resources */,
 				9DDC8DE914E4075E00BB7C70 /* uv_vote_chicklet_empty@2x.png in Resources */,
+				9D32FDDF15541C9E002B2E7E /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2048,6 +2053,7 @@
 				9DDC8E1314E4077A00BB7C70 /* UIView+UVExtras.m in Sources */,
 				9DDC8E1414E4077A00BB7C70 /* UVUIColorAdditions.m in Sources */,
 				9D5428F814E4085A00D9029F /* UserVoiceController.mm in Sources */,
+				9DF8DB20155549C20041BDA5 /* MoviesCalendarController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,7 +12,12 @@
 #import "UIViewController+M3Extensions.h"
 
 #import "FlurryAnalytics.h"
-#define FLURRY_API_KEY @"KJ96KEEHE5Y58NZURG2H"
+
+#if APP_KINOPILOT
+  #define FLURRY_API_KEY @"KJ96KEEHE5Y58NZURG2H"
+#else
+  #define FLURRY_API_KEY @"ULHBV8DA3JS96TDEYCRA"
+#endif
 
 // for network status
 #include <netdb.h>
