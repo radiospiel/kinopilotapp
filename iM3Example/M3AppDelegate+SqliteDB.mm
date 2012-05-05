@@ -20,7 +20,7 @@
 
 #define UPDATE_TIME_SPAN  18 * 3600
 
-#if 1
+#if 0
   #undef REMOTE_SQL_URL
   #define REMOTE_SQL_URL DEBUG_SQL_URL
 #endif
