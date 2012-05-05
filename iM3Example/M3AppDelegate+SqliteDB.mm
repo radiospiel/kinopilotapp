@@ -1,6 +1,6 @@
 #import "M3AppDelegate.h"
 #import "SVProgressHUD.h"
-#import "M3+JSON.h"
+#import "JSONKit.h"
 
 #if APP_KINOPILOT
 
@@ -83,7 +83,9 @@
                                  url: url
                          withOptions: nil];
   
-  NSArray* diff = [M3 parseJSONData: data];
+  NSError* error = nil;
+  NSArray* diff = [data mutableObjectFromJSONDataWithParseOptions: 0 error: &error];
+
   if(![diff isKindOfClass: [NSArray class]])
     _.raise("Cannot read file ", url);
 
