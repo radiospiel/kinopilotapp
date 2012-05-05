@@ -49,7 +49,9 @@
   [super setKey:theater];
   if(!theater) return;
   
+#if APP_KINOPILOT
   [super setFlagged: [app isFlagged: [self theater_id]]];
+#endif
   
   [self setText: [theater objectForKey: @"name"]];
 

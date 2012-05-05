@@ -15,8 +15,10 @@
 
 -(void)enableRemoteNotifications 
 {
+#if APP_KINOPILOT
   UIRemoteNotificationType notifications = (UIRemoteNotificationType)NOTIFICATIONS;
   [[UIApplication sharedApplication] registerForRemoteNotificationTypes: notifications];
+#endif
 }
 
 -(void)registerRemoteNotificationDeviceToken: (NSData*)deviceToken

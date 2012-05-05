@@ -266,6 +266,15 @@ static NSString* indexKey(NSDictionary* dict)
 {
   self = [super initWithCellClass: @"TheatersListCell"]; 
   
+#if APP_FLK
+  NSString* sql =  @"SELECT theaters._id, theaters.name FROM theaters "
+                    "ORDER BY theaters.name ";
+
+  NSArray* theaters = [app.sqliteDB all: sql];
+  [self addSection: theaters];
+#endif
+
+#if APP_KINOPILOT
   NSString* sql = @"SELECT theaters._id, theaters.name FROM theaters "
       "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
       "LEFT JOIN movies ON schedules.movie_id=movies._id "
@@ -295,6 +304,7 @@ static NSString* indexKey(NSDictionary* dict)
                               @"index", group.first)];
     }
   }
+#endif
   
   return self;
 }
