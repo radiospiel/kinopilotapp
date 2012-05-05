@@ -14,8 +14,8 @@
 #define FACEBOOK NO
 
 
-#define APP_KINOPILOT 0
-#define APP_FLK       1
+#define APP_KINOPILOT 1
+#define APP_FLK       0
 
 #if APP_KINOPILOT
 
