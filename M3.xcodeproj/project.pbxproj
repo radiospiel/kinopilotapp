@@ -1844,7 +1844,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = Kinopilot;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FCC36EFA-4D96-422A-AB23-C5C31494F70B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9E427011-1993-4A38-B303-7DE2DBFA0690";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "vendor/uservoice-iphone-sdk/Include/ vendor/bc-ipad-iphone-kit-2.1/lib/** vendor/bc-media-api-2.1/lib/**";
