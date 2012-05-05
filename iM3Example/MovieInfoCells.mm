@@ -128,6 +128,12 @@
   ];
   theater_ids = [theater_ids mapUsingSelector:@selector(first)];
 
+  NSString* currentlyLabel = @"Zur Zeit";
+  
+#if APP_FLK
+  currentlyLabel = @"Läuft";
+#endif
+  
   if(!theater_ids.count) {
     self.textLabel.text = @"Für diesen Film liegen uns keine Vorführungen vor.";
     self.textLabel.font = [UIFont italicSystemFontOfSize:14];
@@ -138,10 +144,10 @@
     
     if(theater_ids.count == 1) {
       NSDictionary* theater = [app.sqliteDB.theaters get: theater_ids.first];
-      label = [NSString stringWithFormat: @"Zur Zeit im %@", [theater objectForKey:@"name"]];
+      label = [NSString stringWithFormat: @"%@ im %@", currentlyLabel, [theater objectForKey:@"name"]];
     }
     else {
-      label = [NSString stringWithFormat: @"Zur Zeit in %d Kinos", theater_ids.count];
+      label = [NSString stringWithFormat: @"%@ in %d Kinos", currentlyLabel, theater_ids.count];
     }
     
     self.textLabel.font = [UIFont boldSystemFontOfSize:14];
