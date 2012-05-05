@@ -45,6 +45,7 @@
 +(void) raiseOnError: (NSError*) error {
   if(!error) return;
 
+  NSLog(@"error: %@", error);
   [M3Exception raise: error.localizedDescription 
          withMessage: error.localizedFailureReason];
 }
