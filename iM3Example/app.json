@@ -68,31 +68,7 @@
       ]
     },
     {
-      "header":  "moviepilot.de",
-      "content": [
-        "Ohne die Unterstützung der Freunde und Freundinnen bei moviepilot.de wäre diese App nicht möglich gewesen. moviepilot.de empfiehlt ihren Nutzern auf Basis ihrer Bewertungen von Kino- und Fernsehfilmen weitere Filme, die ihrem Geschmack entsprechen."
-      ]
-    },
-    {
-      "actions": [
-        ["moviepilot.de",  "http://www.moviepilot.de"]
-      ]
-    },
-    {
       "footer": "© radiospiel UG (haftungsbeschränkt), 2011"
-    }
-  ],
-  "moviepilot": [
-    {
-      "header":  "Kontakt",
-      "content": [
-        "Ohne die Unterstützung der Freunde und Freundinnen bei moviepilot.de wäre diese App nicht möglich gewesen. moviepilot.de empfiehlt ihren Nutzern auf Basis ihrer Bewertungen von Kino- und Fernsehfilmen weitere Filme, die ihrem Geschmack entsprechen."
-      ]
-    },
-    {
-      "actions": [
-        ["Weiter zu moviepilot.de",  "http://www.moviepilot.de"]
-      ]
     }
   ]
 }
