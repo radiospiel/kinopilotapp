@@ -37,9 +37,6 @@
 		9D0EF7141413D1A60051B8FA /* NSArray+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF70F1413D1A60051B8FA /* NSArray+M3Extensions.mm */; };
 		9D0EF7161413D1A60051B8FA /* NSString+Regexp.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF7101413D1A60051B8FA /* NSString+Regexp.h */; };
 		9D0EF7171413D1A60051B8FA /* NSString+Regexp.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EF7111413D1A60051B8FA /* NSString+Regexp.m */; };
-		9D0EF71F1413D45C0051B8FA /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 9D0EF71B1413D45C0051B8FA /* CHANGELOG.md */; };
-		9D0EF7201413D45C0051B8FA /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF71C1413D45C0051B8FA /* JSONKit.h */; };
-		9D0EF7231413D45C0051B8FA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9D0EF71E1413D45C0051B8FA /* README.md */; };
 		9D0EF7521413E0400051B8FA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */; };
 		9D0EF7531413E04F0051B8FA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */; };
 		9D10C37A1437728300FE19C9 /* MapShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D10C3781437728300FE19C9 /* MapShowController.mm */; };
@@ -134,13 +131,6 @@
 		9D3813931469A6E400E4BBF4 /* libBrightcovePlayerKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3813921469A6E400E4BBF4 /* libBrightcovePlayerKit.a */; };
 		9D3813951469A71600E4BBF4 /* libBrightcoveMediaAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3813941469A71600E4BBF4 /* libBrightcoveMediaAPI.a */; };
 		9D3813971469A73C00E4BBF4 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3813961469A73C00E4BBF4 /* MediaPlayer.framework */; };
-		9D38DE8214C0B14F00666D2A /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D38DE6A14C0B14F00666D2A /* FBDialog.bundle */; };
-		9D38DE8314C0B14F00666D2A /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D38DE7714C0B14F00666D2A /* NSObject+SBJSON.m */; };
-		9D38DE8414C0B14F00666D2A /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D38DE7914C0B14F00666D2A /* NSString+SBJSON.m */; };
-		9D38DE8914C0B14F00666D2A /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D38DE6E14C0B14F00666D2A /* FBRequest.m */; };
-		9D38DE8A14C0B14F00666D2A /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D38DE6F14C0B14F00666D2A /* Facebook.m */; };
-		9D38DE8B14C0B14F00666D2A /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D38DE7214C0B14F00666D2A /* FBLoginDialog.m */; };
-		9D38DE8C14C0B14F00666D2A /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D38DE7414C0B14F00666D2A /* FBDialog.m */; };
 		9D3B0868142A19F700322C00 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3B0867142A19F700322C00 /* libicucore.dylib */; };
 		9D3B086A142A1A0100322C00 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3B0869142A1A0100322C00 /* libicucore.dylib */; };
 		9D3B0877142A6F4900322C00 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3B0869142A1A0100322C00 /* libicucore.dylib */; };
@@ -362,10 +352,6 @@
 		9D0EF70F1413D1A60051B8FA /* NSArray+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSArray+M3Extensions.mm"; sourceTree = "<group>"; };
 		9D0EF7101413D1A60051B8FA /* NSString+Regexp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Regexp.h"; sourceTree = "<group>"; };
 		9D0EF7111413D1A60051B8FA /* NSString+Regexp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Regexp.m"; sourceTree = "<group>"; };
-		9D0EF71B1413D45C0051B8FA /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG.md; sourceTree = "<group>"; };
-		9D0EF71C1413D45C0051B8FA /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		9D0EF71D1413D45C0051B8FA /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
-		9D0EF71E1413D45C0051B8FA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9D10C3771437728300FE19C9 /* MapShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapShowController.h; sourceTree = "<group>"; };
 		9D10C3781437728300FE19C9 /* MapShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MapShowController.mm; sourceTree = "<group>"; };
@@ -423,21 +409,6 @@
 		9D3813921469A6E400E4BBF4 /* libBrightcovePlayerKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBrightcovePlayerKit.a; path = "vendor/bc-ipad-iphone-kit-2.1/lib/libBrightcovePlayerKit.a"; sourceTree = "<group>"; };
 		9D3813941469A71600E4BBF4 /* libBrightcoveMediaAPI.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBrightcoveMediaAPI.a; path = "vendor/bc-media-api-2.1/lib/libBrightcoveMediaAPI.a"; sourceTree = "<group>"; };
 		9D3813961469A73C00E4BBF4 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
-		9D38DE6A14C0B14F00666D2A /* FBDialog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBDialog.bundle; sourceTree = "<group>"; };
-		9D38DE6C14C0B14F00666D2A /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBConnect.h; sourceTree = "<group>"; };
-		9D38DE6D14C0B14F00666D2A /* FBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRequest.h; sourceTree = "<group>"; };
-		9D38DE6E14C0B14F00666D2A /* FBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRequest.m; sourceTree = "<group>"; };
-		9D38DE6F14C0B14F00666D2A /* Facebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Facebook.m; sourceTree = "<group>"; };
-		9D38DE7014C0B14F00666D2A /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
-		9D38DE7114C0B14F00666D2A /* FBLoginDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBLoginDialog.h; sourceTree = "<group>"; };
-		9D38DE7214C0B14F00666D2A /* FBLoginDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBLoginDialog.m; sourceTree = "<group>"; };
-		9D38DE7314C0B14F00666D2A /* FBDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBDialog.h; sourceTree = "<group>"; };
-		9D38DE7414C0B14F00666D2A /* FBDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBDialog.m; sourceTree = "<group>"; };
-		9D38DE7514C0B14F00666D2A /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
-		9D38DE7614C0B14F00666D2A /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
-		9D38DE7714C0B14F00666D2A /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
-		9D38DE7814C0B14F00666D2A /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
-		9D38DE7914C0B14F00666D2A /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
 		9D3B0867142A19F700322C00 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		9D3B0869142A1A0100322C00 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/usr/lib/libicucore.dylib; sourceTree = DEVELOPER_DIR; };
 		9D3D308F148994B300C84FB4 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
@@ -732,26 +703,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		9D0EF71A1413D45C0051B8FA /* JSONKit */ = {
-			isa = PBXGroup;
-			children = (
-				9D0EF71B1413D45C0051B8FA /* CHANGELOG.md */,
-				9D0EF71C1413D45C0051B8FA /* JSONKit.h */,
-				9D0EF71D1413D45C0051B8FA /* JSONKit.m */,
-				9D0EF71E1413D45C0051B8FA /* README.md */,
-			);
-			name = JSONKit;
-			path = vendor/JSONKit;
-			sourceTree = "<group>";
-		};
-		9D0EF7481413DFD40051B8FA /* vendor */ = {
-			isa = PBXGroup;
-			children = (
-				9D0EF71A1413D45C0051B8FA /* JSONKit */,
-			);
-			name = vendor;
-			sourceTree = "<group>";
-		};
 		9D3116C31476C3100003D964 /* M3 */ = {
 			isa = PBXGroup;
 			children = (
@@ -862,37 +813,6 @@
 			name = "UIxxx categories";
 			sourceTree = "<group>";
 		};
-		9D38DE6914C0B14F00666D2A /* FBConnect */ = {
-			isa = PBXGroup;
-			children = (
-				9D38DE6A14C0B14F00666D2A /* FBDialog.bundle */,
-				9D38DE6B14C0B14F00666D2A /* JSON */,
-				9D38DE6C14C0B14F00666D2A /* FBConnect.h */,
-				9D38DE6D14C0B14F00666D2A /* FBRequest.h */,
-				9D38DE6E14C0B14F00666D2A /* FBRequest.m */,
-				9D38DE6F14C0B14F00666D2A /* Facebook.m */,
-				9D38DE7014C0B14F00666D2A /* Facebook.h */,
-				9D38DE7114C0B14F00666D2A /* FBLoginDialog.h */,
-				9D38DE7214C0B14F00666D2A /* FBLoginDialog.m */,
-				9D38DE7314C0B14F00666D2A /* FBDialog.h */,
-				9D38DE7414C0B14F00666D2A /* FBDialog.m */,
-			);
-			name = FBConnect;
-			path = "../vendor/facebook-ios-sdk/src";
-			sourceTree = "<group>";
-		};
-		9D38DE6B14C0B14F00666D2A /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-				9D38DE7514C0B14F00666D2A /* JSON.h */,
-				9D38DE7614C0B14F00666D2A /* NSObject+SBJSON.h */,
-				9D38DE7714C0B14F00666D2A /* NSObject+SBJSON.m */,
-				9D38DE7814C0B14F00666D2A /* NSString+SBJSON.h */,
-				9D38DE7914C0B14F00666D2A /* NSString+SBJSON.m */,
-			);
-			path = JSON;
-			sourceTree = "<group>";
-		};
 		9D3D308E148994B300C84FB4 /* SVProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -908,7 +828,6 @@
 			children = (
 				9D5DB91214D74858007CCBD4 /* iRate */,
 				9D8982F514C9760E007B31CC /* FlurryAnalytics */,
-				9D38DE6914C0B14F00666D2A /* FBConnect */,
 				9D01498F14A7BCA900B27DC7 /* NSString+IM3ExampleExtensions.mm */,
 				9D3D308E148994B300C84FB4 /* SVProgressHUD */,
 				9D0203FD14291D040024EDD8 /* app.json */,
@@ -1120,7 +1039,6 @@
 		9D8B8AE01413CA8B0066ECBB = {
 			isa = PBXGroup;
 			children = (
-				9D0EF7481413DFD40051B8FA /* vendor */,
 				9D8B8AF41413CA8B0066ECBB /* M3 */,
 				9D8B8B061413CA8B0066ECBB /* M3Tests */,
 				9D01742D141AA6F10035A4C2 /* iM3 */,
@@ -1281,7 +1199,6 @@
 				9D8B8B491413CC010066ECBB /* Underscore.hh in Headers */,
 				9D0EF7131413D1A60051B8FA /* NSArray+M3Extensions.h in Headers */,
 				9D0EF7161413D1A60051B8FA /* NSString+Regexp.h in Headers */,
-				9D0EF7201413D45C0051B8FA /* JSONKit.h in Headers */,
 				9D9656AD14177A6C00884372 /* M3Etest.h in Headers */,
 				9D9656B314177F9700884372 /* M3StopWatch.h in Headers */,
 				9D7E3DC8141A2F6800BB80E1 /* M3EventCenter.h in Headers */,
@@ -1509,7 +1426,6 @@
 				9D834F5C14B9D97C00DDE3CD /* 42-photos@2x.png in Resources */,
 				9DC0A31B14BF97F6003FF7F7 /* share_movie_email.html in Resources */,
 				9D355F7B14C0544D00D5EE69 /* share_app_email.html in Resources */,
-				9D38DE8214C0B14F00666D2A /* FBDialog.bundle in Resources */,
 				9DAD4F8414D5C81600B20333 /* stars.png in Resources */,
 				9DAD4F8514D5C81600B20333 /* stars@2x.png in Resources */,
 				9DAD4F8614D5C81600B20333 /* unstars.png in Resources */,
@@ -1537,8 +1453,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D8B8B0B1413CA8B0066ECBB /* InfoPlist.strings in Resources */,
-				9D0EF71F1413D45C0051B8FA /* CHANGELOG.md in Resources */,
-				9D0EF7231413D45C0051B8FA /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1692,12 +1606,6 @@
 				9DC0A31D14BFA4DC003FF7F7 /* M3AppDelegate+Alert.mm in Sources */,
 				9D355F7514C04EE400D5EE69 /* MovieActionsController.mm in Sources */,
 				9D355F7914C0521800D5EE69 /* AppActionsController.mm in Sources */,
-				9D38DE8314C0B14F00666D2A /* NSObject+SBJSON.m in Sources */,
-				9D38DE8414C0B14F00666D2A /* NSString+SBJSON.m in Sources */,
-				9D38DE8914C0B14F00666D2A /* FBRequest.m in Sources */,
-				9D38DE8A14C0B14F00666D2A /* Facebook.m in Sources */,
-				9D38DE8B14C0B14F00666D2A /* FBLoginDialog.m in Sources */,
-				9D38DE8C14C0B14F00666D2A /* FBDialog.m in Sources */,
 				9D5DB91714D74858007CCBD4 /* iRate.m in Sources */,
 				9DF8DB20155549C20041BDA5 /* MoviesCalendarController.mm in Sources */,
 			);
@@ -1948,7 +1856,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: socially.io UG (haftungsbeschrankt)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: radiospiel UG (haftungsbeschrankt)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
@@ -1974,7 +1882,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = Kinopilot;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "66242944-ED33-4640-9B35-91479C9B62B6";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F8050AFE-3F3D-4B21-98E9-72D726F75DF2";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "vendor/uservoice-iphone-sdk/Include/ vendor/bc-ipad-iphone-kit-2.1/lib/** vendor/bc-media-api-2.1/lib/**";

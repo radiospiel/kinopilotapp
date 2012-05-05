@@ -33,7 +33,7 @@ M3AppDelegate* app;
 
 @implementation M3AppDelegate
 
-@synthesize window, tabBarController, facebook, withheldViewControllers;
+@synthesize window, tabBarController, withheldViewControllers;
 
 + (void)initialize
 {
@@ -197,24 +197,6 @@ M3AppDelegate* app;
   }
 }
 
-#pragma facebook support
-
-// For 4.2+ support
-- (BOOL)application: (UIApplication *)application 
-            openURL: (NSURL *)url
-  sourceApplication: (NSString *)sourceApplication 
-         annotation: (id)annotation 
-{
-  return [self.facebook handleOpenURL:url]; 
-}
-
-- (void)fbDidLogin {
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  [defaults setObject:[facebook accessToken] forKey:@"FBAccessTokenKey"];
-  [defaults setObject:[facebook expirationDate] forKey:@"FBExpirationDateKey"];
-  [defaults synchronize];
-}
-
 #pragma twitter support
 
 //-(void)initTwitter
@@ -284,9 +266,6 @@ M3AppDelegate* app;
   // --- prepare database
   [app.sqliteDB migrate];
   
-  // --- log into facebook
-  self.facebook = [[[Facebook alloc] initWithAppId:@"323168154384101" andDelegate:self] autorelease];
-
   // --- enable Urban Airship remote notifications
   [self enableRemoteNotifications];
 
