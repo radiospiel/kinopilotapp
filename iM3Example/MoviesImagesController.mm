@@ -13,25 +13,25 @@
 
 #define PAGE_CONTROL_HEIGHT 24
 
-@interface MoviesImagesView: UIView<UIScrollViewDelegate> 
+@interface MoviesImagesView: UIView<UIScrollViewDelegate> {
+  UIPageControl *pageControl;
+  UIScrollView  *scrollView;
+}
 
-@property (nonatomic,retain) NSMutableArray *pages;
-
-@property (assign,nonatomic,readonly) UIScrollView  *scrollView;
-@property (assign,nonatomic,readonly) UIPageControl *pageControl;
-@property (assign,nonatomic,readonly) UIButton      *closeButton;
+@property (nonatomic,retain)          NSMutableArray* pageViews;
+@property (assign,nonatomic,readonly) UIButton* closeButton;
 
 @end
 
 @implementation MoviesImagesView
 
-@synthesize scrollView, pageControl, closeButton, pages;
+@synthesize pageViews, closeButton;
 
 -(id)initWithFrame: (CGRect)frame
 {
   self = [super initWithFrame: frame];
   
-  self.pages = [NSMutableArray array];
+  self.pageViews = [NSMutableArray array];
 
   scrollView = [[UIScrollView alloc]init];
   scrollView.pagingEnabled = YES;
@@ -52,19 +52,16 @@
   [self addSubview:[pageControl autorelease]];
   
   closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  closeButton.frame = CGRectMake(270, 10, 50, 50);
   closeButton.backgroundColor = [UIColor colorWithWhite:0 alpha:0]; // this has a alpha of 0. 
   [closeButton setImage:[UIImage imageNamed:@"close.png"] forState:UIControlStateNormal]; 
-  
   [self addSubview:closeButton];
-
 
   return self;
 }
 
 -(void)dealloc
 {
-  self.pages = nil;
+  self.pageViews = nil;
   [super dealloc];
 }
 
@@ -72,25 +69,47 @@
 {
   pageControl.hidden = pageControl.numberOfPages < 2;
   
+  CGSize viewSz = self.frame.size;
+  
   int w = pageControl.numberOfPages * 18 + 46;
   int h = PAGE_CONTROL_HEIGHT;
   
-  int x = (320 - w) / 2;
-  int y = 400;
+  int x = (viewSz.width - w) / 2;
+  int y = viewSz.height - 60;
   
   pageControl.frame = CGRectMake(x, y, w, h);
 }
 
 -(void)layoutSubviews
 {
-  dlog << "layoutSubviews";
   [super layoutSubviews];
-  
-  CGSize viewSize = self.frame.size;
-  CGRect frame = CGRectMake(0,0,viewSize.width,viewSize.height);
-  scrollView.frame = frame;
-  pageControl.frame = CGRectMake(30, 100, 300, 100);
 
+  CGSize viewSz = self.frame.size;
+  int w = viewSz.width, h = viewSz.height;
+  
+  // --- Layout pages.
+
+  // Fetch currentPage: the modifications on scrollView.frame results
+  // in changing pageControl.currentPage; we need the currentPage
+  // as it is set now.
+  int currentPage = pageControl.currentPage;
+
+  for(int pageNo=0; pageNo < pageViews.count; ++pageNo) {
+    UIView* pageView = [pageViews objectAtIndex: pageNo];
+    pageView.frame = CGRectMake(w * pageNo, 0, w, h);
+  }
+  
+  // --- Layout scrollView: the scrollView covers the entire view; its 
+  // contents is large enough to hold all pages, where each page is (w x h); 
+  // and the content offset points to the current page.
+  scrollView.frame = CGRectMake(0,0,w,h);
+  scrollView.contentSize = CGSizeMake(w * pageViews.count, h);
+  scrollView.contentOffset = CGPointMake(w * currentPage, 0);
+
+  // --- Layout closeButton.
+  closeButton.frame = CGRectMake(w-50, 10, 50, 50);
+  
+  // --- Layout pager
   [self layoutPageControl];
 }
 
@@ -98,15 +117,23 @@
 {
   // set the content size.
   CGSize viewSz = scrollView.frame.size; 
-  scrollView.contentSize = CGSizeMake(viewSz.width * (pageNo+1), viewSz.height);
+  int w = viewSz.width, h = viewSz.height;
+
+  scrollView.contentSize = CGSizeMake(w * (pageNo+1), h);
   
   // The view for the new page
-  UIView* pageView = [[UIView alloc]initWithFrame:CGRectMake(viewSz.width * pageNo,0,viewSz.width, viewSz.height)];
+  UIView* pageView = [[UIView alloc]initWithFrame:CGRectMake(w * pageNo, 0, w, h)];
   
   // The view in the new page.
-  CGRect frame = CGRectMake(0, 0, viewSz.width, viewSz.height);
-  
-  UIImageView* imageView = [[UIImageView alloc]initWithFrame: frame];
+  UIImageView* imageView = [[UIImageView alloc]initWithFrame: CGRectMake(0, 0, w, h)];
+  imageView.autoresizingMask = (UIViewAutoresizingNone                  |
+                                UIViewAutoresizingFlexibleLeftMargin    |
+                                UIViewAutoresizingFlexibleWidth         |
+                                UIViewAutoresizingFlexibleRightMargin   |
+                                UIViewAutoresizingFlexibleTopMargin     |
+                                UIViewAutoresizingFlexibleHeight        |
+                                UIViewAutoresizingFlexibleBottomMargin);
+
   imageView.image = image;
   imageView.contentMode = UIViewContentModeScaleAspectFit;
   imageView.clipsToBounds = YES;
@@ -123,9 +150,9 @@
   if(pageNo == 0) 
     [SVProgressHUD dismiss];
   
-  UIView* page = [self viewForPage:pageNo withImage:image];
-  [scrollView addSubview:page];
-  [pages addObject:page];
+  UIView* pageView = [self viewForPage:pageNo withImage:image];
+  [scrollView addSubview:pageView];
+  [pageViews addObject:pageView];
   
   pageControl.numberOfPages = pageNo+1;
   [self layoutPageControl];
@@ -135,12 +162,12 @@
 
 -(UIView*)page: (int)pageNo
 {
-  if(pageNo < 0 || pageNo >= pages.count) return nil;
-  return [pages objectAtIndex:pageNo];
+  if(pageNo < 0 || pageNo >= self.pageViews.count) return nil;
+  return [self.pageViews objectAtIndex:pageNo];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender
-{  
+{
   // Switch the indicator when more than 50% of the previous/next page is visible
   CGFloat pageWidth = scrollView.frame.size.width;
   int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
@@ -157,15 +184,9 @@
   [self page: page].alpha = 1;
   [self page: page+1].alpha = relative_distance;
   
-  // Note: A possible optimization would be to unload the pages
-  // that are no longer visible
+  // A possible optimization would be to unload the pages that are no longer visible
 }
 
-
-@end
-
-@interface MoviesImagesController (PrivateMethods)
-- (void)scrollViewDidScroll:(UIScrollView *)sender;
 @end
 
 @implementation MoviesImagesController
@@ -192,14 +213,6 @@
   self.view = moviesImagesView;
 }
 
-- (void)viewDidLoad
-{
-  NSLog(@"**** viewDidLoad: ***********************");
-  
-  [super viewDidLoad];
-}
-
-//
 -(NSString*)title
 {
   return nil;
@@ -232,25 +245,31 @@
   [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)reloadURL
+-(NSArray*)imageURLs
 {
   NSString* movie_id = [self.url.to_url param: @"movie_id"]; 
 
   NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
   NSArray* images = [movie objectForKey:@"images"];
-  if(!images) {
-    NSString* image = [movie objectForKey:@"image"];
-    if(image) {
-      images = [NSMutableArray arrayWithObject: image];
-    }
-  }
+  if(images) return images;
   
-  if(!images) return;
+  NSString* image = [movie objectForKey:@"image"];
+  if(image) return [NSArray arrayWithObject: image];
+  
+  return nil;
+}
+
+- (void)reloadURL
+{
+  NSArray* imageURLs = [self imageURLs];
+  if(!imageURLs) return;
   
   M3CachedFactory* factory = [UIImage cachedImagesWithURL]; 
   
-  for(NSString* url in images) {
-    [factory buildAsync:[M3 imageURL: url forSize: self.view.frame.size]
+  CGSize imageSize = CGSizeMake(480, 460);
+  
+  for(NSString* url in imageURLs) {
+    [factory buildAsync:[M3 imageURL: url forSize: imageSize]
              withTarget:self.view 
             andSelector:@selector(addImage:)];
   }
