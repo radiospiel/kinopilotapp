@@ -8,7 +8,6 @@
 #endif
 
 #import "UIViewController+M3Extensions.h"
-#import "FBConnect.h"
 
 // Show "Facebook" sharing?
 #define FACEBOOK NO
@@ -43,9 +42,8 @@ extern M3AppDelegate* app;
  * The AppDelegate class and the global app object.
  */
 @interface M3AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, 
-                                           UINavigationControllerDelegate, FBSessionDelegate, FBDialogDelegate>
+                                           UINavigationControllerDelegate>
 
-@property (nonatomic, retain) Facebook *facebook;
 @property (retain, nonatomic) UIWindow *window;
 @property (retain, nonatomic) UITabBarController *tabBarController;
 @property (retain, nonatomic) NSArray *withheldViewControllers;
