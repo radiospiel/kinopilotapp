@@ -13,32 +13,6 @@
 
 #import "M3.h"
 
-/*
- * TODO: Check raise implementation
- */
-
-static NSMutableString* gsub(NSString* string, NSString* regexp, NSString* replacement)
-{
-  NSMutableString* copy = [NSMutableString stringWithString: string];
-  
-  NSRegularExpression* regex = [[NSRegularExpression alloc] initWithPattern: regexp
-                                                                    options:NSRegularExpressionCaseInsensitive 
-                                                                      error:nil];
-
-  NSArray* matches = [regex matchesInString:string options:0 range:NSMakeRange(0, [string length])];
-  [regex release];
-                                                                                                
-  for (NSTextCheckingResult* match in matches) // Loop through the URL list
-  {
-    [copy replaceCharactersInRange:match.range withString:replacement];
-  }
-
-  return copy;
-}
-
-
-
-
 @implementation M3 (JSON)
 
 + (id) readJSON:(NSString *)path 
