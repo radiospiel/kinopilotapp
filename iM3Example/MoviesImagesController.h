@@ -8,15 +8,5 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MoviesImagesController : UIViewController<UIScrollViewDelegate> 
-{   
-  UIScrollView  *scrollView;
-  UIPageControl *pageControl;
-  UIButton      *closeButton;
-
-  NSMutableArray *pages_;
-}
-
-@property (nonatomic,retain) NSMutableArray *pages;
-
+@interface MoviesImagesController : UIViewController
 @end

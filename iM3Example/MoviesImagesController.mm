@@ -11,27 +11,55 @@
 #import "SVProgressHUD.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface MoviesImagesController (PrivateMethods)
-- (void)scrollViewDidScroll:(UIScrollView *)sender;
-- (void)layoutPageControl;
+#define PAGE_CONTROL_HEIGHT 24
+
+@interface MoviesImagesView: UIView<UIScrollViewDelegate> 
+
+@property (nonatomic,retain) NSMutableArray *pages;
+
+@property (assign,nonatomic,readonly) UIScrollView  *scrollView;
+@property (assign,nonatomic,readonly) UIPageControl *pageControl;
+@property (assign,nonatomic,readonly) UIButton      *closeButton;
+
 @end
 
-@implementation MoviesImagesController
+@implementation MoviesImagesView
 
-@synthesize pages = pages_;
+@synthesize scrollView, pageControl, closeButton, pages;
 
--(id)init
+-(id)initWithFrame: (CGRect)frame
 {
-  self = [super initWithNibName:nil bundle:nil];
-
-  // [app.chairDB on: @selector(updated) notify:self with:@selector(reload)];
+  self = [super initWithFrame: frame];
   
-  return self;
-}
+  self.pages = [NSMutableArray array];
 
--(BOOL)isFullscreen
-{
-  return YES;
+  scrollView = [[UIScrollView alloc]init];
+  scrollView.pagingEnabled = YES;
+  scrollView.showsHorizontalScrollIndicator = NO;
+  scrollView.showsVerticalScrollIndicator = NO;
+  scrollView.scrollsToTop = NO;
+  scrollView.bounces = NO;
+  scrollView.directionalLockEnabled = YES;
+  scrollView.delegate = self;
+  [self addSubview:[scrollView autorelease]];
+  
+  pageControl = [[UIPageControl alloc]init];
+  pageControl.backgroundColor = [UIColor colorWithName:@"#60606080"];
+  pageControl.layer.borderColor = [UIColor colorWithName:@"#ccc"].CGColor;
+  pageControl.layer.borderWidth = 2.0f;
+  pageControl.layer.cornerRadius = 11;
+  pageControl.userInteractionEnabled = NO;
+  [self addSubview:[pageControl autorelease]];
+  
+  closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+  closeButton.frame = CGRectMake(270, 10, 50, 50);
+  closeButton.backgroundColor = [UIColor colorWithWhite:0 alpha:0]; // this has a alpha of 0. 
+  [closeButton setImage:[UIImage imageNamed:@"close.png"] forState:UIControlStateNormal]; 
+  
+  [self addSubview:closeButton];
+
+
+  return self;
 }
 
 -(void)dealloc
@@ -40,60 +68,10 @@
   [super dealloc];
 }
 
-#pragma mark - Low memory management
-
-- (void)viewDidLoad
-{
-  self.pages = [NSMutableArray array];
-
-  CGSize viewSize = self.view.frame.size;
-  CGRect frame = CGRectMake(0,0,viewSize.width,viewSize.height);
-
-  scrollView = [[[UIScrollView alloc]initWithFrame:frame]autorelease];
-  [self.view addSubview:scrollView];
-  
-  scrollView.delegate = self;
-  scrollView.pagingEnabled = YES;
-  scrollView.showsHorizontalScrollIndicator = NO;
-  scrollView.showsVerticalScrollIndicator = NO;
-  scrollView.scrollsToTop = NO;
-  scrollView.bounces = NO;
-  scrollView.directionalLockEnabled = YES;
-
-  pageControl = [[[UIPageControl alloc]initWithFrame:CGRectMake(30, 100, 300, 100)]autorelease];
-  [self.view addSubview:pageControl];
-  
-  [self layoutPageControl];
-  
-  pageControl.backgroundColor = [UIColor colorWithName:@"#60606080"];
-  pageControl.layer.borderColor = [UIColor colorWithName:@"#ccc"].CGColor;
-  pageControl.layer.borderWidth = 2.0f;
-  pageControl.layer.cornerRadius = 11;
-  pageControl.userInteractionEnabled = NO;
-  
-  closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  closeButton.frame = CGRectMake(270, 10, 50, 50);
-  closeButton.backgroundColor = [UIColor colorWithWhite:0 alpha:0]; // this has a alpha of 0. 
-  [closeButton setImage:[UIImage imageNamed:@"close.png"] forState:UIControlStateNormal]; 
-  
-  [self.view addSubview:closeButton];
-  [closeButton addTarget:self action:@selector(popNavigationController) forControlEvents:UIControlEventTouchUpInside];
-
-  [super viewDidLoad];
-}
-
-- (void)viewDidUnload
-{
-  self.pages = nil;
-  [super viewDidLoad];
-}
-
-#define PAGE_CONTROL_HEIGHT 24
-
 -(void)layoutPageControl
 {
   pageControl.hidden = pageControl.numberOfPages < 2;
-    
+  
   int w = pageControl.numberOfPages * 18 + 46;
   int h = PAGE_CONTROL_HEIGHT;
   
@@ -103,35 +81,17 @@
   pageControl.frame = CGRectMake(x, y, w, h);
 }
 
-//
--(NSString*)title
+-(void)layoutSubviews
 {
-  return nil;
-}
-
--(void)setTabBarHidden: (BOOL)hide
-{
-  UITabBarController* tbc = self.tabBarController;
+  dlog << "layoutSubviews";
+  [super layoutSubviews];
   
-  // find the tab bars content view.
-	UIView *contentView = [tbc.view.subviews.first isKindOfClass:[UITabBar class]] ?
-    tbc.view.subviews.second :
-  	tbc.view.subviews.first;
-  
-  CGRect targetFrame = tbc.view.bounds;
+  CGSize viewSize = self.frame.size;
+  CGRect frame = CGRectMake(0,0,viewSize.width,viewSize.height);
+  scrollView.frame = frame;
+  pageControl.frame = CGRectMake(30, 100, 300, 100);
 
-  if(!hide) {
-    targetFrame.size.height -= tbc.tabBar.frame.size.height;
-  }
-  
-  contentView.frame = targetFrame;
-  tbc.tabBar.hidden = hide;
-}
-
--(void)popNavigationController
-{
-  [SVProgressHUD dismiss]; // just in case...
-  [self.navigationController popViewControllerAnimated:YES];
+  [self layoutPageControl];
 }
 
 -(UIView*)viewForPage: (int)pageNo withImage: (UIImage*)image
@@ -139,10 +99,10 @@
   // set the content size.
   CGSize viewSz = scrollView.frame.size; 
   scrollView.contentSize = CGSizeMake(viewSz.width * (pageNo+1), viewSz.height);
-
+  
   // The view for the new page
   UIView* pageView = [[UIView alloc]initWithFrame:CGRectMake(viewSz.width * pageNo,0,viewSz.width, viewSz.height)];
-
+  
   // The view in the new page.
   CGRect frame = CGRectMake(0, 0, viewSz.width, viewSz.height);
   
@@ -150,7 +110,7 @@
   imageView.image = image;
   imageView.contentMode = UIViewContentModeScaleAspectFit;
   imageView.clipsToBounds = YES;
-
+  
   [pageView addSubview: [imageView autorelease]];
   return [pageView autorelease];
 }
@@ -165,10 +125,111 @@
   
   UIView* page = [self viewForPage:pageNo withImage:image];
   [scrollView addSubview:page];
-  [self.pages addObject:page];
-
+  [pages addObject:page];
+  
   pageControl.numberOfPages = pageNo+1;
   [self layoutPageControl];
+}
+
+#pragma mark --- scrollView delegate
+
+-(UIView*)page: (int)pageNo
+{
+  if(pageNo < 0 || pageNo >= pages.count) return nil;
+  return [pages objectAtIndex:pageNo];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)sender
+{  
+  // Switch the indicator when more than 50% of the previous/next page is visible
+  CGFloat pageWidth = scrollView.frame.size.width;
+  int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+  
+  pageControl.currentPage = page;
+  
+  //
+  // smooth blending of next/previous page.
+  double distance_from_center = fabs((scrollView.contentOffset.x - page * pageWidth));
+  double relative_distance = distance_from_center / (pageWidth / 2);
+  
+  //
+  [self page: page-1].alpha = relative_distance;
+  [self page: page].alpha = 1;
+  [self page: page+1].alpha = relative_distance;
+  
+  // Note: A possible optimization would be to unload the pages
+  // that are no longer visible
+}
+
+
+@end
+
+@interface MoviesImagesController (PrivateMethods)
+- (void)scrollViewDidScroll:(UIScrollView *)sender;
+@end
+
+@implementation MoviesImagesController
+
+-(BOOL)isFullscreen
+{
+  return YES;
+}
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+  return YES;
+}
+
+#pragma mark - Low memory management
+
+-(void)loadView
+{
+  MoviesImagesView* moviesImagesView = [[MoviesImagesView alloc]initWithFrame: CGRectMake(0, 0, 320, 460)];
+  [moviesImagesView.closeButton addTarget:self 
+                                   action:@selector(popNavigationController) 
+                         forControlEvents:UIControlEventTouchUpInside];
+
+  self.view = moviesImagesView;
+}
+
+- (void)viewDidLoad
+{
+  NSLog(@"**** viewDidLoad: ***********************");
+  
+  [super viewDidLoad];
+}
+
+//
+-(NSString*)title
+{
+  return nil;
+}
+
+//-(void)setTabBarHidden: (BOOL)hide
+//{
+//  UITabBarController* tbc = self.tabBarController;
+//  
+//  // find the tab bars content view.
+//	UIView *contentView = [tbc.view.subviews.first isKindOfClass:[UITabBar class]] ?
+//    tbc.view.subviews.second :
+//  	tbc.view.subviews.first;
+//  
+//  CGRect targetFrame = tbc.view.bounds;
+//
+//  if(!hide) {
+//    targetFrame.size.height -= tbc.tabBar.frame.size.height;
+//  }
+//  
+//  contentView.frame = targetFrame;
+//  tbc.tabBar.hidden = hide;
+//}
+
+-(void)popNavigationController
+{
+  dlog << "popNavigationController";
+  
+  [SVProgressHUD dismiss]; // just in case...
+  [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)reloadURL
@@ -190,39 +251,11 @@
   
   for(NSString* url in images) {
     [factory buildAsync:[M3 imageURL: url forSize: self.view.frame.size]
-             withTarget:self 
+             withTarget:self.view 
             andSelector:@selector(addImage:)];
   }
 
   [SVProgressHUD show];
-}
-
--(UIView*)page: (int)pageNo
-{
-  if(pageNo < 0 || pageNo >= self.pages.count) return nil;
-  return [self.pages objectAtIndex:pageNo];
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)sender
-{  
-  // Switch the indicator when more than 50% of the previous/next page is visible
-  CGFloat pageWidth = scrollView.frame.size.width;
-  int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-
-  pageControl.currentPage = page;
-
-  //
-  // smooth blending of next/previous page.
-  double distance_from_center = fabs((scrollView.contentOffset.x - page * pageWidth));
-  double relative_distance = distance_from_center / (pageWidth / 2);
-  
-  //
-  [self page: page-1].alpha = relative_distance;
-  [self page: page].alpha = 1;
-  [self page: page+1].alpha = relative_distance;
-
-  // Note: A possible optimization would be to unload the pages
-  // that are no longer visible
 }
 
 @end
