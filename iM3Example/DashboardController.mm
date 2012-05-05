@@ -15,6 +15,11 @@
 #define BUTTON_HEIGHT   130 // 135
 #define BUTTON_PADDING  8
 
+#if APP_FLK
+#undef  BUTTON_HEIGHT
+#define BUTTON_HEIGHT   128
+#endif
+
 /*** VicinityShowController cells *******************************************/
 
 @interface DashboardButton: UIButton {
@@ -70,12 +75,19 @@
 {
   NSString* title = @"";
   
+#if APP_FLK
+  if([dashboardKey isEqualToString: @"city"])      title = @"Freiluft";
+#else
   if([dashboardKey isEqualToString: @"city"])      title = @"Berlin";
+#endif
+
   if([dashboardKey isEqualToString: @"theaters"])  title = @"Kinos";
   if([dashboardKey isEqualToString: @"movies"])    title = @"Filme";
   if([dashboardKey isEqualToString: @"vicinity"])  title = @"Was läuft jetzt?!";
+  if([dashboardKey isEqualToString: @"today"])     title = @"Kalender";
   
   [self setTitle: title forState:UIControlStateNormal];
+
   self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:26];
   self.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
   self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 6, 10);
@@ -88,6 +100,7 @@
   if([dashboardKey isEqualToString: @"movies"])    self.actionURL = @"/movies/list";
   if([dashboardKey isEqualToString: @"about"])     self.actionURL = @"/info";
   if([dashboardKey isEqualToString: @"vicinity"])  self.actionURL = @"/vicinity";
+  if([dashboardKey isEqualToString: @"today"])     self.actionURL = @"/today";
 }
 
 -(id)initWithFrame: (CGRect)frame andKey: (NSString*)key
@@ -124,6 +137,10 @@
   // if([dashboardKey isEqualToString: @"movies"])    return NO;
   // if([dashboardKey isEqualToString: @"about"])     return NO;
   if([dashboardKey isEqualToString: @"vicinity"])  return YES;
+#if APP_FLK
+  if([dashboardKey isEqualToString: @"city"])  return YES;
+  if([dashboardKey isEqualToString: @"today"])  return YES;
+#endif
 
   return NO;
 }
@@ -382,14 +399,17 @@
 
 @implementation DashboardDataSource
 
+
+#if APP_FLK
+#define SECTIONS @"DashboardVSpacer;city/theaters;movies;about/today"
+#else
+#define SECTIONS @"DashboardVSpacer;city/theaters;movies;about/vicinity"
+#endif
+
 -(id)init
 {
   self = [super init];
-  [self addSection: _.array(@"DashboardVSpacer",
-                            @"city/theaters", 
-                            @"movies", @"about/vicinity") 
-       withOptions: nil];
-
+  [self addSection: [SECTIONS componentsSeparatedByString:@";"]];
   return self;
 }
 
@@ -417,11 +437,24 @@
   return self;
 }
 
+-(void)setBackgroundView
+{
+  UIImage* background = nil;
+#if APP_FLK
+  background = [UIImage imageNamed: @"Dashboard.bundle/flk_dashboard.png"];
+#endif
+  
+  if(background)
+    self.tableView.backgroundView = [[UIImageView alloc]initWithImage:background];
+}
+
 -(void)reload
 {
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   self.tableView.backgroundColor = [UIColor blackColor];
   self.tableView.scrollEnabled = NO;
+
+  [self setBackgroundView];
   
   [self requestAdBannerOnTop];
   self.dataSource = [[[DashboardDataSource alloc]init]autorelease];
