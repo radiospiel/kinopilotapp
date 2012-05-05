@@ -116,6 +116,53 @@ static NSString* indexKey(NSDictionary* dict)
 @end
 
 
+/*** The datasource for MoviesCalendar *******************************************/
+
+@interface MoviesCalendarDataSource: M3TableViewDataSource
+@end
+
+@implementation MoviesCalendarDataSource
+
+-(id)init
+{
+  self = [super initWithCellClass: @"MoviesCalendarCell"];
+
+  NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+  NSTimeInterval one_week_later = now + 14 * 24 * 3600;
+  
+  NSArray* recs;
+  recs = [ app.sqliteDB all: @"SELECT schedules.*, movies.title, movies.image, movies.sortkey, theaters.name AS theater_name FROM schedules "
+                              "INNER JOIN movies ON schedules.movie_id=movies._id "
+                              "INNER JOIN theaters ON schedules.theater_id=theaters._id "
+                              "WHERE schedules.time > ? AND schedules.time < ? ",
+                              [NSDate today],
+                              [NSNumber numberWithInt: one_week_later] 
+          ];
+
+  if(recs.count == 0) return self;
+  
+  NSDictionary* groupedHash = [recs groupUsingBlock:^id(NSDictionary* movie) {
+    NSDate* date = [[movie objectForKey: @"time"] to_date];
+    return [date to_day];
+  }];
+
+  NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
+
+  for(NSArray* group in groups) {
+    NSArray* movies = [group.second sortByBlock:^id(NSDictionary* movie) {
+      return [movie objectForKey: @"time"];
+    }];
+    
+    NSDate* day = group.first;
+    [self addSection: movies 
+         withOptions:_.hash(@"header", [day stringWithFormat:@"d. MMM"])];
+  }
+  
+  return self;
+}
+
+@end
+
 /**** MoviesListFilteredByTheaterDataSource **********************************/
 
 @interface MoviesListFilteredByTheaterDataSource: M3TableViewDataSource
@@ -428,6 +475,17 @@ static NSString* indexKey(NSDictionary* dict)
                           return [ds autorelease];
                         }];
 }
+
++(M3TableViewDataSource*)moviesCalendar
+{
+  return [self datasourceWithName: @"moviesCalendar" 
+                        fromBlock: ^M3TableViewDataSource*() {
+                          M3TableViewDataSource* ds;
+                          ds = [[MoviesCalendarDataSource alloc]init];
+                          return [ds autorelease];
+                        }];
+}
+
 
 +(M3TableViewDataSource*)theatersListFilteredByMovie:(id)movie_id
 {

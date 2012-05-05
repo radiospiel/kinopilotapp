@@ -14,6 +14,7 @@
 @interface M3DataSource(M3Lists)
 
 +(M3TableViewDataSource*)moviesListWithFilter: (NSString*)filter;
++(M3TableViewDataSource*)moviesCalendar;
 +(M3TableViewDataSource*)moviesListFilteredByTheater:(id)theater_id;
 
 +(M3TableViewDataSource*)theatersListWithFilter: (NSString*)filter;
