@@ -1,75 +1,78 @@
+#define NS_BLOCK_ASSERTIONS
+
+/*
+ * Defining NS_BLOCK_ASSERTIONS should disable NSCParameterAssert.
+ * This, however, seems not to work or not to work completely. 
+ */
+
+#undef  NSCParameterAssert
+#define NSCParameterAssert(x) (void)0
+
+#import "JSONKit/JSONKit.h"
+#import "JSONKit/JSONKit.m"
+
 #import "M3.h"
 
-#define READ_OPTIONS            (NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments)
-#define WRITE_OPTIONS           NSJSONWritingPrettyPrinted
-#define COMPACT_WRITE_OPTIONS   0
+@implementation M3 (JSON)
 
-@implementation M3(JSON)
-
-+(id) parseJSONData: (NSData*) data;
++ (id) readJSON:(NSString *)path 
 {
-  if(!data) return nil;
-  
   NSError* error = 0;
-  id rv = [NSJSONSerialization JSONObjectWithData: data options:READ_OPTIONS error:&error];
+  id returnValue;
+
+  if([path hasPrefix: @"http://"]) {
+    NSData* data = [M3Http requestData: @"GET" 
+                                   url: path
+                           withOptions: nil];
+    
+    returnValue = [data mutableObjectFromJSONDataWithParseOptions: 0 error: &error];
+  }
+  else {
+    NSString* data = [M3 read:path];
+    returnValue = [data mutableObjectFromJSONStringWithParseOptions:0 error: &error];
+  }
+
   [M3Exception raiseOnError: error];
-  
-  return rv;
+
+  return returnValue;
+}
+
++ (void) writeJSONFile: (NSString*) path object: (id) object;
+{
+  NSData* jsonData = [object JSONData];
+
+  path = [M3 expandPath: path];
+  [M3 writeData: jsonData toPath: path];
 }
 
 + (id) parseJSON:(NSString *)data;
 {
-  return [self parseJSONData: [data dataUsingEncoding:NSUTF8StringEncoding] ];
-}
-
-+(id) readJSON:(NSString *)path 
-{
-  NSData* data;
-  
-  if([path hasPrefix: @"http://"]) {
-    data = [M3Http requestData: @"GET" 
-                           url: path
-                   withOptions: nil];
-  }
-  else {
-    data = [M3 readDataFromPath:path];
-  }
-  
-  return [self parseJSONData:data];
-}
-
-+(void) writeJSONFile: (NSString*) path object: (id) object;
-{
-  NSData* data;
-  data = [NSJSONSerialization dataWithJSONObject: object
-                                         options: WRITE_OPTIONS
-                                           error: 0];
-                                                 
-  path = [M3 expandPath: path];
-  [M3 writeData: data toPath: path];
+  // Benchmark(@"Parsing JSON");
+  return [data objectFromJSONString];
 }
 
 + (NSString*) toJSON: (id) object compact: (BOOL) compact 
 {
-  NSJSONWritingOptions options = compact ? COMPACT_WRITE_OPTIONS : WRITE_OPTIONS;
+  NSError* error = 0;
   
-  NSData* data = [NSJSONSerialization dataWithJSONObject: object
-                                                 options: options
-                                                   error: 0];
-
-  NSString* str = [[NSString alloc] initWithData:data
-                                        encoding:NSUTF8StringEncoding];
+  JKFlags flags = 0;
+  if(!compact) flags |= JKSerializeOptionPretty;
   
-  return [str autorelease];
+  NSString* r = [object JSONStringWithOptions: flags error: &error];
+  
+  [M3Exception raiseOnError: error];
+  
+  return r;
 }
 
 + (NSString*) toJSON: (id) object;
 {
+  BOOL compact = YES;
 #ifndef NDEBUG
-  return [self toJSON: object compact: NO];
-#else
-  return [self toJSON: object compact: YES];
+  compact = NO;
 #endif
+
+  return [self toJSON: object compact: compact];
 }
 
 @end

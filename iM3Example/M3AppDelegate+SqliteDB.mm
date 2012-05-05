@@ -1,6 +1,6 @@
 #import "M3AppDelegate.h"
 #import "SVProgressHUD.h"
-#import "M3+JSON.h"
+#import "JSONKit.h"
 
 #if APP_KINOPILOT
 
@@ -68,24 +68,30 @@
   return self.movies.count.to_i > 0;
 }
 
--(NSArray*)fetchDiffFromURL: (NSString*)url
+-(NSString*)updateUrlFromBaseUrl: (NSString*)baseUrl
 {
-  NSNumber* current_revision = [self.settings objectForKey: @"revision"];
-  if(current_revision.to_i > 0) {
-    url = [url stringByAppendingFormat:@"?since=%@", current_revision];
-  }
-  NSString* db_uuid = [self.settings objectForKey: @"uuid"];
-  if(db_uuid) {
-    url = [url stringByAppendingFormat:@"&uuid=%@", db_uuid];
-  }
+  // build update URL as "{baseUrl}/{uuid}/{revision}"
   
+  NSNumber* revision = [self.settings objectForKey: @"revision"];
+  NSString* uuid = [self.settings objectForKey: @"uuid"];
+  
+  if(revision.to_i <= 0 || !uuid) 
+    return baseUrl;
+  
+  return [NSString stringWithFormat: @"%@/%@/%@", baseUrl, uuid, revision];
+}
+
+-(NSArray*)fetchDiffFromURL: (NSString*)baseUrl
+{
   NSData* data = [M3Http requestData: @"GET" 
-                                 url: url
+                                 url: [self updateUrlFromBaseUrl: baseUrl]
                          withOptions: nil];
   
-  NSArray* diff = [M3 parseJSONData: data];
+  NSError* error = nil;
+  NSArray* diff = [data mutableObjectFromJSONDataWithParseOptions: 0 error: &error];
+
   if(![diff isKindOfClass: [NSArray class]])
-    _.raise("Cannot read file ", url);
+    _.raise("Cannot read file ", baseUrl);
 
   return diff;
 }
