@@ -23,6 +23,8 @@
 
 #endif
 
+#define KINOPILOT_FB_SCHEME @"fb323168154384101"
+
 @interface NSString (IM3ExampleExtensions)
 
 /*
@@ -71,6 +73,8 @@ extern M3AppDelegate* app;
  * application is installed.
  */
 -(BOOL)canOpen: (NSString*)url;
+
+-(BOOL)kinopilotInstalled;
 
 /*
  * open the passed-in URL.
