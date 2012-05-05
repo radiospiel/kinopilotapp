@@ -19,6 +19,3 @@
 [submodule "vendor/iRate"]
 	path = vendor/iRate
 	url = https://github.com/nicklockwood/iRate.git
-[submodule "vendor/uservoice-iphone-sdk"]
-	path = vendor/uservoice-iphone-sdk
-	url = https://github.com/uservoice/uservoice-iphone-sdk
