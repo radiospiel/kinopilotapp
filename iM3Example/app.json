@@ -4,7 +4,7 @@
     {
       "nurl": "/movies/list?theater_id=adriafilmtheat|2487JHMKNoY",
       "url": "/dashboard",
-      "url": "/movies/images?movie_id=62215",
+      "nurl": "/movies/images?movie_id=62215",
       "nurl": "/movies/show?movie_id=m-abenteuervontimundstruppidasgeheimnisdereinhorn",
       "nurl": "/movies/list",
       "nurl": "/movies/show?movie_id=78313",
