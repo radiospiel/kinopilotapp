@@ -81,6 +81,14 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
   self.detailTextLabel.text = description;
 }
 
+-(void)setImageForMovie: (NSDictionary*)movie
+{
+  UIImage* img = [app thumbnailForMovie: movie];
+  self.image = img ? img : [UIImage imageNamed:@"no_poster.png"];
+  self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+  self.imageView.clipsToBounds = YES;
+}
+
 - (void) layoutSubviews
 {
   [super layoutSubviews];

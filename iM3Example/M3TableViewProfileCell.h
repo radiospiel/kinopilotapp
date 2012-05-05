@@ -17,6 +17,7 @@
 
 -(void)setText: (NSString*)text;
 -(void)setDetailText: (NSString*)description;
+-(void)setImageForMovie: (NSDictionary*)movie;
 
 /** 
   callback when the user toggles the flag.

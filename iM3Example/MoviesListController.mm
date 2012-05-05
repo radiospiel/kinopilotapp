@@ -12,21 +12,6 @@
 #import "M3DataSource.h"
 #import "M3TableViewProfileCell.h"
 
-@interface M3TableViewProfileCell(MovieImage)
-@end
-
-@implementation M3TableViewProfileCell(MovieImage)
-
--(void)setImageForMovie: (NSDictionary*)movie
-{
-  UIImage* image = [app thumbnailForMovie: movie];
-  self.image = image ? image : [UIImage imageNamed:@"no_poster.png"];
-  self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-  self.imageView.clipsToBounds = YES;
-}
-
-@end
-
 /*** A cell for the MoviesListCell *******************************************/
 
 @interface MoviesListCell: M3TableViewProfileCell
