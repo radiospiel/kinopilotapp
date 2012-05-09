@@ -30,7 +30,6 @@
 		9D01746B141AA8F90035A4C2 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01746A141AA8F90035A4C2 /* libstdc++.dylib */; };
 		9D01746D141AA9C00035A4C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01746C141AA9C00035A4C2 /* SystemConfiguration.framework */; };
 		9D01746F141AA9D00035A4C2 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01746E141AA9D00035A4C2 /* CFNetwork.framework */; };
-		9D0203FE14291D040024EDD8 /* app.json in Resources */ = {isa = PBXBuildFile; fileRef = 9D0203FD14291D040024EDD8 /* app.json */; };
 		9D0893A21452F6C600F64AC1 /* SchedulesListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0893A11452F6C600F64AC1 /* SchedulesListController.mm */; };
 		9D0893B014542C2500F64AC1 /* DashboardController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0893AF14542C2400F64AC1 /* DashboardController.mm */; };
 		9D0EF7131413D1A60051B8FA /* NSArray+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EF70E1413D1A60051B8FA /* NSArray+M3Extensions.h */; };
@@ -88,6 +87,7 @@
 		9D2B4C4415559936001C2E91 /* uv_vote_chicklet_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D2B4C2615559936001C2E91 /* uv_vote_chicklet_empty.png */; };
 		9D2B4C4515559936001C2E91 /* uv_vote_chicklet_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D2B4C2715559936001C2E91 /* uv_vote_chicklet_empty@2x.png */; };
 		9D2BF7571450A1F40045C11C /* M3ListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D2BF7561450A1F40045C11C /* M3ListViewController.mm */; };
+		9D2FD7F1155AD48F00C2FE20 /* app.json in Resources */ = {isa = PBXBuildFile; fileRef = 9D2FD7F0155AD48F00C2FE20 /* app.json */; };
 		9D3116E01476C32C0003D964 /* M3.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D3116C41476C32C0003D964 /* M3.h */; };
 		9D3116E11476C32C0003D964 /* M3.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D3116C41476C32C0003D964 /* M3.h */; };
 		9D3116E21476C32C0003D964 /* M3.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D3116C51476C32C0003D964 /* M3.m */; };
@@ -378,7 +378,6 @@
 		9D01746A141AA8F90035A4C2 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/usr/lib/libstdc++.dylib"; sourceTree = DEVELOPER_DIR; };
 		9D01746C141AA9C00035A4C2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		9D01746E141AA9D00035A4C2 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
-		9D0203FD14291D040024EDD8 /* app.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = app.json; sourceTree = "<group>"; };
 		9D0893A11452F6C600F64AC1 /* SchedulesListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SchedulesListController.mm; sourceTree = "<group>"; };
 		9D0893AE14542C2400F64AC1 /* DashboardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardController.h; sourceTree = "<group>"; };
 		9D0893AF14542C2400F64AC1 /* DashboardController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DashboardController.mm; sourceTree = "<group>"; };
@@ -441,6 +440,7 @@
 		9D2B4C2715559936001C2E91 /* uv_vote_chicklet_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_vote_chicklet_empty@2x.png"; sourceTree = "<group>"; };
 		9D2BF7551450A1F40045C11C /* M3ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3ListViewController.h; sourceTree = "<group>"; };
 		9D2BF7561450A1F40045C11C /* M3ListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3ListViewController.mm; sourceTree = "<group>"; };
+		9D2FD7F0155AD48F00C2FE20 /* app.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = app.json; sourceTree = "<group>"; };
 		9D3116C41476C32C0003D964 /* M3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3.h; sourceTree = "<group>"; };
 		9D3116C51476C32C0003D964 /* M3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3.m; sourceTree = "<group>"; };
 		9D3116C61476C32C0003D964 /* M3+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "M3+Base64.h"; sourceTree = "<group>"; };
@@ -858,6 +858,22 @@
 			path = "vendor/UserVoiceSDK-1.1.0/UVResources";
 			sourceTree = "<group>";
 		};
+		9D2FD7EE155AD48F00C2FE20 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				9D2FD7EF155AD48F00C2FE20 /* io.socially.kinopilot-flk */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
+		9D2FD7EF155AD48F00C2FE20 /* io.socially.kinopilot-flk */ = {
+			isa = PBXGroup;
+			children = (
+				9D2FD7F0155AD48F00C2FE20 /* app.json */,
+			);
+			path = "io.socially.kinopilot-flk";
+			sourceTree = "<group>";
+		};
 		9D3116C31476C3100003D964 /* M3 */ = {
 			isa = PBXGroup;
 			children = (
@@ -981,11 +997,11 @@
 		9D48ACBD141E9E3E00D0D000 /* iM3Example */ = {
 			isa = PBXGroup;
 			children = (
+				9D2FD7EE155AD48F00C2FE20 /* config */,
 				9D5DB91214D74858007CCBD4 /* iRate */,
 				9D8982F514C9760E007B31CC /* FlurryAnalytics */,
 				9D01498F14A7BCA900B27DC7 /* NSString+IM3ExampleExtensions.mm */,
 				9D3D308E148994B300C84FB4 /* SVProgressHUD */,
-				9D0203FD14291D040024EDD8 /* app.json */,
 				9D6FAECC14A753CE00C31703 /* AppDelegate code */,
 				9D6FAECD14A7540400C31703 /* Controllers */,
 				9D5D32C71448BC6600A4BA9F /* M3DataSource.h */,
@@ -1567,7 +1583,6 @@
 				9D56163D142641A300D0A484 /* icon_114px.png in Resources */,
 				9D56163E142641A300D0A484 /* icon_57px.png in Resources */,
 				9D56163F142641A300D0A484 /* icon_72px.png in Resources */,
-				9D0203FE14291D040024EDD8 /* app.json in Resources */,
 				9DA5DD4514326E120003B54A /* WebViewController.xib in Resources */,
 				9DC5124B143736F8009A393C /* header-background-22.png in Resources */,
 				9D10C37B1437728300FE19C9 /* MapShowController.xib in Resources */,
@@ -1625,6 +1640,7 @@
 				9D2B4C4315559936001C2E91 /* uv_vote_chicklet@2x.png in Resources */,
 				9D2B4C4415559936001C2E91 /* uv_vote_chicklet_empty.png in Resources */,
 				9D2B4C4515559936001C2E91 /* uv_vote_chicklet_empty@2x.png in Resources */,
+				9D2FD7F1155AD48F00C2FE20 /* app.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
