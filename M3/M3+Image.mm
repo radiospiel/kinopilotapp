@@ -13,7 +13,7 @@ const char* M3SenchaSupportFull = "M3SenchaSupportFull";
 const char* M3SenchaSupportLarge = "M3SenchaSupportLarge";
 
 // #define URL_TEMPLATE @"http://src.sencha.io/jpg70/{{width}}/{{height}}/{{url}}"
-#define URL_TEMPLATE @"http://imgio.16b.org/jpg/70/fill/{{width}}x{{height}}/{{url}}"
+#define URL_TEMPLATE @"http://imgio.16b.org/jpg/70/fit/{{width}}x{{height}}/{{url}}"
 
 
 /**
