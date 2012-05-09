@@ -62,7 +62,7 @@ M3AppDelegate* app;
   [super dealloc];
 }
 
--(NSString*) bundleIdentifier
+-(NSString*) identifier
 {
   return [[NSBundle mainBundle] bundleIdentifier];
 }
@@ -159,10 +159,21 @@ M3AppDelegate* app;
   return nc;
 }
 
+-(NSString*) configPathFor: (NSString*)file
+{
+  NSBundle* mainBundle = [NSBundle mainBundle];
+  return [NSString stringWithFormat: @"%@/%@.bundle/%@", [mainBundle bundlePath], self.identifier, file];
+}
+
 -(NSDictionary*) config
 {
-  NSString* configPath = [NSString stringWithFormat: @"$app/config/%@/app.json", self.bundleIdentifier];
-  return [M3 readJSON: configPath];
+  return [M3 readJSON: [self configPathFor: @"app.json"]];
+}
+
+-(UIImage*)imageNamed: (NSString*)imageName
+{
+  imageName = [NSString stringWithFormat: @"%@.bundle/%@", self.identifier, imageName];
+  return [UIImage imageNamed: imageName];
 }
 
 -(void)loadTabs

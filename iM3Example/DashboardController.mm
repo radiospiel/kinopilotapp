@@ -40,8 +40,8 @@
 
 +(UIImage*) dashboardImage: (NSString*)name
 {
-  NSString* imageName = [ NSString stringWithFormat: @"Dashboard.bundle/%@.png", name ];
-  return [UIImage imageNamed: imageName ];
+  NSString* imageName = [NSString stringWithFormat: @"Dashboard/%@.png", name];
+  return [app imageNamed: imageName];
 }
 
 -(void)setBackgroundImageByKey

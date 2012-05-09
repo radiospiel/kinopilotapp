@@ -2,28 +2,15 @@
 #import "SVProgressHUD.h"
 #import "JSONKit.h"
 
-#if APP_KINOPILOT
 
-  #define SQLITE_PATH       @"$documents/kinopilot2.sqlite3"
-  #define SEED_PATH         @"$app/seed.sqlite3"
-  #define REMOTE_SQL_URL    @"http://kinopilotupdates2.heroku.com/db/images,berlin.sql"
-  #define DEBUG_SQL_URL     @"http://localhost:3000/db/images,berlin.sql"
-
-#elif APP_FLK
-
-  #define SQLITE_PATH       @"$documents/flk2.sqlite3"
-  #define SEED_PATH         @"$app/seed-flk.sqlite3"
-  #define REMOTE_SQL_URL    @"http://update.16b.org/flk"
-  #define DEBUG_SQL_URL     @"http://localhost:9292/flk"
-
-#endif
+//  #define REMOTE_SQL_URL    @"http://update.16b.org/flk"
+//  #define DEBUG_SQL_URL     @"http://localhost:9292/flk"
 
 #define UPDATE_TIME_SPAN  18 * 3600
 
-#if 1
-  #undef REMOTE_SQL_URL
-  #define REMOTE_SQL_URL DEBUG_SQL_URL
-#endif
+#define UPDATE_FROM_DEBUG_SERVER 0
+
+// #define UPDATE_FROM_DEBUG_SERVER DEBUG
 
 @implementation M3SqliteDatabase(M3Additions)
 
@@ -112,9 +99,12 @@
 
 -(void)importDatabaseFromRemote
 {  
-  NSString* url = [self.settings objectForKey:@"update_url"];
-  if(!url) url = REMOTE_SQL_URL;
-
+#if UPDATE_FROM_DEBUG_SERVER
+  NSString* url = [app.config objectForKey: @"debug_update_url"];
+#else
+  NSString* url = [app.config objectForKey: @"update_url"];
+#endif
+  
   NSArray* entries = [self fetchDiffFromURL: url];
   
   Benchmark(_.join("Importing database from ", url));
@@ -153,13 +143,17 @@
 
 -(M3SqliteDatabase*)buildSqliteDatabase
 {
-  if(![M3 fileExists: SQLITE_PATH]) {
-    [M3 copyFrom:SEED_PATH to:SQLITE_PATH];
-    [self addSkipBackupAttributeToItemAtPath: SQLITE_PATH];
+  NSString* sqlitePath;
+  sqlitePath = [NSString stringWithFormat: @"$documents/%@.sqlite3", app.identifier];
+  sqlitePath = [M3 expandPath: sqlitePath];
+
+  if(![M3 fileExists: sqlitePath]) {
+    [M3 copyFrom:[app configPathFor: @"seed.sqlite3"] 
+              to:sqlitePath];
+    [self addSkipBackupAttributeToItemAtPath: sqlitePath];
   }
   
-  NSString* dbPath = [M3 expandPath: SQLITE_PATH];
-  M3SqliteDatabase* db = [M3SqliteDatabase databaseWithPath:dbPath
+  M3SqliteDatabase* db = [M3SqliteDatabase databaseWithPath:sqlitePath
                                             withCFAdditions:NO 
                                                        utf8:YES 
                                                   errorCode:0];

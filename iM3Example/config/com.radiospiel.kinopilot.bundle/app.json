@@ -1,4 +1,7 @@
 {
+  "update_url":        "http://kinopilotupdates2.heroku.com/db/images,berlin.sql",
+  "debug_update_url":  "http://localhost:3000/db/images,berlin.sql",
+
   "name": "Kinopilot Berlin",
   "tabs": [
     {
