@@ -84,7 +84,7 @@
   if([dashboardKey isEqualToString: @"theaters"])  title = @"Kinos";
   if([dashboardKey isEqualToString: @"movies"])    title = @"Filme";
   if([dashboardKey isEqualToString: @"vicinity"])  title = @"Was läuft jetzt?!";
-  if([dashboardKey isEqualToString: @"today"])     title = @"Kalender";
+  if([dashboardKey isEqualToString: @"today"])     title = @"Kalendar";
   
   [self setTitle: title forState:UIControlStateNormal];
 
