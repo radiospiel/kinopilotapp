@@ -69,6 +69,11 @@ extern M3AppDelegate* app;
 
 @end
 
+@interface M3AppDelegate(RunLater)
+-(void)runLater: (void(^)())callback;
+@end
+
+
 @interface M3AppDelegate(ApplicationURL)
 
 /*

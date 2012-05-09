@@ -249,7 +249,12 @@
 
   NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
   NSArray* images = [movie objectForKey:@"images"];
-  if(images) return images;
+  if(images) {
+    if(images.count > 12) 
+      images = [images subarrayWithRange: NSMakeRange(0, 12)];
+
+    return images;
+  }
   
   NSString* image = [movie objectForKey:@"image"];
   if(image) return [NSArray arrayWithObject: image];
@@ -264,13 +269,15 @@
   
   M3CachedFactory* factory = [UIImage cachedImagesWithURL]; 
   
-  CGSize imageSize = CGSizeMake(480, 460);
-  
-  for(NSString* url in imageURLs) {
-    [factory buildAsync:[M3 imageURL: url forSize: imageSize]
-             withTarget:self.view 
-            andSelector:@selector(addImage:)];
-  }
+  [app runLater:^() {
+    CGSize imageSize = CGSizeMake(480, 460);
+    
+    for(NSString* url in imageURLs) {
+      [factory buildAsync:[M3 imageURL: url forSize: imageSize]
+               withTarget:self.view 
+              andSelector:@selector(addImage:)];
+    }
+  }];
 
   [SVProgressHUD show];
 }
