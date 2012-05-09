@@ -61,6 +61,8 @@ extern M3AppDelegate* app;
 /** returns @"WIFI", @"CELL", or nil */
 -(NSString*)currentReachability;
 
+@property (readonly) NSString* bundleIdentifier;
+
 @end
 
 @interface M3AppDelegate(ApplicationURL)

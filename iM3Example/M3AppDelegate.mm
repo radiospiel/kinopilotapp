@@ -62,6 +62,11 @@ M3AppDelegate* app;
   [super dealloc];
 }
 
+-(NSString*) bundleIdentifier
+{
+  return [[NSBundle mainBundle] bundleIdentifier];
+}
+
 -(UINavigationController*)topMostController
 {
   // Get top-most controller.
@@ -156,7 +161,8 @@ M3AppDelegate* app;
 
 -(NSDictionary*) config
 {
-  return [M3 readJSON: @"$app/app.json" ];
+  NSString* configPath = [NSString stringWithFormat: @"$app/config/%@/app.json", self.bundleIdentifier];
+  return [M3 readJSON: configPath];
 }
 
 -(void)loadTabs
