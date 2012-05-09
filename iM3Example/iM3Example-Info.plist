@@ -16,6 +16,10 @@
 		<string>icon_57px.png</string>
 		<string>icon_114px.png</string>
 		<string>Default.png</string>
+		<string>icon_57px.png</string>
+		<string>icon_114px.png</string>
+		<string>Default.png</string>
+		<string>Default@2x.png</string>
 	</array>
 	<key>CFBundleIcons</key>
 	<dict>
@@ -29,6 +33,10 @@
 				<string>icon_57px.png</string>
 				<string>icon_114px.png</string>
 				<string>Default.png</string>
+				<string>icon_57px.png</string>
+				<string>icon_114px.png</string>
+				<string>Default.png</string>
+				<string>Default@2x.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
 			<true/>
@@ -47,7 +55,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.5</string>
+	<string>1.01</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.entertainment</string>
 	<key>LSRequiresIPhoneOS</key>

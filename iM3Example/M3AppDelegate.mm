@@ -62,6 +62,11 @@ M3AppDelegate* app;
   [super dealloc];
 }
 
+-(NSString*) identifier
+{
+  return [[NSBundle mainBundle] bundleIdentifier];
+}
+
 -(UINavigationController*)topMostController
 {
   // Get top-most controller.
@@ -154,9 +159,21 @@ M3AppDelegate* app;
   return nc;
 }
 
+-(NSString*) configPathFor: (NSString*)file
+{
+  NSBundle* mainBundle = [NSBundle mainBundle];
+  return [NSString stringWithFormat: @"%@/%@.bundle/%@", [mainBundle bundlePath], self.identifier, file];
+}
+
 -(NSDictionary*) config
 {
-  return [M3 readJSON: @"$app/app.json" ];
+  return [M3 readJSON: [self configPathFor: @"app.json"]];
+}
+
+-(UIImage*)imageNamed: (NSString*)imageName
+{
+  imageName = [NSString stringWithFormat: @"%@.bundle/%@", self.identifier, imageName];
+  return [UIImage imageNamed: imageName];
 }
 
 -(void)loadTabs

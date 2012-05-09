@@ -59,7 +59,7 @@
 }
 
 #if TARGET_IPHONE_SIMULATOR
-#ifdef DEBUG
+#if DEBUG
 - (void) viewDidAppear:(BOOL)animated
 {
   [super viewDidAppear:animated];

@@ -13,8 +13,8 @@
 #define FACEBOOK NO
 
 
-#define APP_KINOPILOT 0
-#define APP_FLK       1
+#define APP_KINOPILOT 1
+#define APP_FLK       0
 
 #if APP_KINOPILOT
 
@@ -60,6 +60,12 @@ extern M3AppDelegate* app;
 
 /** returns @"WIFI", @"CELL", or nil */
 -(NSString*)currentReachability;
+
+@property (readonly) NSString* identifier;
+
+-(NSString*)configPathFor: (NSString*)file;
+-(UIImage*)imageNamed: (NSString*)imageName;
+
 
 @end
 
