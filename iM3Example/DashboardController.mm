@@ -439,11 +439,7 @@
 
 -(void)setBackgroundView
 {
-  UIImage* background = nil;
-#if APP_FLK
-  background = [UIImage imageNamed: @"Dashboard.bundle/flk_dashboard.png"];
-#endif
-  
+  UIImage* background = [app imageNamed: @"Dashboard/flk_dashboard.png"];
   if(background)
     self.tableView.backgroundView = [[UIImageView alloc]initWithImage:background];
 }

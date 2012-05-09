@@ -2,10 +2,6 @@
 #import "SVProgressHUD.h"
 #import "JSONKit.h"
 
-
-//  #define REMOTE_SQL_URL    @"http://update.16b.org/flk"
-//  #define DEBUG_SQL_URL     @"http://localhost:9292/flk"
-
 #define UPDATE_TIME_SPAN  18 * 3600
 
 #define UPDATE_FROM_DEBUG_SERVER 0

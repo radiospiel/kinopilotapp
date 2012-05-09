@@ -1,8 +1,7 @@
 {
-  "update_url":        "http://kinopilotupdates2.heroku.com/db/images,berlin.sql",
-  "debug_update_url":  "http://localhost:3000/db/images,berlin.sql",
-
-  "name": "Kinopilot Berlin",
+  "update_url":        "http://update.16b.org/flk",
+  "debug_update_url":  "http://localhost:9292/flk",
+  "name": "Freiluft-Kinopilot",
   "tabs": [
     {
       "nurl": "/movies/list?theater_id=adriafilmtheat|2487JHMKNoY",
