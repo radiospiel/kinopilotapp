@@ -9,9 +9,6 @@
 #import "M3.h"
 #import "M3AppDelegate.h"
 
-const char* M3SenchaSupportFull = "M3SenchaSupportFull";
-const char* M3SenchaSupportLarge = "M3SenchaSupportLarge";
-
 // #define URL_TEMPLATE @"http://src.sencha.io/jpg70/{{width}}/{{height}}/{{url}}"
 #define URL_TEMPLATE @"http://imgio.16b.org/jpg/70/fit/{{width}}x{{height}}/{{url}}"
 
@@ -50,10 +47,7 @@ static BOOL sencha_retina_display = NO;
   int w = size.width, h = size.height;
   if(!w || !h) return url;
   
-  // if(enabled_sencha == M3SenchaSupportLarge && (w+h) < 200) return url;
-  
 #if TARGET_OS_IPHONE
-
   if(sencha_retina_display && [[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
     w = w * [UIScreen mainScreen].scale; 
     h = h * [UIScreen mainScreen].scale;

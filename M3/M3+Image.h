@@ -8,9 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-extern const char* M3SenchaSupportFull;
-extern const char* M3SenchaSupportLarge;
-
 @interface M3(Image)
 
 /**
