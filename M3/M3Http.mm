@@ -42,8 +42,8 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
                     url: (NSString*) url 
             withOptions: (NSDictionary*) options
 {
-  // Benchmark(_.join(verb, " ", url));
-
+  M3StopWatch* stopWatch = [[[M3StopWatch alloc]init] autorelease];
+  
   NSURLRequest* request = [self requestForURL: url 
                                      withVerb: verb  
                                    andOptions: options ];
@@ -54,17 +54,14 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
                                         returningResponse: &response
                                                     error: &error ];
   
-  if(error) return nil;
-  
-  M3AssertKindOf(response, NSHTTPURLResponse);
-  
-  if(response.statusCode == 200) {
-    dlog << url << ": received " << [data length] << " byte.";
-    return data;
+  if(error || response.statusCode != 200) {
+    rlog << url << ": failed with status code " << response.statusCode;
+    return nil;
   }
 
-  rlog << url << ": failed with status code " << response.statusCode;
-  return nil;
+  M3AssertKindOf(response, NSHTTPURLResponse);
+  NSLog(@"[%@] %@ %d byte: %d msecs", verb, url, data.length, stopWatch.milliSeconds);
+  return data;
 }
 
 + (NSString*) uncachedRequest: (NSString*) verb
