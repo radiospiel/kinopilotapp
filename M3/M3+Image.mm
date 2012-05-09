@@ -12,6 +12,10 @@
 const char* M3SenchaSupportFull = "M3SenchaSupportFull";
 const char* M3SenchaSupportLarge = "M3SenchaSupportLarge";
 
+// #define URL_TEMPLATE @"http://src.sencha.io/jpg70/{{width}}/{{height}}/{{url}}"
+#define URL_TEMPLATE @"http://imgio.16b.org/jpg/70/fill/{{width}}x{{height}}/{{url}}"
+
+
 /**
  * Enable sencha.io support? sencha.io delivers images in just the right size. This reduces 
  * memory usage on the device, but increases the time needed to fetch all the images.
@@ -23,7 +27,6 @@ const char* M3SenchaSupportLarge = "M3SenchaSupportLarge";
 
 static const char* enabled_sencha = 0;
 static BOOL sencha_retina_display = NO;
-static const char* sencha_format = "jpg70";
 
 /**
  * converts the source image URL into the image URL to actually fetch the image
@@ -34,14 +37,6 @@ static const char* sencha_format = "jpg70";
 {
   enabled_sencha = name;
   sencha_retina_display = supportingRetinaDisplay;
-}
-
-+(NSString*)urlTemplate
-{
-  NSString* urlTemplate = [app.sqliteDB.settings objectForKey:@"imgio"];
-  if(!urlTemplate) urlTemplate = @"http://src.sencha.io/{{format}}/{{width}}/{{height}}/{{url}}";
-
-  return urlTemplate;
 }
 
 /**
@@ -65,7 +60,7 @@ static const char* sencha_format = "jpg70";
   }
 #endif
   
-  return [M3 interpolateString:[self urlTemplate]
-                    withValues:_.hash(@"format", sencha_format, @"width", w, @"height", h, @"url", url)];
+  return [M3 interpolateString: URL_TEMPLATE
+                    withValues: _.hash(@"width", w, @"height", h, @"url", url)];
 }
 @end
