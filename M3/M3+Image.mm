@@ -9,7 +9,7 @@
 #import "M3.h"
 #import "M3AppDelegate.h"
 
-#define URL_TEMPLATE @"http://imgio.16b.org/jpg/70/fit/{{width}}x{{height}}/{{url}}"
+#define URL_TEMPLATE @"http://imgio.16b.org/jpg/60/th/{{width}}x{{height}}/{{url}}"
 
 /**
  * Enable sencha.io support? sencha.io delivers images in just the right size. This reduces 
