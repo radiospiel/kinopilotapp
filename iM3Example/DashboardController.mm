@@ -284,7 +284,7 @@
   CGRect frame = self.frame;
 
   self.imageView.frame = CGRectMake(0, 0, frame.size.width, 94); /* our thumbnails are 72x94 */
-
+  self.imageView.contentMode = UIViewContentModeScaleAspectFit;
   [self.label sizeToFit];
   self.label.frame = CGRectMake(0, 99, frame.size.width, self.label.frame.size.height);
 }
