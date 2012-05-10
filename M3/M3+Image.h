@@ -13,12 +13,6 @@
 /**
  * converts the source image URL into the image URL to actually fetch the image
  */
-+(void) enableImageHost: (const char*)host
-  scaleForRetinaDisplay: (BOOL)supportingRetinaDisplay;
-
-/**
- * converts the source image URL into the image URL to actually fetch the image
- */
 +(NSString*)imageURL: (NSString*) url forSize: (CGSize)size;
 
 @end
