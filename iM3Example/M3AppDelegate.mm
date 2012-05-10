@@ -286,9 +286,6 @@ M3AppDelegate* app;
   // --- enable Urban Airship remote notifications
   [self enableRemoteNotifications];
 
-  // --- enable sencha.io image source
-  [M3 enableImageHost:M3SenchaSupportFull scaleForRetinaDisplay:YES];
-  
   // --- enable Flurry
   [FlurryAnalytics startSession: FLURRY_API_KEY];
 

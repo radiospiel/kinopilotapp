@@ -13,8 +13,8 @@
 #define FACEBOOK NO
 
 
-#define APP_KINOPILOT 1
-#define APP_FLK       0
+#define APP_KINOPILOT 0
+#define APP_FLK       1
 
 #if APP_KINOPILOT
 
@@ -68,6 +68,11 @@ extern M3AppDelegate* app;
 
 
 @end
+
+@interface M3AppDelegate(RunLater)
+-(void)runLater: (void(^)())callback;
+@end
+
 
 @interface M3AppDelegate(ApplicationURL)
 

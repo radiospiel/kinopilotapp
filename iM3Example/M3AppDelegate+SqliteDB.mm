@@ -95,12 +95,7 @@
 
 -(void)importDatabaseFromRemote
 {  
-#if UPDATE_FROM_DEBUG_SERVER
-  NSString* url = [app.config objectForKey: @"debug_update_url"];
-#else
   NSString* url = [app.config objectForKey: @"update_url"];
-#endif
-  
   NSArray* entries = [self fetchDiffFromURL: url];
   
   Benchmark(_.join("Importing database from ", url));

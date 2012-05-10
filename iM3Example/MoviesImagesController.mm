@@ -126,8 +126,7 @@
   
   // The view in the new page.
   UIImageView* imageView = [[UIImageView alloc]initWithFrame: CGRectMake(0, 0, w, h)];
-  imageView.autoresizingMask = (UIViewAutoresizingNone                  |
-                                UIViewAutoresizingFlexibleLeftMargin    |
+  imageView.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin    |
                                 UIViewAutoresizingFlexibleWidth         |
                                 UIViewAutoresizingFlexibleRightMargin   |
                                 UIViewAutoresizingFlexibleTopMargin     |
@@ -218,25 +217,6 @@
   return nil;
 }
 
-//-(void)setTabBarHidden: (BOOL)hide
-//{
-//  UITabBarController* tbc = self.tabBarController;
-//  
-//  // find the tab bars content view.
-//	UIView *contentView = [tbc.view.subviews.first isKindOfClass:[UITabBar class]] ?
-//    tbc.view.subviews.second :
-//  	tbc.view.subviews.first;
-//  
-//  CGRect targetFrame = tbc.view.bounds;
-//
-//  if(!hide) {
-//    targetFrame.size.height -= tbc.tabBar.frame.size.height;
-//  }
-//  
-//  contentView.frame = targetFrame;
-//  tbc.tabBar.hidden = hide;
-//}
-
 -(void)popNavigationController
 {
   [SVProgressHUD dismiss]; // just in case...
@@ -249,7 +229,12 @@
 
   NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
   NSArray* images = [movie objectForKey:@"images"];
-  if(images) return images;
+  if(images) {
+    if(images.count > 12) 
+      images = [images subarrayWithRange: NSMakeRange(0, 12)];
+
+    return images;
+  }
   
   NSString* image = [movie objectForKey:@"image"];
   if(image) return [NSArray arrayWithObject: image];
@@ -264,13 +249,15 @@
   
   M3CachedFactory* factory = [UIImage cachedImagesWithURL]; 
   
-  CGSize imageSize = CGSizeMake(480, 460);
-  
-  for(NSString* url in imageURLs) {
-    [factory buildAsync:[M3 imageURL: url forSize: imageSize]
-             withTarget:self.view 
-            andSelector:@selector(addImage:)];
-  }
+  [app runLater:^() {
+    CGSize imageSize = CGSizeMake(480, 460);
+    
+    for(NSString* url in imageURLs) {
+      [factory buildAsync:[M3 imageURL: url forSize: imageSize]
+               withTarget:self.view 
+              andSelector:@selector(addImage:)];
+    }
+  }];
 
   [SVProgressHUD show];
 }
