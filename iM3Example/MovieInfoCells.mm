@@ -9,6 +9,8 @@
 @interface MovieInfoCell: M3TableViewCell
 
 @property (nonatomic,readonly) NSDictionary* movie;
+@property (nonatomic,readonly) NSString* imdbURL;
+@property (nonatomic,readonly) NSString* movie_id;
 
 @end
 
@@ -22,6 +24,17 @@
 -(NSString*)movie_id
 { 
   return [self.movie objectForKey: @"_id"];
+}
+
+-(NSString*) imdbURL
+{
+  NSString* title = [self.movie objectForKey:@"title"];
+  if(!title) return nil;
+  
+  NSString* imdbURL = _.join(@"imdb:///find?q=", title.urlEscape);
+  if([app canOpen:imdbURL]) return imdbURL;
+  
+  return _.join(@"http://imdb.de/?q=", title.urlEscape);
 }
 
 @end
@@ -282,29 +295,28 @@
 
 @implementation MovieShortActionsCell
 
--(void)addMediaActionToActions: (NSMutableArray*)actions
-{
-  NSDictionary* movie = self.movie;
-  
-  // Trailer? We always show the trailer link even if the app is not reachable.
-  NSDictionary* videos = [movie objectForKey: @"videos"];
-  if(videos.count) {
-    [actions addObject: _.array(@"Trailer", _.join(@"/movies/trailer?movie_id=", self.movie_id))];
-    return;
-  }
-
-  // No trailer, but reachable and images?
-  NSArray* thumbnails = [movie objectForKey:@"thumbnails"];
-  if([app currentReachability] && thumbnails.first)
-    [actions addObject: _.array(@"Bilder", _.join(@"/movies/images?movie_id=", self.movie_id))];
-}
-
 -(NSArray*)actions
 {
   NSMutableArray* actions = [NSMutableArray array];
   
-  [self addMediaActionToActions: actions];
+  // Add link to trailer: if we have a video URL we show the trailer button
+  // even if the user is not online.
+  NSDictionary* videos = [self.movie objectForKey: @"videos"];
+  if(videos.count) {
+    [actions addObject: _.array(@"Trailer", _.join(@"/movies/trailer?movie_id=", self.movie_id))];
+  }
+
+#if APP_FLK
+  /* 
+    The FLK app does not have much information on a movie. Therefore "More..." just
+    shows the description in an overlay.
+  */
+  [actions addObject: _.array(@"Info...", _.join(@"/movies/description?movie_id=", self.movie_id))];
+#else
   [actions addObject: _.array(@"Mehr...", _.join(@"/movies/show?movie_id=", self.movie_id))];
+#endif
+  [actions addObject: _.array(@"IMDB", self.imdbURL)];
+  
   
   return actions;
 }
@@ -339,27 +351,6 @@
 @end
 
 @implementation MovieActionsCell
-
--(NSString*) imdbURLForTitle: (NSString*)title
-{
-  NSString* imdbURL = _.join(@"imdb:///find?q=", title.urlEscape);
-  if([app canOpen:imdbURL]) return imdbURL;
-  
-  return _.join(@"http://imdb.de/?q=", title.urlEscape);
-}
-
--(NSArray*)actions
-{
-  NSMutableArray* actions = [NSMutableArray array];
-  
-  [self addMediaActionToActions: actions];
-  
-  NSString* title = [self.movie objectForKey:@"title"];
-  [actions addObject: _.array(@"IMDB", [self imdbURLForTitle: title])];
-  
-  return actions;
-}
-
 @end
 
 /* === MovieDescriptionCell: full movie description ============================= */
