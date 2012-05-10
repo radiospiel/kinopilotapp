@@ -36,7 +36,7 @@
 
 @property (retain,nonatomic) NSString* fontName;
 @property (assign,nonatomic) int fontSize;
-// @property (retain,nonatomic) UIColor* color;
+@property (retain,nonatomic) UIColor* color;
 @property (getter=isBold,assign,nonatomic) BOOL bold;
 @property (getter=isItalic,assign,nonatomic) BOOL italic;
 @property (getter=isUppercase,assign,nonatomic) BOOL uppercase;
@@ -45,7 +45,7 @@
 
 @implementation M3AttributedStringBuilder
 
-@synthesize fontName, fontSize, bold, italic, uppercase;
+@synthesize fontName, fontSize, bold, italic, uppercase, color;
 
 -(id)initWithStylesheet: (M3Stylesheet*)theStylesheet
 {
@@ -119,11 +119,11 @@
   
   // -- set color ----------------------------
 
-//  if(color != nil) {
-//    CFAttributedStringSetAttribute(attrString, 
-//      CFRangeMake(0, CFAttributedStringGetLength(attrString)), 
-//      kCTForegroundColorAttributeName, color.CGColor);
-//  }
+  if(color != nil) {
+    CFAttributedStringSetAttribute(attrString, 
+      CFRangeMake(0, CFAttributedStringGetLength(attrString)), 
+      kCTForegroundColorAttributeName, color.CGColor);
+  }
   
   // -- set font ----------------------------
 
@@ -172,9 +172,13 @@
 //  backgroundColor: "#f60",
 //  textAlign:'center',
 //  top:4, 
-
   }
-
+  else if([elementName isEqualToString:@"color"]) {
+    NSString* colorName = [attributeDict objectForKey: @"name"];
+    if(colorName)
+      self.color = [UIColor colorWithName: colorName];
+    [self add: @" "];
+  }
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
@@ -200,6 +204,10 @@
     self.fontSize = 13;
     // self.uppercase = NO;
     // self.bold = NO;
+  }
+  else if([elementName isEqualToString:@"color"]) {
+    [self add: @" "];
+    self.color = nil;
   }
 }
 
