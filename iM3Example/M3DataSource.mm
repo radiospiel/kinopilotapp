@@ -194,7 +194,7 @@ static NSString* indexKey(NSDictionary* dict)
   time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
   
   [self addSection: cellKeys 
-       withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"ccc dd.MM."])];
+       withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"ccc dd. MMM"])];
 }
 
 -(id)initWithTheaterFilter: (id)theater_id
@@ -338,7 +338,7 @@ static NSString* indexKey(NSDictionary* dict)
   time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
   
   [self addSection: cellKeys 
-       withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"ccc dd.MM."])];
+       withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"ccc dd. MMM"])];
 }
 
 -(id)initWithMovieFilter: (id)movie_id
@@ -434,7 +434,7 @@ static NSString* indexKey(NSDictionary* dict)
     M3AssertKindOf(schedules, NSArray);
     NSNumber* time = [schedules.first objectForKey:@"time"];
     [self addSection: schedules
-         withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"ccc dd.MM."])];
+         withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"ccc dd. MMM"])];
   }
 
   return self;
