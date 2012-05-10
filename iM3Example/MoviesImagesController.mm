@@ -126,8 +126,7 @@
   
   // The view in the new page.
   UIImageView* imageView = [[UIImageView alloc]initWithFrame: CGRectMake(0, 0, w, h)];
-  imageView.autoresizingMask = (UIViewAutoresizingNone                  |
-                                UIViewAutoresizingFlexibleLeftMargin    |
+  imageView.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin    |
                                 UIViewAutoresizingFlexibleWidth         |
                                 UIViewAutoresizingFlexibleRightMargin   |
                                 UIViewAutoresizingFlexibleTopMargin     |
@@ -217,25 +216,6 @@
 {
   return nil;
 }
-
-//-(void)setTabBarHidden: (BOOL)hide
-//{
-//  UITabBarController* tbc = self.tabBarController;
-//  
-//  // find the tab bars content view.
-//	UIView *contentView = [tbc.view.subviews.first isKindOfClass:[UITabBar class]] ?
-//    tbc.view.subviews.second :
-//  	tbc.view.subviews.first;
-//  
-//  CGRect targetFrame = tbc.view.bounds;
-//
-//  if(!hide) {
-//    targetFrame.size.height -= tbc.tabBar.frame.size.height;
-//  }
-//  
-//  contentView.frame = targetFrame;
-//  tbc.tabBar.hidden = hide;
-//}
 
 -(void)popNavigationController
 {
