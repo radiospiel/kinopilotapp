@@ -1,8 +1,41 @@
 {
-  "update_url":        "http://kinopilotupdates2.heroku.com/db/images,berlin.sql",
-  "debug_update_url":  "http://localhost:3000/db/images,berlin.sql",
+  "title":      "com.radiospiel.livegigs",
+  "no-flurry_api_key": "com.radiospiel.livegigs",
+  "no-irate": {
+    "app_store_id":     447347982,
+    "application_name": "Freiluft-Kinopilot",
+    "message_title":    "Kinopilot bewerten..."
+  },
+  
+  "dashboard": {
+    "sections":         [ "city/theaters", "movies", "about/today" ],
+    "topaligned-icons": [ "vicinity", "city", "today" ],
+    "city": {
+      "title":      "Freiluft",
+      "actionURL":  "/map/show"
+    },
+    "theaters": {
+      "title":      "Kinos",
+      "actionURL":  "/theaters/list"
+    },
+    "movies": {
+      "title":      "Filme",
+      "actionURL":  "/movies/list"
+    },
+    "vicinity": {
+      "title":      "Was läuft jetzt?!",
+      "actionURL":  "/movies/calendar"
+    },
+    "today": {
+      "title":      "Kalender",
+      "actionURL":  "/movies/calendar"
+    }
+  },
 
-  "name": "Kinopilot Berlin",
+  "update_url":           "http://update.16b.org/flk",
+  "release_update_url":   "http://update.16b.org/flk",
+  "debug_update_url":     "http://localhost:9292/flk",
+  "name": "Freiluft-Kinopilot",
   "tabs": [
     {
       "nurl": "/movies/list?theater_id=adriafilmtheat|2487JHMKNoY",
