@@ -13,12 +13,6 @@
 
 #import "FlurryAnalytics.h"
 
-#if APP_KINOPILOT
-  #define FLURRY_API_KEY @"KJ96KEEHE5Y58NZURG2H"
-#else
-  #define FLURRY_API_KEY @"ULHBV8DA3JS96TDEYCRA"
-#endif
-
 // for network status
 #include <netdb.h>
 #include <arpa/inet.h>
@@ -35,23 +29,34 @@ M3AppDelegate* app;
 
 @synthesize window, tabBarController, withheldViewControllers;
 
-+ (void)initialize
+-(id)init
 {
-#if APP_KINOPILOT
+  self = [super init];
+  [self initializeIRate];
+  return self;
+}
+
+-(void)initializeIRate
+{
+  NSDictionary* config = [self.config objectForKey: @"irate"];
+  if(!config) return;
+
   // -- configure iRate
   iRate* r = [iRate sharedInstance];
-  r.appStoreID = APP_STORE_ID;
-  r.applicationName = @"Kinopilot";
+  
+  r.appStoreID =      [[config objectForKey: @"app_store_id"] to_i];
+  r.applicationName = [config objectForKey: @"application_name"];
+  r.messageTitle =    [config objectForKey: @"message_title"];
   r.daysUntilPrompt = 3;
   r.remindPeriod = 5;
-  r.messageTitle = @"Kinopilot bewerten...";
-  r.message = @"Gefällt Dir unser Kinopilot? "
-               "Dann bewerte die App doch im Appstore. "
+  r.message = @"Gefällt Dir unsere App? "
+               "Dann bewerte sie doch im Appstore. "
                "Danke für Deine Unterstützung!";
   r.cancelButtonLabel = @"Nein, danke!";
   r.rateButtonLabel = @"Vielleicht später.";
   r.remindButtonLabel  = @"Ja, gern!";
-#endif
+
+  dlog << "*** Configured iRate for app_store_id " << r.appStoreID;
 }
 
 - (void)dealloc
@@ -65,6 +70,21 @@ M3AppDelegate* app;
 -(NSString*) identifier
 {
   return [[NSBundle mainBundle] bundleIdentifier];
+}
+
+-(BOOL) isFlk
+{
+  return [self.identifier isEqualToString: @"io.socially.kinopilot-flk"];
+}
+
+-(BOOL) isKinopilot
+{
+  return [self.identifier isEqualToString: @"com.radiospiel.kinopilot"];
+}
+
+-(BOOL) isLivegigs
+{
+  return NO;
 }
 
 -(UINavigationController*)topMostController
@@ -288,7 +308,7 @@ M3AppDelegate* app;
   [self enableRemoteNotifications];
 
   // --- enable Flurry
-  [FlurryAnalytics startSession: FLURRY_API_KEY];
+  [FlurryAnalytics startSession: [app.config objectForKey: @"flurry_api_key"]];
 
   // --- init database
   [self sqliteDB];

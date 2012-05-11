@@ -216,39 +216,36 @@ static NSString* indexKey(NSDictionary* dict)
   ];
 
   if(schedules.count == 0) return self;
-  
-#if APP_FLK
-  
-  schedules = [schedules sortByBlock:^id(NSDictionary* dict) {
-    return [dict objectForKey:@"time"];
-  }];
-  [self addSection: schedules];
 
-#else
+  if(app.isFlk) {
+    schedules = [schedules sortByBlock:^id(NSDictionary* dict) {
+      return [dict objectForKey:@"time"];
+    }];
+    [self addSection: schedules];
+  }
+  else {
+    // group schedules by *day* into sectionsHash
+    NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
+      NSNumber* time = [schedule objectForKey:@"time"];
     
-  // group schedules by *day* into sectionsHash
-  NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
-    NSNumber* time = [schedule objectForKey:@"time"];
-    
-    time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
-    return [time.to_date stringWithFormat:@"dd.MM."];
-  }];
+      time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
+      return [time.to_date stringWithFormat:@"dd.MM."];
+    }];
   
-  NSArray* sectionsArray = [sectionsHash allValues];
-  sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
-    NSNumber* time1 = [schedules1.first objectForKey:@"time"];
-    NSNumber* time2 = [schedules2.first objectForKey:@"time"];
+    NSArray* sectionsArray = [sectionsHash allValues];
+    sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
+      NSNumber* time1 = [schedules1.first objectForKey:@"time"];
+      NSNumber* time2 = [schedules2.first objectForKey:@"time"];
     
-    return [time1 compare:time2];
-  }];
+      return [time1 compare:time2];
+    }];
   
-  for(NSArray* schedules in sectionsArray) {
-    M3AssertKindOf(schedules, NSArray);
-    [self addSchedulesSection: schedules];
+    for(NSArray* schedules in sectionsArray) {
+      M3AssertKindOf(schedules, NSArray);
+      [self addSchedulesSection: schedules];
+    }
   }
 
-#endif
-  
   return self;
 }
 
@@ -266,45 +263,45 @@ static NSString* indexKey(NSDictionary* dict)
 {
   self = [super initWithCellClass: @"TheatersListCell"]; 
   
-#if APP_FLK
-  NSString* sql =  @"SELECT theaters._id, theaters.name FROM theaters "
-                    "ORDER BY theaters.name ";
+  if(app.isFlk) {
+    NSString* sql =  @"SELECT theaters._id, theaters.name FROM theaters "
+    "ORDER BY theaters.name ";
+    
+    NSArray* theaters = [app.sqliteDB all: sql];
+    [self addSection: theaters];
+  }
 
-  NSArray* theaters = [app.sqliteDB all: sql];
-  [self addSection: theaters];
-#endif
-
-#if APP_KINOPILOT
-  NSString* sql = @"SELECT theaters._id, theaters.name FROM theaters "
-      "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
-      "LEFT JOIN movies ON schedules.movie_id=movies._id "
-      "GROUP BY theaters._id ";
-  
-  if([filter isEqualToString:@"fav"]) {
-    sql = @"SELECT theaters._id, theaters.name FROM theaters "
+  if(app.isKinopilot) {
+    NSString* sql = @"SELECT theaters._id, theaters.name FROM theaters "
+    "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
+    "LEFT JOIN movies ON schedules.movie_id=movies._id "
+    "GROUP BY theaters._id ";
+    
+    if([filter isEqualToString:@"fav"]) {
+      sql = @"SELECT theaters._id, theaters.name FROM theaters "
       "INNER JOIN flags ON flags.key_id=theaters._id "
       "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
       "LEFT JOIN movies ON schedules.movie_id=movies._id "
       "GROUP BY theaters._id ";
-  }
-  
-  NSArray* theaters = [app.sqliteDB all: sql];
-
-  if(theaters.count > 0) {
+    }
     
-    NSDictionary* groupedHash = [theaters groupUsingBlock:^id(NSDictionary* theater) {
-      return indexKey(theater);
-    }];
-  
-    NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
-  
-    for(NSArray* group in groups) {
-      [self addSection: group.second 
-           withOptions:_.hash(@"header", group.first, 
-                              @"index", group.first)];
+    NSArray* theaters = [app.sqliteDB all: sql];
+    
+    if(theaters.count > 0) {
+      
+      NSDictionary* groupedHash = [theaters groupUsingBlock:^id(NSDictionary* theater) {
+        return indexKey(theater);
+      }];
+      
+      NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
+      
+      for(NSArray* group in groups) {
+        [self addSection: group.second 
+             withOptions:_.hash(@"header", group.first, 
+                                @"index", group.first)];
+      }
     }
   }
-#endif
   
   return self;
 }

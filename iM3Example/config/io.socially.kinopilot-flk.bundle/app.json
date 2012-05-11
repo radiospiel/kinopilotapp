@@ -1,4 +1,36 @@
 {
+  "title":      "Freiluft-Kinopilot Berlin",
+  "flurry_api_key": "ULHBV8DA3JS96TDEYCRA",
+  "irate": {
+    "app_store_id":     447347982,
+    "application_name": "Freiluft-Kinopilot",
+    "message_title":    "Kinopilot bewerten..."
+  },
+  "dashboard": {
+    "sections":         [ "city/theaters", "movies", "about/today" ],
+    "topaligned-icons": [ "vicinity", "city", "today" ],
+    "city": {
+      "title":      "Freiluft",
+      "actionURL":  "/map/show"
+    },
+    "theaters": {
+      "title":      "Kinos",
+      "actionURL":  "/theaters/list"
+    },
+    "movies": {
+      "title":      "Filme",
+      "actionURL":  "/movies/list"
+    },
+    "vicinity": {
+      "title":      "Was läuft jetzt?!",
+      "actionURL":  "/movies/calendar"
+    },
+    "today": {
+      "title":      "Kalender",
+      "actionURL":  "/movies/calendar"
+    }
+  },
+
   "update_url":           "http://update.16b.org/flk",
   "release_update_url":   "http://update.16b.org/flk",
   "debug_update_url":     "http://localhost:9292/flk",
