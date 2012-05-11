@@ -318,7 +318,7 @@
 -(NSArray*)actions
 {
   NSMutableArray* actions = [NSMutableArray array];
-  
+
   // Add link to trailer: if we have a video URL we show the trailer button
   // even if the user is not online.
   NSDictionary* videos = [self.movie objectForKey: @"videos"];
@@ -326,17 +326,8 @@
     [actions addObject: _.array(@"Trailer", _.join(@"/movies/trailer?movie_id=", self.movie_id))];
   }
 
-#if fale && APP_FLK
-  /* 
-    The FLK app does not have much information on a movie. Therefore "More..." just
-    shows the description in an overlay.
-  */
-  [actions addObject: _.array(@"Info...", _.join(@"/movies/description?movie_id=", self.movie_id))];
-#else
   [actions addObject: _.array(@"Mehr...", _.join(@"/movies/show?movie_id=", self.movie_id))];
-#endif
   [actions addObject: _.array(@"IMDB", self.imdbURL)];
-  
   
   return actions;
 }
@@ -367,10 +358,33 @@
 @end
 
 
+// 
+// The MovieActionsCell is used in /movies/show. It shows a short overview over
+// the movie (as does MovieShortActionsCell), but does not contain a "More"
+// link. The order of action buttons could be different also, resulting
+// in a different set of displayed buttons.
+//
 @interface MovieActionsCell: MovieShortActionsCell
 @end
 
 @implementation MovieActionsCell
+
+-(NSArray*)actions
+{
+  NSMutableArray* actions = [NSMutableArray array];
+
+  // Add link to trailer: if we have a video URL we show the trailer button
+  // even if the user is not online.
+  NSDictionary* videos = [self.movie objectForKey: @"videos"];
+  if(videos.count) {
+    [actions addObject: _.array(@"Trailer", _.join(@"/movies/trailer?movie_id=", self.movie_id))];
+  }
+  
+  [actions addObject: _.array(@"IMDB", self.imdbURL)];
+  
+  return actions;
+}
+
 @end
 
 /* === MovieDescriptionCell: full movie description ============================= */
