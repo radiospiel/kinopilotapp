@@ -10,6 +10,10 @@
   "dashboard": {
     "sections":         [ "city/theaters", "movies", "about/vicinity" ],
     "topaligned-icons": [ "vicinity" ],
+    "about": {
+      "title":      "      ",
+      "actionURL":  "/info"
+    },
     "city": {
       "title":      "Freiluft",
       "actionURL":  "/map/show"
