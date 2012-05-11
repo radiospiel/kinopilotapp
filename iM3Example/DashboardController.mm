@@ -202,14 +202,16 @@
 
 -(NSString*)calculateValueForKey: (NSString*) key
 {
-  id value = nil;
+  NSString* sql = nil;
   
   if([key isEqualToString:@"movies"]) 
-    value = [app.sqliteDB ask: @"SELECT COUNT(DISTINCT movie_id) FROM schedules"];
+    sql = @"SELECT COUNT(DISTINCT movie_id) FROM schedules";
   else if([key isEqualToString:@"theaters"]) 
-    value = [app.sqliteDB ask: @"SELECT COUNT(*) FROM theaters"];
+    sql = @"SELECT COUNT(*) FROM theaters";
+
+  if(!sql) return nil;
   
-  return value;
+  return [app.sqliteDB ask: sql, nil];
 }
 
 -(void)setKey: (NSString*)key

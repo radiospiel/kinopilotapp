@@ -173,7 +173,13 @@
 
 -(id)init
 { 
-  return [super initWithStyle: UITableViewStyleGrouped]; 
+  self = [super initWithStyle: UITableViewStyleGrouped]; 
+
+  if(self) {
+    [app on: @selector(updated) notify:self with:@selector(reload)];
+  }
+
+  return self;
 }
 
 #pragma mark - Low memory management

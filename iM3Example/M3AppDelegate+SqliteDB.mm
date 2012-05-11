@@ -185,6 +185,8 @@
         });
       }
     }
+    
+    [self instance_variable_set: @selector(sqliteDB) withValue: nil];
   });
 }
 
@@ -208,16 +210,15 @@
   [self updateDatabaseWithFeedback: (aFutureSchedule == nil)];
 }
 
--(M3SqliteDatabase*)sqliteDatabase
-{
-  return [self buildSqliteDatabase];
-}
-
 -(M3SqliteDatabase*) sqliteDB
 {
-  return [self memoized: @selector(sqliteDB) usingBlock:^() {
-    return [self sqliteDatabase];
-  }];
+  M3SqliteDatabase* sqliteDB = [self instance_variable_get: @selector(sqliteDB)];
+  if(sqliteDB) return sqliteDB;
+  
+  sqliteDB = [self buildSqliteDatabase];
+  [self instance_variable_set: @selector(sqliteDB) withValue: sqliteDB];
+  
+  return sqliteDB;
 }
 
 -(UIImage*) thumbnailForMovie: (NSDictionary*) movie;
