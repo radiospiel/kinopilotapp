@@ -62,6 +62,7 @@ extern M3AppDelegate* app;
 -(NSString*)currentReachability;
 
 @property (readonly) NSString* identifier;
+@property (readonly) BOOL isFlk, isKinopilot, isLivegigs;
 
 -(NSString*)configPathFor: (NSString*)file;
 -(UIImage*)imageNamed: (NSString*)imageName;

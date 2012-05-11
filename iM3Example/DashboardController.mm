@@ -11,14 +11,20 @@
 
 #import "M3TableViewProfileCell.h"
 
-#define BUTTON_WIDTH    156
-#define BUTTON_HEIGHT   130 // 135
-#define BUTTON_PADDING  8
+static NSDictionary* dashboardConfig = nil;
 
-#if APP_FLK
-#undef  BUTTON_HEIGHT
-#define BUTTON_HEIGHT   128
-#endif
+static int button_width = 156;
+static int button_height = 130; // 135
+static int button_padding = 8;
+
+static void initConstants()
+{
+  if(app.isFlk) {
+    button_height = 128;
+  }
+
+  dashboardConfig = [app.config objectForKey: @"dashboard"];
+}
 
 /*** VicinityShowController cells *******************************************/
 
@@ -28,6 +34,7 @@
 }
 
 @property (nonatomic,retain) NSString* dashboardKey;
+@property (nonatomic,readonly) NSDictionary* config;
 
 -(id)initWithFrame: (CGRect)frame andKey: (NSString*)key;
 -(void)setButtonValue: (id)value;
@@ -71,38 +78,6 @@
   [self addSubview:fgImageView];
 }
 
--(void)setTitleByKey
-{
-  NSString* title = @"";
-  
-#if APP_FLK
-  if([dashboardKey isEqualToString: @"city"])      title = @"Freiluft";
-#else
-  if([dashboardKey isEqualToString: @"city"])      title = @"Berlin";
-#endif
-
-  if([dashboardKey isEqualToString: @"theaters"])  title = @"Kinos";
-  if([dashboardKey isEqualToString: @"movies"])    title = @"Filme";
-  if([dashboardKey isEqualToString: @"vicinity"])  title = @"Was läuft jetzt?!";
-  if([dashboardKey isEqualToString: @"today"])     title = @"Kalendar";
-  
-  [self setTitle: title forState:UIControlStateNormal];
-
-  self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:26];
-  self.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
-  self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 6, 10);
-}
-
--(void)setActionURLByKey
-{
-  if([dashboardKey isEqualToString: @"city"])      self.actionURL = @"/map/show";
-  if([dashboardKey isEqualToString: @"theaters"])  self.actionURL = @"/theaters/list";
-  if([dashboardKey isEqualToString: @"movies"])    self.actionURL = @"/movies/list";
-  if([dashboardKey isEqualToString: @"about"])     self.actionURL = @"/info";
-  if([dashboardKey isEqualToString: @"vicinity"])  self.actionURL = @"/vicinity";
-  if([dashboardKey isEqualToString: @"today"])     self.actionURL = @"/movies/calendar";
-}
-
 -(id)initWithFrame: (CGRect)frame andKey: (NSString*)key
 {
   self = [super initWithFrame: frame];
@@ -112,8 +87,19 @@
 
   [self setBackgroundImageByKey];
   [self setForegroundImageByKey];
-  [self setTitleByKey];
-  [self setActionURLByKey];
+
+  // -- set title
+  
+  [self setTitle: [self.config objectForKey: @"title"] 
+        forState: UIControlStateNormal];
+  
+  self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:26];
+  self.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+  self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 6, 10);
+  
+  // -- set actionURL
+
+  self.actionURL = [self.config objectForKey: @"actionURL"];
   
   // --- make the buttons content appear in the top-left
   [self setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
@@ -123,36 +109,25 @@
   return self;
 }
 
+-(NSDictionary*)config
+{
+  return [dashboardConfig objectForKey: dashboardKey];
+}
+
 -(void)dealloc
 {
   self.dashboardKey = nil;
-  
   [super dealloc];
-}
-
--(BOOL)fgIsTopAligned
-{
-  // if([dashboardKey isEqualToString: @"city"])      return NO;
-  // if([dashboardKey isEqualToString: @"theaters"])  return NO;
-  // if([dashboardKey isEqualToString: @"movies"])    return NO;
-  // if([dashboardKey isEqualToString: @"about"])     return NO;
-  if([dashboardKey isEqualToString: @"vicinity"])  return YES;
-#if APP_FLK
-  if([dashboardKey isEqualToString: @"city"])  return YES;
-  if([dashboardKey isEqualToString: @"today"])  return YES;
-#endif
-
-  return NO;
 }
 
 -(void)layoutFgImageView
 {
+  NSArray* topaligned_icons = [self.config objectForKey: @"topaligned-icons"];
+  BOOL isTopAligned = [topaligned_icons indexOfObject: dashboardKey] != NSNotFound;
+
   CGRect fgFrame = fgImageView.frame;
-  if([self fgIsTopAligned])
-    fgFrame.origin = CGPointMake(0, 0);
-  else
-    fgFrame.origin = CGPointMake(0, self.frame.size.height - fgImageView.image.size.height);
-  
+  fgFrame.origin.x = 0;
+  fgFrame.origin.y = isTopAligned ? 0 : self.frame.size.height - fgImageView.image.size.height;
   fgImageView.frame = fgFrame;
 }
 
@@ -195,7 +170,7 @@
 
 +(CGFloat)fixedHeight
 {
-  return BUTTON_HEIGHT + BUTTON_PADDING;
+  return button_height + button_padding;
 }
 
 // --- some buttons can have additional values.
@@ -225,8 +200,8 @@
   int idx = 0;
   for(NSString* buttonKey in buttonKeys) {
     
-    CGRect frame = CGRectMake(idx++ * (BUTTON_PADDING + BUTTON_WIDTH),                                  0, 
-                              buttonKeys.count > 1 ? BUTTON_WIDTH : BUTTON_PADDING + 2 * BUTTON_WIDTH,  BUTTON_HEIGHT);
+    CGRect frame = CGRectMake(idx++ * (button_padding + button_width),                                  0, 
+                              buttonKeys.count > 1 ? button_width : button_padding + 2 * button_width,  button_height);
     DashboardButton* button = [[[DashboardButton alloc]initWithFrame: frame andKey:buttonKey]autorelease];
     [self addSubview:button];
     
@@ -305,14 +280,6 @@
 
 @synthesize rotator, rotatorMovieIds;
 
--(id)init
-{
-  self = [super init];
-  if(!self) return nil;
-  
-  return self;
-}
-
 -(void)unrotate
 {
   self.rotator.delegate = nil;
@@ -343,7 +310,7 @@
   self.rotatorMovieIds = [recs pluck: @"_id"];
   
   // create rotator
-  self.rotator = [M3Rotator rotatorWithFrame: CGRectMake(10, 7, BUTTON_WIDTH - 20, BUTTON_HEIGHT - 14)];
+  self.rotator = [M3Rotator rotatorWithFrame: CGRectMake(10, 7, button_width - 20, button_height - 14)];
   self.rotator.delegate = self;
   [self addSubview:self.rotator];
   [self.rotator start];
@@ -401,17 +368,19 @@
 
 @implementation DashboardDataSource
 
-
-#if APP_FLK
-#define SECTIONS @"DashboardVSpacer;city/theaters;movies;about/today"
-#else
-#define SECTIONS @"DashboardVSpacer;city/theaters;movies;about/vicinity"
-#endif
++(void)initialize
+{
+  initConstants();
+}
 
 -(id)init
 {
   self = [super init];
-  [self addSection: [SECTIONS componentsSeparatedByString:@";"]];
+  NSArray* sections = [dashboardConfig objectForKey: @"sections"];
+  M3AssertKindOf(sections, NSArray);
+  
+  [self addSection: _.array(@"DashboardVSpacer")];
+  [self addSection: sections];
   return self;
 }
 
@@ -420,7 +389,6 @@
   M3AssertKindOf(key, NSString);
   
   if([key isEqualToString:@"DashboardVSpacer"]) return @"DashboardVSpacer";
-  
   if([key isEqualToString:@"movies"]) return @"DashboardMoviesCell";
   
   return [DashboardInfoCell class];
@@ -433,9 +401,7 @@
 -(id)init 
 {
   self = [super init];
-  if(self) {
-    [app on: @selector(updated) notify:self with:@selector(reload)];
-  }
+  [app on: @selector(updated) notify:self with:@selector(reload)];
   return self;
 }
 

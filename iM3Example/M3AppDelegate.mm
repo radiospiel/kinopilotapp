@@ -67,6 +67,21 @@ M3AppDelegate* app;
   return [[NSBundle mainBundle] bundleIdentifier];
 }
 
+-(BOOL) isFlk
+{
+  return [self.identifier isEqualToString: @"io.socially.kinopilot-flk"];
+}
+
+-(BOOL) isKinopilot
+{
+  return [self.identifier isEqualToString: @"com.radiospiel.kinopilot"];
+}
+
+-(BOOL) isLivegigs
+{
+  return NO;
+}
+
 -(UINavigationController*)topMostController
 {
   // Get top-most controller.

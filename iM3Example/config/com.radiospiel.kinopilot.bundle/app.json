@@ -1,4 +1,30 @@
 {
+  "title":      "Kinopilot Berlin",
+  "dashboard": {
+    "sections":         [ "city/theaters", "movies", "about/vicinity" ],
+    "topaligned-icons": [ "vicinity" ],
+    "city": {
+      "title":      "Freiluft",
+      "actionURL":  "/map/show"
+    },
+    "theaters": {
+      "title":      "Kinos",
+      "actionURL":  "/theaters/list"
+    },
+    "movies": {
+      "title":      "Filme",
+      "actionURL":  "/movies/list"
+    },
+    "vicinity": {
+      "title":      "Was läuft jetzt?!",
+      "actionURL":  "/movies/calendar"
+    },
+    "today": {
+      "title":      "Kalender",
+      "actionURL":  "/movies/calendar"
+    }
+  },
+  
   "update_url":        "http://kinopilotupdates2.heroku.com/db/images,berlin.sql",
   "debug_update_url":  "http://localhost:3000/db/images,berlin.sql",
 
