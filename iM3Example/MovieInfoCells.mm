@@ -46,21 +46,38 @@
   UIImageView* ratingForeground_;
   UILabel*     ratingLabel_;
 }
+
+@property (readonly) int rating;
+
 @end
 
 @implementation MovieRatingCell
 
--(CGFloat)wantsHeight
+-(int)rating
 {
   NSNumber* number = [self.movie objectForKey: @"average_community_rating"];
-  return number.to_i <= 0 ? 0 : 44;
+  if(number) return number.to_i;
+
+  number = [self.movie objectForKey: @"rating"];
+  if(number) return 10 * [ number floatValue ];
+
+  return 0;
+}
+
+-(CGFloat)wantsHeight
+{
+  return self.rating > 0 ? 44 : 0;
 }
 
 -(id)init
 {
   self = [super init];
-  
+
+#if APP_KINOPILOT
   self.textLabel.text = @"moviepilot.de Rating";
+#else
+  self.textLabel.text = @"Community-Rating";
+#endif
   
   if(self) {
     ratingBackground_ = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"unstars.png"]];
@@ -73,7 +90,6 @@
     //    [self addSubview: [ratingLabel_ autorelease]];
     
     self.clipsToBounds = YES;
-    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
   }
   return self;
 }
@@ -83,8 +99,7 @@
   [super setKey:key];
   
   // Get rating: this is a number between 0 and 100.
-  NSNumber* number = [self.movie objectForKey: @"average_community_rating"];
-  if(number.to_i <= 0) return;
+  int rating = self.rating;
   
   ratingBackground_.frame = CGRectMake(190, 13, 96, 16);
   
@@ -94,21 +109,17 @@
   // 20 .. 40 is mapped into 20 .. 36, 
   // etc.
   //
-  int complete_stars = number.to_i / 20;                    // Each complete star is 20px wide.
-  int incomplete_star = number.to_i - 20 * complete_stars;  // The incomplete star is in the range 0..19, and maps onto 0..16.
+  int complete_stars = rating / 20;                    // Each complete star is 20px wide.
+  int incomplete_star = rating - 20 * complete_stars;  // The incomplete star is in the range 0..19, and maps onto 0..16.
   ratingForeground_.frame = CGRectMake(190, 13, complete_stars * 20 + (incomplete_star * 16 + 10) / 20, 16);
   ratingForeground_.contentMode = UIViewContentModeLeft;
   ratingForeground_.clipsToBounds = YES;
 
-  // Link to moviepilot
-  self.url = [self.movie objectForKey:@"url"];
-  
-  //  CGRect labelFrame = self.textLabel.frame;
-  //  
-  //  ratingLabel_.font = [self.stylesheet fontForKey:@"h2"];
-  //  ratingLabel_.frame = CGRectMake(267, labelFrame.origin.y, 46, labelFrame.size.height);
-  //  ratingLabel_.font = self.textLabel.font;
-  //  ratingLabel_.text = [NSString stringWithFormat: @"%.1f", number.to_i / 10.0];
+#if APP_KINOPILOT
+  self.url = [self.movie objectForKey:@"url"];         // Link to movie URL.
+  if(self.url)
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+#endif
 }
 @end
 
@@ -306,7 +317,7 @@
     [actions addObject: _.array(@"Trailer", _.join(@"/movies/trailer?movie_id=", self.movie_id))];
   }
 
-#if APP_FLK
+#if fale && APP_FLK
   /* 
     The FLK app does not have much information on a movie. Therefore "More..." just
     shows the description in an overlay.
@@ -438,35 +449,34 @@
 
 @implementation MoviePersonsCell
 
+-(void)writeMarkupForFunction: (NSString*)key 
+                    withTitle: (NSString*)title
+                    intoArray: (NSMutableArray*)parts 
+
+{
+  NSArray* persons = [self.movie objectForKey: key];
+  if(!persons) return;
+  
+  NSArray* p = [NSArray arrayWithObjects: 
+                @"<b>", 
+                title, 
+                @":</b> ", 
+                [persons.uniq componentsJoinedByString:@", "],
+                nil];
+    
+  [parts addObject: @"<p>"];
+  [parts addObject: [p componentsJoinedByString:@""]];
+  [parts addObject: @"</p>"];
+}
+
 -(NSString*)markup
 {
-  NSArray* actors =           [self.movie objectForKey:@"actors"];
-  NSArray* directors =        [self.movie objectForKey:@"directors"];
-
-  if(!actors.count && !directors.count) return nil;
-  
   NSMutableArray* parts = [NSMutableArray array];
+  [self writeMarkupForFunction: @"directors" withTitle: @"Regie" intoArray: parts];
+  [self writeMarkupForFunction: @"actors" withTitle: @"Darsteller" intoArray: parts];
+  [self writeMarkupForFunction: @"writers" withTitle: @"Drehbuch" intoArray: parts];
   
-  if(directors) {
-    NSMutableArray* p = [NSMutableArray array];
-    [p addObject: @"<b>Regie:</b> "];
-    [p addObject: [directors.uniq componentsJoinedByString:@", "]];
-      
-    [parts addObject: @"<p>"];
-    [parts addObject: [p componentsJoinedByString:@""]];
-    [parts addObject: @"</p>"];
-  }
-    
-  if(actors) {
-    NSMutableArray* p = [NSMutableArray array];
-    [p addObject: @"<b>Darsteller:</b> "];
-    [p addObject: [actors.uniq componentsJoinedByString:@", "]];
-      
-    [parts addObject: @"<p>"];
-    [parts addObject: [p componentsJoinedByString:@""]];
-    [parts addObject: @"</p>"];
-  }
-
+  if(!parts.count) return nil;
   return [parts componentsJoinedByString:@""];
 }
 @end
