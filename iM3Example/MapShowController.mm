@@ -48,8 +48,9 @@
 
 @end
 
-// The MapShow controller either shows a map around a cinema - in which 
-// case a theater_id is set - or just a general map around the city.
+// The MapShow controller either shows a map around a cinema - 
+// in which case a theater_id is set - or just a general map
+// around the city.
 //
 // Note that the MapShowController is actually loaded from a .xib file.
 
@@ -139,7 +140,7 @@
 {
   MKUserLocation* location = mapView.userLocation;
   
-  if([self validLocation:location]) {
+  if([self validLocation:location]) {     // show user's surrounding
     MKCoordinateRegion region;
     
     region.center = location.coordinate;
@@ -149,14 +150,14 @@
 
     [mapView setRegion:region animated:YES];
   }
-  else {
+  else {                                // show overview
     MKCoordinateRegion region;
     
     region.center = [self defaultLocation];
     
-    region.span.latitudeDelta = 0.08;
-    region.span.longitudeDelta = 0.08;
-    
+    region.span.latitudeDelta = 0.11;
+    region.span.longitudeDelta = 0.11;
+
     [mapView setRegion:region];
   }
 }
