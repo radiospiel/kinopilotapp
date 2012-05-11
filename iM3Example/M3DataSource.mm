@@ -308,6 +308,46 @@ static NSString* indexKey(NSDictionary* dict)
 
 @end
 
+/**** LocationsListDataSource **********************************/
+
+@interface LocationsListDataSource: M3TableViewDataSource
+
+@end
+
+@implementation LocationsListDataSource
+
+-(id)initWithFilter: (NSString*)filter
+{
+  self = [super initWithCellClass: @"LocationsListCell"]; 
+  
+  NSString* sql = @"SELECT locations._id, locations.name FROM locations";
+
+  if([filter isEqualToString:@"fav"]) {
+    sql = @"SELECT locations._id, locations.name FROM locations "
+      "INNER JOIN flags ON flags.key_id=locations._id";
+  }
+    
+  NSArray* locations = [app.sqliteDB all: sql];
+    
+  if(locations.count > 0) {
+    NSDictionary* groupedHash = [theaters groupUsingBlock:^id(NSDictionary* theater) {
+      return indexKey(theater);
+    }];
+    
+    NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
+    
+    for(NSArray* group in groups) {
+      [self addSection: group.second 
+           withOptions:_.hash(@"header", group.first, 
+                              @"index", group.first)];
+    }
+  }
+
+  return self;
+}
+
+@end
+
 /**** TheatersListFilteredByMovieDataSource **********************************/
 
 @interface TheatersListFilteredByMovieDataSource: M3TableViewDataSource
@@ -441,31 +481,33 @@ static NSString* indexKey(NSDictionary* dict)
 
 @implementation M3DataSource(M3Lists)
 
-+(M3TableViewDataSource*) datasourceWithName: (NSString*)name 
-                          andFallbackSection: (NSString*)fallbackSection
-                                   fromBlock: (M3TableViewDataSource* (^)())block
++(M3TableViewDataSource*) datasourceWithFallback: (NSString*)fallback
+                                       fromBlock: (M3TableViewDataSource* (^)())block
 {
   Benchmark(_.join("*** Building datasource ", name));
   
   M3TableViewDataSource* dataSource = block();
-  if(dataSource.sections.count == 0)
-    return [M3TableViewDataSource dataSourceWithSection: [fallbackSection componentsSeparatedByString:@","]];
-
-  return dataSource; 
-  // [self mixAdCellsIntoDataSource: dataSource];
+  if(dataSource.sections.count > 0)
+    return dataSource;
+  
+  NSArray* fallbackSection;
+  if(fallback)
+    fallbackSection = [fallback componentsSeparatedByString:@","];
+  else
+    fallbackSection = [NSArray arrayWithObjects: @"EmptyListCell", @"EmptyListUpdateActionCell", nil];
+  
+  return [M3TableViewDataSource dataSourceWithSection: fallbackSection];
 }
 
-+(M3TableViewDataSource*) datasourceWithName: (NSString*)name 
-                                   fromBlock: (M3TableViewDataSource* (^)())block
++(M3TableViewDataSource*) datasourceFromBlock: (M3TableViewDataSource* (^)())block
 {
-  return [self datasourceWithName: name 
-               andFallbackSection: @"EmptyListCell,EmptyListUpdateActionCell"
-                        fromBlock: block];
+  return [self datasourceWithFallback: nil
+                            fromBlock: block];
 }
 
 +(M3TableViewDataSource*)moviesListWithFilter:(NSString *)filter
 {
-  return [self datasourceWithName: @"moviesListWithFilter" 
+  return [self datasourceWithFallback: @"moviesListWithFilter" 
                         fromBlock: ^M3TableViewDataSource*() {
                           M3TableViewDataSource* ds;
                           ds = [[MoviesListDataSource alloc]initWithFilter:filter];
@@ -475,8 +517,7 @@ static NSString* indexKey(NSDictionary* dict)
 
 +(M3TableViewDataSource*)moviesListFilteredByTheater:(id)theater_id
 {
-  return [self datasourceWithName: @"moviesListFilteredByTheater" 
-                        fromBlock: ^M3TableViewDataSource*() {
+  return [self datasourceFromBlock: ^M3TableViewDataSource*() {
                           M3TableViewDataSource* ds;
                           ds = [[MoviesListFilteredByTheaterDataSource alloc]initWithTheaterFilter: theater_id];
                           return [ds autorelease];
@@ -485,8 +526,7 @@ static NSString* indexKey(NSDictionary* dict)
 
 +(M3TableViewDataSource*)moviesCalendar
 {
-  return [self datasourceWithName: @"moviesCalendar" 
-                        fromBlock: ^M3TableViewDataSource*() {
+  return [self datasourceFromBlock: ^M3TableViewDataSource*() {
                           M3TableViewDataSource* ds;
                           ds = [[MoviesCalendarDataSource alloc]init];
                           return [ds autorelease];
@@ -496,8 +536,7 @@ static NSString* indexKey(NSDictionary* dict)
 
 +(M3TableViewDataSource*)theatersListFilteredByMovie:(id)movie_id
 {
-  return [self datasourceWithName: @"theatersListFilteredByMovie" 
-                        fromBlock: ^M3TableViewDataSource*() {
+  return [self datasourceFromBlock: ^M3TableViewDataSource*() {
                           M3TableViewDataSource* ds;
                           ds = [[TheatersListFilteredByMovieDataSource alloc]initWithMovieFilter: movie_id];
                           return [ds autorelease];
@@ -506,17 +545,16 @@ static NSString* indexKey(NSDictionary* dict)
 
 +(M3TableViewDataSource*)theatersListWithFilter:(NSString *)filter
 {
-  NSString* fallbackSection = @"EmptyListCell,EmptyListUpdateActionCell";
+  NSString* fallbackSection = nil;
   if([filter isEqualToString:@"fav"])
     fallbackSection = @"NoFavsCell";
   
-  return [self datasourceWithName: @"theatersListWithFilter" 
-               andFallbackSection: fallbackSection
-                        fromBlock: ^M3TableViewDataSource*() {
-                          M3TableViewDataSource* ds;
-                          ds = [[TheatersListDataSource alloc]initWithFilter: filter];
-                          return [ds autorelease];
-                        }];
+  return [self datasourceWithFallback: fallbackSection
+                            fromBlock: ^M3TableViewDataSource*() {
+                              M3TableViewDataSource* ds;
+                              ds = [[TheatersListDataSource alloc]initWithFilter: filter];
+                              return [ds autorelease];
+                            }];
 }
 
 +(M3TableViewDataSource*)schedulesByTheater: (NSString*)theater_id 
@@ -525,17 +563,30 @@ static NSString* indexKey(NSDictionary* dict)
 {
   M3AssertKindOf(day, NSDate);
 
-  movie_id = [[app.sqliteDB.movies get:movie_id] objectForKey:@"_id"];
+  movie_id   = [[app.sqliteDB.movies get:movie_id] objectForKey:@"_id"];
   theater_id = [[app.sqliteDB.theaters get:theater_id] objectForKey:@"_id"];
  
-  return [self datasourceWithName: @"schedulesByTheater:andMovie:onDay" 
-                        fromBlock: ^M3TableViewDataSource*() {
-                          M3TableViewDataSource* ds;
-                          ds = [[SchedulesByTheaterAndMovieDataSource alloc]initWithTheater: theater_id 
-                                                                                   andMovie: movie_id
-                                                                                      onDay: day];
-                          return [ds autorelease];
-                        }];
+  return [self datasourceFromBlock: ^M3TableViewDataSource*() {
+                 M3TableViewDataSource* ds;
+                 ds = [[SchedulesByTheaterAndMovieDataSource alloc]initWithTheater: theater_id 
+                                                                          andMovie: movie_id
+                                                                             onDay: day];
+                 return [ds autorelease];
+               }];
+}
+
++(M3TableViewDataSource*)locationsListWithFilter:(NSString *)filter
+{
+  NSString* fallbackSection = nil;
+  if([filter isEqualToString:@"fav"])
+    fallbackSection = @"NoFavsCell";
+  
+  return [self datasourceWithFallback: fallbackSection
+                            fromBlock: ^M3TableViewDataSource*() {
+                              M3TableViewDataSource* ds;
+                              ds = [[LocationsListDataSource alloc]initWithFilter: filter];
+                              return [ds autorelease];
+                            }];
 }
 
 @end

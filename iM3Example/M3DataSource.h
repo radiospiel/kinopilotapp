@@ -24,4 +24,6 @@
                                    andMovie: (NSString*)movie_id
                                       onDay: (NSDate*)day; 
  
++(M3TableViewDataSource*)locationsListWithFilter: (NSString*)filter;
+
 @end

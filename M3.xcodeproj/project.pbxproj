@@ -259,6 +259,7 @@
 		9D8EAD56141E839400B21BEA /* M3Http.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8EAD53141E839400B21BEA /* M3Http.h */; };
 		9D8EAD57141E839400B21BEA /* M3Http.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EAD54141E839400B21BEA /* M3Http.mm */; };
 		9D8EAD58141E839400B21BEA /* M3Http.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8EAD54141E839400B21BEA /* M3Http.mm */; };
+		9D904327155DAB0E0014EB9B /* LocationsListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D904326155DAB0E0014EB9B /* LocationsListController.mm */; };
 		9D92E40D1434780900C17299 /* M3TableViewDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D92E40C1434780900C17299 /* M3TableViewDataSource.mm */; };
 		9D934D9F1461BF51001B25C6 /* UIView+M3Stylesheets.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D934D9D1461BF51001B25C6 /* UIView+M3Stylesheets.h */; };
 		9D934DA01461BF51001B25C6 /* UIView+M3Stylesheets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D934D9E1461BF51001B25C6 /* UIView+M3Stylesheets.mm */; };
@@ -584,6 +585,7 @@
 		9D8C4B95142896D0005D582A /* UIImageView+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImageView+M3Extensions.mm"; sourceTree = "<group>"; };
 		9D8EAD53141E839400B21BEA /* M3Http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Http.h; sourceTree = "<group>"; };
 		9D8EAD54141E839400B21BEA /* M3Http.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Http.mm; sourceTree = "<group>"; };
+		9D904326155DAB0E0014EB9B /* LocationsListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocationsListController.mm; sourceTree = "<group>"; };
 		9D92E40B1434780900C17299 /* M3TableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewDataSource.h; sourceTree = "<group>"; };
 		9D92E40C1434780900C17299 /* M3TableViewDataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewDataSource.mm; sourceTree = "<group>"; };
 		9D934D9D1461BF51001B25C6 /* UIView+M3Stylesheets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+M3Stylesheets.h"; sourceTree = "<group>"; };
@@ -1154,6 +1156,7 @@
 		9D6FAECD14A7540400C31703 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9D904326155DAB0E0014EB9B /* LocationsListController.mm */,
 				9DEDFFAF155BE1560031B8FE /* MoviesDescriptionController.mm */,
 				9DFE5C141464319F0039F536 /* ActionController.mm */,
 				9D5428F714E4085A00D9029F /* UserVoiceController.mm */,
@@ -1835,6 +1838,7 @@
 				9D5428F814E4085A00D9029F /* UserVoiceController.mm in Sources */,
 				9DF8DB20155549C20041BDA5 /* MoviesCalendarController.mm in Sources */,
 				9DEDFFB0155BE1560031B8FE /* MoviesDescriptionController.mm in Sources */,
+				9D904327155DAB0E0014EB9B /* LocationsListController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
