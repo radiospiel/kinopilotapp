@@ -570,7 +570,7 @@
 
 -(CGFloat)wantsHeight
 {
-  return self.videoHeight;
+  return self.youtubeURL ? self.videoHeight : 0;
 }
 
 #if TARGET_IPHONE_SIMULATOR
