@@ -216,39 +216,36 @@ static NSString* indexKey(NSDictionary* dict)
   ];
 
   if(schedules.count == 0) return self;
-  
-#if APP_FLK
-  
-  schedules = [schedules sortByBlock:^id(NSDictionary* dict) {
-    return [dict objectForKey:@"time"];
-  }];
-  [self addSection: schedules];
 
-#else
+  if(app.isFlk) {
+    schedules = [schedules sortByBlock:^id(NSDictionary* dict) {
+      return [dict objectForKey:@"time"];
+    }];
+    [self addSection: schedules];
+  }
+  else {
+    // group schedules by *day* into sectionsHash
+    NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
+      NSNumber* time = [schedule objectForKey:@"time"];
     
-  // group schedules by *day* into sectionsHash
-  NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
-    NSNumber* time = [schedule objectForKey:@"time"];
-    
-    time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
-    return [time.to_date stringWithFormat:@"dd.MM."];
-  }];
+      time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
+      return [time.to_date stringWithFormat:@"dd.MM."];
+    }];
   
-  NSArray* sectionsArray = [sectionsHash allValues];
-  sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
-    NSNumber* time1 = [schedules1.first objectForKey:@"time"];
-    NSNumber* time2 = [schedules2.first objectForKey:@"time"];
+    NSArray* sectionsArray = [sectionsHash allValues];
+    sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
+      NSNumber* time1 = [schedules1.first objectForKey:@"time"];
+      NSNumber* time2 = [schedules2.first objectForKey:@"time"];
     
-    return [time1 compare:time2];
-  }];
+      return [time1 compare:time2];
+    }];
   
-  for(NSArray* schedules in sectionsArray) {
-    M3AssertKindOf(schedules, NSArray);
-    [self addSchedulesSection: schedules];
+    for(NSArray* schedules in sectionsArray) {
+      M3AssertKindOf(schedules, NSArray);
+      [self addSchedulesSection: schedules];
+    }
   }
 
-#endif
-  
   return self;
 }
 

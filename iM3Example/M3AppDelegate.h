@@ -16,12 +16,6 @@
 #define APP_KINOPILOT 0
 #define APP_FLK       1
 
-#if APP_KINOPILOT
-
-#define APP_STORE_ID 500555600
-
-#endif
-
 #define KINOPILOT_FB_SCHEME @"fb323168154384101"
 
 @interface NSString (IM3ExampleExtensions)

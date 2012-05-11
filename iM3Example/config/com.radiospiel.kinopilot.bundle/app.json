@@ -1,5 +1,12 @@
 {
   "title":      "Kinopilot Berlin",
+  "remoteNotifications": true,
+  "flurry_api_key":     "KJ96KEEHE5Y58NZURG2H",
+  "irate": {
+    "app_store_id":     500555600,
+    "application_name": "Kinopilot",
+    "message_title":    "Kinopilot bewerten...";
+  },
   "dashboard": {
     "sections":         [ "city/theaters", "movies", "about/vicinity" ],
     "topaligned-icons": [ "vicinity" ],

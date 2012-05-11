@@ -1,5 +1,11 @@
 {
   "title":      "Freiluft-Kinopilot Berlin",
+  "flurry_api_key": "ULHBV8DA3JS96TDEYCRA",
+  "irate": {
+    "app_store_id":     447347982,
+    "application_name": "Freiluft-Kinopilot",
+    "message_title":    "Kinopilot bewerten..."
+  },
   "dashboard": {
     "sections":         [ "city/theaters", "movies", "about/today" ],
     "topaligned-icons": [ "vicinity", "city", "today" ],
