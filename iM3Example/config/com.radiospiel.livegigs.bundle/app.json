@@ -9,30 +9,26 @@
   
   "dashboard": {
     "sections":         [ "city/theaters", "movies", "about/today" ],
-    "topaligned-icons": [ "vicinity", "city", "today" ],
+    "topaligned-icons": [ "vicinity", "today" ],
     "about": {
       "title":      "      ",
       "actionURL":  "/info"
     },
     "city": {
-      "title":      "Freiluft",
+      "title":      "Berlin",
       "actionURL":  "/map/show"
     },
     "theaters": {
-      "title":      "Kinos",
-      "actionURL":  "/theaters/list"
+      "title":      "Places",
+      "actionURL":  "/venues/list"
     },
     "movies": {
-      "title":      "Filme",
-      "actionURL":  "/movies/list"
-    },
-    "vicinity": {
-      "title":      "Was läuft jetzt?!",
-      "actionURL":  "/movies/calendar"
+      "title":      "Events",
+      "actionURL":  "/events/list"
     },
     "today": {
       "title":      "Kalender",
-      "actionURL":  "/movies/calendar"
+      "actionURL":  "/events/calendar"
     }
   },
 
