@@ -98,27 +98,25 @@
   [self setImageForMovie: movie];
   [self setText: [movie objectForKey: @"title"]];
   
-#if APP_FLK
+  if(app.isFlk) {
+    NSString* time = [movie objectForKey:@"time"];
+    NSString* timeAsString = [time.to_date stringWithFormat:@"dd.MM. HH:mm"];
 
-  NSString* time = [movie objectForKey:@"time"];
-  NSString* timeAsString = [time.to_date stringWithFormat:@"dd.MM. HH:mm"];
+    [self setDetailText: timeAsString];
+  }
+  else {
+    NSArray* schedules = [self schedules];
+    schedules = [schedules sortByKey:@"time"];
 
-  [self setDetailText: timeAsString];
+    schedules = [schedules mapUsingBlock:^id(NSDictionary* schedule) {
+      NSString* time = [schedule objectForKey:@"time"];
+      NSString* timeAsString = [time.to_date stringWithFormat:@"HH:mm"];
 
-#else
-  
-  NSArray* schedules = [self schedules];
-  schedules = [schedules sortByKey:@"time"];
+      return [timeAsString withVersionString: [schedule objectForKey:@"version"]];
+    }];
 
-  schedules = [schedules mapUsingBlock:^id(NSDictionary* schedule) {
-    NSString* time = [schedule objectForKey:@"time"];
-    NSString* timeAsString = [time.to_date stringWithFormat:@"HH:mm"];
-    
-    return [timeAsString withVersionString: [schedule objectForKey:@"version"]];
-  }];
-  
-  [self setDetailText: [schedules componentsJoinedByString:@", "]];
-#endif
+    [self setDetailText: [schedules componentsJoinedByString:@", "]];
+  }
 }
 
 -(NSString*) url
@@ -145,11 +143,11 @@
 {
   self = [super init];
 
-#if APP_KINOPILOT
-  [self addSegment: @"Alle" withFilter: @"all" andTitle: @"Alle Filme"];
-  [self addSegment: @"Neu"  withFilter: @"new" andTitle: @"Neue Filme"];
-  [self addSegment: @"Art"  withFilter: @"art" andTitle: @"Klassiker"];
-#endif
+  if(app.isKinopilot) {
+    [self addSegment: @"Alle" withFilter: @"all" andTitle: @"Alle Filme"];
+    [self addSegment: @"Neu"  withFilter: @"new" andTitle: @"Neue Filme"];
+    [self addSegment: @"Art"  withFilter: @"art" andTitle: @"Klassiker"];
+  }
   
   return self;
 }

@@ -49,9 +49,9 @@
   [super setKey:theater];
   if(!theater) return;
   
-#if APP_KINOPILOT
-  [super setFlagged: [app isFlagged: [self theater_id]]];
-#endif
+  if(app.isKinopilot) {
+    [super setFlagged: [app isFlagged: [self theater_id]]];
+  }
   
   [self setText: [theater objectForKey: @"name"]];
 
@@ -191,12 +191,7 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
   NSString* title = [self.movie objectForKey:@"title"];
   if(title) return title;
   
-#if APP_FLK
-  return @"Freiluftkinos";
-#else
-  
-  return [super title];
-#endif
+  return app.isFlk ? @"Freiluftkinos" : [super title];
 }
 
 -(NSString*) movie_id
@@ -227,18 +222,16 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
     self.dataSource = [M3DataSource theatersListFilteredByMovie:movie_id];
   }
   else {
-#if APP_KINOPILOT
-    [self addSegmentedFilters];
-#endif
+    if(app.isKinopilot)
+      [self addSegmentedFilters];
     
     NSDictionary* params = self.url.to_url.params;
     NSString* filter = [params objectForKey: @"filter"];
     if(!filter) filter = @"all";
     self.dataSource = [M3DataSource theatersListWithFilter: filter];
 
-#if APP_KINOPILOT
-    [self setSearchBarEnabled: YES];
-#endif
+    if(app.isKinopilot)
+      [self setSearchBarEnabled: YES];
   }
 }
 

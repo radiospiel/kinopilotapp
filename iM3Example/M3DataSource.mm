@@ -263,45 +263,45 @@ static NSString* indexKey(NSDictionary* dict)
 {
   self = [super initWithCellClass: @"TheatersListCell"]; 
   
-#if APP_FLK
-  NSString* sql =  @"SELECT theaters._id, theaters.name FROM theaters "
-                    "ORDER BY theaters.name ";
+  if(app.isFlk) {
+    NSString* sql =  @"SELECT theaters._id, theaters.name FROM theaters "
+    "ORDER BY theaters.name ";
+    
+    NSArray* theaters = [app.sqliteDB all: sql];
+    [self addSection: theaters];
+  }
 
-  NSArray* theaters = [app.sqliteDB all: sql];
-  [self addSection: theaters];
-#endif
-
-#if APP_KINOPILOT
-  NSString* sql = @"SELECT theaters._id, theaters.name FROM theaters "
-      "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
-      "LEFT JOIN movies ON schedules.movie_id=movies._id "
-      "GROUP BY theaters._id ";
-  
-  if([filter isEqualToString:@"fav"]) {
-    sql = @"SELECT theaters._id, theaters.name FROM theaters "
+  if(app.isKinopilot) {
+    NSString* sql = @"SELECT theaters._id, theaters.name FROM theaters "
+    "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
+    "LEFT JOIN movies ON schedules.movie_id=movies._id "
+    "GROUP BY theaters._id ";
+    
+    if([filter isEqualToString:@"fav"]) {
+      sql = @"SELECT theaters._id, theaters.name FROM theaters "
       "INNER JOIN flags ON flags.key_id=theaters._id "
       "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
       "LEFT JOIN movies ON schedules.movie_id=movies._id "
       "GROUP BY theaters._id ";
-  }
-  
-  NSArray* theaters = [app.sqliteDB all: sql];
-
-  if(theaters.count > 0) {
+    }
     
-    NSDictionary* groupedHash = [theaters groupUsingBlock:^id(NSDictionary* theater) {
-      return indexKey(theater);
-    }];
-  
-    NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
-  
-    for(NSArray* group in groups) {
-      [self addSection: group.second 
-           withOptions:_.hash(@"header", group.first, 
-                              @"index", group.first)];
+    NSArray* theaters = [app.sqliteDB all: sql];
+    
+    if(theaters.count > 0) {
+      
+      NSDictionary* groupedHash = [theaters groupUsingBlock:^id(NSDictionary* theater) {
+        return indexKey(theater);
+      }];
+      
+      NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
+      
+      for(NSArray* group in groups) {
+        [self addSection: group.second 
+             withOptions:_.hash(@"header", group.first, 
+                                @"index", group.first)];
+      }
     }
   }
-#endif
   
   return self;
 }
