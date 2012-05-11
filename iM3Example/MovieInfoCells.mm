@@ -9,8 +9,11 @@
 @interface MovieInfoCell: M3TableViewCell
 
 @property (nonatomic,readonly) NSDictionary* movie;
-@property (nonatomic,readonly) NSString* imdbURL;
 @property (nonatomic,readonly) NSString* movie_id;
+
+@property (nonatomic,readonly) NSString* imdbURL;
+@property (nonatomic,readonly) NSString* trailerURL;
+@property (nonatomic,readonly) NSString* youtubeURL;
 
 @end
 
@@ -44,6 +47,29 @@
     return _.join(@"http://www.imdb.de/title/", imdb_id, "/");
   else
     return _.join(@"http://www.imdb.de/?q=", title.urlEscape);
+}
+
+
+-(NSString*)trailerURL
+{  
+  id videos = [self.movie objectForKey: @"videos"];
+  if([videos isKindOfClass: [NSDictionary class]]) {
+    return _.join(@"/movies/trailer?movie_id=", self.movie_id);
+  }
+  
+  if([videos isKindOfClass: [NSArray class]]) {
+    return [videos first];
+  }
+  
+  return nil;
+}
+
+-(NSString*)youtubeURL
+{  
+  NSString* trailerURL = self.trailerURL;
+  if([trailerURL containsString:@".youtube."]) return trailerURL;
+  
+  return nil;
 }
 
 @end
@@ -319,15 +345,15 @@
 {
   NSMutableArray* actions = [NSMutableArray array];
 
-  // Add link to trailer: if we have a video URL we show the trailer button
-  // even if the user is not online.
-  NSDictionary* videos = [self.movie objectForKey: @"videos"];
-  if(videos.count) {
-    [actions addObject: _.array(@"Trailer", _.join(@"/movies/trailer?movie_id=", self.movie_id))];
+  if(self.trailerURL) {
+    [actions addObject: _.array(@"Trailer", self.trailerURL)];
   }
 
   [actions addObject: _.array(@"Mehr...", _.join(@"/movies/show?movie_id=", self.movie_id))];
-  [actions addObject: _.array(@"IMDB", self.imdbURL)];
+
+  if(!self.trailerURL) {
+    [actions addObject: _.array(@"IMDB", self.imdbURL)];
+  }
   
   return actions;
 }
@@ -373,11 +399,8 @@
 {
   NSMutableArray* actions = [NSMutableArray array];
 
-  // Add link to trailer: if we have a video URL we show the trailer button
-  // even if the user is not online.
-  NSDictionary* videos = [self.movie objectForKey: @"videos"];
-  if(videos.count) {
-    [actions addObject: _.array(@"Trailer", _.join(@"/movies/trailer?movie_id=", self.movie_id))];
+  if(self.trailerURL && !self.youtubeURL) {
+    [actions addObject: _.array(@"Trailer", self.trailerURL)];
   }
   
   [actions addObject: _.array(@"IMDB", self.imdbURL)];
@@ -502,4 +525,87 @@
   if(!parts.count) return nil;
   return [parts componentsJoinedByString:@""];
 }
+@end
+
+
+// ------------------------------------------------------------------------
+
+@interface MovieTrailerCell: MovieInfoCell {
+  UIWebView* trailerWebView;
+}
+
+@property (nonatomic,readonly) int videoWidth;
+@property (nonatomic,readonly) int videoHeight;
+
+@end
+
+@implementation MovieTrailerCell
+
+-(int)videoWidth
+{
+  return 320;
+}
+
+-(int)videoHeight
+{
+  return 100;
+}
+
+-(void)setKey: (NSArray*)class_and_movie
+{
+  [super setKey:class_and_movie];
+  
+  if(!self.youtubeURL) return;
+  
+  self.textLabel.text = @" ";
+
+  if(!trailerWebView) {
+    trailerWebView = [[UIWebView alloc]initWithFrame: CGRectMake(0, 0, self.videoWidth, self.videoHeight)];
+    [self addSubview: trailerWebView];
+  }
+  
+  NSString *html = [M3 interpolateString: [self htmlTemplate] withValues: self]; 
+  [trailerWebView loadHTMLString:html baseURL:[NSURL URLWithString:@"http://nowhere.test"]];
+}
+
+-(CGFloat)wantsHeight
+{
+  return self.videoHeight;
+}
+
+#if TARGET_IPHONE_SIMULATOR
+
+-(NSString*)htmlTemplate
+{
+  return @"On a real device this should show a youtube video from {{youtubeURL}}";
+}
+
+#else
+
+-(NSString*)htmlTemplate
+{
+  return @"<html>"
+          "<head>"
+            "<meta name='viewport' content='initial-scale=1.0, user-scalable=no, width={{videoWidth}}'/>"
+          "</head>"
+          "<body style='background:#F00;margin-top:0px;margin-left:0px'>"
+            "<div>"
+              "<object width='{{videoWidth}}' height='{{videoHeight}}'>"
+                "<param name='movie' value='{{youtubeURL}}'></param> "
+                "<param name='wmode' value='transparent'></param> "
+                "<embed src='{{youtubeURL}}' "
+                  "type='application/x-shockwave-flash' wmode='transparent' width='{{videoWidth}}' height='{{videoHeight}}'></embed>" 
+              "</object>"
+            "</div>"
+          "</body>"
+          "</html>";
+}
+
+#endif
+
+-(void)layoutSubviews
+{
+  [super layoutSubviews];
+}
+
 @end
