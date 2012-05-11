@@ -220,6 +220,8 @@ public:
 -(void)connect: (id)sender    event: (SEL)event 
             to: (id)observer  selector: (SEL)selector
 {
+  if(!sender || !observer) return;
+  
   if(!pimpl->isRegistered(sender)) [self __disconnectAutomatically: sender];
   if(!pimpl->isRegistered(observer)) [self __disconnectAutomatically: observer];
 
@@ -229,6 +231,8 @@ public:
 -(void)disconnect: (id)sender    event: (SEL)event 
              from: (id)observer  selector: (SEL)selector;
 {
+  if(!sender || !observer) return;
+
   pimpl->disconnect(sender, event, observer, selector);
 }
 
