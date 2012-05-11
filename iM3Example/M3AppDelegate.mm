@@ -167,7 +167,9 @@ M3AppDelegate* app;
 
 -(NSDictionary*) config
 {
-  return [M3 readJSON: [self configPathFor: @"app.json"]];
+  return [self memoized:@selector(config) usingBlock:^ {
+    return [M3 readJSON: [self configPathFor: @"app.json"]];
+  }];
 }
 
 -(UIImage*)imageNamed: (NSString*)imageName
@@ -179,7 +181,6 @@ M3AppDelegate* app;
 -(void)loadTabs
 {
   NSArray* tabs = [[self config] objectForKey: @"tabs"];
-
 
   NSString* __block initialURL;
   
