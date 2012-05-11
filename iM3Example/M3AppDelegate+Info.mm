@@ -9,7 +9,7 @@ static id infoForKey(NSString *key)
     if(updated_at)
       return [updated_at.to_date stringWithFormat: @"dd.MM.yyyy HH:mm"];
   
-    return @"Kinopilot wurde nocht nicht aktualisiert.";
+    return @"Kinopilot wurde noch nicht aktualisiert.";
   }
  
   if([key isEqualToString: @"revision"])
