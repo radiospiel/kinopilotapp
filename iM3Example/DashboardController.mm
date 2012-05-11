@@ -122,7 +122,8 @@ static void initConstants()
 
 -(void)layoutFgImageView
 {
-  NSArray* topaligned_icons = [self.config objectForKey: @"topaligned-icons"];
+  NSArray* topaligned_icons = [dashboardConfig objectForKey: @"topaligned-icons"];
+  
   BOOL isTopAligned = [topaligned_icons indexOfObject: dashboardKey] != NSNotFound;
 
   CGRect fgFrame = fgImageView.frame;
