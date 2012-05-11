@@ -30,11 +30,20 @@
 {
   NSString* title = [self.movie objectForKey:@"title"];
   if(!title) return nil;
+
+  NSString* imdb_id = [[self.movie objectForKey:@"imdb_id"] description];
   
-  NSString* imdbURL = _.join(@"imdb:///find?q=", title.urlEscape);
-  if([app canOpen:imdbURL]) return imdbURL;
-  
-  return _.join(@"http://imdb.de/?q=", title.urlEscape);
+  if([app canOpen:@"imdb:///test"]) {
+    if(imdb_id)
+      return _.join(@"imdb:///title/", imdb_id, @"/");
+    else
+      return _.join(@"imdb:///find?q=", title.urlEscape);
+  }
+
+  if(imdb_id)
+    return _.join(@"http://www.imdb.de/title/", imdb_id, "/");
+  else
+    return _.join(@"http://www.imdb.de/?q=", title.urlEscape);
 }
 
 @end
