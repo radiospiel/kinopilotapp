@@ -1,4 +1,4 @@
-#import "GTMSQLite.h"
+#import "google-toolbox/GTMSQLite.h"
 
 @class M3SqliteTable;
 

@@ -302,6 +302,8 @@ static M3EventCenter *eventCenter = 0;
 
 #undef pimpl
 
+#if 0
+
 #define pimpl [eventCenter eventCenterData]
 
 ETest(M3EventCenter)
@@ -502,3 +504,5 @@ ETest(M3EventCenter)
   }
 }
 @end
+
+#endif

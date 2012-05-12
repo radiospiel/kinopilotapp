@@ -145,6 +145,8 @@ static NSStringEncoding nsEncodingByIANAName(NSString* iana)
 
 @end
 
+#if 0
+
 ETest(M3Http)
 
 -(void)test_get
@@ -165,3 +167,5 @@ ETest(M3Http)
 
 
 @end
+
+#endif

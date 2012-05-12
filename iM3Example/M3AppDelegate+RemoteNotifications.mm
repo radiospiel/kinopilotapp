@@ -1,6 +1,5 @@
 #if TARGET_OS_IPHONE 
 
-#import "M3.h"
 #import "M3AppDelegate.h"
 
 #define URBAN_AIRSHIP_KEY             @"GtsLZbbmRQ6Kq9XXy3LPbg"

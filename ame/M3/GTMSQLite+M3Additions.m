@@ -450,10 +450,12 @@ static StatementType statementTypeForSql(NSString* sql)
 
 -(void)logDatabaseStats: (NSString*)msg
 {
-  dlog << @"=== " << msg << @" "
-       << [self ask: @"SELECT COUNT(*) FROM movies"] << " movies, "
-       << [self ask: @"SELECT COUNT(*) FROM schedules"] << " schedules, " 
-       << [self ask: @"SELECT COUNT(*) FROM theaters"] << " theaters";
+  NSMutableArray* msgs = [NSMutableArray array];
+  [msgs addObject: [NSString stringWithFormat:@"%@ movies", [self ask: @"SELECT COUNT(*) FROM movies"]]];
+  [msgs addObject: [NSString stringWithFormat:@"%@ schedules", [self ask: @"SELECT COUNT(*) FROM schedules"]]];
+  [msgs addObject: [NSString stringWithFormat:@"%@ theaters", [self ask: @"SELECT COUNT(*) FROM theaters"]]];
+  
+  NSLog(@"=== %@ %@", msg, [msgs componentsJoinedByString:@", "]);
 }
 
 -(void)importDiffHeader: (NSDictionary*)header
@@ -680,8 +682,6 @@ static StatementType statementTypeForSql(NSString* sql)
 
 -(void)deleteAll
 {
-  Benchmark(_.join(@"*** Deleting all entries from ", self.tableName));
-  
   NSString* sql = [NSString stringWithFormat: @"DELETE FROM %@", self.tableName];
   [database_ ask: sql];
 }
@@ -826,8 +826,8 @@ static StatementType statementTypeForSql(NSString* sql)
 -(void)setObject: (id)object forKey: (NSString*)key
 {
   if(object) {
-    [self insertArray:_.array(key, [self encodeValue:object]) 
-          withColumns:_.array(@"_id", @"value")];
+    [self insertArray: [NSArray arrayWithObjects: key,    [self encodeValue:object], nil] 
+          withColumns: [NSArray arrayWithObjects: @"_id", @"value", nil]];
   }
   else {
     [self deleteById:key];
@@ -836,6 +836,7 @@ static StatementType statementTypeForSql(NSString* sql)
 
 @end
 
+#if 0
 
 /* --- Tests --------------------------------------- */
 
@@ -972,3 +973,4 @@ ETest(GTMSQLiteStatementM3SqliteStatement)
 
 @end
 
+#endif

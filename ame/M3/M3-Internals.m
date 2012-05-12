@@ -56,6 +56,8 @@ static int deallocCount = 0;
 
 @end
 
+#if 0 
+
 ETest(M3Internals)
 
 -(void)setUp
@@ -90,3 +92,5 @@ ETest(M3Internals)
 }
 
 @end
+
+#endif

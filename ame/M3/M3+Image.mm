@@ -7,7 +7,7 @@
 //
 
 #import "M3.h"
-#import "M3AppDelegate.h"
+// #import "M3AppDelegate.h"
 
 #define URL_TEMPLATE @"http://imgio.16b.org/jpg/60/th/{{width}}x{{height}}/{{url}}"
 

@@ -1,3 +1,5 @@
+#if 0 
+
 #import "M3.h"
 
 @interface M3ETestAssertionFailed: RuntimeError {
@@ -245,3 +247,6 @@ extern "C" void m3_etest_failed(NSString* msg, const char* file, int line)
 @end
 
 #endif
+
+#endif
+

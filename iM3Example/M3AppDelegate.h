@@ -2,12 +2,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "M3.h"
-#ifdef __cplusplus
-#import "Underscore.hh"
-#endif
-
-#import "UIViewController+M3Extensions.h"
+#import "../ame/M3/M3.h"
 
 // Show "Facebook" sharing?
 #define FACEBOOK NO
@@ -105,8 +100,6 @@ extern M3AppDelegate* app;
 -(void)enableRemoteNotifications;
 
 @end
-
-#import "GTMSqlite+M3Additions.h"
 
 @interface M3SqliteDatabase(M3Additions)
 

@@ -6,8 +6,11 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "M3AppDelegate.h"
+#import "M3.h"
+// #import "M3AppDelegate.h"
 #import "SVProgressHUD.h"
+
+#import "CoreLocation/CoreLocation.h"
 
 #if TARGET_OS_IPHONE
 
@@ -92,7 +95,7 @@
   
   // If we have a recent location we'll use that one.
   if([self gotRecentLocationUpdate]) {
-    [app open: self.urlToOpen];
+    [M3 open: self.urlToOpen];
     return;
   }
   
@@ -136,7 +139,7 @@
   
   [SVProgressHUD dismiss];
   
-  [app open: self.urlToOpen];
+  [M3 open: self.urlToOpen];
 }
 
 -(void) locationManager:(CLLocationManager *)manager 

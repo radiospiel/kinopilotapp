@@ -51,6 +51,13 @@
   return [data objectFromJSONString];
 }
 
++ (id) parseJSONData:(NSData *)data;
+{
+  NSError* error = nil;
+  //  NSArray* diff = 
+  return [data mutableObjectFromJSONDataWithParseOptions: 0 error: &error];
+}
+
 + (NSString*) toJSON: (id) object compact: (BOOL) compact 
 {
   NSError* error = 0;
@@ -77,6 +84,8 @@
 
 @end
 
+#if 0
+
 ETest(M3JSON)
 
 - (void) test_json 
@@ -89,3 +98,5 @@ ETest(M3JSON)
 }
 
 @end
+
+#endif

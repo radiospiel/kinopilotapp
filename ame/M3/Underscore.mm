@@ -50,6 +50,8 @@ namespace RS {
 
 }; // namespace RS ----------------------------------------------------
 
+#if 0
+
 ETest(UnderscoreAdapter)
 
 - (void)test_underscore_helpers
@@ -80,3 +82,5 @@ ETest(UnderscoreAdapter)
 }
 
 @end
+
+#endif

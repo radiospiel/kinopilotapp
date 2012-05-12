@@ -1,3 +1,5 @@
+#if 0
+
 #ifdef __cplusplus
 #include "underscore.hh"
 #endif
@@ -60,3 +62,4 @@ void m3_etest_success();
 #define assert_true(a)              m3_assert((a),          m3_msg1(@"%s should be trueish", #a))
 #define assert_false(a)             m3_assert((!(a)),       m3_msg1(@"%s should be false", #a))
 
+#endif

@@ -1,6 +1,5 @@
 #import "M3AppDelegate.h"
 #import "SVProgressHUD.h"
-#import "JSONKit.h"
 
 #define UPDATE_TIME_SPAN  18 * 3600
 
@@ -70,8 +69,8 @@
                                  url: [self updateUrlFromBaseUrl: baseUrl]
                          withOptions: nil];
   
-  NSError* error = nil;
-  NSArray* diff = [data mutableObjectFromJSONDataWithParseOptions: 0 error: &error];
+  
+  NSArray* diff = [M3 parseJSONData: data];
 
   if(![diff isKindOfClass: [NSArray class]])
     _.raise("Cannot read file ", baseUrl);

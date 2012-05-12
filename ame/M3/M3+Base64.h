@@ -4,4 +4,3 @@
 +(NSString*) encodeBase64WithData: (NSData*)unencoded;
 
 @end
-

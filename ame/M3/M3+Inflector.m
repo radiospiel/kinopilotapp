@@ -12,72 +12,40 @@
  
 #import "M3.h"
 
-@interface M3Inflector: NSObject {
-  NSMutableSet* uncountables;
-  NSMutableArray* plurals;
-  NSMutableArray* singulars;
-}
+static NSMutableSet* uncountables = nil;
+static NSMutableArray* plurals = nil;
+static NSMutableArray* singulars = nil;
 
--(NSString*)pluralize: (NSString*) string;
--(NSString*)singularize: (NSString*) string;
--(NSString*)humanize: (NSString*) string;
+@interface M3Inflector: NSObject 
 
--(void)preloadInflectorData;
++(NSString*)pluralize: (NSString*) string;
++(NSString*)singularize: (NSString*) string;
++(NSString*)humanize: (NSString*) string;
 
 @end
 
 @implementation M3(Inflector)
 
-static M3Inflector* inflector()
-{
-  static M3Inflector* inflector = 0;
-  
-  if(!inflector)
-    inflector = [[M3Inflector alloc]init];
-
-  return inflector;
-}
-
 + (NSString*)pluralize: (NSString*) string;
 {
-  return [inflector() pluralize:string];
+  return [M3Inflector pluralize:string];
 }
 
 + (NSString*)singularize: (NSString*) string;
 {
-  return [inflector() singularize:string];
+  return [M3Inflector singularize:string];
 }
 
 + (NSString*)humanize: (NSString*) string;
 {
-  return [inflector() humanize:string];
+  return [M3Inflector humanize:string];
 }
 
 @end
 
 @implementation M3Inflector
 
--(id)init {
-  if(!(self = [ super init ])) return nil;
-
-  plurals = [[ NSMutableArray array ] retain];
-  singulars = [[ NSMutableArray array ] retain];
-  uncountables = [[ NSMutableArray array ] retain];
-
-  [ self preloadInflectorData ];
-  return self;
-}
-
--(void)dealloc {
-
-  [plurals release];
-  [singulars release];
-  [uncountables release];
-
-  [super dealloc];
-}
-
--(NSString*)pluralize: (NSString*) string;
++(NSString*)pluralize: (NSString*) string;
 {
   for(NSString* regexp in uncountables) {
     if([string imatches: regexp]) return string;
@@ -94,7 +62,7 @@ static M3Inflector* inflector()
   return string;
 }
 
--(NSString*)singularize: (NSString*) string;
++(NSString*)singularize: (NSString*) string;
 {
   for(NSString* regexp in uncountables) {
     if([string matches: regexp]) return string;
@@ -113,7 +81,7 @@ static M3Inflector* inflector()
 
 
 // With thanks to https://github.com/ciaran/inflector
-- (NSString*)humanize:(NSString*)word;
++ (NSString*)humanize:(NSString*)word;
 {
 	NSString* result = word;
 	if([result length] > 3 && [[result substringFromIndex:([result length]-3)] isEqualToString:@"_id"])
@@ -125,8 +93,11 @@ static M3Inflector* inflector()
 #define regexp(a) a
 
 // With thanks to https://github.com/ciaran/inflector
--(void)preloadInflectorData;
++(void)initialize
 {
+  plurals = [[ NSMutableArray array ] retain];
+  singulars = [[ NSMutableArray array ] retain];
+  uncountables = [[ NSMutableArray array ] retain];
 
 #define plural(a, b) [plurals addObject: [ NSArray arrayWithObjects: regexp(a), b, nil ]]
   
@@ -205,7 +176,7 @@ static M3Inflector* inflector()
 
 @end
 
-
+#if 0
 
 ETest(M3Inflector)
 
@@ -222,3 +193,5 @@ ETest(M3Inflector)
 }
 
 @end
+
+#endif

@@ -1,7 +1,21 @@
 #import <Foundation/Foundation.h>
 
+//
+// Prefix header for all source files of the 'M3' target in the 'M3' project
+//
+
+#ifdef __OBJC__
+
+#ifdef __APPLE__
+  #include "TargetConditionals.h"
+#endif
+
 #if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
+  #import <UIKit/UIKit.h>
+#else
+  #import <Cocoa/Cocoa.h>
+#endif
+
 #endif
 
 /* Sync NDEBUG setting w/DEBUG setting. NDEBUG is C standard, while DEBUG is Apple's Objective-C standard. */
@@ -55,18 +69,21 @@
 #import "underscore.hh"
 #endif
 
+#import "GTMSqlite+M3Additions.h"
 
 /* iOS additions */
 #if TARGET_OS_IPHONE
+
+#import "M3LocationManager.h"
+#import "M3Timer.h"
+#import "M3Rotator.h"
 
 #import "UIButton+ActionButton.h"
 #import "UIImageView+M3Extensions.h"
 #import "UIColor+M3Extensions.h"
 #import "UIView+M3Extensions.h"
 #import "UIView+M3Stylesheets.h"
-#import "M3LocationManager.h"
-#import "M3Timer.h"
-#import "M3Rotator.h"
+#import "UIViewController+M3Extensions.h"
 
 #endif
 

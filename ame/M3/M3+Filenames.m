@@ -44,15 +44,10 @@
     if([matchingDirectory count] == 1)
       return [matchingDirectory objectAtIndex: 0];
 
-    dlog << "Matching '$app' directories: " << matchingDirectory;
   } 
 
-  _.raise(@"*** Unknown key'", name, "'");
-
-// TODO: define $app
-//  if([name isEqualToString: @"$app"])
-//    return [ NSString stringWithFormat: @"%@/m2.app", [ Dir root ] ];
-
+  @throw [@"*** Unknown key'" stringByAppendingString: name];
+  
   return nil;
 }
 

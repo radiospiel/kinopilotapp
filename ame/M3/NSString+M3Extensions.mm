@@ -103,6 +103,8 @@
 
 @end
 
+#if 0
+
 ETest(NSStringM3Extensions)
 
 -(void)test_camelize
@@ -114,3 +116,5 @@ ETest(NSStringM3Extensions)
   assert_equal(@"",    [@"" camelizeWord]);
 }
 @end
+
+#endif

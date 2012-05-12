@@ -168,6 +168,8 @@
 
 @end
 
+#if 0
+
 ETest(Regexp)
 
 -(void)test_regexp
@@ -218,3 +220,5 @@ ETest(Regexp)
 }
 
 @end
+
+#endif

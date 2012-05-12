@@ -9,8 +9,6 @@
 #import "M3AppDelegate.h"
 #import "WebViewController.h"
 
-#include "Underscore.hh"
-
 @implementation WebViewController
 
 #pragma mark - View lifecycle

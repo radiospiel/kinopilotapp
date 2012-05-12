@@ -1,6 +1,6 @@
 #import "M3TableViewProfileCell.h"
 #import <QuartzCore/QuartzCore.h>
-#import "M3.h"
+#import "M3AppDelegate.h"
 
 @implementation M3TableViewProfileCell
 

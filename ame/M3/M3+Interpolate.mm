@@ -94,6 +94,8 @@
 
 @end
 
+#if 0
+
 ETest(M3Interpolate)
 
 -(void)test_regexp_t
@@ -133,3 +135,5 @@ ETest(M3Interpolate)
 }
 
 @end
+
+#endif

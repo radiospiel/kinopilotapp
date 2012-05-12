@@ -6,19 +6,15 @@
 //
 
 #import "M3.h"
-#import "Underscore.hh"
 
 // Categories for comparision
-enum {
-  Category_Nil,
-  
-  Category_Numbers,
-  Category_Date,
-  Category_Strings,
+#define Category_Nil        0
+#define Category_Numbers    1
+#define Category_Date       2
+#define Category_Strings    3
 
-  Category_Array,
-  Category_Objects
-};
+#define Category_Array      4
+#define Category_Objects    5
 
 static int comparison_category(id obj) {
   if(!obj) 
@@ -36,7 +32,7 @@ static int comparison_category(id obj) {
   if([obj isKindOfClass: [NSObject class]]) 
     return Category_Objects;
   
-  _.raise("No comparison support for", NSStringFromClass([obj class]), "objects");
+  @throw [NSString stringWithFormat:@"No comparison support for %@ objects", [obj class]];
   __builtin_unreachable();
 }
 
@@ -66,8 +62,8 @@ NSComparisonResult RS::UnderscoreAdapter::compare_(id value, id other) {
 
     case Category_Array:
     {
-      NSUInteger value_count = [value count];
-      NSUInteger other_count = [other count];
+      NSUInteger value_count = [((NSArray*)value) count];
+      NSUInteger other_count = [((NSArray*)value) count];
 
       for(NSUInteger idx = 0; idx < (value_count < other_count ? value_count : other_count); ++idx) {
         NSComparisonResult r = compare([value objectAtIndex: idx], [other objectAtIndex: idx]);
@@ -83,7 +79,7 @@ NSComparisonResult RS::UnderscoreAdapter::compare_(id value, id other) {
       // search order algorithm: we compare all entries that exist in one or
       // the other dictionary, in sorted order.
 
-      NSUInteger capacity = [value count] + [other count];
+      NSUInteger capacity = [((NSDictionary*)value) count] + [((NSDictionary*)value) count];
       NSMutableArray* keys = [NSMutableArray arrayWithCapacity: capacity] ;
 
       [keys addObjectsFromArray: [value allKeys]];
@@ -114,6 +110,8 @@ NSComparisonResult RS::UnderscoreAdapter::compare_(id value, id other) {
 
 @end
 
+#if 0
+
 ETest(M3Comparison)
 
 - (void)testComparison
@@ -136,3 +134,5 @@ ETest(M3Comparison)
 }
 
 @end
+
+#endif

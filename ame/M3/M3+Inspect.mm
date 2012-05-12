@@ -131,6 +131,8 @@ static NSInteger key_sort(id key1, id key2, void* _)
 
 #endif
 
+#if 0
+
 /* === inspect ETests ============================================== */
 
 ETest(Inspect)
@@ -148,3 +150,5 @@ ETest(Inspect)
   assert_equal(_.hash("a", "a", "b", 2).inspect, @"{a: \"a\", b: 2}");
 }
 @end
+
+#endif

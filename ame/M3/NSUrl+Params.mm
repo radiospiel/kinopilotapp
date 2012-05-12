@@ -4,12 +4,14 @@
 
 -(NSDictionary*)params
 {
-  NSURL* uri = [NSURL URLWithString:url_string];
-  if(!uri.query) return nil;
+  //NSString *urlString = [url absoluteString];
+  
+  //NSURL* uri = [NSURL URLWithString:self.url_string];
+  //if(!uri.query) return nil;
   
   NSMutableDictionary * params = [NSMutableDictionary dictionary];
 
-  for (NSString* pair in [uri.query componentsSeparatedByString:@"&"]) {
+  for (NSString* pair in [self.query componentsSeparatedByString:@"&"]) {
     NSArray* bits = [pair componentsSeparatedByString:@"="];
     NSString* key = [bits.first stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
     id value = [bits.second stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding];

@@ -1,6 +1,4 @@
 #import "M3.h"
-#import "Underscore.hh"
-// #import "Additions.h"
 
 @implementation M3 (FileIO)
 
@@ -20,7 +18,7 @@
   NSFileHandle* handle = [NSFileHandle fileHandleForReadingAtPath: path];
   NSData* contents = [handle readDataToEndOfFile];
   if (!contents) 
-    _.raise("Cannot read from ", path);  
+    @throw [@"Cannot read from " stringByAppendingString: path];  
     
   return contents;
 }
@@ -47,7 +45,7 @@
                                       attributes: nil];
   
   if(!fSuccess)
-    _.raise("Cannot write to", path);
+    @throw [@"Cannot write to " stringByAppendingString: path];  
 }
 
 +(void) write: (NSString*)string toPath: (NSString*) path 
@@ -116,6 +114,8 @@
 
 @end
 
+#if 0
+
 ETest(M3FileIO)
 -(void)testExists
 {
@@ -125,3 +125,4 @@ ETest(M3FileIO)
 
 @end
 
+#endif
