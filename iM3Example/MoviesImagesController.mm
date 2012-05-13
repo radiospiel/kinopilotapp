@@ -6,9 +6,9 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "M3AppDelegate.h"
+#import "AppBase.h"
+
 #import "MoviesImagesController.h"
-#import "SVProgressHUD.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define PAGE_CONTROL_HEIGHT 24

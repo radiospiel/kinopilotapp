@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 n/a. All rights reserved.
 //
 
-#import "M3ActionSheetController.h"
+#import "AppBase.h"
 
 @interface AppActionsController : M3ActionSheetController
 @end

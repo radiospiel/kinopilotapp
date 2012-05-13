@@ -1,3 +1,5 @@
+#if 0
+
 //
 //  AppDelegate.m
 //  iM3Example
@@ -33,3 +35,6 @@ M3AppDelegate* app;
 @end
 
 #endif
+
+#endif
+

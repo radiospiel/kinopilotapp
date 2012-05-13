@@ -4,7 +4,7 @@
 
 #define BRIGHTCOVE_API_KEY @"QeK_7QLEYC-Q4eh-ulEVLfonGwsQhAZlqSaXoUiyYVHfIwheZpv70A.."
 
-#import "M3AppDelegate.h"
+#import "AppBase.h"
 
 #import "BCMediaAPI.h"
 #import "BCMoviePlayerController.h"

@@ -6,8 +6,7 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "TTTAttributedLabel.h"
-#import "M3TableViewController.h"
+#import "M3TableView/M3TableViewController.h"
 
 @class MKMapView;
 

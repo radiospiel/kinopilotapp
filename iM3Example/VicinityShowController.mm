@@ -6,10 +6,7 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "M3AppDelegate.h"
-#import "M3TableViewProfileCell.h"
-#import "SVProgressHUD.h"
-#import "M3ListViewController.h"
+#import "AppBase.h"
 
 #pragma mark -- VicinityShowController
 

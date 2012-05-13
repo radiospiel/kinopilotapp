@@ -6,11 +6,7 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "M3AppDelegate.h"
-#import "MoviesCalendarController.h"
-#import "M3ProfileView.h"
-#import "M3DataSource.h"
-#import "M3TableViewProfileCell.h"
+#import "AppBase.h"
 
 /*** A cell for the MoviesCalendarCell *******************************************/
 
@@ -38,6 +34,8 @@
 
 @end
 
+@interface MoviesCalendarController: M3ListViewController
+@end
 
 @implementation MoviesCalendarController
 

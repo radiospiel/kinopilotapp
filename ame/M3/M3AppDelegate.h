@@ -1,3 +1,5 @@
+#if 0
+
 #if TARGET_OS_IPHONE 
 
 #import "M3.h"
@@ -18,5 +20,7 @@ extern M3AppDelegate* app;
                                         UINavigationControllerDelegate>
 
 @end
+
+#endif
 
 #endif

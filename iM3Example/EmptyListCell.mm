@@ -6,9 +6,7 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "M3AppDelegate.h"
-#import "M3TableViewCell.h"
-#import "TTTAttributedLabel.h"
+#import "AppBase.h"
 
 @interface StaticListCell: M3TableViewCell
 @property (nonatomic,retain) TTTAttributedLabel* htmlView;

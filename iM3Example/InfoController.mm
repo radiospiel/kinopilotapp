@@ -6,8 +6,11 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "M3AppDelegate.h"
-#import "InfoController.h"
+#import "AppBase.h"
+
+@interface InfoController : M3TableViewController
+
+@end
 
 /* 
  * This cell shows one value (i.e. one piece of text). The text might span

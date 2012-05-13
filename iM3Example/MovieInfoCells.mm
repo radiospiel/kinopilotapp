@@ -1,6 +1,5 @@
-#import "M3AppDelegate.h"
-#import "TTTAttributedLabel.h"
-#import "M3TableViewCell.h"
+#import "AppBase.h"
+
 #import "MoviesShowController.h"
 #import "TheatersListController.h"
 

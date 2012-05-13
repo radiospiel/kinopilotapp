@@ -1,17 +1,16 @@
 //
-//  SearchController.m
+//  SearchController.h
 //  M3
 //
 //  Created by Enrico Thierbach on 02.12.11.
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "M3AppDelegate.h"
-#import "SearchController.h"
+#import "AppBase.h"
 
-#import "MoviesListController.h"
-#import "M3ProfileView.h"
-#import "M3DataSource.h"
+@interface SearchController: M3ListViewController
+
+@end
 
 @implementation SearchController
 

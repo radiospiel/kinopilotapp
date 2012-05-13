@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "M3AppDelegate.h"
+#import "AppBase.h"
 #import "WebViewController.h"
 
 @implementation WebViewController

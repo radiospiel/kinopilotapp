@@ -1,12 +1,4 @@
-//
-//  MapShowController.m
-//  M3
-//
-//  Created by Enrico Thierbach on 01.10.11.
-//  Copyright (c) 2011 n/a. All rights reserved.
-//
-
-#import "M3AppDelegate.h"
+#import "AppBase.h"
 #import "MapShowController.h"
 
 @interface MapAnnotation: MKPointAnnotation

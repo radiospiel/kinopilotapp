@@ -1,5 +1,4 @@
-#import "M3AppDelegate.h"
-#import "UserVoice.h"
+#import "AppBase.h"
 
 @interface UserVoiceController: NSObject
 @property (retain,nonatomic) NSString* url;

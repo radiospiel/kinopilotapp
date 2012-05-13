@@ -1,0 +1,590 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9DA801C815602510004AA9F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DA801C715602510004AA9F3 /* Foundation.framework */; };
+		9DA8020815602606004AA9F3 /* libUserVoice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DA801E215602606004AA9F3 /* libUserVoice.a */; };
+		9DA8020915602606004AA9F3 /* UserVoice.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA801E415602606004AA9F3 /* UserVoice.h */; };
+		9DA8020A15602606004AA9F3 /* UVConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA801E515602606004AA9F3 /* UVConfig.h */; };
+		9DA8020B15602606004AA9F3 /* UVDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA801E615602606004AA9F3 /* UVDelegate.h */; };
+		9DA8020C15602606004AA9F3 /* UVStyleSheet.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA801E715602606004AA9F3 /* UVStyleSheet.h */; };
+		9DA8021115602641004AA9F3 /* TTTAttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8020F15602641004AA9F3 /* TTTAttributedLabel.h */; };
+		9DA8021215602641004AA9F3 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA8021015602641004AA9F3 /* TTTAttributedLabel.m */; };
+		9DA8021615602678004AA9F3 /* iRate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8021415602678004AA9F3 /* iRate.h */; };
+		9DA8021715602678004AA9F3 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA8021515602678004AA9F3 /* iRate.m */; };
+		9DA8021B1560268B004AA9F3 /* FlurryAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA802191560268B004AA9F3 /* FlurryAnalytics.h */; };
+		9DA8021C1560268B004AA9F3 /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DA8021A1560268B004AA9F3 /* libFlurryAnalytics.a */; };
+		9DA80221156026A9004AA9F3 /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8021F156026A9004AA9F3 /* SVProgressHUD.h */; };
+		9DA80222156026A9004AA9F3 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80220156026A9004AA9F3 /* SVProgressHUD.m */; };
+		9DA8022915602890004AA9F3 /* Pilot-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8022715602890004AA9F3 /* Pilot-Prefix.pch */; };
+		9DA8022A15602890004AA9F3 /* Pilot.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8022815602890004AA9F3 /* Pilot.h */; };
+		9DA80249156029EF004AA9F3 /* M3ActionSheetController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8022C156029EF004AA9F3 /* M3ActionSheetController.h */; };
+		9DA8024A156029EF004AA9F3 /* M3ActionSheetController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA8022D156029EF004AA9F3 /* M3ActionSheetController.mm */; };
+		9DA8024B156029EF004AA9F3 /* M3AppDelegate+Alert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA8022F156029EF004AA9F3 /* M3AppDelegate+Alert.mm */; };
+		9DA8024C156029EF004AA9F3 /* M3AppDelegate+ApplicationURL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80230156029EF004AA9F3 /* M3AppDelegate+ApplicationURL.mm */; };
+		9DA8024D156029EF004AA9F3 /* M3AppDelegate+Email.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80231156029EF004AA9F3 /* M3AppDelegate+Email.mm */; };
+		9DA8024E156029EF004AA9F3 /* M3AppDelegate+EventTracking.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80232156029EF004AA9F3 /* M3AppDelegate+EventTracking.mm */; };
+		9DA8024F156029EF004AA9F3 /* M3AppDelegate+Info.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80233156029EF004AA9F3 /* M3AppDelegate+Info.mm */; };
+		9DA80250156029EF004AA9F3 /* M3AppDelegate+RemoteNotifications.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80234156029EF004AA9F3 /* M3AppDelegate+RemoteNotifications.mm */; };
+		9DA80251156029EF004AA9F3 /* M3AppDelegate+SqliteDB.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80235156029EF004AA9F3 /* M3AppDelegate+SqliteDB.mm */; };
+		9DA80252156029EF004AA9F3 /* M3AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA80236156029EF004AA9F3 /* M3AppDelegate.h */; };
+		9DA80253156029EF004AA9F3 /* M3AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80237156029EF004AA9F3 /* M3AppDelegate.mm */; };
+		9DA80254156029EF004AA9F3 /* M3DataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA80238156029EF004AA9F3 /* M3DataSource.h */; };
+		9DA80255156029EF004AA9F3 /* M3DataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80239156029EF004AA9F3 /* M3DataSource.mm */; };
+		9DA80256156029EF004AA9F3 /* M3ListViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8023A156029EF004AA9F3 /* M3ListViewController.h */; };
+		9DA80257156029EF004AA9F3 /* M3ListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA8023B156029EF004AA9F3 /* M3ListViewController.mm */; };
+		9DA80258156029EF004AA9F3 /* M3ProfileView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8023C156029EF004AA9F3 /* M3ProfileView.h */; };
+		9DA80259156029EF004AA9F3 /* M3ProfileView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA8023D156029EF004AA9F3 /* M3ProfileView.mm */; };
+		9DA8025A156029EF004AA9F3 /* M3TableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8023F156029EF004AA9F3 /* M3TableViewCell.h */; };
+		9DA8025B156029EF004AA9F3 /* M3TableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80240156029EF004AA9F3 /* M3TableViewCell.mm */; };
+		9DA8025C156029EF004AA9F3 /* M3TableViewController+AdSupport.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80241156029EF004AA9F3 /* M3TableViewController+AdSupport.mm */; };
+		9DA8025D156029EF004AA9F3 /* M3TableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA80242156029EF004AA9F3 /* M3TableViewController.h */; };
+		9DA8025E156029EF004AA9F3 /* M3TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80243156029EF004AA9F3 /* M3TableViewController.mm */; };
+		9DA8025F156029EF004AA9F3 /* M3TableViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA80244156029EF004AA9F3 /* M3TableViewDataSource.h */; };
+		9DA80260156029EF004AA9F3 /* M3TableViewDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80245156029EF004AA9F3 /* M3TableViewDataSource.mm */; };
+		9DA80261156029EF004AA9F3 /* M3TableViewProfileCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA80246156029EF004AA9F3 /* M3TableViewProfileCell.h */; };
+		9DA80262156029EF004AA9F3 /* M3TableViewProfileCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80247156029EF004AA9F3 /* M3TableViewProfileCell.mm */; };
+		9DA80263156029EF004AA9F3 /* NSString+IM3ExampleExtensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80248156029EF004AA9F3 /* NSString+IM3ExampleExtensions.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9DA801D815602539004AA9F3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9DA801D415602539004AA9F3 /* ame.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9D223EF1155E7BCC001A279E;
+			remoteInfo = ame;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9DA801C415602510004AA9F3 /* libPilot.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPilot.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DA801C715602510004AA9F3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9DA801D415602539004AA9F3 /* ame.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ame.xcodeproj; path = ../ame/ame.xcodeproj; sourceTree = "<group>"; };
+		9DA801E215602606004AA9F3 /* libUserVoice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUserVoice.a; path = "../vendor/UserVoiceSDK-1.1.0/libUserVoice.a"; sourceTree = "<group>"; };
+		9DA801E415602606004AA9F3 /* UserVoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserVoice.h; sourceTree = "<group>"; };
+		9DA801E515602606004AA9F3 /* UVConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UVConfig.h; sourceTree = "<group>"; };
+		9DA801E615602606004AA9F3 /* UVDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UVDelegate.h; sourceTree = "<group>"; };
+		9DA801E715602606004AA9F3 /* UVStyleSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UVStyleSheet.h; sourceTree = "<group>"; };
+		9DA801EA15602606004AA9F3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UserVoice.strings; sourceTree = "<group>"; };
+		9DA801EB15602606004AA9F3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/UserVoice.strings; sourceTree = "<group>"; };
+		9DA801EC15602606004AA9F3 /* uv_alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_alert.png; sourceTree = "<group>"; };
+		9DA801ED15602606004AA9F3 /* uv_alert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_alert@2x.png"; sourceTree = "<group>"; };
+		9DA801EE15602606004AA9F3 /* uv_default_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_default_avatar.png; sourceTree = "<group>"; };
+		9DA801EF15602606004AA9F3 /* uv_default_avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_default_avatar@2x.png"; sourceTree = "<group>"; };
+		9DA801F015602606004AA9F3 /* uv_error_connection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_error_connection.png; sourceTree = "<group>"; };
+		9DA801F115602606004AA9F3 /* uv_error_connection@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_error_connection@2x.png"; sourceTree = "<group>"; };
+		9DA801F215602606004AA9F3 /* uv_karma_star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_karma_star.png; sourceTree = "<group>"; };
+		9DA801F315602606004AA9F3 /* uv_karma_star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_karma_star@2x.png"; sourceTree = "<group>"; };
+		9DA801F415602606004AA9F3 /* uv_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_logo.png; sourceTree = "<group>"; };
+		9DA801F515602606004AA9F3 /* uv_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_logo@2x.png"; sourceTree = "<group>"; };
+		9DA801F615602606004AA9F3 /* uv_primary_button_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_primary_button_green.png; sourceTree = "<group>"; };
+		9DA801F715602606004AA9F3 /* uv_primary_button_green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_primary_button_green@2x.png"; sourceTree = "<group>"; };
+		9DA801F815602606004AA9F3 /* uv_primary_button_green_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_primary_button_green_active.png; sourceTree = "<group>"; };
+		9DA801F915602606004AA9F3 /* uv_primary_button_green_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_primary_button_green_active@2x.png"; sourceTree = "<group>"; };
+		9DA801FA15602606004AA9F3 /* uv_primary_button_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_primary_button_red.png; sourceTree = "<group>"; };
+		9DA801FB15602606004AA9F3 /* uv_primary_button_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_primary_button_red@2x.png"; sourceTree = "<group>"; };
+		9DA801FC15602606004AA9F3 /* uv_primary_button_red_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_primary_button_red_active.png; sourceTree = "<group>"; };
+		9DA801FD15602606004AA9F3 /* uv_primary_button_red_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_primary_button_red_active@2x.png"; sourceTree = "<group>"; };
+		9DA801FE15602606004AA9F3 /* uv_user_chicklet_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_user_chicklet_dark.png; sourceTree = "<group>"; };
+		9DA801FF15602606004AA9F3 /* uv_user_chicklet_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_user_chicklet_dark@2x.png"; sourceTree = "<group>"; };
+		9DA8020015602606004AA9F3 /* uv_user_chicklet_detail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_user_chicklet_detail.png; sourceTree = "<group>"; };
+		9DA8020115602606004AA9F3 /* uv_user_chicklet_detail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_user_chicklet_detail@2x.png"; sourceTree = "<group>"; };
+		9DA8020215602606004AA9F3 /* uv_user_chicklet_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_user_chicklet_light.png; sourceTree = "<group>"; };
+		9DA8020315602606004AA9F3 /* uv_user_chicklet_light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_user_chicklet_light@2x.png"; sourceTree = "<group>"; };
+		9DA8020415602606004AA9F3 /* uv_vote_chicklet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_vote_chicklet.png; sourceTree = "<group>"; };
+		9DA8020515602606004AA9F3 /* uv_vote_chicklet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_vote_chicklet@2x.png"; sourceTree = "<group>"; };
+		9DA8020615602606004AA9F3 /* uv_vote_chicklet_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_vote_chicklet_empty.png; sourceTree = "<group>"; };
+		9DA8020715602606004AA9F3 /* uv_vote_chicklet_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_vote_chicklet_empty@2x.png"; sourceTree = "<group>"; };
+		9DA8020F15602641004AA9F3 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTTAttributedLabel.h; path = ../vendor/TTTAttributedLabel/TTTAttributedLabel.h; sourceTree = "<group>"; };
+		9DA8021015602641004AA9F3 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTTAttributedLabel.m; path = ../vendor/TTTAttributedLabel/TTTAttributedLabel.m; sourceTree = "<group>"; };
+		9DA8021415602678004AA9F3 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iRate.h; path = ../vendor/iRate/iRate/iRate.h; sourceTree = "<group>"; };
+		9DA8021515602678004AA9F3 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iRate.m; path = ../vendor/iRate/iRate/iRate.m; sourceTree = "<group>"; };
+		9DA802191560268B004AA9F3 /* FlurryAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAnalytics.h; sourceTree = "<group>"; };
+		9DA8021A1560268B004AA9F3 /* libFlurryAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAnalytics.a; sourceTree = "<group>"; };
+		9DA8021E156026A9004AA9F3 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		9DA8021F156026A9004AA9F3 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		9DA80220156026A9004AA9F3 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		9DA8022715602890004AA9F3 /* Pilot-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Pilot-Prefix.pch"; path = "Pilot/Pilot-Prefix.pch"; sourceTree = "<group>"; };
+		9DA8022815602890004AA9F3 /* Pilot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Pilot.h; path = Pilot/Pilot.h; sourceTree = "<group>"; };
+		9DA8022C156029EF004AA9F3 /* M3ActionSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M3ActionSheetController.h; path = Pilot/M3ActionSheetController.h; sourceTree = "<group>"; };
+		9DA8022D156029EF004AA9F3 /* M3ActionSheetController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = M3ActionSheetController.mm; path = Pilot/M3ActionSheetController.mm; sourceTree = "<group>"; };
+		9DA8022F156029EF004AA9F3 /* M3AppDelegate+Alert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+Alert.mm"; sourceTree = "<group>"; };
+		9DA80230156029EF004AA9F3 /* M3AppDelegate+ApplicationURL.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+ApplicationURL.mm"; sourceTree = "<group>"; };
+		9DA80231156029EF004AA9F3 /* M3AppDelegate+Email.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+Email.mm"; sourceTree = "<group>"; };
+		9DA80232156029EF004AA9F3 /* M3AppDelegate+EventTracking.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+EventTracking.mm"; sourceTree = "<group>"; };
+		9DA80233156029EF004AA9F3 /* M3AppDelegate+Info.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+Info.mm"; sourceTree = "<group>"; };
+		9DA80234156029EF004AA9F3 /* M3AppDelegate+RemoteNotifications.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+RemoteNotifications.mm"; sourceTree = "<group>"; };
+		9DA80235156029EF004AA9F3 /* M3AppDelegate+SqliteDB.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+SqliteDB.mm"; sourceTree = "<group>"; };
+		9DA80236156029EF004AA9F3 /* M3AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3AppDelegate.h; sourceTree = "<group>"; };
+		9DA80237156029EF004AA9F3 /* M3AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3AppDelegate.mm; sourceTree = "<group>"; };
+		9DA80238156029EF004AA9F3 /* M3DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M3DataSource.h; path = Pilot/M3DataSource.h; sourceTree = "<group>"; };
+		9DA80239156029EF004AA9F3 /* M3DataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = M3DataSource.mm; path = Pilot/M3DataSource.mm; sourceTree = "<group>"; };
+		9DA8023A156029EF004AA9F3 /* M3ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M3ListViewController.h; path = Pilot/M3ListViewController.h; sourceTree = "<group>"; };
+		9DA8023B156029EF004AA9F3 /* M3ListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = M3ListViewController.mm; path = Pilot/M3ListViewController.mm; sourceTree = "<group>"; };
+		9DA8023C156029EF004AA9F3 /* M3ProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M3ProfileView.h; path = Pilot/M3ProfileView.h; sourceTree = "<group>"; };
+		9DA8023D156029EF004AA9F3 /* M3ProfileView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = M3ProfileView.mm; path = Pilot/M3ProfileView.mm; sourceTree = "<group>"; };
+		9DA8023F156029EF004AA9F3 /* M3TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewCell.h; sourceTree = "<group>"; };
+		9DA80240156029EF004AA9F3 /* M3TableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewCell.mm; sourceTree = "<group>"; };
+		9DA80241156029EF004AA9F3 /* M3TableViewController+AdSupport.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3TableViewController+AdSupport.mm"; sourceTree = "<group>"; };
+		9DA80242156029EF004AA9F3 /* M3TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewController.h; sourceTree = "<group>"; };
+		9DA80243156029EF004AA9F3 /* M3TableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewController.mm; sourceTree = "<group>"; };
+		9DA80244156029EF004AA9F3 /* M3TableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewDataSource.h; sourceTree = "<group>"; };
+		9DA80245156029EF004AA9F3 /* M3TableViewDataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewDataSource.mm; sourceTree = "<group>"; };
+		9DA80246156029EF004AA9F3 /* M3TableViewProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewProfileCell.h; sourceTree = "<group>"; };
+		9DA80247156029EF004AA9F3 /* M3TableViewProfileCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewProfileCell.mm; sourceTree = "<group>"; };
+		9DA80248156029EF004AA9F3 /* NSString+IM3ExampleExtensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "NSString+IM3ExampleExtensions.mm"; path = "Pilot/NSString+IM3ExampleExtensions.mm"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9DA801C115602510004AA9F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9DA801C815602510004AA9F3 /* Foundation.framework in Frameworks */,
+				9DA8020815602606004AA9F3 /* libUserVoice.a in Frameworks */,
+				9DA8021C1560268B004AA9F3 /* libFlurryAnalytics.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9DA801B915602510004AA9F3 = {
+			isa = PBXGroup;
+			children = (
+				9DA8022815602890004AA9F3 /* Pilot.h */,
+				9DA8022715602890004AA9F3 /* Pilot-Prefix.pch */,
+				9DA8022E156029EF004AA9F3 /* M3AppDelegate */,
+				9DA80266156030BA004AA9F3 /* M3 Stuff */,
+				9DA8023E156029EF004AA9F3 /* M3TableView */,
+				9DA80248156029EF004AA9F3 /* NSString+IM3ExampleExtensions.mm */,
+				9DA801D415602539004AA9F3 /* ame.xcodeproj */,
+				9DA801E1156025E8004AA9F3 /* vendor */,
+				9DA801C615602510004AA9F3 /* Frameworks */,
+				9DA801C515602510004AA9F3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9DA801C515602510004AA9F3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9DA801C415602510004AA9F3 /* libPilot.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9DA801C615602510004AA9F3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9DA801C715602510004AA9F3 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9DA801D515602539004AA9F3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9DA801D915602539004AA9F3 /* libame.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9DA801E1156025E8004AA9F3 /* vendor */ = {
+			isa = PBXGroup;
+			children = (
+				9DA8021D156026A9004AA9F3 /* SVProgressHUD */,
+				9DA802181560268B004AA9F3 /* FlurryAnalytics */,
+				9DA802131560265A004AA9F3 /* iRate */,
+				9DA8020E1560262E004AA9F3 /* TTAttributedLabel */,
+				9DA8020D1560260C004AA9F3 /* UserVoice */,
+			);
+			name = vendor;
+			sourceTree = "<group>";
+		};
+		9DA801E315602606004AA9F3 /* UVHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				9DA801E415602606004AA9F3 /* UserVoice.h */,
+				9DA801E515602606004AA9F3 /* UVConfig.h */,
+				9DA801E615602606004AA9F3 /* UVDelegate.h */,
+				9DA801E715602606004AA9F3 /* UVStyleSheet.h */,
+			);
+			name = UVHeaders;
+			path = "../vendor/UserVoiceSDK-1.1.0/UVHeaders";
+			sourceTree = "<group>";
+		};
+		9DA801E815602606004AA9F3 /* UVResources */ = {
+			isa = PBXGroup;
+			children = (
+				9DA801E915602606004AA9F3 /* UserVoice.strings */,
+				9DA801EC15602606004AA9F3 /* uv_alert.png */,
+				9DA801ED15602606004AA9F3 /* uv_alert@2x.png */,
+				9DA801EE15602606004AA9F3 /* uv_default_avatar.png */,
+				9DA801EF15602606004AA9F3 /* uv_default_avatar@2x.png */,
+				9DA801F015602606004AA9F3 /* uv_error_connection.png */,
+				9DA801F115602606004AA9F3 /* uv_error_connection@2x.png */,
+				9DA801F215602606004AA9F3 /* uv_karma_star.png */,
+				9DA801F315602606004AA9F3 /* uv_karma_star@2x.png */,
+				9DA801F415602606004AA9F3 /* uv_logo.png */,
+				9DA801F515602606004AA9F3 /* uv_logo@2x.png */,
+				9DA801F615602606004AA9F3 /* uv_primary_button_green.png */,
+				9DA801F715602606004AA9F3 /* uv_primary_button_green@2x.png */,
+				9DA801F815602606004AA9F3 /* uv_primary_button_green_active.png */,
+				9DA801F915602606004AA9F3 /* uv_primary_button_green_active@2x.png */,
+				9DA801FA15602606004AA9F3 /* uv_primary_button_red.png */,
+				9DA801FB15602606004AA9F3 /* uv_primary_button_red@2x.png */,
+				9DA801FC15602606004AA9F3 /* uv_primary_button_red_active.png */,
+				9DA801FD15602606004AA9F3 /* uv_primary_button_red_active@2x.png */,
+				9DA801FE15602606004AA9F3 /* uv_user_chicklet_dark.png */,
+				9DA801FF15602606004AA9F3 /* uv_user_chicklet_dark@2x.png */,
+				9DA8020015602606004AA9F3 /* uv_user_chicklet_detail.png */,
+				9DA8020115602606004AA9F3 /* uv_user_chicklet_detail@2x.png */,
+				9DA8020215602606004AA9F3 /* uv_user_chicklet_light.png */,
+				9DA8020315602606004AA9F3 /* uv_user_chicklet_light@2x.png */,
+				9DA8020415602606004AA9F3 /* uv_vote_chicklet.png */,
+				9DA8020515602606004AA9F3 /* uv_vote_chicklet@2x.png */,
+				9DA8020615602606004AA9F3 /* uv_vote_chicklet_empty.png */,
+				9DA8020715602606004AA9F3 /* uv_vote_chicklet_empty@2x.png */,
+			);
+			name = UVResources;
+			path = "../vendor/UserVoiceSDK-1.1.0/UVResources";
+			sourceTree = "<group>";
+		};
+		9DA8020D1560260C004AA9F3 /* UserVoice */ = {
+			isa = PBXGroup;
+			children = (
+				9DA801E215602606004AA9F3 /* libUserVoice.a */,
+				9DA801E315602606004AA9F3 /* UVHeaders */,
+				9DA801E815602606004AA9F3 /* UVResources */,
+			);
+			name = UserVoice;
+			sourceTree = "<group>";
+		};
+		9DA8020E1560262E004AA9F3 /* TTAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				9DA8020F15602641004AA9F3 /* TTTAttributedLabel.h */,
+				9DA8021015602641004AA9F3 /* TTTAttributedLabel.m */,
+			);
+			name = TTAttributedLabel;
+			sourceTree = "<group>";
+		};
+		9DA802131560265A004AA9F3 /* iRate */ = {
+			isa = PBXGroup;
+			children = (
+				9DA8021415602678004AA9F3 /* iRate.h */,
+				9DA8021515602678004AA9F3 /* iRate.m */,
+			);
+			name = iRate;
+			sourceTree = "<group>";
+		};
+		9DA802181560268B004AA9F3 /* FlurryAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				9DA802191560268B004AA9F3 /* FlurryAnalytics.h */,
+				9DA8021A1560268B004AA9F3 /* libFlurryAnalytics.a */,
+			);
+			name = FlurryAnalytics;
+			path = ../vendor/FlurryAnalytics;
+			sourceTree = "<group>";
+		};
+		9DA8021D156026A9004AA9F3 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				9DA8021E156026A9004AA9F3 /* SVProgressHUD.bundle */,
+				9DA8021F156026A9004AA9F3 /* SVProgressHUD.h */,
+				9DA80220156026A9004AA9F3 /* SVProgressHUD.m */,
+			);
+			name = SVProgressHUD;
+			path = ../vendor/SVProgressHUD/SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		9DA8022E156029EF004AA9F3 /* M3AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				9DA80236156029EF004AA9F3 /* M3AppDelegate.h */,
+				9DA80237156029EF004AA9F3 /* M3AppDelegate.mm */,
+				9DA8022F156029EF004AA9F3 /* M3AppDelegate+Alert.mm */,
+				9DA80230156029EF004AA9F3 /* M3AppDelegate+ApplicationURL.mm */,
+				9DA80231156029EF004AA9F3 /* M3AppDelegate+Email.mm */,
+				9DA80232156029EF004AA9F3 /* M3AppDelegate+EventTracking.mm */,
+				9DA80233156029EF004AA9F3 /* M3AppDelegate+Info.mm */,
+				9DA80234156029EF004AA9F3 /* M3AppDelegate+RemoteNotifications.mm */,
+				9DA80235156029EF004AA9F3 /* M3AppDelegate+SqliteDB.mm */,
+			);
+			name = M3AppDelegate;
+			path = Pilot/M3AppDelegate;
+			sourceTree = "<group>";
+		};
+		9DA8023E156029EF004AA9F3 /* M3TableView */ = {
+			isa = PBXGroup;
+			children = (
+				9DA8023F156029EF004AA9F3 /* M3TableViewCell.h */,
+				9DA80240156029EF004AA9F3 /* M3TableViewCell.mm */,
+				9DA80241156029EF004AA9F3 /* M3TableViewController+AdSupport.mm */,
+				9DA80242156029EF004AA9F3 /* M3TableViewController.h */,
+				9DA80243156029EF004AA9F3 /* M3TableViewController.mm */,
+				9DA80244156029EF004AA9F3 /* M3TableViewDataSource.h */,
+				9DA80245156029EF004AA9F3 /* M3TableViewDataSource.mm */,
+				9DA80246156029EF004AA9F3 /* M3TableViewProfileCell.h */,
+				9DA80247156029EF004AA9F3 /* M3TableViewProfileCell.mm */,
+			);
+			name = M3TableView;
+			path = Pilot/M3TableView;
+			sourceTree = "<group>";
+		};
+		9DA80266156030BA004AA9F3 /* M3 Stuff */ = {
+			isa = PBXGroup;
+			children = (
+				9DA8022C156029EF004AA9F3 /* M3ActionSheetController.h */,
+				9DA8022D156029EF004AA9F3 /* M3ActionSheetController.mm */,
+				9DA80238156029EF004AA9F3 /* M3DataSource.h */,
+				9DA80239156029EF004AA9F3 /* M3DataSource.mm */,
+				9DA8023A156029EF004AA9F3 /* M3ListViewController.h */,
+				9DA8023B156029EF004AA9F3 /* M3ListViewController.mm */,
+				9DA8023C156029EF004AA9F3 /* M3ProfileView.h */,
+				9DA8023D156029EF004AA9F3 /* M3ProfileView.mm */,
+			);
+			name = "M3 Stuff";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		9DA801C215602510004AA9F3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9DA8020915602606004AA9F3 /* UserVoice.h in Headers */,
+				9DA8020A15602606004AA9F3 /* UVConfig.h in Headers */,
+				9DA8020B15602606004AA9F3 /* UVDelegate.h in Headers */,
+				9DA8020C15602606004AA9F3 /* UVStyleSheet.h in Headers */,
+				9DA8021115602641004AA9F3 /* TTTAttributedLabel.h in Headers */,
+				9DA8021615602678004AA9F3 /* iRate.h in Headers */,
+				9DA8021B1560268B004AA9F3 /* FlurryAnalytics.h in Headers */,
+				9DA80221156026A9004AA9F3 /* SVProgressHUD.h in Headers */,
+				9DA8022915602890004AA9F3 /* Pilot-Prefix.pch in Headers */,
+				9DA8022A15602890004AA9F3 /* Pilot.h in Headers */,
+				9DA80249156029EF004AA9F3 /* M3ActionSheetController.h in Headers */,
+				9DA80252156029EF004AA9F3 /* M3AppDelegate.h in Headers */,
+				9DA80254156029EF004AA9F3 /* M3DataSource.h in Headers */,
+				9DA80256156029EF004AA9F3 /* M3ListViewController.h in Headers */,
+				9DA80258156029EF004AA9F3 /* M3ProfileView.h in Headers */,
+				9DA8025A156029EF004AA9F3 /* M3TableViewCell.h in Headers */,
+				9DA8025D156029EF004AA9F3 /* M3TableViewController.h in Headers */,
+				9DA8025F156029EF004AA9F3 /* M3TableViewDataSource.h in Headers */,
+				9DA80261156029EF004AA9F3 /* M3TableViewProfileCell.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		9DA801C315602510004AA9F3 /* Pilot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9DA801D115602510004AA9F3 /* Build configuration list for PBXNativeTarget "Pilot" */;
+			buildPhases = (
+				9DA801C015602510004AA9F3 /* Sources */,
+				9DA801C115602510004AA9F3 /* Frameworks */,
+				9DA801C215602510004AA9F3 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Pilot;
+			productName = Pilot;
+			productReference = 9DA801C415602510004AA9F3 /* libPilot.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9DA801BB15602510004AA9F3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = n/a;
+			};
+			buildConfigurationList = 9DA801BE15602510004AA9F3 /* Build configuration list for PBXProject "Pilot" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				fr,
+			);
+			mainGroup = 9DA801B915602510004AA9F3;
+			productRefGroup = 9DA801C515602510004AA9F3 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 9DA801D515602539004AA9F3 /* Products */;
+					ProjectRef = 9DA801D415602539004AA9F3 /* ame.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				9DA801C315602510004AA9F3 /* Pilot */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		9DA801D915602539004AA9F3 /* libame.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libame.a;
+			remoteRef = 9DA801D815602539004AA9F3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9DA801C015602510004AA9F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9DA8021215602641004AA9F3 /* TTTAttributedLabel.m in Sources */,
+				9DA8021715602678004AA9F3 /* iRate.m in Sources */,
+				9DA80222156026A9004AA9F3 /* SVProgressHUD.m in Sources */,
+				9DA8024A156029EF004AA9F3 /* M3ActionSheetController.mm in Sources */,
+				9DA8024B156029EF004AA9F3 /* M3AppDelegate+Alert.mm in Sources */,
+				9DA8024C156029EF004AA9F3 /* M3AppDelegate+ApplicationURL.mm in Sources */,
+				9DA8024D156029EF004AA9F3 /* M3AppDelegate+Email.mm in Sources */,
+				9DA8024E156029EF004AA9F3 /* M3AppDelegate+EventTracking.mm in Sources */,
+				9DA8024F156029EF004AA9F3 /* M3AppDelegate+Info.mm in Sources */,
+				9DA80250156029EF004AA9F3 /* M3AppDelegate+RemoteNotifications.mm in Sources */,
+				9DA80251156029EF004AA9F3 /* M3AppDelegate+SqliteDB.mm in Sources */,
+				9DA80253156029EF004AA9F3 /* M3AppDelegate.mm in Sources */,
+				9DA80255156029EF004AA9F3 /* M3DataSource.mm in Sources */,
+				9DA80257156029EF004AA9F3 /* M3ListViewController.mm in Sources */,
+				9DA80259156029EF004AA9F3 /* M3ProfileView.mm in Sources */,
+				9DA8025B156029EF004AA9F3 /* M3TableViewCell.mm in Sources */,
+				9DA8025C156029EF004AA9F3 /* M3TableViewController+AdSupport.mm in Sources */,
+				9DA8025E156029EF004AA9F3 /* M3TableViewController.mm in Sources */,
+				9DA80260156029EF004AA9F3 /* M3TableViewDataSource.mm in Sources */,
+				9DA80262156029EF004AA9F3 /* M3TableViewProfileCell.mm in Sources */,
+				9DA80263156029EF004AA9F3 /* NSString+IM3ExampleExtensions.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		9DA801E915602606004AA9F3 /* UserVoice.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9DA801EA15602606004AA9F3 /* en */,
+				9DA801EB15602606004AA9F3 /* fr */,
+			);
+			name = UserVoice.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9DA801CF15602510004AA9F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		9DA801D015602510004AA9F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9DA801D215602510004AA9F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/Pilot.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Pilot/Pilot-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../vendor/UserVoiceSDK-1.1.0\"",
+					"\"$(SRCROOT)/../vendor/FlurryAnalytics\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		9DA801D315602510004AA9F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/Pilot.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Pilot/Pilot-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../vendor/UserVoiceSDK-1.1.0\"",
+					"\"$(SRCROOT)/../vendor/FlurryAnalytics\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9DA801BE15602510004AA9F3 /* Build configuration list for PBXProject "Pilot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9DA801CF15602510004AA9F3 /* Debug */,
+				9DA801D015602510004AA9F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9DA801D115602510004AA9F3 /* Build configuration list for PBXNativeTarget "Pilot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9DA801D215602510004AA9F3 /* Debug */,
+				9DA801D315602510004AA9F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9DA801BB15602510004AA9F3 /* Project object */;
+}

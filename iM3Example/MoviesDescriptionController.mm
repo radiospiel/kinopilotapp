@@ -1,4 +1,4 @@
-#import "TTTAttributedLabel.h"
+#import "AppBase.h"
 
 @interface MoviesDescriptionController : UIViewController {
   UIButton* closeButton;

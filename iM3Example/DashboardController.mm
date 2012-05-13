@@ -6,10 +6,11 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "M3AppDelegate.h"
-#import "DashboardController.h"
+#import "AppBase.h"
 
-#import "M3TableViewProfileCell.h"
+@interface DashboardController : M3ListViewController
+@end
+
 
 static NSDictionary* dashboardConfig = nil;
 
