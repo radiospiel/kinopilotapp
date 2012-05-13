@@ -10,4 +10,10 @@
 
 @implementation M3
 
++(void)open: (NSString*)url
+{
+  id app = [[UIApplication sharedApplication]delegate];
+  [app performSelector:@selector(open:) withObject: url];
+}
+
 @end

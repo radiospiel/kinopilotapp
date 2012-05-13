@@ -81,8 +81,6 @@
 		9D223FF2155E7CCA001A279E /* NSURL+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D223F5E155E7CCA001A279E /* NSURL+M3Extensions.h */; };
 		9D223FF3155E7CCA001A279E /* NSURL+M3Extensions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D223F5F155E7CCA001A279E /* NSURL+M3Extensions.mm */; };
 		9D223FF4155E7CCA001A279E /* NSUrl+Params.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D223F60155E7CCA001A279E /* NSUrl+Params.mm */; };
-		9D223FFF155E7CCA001A279E /* TTTAttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D223F74155E7CCA001A279E /* TTTAttributedLabel.h */; };
-		9D224000155E7CCA001A279E /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D223F75155E7CCA001A279E /* TTTAttributedLabel.m */; };
 		9D224009155E7CCA001A279E /* UIButton+ActionButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D223F87155E7CCA001A279E /* UIButton+ActionButton.h */; };
 		9D22400A155E7CCA001A279E /* UIButton+ActionButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D223F88155E7CCA001A279E /* UIButton+ActionButton.mm */; };
 		9D22400B155E7CCA001A279E /* UIColor+M3Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D223F89155E7CCA001A279E /* UIColor+M3Extensions.h */; };
@@ -179,8 +177,6 @@
 		9D223F5E155E7CCA001A279E /* NSURL+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+M3Extensions.h"; sourceTree = "<group>"; };
 		9D223F5F155E7CCA001A279E /* NSURL+M3Extensions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSURL+M3Extensions.mm"; sourceTree = "<group>"; };
 		9D223F60155E7CCA001A279E /* NSUrl+Params.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSUrl+Params.mm"; sourceTree = "<group>"; };
-		9D223F74155E7CCA001A279E /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
-		9D223F75155E7CCA001A279E /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		9D223F87155E7CCA001A279E /* UIButton+ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ActionButton.h"; sourceTree = "<group>"; };
 		9D223F88155E7CCA001A279E /* UIButton+ActionButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIButton+ActionButton.mm"; sourceTree = "<group>"; };
 		9D223F89155E7CCA001A279E /* UIColor+M3Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+M3Extensions.h"; sourceTree = "<group>"; };
@@ -314,19 +310,9 @@
 			path = "google-toolbox";
 			sourceTree = "<group>";
 		};
-		9D223F70155E7CCA001A279E /* TTTAttributedLabel */ = {
-			isa = PBXGroup;
-			children = (
-				9D223F74155E7CCA001A279E /* TTTAttributedLabel.h */,
-				9D223F75155E7CCA001A279E /* TTTAttributedLabel.m */,
-			);
-			path = TTTAttributedLabel;
-			sourceTree = "<group>";
-		};
 		9D224020155E81BE001A279E /* vendor */ = {
 			isa = PBXGroup;
 			children = (
-				9D223F70155E7CCA001A279E /* TTTAttributedLabel */,
 				9D223F02155E7CCA001A279E /* google-toolbox */,
 			);
 			name = vendor;
@@ -445,7 +431,6 @@
 				9D223FEE155E7CCA001A279E /* NSString+M3Extensions.h in Headers */,
 				9D223FF0155E7CCA001A279E /* NSString+Regexp.h in Headers */,
 				9D223FF2155E7CCA001A279E /* NSURL+M3Extensions.h in Headers */,
-				9D223FFF155E7CCA001A279E /* TTTAttributedLabel.h in Headers */,
 				9D224009155E7CCA001A279E /* UIButton+ActionButton.h in Headers */,
 				9D22400B155E7CCA001A279E /* UIColor+M3Extensions.h in Headers */,
 				9D22400D155E7CCA001A279E /* UIImageView+M3Extensions.h in Headers */,
@@ -546,7 +531,6 @@
 				9D223FF1155E7CCA001A279E /* NSString+Regexp.m in Sources */,
 				9D223FF3155E7CCA001A279E /* NSURL+M3Extensions.mm in Sources */,
 				9D223FF4155E7CCA001A279E /* NSUrl+Params.mm in Sources */,
-				9D224000155E7CCA001A279E /* TTTAttributedLabel.m in Sources */,
 				9D22400A155E7CCA001A279E /* UIButton+ActionButton.mm in Sources */,
 				9D22400C155E7CCA001A279E /* UIColor+M3Extensions.mm in Sources */,
 				9D22400E155E7CCA001A279E /* UIImageView+M3Extensions.mm in Sources */,
@@ -651,6 +635,7 @@
 				9D223F00155E7BCC001A279E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

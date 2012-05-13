@@ -113,8 +113,7 @@ static UIImage* stretchableImageNamed(NSString* name) {
 -(void)activatedActionButton: (id)sender
 {
   NSString* url = [self instance_variable_get:@selector(action_url)];
-  id app = [[UIApplication sharedApplication]delegate];
-  [app performSelector:@selector(open:) withObject: url];
+  [M3 open: url];
 }
 
 @end

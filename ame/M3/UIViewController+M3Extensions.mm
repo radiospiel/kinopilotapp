@@ -47,9 +47,7 @@
 @end
 
 
-@interface M3UIBarButtonItem: UIBarButtonItem {
-  NSString* url_;
-}
+@interface M3UIBarButtonItem: UIBarButtonItem
 
 @property (nonatomic,retain) NSString* url;
 
@@ -57,40 +55,32 @@
 
 @implementation M3UIBarButtonItem
 
--(NSString*) url 
-{ 
-  return url_; 
-}
+@synthesize url;
 
--(void)setUrl: (NSString *)url 
+-(id)init
 { 
+  self = [super init];
+  
   self.target = self;
   self.action = @selector(openURL); 
   
-  url = [url copy]; 
-  [url_ release];
-  url_ = url;
+  return self;
 }
 
 -(void)dealloc
 {
-  [url_ release];
+  self.url = nil;
   [super dealloc];
 }
 
 -(void)openURL
 {
-  id app = [[UIApplication sharedApplication]delegate];
-  [app performSelector:@selector(open:) withObject: url_];
+  [M3 open: self.url];
 }
 
 @end
 
-@class M3AppDelegate;
-extern M3AppDelegate* app;
-
 @implementation UIViewController(M3Extensions)
-
 
 #pragma mark - set right action button
 
@@ -190,7 +180,7 @@ extern M3AppDelegate* app;
 -(void)setRightButtonReloadAction
 {
   [self setRightButtonWithFlatImage: [UIImage imageNamed:@"icon_72px.png"] 
-                         target: app 
+                         target: [[UIApplication sharedApplication]delegate] 
                          action: @selector(popToRootViewController)];
 }
 

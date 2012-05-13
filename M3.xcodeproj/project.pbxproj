@@ -111,6 +111,7 @@
 		9DA5DD4514326E120003B54A /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DA5DD4414326E120003B54A /* WebViewController.xib */; };
 		9DA6563F14A12D1F00F96508 /* button_grey_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DA6563D14A12D1F00F96508 /* button_grey_normal.png */; };
 		9DA6564014A12D1F00F96508 /* button_grey_pushed.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DA6563E14A12D1F00F96508 /* button_grey_pushed.png */; };
+		9DA801B61560215A004AA9F3 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA801B51560215A004AA9F3 /* TTTAttributedLabel.m */; };
 		9DACCF0014D6B6240000384D /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DACCEFC14D6B6240000384D /* star.png */; };
 		9DACCF0114D6B6240000384D /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DACCEFD14D6B6240000384D /* star@2x.png */; };
 		9DACCF0214D6B6240000384D /* unstar.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DACCEFE14D6B6240000384D /* unstar.png */; };
@@ -317,6 +318,8 @@
 		9DA5DD4414326E120003B54A /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		9DA6563D14A12D1F00F96508 /* button_grey_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_grey_normal.png; sourceTree = "<group>"; };
 		9DA6563E14A12D1F00F96508 /* button_grey_pushed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_grey_pushed.png; sourceTree = "<group>"; };
+		9DA801B41560215A004AA9F3 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
+		9DA801B51560215A004AA9F3 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		9DACCEF714D6B22F0000384D /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		9DACCEF814D6B22F0000384D /* unstar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unstar.png; sourceTree = "<group>"; };
 		9DACCEFC14D6B6240000384D /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = star.png; path = images/star.png; sourceTree = "<group>"; };
@@ -408,6 +411,7 @@
 		9D0EF7481413DFD40051B8FA /* vendor */ = {
 			isa = PBXGroup;
 			children = (
+				9DA801B31560215A004AA9F3 /* TTTAttributedLabel */,
 				9D2B4C0115559925001C2E91 /* UserVoice */,
 			);
 			name = vendor;
@@ -770,6 +774,16 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
+		9DA801B31560215A004AA9F3 /* TTTAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				9DA801B41560215A004AA9F3 /* TTTAttributedLabel.h */,
+				9DA801B51560215A004AA9F3 /* TTTAttributedLabel.m */,
+			);
+			name = TTTAttributedLabel;
+			path = ame/M3/TTTAttributedLabel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1007,6 +1021,7 @@
 				9D5428F814E4085A00D9029F /* UserVoiceController.mm in Sources */,
 				9DF8DB20155549C20041BDA5 /* MoviesCalendarController.mm in Sources */,
 				9DEDFFB0155BE1560031B8FE /* MoviesDescriptionController.mm in Sources */,
+				9DA801B61560215A004AA9F3 /* TTTAttributedLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

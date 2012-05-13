@@ -28,6 +28,9 @@
 
 /* The M3 namespace */
 @interface M3: NSObject
+
++(void)open: (NSString*)url;
+
 @end
 
 #import "NSObject+Ivars.h"

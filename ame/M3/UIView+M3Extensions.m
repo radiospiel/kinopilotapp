@@ -6,6 +6,7 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
+#import "M3.h"
 #import "UIView+M3Extensions.h"
 
 #import <QuartzCore/QuartzCore.h>
@@ -62,8 +63,7 @@
 
 -(void)openURL
 {
-  id app = [[UIApplication sharedApplication]delegate];
-  [app performSelector:@selector(open:) withObject: self.url];
+  [M3 open: self.url];
 }
 
 @end
