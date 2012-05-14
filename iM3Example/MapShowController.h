@@ -6,11 +6,11 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "AppBase.h"
 #import <MapKit/MapKit.h>
 
 @interface MapShowController: UIViewController<MKMapViewDelegate> {
-  IBOutlet MKMapView *mapView;
+  MKMapView *mapView;
 }
 
 @property (readonly,nonatomic) NSString* theater_id;

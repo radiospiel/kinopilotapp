@@ -10,7 +10,6 @@
 		9D0893A21452F6C600F64AC1 /* SchedulesListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0893A11452F6C600F64AC1 /* SchedulesListController.mm */; };
 		9D0893B014542C2500F64AC1 /* DashboardController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0893AF14542C2400F64AC1 /* DashboardController.mm */; };
 		9D10C37A1437728300FE19C9 /* MapShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D10C3781437728300FE19C9 /* MapShowController.mm */; };
-		9D10C37B1437728300FE19C9 /* MapShowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D10C3791437728300FE19C9 /* MapShowController.xib */; };
 		9D10C37D143774A800FE19C9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D10C37C143774A800FE19C9 /* MapKit.framework */; };
 		9D224037155E91EB001A279E /* libame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D224030155E88E0001A279E /* libame.a */; };
 		9D232739155ADD7A002D5192 /* icon_57px.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D232738155ADD7A002D5192 /* icon_57px.png */; };
@@ -59,7 +58,6 @@
 		9D934DA21461CEF1001B25C6 /* header-background-dark-22.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D934DA11461CEF1001B25C6 /* header-background-dark-22.png */; };
 		9D94B56914A8D5C200C1262D /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D94B56714A8D5C200C1262D /* location.png */; };
 		9D94B56A14A8D5C200C1262D /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D94B56814A8D5C200C1262D /* location@2x.png */; };
-		9DA5DD4514326E120003B54A /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DA5DD4414326E120003B54A /* WebViewController.xib */; };
 		9DA6563F14A12D1F00F96508 /* button_grey_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DA6563D14A12D1F00F96508 /* button_grey_normal.png */; };
 		9DA6564014A12D1F00F96508 /* button_grey_pushed.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DA6563E14A12D1F00F96508 /* button_grey_pushed.png */; };
 		9DA8022B156028AF004AA9F3 /* libPilot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DA801DF1560254A004AA9F3 /* libPilot.a */; };
@@ -140,7 +138,6 @@
 		9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9D10C3771437728300FE19C9 /* MapShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapShowController.h; sourceTree = "<group>"; };
 		9D10C3781437728300FE19C9 /* MapShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MapShowController.mm; sourceTree = "<group>"; };
-		9D10C3791437728300FE19C9 /* MapShowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapShowController.xib; sourceTree = "<group>"; };
 		9D10C37C143774A800FE19C9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		9D22402B155E88E0001A279E /* ame.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ame.xcodeproj; path = ame/ame.xcodeproj; sourceTree = "<group>"; };
 		9D232738155ADD7A002D5192 /* icon_57px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_57px.png; sourceTree = "<group>"; };
@@ -203,7 +200,6 @@
 		9D94B56514A8D02C00C1262D /* seed.sqlite3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = seed.sqlite3; sourceTree = "<group>"; };
 		9D94B56714A8D5C200C1262D /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
 		9D94B56814A8D5C200C1262D /* location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location@2x.png"; sourceTree = "<group>"; };
-		9DA5DD4414326E120003B54A /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		9DA6563D14A12D1F00F96508 /* button_grey_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_grey_normal.png; sourceTree = "<group>"; };
 		9DA6563E14A12D1F00F96508 /* button_grey_pushed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_grey_pushed.png; sourceTree = "<group>"; };
 		9DA801DA1560254A004AA9F3 /* Pilot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pilot.xcodeproj; path = Pilot/Pilot.xcodeproj; sourceTree = "<group>"; };
@@ -308,7 +304,6 @@
 				9DE40644142CFC490089EAA9 /* InfoController.mm */,
 				9D10C3771437728300FE19C9 /* MapShowController.h */,
 				9D10C3781437728300FE19C9 /* MapShowController.mm */,
-				9D10C3791437728300FE19C9 /* MapShowController.xib */,
 				9D355F7414C04EE400D5EE69 /* MovieActionsController.mm */,
 				9DDF5D061431F74C001CAC28 /* MovieInfoCells.mm */,
 				9DF8DB1F155549C20041BDA5 /* MoviesCalendarController.mm */,
@@ -331,7 +326,6 @@
 				9DC1E75F1435C145009B41A5 /* VicinityShowController.mm */,
 				9D5A96D014200FB6000104CA /* WebViewController.h */,
 				9D5A96D114200FB7000104CA /* WebViewController.mm */,
-				9DA5DD4414326E120003B54A /* WebViewController.xib */,
 				9D23274A155B00B7002D5192 /* io.socially.kinopilot-flk.bundle */,
 				9DE94F27155AD805006BEFB3 /* com.radiospiel.kinopilot.bundle */,
 				9D48ACBE141E9E3E00D0D000 /* Supporting Files */,
@@ -606,9 +600,7 @@
 				9D561622142641A300D0A484 /* header-background-23.png in Resources */,
 				9D561623142641A300D0A484 /* icon_back.png in Resources */,
 				9D561624142641A300D0A484 /* no_poster.png in Resources */,
-				9DA5DD4514326E120003B54A /* WebViewController.xib in Resources */,
 				9DC5124B143736F8009A393C /* header-background-22.png in Resources */,
-				9D10C37B1437728300FE19C9 /* MapShowController.xib in Resources */,
 				9D4B701E145D7A6400F1DBCE /* share_schedule_email.html in Resources */,
 				9D934DA21461CEF1001B25C6 /* header-background-dark-22.png in Resources */,
 				9DA6563F14A12D1F00F96508 /* button_grey_normal.png in Resources */,

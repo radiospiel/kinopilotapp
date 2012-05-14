@@ -20,3 +20,15 @@
 -(void)onTapOpen: (NSString*)url;
 
 @end
+
+@interface UIView (CoverWithSubview)
+
+-(void)coverWithSubview: (UIView*)subView;
+
+@end
+
+@interface UIView (Webview)
+
+-(void)disableScrollingInWebview;
+
+@end

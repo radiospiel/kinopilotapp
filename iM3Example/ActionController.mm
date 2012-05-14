@@ -6,7 +6,7 @@
 
 @implementation ActionController
 
-@synthesize url = _url;
+@synthesize url;
 
 -(void)perform
 {

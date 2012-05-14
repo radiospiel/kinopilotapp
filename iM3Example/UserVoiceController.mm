@@ -6,7 +6,7 @@
 
 @implementation UserVoiceController
 
-@synthesize url = _url;
+@synthesize url;
 
 -(void)perform
 {

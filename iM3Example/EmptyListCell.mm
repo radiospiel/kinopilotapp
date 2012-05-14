@@ -35,13 +35,6 @@
   htmlView = [[TTTAttributedLabel alloc]init];
   [self addSubview:htmlView]; 
 
-  // Disable scrolling in WebView
-  //
-  //  for (id subview in webView.subviews) {
-  //    if ([[subview class] isSubclassOfClass: [UIScrollView class]])
-  //      ((UIScrollView *)subview).bounces = NO;
-  //  }
-
   return self;
 }
 

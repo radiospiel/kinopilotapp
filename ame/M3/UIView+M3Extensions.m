@@ -92,3 +92,35 @@
 }
 
 @end
+
+@implementation UIView (CoverWithSubview)
+
+-(void)coverWithSubview: (UIView*)subView;
+{
+  CGRect frame = self.frame;
+  frame.origin.x = frame.origin.y = 0;
+
+  subView.frame = frame;
+  subView.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin    |
+                              UIViewAutoresizingFlexibleWidth         |
+                              UIViewAutoresizingFlexibleRightMargin   |
+                              UIViewAutoresizingFlexibleTopMargin     |
+                              UIViewAutoresizingFlexibleHeight        |
+                              UIViewAutoresizingFlexibleBottomMargin);
+
+  [self addSubview:subView];
+}
+@end
+
+
+@implementation UIView (Webview)
+
+-(void)disableScrollingInWebview
+{
+  for (id subview in self.subviews) {
+    if ([[subview class] isSubclassOfClass: [UIScrollView class]])
+      ((UIScrollView *)subview).bounces = NO;
+  }
+}
+
+@end

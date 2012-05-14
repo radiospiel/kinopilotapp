@@ -1,4 +1,3 @@
-#import "AppBase.h"
 #import "MapShowController.h"
 
 @interface MapAnnotation: MKPointAnnotation
@@ -35,7 +34,7 @@
 -(void) showDetails: (id)param
 {
   NSString* url = _.join(@"/movies/list?theater_id=", self.theater_id);
-  [ app open: url];
+  [app open: url];
 }
 
 @end
@@ -57,6 +56,25 @@
 {
   mapView.delegate = nil;
   [super dealloc];
+}
+
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  
+  mapView = [[MKMapView alloc]init];
+  mapView.delegate = self;
+  [self.view coverWithSubview: mapView];
+  
+  [self setMapViewRegion];
+  [self addTheaterAnnotations];
+}
+
+-(void)viewDidUnload
+{
+  mapView.delegate = nil;
+  
+  [super viewDidUnload];
 }
 
 #pragma mark - updating location
@@ -171,21 +189,11 @@
   [mapView addAnnotations:annotations];
 }
 
-- (void)viewDidLoad
-{
-  [super viewDidLoad];
-  
-  mapView.delegate = self;
+#pragma mark - enable rotation
 
-  [self setMapViewRegion];
-  [self addTheaterAnnotations];
-}
-
--(void)viewDidUnload
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-  mapView.delegate = nil;
-  
-  [super viewDidUnload];
+  return YES;
 }
 
 #pragma mark - mapView delegate

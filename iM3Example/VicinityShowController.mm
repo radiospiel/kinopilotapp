@@ -134,8 +134,6 @@
 
   CLLocationCoordinate2D position = [M3LocationManager coordinates];
 
-  Benchmark(@"Building vicinity data set");
-
   NSArray* theaters = [
     app.sqliteDB all: @"SELECT _id, name, lat, lng, distance(lat, lng, ?, ?) AS distance FROM theaters ORDER BY distance LIMIT 12", 
                       [NSNumber numberWithDouble: position.latitude], 

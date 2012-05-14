@@ -11,7 +11,6 @@
 @interface DashboardController : M3ListViewController
 @end
 
-
 static NSDictionary* dashboardConfig = nil;
 
 static int button_width = 156;

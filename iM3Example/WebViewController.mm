@@ -13,23 +13,26 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
+-(void)loadView
 {
-  [super viewDidLoad];
-  // Do any additional setup after loading the view from its nib.
+  [super loadView];
+  
+  webView = [[UIWebView alloc]init];
+  [self.view coverWithSubview: webView];
+}
 
-  dlog << "viewDidLoad, url is " << self.url;
+-(void)reload
+{
   if(!self.url) return;
 
-  NSURLRequest *requestObj = [NSURLRequest requestWithURL:self.url.to_url];   // URL Requst Object
-  [webView loadRequest:requestObj];                               // Load the request in the UIWebView.
+  // Create a NSURLRequest object and load it in the webView.
+  NSURLRequest *request = [NSURLRequest requestWithURL:self.url.to_url];
+  [webView loadRequest:request];                               
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
   return YES;
-    // Return YES for supported orientations
-    // return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 -(NSString*)title
