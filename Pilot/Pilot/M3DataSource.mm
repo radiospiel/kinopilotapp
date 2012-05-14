@@ -11,38 +11,6 @@
 #import "M3DataSource.h"
 #import "M3TableViewDataSource.h"
 
-// [LEGACY] is this a "c-" or "m-" index key? 
-// The theater_id is "c-<sortkey>", and the first character of the sortkey
-// "makes sense" for the index: this should be the first relevant 
-// letter from the movie title.
-static NSString* legacyIndexKey(NSDictionary* dict) 
-{
-  id objId = [dict objectForKey:@"_id"];
-  if(!objId) objId = [dict objectForKey:@"id"];
-  NSString* index_key = [objId description];
-
-  if([[index_key substringWithRange:NSMakeRange(1, 1)] isEqualToString:@"-"])
-    return [index_key substringFromIndex:2];
-  
-  return index_key;
-}
-
-// returns the sortkey in a dictionary.
-static NSString* indexKey(NSDictionary* dict) 
-{
-  NSString* indexKey = [dict objectForKey:@"sortkey"];
-
-  if(![indexKey isKindOfClass:[NSString class]])
-    indexKey = legacyIndexKey(dict);
-    
-  indexKey = [[indexKey substringToIndex:1] uppercaseString];
-  
-  if([indexKey compare:@"A"] == NSOrderedAscending || [@"Z" compare: indexKey] == NSOrderedAscending)
-    return @"#";
-
-  return indexKey;
-}
-
 @implementation M3DataSource
 @end
 
@@ -98,7 +66,7 @@ static NSString* indexKey(NSDictionary* dict)
       // The movie_id is "m-<sortkey>", and the first character of the sortkey
       // "makes sense" for the index: this should be the first relevant 
       // letter from the movie title.
-      return indexKey(movie);
+      return [M3TableViewDataSource indexKey: movie];
     }];
     
     NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];

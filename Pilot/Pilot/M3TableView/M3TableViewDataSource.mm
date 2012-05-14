@@ -5,6 +5,39 @@
 
 @implementation M3TableViewDataSource
 
+
+// [LEGACY] is this a "c-" or "m-" index key? 
+// The theater_id is "c-<sortkey>", and the first character of the sortkey
+// "makes sense" for the index: this should be the first relevant 
+// letter from the movie title.
+static NSString* legacyIndexKey(NSDictionary* dict) 
+{
+  id objId = [dict objectForKey:@"_id"];
+  if(!objId) objId = [dict objectForKey:@"id"];
+  NSString* index_key = [objId description];
+  
+  if([[index_key substringWithRange:NSMakeRange(1, 1)] isEqualToString:@"-"])
+    return [index_key substringFromIndex:2];
+  
+  return index_key;
+}
+
+// returns the sortkey in a dictionary.
++(NSString*) indexKey: (NSDictionary*) dict 
+{
+  NSString* indexKey = [dict objectForKey:@"sortkey"];
+  
+  if(![indexKey isKindOfClass:[NSString class]])
+    indexKey = legacyIndexKey(dict);
+  
+  indexKey = [[indexKey substringToIndex:1] uppercaseString];
+  
+  if([indexKey compare:@"A"] == NSOrderedAscending || [@"Z" compare: indexKey] == NSOrderedAscending)
+    return @"#";
+  
+  return indexKey;
+}
+
 @synthesize controller = controller_, 
               sections = sections_, 
              cellClass = cellClass_;

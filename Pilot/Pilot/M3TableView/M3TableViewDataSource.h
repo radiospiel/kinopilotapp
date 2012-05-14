@@ -19,13 +19,14 @@
 @property (assign,nonatomic) M3TableViewController* controller;
 @property (readonly,nonatomic) id cellClass;
 
++(NSString*) indexKey: (NSDictionary*) dict;
+
 -(id)initWithCellClass: (id)cellClass;
 
 /** 
  * Adds a section to the receiving data source.
  */
 -(void)addSection: (NSArray*) keys withOptions: (NSDictionary*)options;
-
 -(void)addSection: (NSArray*) keys;
 
 
