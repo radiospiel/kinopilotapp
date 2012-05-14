@@ -385,60 +385,6 @@ static NSString* indexKey(NSDictionary* dict)
 
 @end
 
-/**** TheatersListFilteredByMovieDataSource **********************************/
-
-@interface SchedulesByTheaterAndMovieDataSource: M3TableViewDataSource
-@end
-
-@implementation SchedulesByTheaterAndMovieDataSource
-
--(id)initWithTheater: (NSString*)theater_id 
-            andMovie: (NSString*)movie_id
-               onDay: (NSDate*)day
-{
-  self = [super initWithCellClass: @"ScheduleListCell"];
-  
-  M3AssertKindOf(day, NSDate);
-  if(!day) day = [NSDate today];
-  
-  //
-  // get all schedules for the theater and for the movie, and 
-  // remove all schedules, that are in the past.
-  NSArray* schedules = [
-    app.sqliteDB all: @"SELECT * FROM schedules WHERE theater_id=? AND movie_id=? AND time > ? ORDER BY time", 
-                      theater_id, 
-                      movie_id,
-                      day
-  ];
-  
-  // group schedules by *day* into sectionsHash
-  NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
-    NSNumber* time = [schedule objectForKey:@"time"];
-    
-    time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
-    return [time.to_date stringWithFormat:@"dd.MM."];
-  }];
-  
-  NSArray* sectionsArray = [sectionsHash allValues];
-  sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
-    NSNumber* time1 = [schedules1.first objectForKey:@"time"];
-    NSNumber* time2 = [schedules2.first objectForKey:@"time"];
-    
-    return [time1 compare:time2];
-  }];
-  
-  for(NSArray* schedules in sectionsArray) {
-    M3AssertKindOf(schedules, NSArray);
-    NSNumber* time = [schedules.first objectForKey:@"time"];
-    [self addSection: schedules
-         withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"ccc dd. MMM"])];
-  }
-
-  return self;
-}
-
-@end
-
 @implementation M3DataSource(M3Lists)
 
 +(M3TableViewDataSource*) datasourceWithName: (NSString*)name 
@@ -515,25 +461,6 @@ static NSString* indexKey(NSDictionary* dict)
                         fromBlock: ^M3TableViewDataSource*() {
                           M3TableViewDataSource* ds;
                           ds = [[TheatersListDataSource alloc]initWithFilter: filter];
-                          return [ds autorelease];
-                        }];
-}
-
-+(M3TableViewDataSource*)schedulesByTheater: (NSString*)theater_id 
-                                   andMovie: (NSString*)movie_id
-                                      onDay: (NSDate*)day
-{
-  M3AssertKindOf(day, NSDate);
-
-  movie_id = [[app.sqliteDB.movies get:movie_id] objectForKey:@"_id"];
-  theater_id = [[app.sqliteDB.theaters get:theater_id] objectForKey:@"_id"];
- 
-  return [self datasourceWithName: @"schedulesByTheater:andMovie:onDay" 
-                        fromBlock: ^M3TableViewDataSource*() {
-                          M3TableViewDataSource* ds;
-                          ds = [[SchedulesByTheaterAndMovieDataSource alloc]initWithTheater: theater_id 
-                                                                                   andMovie: movie_id
-                                                                                      onDay: day];
                           return [ds autorelease];
                         }];
 }

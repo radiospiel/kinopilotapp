@@ -1,83 +1,60 @@
 #import "AppBase.h"
 
-/*
- 
- ## Schedules List
- 
- - **`/schedules/list?theater_id=<theater_id>&movie_id=<movie_id>`** show a list 
- of play times for a given theater and movie combination. The header 
- cell contains a description a la "&lt;movie title&gt; in &lt;theater name&gt;".
- Below is a list of schedules, grouped by day. Clicking on a schedule opens a
- schedule (modal) view, which allows to share the schedule, 
- under *`/schedule/actions?schedule_id=<schedule_id>`*
- 
- */
-@interface SchedulesListController: M3ListViewController
+/*** The datasource for SchedulesList *******************************************/
 
-@property (readonly) NSString* theater_id;
-@property (readonly) NSDictionary* theater;
-
-@property (readonly) NSString* movie_id;
-@property (readonly) NSDictionary* movie;
-
+@interface SchedulesListDataSource: M3TableViewDataSource
 @end
 
-@implementation SchedulesListController
+@implementation SchedulesListDataSource
 
--(NSString*)title
-{ 
-  return nil; 
-}
-
--(NSString*)theater_id
+-(id)initWithTheaterId: (id)theater_id 
+              andMovie: (id)movie_id
+                 onDay: (NSDate*)day
 {
-  return [self.url.to_url.params objectForKey: @"theater_id"];
-}
-
--(NSDictionary*)theater
-{
-  return [app.sqliteDB.theaters get: self.theater_id];
-}
-
--(NSDate*)day
-{
-  NSString* dayString = [self.url.to_url.params objectForKey: @"day"];
-  return dayString.to_number.to_date;
-}
-
--(NSDictionary*)movie
-{
-  return [app.sqliteDB.movies get: self.movie_id];
-}
-
--(NSString*)movie_id
-{
-  return [self.url.to_url.params objectForKey: @"movie_id"];
-}
-
--(void)reloadURL
-{
-  [self setRightButtonReloadAction];
+  self = [super initWithCellClass: @"ScheduleListCell"];
   
-  M3TableViewDataSource* dataSource = [M3DataSource schedulesByTheater: self.theater_id 
-                                                              andMovie: self.movie_id
-                                                                 onDay: [self day]];
-
-  // The "important" key defines the content of the top cell or the header view.
-                     
-  NSString* important = [self.url.to_url param: @"important"];
-  if(![important isEqualToString: @"movie"]) {
-    self.tableView.tableHeaderView = [M3ProfileView profileViewForTheater: self.theater];
+  M3AssertKindOf(day, NSDate);
+  if(!day) day = [NSDate today];
+  
+  //
+  // get all schedules for the theater and for the movie, and 
+  // remove all schedules, that are in the past.
+  NSArray* schedules = [
+    app.sqliteDB all: @"SELECT * FROM schedules WHERE theater_id=? AND movie_id=? AND time > ? ORDER BY time", 
+    theater_id, 
+    movie_id,
+    day
+  ];
+  
+  // group schedules by *day* into sectionsHash
+  NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
+    NSNumber* time = [schedule objectForKey:@"time"];
+    
+    time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
+    return [time.to_date stringWithFormat:@"dd.MM."];
+  }];
+  
+  NSArray* sectionsArray = [sectionsHash allValues];
+  sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
+    NSNumber* time1 = [schedules1.first objectForKey:@"time"];
+    NSNumber* time2 = [schedules2.first objectForKey:@"time"];
+    
+    return [time1 compare:time2];
+  }];
+  
+  for(NSArray* schedules in sectionsArray) {
+    M3AssertKindOf(schedules, NSArray);
+    NSNumber* time = [schedules.first objectForKey:@"time"];
+    [self addSection: schedules
+         withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"ccc dd. MMM"])];
   }
-  else {
-    [dataSource prependSection: _.array(@"MovieShortActionsCell")
-                   withOptions: nil];
-  }
-
-  self.dataSource = dataSource;
+  
+  return self;
 }
 
 @end
+
+/*** The datasource for ScheduleListCell *******************************************/
 
 @interface ScheduleListCell: M3TableViewCell
 @end
@@ -86,7 +63,7 @@
 
 -(id)init
 { 
-  self = [super initWithStyle: UITableViewCellStyleValue1]; 
+  self = [super initWithStyle: UITableViewCellStyleValue1];
   // self.textLabel.font = [UIFont boldSystemFontOfSize:14];
   
   return self;
@@ -109,13 +86,64 @@
 -(void)setKey: (NSDictionary*)schedule
 {
   [super setKey:schedule];
-
+  
   NSNumber* time = [schedule objectForKey: @"time"];
   
   NSString* textLabel = [time.to_date stringWithFormat: @"dd. MMM HH:mm"];
   self.textLabel.text = [textLabel withVersionString: [schedule objectForKey:@"version"]];
-
+  
   self.url = _.join(@"/schedules/actions?schedule_id=", [schedule objectForKey: @"_id"]);
+}
+
+@end
+
+/*** The SchedulesListController *******************************************/
+
+@interface SchedulesListController: M3ListViewController
+
+@end
+
+@implementation SchedulesListController
+
+-(NSString*)title
+{ 
+  return nil; 
+}
+
+-(void)reloadURL
+{
+  [self setRightButtonReloadAction];
+
+  id theater_id = [self.url.to_url.params objectForKey: @"theater_id"];
+  NSDictionary* theater = [app.sqliteDB.theaters get: theater_id];
+  theater_id =  [theater objectForKey:@"_id"];
+
+  id movie_id = [self.url.to_url.params objectForKey: @"movie_id"];
+  NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
+  movie_id =    [movie objectForKey:@"_id"];
+  
+  
+  NSString* day = [self.url.to_url.params objectForKey: @"day"];
+
+  M3TableViewDataSource* ds;
+  ds = [[SchedulesListDataSource alloc]initWithTheaterId: theater_id 
+                                                andMovie: movie_id
+                                                   onDay: day.to_number.to_date];
+
+  [ds addFallbackSectionIfNeeded];
+
+  // The "important" key defines the content of the top cell or the header view.
+                     
+  NSString* important = [self.url.to_url param: @"important"];
+  if(![important isEqualToString: @"movie"]) {
+    self.tableView.tableHeaderView = [M3ProfileView profileViewForTheater: theater];
+  }
+  else {
+    [ds prependSection: [NSArray arrayWithObject: @"MovieShortActionsCell"]
+           withOptions: nil];
+  }
+
+  self.dataSource = [ds autorelease];
 }
 
 @end
