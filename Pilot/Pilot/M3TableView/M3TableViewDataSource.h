@@ -28,6 +28,9 @@
 
 -(void)addSection: (NSArray*) keys;
 
+
+-(void)addFallbackSectionIfNeeded;
+
 /** 
  * Adds a section to the receiving data source.
  */

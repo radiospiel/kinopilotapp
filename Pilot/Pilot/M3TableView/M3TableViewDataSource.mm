@@ -40,6 +40,14 @@
   return [NSString stringWithFormat: @"<%@ @ 0x%08x: %d sections>", NSStringFromClass([self class]), self, self.sections.count];
 }
 
+-(void)addFallbackSectionIfNeeded
+{
+  if(self.sections.count > 0) return;
+  
+  NSArray* section = [NSArray arrayWithObjects: @"EmptyListCell", @"EmptyListUpdateActionCell", nil];
+  [self addSection: section];
+}
+
 -(void)addSection:(NSArray*) keys
 {
   [self addSection: keys withOptions: nil];
