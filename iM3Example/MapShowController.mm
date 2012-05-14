@@ -1,4 +1,16 @@
-#import "MapShowController.h"
+//
+//  MapShowController.mm
+
+#import "AppBase.h"
+#import <MapKit/MapKit.h>
+
+@interface MapShowController: UIViewController<MKMapViewDelegate> {
+  MKMapView *mapView;
+}
+
+@property (readonly,nonatomic) NSString* theater_id;
+
+@end
 
 @interface MapAnnotation: MKPointAnnotation
 
