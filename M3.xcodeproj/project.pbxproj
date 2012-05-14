@@ -37,7 +37,7 @@
 		9D4B7018145D5ECB00F1DBCE /* SchedulesActionsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D4B7017145D5ECB00F1DBCE /* SchedulesActionsController.mm */; };
 		9D4B701E145D7A6400F1DBCE /* share_schedule_email.html in Resources */ = {isa = PBXBuildFile; fileRef = 9D4B701D145D7A6400F1DBCE /* share_schedule_email.html */; };
 		9D4B7020145D92E800F1DBCE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D4B701F145D92E800F1DBCE /* MessageUI.framework */; };
-		9D5428F814E4085A00D9029F /* UserVoiceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D5428F714E4085A00D9029F /* UserVoiceController.mm */; };
+		9D5428F814E4085A00D9029F /* UserVoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D5428F714E4085A00D9029F /* UserVoiceController.m */; };
 		9D56161B142641A300D0A484 /* background-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D561574142641A300D0A484 /* background-dark.png */; };
 		9D56161C142641A300D0A484 /* background-light.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D561575142641A300D0A484 /* background-light.png */; };
 		9D56161D142641A300D0A484 /* background-striped.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D561576142641A300D0A484 /* background-striped.png */; };
@@ -136,7 +136,6 @@
 		9D0893A11452F6C600F64AC1 /* SchedulesListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SchedulesListController.mm; sourceTree = "<group>"; };
 		9D0893AF14542C2400F64AC1 /* DashboardController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DashboardController.mm; sourceTree = "<group>"; };
 		9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		9D10C3771437728300FE19C9 /* MapShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapShowController.h; sourceTree = "<group>"; };
 		9D10C3781437728300FE19C9 /* MapShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MapShowController.mm; sourceTree = "<group>"; };
 		9D10C37C143774A800FE19C9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		9D22402B155E88E0001A279E /* ame.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ame.xcodeproj; path = ame/ame.xcodeproj; sourceTree = "<group>"; };
@@ -168,7 +167,7 @@
 		9D4B701D145D7A6400F1DBCE /* share_schedule_email.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = share_schedule_email.html; sourceTree = "<group>"; };
 		9D4B701F145D92E800F1DBCE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
 		9D4D03D31476A36400C6F5EC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		9D5428F714E4085A00D9029F /* UserVoiceController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UserVoiceController.mm; sourceTree = "<group>"; };
+		9D5428F714E4085A00D9029F /* UserVoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserVoiceController.m; sourceTree = "<group>"; };
 		9D561574142641A300D0A484 /* background-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-dark.png"; sourceTree = "<group>"; };
 		9D561575142641A300D0A484 /* background-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-light.png"; sourceTree = "<group>"; };
 		9D561576142641A300D0A484 /* background-striped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-striped.png"; sourceTree = "<group>"; };
@@ -298,11 +297,10 @@
 				9D355F7814C0521800D5EE69 /* AppActionsController.m */,
 				9D412A3215614396007A069E /* AppShareController.m */,
 				9DFE5C141464319F0039F536 /* ActionController.mm */,
-				9D5428F714E4085A00D9029F /* UserVoiceController.mm */,
+				9D5428F714E4085A00D9029F /* UserVoiceController.m */,
 				9D0893AF14542C2400F64AC1 /* DashboardController.mm */,
 				9DFED725148BDA41000CE7B0 /* EmptyListCell.mm */,
 				9DE40644142CFC490089EAA9 /* InfoController.mm */,
-				9D10C3771437728300FE19C9 /* MapShowController.h */,
 				9D10C3781437728300FE19C9 /* MapShowController.mm */,
 				9D355F7414C04EE400D5EE69 /* MovieActionsController.mm */,
 				9DDF5D061431F74C001CAC28 /* MovieInfoCells.mm */,
@@ -684,7 +682,7 @@
 				9DC0A31914BF9544003FF7F7 /* ShareMovieController.mm in Sources */,
 				9D355F7514C04EE400D5EE69 /* MovieActionsController.mm in Sources */,
 				9D355F7914C0521800D5EE69 /* AppActionsController.m in Sources */,
-				9D5428F814E4085A00D9029F /* UserVoiceController.mm in Sources */,
+				9D5428F814E4085A00D9029F /* UserVoiceController.m in Sources */,
 				9DF8DB20155549C20041BDA5 /* MoviesCalendarController.mm in Sources */,
 				9DEDFFB0155BE1560031B8FE /* MoviesDescriptionController.mm in Sources */,
 				9D412A3315614397007A069E /* AppShareController.m in Sources */,
