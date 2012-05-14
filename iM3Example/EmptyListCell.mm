@@ -8,8 +8,9 @@
 
 #import "AppBase.h"
 
-@interface StaticListCell: M3TableViewCell
-@property (nonatomic,retain) TTTAttributedLabel* htmlView;
+@interface StaticListCell: M3TableViewCell {
+  TTTAttributedLabel* htmlView;
+}
 @property (nonatomic,retain) NSString* theTemplate;
 
 -(StaticListCell*)initWithTemplate:(NSString*)aTemplate;
@@ -17,7 +18,7 @@
 
 @implementation StaticListCell
 
-@synthesize htmlView, theTemplate;
+@synthesize theTemplate;
 
 +(void)initialize
 {
@@ -71,7 +72,7 @@
   [super layoutSubviews];
   
   CGSize sz = [self htmlViewSize];
-  self.htmlView.frame = CGRectMake(14, 7, sz.width, sz.height);
+  htmlView.frame = CGRectMake(14, 7, sz.width, sz.height);
 }
 
 - (CGFloat)wantsHeight
@@ -117,8 +118,6 @@
 
 @end
 
-#pragma mark -- specific implementations
-
 #pragma mark -- "No data for selection"
 
 @interface EmptyListCell: StaticListCell
@@ -160,35 +159,6 @@
   NSString* tmpl = @"<h2><b>Lieblingskinos?</b></h2>"
   "<p></p>"
   "<p>Hier siehst Du immer alle Deine Lieblingskinos. Um ein Kino vorzumerken, aktiviere den Stern in der Kinoübersicht.</p>"
-  "<p></p>";
-  
-  return [super initWithTemplate: tmpl];
-}
-@end
-
-#pragma mark -- No location read, yet.
-
-@interface NoLocationCell: StaticListCell
-@end
-
-@implementation NoLocationCell
-
--(id)init {
-  return [super initWithTemplate: @""];
-}
-@end
-
-#pragma mark -- No location read, yet.
-
-@interface LocationErrorCell: StaticListCell
-@end
-
-@implementation LocationErrorCell
-
--(id)init {
-  NSString* tmpl = @"<h2><b>Keine Position verfügbar!</b></h2>"
-  "<p></p>"
-  "<p>Falls Du Kinopilot keinen Zugriff auf Deine Location gestattet hast, ist dise Funktion nicht verfügbar. In dem Fall kannst Du das in den Einstellungen Deines Geräts nachträglich ändern.</p>"
   "<p></p>";
   
   return [super initWithTemplate: tmpl];
