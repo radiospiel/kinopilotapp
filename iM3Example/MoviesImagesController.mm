@@ -209,7 +209,7 @@
                                    action:@selector(popNavigationController) 
                          forControlEvents:UIControlEventTouchUpInside];
 
-  self.view = moviesImagesView;
+  self.view = [moviesImagesView autorelease];
 }
 
 -(NSString*)title
