@@ -19,13 +19,14 @@
 		9D232740155ADD90002D5192 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D23273F155ADD90002D5192 /* Default@2x.png */; };
 		9D23274B155B00B7002D5192 /* io.socially.kinopilot-flk.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D23274A155B00B7002D5192 /* io.socially.kinopilot-flk.bundle */; };
 		9D355F7514C04EE400D5EE69 /* MovieActionsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D355F7414C04EE400D5EE69 /* MovieActionsController.mm */; };
-		9D355F7914C0521800D5EE69 /* AppActionsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D355F7814C0521800D5EE69 /* AppActionsController.mm */; };
+		9D355F7914C0521800D5EE69 /* AppActionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D355F7814C0521800D5EE69 /* AppActionsController.m */; };
 		9D355F7B14C0544D00D5EE69 /* share_app_email.html in Resources */ = {isa = PBXBuildFile; fileRef = 9D355F7A14C0544D00D5EE69 /* share_app_email.html */; };
 		9D3813901469A2DB00E4BBF4 /* MoviesTrailerController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D38138F1469A2DB00E4BBF4 /* MoviesTrailerController.mm */; };
 		9D3813931469A6E400E4BBF4 /* libBrightcovePlayerKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3813921469A6E400E4BBF4 /* libBrightcovePlayerKit.a */; };
 		9D3813951469A71600E4BBF4 /* libBrightcoveMediaAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3813941469A71600E4BBF4 /* libBrightcoveMediaAPI.a */; };
 		9D3813971469A73C00E4BBF4 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3813961469A73C00E4BBF4 /* MediaPlayer.framework */; };
 		9D3B086A142A1A0100322C00 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3B0869142A1A0100322C00 /* libicucore.dylib */; };
+		9D412A3315614397007A069E /* AppShareController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D412A3215614396007A069E /* AppShareController.m */; };
 		9D4368F6148981EC00E14CCB /* SearchController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D4368F21489805A00E14CCB /* SearchController.mm */; };
 		9D48ACB9141E9E3E00D0D000 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01743A141AA6F10035A4C2 /* UIKit.framework */; };
 		9D48ACBA141E9E3E00D0D000 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D01742B141AA6F10035A4C2 /* Foundation.framework */; };
@@ -149,7 +150,7 @@
 		9D23274A155B00B7002D5192 /* io.socially.kinopilot-flk.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "io.socially.kinopilot-flk.bundle"; path = "config/io.socially.kinopilot-flk.bundle"; sourceTree = "<group>"; };
 		9D29B14A14A4B0E8001DF310 /* Dashboard.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Dashboard.bundle; sourceTree = "<group>"; };
 		9D355F7414C04EE400D5EE69 /* MovieActionsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MovieActionsController.mm; sourceTree = "<group>"; };
-		9D355F7814C0521800D5EE69 /* AppActionsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppActionsController.mm; sourceTree = "<group>"; };
+		9D355F7814C0521800D5EE69 /* AppActionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppActionsController.m; sourceTree = "<group>"; };
 		9D355F7A14C0544D00D5EE69 /* share_app_email.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = share_app_email.html; sourceTree = "<group>"; };
 		9D38138F1469A2DB00E4BBF4 /* MoviesTrailerController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesTrailerController.mm; sourceTree = "<group>"; };
 		9D3813921469A6E400E4BBF4 /* libBrightcovePlayerKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBrightcovePlayerKit.a; path = "vendor/bc-ipad-iphone-kit-2.1/lib/libBrightcovePlayerKit.a"; sourceTree = "<group>"; };
@@ -157,6 +158,7 @@
 		9D3813961469A73C00E4BBF4 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		9D3B0867142A19F700322C00 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		9D3B0869142A1A0100322C00 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/usr/lib/libicucore.dylib; sourceTree = DEVELOPER_DIR; };
+		9D412A3215614396007A069E /* AppShareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppShareController.m; sourceTree = "<group>"; };
 		9D4368F21489805A00E14CCB /* SearchController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchController.mm; sourceTree = "<group>"; };
 		9D48ACB7141E9E3E00D0D000 /* Kinopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kinopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D48ACBB141E9E3E00D0D000 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
@@ -297,6 +299,8 @@
 		9D48ACBD141E9E3E00D0D000 /* iM3Example */ = {
 			isa = PBXGroup;
 			children = (
+				9D355F7814C0521800D5EE69 /* AppActionsController.m */,
+				9D412A3215614396007A069E /* AppShareController.m */,
 				9DFE5C141464319F0039F536 /* ActionController.mm */,
 				9D5428F714E4085A00D9029F /* UserVoiceController.mm */,
 				9D0893AF14542C2400F64AC1 /* DashboardController.mm */,
@@ -328,7 +332,6 @@
 				9D5A96D014200FB6000104CA /* WebViewController.h */,
 				9D5A96D114200FB7000104CA /* WebViewController.mm */,
 				9DA5DD4414326E120003B54A /* WebViewController.xib */,
-				9D355F7814C0521800D5EE69 /* AppActionsController.mm */,
 				9D23274A155B00B7002D5192 /* io.socially.kinopilot-flk.bundle */,
 				9DE94F27155AD805006BEFB3 /* com.radiospiel.kinopilot.bundle */,
 				9D48ACBE141E9E3E00D0D000 /* Supporting Files */,
@@ -688,10 +691,11 @@
 				9DC0A30E14BF829F003FF7F7 /* ShareScheduleController.mm in Sources */,
 				9DC0A31914BF9544003FF7F7 /* ShareMovieController.mm in Sources */,
 				9D355F7514C04EE400D5EE69 /* MovieActionsController.mm in Sources */,
-				9D355F7914C0521800D5EE69 /* AppActionsController.mm in Sources */,
+				9D355F7914C0521800D5EE69 /* AppActionsController.m in Sources */,
 				9D5428F814E4085A00D9029F /* UserVoiceController.mm in Sources */,
 				9DF8DB20155549C20041BDA5 /* MoviesCalendarController.mm in Sources */,
 				9DEDFFB0155BE1560031B8FE /* MoviesDescriptionController.mm in Sources */,
+				9D412A3315614397007A069E /* AppShareController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
