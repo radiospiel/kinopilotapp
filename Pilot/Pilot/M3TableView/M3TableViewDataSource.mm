@@ -73,12 +73,16 @@ static NSString* legacyIndexKey(NSDictionary* dict)
   return [NSString stringWithFormat: @"<%@ @ 0x%08x: %d sections>", NSStringFromClass([self class]), self, self.sections.count];
 }
 
--(void)addFallbackSectionIfNeeded
+-(void)addFallbackSectionIfNeeded: (NSString*)cells
 {
   if(self.sections.count > 0) return;
   
-  NSArray* section = [NSArray arrayWithObjects: @"EmptyListCell", @"EmptyListUpdateActionCell", nil];
-  [self addSection: section];
+  [self addSection: [cells componentsSeparatedByString:@","]];
+}
+
+-(void)addFallbackSectionIfNeeded
+{
+  [self addFallbackSectionIfNeeded: @"EmptyListCell,EmptyListUpdateActionCell"];
 }
 
 -(void)addSection:(NSArray*) keys

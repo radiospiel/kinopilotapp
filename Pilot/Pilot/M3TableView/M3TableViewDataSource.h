@@ -31,6 +31,7 @@
 
 
 -(void)addFallbackSectionIfNeeded;
+-(void)addFallbackSectionIfNeeded: (NSString*)cells;
 
 /** 
  * Adds a section to the receiving data source.
