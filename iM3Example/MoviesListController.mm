@@ -8,29 +8,172 @@
 
 #import "AppBase.h"
 
-/*
- 
- ## Movie List
- 
- - /movies/list?filter=<filter> show a list of movies matching the filter 
- criteria. A click on a movie shows a Theater List showing that movie, 
- under /theaters/list?movie_id=<movie_id>
- 
- - /movies/list?theater_id=<theater_id> show a list of movies playing in 
- the specific theater, grouped by day. The header view contains a theater 
- short info cell, which, amongst others, contains a link to a map 
- highlighting the  theater, i.e. /map/show?theater_id=<theater_id>
- 
- A click on a movie shows all play times of the movie in the theater, 
- under /schedules/list?theater_id=<theater_id>&movie_id=<movie_id>
- 
- */
 @interface MoviesListController: M3ListViewController
 
 @property (readonly) NSString* theater_id;
 @property (readonly) NSDictionary* theater;
 
 @end
+
+/*** Data sources for MoviesListController ************************************/
+
+@interface MoviesListDataSource: M3TableViewDataSource
+@end
+
+@implementation MoviesListDataSource
+
+-(id)initWithFilter:(NSString*)filter
+{
+  self = [super initWithCellClass: @"MoviesListCell"]; 
+  
+  // --- fetch movies ----------------------------------------------------------
+
+  NSArray* movies;
+  
+  if([filter isEqualToString:@"new"]) {
+    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+    NSTimeInterval two_weeks_ago = now - 14 * 24 * 3600;
+    
+    movies = [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image, movies.sortkey FROM movies "
+              "INNER JOIN schedules ON schedules.movie_id=movies._id "
+              "INNER JOIN theaters ON schedules.theater_id=theaters._id "
+              "WHERE schedules.time > ? AND cinema_start_date > ? "
+              "GROUP BY movies._id ",
+              [NSDate today],
+              [NSNumber numberWithInt: two_weeks_ago] 
+              ];
+  }
+  else if([filter isEqualToString:@"art"]) {
+    movies = [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image, movies.sortkey FROM movies "
+              "INNER JOIN schedules ON schedules.movie_id=movies._id "
+              "INNER JOIN theaters ON schedules.theater_id=theaters._id "
+              "WHERE schedules.time > ? AND production_year < 1995 "
+              "GROUP BY movies._id ",
+              [NSDate today]
+              ];
+  }
+  else {
+    movies = [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image, movies.sortkey FROM movies "
+              "INNER JOIN schedules ON schedules.movie_id=movies._id  "
+              "INNER JOIN theaters ON schedules.theater_id=theaters._id "
+              "WHERE schedules.time > ? "
+              "GROUP BY movies._id ",
+              [NSDate today]
+              ];
+  }
+
+  // --- group movies ----------------------------------------------------------
+
+  if(movies.count > 0) {
+    NSDictionary* groupedHash = [movies groupUsingBlock:^id(NSDictionary* movie) {
+      // The movie_id is "m-<sortkey>", and the first character of the sortkey
+      // "makes sense" for the index: this should be the first relevant 
+      // letter from the movie title.
+      return [M3TableViewDataSource indexKey: movie];
+    }];
+    
+    NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
+    
+    for(NSArray* group in groups) {
+      [self addSection: group.second 
+           withOptions:_.hash(@"header", group.first, 
+                              @"index", group.first)];
+    }
+  }
+  
+  return self;
+}
+
+@end
+
+/**** MoviesListFilteredByTheaterDataSource **********************************/
+
+@interface MoviesListFilteredByTheaterDataSource: M3TableViewDataSource
+@end
+
+@implementation MoviesListFilteredByTheaterDataSource
+
+-(void)addSchedulesSection: (NSArray*)schedules
+{
+  NSArray* groupedByMovieId = [[schedules groupUsingKey:@"movie_id"] allValues];
+  groupedByMovieId = [groupedByMovieId sortByBlock:^id(NSArray* schedules) {
+    M3AssertKindOf(schedules, NSArray);
+    return [schedules.first objectForKey:@"movie_id"];
+  }];
+  
+  NSMutableArray* cellKeys = [NSMutableArray array];
+  for(NSArray* schedules in groupedByMovieId) {
+    schedules = [schedules sortByKey:@"movie_id"];
+    
+    NSDictionary* schedule = schedules.first;
+    [cellKeys addObject: _.hash(@"movie_id", [schedule objectForKey:@"movie_id"], 
+                                @"title", [schedule objectForKey:@"title"], 
+                                @"image", [schedule objectForKey:@"image"], 
+                                @"schedules", schedules)
+     ];
+  }
+  
+  NSNumber* time = [schedules.first objectForKey:@"time"];
+  time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
+  
+  [self addSection: cellKeys 
+       withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"ccc dd. MMM"])];
+}
+
+-(id)initWithTheaterFilter: (id)theater_id
+{
+  self = [super initWithCellClass: @"MoviesListFilteredByTheaterCell"]; 
+  
+  NSDictionary* theaters = [app.sqliteDB.theaters get: theater_id];
+  theater_id = [theaters objectForKey:@"_id"];
+  
+  //
+  // get all live schedules for the theater
+  NSArray* schedules = [
+                        app.sqliteDB all: @"SELECT schedules.*, movies.title, movies.image "
+                        "FROM schedules "
+                        "INNER JOIN movies ON movies._id=schedules.movie_id "
+                        "WHERE theater_id=? AND time>?", 
+                        theater_id, 
+                        [NSDate today]
+                        ];
+  
+  if(schedules.count == 0) return self;
+  
+  if(app.isFlk) {
+    schedules = [schedules sortByBlock:^id(NSDictionary* dict) {
+      return [dict objectForKey:@"time"];
+    }];
+    [self addSection: schedules];
+  }
+  else {
+    // group schedules by *day* into sectionsHash
+    NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
+      NSNumber* time = [schedule objectForKey:@"time"];
+      
+      time = [NSNumber numberWithInt: time.to_i - 6 * 2400];
+      return [time.to_date stringWithFormat:@"dd.MM."];
+    }];
+    
+    NSArray* sectionsArray = [sectionsHash allValues];
+    sectionsArray = [sectionsArray sortedArrayUsingComparator:^NSComparisonResult(NSArray* schedules1, NSArray* schedules2) {
+      NSNumber* time1 = [schedules1.first objectForKey:@"time"];
+      NSNumber* time2 = [schedules2.first objectForKey:@"time"];
+      
+      return [time1 compare:time2];
+    }];
+    
+    for(NSArray* schedules in sectionsArray) {
+      M3AssertKindOf(schedules, NSArray);
+      [self addSchedulesSection: schedules];
+    }
+  }
+  
+  return self;
+}
+
+@end
+
 
 /*** A cell for the MoviesListCell *******************************************/
 
@@ -66,8 +209,6 @@
 
 @end
 
-/*** A cell for the MoviesListCell *******************************************/
-
 /*
  * This cell is either filtered by movie_id and theater_id, or only by the
  * movie_id.
@@ -77,34 +218,6 @@
 @end
 
 @implementation MoviesListFilteredByTheaterCell
-
-//
-// Example key
-//
-// 
-//  {
-//  "movie_id": "m-keinsexistauchkeinelosung",
-//  "schedules": [
-//                {
-//                  "_id": "-jPSTvdgn5rg",
-//                  "movie_id": "m-keinsexistauchkeinelosung",
-//                  "theater_id": "c-alhambra",
-//                  "time": 1323103500,
-//                  "title": "Kein Sex ist auch keine Lösung",
-//                  "version": null
-//                },
-//                {
-//                  "_id": "-mr6wZc8nxLc",
-//                  "movie_id": "m-keinsexistauchkeinelosung",
-//                  "theater_id": "c-alhambra",
-//                  "time": 1323112500,
-//                  "title": "Kein Sex ist auch keine Lösung",
-//                  "version": null
-//                }
-//                ],
-//  "title": "Kein Sex ist auch keine Lösung"
-//}
-
 
 -(NSArray*)schedules
 {
@@ -204,19 +317,21 @@
 {
   NSDictionary* params = self.url.to_url.params;
 
+  M3TableViewDataSource* ds;
+  
   if(self.theater_id) {
     [self setRightButtonReloadAction];
     
-    self.dataSource = [M3DataSource moviesListFilteredByTheater:[params objectForKey: @"theater_id"]]; 
+    ds = [[MoviesListFilteredByTheaterDataSource alloc]initWithTheaterFilter:[params objectForKey: @"theater_id"]];
     self.tableView.tableHeaderView = [M3ProfileView profileViewForTheater: self.theater]; 
   }
   else {
     NSString* filter = [params objectForKey: @"filter"];
-    if(!filter) filter = @"all";
-    self.dataSource = [M3DataSource moviesListWithFilter: filter];
-
+    ds = [[MoviesListDataSource alloc]initWithFilter: filter];
     [self setSearchBarEnabled: YES];
   }
+  
+  self.dataSource = [ds autorelease];
 }
 
 @end

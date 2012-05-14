@@ -33,17 +33,20 @@
   }
   
   if(app.isKinopilot) {
-    NSString* sql = @"SELECT theaters._id, theaters.name FROM theaters "
-    "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
-    "LEFT JOIN movies ON schedules.movie_id=movies._id "
-    "GROUP BY theaters._id ";
+    NSString* sql;
     
     if([filter isEqualToString:@"fav"]) {
-      sql = @"SELECT theaters._id, theaters.name FROM theaters "
-      "INNER JOIN flags ON flags.key_id=theaters._id "
-      "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
-      "LEFT JOIN movies ON schedules.movie_id=movies._id "
-      "GROUP BY theaters._id ";
+      sql =  @"SELECT theaters._id, theaters.name FROM theaters "
+              "INNER JOIN flags ON flags.key_id=theaters._id "
+              "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
+              "LEFT JOIN movies ON schedules.movie_id=movies._id "
+              "GROUP BY theaters._id ";
+    }
+    else {
+      sql =  @"SELECT theaters._id, theaters.name FROM theaters "
+              "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
+              "LEFT JOIN movies ON schedules.movie_id=movies._id "
+              "GROUP BY theaters._id ";
     }
     
     NSArray* theaters = [app.sqliteDB all: sql];
@@ -113,11 +116,9 @@
   
   //
   // get all schedules for the theater
-  NSArray* schedules = [
-                        app.sqliteDB all: @"SELECT * FROM schedules WHERE movie_id=? AND time>?", 
-                        movie_id,
-                        [NSDate today]
-                        ];
+  NSArray* schedules;
+  schedules = [ app.sqliteDB all: @"SELECT * FROM schedules WHERE movie_id=? AND time>?", 
+                                  movie_id, [NSDate today] ];
   
   //
   // build sections by date, and combine schedules 
@@ -371,8 +372,6 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
   else {
     NSDictionary* params = self.url.to_url.params;
     NSString* filter = [params objectForKey: @"filter"];
-    if(!filter) filter = @"all";
-    
     ds = [[TheatersListDataSource alloc]initWithFilter: filter];
   }
 
