@@ -7,7 +7,7 @@
 
 @interface MovieInfoCell: M3TableViewCell
 
-@property (nonatomic,readonly) NSDictionary* movie;
+@property (nonatomic,retain) NSDictionary* movie;
 @property (nonatomic,readonly) NSString* movie_id;
 
 @property (nonatomic,readonly) NSString* imdbURL;
@@ -18,9 +18,12 @@
 
 @implementation MovieInfoCell
 
--(NSDictionary*)movie
-{ 
-  return [self.tableViewController performSelector:@selector(movie)];
+@synthesize movie;
+
+-(void)setKey: (id)key
+{
+  self.movie = [app.sqliteDB.movies get: key];
+  [super setKey: key];
 }
 
 -(NSString*)movie_id

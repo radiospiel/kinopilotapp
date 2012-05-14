@@ -13,20 +13,23 @@
 
 @implementation MoviesShowControllerDataSource
 
--(id)init
+-(id)initWithMovieId: (id)movie_id
 {
   self = [super init];
-  [self addSection: _.array(@"MovieActionsCell",  
-                            @"MovieInCinemasCell", @"MovieRatingCell", 
-                            @"MovieTrailerCell",
-                            @"MoviePersonsCell", @"MovieDescriptionCell")];
+  
+  [self addCellOfClass: @"MovieActionsCell"     withKey: movie_id];
+  [self addCellOfClass: @"MovieInCinemasCell"   withKey: movie_id];
+  [self addCellOfClass: @"MovieRatingCell"      withKey: movie_id];
+  [self addCellOfClass: @"MovieTrailerCell"     withKey: movie_id];
+  [self addCellOfClass: @"MoviePersonsCell"     withKey: movie_id];
+  [self addCellOfClass: @"MovieDescriptionCell" withKey: movie_id];
   
   return self;
 }
 
--(id) cellClassForKey: (id)key
+-(id) cellClassForKey: (NSArray*)key
 { 
-  return key; 
+  return key.first; 
 }
 
 @end
@@ -49,7 +52,7 @@
   
   self.movie = [app.sqliteDB.movies get: movie_id];
 
-  self.dataSource = [[[MoviesShowControllerDataSource alloc]init]autorelease];
+  self.dataSource = [[[MoviesShowControllerDataSource alloc]initWithMovieId: movie_id]autorelease];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

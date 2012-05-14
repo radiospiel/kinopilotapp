@@ -23,6 +23,12 @@
 
 -(id)initWithCellClass: (id)cellClass;
 
+-(void)prependCellOfClass: (id)klass
+                  withKey: (id)key;
+
+-(void)addCellOfClass: (id)klass
+              withKey: (id)key;
+
 /** 
  * Adds a section to the receiving data source.
  */

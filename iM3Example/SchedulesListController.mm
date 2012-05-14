@@ -139,8 +139,7 @@
     self.tableView.tableHeaderView = [M3ProfileView profileViewForTheater: theater];
   }
   else {
-    [ds prependSection: [NSArray arrayWithObject: @"MovieShortActionsCell"]
-           withOptions: nil];
+    [ds prependCellOfClass: @"MovieShortActionsCell" withKey: movie_id]; 
   }
 
   self.dataSource = [ds autorelease];

@@ -145,7 +145,7 @@
     [self addSchedulesSection: schedules];
   }
   
-  [self prependSection:_.array(@"MovieShortActionsCell") withOptions:nil];
+  [self prependCellOfClass: @"MovieShortActionsCell" withKey: movie_id];
   
   return self;
 }

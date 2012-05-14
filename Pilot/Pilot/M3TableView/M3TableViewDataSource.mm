@@ -126,6 +126,21 @@ static NSString* legacyIndexKey(NSDictionary* dict)
                            withObject: newSection]; 
 }
 
+-(void)prependCellOfClass: (id)klass
+                  withKey: (id)key;
+{
+  NSArray* entry = [NSArray arrayWithObjects: klass, key, nil];
+  [self prependSection:[NSArray arrayWithObject: entry] 
+           withOptions:nil];
+}
+
+-(void)addCellOfClass: (id)klass
+              withKey: (id)key;
+{
+  NSArray* entry = [NSArray arrayWithObjects: klass, key, nil];
+  [self addSection:[NSArray arrayWithObject: entry]
+       withOptions:nil];
+}
 
 #pragma mark - Filtering
 
@@ -190,21 +205,42 @@ static NSString* legacyIndexKey(NSDictionary* dict)
 
 #pragma mark - UITableViewDataSource customization
 
+-(Class) cellValueForKey: (id)key
+{
+  if([key isKindOfClass:[NSArray class]])
+    return [key objectAtIndex:1];
+  
+  return key;
+}
+
 -(Class) cellClassForKey: (id)key
 {
-  if([key isEqual: @"MovieShortInfoCell"])
-    return @"MovieShortInfoCell".to_class;
+  if([key isKindOfClass:[NSString class]]) {
+    Class klass = [key to_class];
+    if(klass) return klass;
+  }
 
-  if([key isEqual: @"MovieActionsCell"])
-    return @"MovieActionsCell".to_class;
-
-  if([key isEqual: @"MovieShortActionsCell"])
-    return @"MovieShortActionsCell".to_class;
+  if([key isKindOfClass:[NSArray class]]) {
+    NSArray* ary = (NSArray*)key;
+    if([ary.first isKindOfClass:[NSString class]]) {
+      Class klass = [ary.first to_class];
+      if(klass) return klass;
+    }
+  }
 
   if(cellClass_)
     return cellClass_;
   
   return [M3TableViewCell class];
+}
+
+-(Class)loadCellClassForKey: (id)key
+{
+  Class klass = [self cellClassForKey:key];
+  if([klass respondsToSelector: @selector(to_class)])
+    return [klass to_class];
+  
+  return klass;
 }
 
 #pragma mark - UITableViewDataSource implementations: sections, indices
@@ -259,16 +295,10 @@ static NSString* legacyIndexKey(NSDictionary* dict)
   return [section.first objectAtIndex:indexPath.row];
 }
 
--(Class) cellClassForRowAtIndexPath: (NSIndexPath*)indexPath
-{
-  id key = [self keyForRowAtIndexPath:indexPath];
-  id klass = [self cellClassForKey:key];
-  return [klass respondsToSelector: @selector(to_class)] ? [klass to_class] : klass;
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  Class klass = [self cellClassForRowAtIndexPath: indexPath];
+  id key = [self keyForRowAtIndexPath:indexPath];
+  Class klass = [self loadCellClassForKey:key];
   
   CGFloat height = [klass fixedHeight]; 
   if(height) return height;
@@ -277,9 +307,11 @@ static NSString* legacyIndexKey(NSDictionary* dict)
   return [cell wantsHeight];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView 
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  Class klass = [self cellClassForRowAtIndexPath: indexPath];
+  id key = [self keyForRowAtIndexPath: indexPath];
+  Class klass = [self loadCellClassForKey: key];
   NSString* klassName = NSStringFromClass(klass);
   
   // get a reusable or create a new table cell
@@ -292,7 +324,7 @@ static NSString* legacyIndexKey(NSDictionary* dict)
   [cell setTableViewController: self.controller];
   
   cell.indexPath = indexPath;
-  cell.key = [self keyForRowAtIndexPath: indexPath];
+  cell.key = [self cellValueForKey: key];
   
   return cell;
 }
