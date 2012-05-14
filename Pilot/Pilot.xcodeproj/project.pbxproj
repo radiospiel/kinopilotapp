@@ -34,8 +34,6 @@
 		9DA80251156029EF004AA9F3 /* M3AppDelegate+SqliteDB.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80235156029EF004AA9F3 /* M3AppDelegate+SqliteDB.mm */; };
 		9DA80252156029EF004AA9F3 /* M3AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA80236156029EF004AA9F3 /* M3AppDelegate.h */; };
 		9DA80253156029EF004AA9F3 /* M3AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80237156029EF004AA9F3 /* M3AppDelegate.mm */; };
-		9DA80254156029EF004AA9F3 /* M3DataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA80238156029EF004AA9F3 /* M3DataSource.h */; };
-		9DA80255156029EF004AA9F3 /* M3DataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80239156029EF004AA9F3 /* M3DataSource.mm */; };
 		9DA80256156029EF004AA9F3 /* M3ListViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8023A156029EF004AA9F3 /* M3ListViewController.h */; };
 		9DA80257156029EF004AA9F3 /* M3ListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA8023B156029EF004AA9F3 /* M3ListViewController.mm */; };
 		9DA80258156029EF004AA9F3 /* M3ProfileView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8023C156029EF004AA9F3 /* M3ProfileView.h */; };
@@ -123,8 +121,6 @@
 		9DA80235156029EF004AA9F3 /* M3AppDelegate+SqliteDB.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+SqliteDB.mm"; sourceTree = "<group>"; };
 		9DA80236156029EF004AA9F3 /* M3AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3AppDelegate.h; sourceTree = "<group>"; };
 		9DA80237156029EF004AA9F3 /* M3AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3AppDelegate.mm; sourceTree = "<group>"; };
-		9DA80238156029EF004AA9F3 /* M3DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M3DataSource.h; path = Pilot/M3DataSource.h; sourceTree = "<group>"; };
-		9DA80239156029EF004AA9F3 /* M3DataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = M3DataSource.mm; path = Pilot/M3DataSource.mm; sourceTree = "<group>"; };
 		9DA8023A156029EF004AA9F3 /* M3ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M3ListViewController.h; path = Pilot/M3ListViewController.h; sourceTree = "<group>"; };
 		9DA8023B156029EF004AA9F3 /* M3ListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = M3ListViewController.mm; path = Pilot/M3ListViewController.mm; sourceTree = "<group>"; };
 		9DA8023C156029EF004AA9F3 /* M3ProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M3ProfileView.h; path = Pilot/M3ProfileView.h; sourceTree = "<group>"; };
@@ -344,8 +340,6 @@
 			children = (
 				9DA8022C156029EF004AA9F3 /* M3ActionSheetController.h */,
 				9DA8022D156029EF004AA9F3 /* M3ActionSheetController.mm */,
-				9DA80238156029EF004AA9F3 /* M3DataSource.h */,
-				9DA80239156029EF004AA9F3 /* M3DataSource.mm */,
 				9DA8023A156029EF004AA9F3 /* M3ListViewController.h */,
 				9DA8023B156029EF004AA9F3 /* M3ListViewController.mm */,
 				9DA8023C156029EF004AA9F3 /* M3ProfileView.h */,
@@ -373,7 +367,6 @@
 				9DA8022A15602890004AA9F3 /* Pilot.h in Headers */,
 				9DA80249156029EF004AA9F3 /* M3ActionSheetController.h in Headers */,
 				9DA80252156029EF004AA9F3 /* M3AppDelegate.h in Headers */,
-				9DA80254156029EF004AA9F3 /* M3DataSource.h in Headers */,
 				9DA80256156029EF004AA9F3 /* M3ListViewController.h in Headers */,
 				9DA80258156029EF004AA9F3 /* M3ProfileView.h in Headers */,
 				9DA8025A156029EF004AA9F3 /* M3TableViewCell.h in Headers */,
@@ -463,7 +456,6 @@
 				9DA80250156029EF004AA9F3 /* M3AppDelegate+RemoteNotifications.mm in Sources */,
 				9DA80251156029EF004AA9F3 /* M3AppDelegate+SqliteDB.mm in Sources */,
 				9DA80253156029EF004AA9F3 /* M3AppDelegate.mm in Sources */,
-				9DA80255156029EF004AA9F3 /* M3DataSource.mm in Sources */,
 				9DA80257156029EF004AA9F3 /* M3ListViewController.mm in Sources */,
 				9DA80259156029EF004AA9F3 /* M3ProfileView.mm in Sources */,
 				9DA8025B156029EF004AA9F3 /* M3TableViewCell.mm in Sources */,
@@ -574,7 +566,7 @@
 				9DA801D015602510004AA9F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		9DA801D115602510004AA9F3 /* Build configuration list for PBXNativeTarget "Pilot" */ = {
 			isa = XCConfigurationList;
@@ -583,6 +575,7 @@
 				9DA801D315602510004AA9F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
