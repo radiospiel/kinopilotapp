@@ -219,8 +219,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/YAML.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "YAML/YAML-Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = "../vendor/YAML.framework/yaml-0.1.4/**";
 				OTHER_CFLAGS = "-DHAVE_CONFIG_H=1";
 				OTHER_LDFLAGS = "-ObjC";
@@ -233,8 +233,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/YAML.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "YAML/YAML-Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = "../vendor/YAML.framework/yaml-0.1.4/**";
 				OTHER_CFLAGS = "-DHAVE_CONFIG_H=1";
 				OTHER_LDFLAGS = "-ObjC";
