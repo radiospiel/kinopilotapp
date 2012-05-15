@@ -46,6 +46,18 @@
 
   } 
 
+  // -- The configuration bundle, lives in $app/config.bundle
+
+  if([name isEqualToString: @"$config"]) {
+    NSString* documentsDirectory = [ self dirname: [ self symbolicDir: @"$documents" ] ];
+    
+    NSArray* matchingDirectory = [ NSArray arrayWithFilesMatchingPattern: @"*.app" inDirectory: documentsDirectory ];
+    if([matchingDirectory count] == 1) {
+      NSString* appDir = [matchingDirectory objectAtIndex: 0];
+      return [appDir stringByAppendingString: @"/config.bundle"];
+    }
+  } 
+  
   @throw [@"*** Unknown key'" stringByAppendingString: name];
   
   return nil;
