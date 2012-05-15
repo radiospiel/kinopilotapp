@@ -18,7 +18,6 @@
 		9D6FD8D015628AE60059AD79 /* ActionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD86215628AE60059AD79 /* ActionController.mm */; };
 		9D6FD8D115628AE60059AD79 /* AppActionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD86515628AE60059AD79 /* AppActionsController.m */; };
 		9D6FD8D215628AE60059AD79 /* AppShareController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD86715628AE60059AD79 /* AppShareController.m */; };
-		9D6FD8D515628AE60059AD79 /* io.socially.kinopilot-flk.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D6FD86B15628AE60059AD79 /* io.socially.kinopilot-flk.bundle */; };
 		9D6FD8D615628AE60059AD79 /* DashboardController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD86C15628AE60059AD79 /* DashboardController.mm */; };
 		9D6FD8D715628AE60059AD79 /* EmptyListCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD86D15628AE60059AD79 /* EmptyListCell.mm */; };
 		9D6FD8DA15628AE60059AD79 /* InfoController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD87215628AE60059AD79 /* InfoController.mm */; };
@@ -93,6 +92,7 @@
 		9D6FD9AF156292400059AD79 /* share_app_email.html in Resources */ = {isa = PBXBuildFile; fileRef = 9D6FD970156292400059AD79 /* share_app_email.html */; };
 		9D6FD9B0156292400059AD79 /* share_movie_email.html in Resources */ = {isa = PBXBuildFile; fileRef = 9D6FD971156292400059AD79 /* share_movie_email.html */; };
 		9D6FD9B1156292400059AD79 /* share_schedule_email.html in Resources */ = {isa = PBXBuildFile; fileRef = 9D6FD972156292400059AD79 /* share_schedule_email.html */; };
+		9D6FDB531562E2080059AD79 /* config.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D6FDB521562E2080059AD79 /* config.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,7 +122,6 @@
 		9D6FD86515628AE60059AD79 /* AppActionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppActionsController.m; sourceTree = "<group>"; };
 		9D6FD86615628AE60059AD79 /* AppBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppBase.h; sourceTree = "<group>"; };
 		9D6FD86715628AE60059AD79 /* AppShareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppShareController.m; sourceTree = "<group>"; };
-		9D6FD86B15628AE60059AD79 /* io.socially.kinopilot-flk.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "io.socially.kinopilot-flk.bundle"; path = "../Shared/config/io.socially.kinopilot-flk.bundle"; sourceTree = "<group>"; };
 		9D6FD86C15628AE60059AD79 /* DashboardController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DashboardController.mm; sourceTree = "<group>"; };
 		9D6FD86D15628AE60059AD79 /* EmptyListCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EmptyListCell.mm; sourceTree = "<group>"; };
 		9D6FD87215628AE60059AD79 /* InfoController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InfoController.mm; sourceTree = "<group>"; };
@@ -201,6 +200,7 @@
 		9D6FD970156292400059AD79 /* share_app_email.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = share_app_email.html; sourceTree = "<group>"; };
 		9D6FD971156292400059AD79 /* share_movie_email.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = share_movie_email.html; sourceTree = "<group>"; };
 		9D6FD972156292400059AD79 /* share_schedule_email.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = share_schedule_email.html; sourceTree = "<group>"; };
+		9D6FDB521562E2080059AD79 /* config.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = config.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,9 +238,9 @@
 			isa = PBXGroup;
 			children = (
 				9D6FD84E15628A240059AD79 /* Pilot.xcodeproj */,
+				9D6FDB521562E2080059AD79 /* config.bundle */,
 				9D6FD94E156292400059AD79 /* resources */,
 				9D6FD83D15628A020059AD79 /* Supporting Files */,
-				9D6FD86B15628AE60059AD79 /* io.socially.kinopilot-flk.bundle */,
 				9D6FD86115628AE60059AD79 /* Shared */,
 				9D6FD92B15628C000059AD79 /* Icons */,
 				9D6FD83515628A020059AD79 /* Frameworks */,
@@ -483,7 +483,6 @@
 				9D6FD85C15628A850059AD79 /* Default@2x.png in Resources */,
 				9D6FD85E15628A870059AD79 /* icon_57px.png in Resources */,
 				9D6FD86015628A890059AD79 /* icon_114px.png in Resources */,
-				9D6FD8D515628AE60059AD79 /* io.socially.kinopilot-flk.bundle in Resources */,
 				9D6FD990156292400059AD79 /* Dashboard.bundle in Resources */,
 				9D6FD991156292400059AD79 /* 42-photos.png in Resources */,
 				9D6FD992156292400059AD79 /* 42-photos@2x.png in Resources */,
@@ -518,6 +517,7 @@
 				9D6FD9AF156292400059AD79 /* share_app_email.html in Resources */,
 				9D6FD9B0156292400059AD79 /* share_movie_email.html in Resources */,
 				9D6FD9B1156292400059AD79 /* share_schedule_email.html in Resources */,
+				9D6FDB531562E2080059AD79 /* config.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

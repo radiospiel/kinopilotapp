@@ -39,7 +39,6 @@ extern M3AppDelegate* app;
  */
 @property (retain, nonatomic, readonly) NSDictionary *config;
 
-
 -(UINavigationController*)topMostController;
 -(void)presentControllerOnTop: (UIViewController*)viewController;
 
