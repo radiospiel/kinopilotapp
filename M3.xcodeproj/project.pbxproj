@@ -11,7 +11,6 @@
 		9D0893B014542C2500F64AC1 /* DashboardController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D0893AF14542C2400F64AC1 /* DashboardController.mm */; };
 		9D10C37A1437728300FE19C9 /* MapShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D10C3781437728300FE19C9 /* MapShowController.mm */; };
 		9D10C37D143774A800FE19C9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D10C37C143774A800FE19C9 /* MapKit.framework */; };
-		9D224037155E91EB001A279E /* libame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D224030155E88E0001A279E /* libame.a */; };
 		9D232739155ADD7A002D5192 /* icon_57px.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D232738155ADD7A002D5192 /* icon_57px.png */; };
 		9D23273C155ADD80002D5192 /* icon_114px.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D23273B155ADD80002D5192 /* icon_114px.png */; };
 		9D23273E155ADD88002D5192 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D23273D155ADD88002D5192 /* Default.png */; };
@@ -90,20 +89,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		9D22402F155E88E0001A279E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9D22402B155E88E0001A279E /* ame.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9D223EF1155E7BCC001A279E;
-			remoteInfo = ame;
-		};
-		9D224031155E89BA001A279E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9D22402B155E88E0001A279E /* ame.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 9D223EF0155E7BCC001A279E;
-			remoteInfo = ame;
-		};
 		9DA801DE1560254A004AA9F3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9DA801DA1560254A004AA9F3 /* Pilot.xcodeproj */;
@@ -123,7 +108,6 @@
 		9D0EF7511413E0400051B8FA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9D10C3781437728300FE19C9 /* MapShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MapShowController.mm; sourceTree = "<group>"; };
 		9D10C37C143774A800FE19C9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
-		9D22402B155E88E0001A279E /* ame.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ame.xcodeproj; path = ame/ame.xcodeproj; sourceTree = "<group>"; };
 		9D232738155ADD7A002D5192 /* icon_57px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_57px.png; sourceTree = "<group>"; };
 		9D23273B155ADD80002D5192 /* icon_114px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_114px.png; sourceTree = "<group>"; };
 		9D23273D155ADD88002D5192 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -231,7 +215,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DA8022B156028AF004AA9F3 /* libPilot.a in Frameworks */,
-				9D224037155E91EB001A279E /* libame.a in Frameworks */,
 				9D7E0FDF14C096A8004DE9E4 /* Twitter.framework in Frameworks */,
 				9DBC934514A64AA2001EEDAA /* QuartzCore.framework in Frameworks */,
 				9D3813971469A73C00E4BBF4 /* MediaPlayer.framework in Frameworks */,
@@ -252,14 +235,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9D22402C155E88E0001A279E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9D224030155E88E0001A279E /* libame.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		9D48ACBD141E9E3E00D0D000 /* iM3Example */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,7 +354,6 @@
 			isa = PBXGroup;
 			children = (
 				9DA801DA1560254A004AA9F3 /* Pilot.xcodeproj */,
-				9D22402B155E88E0001A279E /* ame.xcodeproj */,
 				9DA801E015602577004AA9F3 /* Icons */,
 				9D48ACBD141E9E3E00D0D000 /* iM3Example */,
 				9D8B8AED1413CA8B0066ECBB /* Frameworks */,
@@ -469,7 +443,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				9D224032155E89BA001A279E /* PBXTargetDependency */,
 			);
 			name = iM3Example;
 			productName = iM3Example;
@@ -498,10 +471,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 9D22402C155E88E0001A279E /* Products */;
-					ProjectRef = 9D22402B155E88E0001A279E /* ame.xcodeproj */;
-				},
-				{
 					ProductGroup = 9DA801DB1560254A004AA9F3 /* Products */;
 					ProjectRef = 9DA801DA1560254A004AA9F3 /* Pilot.xcodeproj */;
 				},
@@ -514,13 +483,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		9D224030155E88E0001A279E /* libame.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libame.a;
-			remoteRef = 9D22402F155E88E0001A279E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		9DA801DF1560254A004AA9F3 /* libPilot.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -613,14 +575,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		9D224032155E89BA001A279E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ame;
-			targetProxy = 9D224031155E89BA001A279E /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		9D48ACC0141E9E3E00D0D000 /* InfoPlist.strings */ = {

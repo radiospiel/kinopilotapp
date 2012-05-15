@@ -42,7 +42,6 @@
 		9D6FD92815628AE60059AD79 /* UserVoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8CC15628AE60059AD79 /* UserVoiceController.m */; };
 		9D6FD92915628AE60059AD79 /* VicinityShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8CD15628AE60059AD79 /* VicinityShowController.mm */; };
 		9D6FD92A15628AE60059AD79 /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8CF15628AE60059AD79 /* WebViewController.mm */; };
-		9D6FD92C15628C670059AD79 /* libame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD85515628A240059AD79 /* libame.a */; };
 		9D6FD92D15628C6B0059AD79 /* libPilot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD85815628A240059AD79 /* libPilot.a */; };
 		9D6FD92F15628C730059AD79 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD92E15628C730059AD79 /* libsqlite3.dylib */; };
 		9D6FD93115628C7D0059AD79 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD93015628C7D0059AD79 /* Twitter.framework */; };
@@ -97,13 +96,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		9D6FD85415628A240059AD79 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9D6FD84D15628A240059AD79 /* ame.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9D223EF1155E7BCC001A279E;
-			remoteInfo = ame;
-		};
 		9D6FD85715628A240059AD79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9D6FD84E15628A240059AD79 /* Pilot.xcodeproj */;
@@ -121,7 +113,6 @@
 		9D6FD83E15628A020059AD79 /* Freiluft-Kinopilot-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Freiluft-Kinopilot-Info.plist"; sourceTree = "<group>"; };
 		9D6FD84015628A020059AD79 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9D6FD84415628A020059AD79 /* Freiluft-Kinopilot-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Freiluft-Kinopilot-Prefix.pch"; sourceTree = "<group>"; };
-		9D6FD84D15628A240059AD79 /* ame.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ame.xcodeproj; path = ../ame/ame.xcodeproj; sourceTree = "<group>"; };
 		9D6FD84E15628A240059AD79 /* Pilot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pilot.xcodeproj; path = ../Pilot/Pilot.xcodeproj; sourceTree = "<group>"; };
 		9D6FD85915628A820059AD79 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		9D6FD85B15628A850059AD79 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -230,7 +221,6 @@
 				9D6FD93915628D260059AD79 /* libBrightcoveMediaAPI.a in Frameworks */,
 				9D6FD92F15628C730059AD79 /* libsqlite3.dylib in Frameworks */,
 				9D6FD92D15628C6B0059AD79 /* libPilot.a in Frameworks */,
-				9D6FD92C15628C670059AD79 /* libame.a in Frameworks */,
 				9D6FD83B15628A020059AD79 /* CoreGraphics.framework in Frameworks */,
 				9D6FD93515628C9F0059AD79 /* EventKit.framework in Frameworks */,
 				9D6FD83915628A020059AD79 /* Foundation.framework in Frameworks */,
@@ -247,13 +237,12 @@
 		9D6FD82715628A020059AD79 = {
 			isa = PBXGroup;
 			children = (
+				9D6FD84E15628A240059AD79 /* Pilot.xcodeproj */,
 				9D6FD94E156292400059AD79 /* resources */,
 				9D6FD83D15628A020059AD79 /* Supporting Files */,
 				9D6FD86B15628AE60059AD79 /* io.socially.kinopilot-flk.bundle */,
 				9D6FD86115628AE60059AD79 /* Shared */,
 				9D6FD92B15628C000059AD79 /* Icons */,
-				9D6FD84D15628A240059AD79 /* ame.xcodeproj */,
-				9D6FD84E15628A240059AD79 /* Pilot.xcodeproj */,
 				9D6FD83515628A020059AD79 /* Frameworks */,
 				9D6FD83315628A020059AD79 /* Products */,
 			);
@@ -303,14 +292,6 @@
 			);
 			name = "Supporting Files";
 			path = "Freiluft-Kinopilot";
-			sourceTree = "<group>";
-		};
-		9D6FD84F15628A240059AD79 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9D6FD85515628A240059AD79 /* libame.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		9D6FD85115628A240059AD79 /* Products */ = {
@@ -471,10 +452,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 9D6FD84F15628A240059AD79 /* Products */;
-					ProjectRef = 9D6FD84D15628A240059AD79 /* ame.xcodeproj */;
-				},
-				{
 					ProductGroup = 9D6FD85115628A240059AD79 /* Products */;
 					ProjectRef = 9D6FD84E15628A240059AD79 /* Pilot.xcodeproj */;
 				},
@@ -487,13 +464,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		9D6FD85515628A240059AD79 /* libame.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libame.a;
-			remoteRef = 9D6FD85415628A240059AD79 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		9D6FD85815628A240059AD79 /* libPilot.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;

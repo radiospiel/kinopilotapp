@@ -2,7 +2,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "../../../ame/M3/M3.h"
+#import "../../M3/M3.h"
 
 // Show "Facebook" sharing?
 #define FACEBOOK NO
