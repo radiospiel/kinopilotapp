@@ -10,4 +10,7 @@
    <FileRef
       location = "container:M3.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Freiluft-Kinopilot/Freiluft-Kinopilot.xcodeproj">
+   </FileRef>
 </Workspace>
