@@ -290,9 +290,17 @@ M3AppDelegate* app;
   return reachability;
 }
 
+static void uncaughtExceptionHandler(NSException *exception) {
+  NSLog(@"CRASH: %@", exception);
+  NSLog(@"Stack Trace: %@", [exception callStackSymbols]);
+  // Internal error reporting
+}
+
 -(BOOL) application:(UIApplication *)application 
           didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+  
 #if DEBUG
   NSLog(@"Starting application [%@] in DEBUG mode in %@", self.identifier, [ M3 symbolicDir: @"$root" ]);
 #else
