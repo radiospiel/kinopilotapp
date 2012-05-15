@@ -182,7 +182,7 @@ M3AppDelegate* app;
 -(NSString*) configPathFor: (NSString*)file
 {
   NSBundle* mainBundle = [NSBundle mainBundle];
-  return [NSString stringWithFormat: @"%@/%@.bundle/%@", [mainBundle bundlePath], self.identifier, file];
+  return [NSString stringWithFormat: @"%@/config.bundle/%@", [mainBundle bundlePath], file];
 }
 
 -(NSDictionary*) config
@@ -194,7 +194,7 @@ M3AppDelegate* app;
 
 -(UIImage*)imageNamed: (NSString*)imageName
 {
-  imageName = [NSString stringWithFormat: @"%@.bundle/%@", self.identifier, imageName];
+  imageName = [NSString stringWithFormat: @"config.bundle/%@", imageName];
   return [UIImage imageNamed: imageName];
 }
 
