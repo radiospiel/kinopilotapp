@@ -95,6 +95,7 @@ static NSString* legacyIndexKey(NSDictionary* dict)
   M3AssertKindOf(keys, NSArray);
   if(options) M3AssertKindOf(options, NSDictionary);    // Note: options is allowed to be nil.
   
+  if(!keys) keys = [NSArray array];
   NSArray* section = [NSArray arrayWithObjects: keys, options, nil];
   [self.sections addObject: section];
 }
