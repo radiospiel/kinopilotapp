@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D0D8A4A1563B24D00EC5A86 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D0D8A491563B24D00EC5A86 /* SVProgressHUD.bundle */; };
 		9D6FD83715628A020059AD79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD83615628A020059AD79 /* UIKit.framework */; };
 		9D6FD83915628A020059AD79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD83815628A020059AD79 /* Foundation.framework */; };
 		9D6FD83B15628A020059AD79 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD83A15628A020059AD79 /* CoreGraphics.framework */; };
@@ -58,7 +59,6 @@
 		9D6FD94915628D8F0059AD79 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD94815628D8F0059AD79 /* iAd.framework */; };
 		9D6FD94B15628D960059AD79 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD94A15628D960059AD79 /* QuartzCore.framework */; };
 		9D6FD94D15628DA20059AD79 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD94C15628DA20059AD79 /* SystemConfiguration.framework */; };
-		9D6FD990156292400059AD79 /* Dashboard.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D6FD950156292400059AD79 /* Dashboard.bundle */; };
 		9D6FD991156292400059AD79 /* 42-photos.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6FD952156292400059AD79 /* 42-photos.png */; };
 		9D6FD992156292400059AD79 /* 42-photos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6FD953156292400059AD79 /* 42-photos@2x.png */; };
 		9D6FD993156292400059AD79 /* background-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6FD954156292400059AD79 /* background-dark.png */; };
@@ -106,6 +106,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D0D8A491563B24D00EC5A86 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = ../vendor/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
 		9D6FD83215628A020059AD79 /* Freiluft-Kinopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Freiluft-Kinopilot.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D6FD83615628A020059AD79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9D6FD83815628A020059AD79 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -166,7 +167,6 @@
 		9D6FD94815628D8F0059AD79 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		9D6FD94A15628D960059AD79 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9D6FD94C15628DA20059AD79 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		9D6FD950156292400059AD79 /* Dashboard.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Dashboard.bundle; sourceTree = "<group>"; };
 		9D6FD952156292400059AD79 /* 42-photos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "42-photos.png"; sourceTree = "<group>"; };
 		9D6FD953156292400059AD79 /* 42-photos@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "42-photos@2x.png"; sourceTree = "<group>"; };
 		9D6FD954156292400059AD79 /* background-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-dark.png"; sourceTree = "<group>"; };
@@ -239,6 +239,7 @@
 			children = (
 				9D6FD84E15628A240059AD79 /* Pilot.xcodeproj */,
 				9D6FDB521562E2080059AD79 /* config.bundle */,
+				9D0D8A491563B24D00EC5A86 /* SVProgressHUD.bundle */,
 				9D6FD94E156292400059AD79 /* resources */,
 				9D6FD83D15628A020059AD79 /* Supporting Files */,
 				9D6FD86115628AE60059AD79 /* Shared */,
@@ -355,8 +356,6 @@
 		9D6FD94E156292400059AD79 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				9D6FD94F156292400059AD79 /* app-bits */,
-				9D6FD950156292400059AD79 /* Dashboard.bundle */,
 				9D6FD951156292400059AD79 /* images */,
 				9D6FD970156292400059AD79 /* share_app_email.html */,
 				9D6FD971156292400059AD79 /* share_movie_email.html */,
@@ -364,13 +363,6 @@
 			);
 			name = resources;
 			path = ../Shared/resources;
-			sourceTree = "<group>";
-		};
-		9D6FD94F156292400059AD79 /* app-bits */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "app-bits";
 			sourceTree = "<group>";
 		};
 		9D6FD951156292400059AD79 /* images */ = {
@@ -483,7 +475,6 @@
 				9D6FD85C15628A850059AD79 /* Default@2x.png in Resources */,
 				9D6FD85E15628A870059AD79 /* icon_57px.png in Resources */,
 				9D6FD86015628A890059AD79 /* icon_114px.png in Resources */,
-				9D6FD990156292400059AD79 /* Dashboard.bundle in Resources */,
 				9D6FD991156292400059AD79 /* 42-photos.png in Resources */,
 				9D6FD992156292400059AD79 /* 42-photos@2x.png in Resources */,
 				9D6FD993156292400059AD79 /* background-dark.png in Resources */,
@@ -518,6 +509,7 @@
 				9D6FD9B0156292400059AD79 /* share_movie_email.html in Resources */,
 				9D6FD9B1156292400059AD79 /* share_schedule_email.html in Resources */,
 				9D6FDB531562E2080059AD79 /* config.bundle in Resources */,
+				9D0D8A4A1563B24D00EC5A86 /* SVProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -683,6 +675,7 @@
 				9D6FD84C15628A020059AD79 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
