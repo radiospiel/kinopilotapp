@@ -609,6 +609,7 @@
 		9D6FD84B15628A020059AD79 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Freiluft-Kinopilot/Freiluft-Kinopilot-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -627,6 +628,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -634,6 +636,7 @@
 		9D6FD84C15628A020059AD79 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Freiluft-Kinopilot/Freiluft-Kinopilot-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

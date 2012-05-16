@@ -48,6 +48,8 @@
     [self addSection: schedules
          withOptions: _.hash(@"header", [time.to_date stringWithFormat:@"ccc dd. MMM"])];
   }
+
+  // [self addCellOfClass: @"MovieTrailerCell" withKey: movie_id];
   
   return self;
 }
