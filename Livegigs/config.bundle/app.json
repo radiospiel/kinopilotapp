@@ -1,0 +1,111 @@
+{
+  "title":      "com.radiospiel.livegigs",
+  "no-flurry_api_key": "com.radiospiel.livegigs",
+  "no-irate": {
+    "app_store_id":     447347982,
+    "application_name": "Freiluft-Kinopilot",
+    "message_title":    "Kinopilot bewerten..."
+  },
+  
+  "dashboard": {
+    "sections":         [ "city/theaters", "movies", "about/today" ],
+    "topaligned-icons": [ "vicinity", "today" ],
+    "about": {
+      "title":      "      ",
+      "actionURL":  "/info"
+    },
+    "city": {
+      "title":      "Berlin",
+      "actionURL":  "/map/show"
+    },
+    "theaters": {
+      "title":      "Places",
+      "actionURL":  "/venues/list"
+    },
+    "movies": {
+      "title":      "Events",
+      "actionURL":  "/events/list"
+    },
+    "today": {
+      "title":      "Kalender",
+      "actionURL":  "/events/calendar"
+    }
+  },
+
+  "update_url":           "http://update.16b.org/flk",
+  "release_update_url":   "http://update.16b.org/flk",
+  "debug_update_url":     "http://localhost:9292/flk",
+  "name": "Freiluft-Kinopilot",
+  "tabs": [
+    {
+      "nurl": "/movies/list?theater_id=adriafilmtheat|2487JHMKNoY",
+      "url": "/dashboard",
+      "nurl": "/movies/images?movie_id=62215",
+      "nurl": "/movies/show?movie_id=m-abenteuervontimundstruppidasgeheimnisdereinhorn",
+      "nurl": "/movies/list",
+      "nurl": "/movies/show?movie_id=78313",
+      "nurl": "/movies/calendar",
+      "nurl": "/theaters/list?movie_id=55721",
+      "nurl": "/movies/list?theater_id=1772782850741985845",
+      "nurl": "/movies/show?movie_id=m-gestiefeltekater",
+      "nurl": "/info",
+      "nurl": "/schedules/list?important=movie&day=1322866800&theater_id=c-filmrauschpalastimkulturfabrikmoabit&movie_id=m-guard",
+      "nurl": "/theaters/list",
+      "nurl": "/movies/list?theater_id=c-alhambra",
+      "nurl": "/movies/show?movie_id=m-abenteuervontimundstruppidasgeheimnisdereinhorn",
+      "label": "Jetzt",
+      "ntitle": "Was läuft jetzt?",
+      "icon": "tab_tage.png"
+    },
+    {
+      "nurl": "/movies/list",
+      "label": "Filme",
+      "icon": "tab_filme.png"
+    },
+    {
+      "nurl": "/theaters/list",
+      "label": "Kinos",
+      "icon": "tab_kinos.png"
+    },
+    {
+      "nurl": "/map/show",
+      "label": "Map",
+      "icon": "tab_karte.png"
+    },
+    {
+      "nurl": "/info",
+      "label": "Info",
+      "icon": "tab_about.png"
+    }
+  ],
+  "about": [
+    {
+      "header":  "Dein Kinopilot",
+      "content": [
+        ["Kinopilot im Netz", "http://kinopilotapp.de"],
+        ["Aktualisiert",      "updated_at"],
+        ["Vorführungen",      "schedules_count"]
+      ]
+    },
+    {
+      "actions": [
+        ["Update",  "/action/update"],
+        ["Share",   "/app/actions"]
+      ]
+    },
+    {
+      "header":  "Feedback",
+      "content": [
+        "Bei der Vielzahl unserer Termine kann sich schon mal ein Fehler eingeschlichen haben. Fallen Dir Fehler auf, kontaktiere uns bitte.\n\nAuch Deine Verbesserungsvorschläge zur App hören wir gern."
+      ]
+    },
+    {
+      "actions": [
+        ["Feedback",  "/user/voice"]
+      ]
+    },
+    {
+      "footer": "© radiospiel UG (haftungsbeschränkt), 2011"
+    }
+  ]
+}
