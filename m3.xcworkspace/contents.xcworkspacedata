@@ -11,9 +11,6 @@
       location = "group:Pilot/Pilot.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:M3.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Kinopilot/Kinopilot.xcodeproj">
    </FileRef>
    <FileRef
