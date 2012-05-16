@@ -5,7 +5,7 @@
   "irate": {
     "app_store_id":     500555600,
     "application_name": "Kinopilot",
-    "message_title":    "Kinopilot bewerten...";
+    "message_title":    "Kinopilot bewerten..."
   },
   "dashboard": {
     "sections":         [ "city/theaters", "movies", "about/vicinity" ],
