@@ -61,7 +61,7 @@
 
 -(void)shareViaEmail
 {
-  [ app composeEmailWithTemplateFile: @"$app/share_movie_email.html"
+  [ app composeEmailWithTemplateFile: @"$config/share_movie_email.html"
                            andValues: [self interpolationContext] 
    ];
 }

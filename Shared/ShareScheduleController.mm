@@ -92,7 +92,7 @@
 
 -(void)shareViaEmail
 {
-  [ app composeEmailWithTemplateFile: @"$app/share_schedule_email.html"
+  [ app composeEmailWithTemplateFile: @"$config/share_schedule_email.html"
                            andValues: [self interpolationContext] 
   ];
 }

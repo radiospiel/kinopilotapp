@@ -7,7 +7,7 @@
 
 -(void)shareViaEmail
 {
-  [ app composeEmailWithTemplateFile: @"$app/share_app_email.html"
+  [ app composeEmailWithTemplateFile: @"$config/share_app_email.html"
                            andValues: [NSDictionary dictionary] 
    ];
 }
