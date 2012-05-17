@@ -696,12 +696,23 @@ static StatementType statementTypeForSql(NSString* sql)
 {
   if(ids.count == 0) return;
 
-  ids = [ids mapUsingSelector:@selector(sqliteEscape)];
+  // LEGACY: We add numbers twice: once escaped, and once non-escaped.
+  // This way all entries get deleted regardless of whether the _id
+  // is stored as a String or as a Number.
   
+  NSMutableArray* raw_ids = [ids mapUsingSelector:@selector(sqliteEscape)];
+  
+  for(id obj in ids) {
+    if([obj isKindOfClass:[NSNumber class]])
+      [raw_ids addObject: [obj description]];
+    else if([obj isKindOfClass:[NSString class]] && [obj matches: @"^-?[0-9]+$"])
+      [raw_ids addObject: obj];
+  }
+
   NSString* sql = [
                    NSString stringWithFormat: @"DELETE FROM %@ WHERE _id IN (%@)", 
                    self.tableName, 
-                   [ids componentsJoinedByString:@","]
+                   [raw_ids componentsJoinedByString:@","]
                    ];
   
   [database_ ask: sql];
