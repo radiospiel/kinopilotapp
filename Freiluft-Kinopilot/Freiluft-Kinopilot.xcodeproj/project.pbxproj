@@ -630,7 +630,8 @@
 		9D6FD84C15628A020059AD79 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: radiospiel UG (haftungsbeschrankt)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: radiospiel UG (haftungsbeschrankt)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Freiluft-Kinopilot/Freiluft-Kinopilot-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -649,6 +650,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "CC006D99-0E94-4EAF-B306-1B0464752B7B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CC006D99-0E94-4EAF-B306-1B0464752B7B";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
