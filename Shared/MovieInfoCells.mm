@@ -601,9 +601,36 @@
 
 #endif
 
--(void)layoutSubviews
+@end
+
+
+// ------------------------------------------------------------------------
+
+@interface MovieAffiliateCell: MovieInfoCell
+
+@property (readonly) NSString* affiliateURL;
+
+@end
+
+@implementation MovieAffiliateCell
+
+-(void)setKey: (NSArray*)class_and_movie
 {
-  [super layoutSubviews];
+  [super setKey:class_and_movie];
+  
+  self.textLabel.text = @"Suche in amazon.de";
+  self.url = self.affiliateURL;
+  self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+}
+
+-(NSString*)affiliateURL
+{
+  return [self.movie objectForKey:@"amazon_link"];
+}
+
+-(CGFloat)wantsHeight
+{
+  return self.affiliateURL ? 44 : 0;
 }
 
 @end

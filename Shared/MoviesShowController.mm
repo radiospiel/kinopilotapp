@@ -20,6 +20,7 @@
   [self addCellOfClass: @"MovieActionsCell"     withKey: movie_id];
   [self addCellOfClass: @"MovieInCinemasCell"   withKey: movie_id];
   [self addCellOfClass: @"MovieRatingCell"      withKey: movie_id];
+  // [self addCellOfClass: @"MovieAffiliateCell"   withKey: movie_id];
   [self addCellOfClass: @"MovieTrailerCell"     withKey: movie_id];
   [self addCellOfClass: @"MoviePersonsCell"     withKey: movie_id];
   [self addCellOfClass: @"MovieDescriptionCell" withKey: movie_id];

@@ -81,6 +81,10 @@
 
 -(Class)controllerClassForURL: (NSString*) url
 {
+  if([url matches: @"^([-a-z]+):"]) {
+    return @"WebViewController".to_class;
+  }
+  
   // /category/action[/params] URLs create a CategoryActionController object. 
   NSArray* parts = [url.to_url.path componentsSeparatedByString: @"/"];
   parts = [parts mapUsingSelector:@selector(camelizeWord)];
@@ -130,6 +134,18 @@
   return YES;
 }
 
+static BOOL isExternalURL(NSString* url) 
+{
+  if(![url matches: @"^([-a-z]+):"]) 
+    return NO;
+  
+  if([url matches: @"^http.*amazon"]) 
+    return NO;
+
+  return YES;
+}
+
+
 /*
  * "opens" the URL.
  * 
@@ -143,10 +159,8 @@
   if(!url) return;
   
   dlog << "*** open: " << url;
-  
-  // URLs with a scheme part are opened as external URLs.
-  BOOL isExternalURL = [url matches: @"^([-a-z]+):"] != nil;
-  if(isExternalURL) {
+
+  if(isExternalURL(url)) {
     [self openExternalURL: url];
     return;
   }
