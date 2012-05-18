@@ -132,7 +132,6 @@
 		9D6FD87A15628AE60059AD79 /* MoviesImagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesImagesController.h; sourceTree = "<group>"; };
 		9D6FD87B15628AE60059AD79 /* MoviesImagesController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesImagesController.mm; sourceTree = "<group>"; };
 		9D6FD87C15628AE60059AD79 /* MoviesListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesListController.mm; sourceTree = "<group>"; };
-		9D6FD87D15628AE60059AD79 /* MoviesShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesShowController.h; sourceTree = "<group>"; };
 		9D6FD87E15628AE60059AD79 /* MoviesShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesShowController.mm; sourceTree = "<group>"; };
 		9D6FD87F15628AE60059AD79 /* MoviesTrailerController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesTrailerController.mm; sourceTree = "<group>"; };
 		9D6FD8C315628AE60059AD79 /* SchedulesActionsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SchedulesActionsController.mm; sourceTree = "<group>"; };
@@ -142,7 +141,6 @@
 		9D6FD8C715628AE60059AD79 /* ShareController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShareController.mm; sourceTree = "<group>"; };
 		9D6FD8C815628AE60059AD79 /* ShareMovieController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShareMovieController.mm; sourceTree = "<group>"; };
 		9D6FD8C915628AE60059AD79 /* ShareScheduleController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShareScheduleController.mm; sourceTree = "<group>"; };
-		9D6FD8CA15628AE60059AD79 /* TheatersListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheatersListController.h; sourceTree = "<group>"; };
 		9D6FD8CB15628AE60059AD79 /* TheatersListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TheatersListController.mm; sourceTree = "<group>"; };
 		9D6FD8CC15628AE60059AD79 /* UserVoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserVoiceController.m; sourceTree = "<group>"; };
 		9D6FD8CD15628AE60059AD79 /* VicinityShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VicinityShowController.mm; sourceTree = "<group>"; };
@@ -318,7 +316,6 @@
 				9D6FD87A15628AE60059AD79 /* MoviesImagesController.h */,
 				9D6FD87B15628AE60059AD79 /* MoviesImagesController.mm */,
 				9D6FD87C15628AE60059AD79 /* MoviesListController.mm */,
-				9D6FD87D15628AE60059AD79 /* MoviesShowController.h */,
 				9D6FD87E15628AE60059AD79 /* MoviesShowController.mm */,
 				9D6FD87F15628AE60059AD79 /* MoviesTrailerController.mm */,
 				9D6FD8C315628AE60059AD79 /* SchedulesActionsController.mm */,
@@ -328,7 +325,6 @@
 				9D6FD8C715628AE60059AD79 /* ShareController.mm */,
 				9D6FD8C815628AE60059AD79 /* ShareMovieController.mm */,
 				9D6FD8C915628AE60059AD79 /* ShareScheduleController.mm */,
-				9D6FD8CA15628AE60059AD79 /* TheatersListController.h */,
 				9D6FD8CB15628AE60059AD79 /* TheatersListController.mm */,
 				9D6FD8CC15628AE60059AD79 /* UserVoiceController.m */,
 				9D6FD8CD15628AE60059AD79 /* VicinityShowController.mm */,

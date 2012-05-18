@@ -7,7 +7,13 @@
 //
 
 #import "AppBase.h"
-#import "TheatersListController.h"
+
+@interface TheatersListController: M3ListViewController
+
+@property (readonly) NSString* movie_id;
+@property (readonly) NSDictionary* movie;
+
+@end
 
 /*** Datasources for TheatersListControllers *************************************************/
 

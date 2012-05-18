@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 n/a. All rights reserved.
 //
 
-#import "MoviesShowController.h"
+#import "AppBase.h"
 
 @interface MoviesShowControllerDataSource: M3TableViewDataSource
 @end
@@ -35,9 +35,15 @@
 
 @end
 
+#import "AppBase.h"
+
+@interface MoviesShowController : M3TableViewController 
+@property (nonatomic,retain) NSDictionary* movie;
+@end
+
 @implementation MoviesShowController
 
-@synthesize movie=movie_;
+@synthesize movie;
 
 -(NSString*)title 
 {

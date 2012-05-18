@@ -1,8 +1,5 @@
 #import "AppBase.h"
 
-#import "MoviesShowController.h"
-#import "TheatersListController.h"
-
 /* === MovieInfoCells: a base class which returns the movie object ============== */
 
 @interface MovieInfoCell: M3TableViewCell
