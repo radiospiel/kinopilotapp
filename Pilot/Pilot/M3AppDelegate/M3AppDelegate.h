@@ -109,6 +109,9 @@ extern M3AppDelegate* app;
 @property (nonatomic,retain,readonly) M3SqliteTable* settings;
 @property (nonatomic,retain,readonly) M3SqliteTable* flags;
 
+@property (nonatomic,retain,readonly) M3SqliteTable* events;
+@property (nonatomic,retain,readonly) M3SqliteTable* locations;
+
 -(void)migrate;
 
 @end

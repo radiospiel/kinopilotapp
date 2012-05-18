@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9D0D8A4E1563B25500EC5A86 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D0D8A4D1563B25500EC5A86 /* SVProgressHUD.bundle */; };
+		9D1B65D01566D7FE006F2C06 /* LocationsListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D1B65CF1566D7FE006F2C06 /* LocationsListController.mm */; };
 		9D6FD83715628A020059AD79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD83615628A020059AD79 /* UIKit.framework */; };
 		9D6FD83915628A020059AD79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD83815628A020059AD79 /* Foundation.framework */; };
 		9D6FD83B15628A020059AD79 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD83A15628A020059AD79 /* CoreGraphics.framework */; };
@@ -104,6 +105,7 @@
 
 /* Begin PBXFileReference section */
 		9D0D8A4D1563B25500EC5A86 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = ../vendor/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
+		9D1B65CF1566D7FE006F2C06 /* LocationsListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LocationsListController.mm; path = ../Shared/LocationsListController.mm; sourceTree = "<group>"; };
 		9D6FD83215628A020059AD79 /* Livegigs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Livegigs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D6FD83615628A020059AD79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9D6FD83815628A020059AD79 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -229,6 +231,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D1B65CE1566D7E7006F2C06 /* Livegigs */ = {
+			isa = PBXGroup;
+			children = (
+				9D1B65CF1566D7FE006F2C06 /* LocationsListController.mm */,
+			);
+			name = Livegigs;
+			sourceTree = "<group>";
+		};
 		9D6FD82715628A020059AD79 = {
 			isa = PBXGroup;
 			children = (
@@ -238,6 +248,7 @@
 				9D6FD94E156292400059AD79 /* resources */,
 				9D6FD83D15628A020059AD79 /* Supporting Files */,
 				9D6FD86115628AE60059AD79 /* Shared */,
+				9D1B65CE1566D7E7006F2C06 /* Livegigs */,
 				9D6FD92B15628C000059AD79 /* Icons */,
 				9D6FD83515628A020059AD79 /* Frameworks */,
 				9D6FD83315628A020059AD79 /* Products */,
@@ -536,6 +547,7 @@
 				9D6FD92815628AE60059AD79 /* UserVoiceController.m in Sources */,
 				9D6FD92915628AE60059AD79 /* VicinityShowController.mm in Sources */,
 				9D6FD92A15628AE60059AD79 /* WebViewController.mm in Sources */,
+				9D1B65D01566D7FE006F2C06 /* LocationsListController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

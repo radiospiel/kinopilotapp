@@ -184,6 +184,10 @@ static void initConstants()
     sql = @"SELECT COUNT(DISTINCT movie_id) FROM schedules";
   else if([key isEqualToString:@"theaters"]) 
     sql = @"SELECT COUNT(*) FROM theaters";
+  else if([key isEqualToString:@"locations"]) 
+    sql = @"SELECT COUNT(*) FROM locations";
+  else if([key isEqualToString:@"events"]) 
+    sql = @"SELECT COUNT(*) FROM events";
 
   if(!sql) return nil;
   

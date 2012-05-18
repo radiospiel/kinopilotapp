@@ -39,6 +39,16 @@
   return [self tableWithName:@"flags"];
 }
 
+-(M3SqliteTable*) locations
+{
+  return [self tableWithName:@"locations"];
+}
+
+-(M3SqliteTable*) events
+{
+  return [self tableWithName:@"events"];
+}
+
 -(void)migrate
 {
   [self tableWithName:@"settings" andColumns:_.array(@"_id", @"value")];

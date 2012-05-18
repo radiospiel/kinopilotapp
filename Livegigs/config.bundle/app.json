@@ -3,12 +3,12 @@
   "no-flurry_api_key": "com.radiospiel.livegigs",
   "no-irate": {
     "app_store_id":     447347982,
-    "application_name": "Freiluft-Kinopilot",
-    "message_title":    "Kinopilot bewerten..."
+    "application_name": "Livegigs Demo",
+    "message_title":    "Livegigs bewerten..."
   },
   
   "dashboard": {
-    "sections":         [ "city/theaters", "movies", "about/today" ],
+    "sections":         [ "city/locations", "events", "about/today" ],
     "topaligned-icons": [ "vicinity", "today" ],
     "about": {
       "title":      "      ",
@@ -18,11 +18,11 @@
       "title":      "Berlin",
       "actionURL":  "/map/show"
     },
-    "theaters": {
+    "locations": {
       "title":      "Places",
-      "actionURL":  "/venues/list"
+      "actionURL":  "/locations/list"
     },
-    "movies": {
+    "events": {
       "title":      "Events",
       "actionURL":  "/events/list"
     },
@@ -32,9 +32,9 @@
     }
   },
 
-  "update_url":           "http://update.16b.org/flk",
-  "release_update_url":   "http://update.16b.org/flk",
-  "debug_update_url":     "http://localhost:9292/flk",
+  "update_url":           "http://update.16b.org/livegigs",
+  "release_update_url":   "http://update.16b.org/livegigs",
+  "debug_update_url":     "http://update.16b.dev:9292/livegigs",
   "name": "Freiluft-Kinopilot",
   "tabs": [
     {
@@ -78,11 +78,11 @@
       "icon": "tab_about.png"
     }
   ],
-  "about": [
+  "info": [
     {
-      "header":  "Dein Kinopilot",
+      "header":  "Livegigs (Demo)",
       "content": [
-        ["Kinopilot im Netz", "http://kinopilotapp.de"],
+        ["Kinopilot im Netz", "http://livegigs.de"],
         ["Aktualisiert",      "updated_at"],
         ["Vorführungen",      "schedules_count"]
       ]

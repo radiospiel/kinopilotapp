@@ -27,6 +27,12 @@ static NSString* legacyIndexKey(NSDictionary* dict)
 {
   NSString* indexKey = [dict objectForKey:@"sortkey"];
   
+  if(!indexKey)
+    indexKey = [dict objectForKey:@"name"];
+  
+  if(!indexKey)
+    indexKey = [dict objectForKey:@"title"];
+  
   if(![indexKey isKindOfClass:[NSString class]])
     indexKey = legacyIndexKey(dict);
   
