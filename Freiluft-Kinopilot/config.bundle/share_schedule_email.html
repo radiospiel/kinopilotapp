@@ -1,0 +1,31 @@
+{{nice_time}}: {{movie.title}} im {{theater.name}}
+---
+<html>
+<head>
+  <title>{{movie.title}}</title>
+</head>
+<body>
+<div>
+  Mal wieder ins Freiluft-Kino? Ich würd mir gern <i>{{movie.title}}</i> ansehen, kommst Du mit?
+</div>
+<ul style='font-size: 12px; color: #444'>
+  <li>{{movie.title}}</li>
+  <li>{{nice_time}}</li>
+  <li><a href="http://maps.google.com/?q={{theater.lat}},{{theater.lng}}">{{theater.name}}</a></li>
+</ul>
+<div style='font-size: 12px; color: #444; border-left: 8px solid #888; padding-left: 20px'>
+  {{raw:htmlTeaser}}
+</div>
+
+<div style='font-size: 10px; color: #444; background: #ccc; margin: 10px -10px 0 -10px; border-top: 1px solid #ccc; margin-top: 10px; padding: 10px'>
+<table>
+  <tr>
+    <td><img src="http://kinopilotupdates2.heroku.com/images/icon_72px.png" width="72" height="72"></td>
+    <td style='padding-left: 8px'>
+      Diese Email habe ich mit <a href="http://bit.ly/flkpilot">Freiluft-Kinopilot.app</a> geschickt - meinem Kinoprogramm fürs iPhone!
+    </td>
+  </tr>
+</table>
+</div>
+</body>
+</html>

@@ -16,3 +16,6 @@
 [submodule "vendor/iRate"]
 	path = vendor/iRate
 	url = https://github.com/nicklockwood/iRate.git
+[submodule "vendor/YAML.framework"]
+	path = vendor/YAML.framework
+	url = https://github.com/mirek/YAML.framework

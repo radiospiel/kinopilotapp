@@ -1,0 +1,1 @@
+The TOP project contains a target, which builds all other targets in the xcode session.

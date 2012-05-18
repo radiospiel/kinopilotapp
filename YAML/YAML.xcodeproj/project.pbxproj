@@ -1,0 +1,269 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9D6FDB221562D6090059AD79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FDB211562D6090059AD79 /* Foundation.framework */; };
+		9D6FDB301562D6300059AD79 /* YAMLSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D6FDB2E1562D6300059AD79 /* YAMLSerialization.h */; };
+		9D6FDB311562D6300059AD79 /* YAMLSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FDB2F1562D6300059AD79 /* YAMLSerialization.m */; };
+		9D6FDB3E1562D6630059AD79 /* api.c in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FDB331562D6630059AD79 /* api.c */; };
+		9D6FDB3F1562D6630059AD79 /* dumper.c in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FDB341562D6630059AD79 /* dumper.c */; };
+		9D6FDB401562D6630059AD79 /* emitter.c in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FDB351562D6630059AD79 /* emitter.c */; };
+		9D6FDB411562D6630059AD79 /* loader.c in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FDB361562D6630059AD79 /* loader.c */; };
+		9D6FDB421562D6630059AD79 /* parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FDB391562D6630059AD79 /* parser.c */; };
+		9D6FDB431562D6630059AD79 /* reader.c in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FDB3A1562D6630059AD79 /* reader.c */; };
+		9D6FDB441562D6630059AD79 /* scanner.c in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FDB3B1562D6630059AD79 /* scanner.c */; };
+		9D6FDB451562D6630059AD79 /* writer.c in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FDB3C1562D6630059AD79 /* writer.c */; };
+		9D6FDB461562D6630059AD79 /* yaml_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D6FDB3D1562D6630059AD79 /* yaml_private.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9D6FDB1E1562D6090059AD79 /* libYAML.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libYAML.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D6FDB211562D6090059AD79 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9D6FDB2E1562D6300059AD79 /* YAMLSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAMLSerialization.h; path = ../vendor/YAML.framework/YAMLSerialization.h; sourceTree = "<group>"; };
+		9D6FDB2F1562D6300059AD79 /* YAMLSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YAMLSerialization.m; path = ../vendor/YAML.framework/YAMLSerialization.m; sourceTree = "<group>"; };
+		9D6FDB331562D6630059AD79 /* api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = api.c; sourceTree = "<group>"; };
+		9D6FDB341562D6630059AD79 /* dumper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dumper.c; sourceTree = "<group>"; };
+		9D6FDB351562D6630059AD79 /* emitter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = emitter.c; sourceTree = "<group>"; };
+		9D6FDB361562D6630059AD79 /* loader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = loader.c; sourceTree = "<group>"; };
+		9D6FDB371562D6630059AD79 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		9D6FDB381562D6630059AD79 /* Makefile.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
+		9D6FDB391562D6630059AD79 /* parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parser.c; sourceTree = "<group>"; };
+		9D6FDB3A1562D6630059AD79 /* reader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = reader.c; sourceTree = "<group>"; };
+		9D6FDB3B1562D6630059AD79 /* scanner.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scanner.c; sourceTree = "<group>"; };
+		9D6FDB3C1562D6630059AD79 /* writer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = writer.c; sourceTree = "<group>"; };
+		9D6FDB3D1562D6630059AD79 /* yaml_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yaml_private.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9D6FDB1B1562D6090059AD79 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D6FDB221562D6090059AD79 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9D6FDB131562D6090059AD79 = {
+			isa = PBXGroup;
+			children = (
+				9D6FDB321562D6630059AD79 /* src */,
+				9D6FDB2E1562D6300059AD79 /* YAMLSerialization.h */,
+				9D6FDB2F1562D6300059AD79 /* YAMLSerialization.m */,
+				9D6FDB201562D6090059AD79 /* Frameworks */,
+				9D6FDB1F1562D6090059AD79 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9D6FDB1F1562D6090059AD79 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9D6FDB1E1562D6090059AD79 /* libYAML.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9D6FDB201562D6090059AD79 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9D6FDB211562D6090059AD79 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9D6FDB321562D6630059AD79 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				9D6FDB331562D6630059AD79 /* api.c */,
+				9D6FDB341562D6630059AD79 /* dumper.c */,
+				9D6FDB351562D6630059AD79 /* emitter.c */,
+				9D6FDB361562D6630059AD79 /* loader.c */,
+				9D6FDB371562D6630059AD79 /* Makefile.am */,
+				9D6FDB381562D6630059AD79 /* Makefile.in */,
+				9D6FDB391562D6630059AD79 /* parser.c */,
+				9D6FDB3A1562D6630059AD79 /* reader.c */,
+				9D6FDB3B1562D6630059AD79 /* scanner.c */,
+				9D6FDB3C1562D6630059AD79 /* writer.c */,
+				9D6FDB3D1562D6630059AD79 /* yaml_private.h */,
+			);
+			name = src;
+			path = "../vendor/YAML.framework/yaml-0.1.4/src";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		9D6FDB1C1562D6090059AD79 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D6FDB301562D6300059AD79 /* YAMLSerialization.h in Headers */,
+				9D6FDB461562D6630059AD79 /* yaml_private.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		9D6FDB1D1562D6090059AD79 /* YAML */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9D6FDB2B1562D6090059AD79 /* Build configuration list for PBXNativeTarget "YAML" */;
+			buildPhases = (
+				9D6FDB1A1562D6090059AD79 /* Sources */,
+				9D6FDB1B1562D6090059AD79 /* Frameworks */,
+				9D6FDB1C1562D6090059AD79 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YAML;
+			productName = YAML;
+			productReference = 9D6FDB1E1562D6090059AD79 /* libYAML.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9D6FDB151562D6090059AD79 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = n/a;
+			};
+			buildConfigurationList = 9D6FDB181562D6090059AD79 /* Build configuration list for PBXProject "YAML" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9D6FDB131562D6090059AD79;
+			productRefGroup = 9D6FDB1F1562D6090059AD79 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9D6FDB1D1562D6090059AD79 /* YAML */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9D6FDB1A1562D6090059AD79 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D6FDB311562D6300059AD79 /* YAMLSerialization.m in Sources */,
+				9D6FDB3E1562D6630059AD79 /* api.c in Sources */,
+				9D6FDB3F1562D6630059AD79 /* dumper.c in Sources */,
+				9D6FDB401562D6630059AD79 /* emitter.c in Sources */,
+				9D6FDB411562D6630059AD79 /* loader.c in Sources */,
+				9D6FDB421562D6630059AD79 /* parser.c in Sources */,
+				9D6FDB431562D6630059AD79 /* reader.c in Sources */,
+				9D6FDB441562D6630059AD79 /* scanner.c in Sources */,
+				9D6FDB451562D6630059AD79 /* writer.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		9D6FDB291562D6090059AD79 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		9D6FDB2A1562D6090059AD79 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9D6FDB2C1562D6090059AD79 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/YAML.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = "../vendor/YAML.framework/yaml-0.1.4/**";
+				OTHER_CFLAGS = "-DHAVE_CONFIG_H=1";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		9D6FDB2D1562D6090059AD79 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/YAML.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = "../vendor/YAML.framework/yaml-0.1.4/**";
+				OTHER_CFLAGS = "-DHAVE_CONFIG_H=1";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9D6FDB181562D6090059AD79 /* Build configuration list for PBXProject "YAML" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9D6FDB291562D6090059AD79 /* Debug */,
+				9D6FDB2A1562D6090059AD79 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9D6FDB2B1562D6090059AD79 /* Build configuration list for PBXNativeTarget "YAML" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9D6FDB2C1562D6090059AD79 /* Debug */,
+				9D6FDB2D1562D6090059AD79 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9D6FDB151562D6090059AD79 /* Project object */;
+}
