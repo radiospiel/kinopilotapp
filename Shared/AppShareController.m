@@ -14,7 +14,7 @@
 
 -(void)shareViaTwitter
 {
-  [app sendTweet: @"Mit der Kinopilot-App hab ich jetzt die Berliner Kinotermine immer auf meinem iPhone dabei! http://bit.ly/wJNpfb"
+  [app sendTweet: [app.config objectForKey:@"app_tweet"]
          withURL: nil
         andImage: nil];
 }
