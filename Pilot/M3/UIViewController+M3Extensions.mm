@@ -50,26 +50,29 @@
 @interface M3UIBarButtonItem: UIBarButtonItem
 
 @property (nonatomic,retain) NSString* url;
+@property (nonatomic,retain) NSString* url_;
 
 @end
 
 @implementation M3UIBarButtonItem
 
-@synthesize url;
+@synthesize url_;
 
--(id)init
-{ 
-  self = [super init];
-  
+-(NSString*)url
+{
+  return self.url_;
+}
+
+-(void)setUrl:(NSString *)url
+{
+  self.url_   = url;
   self.target = self;
   self.action = @selector(openURL); 
-  
-  return self;
 }
 
 -(void)dealloc
 {
-  self.url = nil;
+  self.url_ = nil;
   [super dealloc];
 }
 
