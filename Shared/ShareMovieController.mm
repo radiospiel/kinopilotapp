@@ -42,12 +42,18 @@
   if(!description) return nil;
   
   NSString* teaser = [self teaserForMovie: self.movie];
+  NSString* escapedTeaser = teaser.htmlEscape;
+  
   NSString* url = [self.movie objectForKey:@"url"];
   
-  if(!url || teaser.length > description.length - 15) 
-    return teaser.htmlEscape;
-  
-  return [teaser.htmlEscape stringByAppendingFormat:@"... <a href='%@'>Mehr auf moviepilot.de</a>", url];
+  if(url && (teaser.length < description.length - 15)) {
+    if(app.isKinopilot)
+      escapedTeaser = [escapedTeaser stringByAppendingFormat:@"... <a href='%@'>Mehr auf moviepilot.de</a>", url];
+    else
+      escapedTeaser = [escapedTeaser stringByAppendingFormat:@"... <a href='%@'>Weiterlesen</a>", url];
+  } 
+
+  return escapedTeaser;
 }
 
 -(NSDictionary*)interpolationContext
@@ -66,7 +72,7 @@
    ];
 }
 
--(void)shareViaTwitter
+-(void)shareViatwer
 {
   NSString* tweet = [NSString stringWithFormat: @"%@: %@", 
                      [self.movie objectForKey:@"title"], 
