@@ -143,7 +143,7 @@
   
   
   [self addRecords:[events arrayByAddingObjectsFromArray:location_markers]
-        withGroupingLimit:0];
+        withGroupingThreshold:0];
 
   return self;
 }

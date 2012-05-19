@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9D0D8A4E1563B25500EC5A86 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D0D8A4D1563B25500EC5A86 /* SVProgressHUD.bundle */; };
 		9D12B90B15677C0A001DC994 /* EventsListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D12B90A15677C0A001DC994 /* EventsListController.mm */; };
+		9D12B90D1567A768001DC994 /* VicinityEventsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D12B90C1567A768001DC994 /* VicinityEventsController.mm */; };
 		9D1B65D01566D7FE006F2C06 /* LocationsListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D1B65CF1566D7FE006F2C06 /* LocationsListController.mm */; };
 		9D6FD83715628A020059AD79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD83615628A020059AD79 /* UIKit.framework */; };
 		9D6FD83915628A020059AD79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD83815628A020059AD79 /* Foundation.framework */; };
@@ -42,7 +43,6 @@
 		9D6FD92615628AE60059AD79 /* ShareScheduleController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8C915628AE60059AD79 /* ShareScheduleController.mm */; };
 		9D6FD92715628AE60059AD79 /* TheatersListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8CB15628AE60059AD79 /* TheatersListController.mm */; };
 		9D6FD92815628AE60059AD79 /* UserVoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8CC15628AE60059AD79 /* UserVoiceController.m */; };
-		9D6FD92915628AE60059AD79 /* VicinityShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8CD15628AE60059AD79 /* VicinityShowController.mm */; };
 		9D6FD92A15628AE60059AD79 /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8CF15628AE60059AD79 /* WebViewController.mm */; };
 		9D6FD92D15628C6B0059AD79 /* libPilot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD85815628A240059AD79 /* libPilot.a */; };
 		9D6FD92F15628C730059AD79 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD92E15628C730059AD79 /* libsqlite3.dylib */; };
@@ -107,6 +107,7 @@
 /* Begin PBXFileReference section */
 		9D0D8A4D1563B25500EC5A86 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = ../vendor/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
 		9D12B90A15677C0A001DC994 /* EventsListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EventsListController.mm; sourceTree = "<group>"; };
+		9D12B90C1567A768001DC994 /* VicinityEventsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VicinityEventsController.mm; sourceTree = "<group>"; };
 		9D1B65CF1566D7FE006F2C06 /* LocationsListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LocationsListController.mm; path = ../Shared/LocationsListController.mm; sourceTree = "<group>"; };
 		9D6FD83215628A020059AD79 /* Livegigs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Livegigs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D6FD83615628A020059AD79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -147,7 +148,6 @@
 		9D6FD8C915628AE60059AD79 /* ShareScheduleController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShareScheduleController.mm; sourceTree = "<group>"; };
 		9D6FD8CB15628AE60059AD79 /* TheatersListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TheatersListController.mm; sourceTree = "<group>"; };
 		9D6FD8CC15628AE60059AD79 /* UserVoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserVoiceController.m; sourceTree = "<group>"; };
-		9D6FD8CD15628AE60059AD79 /* VicinityShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VicinityShowController.mm; sourceTree = "<group>"; };
 		9D6FD8CE15628AE60059AD79 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		9D6FD8CF15628AE60059AD79 /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewController.mm; sourceTree = "<group>"; };
 		9D6FD92E15628C730059AD79 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -341,7 +341,7 @@
 				9D6FD8C915628AE60059AD79 /* ShareScheduleController.mm */,
 				9D6FD8CB15628AE60059AD79 /* TheatersListController.mm */,
 				9D6FD8CC15628AE60059AD79 /* UserVoiceController.m */,
-				9D6FD8CD15628AE60059AD79 /* VicinityShowController.mm */,
+				9D12B90C1567A768001DC994 /* VicinityEventsController.mm */,
 				9D6FD8CE15628AE60059AD79 /* WebViewController.h */,
 				9D6FD8CF15628AE60059AD79 /* WebViewController.mm */,
 			);
@@ -548,10 +548,10 @@
 				9D6FD92615628AE60059AD79 /* ShareScheduleController.mm in Sources */,
 				9D6FD92715628AE60059AD79 /* TheatersListController.mm in Sources */,
 				9D6FD92815628AE60059AD79 /* UserVoiceController.m in Sources */,
-				9D6FD92915628AE60059AD79 /* VicinityShowController.mm in Sources */,
 				9D6FD92A15628AE60059AD79 /* WebViewController.mm in Sources */,
 				9D1B65D01566D7FE006F2C06 /* LocationsListController.mm in Sources */,
 				9D12B90B15677C0A001DC994 /* EventsListController.mm in Sources */,
+				9D12B90D1567A768001DC994 /* VicinityEventsController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
