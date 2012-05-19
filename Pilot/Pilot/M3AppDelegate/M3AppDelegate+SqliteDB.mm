@@ -62,14 +62,18 @@
 
 -(NSString*)updateUrlFromBaseUrl: (NSString*)baseUrl
 {
-  // build update URL as "{baseUrl}/{uuid}/{revision}"
-  
   NSNumber* revision = [self.settings objectForKey: @"revision"];
   NSString* uuid = [self.settings objectForKey: @"uuid"];
   
   if(revision.to_i <= 0 || !uuid) 
     return baseUrl;
   
+  if(app.isKinopilot) {
+    // legacy
+    return [NSString stringWithFormat: @"%@?uuid=%@&since=%@", baseUrl, uuid, revision];
+  }
+
+  // build update URL as "{baseUrl}/{uuid}/{revision}"
   return [NSString stringWithFormat: @"%@/%@/%@", baseUrl, uuid, revision];
 }
 

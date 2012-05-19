@@ -34,7 +34,7 @@
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     NSTimeInterval two_weeks_ago = now - 14 * 24 * 3600;
     
-    movies = [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image, movies.sortkey FROM movies "
+    movies = [ app.sqliteDB all: @"SELECT movies.* FROM movies "
               "INNER JOIN schedules ON schedules.movie_id=movies._id "
               "INNER JOIN theaters ON schedules.theater_id=theaters._id "
               "WHERE schedules.time > ? AND cinema_start_date > ? "
@@ -44,7 +44,7 @@
               ];
   }
   else if([filter isEqualToString:@"art"]) {
-    movies = [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image, movies.sortkey FROM movies "
+    movies = [ app.sqliteDB all: @"SELECT movies.* FROM movies "
               "INNER JOIN schedules ON schedules.movie_id=movies._id "
               "INNER JOIN theaters ON schedules.theater_id=theaters._id "
               "WHERE schedules.time > ? AND production_year < 1995 "
@@ -53,7 +53,7 @@
               ];
   }
   else {
-    movies = [ app.sqliteDB all: @"SELECT movies._id, movies.title, movies.image, movies.sortkey FROM movies "
+    movies = [ app.sqliteDB all: @"SELECT movies.* FROM movies "
               "INNER JOIN schedules ON schedules.movie_id=movies._id  "
               "INNER JOIN theaters ON schedules.theater_id=theaters._id "
               "WHERE schedules.time > ? "
