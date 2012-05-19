@@ -53,22 +53,8 @@
   }
 
   //    
-  //    
-  if(locations.count > 10) {
-    NSDictionary* groupedHash = [locations groupUsingBlock:^id(NSDictionary* location) {
-      return [M3TableViewDataSource indexKey: location];
-    }];
-
-    NSArray* groups = [groupedHash.to_array sortBySelector:@selector(first)];
-    for(NSArray* group in groups) {
-      [self addSection: group.second 
-           withOptions:_.hash(@"header", group.first, 
-                              @"index", group.first)];
-    }
-  }
-  else if(locations.count > 0) {
-    [self addSection: locations];
-  }
+  //
+  [self addRecords: locations];
   
   if([filter isEqualToString:@"fav"])
     [self addFallbackSectionIfNeeded: @"NoFavsCell" ];
@@ -78,14 +64,17 @@
   return self;
 }
 
+-(id)groupKeyForRecord: (NSDictionary*)record
+{
+  NSString* locationName = [record objectForKey:@"name"];
+  return [locationName substringToIndex:1];
+}
+
 @end
 
 // --- LocationsListCell ------------------------------------------------
 
-@interface LocationsListCell: M3TableViewProfileCell {
-  BOOL hasSchedules;
-}
-
+@interface LocationsListCell: M3TableViewProfileCell 
 @property (nonatomic,retain) id location_id;
 @end
 
@@ -97,16 +86,6 @@
 {
   [app setFlagged:isNowFlagged onKey: self.location_id];
   return isNowFlagged;
-}
-
--(NSArray*)eventNamesForVenue: (NSDictionary*)location
-{
-  NSArray* events = [app.sqliteDB all: @"SELECT events.name FROM events "
-                                        "WHERE events.location_id=? AND events.starts_at > ?", 
-                                        [location objectForKey: @"_id"],
-                                        [NSDate today]];
-  
-  return [events mapUsingBlock:^id(NSDictionary* movie) { return [movie objectForKey:@"name"]; }];
 }
 
 -(void)setKey: (NSDictionary*)location
@@ -121,23 +100,6 @@
   [self setText: [location objectForKey: @"name"]];
 
   [self setDetailText: [location objectForKey: @"events"]];
-  
-//  NSArray* names = [self eventNamesForVenue: location];
-//  hasSchedules = names.count > 0;
-//  
-//  if(hasSchedules) {
-//    [self setDetailText: [names componentsJoinedByString: @", "]];
-//  }
-//  else {
-//    [self setDetailText: @"Für diese Location liegen uns keine Termine vor."];
-//  }
-}
-
--(void)layoutSubviews
-{
-  [super layoutSubviews];
-  if(!hasSchedules)
-    self.detailTextLabel.textColor = [UIColor grayColor];
 }
 
 -(NSString*)url 
