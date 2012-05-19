@@ -39,6 +39,7 @@
  * Adds an array of records to this data source.
  */
 -(void)addRecords: (NSArray*) records;
+-(void)addRecords:(NSArray*) records withGroupingThreshold: (int)groupThreshold;
 
 -(NSString*)groupLabelForKey: (id)key;
 -(id)groupKeyForRecord: (NSDictionary*)record;

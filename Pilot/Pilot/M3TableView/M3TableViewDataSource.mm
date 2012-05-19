@@ -114,19 +114,38 @@ static NSString* legacyIndexKey(NSDictionary* dict)
 
 -(void)addRecords:(NSArray*) records
 {
-  if(records.count < 10 || ![self groupKeyForRecord: records.first]) {
+  [self addRecords:records withGroupingThreshold: 10];
+}
+
+-(void)addRecords:(NSArray*) records withGroupingThreshold: (int)groupThreshold
+{
+  if(records.count < groupThreshold || ![self groupKeyForRecord: records.first]) {
     [self addSection: records];
     return;
   }
-
-  NSDictionary* grouped = [records groupUsingBlock:^id(NSDictionary* record) {
-    return [self groupKeyForRecord: record];
-  }];
   
-  NSArray* groups = [grouped.to_array sortBySelector:@selector(first)];
-  for(NSArray* group in groups) {
-    id groupKey = group.first;
-    NSArray* recordsInGroup = group.second;
+  // The following groups the records by their respective groupKeys.
+  // It is stable; i.e. group keys appear in the final result in the
+  // order in which they appeared in the records input.
+  
+  NSMutableArray* groupKeys = [NSMutableArray array];
+  NSMutableDictionary* grouped = [NSMutableDictionary dictionary];
+  for(NSDictionary* record in records) {
+    id groupKey = [self groupKeyForRecord: record];
+    NSMutableArray* group = [grouped objectForKey:groupKey];
+    if(group) {
+      [group addObject:record];
+      continue;
+    }
+    
+    group = [NSMutableArray arrayWithObject: record];
+    [grouped setObject:group forKey:groupKey];
+    [groupKeys addObject:groupKey];
+  }
+  
+  // Build groups according to the groupKeys array.
+  for(id groupKey in groupKeys) {
+    NSArray* recordsInGroup = [grouped objectForKey:groupKey];
     NSString* groupLabel = [self groupLabelForKey: groupKey];
     
     NSMutableDictionary* options = [NSMutableDictionary dictionary];
