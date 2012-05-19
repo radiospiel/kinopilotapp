@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9D0D8A4E1563B25500EC5A86 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D0D8A4D1563B25500EC5A86 /* SVProgressHUD.bundle */; };
+		9D12B90B15677C0A001DC994 /* EventsListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D12B90A15677C0A001DC994 /* EventsListController.mm */; };
 		9D1B65D01566D7FE006F2C06 /* LocationsListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D1B65CF1566D7FE006F2C06 /* LocationsListController.mm */; };
 		9D6FD83715628A020059AD79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD83615628A020059AD79 /* UIKit.framework */; };
 		9D6FD83915628A020059AD79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD83815628A020059AD79 /* Foundation.framework */; };
@@ -105,6 +106,7 @@
 
 /* Begin PBXFileReference section */
 		9D0D8A4D1563B25500EC5A86 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = ../vendor/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
+		9D12B90A15677C0A001DC994 /* EventsListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EventsListController.mm; sourceTree = "<group>"; };
 		9D1B65CF1566D7FE006F2C06 /* LocationsListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LocationsListController.mm; path = ../Shared/LocationsListController.mm; sourceTree = "<group>"; };
 		9D6FD83215628A020059AD79 /* Livegigs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Livegigs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D6FD83615628A020059AD79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -312,6 +314,7 @@
 		9D6FD86115628AE60059AD79 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				9D12B90A15677C0A001DC994 /* EventsListController.mm */,
 				9D6FD86615628AE60059AD79 /* AppBase.h */,
 				9D6FD86215628AE60059AD79 /* ActionController.mm */,
 				9D6FD86515628AE60059AD79 /* AppActionsController.m */,
@@ -548,6 +551,7 @@
 				9D6FD92915628AE60059AD79 /* VicinityShowController.mm in Sources */,
 				9D6FD92A15628AE60059AD79 /* WebViewController.mm in Sources */,
 				9D1B65D01566D7FE006F2C06 /* LocationsListController.mm in Sources */,
+				9D12B90B15677C0A001DC994 /* EventsListController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

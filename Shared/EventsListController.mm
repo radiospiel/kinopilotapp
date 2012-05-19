@@ -25,7 +25,7 @@
 
 +(EventsDataSource*)dataSourceWithLocation: (NSDictionary*)location
 {
-  EventsDataSource* ds = [[EventsDataSource alloc]initWithCellClass: @"EventsListCell"]; 
+  EventsDataSource* ds = [[EventsDataSource alloc]initWithCellClass: @"EventsByLocationListCell"]; 
   
   NSArray* events = [ app.sqliteDB all: 
           @"SELECT events.*, locations.name AS location_name FROM events "
