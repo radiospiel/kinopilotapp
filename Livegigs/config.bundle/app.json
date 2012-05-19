@@ -27,8 +27,8 @@
       "actionURL":  "/events/list"
     },
     "today": {
-      "title":      "Kalender",
-      "actionURL":  "/events/calendar"
+      "title":      "Heute",
+      "actionURL":  "/vicinity/events"
     }
   },
 
