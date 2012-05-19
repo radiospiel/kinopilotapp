@@ -24,6 +24,12 @@ static id infoForKey(NSString *key)
   if([key isEqualToString: @"schedules_count"])
     return app.sqliteDB.schedules.count;
   
+  if([key isEqualToString: @"events_count"])
+    return app.sqliteDB.events.count;
+  
+  if([key isEqualToString: @"locations_count"])
+    return app.sqliteDB.locations.count;
+  
   if([key isEqualToString: @"built_at"])
     return [NSString stringWithFormat: @"%s %s", __DATE__, __TIME__]; 
   
@@ -32,7 +38,7 @@ static id infoForKey(NSString *key)
 
 -(NSDictionary*) infoDictionary
 {
-  NSArray* keys = _.array(@"updated_at", @"revision", @"theaters_count", @"movies_count", @"schedules_count", @"built_at");
+  NSArray* keys = _.array(@"updated_at", @"revision", @"theaters_count", @"movies_count", @"schedules_count", @"built_at", @"events_count", @"locations_count");
 
   NSMutableDictionary* dictionary = [NSMutableDictionary dictionary];
   for(NSString* key in keys) {

@@ -82,9 +82,10 @@
     {
       "header":  "Livegigs (Demo)",
       "content": [
-        ["Kinopilot im Netz", "http://livegigs.de"],
+        ["Livegigs im Netz", "http://livegigs.de"],
         ["Aktualisiert",      "updated_at"],
-        ["Vorführungen",      "schedules_count"]
+        ["Events",            "events_count"],
+        ["Locations",         "locations_count"]
       ]
     },
     {
