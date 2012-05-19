@@ -27,12 +27,6 @@ static NSString* legacyIndexKey(NSDictionary* dict)
 {
   NSString* indexKey = [dict objectForKey:@"sortkey"];
   
-  if(!indexKey)
-    indexKey = [dict objectForKey:@"name"];
-  
-  if(!indexKey)
-    indexKey = [dict objectForKey:@"title"];
-  
   if(![indexKey isKindOfClass:[NSString class]])
     indexKey = legacyIndexKey(dict);
   
@@ -104,6 +98,47 @@ static NSString* legacyIndexKey(NSDictionary* dict)
   if(!keys) keys = [NSArray array];
   NSArray* section = [NSArray arrayWithObjects: keys, options, nil];
   [self.sections addObject: section];
+}
+
+-(NSString*)groupLabelForKey: (id)key
+{
+  return [key description];
+}
+
+-(id)groupKeyForRecord: (NSDictionary*)record
+{
+  M3AssertKindOf(record, NSDictionary);
+  
+  return [record objectForKey:@"group_key"];
+}
+
+-(void)addRecords:(NSArray*) records
+{
+  if(records.count < 10 || ![self groupKeyForRecord: records.first]) {
+    [self addSection: records];
+    return;
+  }
+
+  NSDictionary* grouped = [records groupUsingBlock:^id(NSDictionary* record) {
+    return [self groupKeyForRecord: record];
+  }];
+  
+  NSArray* groups = [grouped.to_array sortBySelector:@selector(first)];
+  for(NSArray* group in groups) {
+    id groupKey = group.first;
+    NSArray* recordsInGroup = group.second;
+    NSString* groupLabel = [self groupLabelForKey: groupKey];
+    
+    NSMutableDictionary* options = [NSMutableDictionary dictionary];
+    [options setObject: groupLabel forKey:@"header"];
+
+    if(groupLabel.length == 1) {
+      [options setObject: groupLabel forKey:@"index"];
+    }
+    
+    [self addSection: recordsInGroup
+         withOptions: options];
+  }
 }
 
 -(void)prependSection:(NSArray*) keys withOptions: (NSDictionary*) options

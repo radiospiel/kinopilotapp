@@ -35,12 +35,22 @@
 -(void)addSection: (NSArray*) keys withOptions: (NSDictionary*)options;
 -(void)addSection: (NSArray*) keys;
 
+/**
+ * Adds an array of records to this data source.
+ */
+-(void)addRecords: (NSArray*) records;
 
+-(NSString*)groupLabelForKey: (id)key;
+-(id)groupKeyForRecord: (NSDictionary*)record;
+
+/**
+ * Adds an array of fallback entries to this data source.
+ */
 -(void)addFallbackSectionIfNeeded;
 -(void)addFallbackSectionIfNeeded: (NSString*)cells;
 
 /** 
- * Adds a section to the receiving data source.
+ * Prepends a section to the receiving data source.
  */
 -(void)prependSection: (NSArray*) keys withOptions: (NSDictionary*)options;
 
