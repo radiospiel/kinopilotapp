@@ -77,7 +77,7 @@
   NSString* r = [[NSString alloc] initWithData:data
                                       encoding:NSUTF8StringEncoding];
 
-  return r;
+  return [r autorelease];
 }
 
 + (NSString*) toJSON: (id) object;
