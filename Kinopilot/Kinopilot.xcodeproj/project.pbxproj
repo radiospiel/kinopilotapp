@@ -39,7 +39,6 @@
 		9D6FD92515628AE60059AD79 /* ShareMovieController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8C815628AE60059AD79 /* ShareMovieController.mm */; };
 		9D6FD92615628AE60059AD79 /* ShareScheduleController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8C915628AE60059AD79 /* ShareScheduleController.mm */; };
 		9D6FD92715628AE60059AD79 /* TheatersListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8CB15628AE60059AD79 /* TheatersListController.mm */; };
-		9D6FD92815628AE60059AD79 /* UserVoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8CC15628AE60059AD79 /* UserVoiceController.m */; };
 		9D6FD92915628AE60059AD79 /* VicinityShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8CD15628AE60059AD79 /* VicinityShowController.mm */; };
 		9D6FD92A15628AE60059AD79 /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8CF15628AE60059AD79 /* WebViewController.mm */; };
 		9D6FD92D15628C6B0059AD79 /* libPilot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD85815628A240059AD79 /* libPilot.a */; };
@@ -142,7 +141,6 @@
 		9D6FD8C815628AE60059AD79 /* ShareMovieController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShareMovieController.mm; sourceTree = "<group>"; };
 		9D6FD8C915628AE60059AD79 /* ShareScheduleController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShareScheduleController.mm; sourceTree = "<group>"; };
 		9D6FD8CB15628AE60059AD79 /* TheatersListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TheatersListController.mm; sourceTree = "<group>"; };
-		9D6FD8CC15628AE60059AD79 /* UserVoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserVoiceController.m; sourceTree = "<group>"; };
 		9D6FD8CD15628AE60059AD79 /* VicinityShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VicinityShowController.mm; sourceTree = "<group>"; };
 		9D6FD8CE15628AE60059AD79 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		9D6FD8CF15628AE60059AD79 /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewController.mm; sourceTree = "<group>"; };
@@ -325,7 +323,6 @@
 				9D6FD8C815628AE60059AD79 /* ShareMovieController.mm */,
 				9D6FD8C915628AE60059AD79 /* ShareScheduleController.mm */,
 				9D6FD8CB15628AE60059AD79 /* TheatersListController.mm */,
-				9D6FD8CC15628AE60059AD79 /* UserVoiceController.m */,
 				9D6FD8CD15628AE60059AD79 /* VicinityShowController.mm */,
 				9D6FD8CE15628AE60059AD79 /* WebViewController.h */,
 				9D6FD8CF15628AE60059AD79 /* WebViewController.mm */,
@@ -533,7 +530,6 @@
 				9D6FD92515628AE60059AD79 /* ShareMovieController.mm in Sources */,
 				9D6FD92615628AE60059AD79 /* ShareScheduleController.mm in Sources */,
 				9D6FD92715628AE60059AD79 /* TheatersListController.mm in Sources */,
-				9D6FD92815628AE60059AD79 /* UserVoiceController.m in Sources */,
 				9D6FD92915628AE60059AD79 /* VicinityShowController.mm in Sources */,
 				9D6FD92A15628AE60059AD79 /* WebViewController.mm in Sources */,
 			);

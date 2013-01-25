@@ -102,11 +102,6 @@
 		9D6FDAE41562D0550059AD79 /* Underscore.hh in Headers */ = {isa = PBXBuildFile; fileRef = 9D6FDA601562D0540059AD79 /* Underscore.hh */; };
 		9D6FDAE51562D0550059AD79 /* Underscore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FDA611562D0540059AD79 /* Underscore.mm */; };
 		9DA801C815602510004AA9F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DA801C715602510004AA9F3 /* Foundation.framework */; };
-		9DA8020815602606004AA9F3 /* libUserVoice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DA801E215602606004AA9F3 /* libUserVoice.a */; };
-		9DA8020915602606004AA9F3 /* UserVoice.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA801E415602606004AA9F3 /* UserVoice.h */; };
-		9DA8020A15602606004AA9F3 /* UVConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA801E515602606004AA9F3 /* UVConfig.h */; };
-		9DA8020B15602606004AA9F3 /* UVDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA801E615602606004AA9F3 /* UVDelegate.h */; };
-		9DA8020C15602606004AA9F3 /* UVStyleSheet.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA801E715602606004AA9F3 /* UVStyleSheet.h */; };
 		9DA8021115602641004AA9F3 /* TTTAttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8020F15602641004AA9F3 /* TTTAttributedLabel.h */; };
 		9DA8021215602641004AA9F3 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA8021015602641004AA9F3 /* TTTAttributedLabel.m */; };
 		9DA8021B1560268B004AA9F3 /* FlurryAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA802191560268B004AA9F3 /* FlurryAnalytics.h */; };
@@ -238,41 +233,6 @@
 		9D6FDA611562D0540059AD79 /* Underscore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Underscore.mm; sourceTree = "<group>"; };
 		9DA801C415602510004AA9F3 /* libPilot.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPilot.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DA801C715602510004AA9F3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		9DA801E215602606004AA9F3 /* libUserVoice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUserVoice.a; path = "../vendor/UserVoiceSDK-1.1.0/libUserVoice.a"; sourceTree = "<group>"; };
-		9DA801E415602606004AA9F3 /* UserVoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserVoice.h; sourceTree = "<group>"; };
-		9DA801E515602606004AA9F3 /* UVConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UVConfig.h; sourceTree = "<group>"; };
-		9DA801E615602606004AA9F3 /* UVDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UVDelegate.h; sourceTree = "<group>"; };
-		9DA801E715602606004AA9F3 /* UVStyleSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UVStyleSheet.h; sourceTree = "<group>"; };
-		9DA801EA15602606004AA9F3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UserVoice.strings; sourceTree = "<group>"; };
-		9DA801EB15602606004AA9F3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/UserVoice.strings; sourceTree = "<group>"; };
-		9DA801EC15602606004AA9F3 /* uv_alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_alert.png; sourceTree = "<group>"; };
-		9DA801ED15602606004AA9F3 /* uv_alert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_alert@2x.png"; sourceTree = "<group>"; };
-		9DA801EE15602606004AA9F3 /* uv_default_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_default_avatar.png; sourceTree = "<group>"; };
-		9DA801EF15602606004AA9F3 /* uv_default_avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_default_avatar@2x.png"; sourceTree = "<group>"; };
-		9DA801F015602606004AA9F3 /* uv_error_connection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_error_connection.png; sourceTree = "<group>"; };
-		9DA801F115602606004AA9F3 /* uv_error_connection@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_error_connection@2x.png"; sourceTree = "<group>"; };
-		9DA801F215602606004AA9F3 /* uv_karma_star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_karma_star.png; sourceTree = "<group>"; };
-		9DA801F315602606004AA9F3 /* uv_karma_star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_karma_star@2x.png"; sourceTree = "<group>"; };
-		9DA801F415602606004AA9F3 /* uv_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_logo.png; sourceTree = "<group>"; };
-		9DA801F515602606004AA9F3 /* uv_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_logo@2x.png"; sourceTree = "<group>"; };
-		9DA801F615602606004AA9F3 /* uv_primary_button_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_primary_button_green.png; sourceTree = "<group>"; };
-		9DA801F715602606004AA9F3 /* uv_primary_button_green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_primary_button_green@2x.png"; sourceTree = "<group>"; };
-		9DA801F815602606004AA9F3 /* uv_primary_button_green_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_primary_button_green_active.png; sourceTree = "<group>"; };
-		9DA801F915602606004AA9F3 /* uv_primary_button_green_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_primary_button_green_active@2x.png"; sourceTree = "<group>"; };
-		9DA801FA15602606004AA9F3 /* uv_primary_button_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_primary_button_red.png; sourceTree = "<group>"; };
-		9DA801FB15602606004AA9F3 /* uv_primary_button_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_primary_button_red@2x.png"; sourceTree = "<group>"; };
-		9DA801FC15602606004AA9F3 /* uv_primary_button_red_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_primary_button_red_active.png; sourceTree = "<group>"; };
-		9DA801FD15602606004AA9F3 /* uv_primary_button_red_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_primary_button_red_active@2x.png"; sourceTree = "<group>"; };
-		9DA801FE15602606004AA9F3 /* uv_user_chicklet_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_user_chicklet_dark.png; sourceTree = "<group>"; };
-		9DA801FF15602606004AA9F3 /* uv_user_chicklet_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_user_chicklet_dark@2x.png"; sourceTree = "<group>"; };
-		9DA8020015602606004AA9F3 /* uv_user_chicklet_detail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_user_chicklet_detail.png; sourceTree = "<group>"; };
-		9DA8020115602606004AA9F3 /* uv_user_chicklet_detail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_user_chicklet_detail@2x.png"; sourceTree = "<group>"; };
-		9DA8020215602606004AA9F3 /* uv_user_chicklet_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_user_chicklet_light.png; sourceTree = "<group>"; };
-		9DA8020315602606004AA9F3 /* uv_user_chicklet_light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_user_chicklet_light@2x.png"; sourceTree = "<group>"; };
-		9DA8020415602606004AA9F3 /* uv_vote_chicklet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_vote_chicklet.png; sourceTree = "<group>"; };
-		9DA8020515602606004AA9F3 /* uv_vote_chicklet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_vote_chicklet@2x.png"; sourceTree = "<group>"; };
-		9DA8020615602606004AA9F3 /* uv_vote_chicklet_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uv_vote_chicklet_empty.png; sourceTree = "<group>"; };
-		9DA8020715602606004AA9F3 /* uv_vote_chicklet_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_vote_chicklet_empty@2x.png"; sourceTree = "<group>"; };
 		9DA8020F15602641004AA9F3 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTTAttributedLabel.h; path = ../vendor/TTTAttributedLabel/TTTAttributedLabel.h; sourceTree = "<group>"; };
 		9DA8021015602641004AA9F3 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTTAttributedLabel.m; path = ../vendor/TTTAttributedLabel/TTTAttributedLabel.m; sourceTree = "<group>"; };
 		9DA802191560268B004AA9F3 /* FlurryAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAnalytics.h; sourceTree = "<group>"; };
@@ -314,7 +274,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DA801C815602510004AA9F3 /* Foundation.framework in Frameworks */,
-				9DA8020815602606004AA9F3 /* libUserVoice.a in Frameworks */,
 				9DA8021C1560268B004AA9F3 /* libFlurryAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -486,68 +445,8 @@
 				9DA8021D156026A9004AA9F3 /* SVProgressHUD */,
 				9DA802181560268B004AA9F3 /* FlurryAnalytics */,
 				9DA8020E1560262E004AA9F3 /* TTAttributedLabel */,
-				9DA8020D1560260C004AA9F3 /* UserVoice */,
 			);
 			name = vendor;
-			sourceTree = "<group>";
-		};
-		9DA801E315602606004AA9F3 /* UVHeaders */ = {
-			isa = PBXGroup;
-			children = (
-				9DA801E415602606004AA9F3 /* UserVoice.h */,
-				9DA801E515602606004AA9F3 /* UVConfig.h */,
-				9DA801E615602606004AA9F3 /* UVDelegate.h */,
-				9DA801E715602606004AA9F3 /* UVStyleSheet.h */,
-			);
-			name = UVHeaders;
-			path = "../vendor/UserVoiceSDK-1.1.0/UVHeaders";
-			sourceTree = "<group>";
-		};
-		9DA801E815602606004AA9F3 /* UVResources */ = {
-			isa = PBXGroup;
-			children = (
-				9DA801E915602606004AA9F3 /* UserVoice.strings */,
-				9DA801EC15602606004AA9F3 /* uv_alert.png */,
-				9DA801ED15602606004AA9F3 /* uv_alert@2x.png */,
-				9DA801EE15602606004AA9F3 /* uv_default_avatar.png */,
-				9DA801EF15602606004AA9F3 /* uv_default_avatar@2x.png */,
-				9DA801F015602606004AA9F3 /* uv_error_connection.png */,
-				9DA801F115602606004AA9F3 /* uv_error_connection@2x.png */,
-				9DA801F215602606004AA9F3 /* uv_karma_star.png */,
-				9DA801F315602606004AA9F3 /* uv_karma_star@2x.png */,
-				9DA801F415602606004AA9F3 /* uv_logo.png */,
-				9DA801F515602606004AA9F3 /* uv_logo@2x.png */,
-				9DA801F615602606004AA9F3 /* uv_primary_button_green.png */,
-				9DA801F715602606004AA9F3 /* uv_primary_button_green@2x.png */,
-				9DA801F815602606004AA9F3 /* uv_primary_button_green_active.png */,
-				9DA801F915602606004AA9F3 /* uv_primary_button_green_active@2x.png */,
-				9DA801FA15602606004AA9F3 /* uv_primary_button_red.png */,
-				9DA801FB15602606004AA9F3 /* uv_primary_button_red@2x.png */,
-				9DA801FC15602606004AA9F3 /* uv_primary_button_red_active.png */,
-				9DA801FD15602606004AA9F3 /* uv_primary_button_red_active@2x.png */,
-				9DA801FE15602606004AA9F3 /* uv_user_chicklet_dark.png */,
-				9DA801FF15602606004AA9F3 /* uv_user_chicklet_dark@2x.png */,
-				9DA8020015602606004AA9F3 /* uv_user_chicklet_detail.png */,
-				9DA8020115602606004AA9F3 /* uv_user_chicklet_detail@2x.png */,
-				9DA8020215602606004AA9F3 /* uv_user_chicklet_light.png */,
-				9DA8020315602606004AA9F3 /* uv_user_chicklet_light@2x.png */,
-				9DA8020415602606004AA9F3 /* uv_vote_chicklet.png */,
-				9DA8020515602606004AA9F3 /* uv_vote_chicklet@2x.png */,
-				9DA8020615602606004AA9F3 /* uv_vote_chicklet_empty.png */,
-				9DA8020715602606004AA9F3 /* uv_vote_chicklet_empty@2x.png */,
-			);
-			name = UVResources;
-			path = "../vendor/UserVoiceSDK-1.1.0/UVResources";
-			sourceTree = "<group>";
-		};
-		9DA8020D1560260C004AA9F3 /* UserVoice */ = {
-			isa = PBXGroup;
-			children = (
-				9DA801E215602606004AA9F3 /* libUserVoice.a */,
-				9DA801E315602606004AA9F3 /* UVHeaders */,
-				9DA801E815602606004AA9F3 /* UVResources */,
-			);
-			name = UserVoice;
 			sourceTree = "<group>";
 		};
 		9DA8020E1560262E004AA9F3 /* TTAttributedLabel */ = {
@@ -633,10 +532,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DA8020915602606004AA9F3 /* UserVoice.h in Headers */,
-				9DA8020A15602606004AA9F3 /* UVConfig.h in Headers */,
-				9DA8020B15602606004AA9F3 /* UVDelegate.h in Headers */,
-				9DA8020C15602606004AA9F3 /* UVStyleSheet.h in Headers */,
 				9DA8021115602641004AA9F3 /* TTTAttributedLabel.h in Headers */,
 				9DA8021B1560268B004AA9F3 /* FlurryAnalytics.h in Headers */,
 				9DA80221156026A9004AA9F3 /* SVProgressHUD.h in Headers */,
@@ -821,18 +716,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		9DA801E915602606004AA9F3 /* UserVoice.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9DA801EA15602606004AA9F3 /* en */,
-				9DA801EB15602606004AA9F3 /* fr */,
-			);
-			name = UserVoice.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		9DA801CF15602510004AA9F3 /* Debug */ = {

@@ -9,4 +9,3 @@
 #import "SVProgressHUD/SVProgressHUD.h"
 #import "FlurryAnalytics/FlurryAnalytics.h"
 #import "TTTAttributedLabel/TTTAttributedLabel.h"
-#import "UserVoice/UserVoice.h"

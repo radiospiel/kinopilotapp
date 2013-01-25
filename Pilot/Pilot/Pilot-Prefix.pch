@@ -4,4 +4,3 @@
 #import "SVProgressHUD.h"
 #import "FlurryAnalytics.h"
 #import "TTTAttributedLabel.h"
-#import "UserVoice.h"

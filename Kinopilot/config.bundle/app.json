@@ -99,17 +99,6 @@
       ]
     },
     {
-      "header":  "Feedback",
-      "content": [
-        "Bei der Vielzahl unserer Termine kann sich schon mal ein Fehler eingeschlichen haben. Fallen Dir Fehler auf, kontaktiere uns bitte.\n\nAuch Deine Verbesserungsvorschläge zur App hören wir gern."
-      ]
-    },
-    {
-      "actions": [
-        ["Feedback",  "/user/voice"]
-      ]
-    },
-    {
       "footer": "© radiospiel UG (haftungsbeschränkt), 2011-2013"
     }
   ]
