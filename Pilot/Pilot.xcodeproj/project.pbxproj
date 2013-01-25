@@ -109,8 +109,6 @@
 		9DA8020C15602606004AA9F3 /* UVStyleSheet.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA801E715602606004AA9F3 /* UVStyleSheet.h */; };
 		9DA8021115602641004AA9F3 /* TTTAttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8020F15602641004AA9F3 /* TTTAttributedLabel.h */; };
 		9DA8021215602641004AA9F3 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA8021015602641004AA9F3 /* TTTAttributedLabel.m */; };
-		9DA8021615602678004AA9F3 /* iRate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8021415602678004AA9F3 /* iRate.h */; };
-		9DA8021715602678004AA9F3 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA8021515602678004AA9F3 /* iRate.m */; };
 		9DA8021B1560268B004AA9F3 /* FlurryAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA802191560268B004AA9F3 /* FlurryAnalytics.h */; };
 		9DA8021C1560268B004AA9F3 /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DA8021A1560268B004AA9F3 /* libFlurryAnalytics.a */; };
 		9DA80221156026A9004AA9F3 /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8021F156026A9004AA9F3 /* SVProgressHUD.h */; };
@@ -277,8 +275,6 @@
 		9DA8020715602606004AA9F3 /* uv_vote_chicklet_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uv_vote_chicklet_empty@2x.png"; sourceTree = "<group>"; };
 		9DA8020F15602641004AA9F3 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTTAttributedLabel.h; path = ../vendor/TTTAttributedLabel/TTTAttributedLabel.h; sourceTree = "<group>"; };
 		9DA8021015602641004AA9F3 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTTAttributedLabel.m; path = ../vendor/TTTAttributedLabel/TTTAttributedLabel.m; sourceTree = "<group>"; };
-		9DA8021415602678004AA9F3 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iRate.h; path = ../vendor/iRate/iRate/iRate.h; sourceTree = "<group>"; };
-		9DA8021515602678004AA9F3 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iRate.m; path = ../vendor/iRate/iRate/iRate.m; sourceTree = "<group>"; };
 		9DA802191560268B004AA9F3 /* FlurryAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAnalytics.h; sourceTree = "<group>"; };
 		9DA8021A1560268B004AA9F3 /* libFlurryAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAnalytics.a; sourceTree = "<group>"; };
 		9DA8021E156026A9004AA9F3 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
@@ -489,7 +485,6 @@
 			children = (
 				9DA8021D156026A9004AA9F3 /* SVProgressHUD */,
 				9DA802181560268B004AA9F3 /* FlurryAnalytics */,
-				9DA802131560265A004AA9F3 /* iRate */,
 				9DA8020E1560262E004AA9F3 /* TTAttributedLabel */,
 				9DA8020D1560260C004AA9F3 /* UserVoice */,
 			);
@@ -562,15 +557,6 @@
 				9DA8021015602641004AA9F3 /* TTTAttributedLabel.m */,
 			);
 			name = TTAttributedLabel;
-			sourceTree = "<group>";
-		};
-		9DA802131560265A004AA9F3 /* iRate */ = {
-			isa = PBXGroup;
-			children = (
-				9DA8021415602678004AA9F3 /* iRate.h */,
-				9DA8021515602678004AA9F3 /* iRate.m */,
-			);
-			name = iRate;
 			sourceTree = "<group>";
 		};
 		9DA802181560268B004AA9F3 /* FlurryAnalytics */ = {
@@ -652,7 +638,6 @@
 				9DA8020B15602606004AA9F3 /* UVDelegate.h in Headers */,
 				9DA8020C15602606004AA9F3 /* UVStyleSheet.h in Headers */,
 				9DA8021115602641004AA9F3 /* TTTAttributedLabel.h in Headers */,
-				9DA8021615602678004AA9F3 /* iRate.h in Headers */,
 				9DA8021B1560268B004AA9F3 /* FlurryAnalytics.h in Headers */,
 				9DA80221156026A9004AA9F3 /* SVProgressHUD.h in Headers */,
 				9DA8022915602890004AA9F3 /* Pilot-Prefix.pch in Headers */,
@@ -768,7 +753,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DA8021215602641004AA9F3 /* TTTAttributedLabel.m in Sources */,
-				9DA8021715602678004AA9F3 /* iRate.m in Sources */,
 				9DA80222156026A9004AA9F3 /* SVProgressHUD.m in Sources */,
 				9DA8024A156029EF004AA9F3 /* M3ActionSheetController.mm in Sources */,
 				9DA8024B156029EF004AA9F3 /* M3AppDelegate+Alert.mm in Sources */,

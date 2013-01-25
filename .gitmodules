@@ -13,6 +13,3 @@
 [submodule "vendor/SVProgressHUD"]
 	path = vendor/SVProgressHUD
 	url = git@github.com:radiospiel/SVProgressHUD.git
-[submodule "vendor/iRate"]
-	path = vendor/iRate
-	url = https://github.com/nicklockwood/iRate.git

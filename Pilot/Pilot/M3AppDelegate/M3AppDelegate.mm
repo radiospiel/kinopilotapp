@@ -18,8 +18,6 @@
 #include <arpa/inet.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 
-#import "iRate.h"
-
 M3AppDelegate* app;
 
 @interface M3AppDelegate()
@@ -32,31 +30,7 @@ M3AppDelegate* app;
 -(id)init
 {
   self = [super init];
-  [self initializeIRate];
   return self;
-}
-
--(void)initializeIRate
-{
-  NSDictionary* config = [self.config objectForKey: @"irate"];
-  if(!config) return;
-
-  // -- configure iRate
-  iRate* r = [iRate sharedInstance];
-  
-  r.appStoreID =      [[config objectForKey: @"app_store_id"] to_i];
-  r.applicationName = [config objectForKey: @"application_name"];
-  r.messageTitle =    [config objectForKey: @"message_title"];
-  r.daysUntilPrompt = 3;
-  r.remindPeriod = 5;
-  r.message = @"Gefällt Dir unsere App? "
-               "Dann bewerte sie doch im Appstore. "
-               "Danke für Deine Unterstützung!";
-  r.cancelButtonLabel = @"Nein, danke!";
-  r.rateButtonLabel = @"Vielleicht später.";
-  r.remindButtonLabel  = @"Ja, gern!";
-
-  dlog << "*** Configured iRate for app_store_id " << r.appStoreID;
 }
 
 - (void)dealloc
