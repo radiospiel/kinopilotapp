@@ -13,8 +13,22 @@
 
 static NSDictionary* dashboardConfig = nil;
 
+// The iPhone 5 moves the content a few pixels down.
+static int y_displacement() {
+  static int rv = -1;
+  
+  if(rv < 0) {
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    rv = screenBounds.size.height > 480 ? 33 : 0;
+  }
+  
+  return rv;
+}
+
+#define y_displacement y_displacement()
+
 static int button_width = 156;
-static int button_height = 130; // 135
+static int button_height = 145;
 static int button_padding = 8;
 
 static void initConstants()
@@ -203,9 +217,9 @@ static void initConstants()
   NSArray* buttonKeys = [key componentsSeparatedByString:@"/"];
 
   int idx = 0;
+  
   for(NSString* buttonKey in buttonKeys) {
-    
-    CGRect frame = CGRectMake(idx++ * (button_padding + button_width),                                  0, 
+    CGRect frame = CGRectMake(idx++ * (button_padding + button_width), 0 + y_displacement,
                               buttonKeys.count > 1 ? button_width : button_padding + 2 * button_width,  button_height);
     DashboardButton* button = [[[DashboardButton alloc]initWithFrame: frame andKey:buttonKey]autorelease];
     [self addSubview:button];
@@ -265,10 +279,10 @@ static void initConstants()
 
   CGRect frame = self.frame;
 
-  self.imageView.frame = CGRectMake(0, 0, frame.size.width, 94); /* our thumbnails are 72x94 */
+  self.imageView.frame = CGRectMake(0, 8 + y_displacement, frame.size.width, 94); /* our thumbnails are 72x94 */
   self.imageView.contentMode = UIViewContentModeScaleAspectFit;
   [self.label sizeToFit];
-  self.label.frame = CGRectMake(0, 99, frame.size.width, self.label.frame.size.height);
+  self.label.frame = CGRectMake(0, 13 + 99 + y_displacement, frame.size.width, self.label.frame.size.height);
 }
 @end
 
@@ -315,7 +329,7 @@ static void initConstants()
   self.rotatorMovieIds = [recs pluck: @"_id"];
   
   // create rotator
-  self.rotator = [M3Rotator rotatorWithFrame: CGRectMake(10, 7, button_width - 20, button_height - 14)];
+  self.rotator = [M3Rotator rotatorWithFrame: CGRectMake(10, 7, button_width - 20, button_height + 20)];
   self.rotator.delegate = self;
   [self addSubview:self.rotator];
   [self.rotator start];
@@ -362,7 +376,7 @@ static void initConstants()
 @implementation DashboardVSpacer
 
 +(CGFloat)fixedHeight
-  { return 6; }
+  { return 8; }
 
 @end
 
