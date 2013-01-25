@@ -1,85 +1,88 @@
-#define NS_BLOCK_ASSERTIONS
-
-/*
- * Defining NS_BLOCK_ASSERTIONS should disable NSCParameterAssert.
- * This, however, seems not to work or not to work completely. 
- */
-
-#undef  NSCParameterAssert
-#define NSCParameterAssert(x) (void)0
-
-#import "JSONKit/JSONKit.h"
-#import "JSONKit/JSONKit.m"
-
 #import "M3.h"
 
 @implementation M3 (JSON)
 
+/* --- parse JSON --------------------------------------------------------- */
+
+// read a path or a URL, parse and return the JSON
 + (id) readJSON:(NSString *)path 
 {
-  NSError* error = 0;
-  id returnValue;
+  NSData* jsonData;
 
   if([path hasPrefix: @"http://"]) {
-    NSData* data = [M3Http requestData: @"GET" 
-                                   url: path
-                           withOptions: nil];
-    
-    returnValue = [data mutableObjectFromJSONDataWithParseOptions: 0 error: &error];
+    jsonData = [M3Http requestData: @"GET"
+                           url: path
+                   withOptions: nil];
   }
   else {
-    NSString* data = [M3 read:path];
-    returnValue = [data mutableObjectFromJSONStringWithParseOptions:0 error: &error];
+    jsonData = [M3 readDataFromPath:path];
   }
 
-  [M3Exception raiseOnError: error];
+  return [self parseJSONData:jsonData];
+}
 
++ (id) parseJSON:(NSString *)string;
+{
+  NSData* jsonData = [string dataUsingEncoding:NSUTF8StringEncoding];
+  return [self parseJSONData:jsonData];
+}
+
++ (id) parseJSONData:(NSData *)jsonData;
+{
+  NSError* error = 0;
+  id returnValue = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                   options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves
+                                                     error:&error];
+  
+  [M3Exception raiseOnError: error];
+  
   return returnValue;
+}
+
+/* --- generate JSON ------------------------------------------------------ */
+
+#ifndef NDEBUG
+#define DEFAULT_COMPACT NO
+#else
+#define DEFAULT_COMPACT YES
+#endif
+
++ (NSData*) toJSONData: (id) object compact: (BOOL) compact
+{
+  NSError* error = 0;
+  NSData* data;
+  
+  data = [NSJSONSerialization dataWithJSONObject:object
+                                         options:(compact ? 0 : NSJSONWritingPrettyPrinted)
+                                           error:&error];
+  
+  [M3Exception raiseOnError: error];
+  
+  
+  return data;
 }
 
 + (void) writeJSONFile: (NSString*) path object: (id) object;
 {
-  NSData* jsonData = [object JSONData];
-
+  NSData* jsonData = [self toJSONData:object compact:DEFAULT_COMPACT];
   path = [M3 expandPath: path];
+  
   [M3 writeData: jsonData toPath: path];
 }
 
-+ (id) parseJSON:(NSString *)data;
++ (NSString*) toJSON: (id) object compact: (BOOL) compact
 {
-  // Benchmark(@"Parsing JSON");
-  return [data objectFromJSONString];
-}
+  NSData* data = [self toJSONData:object compact:compact];
+  
+  NSString* r = [[NSString alloc] initWithData:data
+                                      encoding:NSUTF8StringEncoding];
 
-+ (id) parseJSONData:(NSData *)data;
-{
-  NSError* error = nil;
-  //  NSArray* diff = 
-  return [data mutableObjectFromJSONDataWithParseOptions: 0 error: &error];
-}
-
-+ (NSString*) toJSON: (id) object compact: (BOOL) compact 
-{
-  NSError* error = 0;
-  
-  JKFlags flags = 0;
-  if(!compact) flags |= JKSerializeOptionPretty;
-  
-  NSString* r = [object JSONStringWithOptions: flags error: &error];
-  
-  [M3Exception raiseOnError: error];
-  
   return r;
 }
 
 + (NSString*) toJSON: (id) object;
 {
-  BOOL compact = YES;
-#ifndef NDEBUG
-  compact = NO;
-#endif
-
-  return [self toJSON: object compact: compact];
+  return [self toJSON: object compact: DEFAULT_COMPACT];
 }
 
 @end
