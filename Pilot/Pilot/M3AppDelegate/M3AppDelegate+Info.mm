@@ -38,7 +38,10 @@ static id infoForKey(NSString *key)
 
 -(NSDictionary*) infoDictionary
 {
-  NSArray* keys = _.array(@"updated_at", @"revision", @"theaters_count", @"movies_count", @"schedules_count", @"built_at", @"events_count", @"locations_count");
+  NSArray* keys = _.array(@"updated_at", @"revision", @"theaters_count"
+                        , @"movies_count", @"schedules_count", @"built_at"
+                          //       , @"events_count", @"locations_count" // Kinopilot doesn't have these
+                          );
 
   NSMutableDictionary* dictionary = [NSMutableDictionary dictionary];
   for(NSString* key in keys) {
