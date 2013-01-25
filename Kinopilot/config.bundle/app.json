@@ -47,26 +47,6 @@
       "label": "Jetzt",
       "ntitle": "Was läuft jetzt?",
       "icon": "tab_tage.png"
-    },
-    {
-      "url": "/movies/list",
-      "label": "Filme",
-      "icon": "tab_filme.png"
-    },
-    {
-      "url": "/theaters/list",
-      "label": "Kinos",
-      "icon": "tab_kinos.png"
-    },
-    {
-      "url": "/map/show",
-      "label": "Map",
-      "icon": "tab_karte.png"
-    },
-    {
-      "url": "/info",
-      "label": "Info",
-      "icon": "tab_about.png"
     }
   ],
   "info": [
