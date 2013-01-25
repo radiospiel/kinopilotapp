@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D58743D16B332B000822A54 /* Flurry.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D58743B16B332B000822A54 /* Flurry.h */; };
+		9D58743E16B332B000822A54 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D58743C16B332B000822A54 /* libFlurry.a */; };
 		9D6FDA661562D0540059AD79 /* GTMDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D6FD9CC1562D0540059AD79 /* GTMDefines.h */; };
 		9D6FDA671562D0540059AD79 /* GTMGarbageCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D6FD9CD1562D0540059AD79 /* GTMGarbageCollection.h */; };
 		9D6FDA681562D0540059AD79 /* GTMNSString+HTML.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D6FD9CE1562D0540059AD79 /* GTMNSString+HTML.h */; };
@@ -104,8 +106,6 @@
 		9DA801C815602510004AA9F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DA801C715602510004AA9F3 /* Foundation.framework */; };
 		9DA8021115602641004AA9F3 /* TTTAttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8020F15602641004AA9F3 /* TTTAttributedLabel.h */; };
 		9DA8021215602641004AA9F3 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA8021015602641004AA9F3 /* TTTAttributedLabel.m */; };
-		9DA8021B1560268B004AA9F3 /* FlurryAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA802191560268B004AA9F3 /* FlurryAnalytics.h */; };
-		9DA8021C1560268B004AA9F3 /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DA8021A1560268B004AA9F3 /* libFlurryAnalytics.a */; };
 		9DA80221156026A9004AA9F3 /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8021F156026A9004AA9F3 /* SVProgressHUD.h */; };
 		9DA80222156026A9004AA9F3 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80220156026A9004AA9F3 /* SVProgressHUD.m */; };
 		9DA8022915602890004AA9F3 /* Pilot-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8022715602890004AA9F3 /* Pilot-Prefix.pch */; };
@@ -137,6 +137,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9D58743B16B332B000822A54 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		9D58743C16B332B000822A54 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		9D6FD9CC1562D0540059AD79 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		9D6FD9CD1562D0540059AD79 /* GTMGarbageCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMGarbageCollection.h; sourceTree = "<group>"; };
 		9D6FD9CE1562D0540059AD79 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
@@ -235,8 +237,6 @@
 		9DA801C715602510004AA9F3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9DA8020F15602641004AA9F3 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTTAttributedLabel.h; path = ../vendor/TTTAttributedLabel/TTTAttributedLabel.h; sourceTree = "<group>"; };
 		9DA8021015602641004AA9F3 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTTAttributedLabel.m; path = ../vendor/TTTAttributedLabel/TTTAttributedLabel.m; sourceTree = "<group>"; };
-		9DA802191560268B004AA9F3 /* FlurryAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAnalytics.h; sourceTree = "<group>"; };
-		9DA8021A1560268B004AA9F3 /* libFlurryAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAnalytics.a; sourceTree = "<group>"; };
 		9DA8021E156026A9004AA9F3 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		9DA8021F156026A9004AA9F3 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		9DA80220156026A9004AA9F3 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
@@ -274,13 +274,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DA801C815602510004AA9F3 /* Foundation.framework in Frameworks */,
-				9DA8021C1560268B004AA9F3 /* libFlurryAnalytics.a in Frameworks */,
+				9D58743E16B332B000822A54 /* libFlurry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D58743A16B332B000822A54 /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				9D58743B16B332B000822A54 /* Flurry.h */,
+				9D58743C16B332B000822A54 /* libFlurry.a */,
+			);
+			name = Flurry;
+			path = ../vendor/Flurry;
+			sourceTree = "<group>";
+		};
 		9D6FD9CA1562D0540059AD79 /* M3 */ = {
 			isa = PBXGroup;
 			children = (
@@ -442,8 +452,8 @@
 		9DA801E1156025E8004AA9F3 /* vendor */ = {
 			isa = PBXGroup;
 			children = (
+				9D58743A16B332B000822A54 /* Flurry */,
 				9DA8021D156026A9004AA9F3 /* SVProgressHUD */,
-				9DA802181560268B004AA9F3 /* FlurryAnalytics */,
 				9DA8020E1560262E004AA9F3 /* TTAttributedLabel */,
 			);
 			name = vendor;
@@ -456,16 +466,6 @@
 				9DA8021015602641004AA9F3 /* TTTAttributedLabel.m */,
 			);
 			name = TTAttributedLabel;
-			sourceTree = "<group>";
-		};
-		9DA802181560268B004AA9F3 /* FlurryAnalytics */ = {
-			isa = PBXGroup;
-			children = (
-				9DA802191560268B004AA9F3 /* FlurryAnalytics.h */,
-				9DA8021A1560268B004AA9F3 /* libFlurryAnalytics.a */,
-			);
-			name = FlurryAnalytics;
-			path = ../vendor/FlurryAnalytics;
 			sourceTree = "<group>";
 		};
 		9DA8021D156026A9004AA9F3 /* SVProgressHUD */ = {
@@ -533,7 +533,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DA8021115602641004AA9F3 /* TTTAttributedLabel.h in Headers */,
-				9DA8021B1560268B004AA9F3 /* FlurryAnalytics.h in Headers */,
 				9DA80221156026A9004AA9F3 /* SVProgressHUD.h in Headers */,
 				9DA8022915602890004AA9F3 /* Pilot-Prefix.pch in Headers */,
 				9DA8022A15602890004AA9F3 /* Pilot.h in Headers */,
@@ -592,6 +591,7 @@
 				9D6FDAE01562D0550059AD79 /* UIViewController+M3Extensions.h in Headers */,
 				9D6FDAE21562D0550059AD79 /* Underscore+Logger.hh in Headers */,
 				9D6FDAE41562D0550059AD79 /* Underscore.hh in Headers */,
+				9D58743D16B332B000822A54 /* Flurry.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -768,6 +768,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../vendor/UserVoiceSDK-1.1.0\"",
 					"\"$(SRCROOT)/../vendor/FlurryAnalytics\"",
+					"\"$(SRCROOT)/../vendor/Flurry\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -785,6 +786,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../vendor/UserVoiceSDK-1.1.0\"",
 					"\"$(SRCROOT)/../vendor/FlurryAnalytics\"",
+					"\"$(SRCROOT)/../vendor/Flurry\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

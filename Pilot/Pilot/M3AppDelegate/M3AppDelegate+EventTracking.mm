@@ -1,7 +1,7 @@
 #if TARGET_OS_IPHONE 
 
 #import "M3AppDelegate.h"
-#import "FlurryAnalytics.h"
+#import "Flurry.h"
 
 @implementation M3AppDelegate(EventTracking)
 

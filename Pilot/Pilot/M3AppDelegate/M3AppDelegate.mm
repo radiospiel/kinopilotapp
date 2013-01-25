@@ -11,7 +11,7 @@
 #import "M3AppDelegate.h"
 // #import "UIViewController+M3Extensions.h"
 
-#import "FlurryAnalytics.h"
+#import "Flurry.h"
 
 // for network status
 #include <netdb.h>
@@ -290,7 +290,7 @@ static void uncaughtExceptionHandler(NSException *exception) {
   [self enableRemoteNotifications];
 
   // --- enable Flurry
-  [FlurryAnalytics startSession: [app.config objectForKey: @"flurry_api_key"]];
+  [Flurry startSession: [app.config objectForKey: @"flurry_api_key"]];
 
   // --- init database
   [self sqliteDB];

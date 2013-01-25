@@ -7,5 +7,5 @@
 #import "M3TableView/M3TableViewProfileCell.h"
 
 #import "SVProgressHUD/SVProgressHUD.h"
-#import "FlurryAnalytics/FlurryAnalytics.h"
+// #import "Flurry.h"
 #import "TTTAttributedLabel/TTTAttributedLabel.h"
