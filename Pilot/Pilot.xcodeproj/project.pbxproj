@@ -117,7 +117,6 @@
 		9DA8024D156029EF004AA9F3 /* M3AppDelegate+Email.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80231156029EF004AA9F3 /* M3AppDelegate+Email.mm */; };
 		9DA8024E156029EF004AA9F3 /* M3AppDelegate+EventTracking.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80232156029EF004AA9F3 /* M3AppDelegate+EventTracking.mm */; };
 		9DA8024F156029EF004AA9F3 /* M3AppDelegate+Info.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80233156029EF004AA9F3 /* M3AppDelegate+Info.mm */; };
-		9DA80250156029EF004AA9F3 /* M3AppDelegate+RemoteNotifications.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80234156029EF004AA9F3 /* M3AppDelegate+RemoteNotifications.mm */; };
 		9DA80251156029EF004AA9F3 /* M3AppDelegate+SqliteDB.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80235156029EF004AA9F3 /* M3AppDelegate+SqliteDB.mm */; };
 		9DA80252156029EF004AA9F3 /* M3AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA80236156029EF004AA9F3 /* M3AppDelegate.h */; };
 		9DA80253156029EF004AA9F3 /* M3AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80237156029EF004AA9F3 /* M3AppDelegate.mm */; };
@@ -249,7 +248,6 @@
 		9DA80231156029EF004AA9F3 /* M3AppDelegate+Email.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+Email.mm"; sourceTree = "<group>"; };
 		9DA80232156029EF004AA9F3 /* M3AppDelegate+EventTracking.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+EventTracking.mm"; sourceTree = "<group>"; };
 		9DA80233156029EF004AA9F3 /* M3AppDelegate+Info.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+Info.mm"; sourceTree = "<group>"; };
-		9DA80234156029EF004AA9F3 /* M3AppDelegate+RemoteNotifications.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+RemoteNotifications.mm"; sourceTree = "<group>"; };
 		9DA80235156029EF004AA9F3 /* M3AppDelegate+SqliteDB.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3AppDelegate+SqliteDB.mm"; sourceTree = "<group>"; };
 		9DA80236156029EF004AA9F3 /* M3AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3AppDelegate.h; sourceTree = "<group>"; };
 		9DA80237156029EF004AA9F3 /* M3AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3AppDelegate.mm; sourceTree = "<group>"; };
@@ -489,7 +487,6 @@
 				9DA80231156029EF004AA9F3 /* M3AppDelegate+Email.mm */,
 				9DA80232156029EF004AA9F3 /* M3AppDelegate+EventTracking.mm */,
 				9DA80233156029EF004AA9F3 /* M3AppDelegate+Info.mm */,
-				9DA80234156029EF004AA9F3 /* M3AppDelegate+RemoteNotifications.mm */,
 				9DA80235156029EF004AA9F3 /* M3AppDelegate+SqliteDB.mm */,
 			);
 			name = M3AppDelegate;
@@ -655,7 +652,6 @@
 				9DA8024D156029EF004AA9F3 /* M3AppDelegate+Email.mm in Sources */,
 				9DA8024E156029EF004AA9F3 /* M3AppDelegate+EventTracking.mm in Sources */,
 				9DA8024F156029EF004AA9F3 /* M3AppDelegate+Info.mm in Sources */,
-				9DA80250156029EF004AA9F3 /* M3AppDelegate+RemoteNotifications.mm in Sources */,
 				9DA80251156029EF004AA9F3 /* M3AppDelegate+SqliteDB.mm in Sources */,
 				9DA80253156029EF004AA9F3 /* M3AppDelegate.mm in Sources */,
 				9DA80257156029EF004AA9F3 /* M3ListViewController.mm in Sources */,

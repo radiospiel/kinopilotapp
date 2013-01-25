@@ -286,9 +286,6 @@ static void uncaughtExceptionHandler(NSException *exception) {
   // --- prepare database
   [app.sqliteDB migrate];
   
-  // --- enable Urban Airship remote notifications
-  [self enableRemoteNotifications];
-
   // --- enable Flurry
   [Flurry startSession: [app.config objectForKey: @"flurry_api_key"]];
 

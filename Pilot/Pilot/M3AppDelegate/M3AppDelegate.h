@@ -89,12 +89,6 @@ extern M3AppDelegate* app;
 
 @end
 
-@interface M3AppDelegate(RemoteNotification)
-
--(void)enableRemoteNotifications;
-
-@end
-
 @interface M3SqliteDatabase(M3Additions)
 
 @property (nonatomic,retain,readonly) M3SqliteTable* movies;

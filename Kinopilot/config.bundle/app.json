@@ -1,7 +1,6 @@
 {
   "app_tweet": "Mit der #kinopilot App hab ich jetzt die Berliner Kinotermine immer auf meinem iPhone dabei! http://bit.ly/kpilot",
   "title":      "Kinopilot Berlin",
-  "remoteNotifications": true,
   "flurry_api_key":     "KJ96KEEHE5Y58NZURG2H",
   "irate": {
     "app_store_id":     500555600,
