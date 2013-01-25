@@ -56,7 +56,6 @@
 		9D6FD94315628D6F0059AD79 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD94215628D6F0059AD79 /* CoreLocation.framework */; };
 		9D6FD94515628D770059AD79 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD94415628D770059AD79 /* CoreText.framework */; };
 		9D6FD94715628D830059AD79 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD94615628D830059AD79 /* MapKit.framework */; };
-		9D6FD94915628D8F0059AD79 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD94815628D8F0059AD79 /* iAd.framework */; };
 		9D6FD94B15628D960059AD79 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD94A15628D960059AD79 /* QuartzCore.framework */; };
 		9D6FD94D15628DA20059AD79 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD94C15628DA20059AD79 /* SystemConfiguration.framework */; };
 		9D6FD991156292400059AD79 /* 42-photos.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6FD952156292400059AD79 /* 42-photos.png */; };
@@ -90,6 +89,7 @@
 		9D6FD9AD156292400059AD79 /* unstars.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6FD96E156292400059AD79 /* unstars.png */; };
 		9D6FD9AE156292400059AD79 /* unstars@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6FD96F156292400059AD79 /* unstars@2x.png */; };
 		9D6FDB531562E2080059AD79 /* config.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D6FDB521562E2080059AD79 /* config.bundle */; };
+		9DC1C3D516B31F1300EDAC74 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DC1C3D416B31F1300EDAC74 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,7 +159,6 @@
 		9D6FD94215628D6F0059AD79 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9D6FD94415628D770059AD79 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		9D6FD94615628D830059AD79 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		9D6FD94815628D8F0059AD79 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		9D6FD94A15628D960059AD79 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9D6FD94C15628DA20059AD79 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9D6FD952156292400059AD79 /* 42-photos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "42-photos.png"; sourceTree = "<group>"; };
@@ -196,6 +195,7 @@
 		9D6FD971156292400059AD79 /* share_movie_email.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = share_movie_email.html; sourceTree = "<group>"; };
 		9D6FD972156292400059AD79 /* share_schedule_email.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = share_schedule_email.html; sourceTree = "<group>"; };
 		9D6FDB521562E2080059AD79 /* config.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = config.bundle; sourceTree = "<group>"; };
+		9DC1C3D416B31F1300EDAC74 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,7 +205,6 @@
 			files = (
 				9D6FD94D15628DA20059AD79 /* SystemConfiguration.framework in Frameworks */,
 				9D6FD94B15628D960059AD79 /* QuartzCore.framework in Frameworks */,
-				9D6FD94915628D8F0059AD79 /* iAd.framework in Frameworks */,
 				9D6FD94715628D830059AD79 /* MapKit.framework in Frameworks */,
 				9D6FD94515628D770059AD79 /* CoreText.framework in Frameworks */,
 				9D6FD94315628D6F0059AD79 /* CoreLocation.framework in Frameworks */,
@@ -232,6 +231,7 @@
 		9D6FD82715628A020059AD79 = {
 			isa = PBXGroup;
 			children = (
+				9DC1C3D416B31F1300EDAC74 /* Default-568h@2x.png */,
 				9D6FD84E15628A240059AD79 /* Pilot.xcodeproj */,
 				9D6FDB521562E2080059AD79 /* config.bundle */,
 				9D0D8A451563B23E00EC5A86 /* SVProgressHUD.bundle */,
@@ -266,7 +266,6 @@
 				9D6FD94415628D770059AD79 /* CoreText.framework */,
 				9D6FD93415628C9F0059AD79 /* EventKit.framework */,
 				9D6FD83815628A020059AD79 /* Foundation.framework */,
-				9D6FD94815628D8F0059AD79 /* iAd.framework */,
 				9D6FD94615628D830059AD79 /* MapKit.framework */,
 				9D6FD93615628CB40059AD79 /* MessageUI.framework */,
 				9D6FD93215628C870059AD79 /* MediaPlayer.framework */,
@@ -500,6 +499,7 @@
 				9D6FD9AE156292400059AD79 /* unstars@2x.png in Resources */,
 				9D6FDB531562E2080059AD79 /* config.bundle in Resources */,
 				9D0D8A461563B23E00EC5A86 /* SVProgressHUD.bundle in Resources */,
+				9DC1C3D516B31F1300EDAC74 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

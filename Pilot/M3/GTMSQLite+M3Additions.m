@@ -482,11 +482,17 @@ static StatementType statementTypeForSql(NSString* sql)
       NSNumber* since = [header objectForKey:@"since"];
       diffMode = since.to_i > 0;
       
-      if(diffMode)
+      if(diffMode) {
+        NSLog(@"***** This is diff mode");
+        // @throw(@"This is diff mode");
         [self importDiffHeader: header];
+      }
       
       continue;
     }
+
+    NSLog(@"**** This is full mode");
+    //    @throw(@"This is full mode");
 
     // The first entry is the name of the target table.
     // The second entry is an array of column names

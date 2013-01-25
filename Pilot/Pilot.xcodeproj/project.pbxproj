@@ -137,7 +137,6 @@
 		9DA80259156029EF004AA9F3 /* M3ProfileView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA8023D156029EF004AA9F3 /* M3ProfileView.mm */; };
 		9DA8025A156029EF004AA9F3 /* M3TableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA8023F156029EF004AA9F3 /* M3TableViewCell.h */; };
 		9DA8025B156029EF004AA9F3 /* M3TableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80240156029EF004AA9F3 /* M3TableViewCell.mm */; };
-		9DA8025C156029EF004AA9F3 /* M3TableViewController+AdSupport.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80241156029EF004AA9F3 /* M3TableViewController+AdSupport.mm */; };
 		9DA8025D156029EF004AA9F3 /* M3TableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA80242156029EF004AA9F3 /* M3TableViewController.h */; };
 		9DA8025E156029EF004AA9F3 /* M3TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DA80243156029EF004AA9F3 /* M3TableViewController.mm */; };
 		9DA8025F156029EF004AA9F3 /* M3TableViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DA80244156029EF004AA9F3 /* M3TableViewDataSource.h */; };
@@ -320,7 +319,6 @@
 		9DA8023D156029EF004AA9F3 /* M3ProfileView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = M3ProfileView.mm; path = Pilot/M3ProfileView.mm; sourceTree = "<group>"; };
 		9DA8023F156029EF004AA9F3 /* M3TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewCell.h; sourceTree = "<group>"; };
 		9DA80240156029EF004AA9F3 /* M3TableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewCell.mm; sourceTree = "<group>"; };
-		9DA80241156029EF004AA9F3 /* M3TableViewController+AdSupport.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "M3TableViewController+AdSupport.mm"; sourceTree = "<group>"; };
 		9DA80242156029EF004AA9F3 /* M3TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewController.h; sourceTree = "<group>"; };
 		9DA80243156029EF004AA9F3 /* M3TableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3TableViewController.mm; sourceTree = "<group>"; };
 		9DA80244156029EF004AA9F3 /* M3TableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3TableViewDataSource.h; sourceTree = "<group>"; };
@@ -646,7 +644,6 @@
 			children = (
 				9DA8023F156029EF004AA9F3 /* M3TableViewCell.h */,
 				9DA80240156029EF004AA9F3 /* M3TableViewCell.mm */,
-				9DA80241156029EF004AA9F3 /* M3TableViewController+AdSupport.mm */,
 				9DA80242156029EF004AA9F3 /* M3TableViewController.h */,
 				9DA80243156029EF004AA9F3 /* M3TableViewController.mm */,
 				9DA80244156029EF004AA9F3 /* M3TableViewDataSource.h */,
@@ -830,7 +827,6 @@
 				9DA80257156029EF004AA9F3 /* M3ListViewController.mm in Sources */,
 				9DA80259156029EF004AA9F3 /* M3ProfileView.mm in Sources */,
 				9DA8025B156029EF004AA9F3 /* M3TableViewCell.mm in Sources */,
-				9DA8025C156029EF004AA9F3 /* M3TableViewController+AdSupport.mm in Sources */,
 				9DA8025E156029EF004AA9F3 /* M3TableViewController.mm in Sources */,
 				9DA80260156029EF004AA9F3 /* M3TableViewDataSource.mm in Sources */,
 				9DA80262156029EF004AA9F3 /* M3TableViewProfileCell.mm in Sources */,

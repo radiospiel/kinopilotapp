@@ -251,7 +251,7 @@ namespace RS {
 
     inline NSString* string(const CGRect& r)
       { return [NSString stringWithFormat: @"[%dx%d+%d+%d]", 
-                r.origin.x, r.origin.y, r.size.width, r.size.height];}
+                (int)r.origin.x, (int)r.origin.y, (int)r.size.width, (int)r.size.height];}
 
     inline NSString* string(Class obj) 
     { 

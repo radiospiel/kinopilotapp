@@ -37,9 +37,3 @@
 -(void)setFilter: (id)filter;
 
 @end
-
-@interface M3TableViewController(AdSupport)
-
--(void)requestAdBannerOnTop;
-
-@end

@@ -425,7 +425,6 @@ static void initConstants()
 
   [self setBackgroundView];
   
-  [self requestAdBannerOnTop];
   self.dataSource = [[[DashboardDataSource alloc]init]autorelease];
 }
 
