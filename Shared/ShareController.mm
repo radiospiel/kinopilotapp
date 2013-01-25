@@ -10,8 +10,6 @@
     [self shareViaEmail];
   else if([self.url containsString: @"/twitter"])
     [self shareViaTwitter];
-  else if([self.url containsString: @"/facebook"])
-    [self shareViaFacebook];
   else if([self.url containsString: @"/calendar"])
     [self shareViaCalendar];
 }
@@ -73,11 +71,6 @@
 -(void)shareViaTwitter
 {
   dlog << "Missing implementation: shareViaTwitter";
-}
-
--(void)shareViaFacebook
-{
-  dlog << "Missing implementation: shareViaFacebook";
 }
 
 -(void)shareViaCalendar

@@ -83,13 +83,4 @@
         andImage: [self.movie objectForKey:@"thumbnail"]];
 }
 
--(void)shareViaFacebook
-{
-  [app sendToFacebook: [self teaserForMovie:self.movie]
-            withTitle: [self.movie objectForKey:@"title"]
-          andImageURL: [self.movie objectForKey:@"thumbnail"]
-               andURL: [self.movie objectForKey:@"url"]
-  ];
-}
-
 @end

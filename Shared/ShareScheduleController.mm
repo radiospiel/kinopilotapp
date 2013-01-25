@@ -138,13 +138,4 @@
   ];
 }
 
--(void)shareViaFacebook
-{
-  [app sendToFacebook: [self teaserForMovie: self.movie]
-            withTitle: [self shortMessage]
-          andImageURL: [self.movie objectForKey:@"thumbnail"]
-               andURL: [self.movie objectForKey:@"url"]
-  ];
-}
-
 @end

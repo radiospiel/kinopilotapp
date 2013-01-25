@@ -6,7 +6,6 @@
 
 -(void)shareViaEmail;
 -(void)shareViaTwitter;
--(void)shareViaFacebook;
 -(void)shareViaCalendar;
 
 // --- Helper methods

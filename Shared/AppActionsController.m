@@ -16,10 +16,6 @@
 -(void)setUrl: (NSString*)urlString
 {
   [self addAction:@"Twitter"    withURL: @"/app/share/twitter"];
-  
-  if(FACEBOOK)
-    [self addAction:@"Facebook"   withURL: @"/app/share/facebook"];
-
   [self addAction:@"Email"    withURL: @"/app/share/email"];
 }
 @end

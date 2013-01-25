@@ -32,11 +32,6 @@
   return [[UIApplication sharedApplication] canOpenURL:url.to_url];
 }
 
--(BOOL)kinopilotInstalled
-{
-  return [self canOpen: [NSString stringWithFormat:@"%@://test", KINOPILOT_FB_SCHEME]];
-}
-
 -(void)cannotOpen: (NSString*)url 
 {
   if([url containsString: @"fahrinfo-berlin"]) {

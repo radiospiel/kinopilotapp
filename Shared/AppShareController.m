@@ -18,13 +18,4 @@
          withURL: nil
         andImage: nil];
 }
-
--(void)shareViaFacebook
-{
-  [app sendToFacebook: @"Mit der Kinopilot-App hab ich jetzt die Berliner Kinotermine immer auf meinem iPhone dabei!"
-            withTitle: @"Kinopilot.app"
-          andImageURL: @"http://kinopilotupdates2.heroku.com/images/icon_72px.png"
-               andURL: @"http://kinopilotapp.de"
-  ];
-}
 @end
