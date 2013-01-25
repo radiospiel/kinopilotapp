@@ -2,5 +2,5 @@
 #import "M3AppDelegate/M3AppDelegate.h"
 
 #import "SVProgressHUD.h"
-#import "FlurryAnalytics.h"
+#import "Flurry.h"
 #import "TTTAttributedLabel.h"

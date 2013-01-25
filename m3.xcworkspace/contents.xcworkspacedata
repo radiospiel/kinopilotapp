@@ -5,9 +5,6 @@
       location = "group:Top/Top.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:YAML/YAML.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Pilot/Pilot.xcodeproj">
    </FileRef>
    <FileRef
