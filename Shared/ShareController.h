@@ -1,5 +1,7 @@
 #import "AppBase.h"
 
+@class EKEvent;
+
 @interface ShareController: UIViewController
 
 // --- Subclasses must override these methods (if needed)
@@ -10,10 +12,11 @@
 
 // --- Helper methods
 
--(BOOL)addCalendarEvent: (NSString*)title
+-(void)addCalendarEvent: (NSString*)title
            withLocation: (NSString*)location
            andStartDate: (NSDate*)startDate
-            andDuration: (NSTimeInterval)duration;
+            andDuration: (NSTimeInterval)duration
+            onCompletion: (void (^)(EKEvent* event))onCompletion;
 
 -(NSString*)teaserForMovie: (NSDictionary*)movie;
 

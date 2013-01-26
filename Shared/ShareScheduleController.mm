@@ -104,20 +104,18 @@
 
   NSNumber* startTime = [self.schedule objectForKey: @"time"];
   
-  BOOL fSuccess = [self addCalendarEvent: [self.movie objectForKey:@"title"]
-                            withLocation: [self.theater objectForKey:@"name"]
-                            andStartDate: startTime.to_date
-                             andDuration: runtimeInSecs + 30 * 60
-                   ];
-
-  if (fSuccess) {
-    [app alertMessage: @"Die Vorführung wurde in Deinen Kalender eingetragen"];
-  }
-  else {
-    [app alertMessage: @"Die Vorführung konnte nicht in Deinen Kalender eingetragen werden."];
-  }
+  [self addCalendarEvent: [self.movie objectForKey:@"title"]
+            withLocation: [self.theater objectForKey:@"name"]
+            andStartDate: startTime.to_date
+             andDuration: runtimeInSecs + 30 * 60
+            onCompletion:^(id event) {
+              [app runLater:^{
+                NSString* msg = event ? @"Die Vorführung wurde in Deinen Kalender eingetragen" :
+                                        @"Die Vorführung konnte nicht in Deinen Kalender eingetragen werden.";
+                [app alertMessage: msg];
+              }];
+            }];
 }
-
 
 -(NSString*)shortMessage
 {

@@ -16,25 +16,53 @@
 
 // --- Helper methods
 
--(BOOL)addCalendarEvent: (NSString*)title
+-(void)grantCalendar: (void(^)(EKEventStore* eventStore))onCompletion
+{
+  EKEventStore *eventStore = [[[EKEventStore alloc] init]autorelease];
+  
+  if([eventStore respondsToSelector:@selector(requestAccessToEntityType:completion:)]) {
+    // iOS 6 and later
+    [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+      if(granted) {
+        onCompletion(eventStore);
+      }
+      else
+      {
+        onCompletion(nil);
+      }
+    }];
+  }
+  else {
+    onCompletion(eventStore);
+  }
+}
+
+-(void)addCalendarEvent: (NSString*)title
            withLocation: (NSString*)location
            andStartDate: (NSDate*)startDate
             andDuration: (NSTimeInterval)duration
+           onCompletion: (void (^)(EKEvent*))onCompletion;
 {
-  EKEventStore *eventDB = [[[EKEventStore alloc] init]autorelease];
-  EKEvent *event  = [EKEvent eventWithEventStore:eventDB];
-  
-  event.title     = title;
-  event.location  = location;
-  event.startDate = startDate;
-  event.endDate   = [startDate dateByAddingTimeInterval: duration];
-  
-  [event setCalendar:[eventDB defaultCalendarForNewEvents]];
-  
-  NSError *err = nil;
-  [eventDB saveEvent:event span:EKSpanThisEvent error:&err]; 
-  
-  return err == nil;
+  [self grantCalendar:^(EKEventStore *eventStore) {
+    if(!eventStore) {
+      onCompletion(nil);
+      return;
+    }
+
+    EKEvent *event  = [EKEvent eventWithEventStore:eventStore];
+    
+    event.title     = title;
+    event.location  = location;
+    event.startDate = startDate;
+    event.endDate   = [startDate dateByAddingTimeInterval: duration];
+    
+    [event setCalendar:[eventStore defaultCalendarForNewEvents]];
+    
+    NSError *err = nil;
+    [eventStore saveEvent:event span:EKSpanThisEvent error:&err];
+    
+    onCompletion(err ? nil : event);
+  }];
 }
 
 // --- get a teaser string for a movie
