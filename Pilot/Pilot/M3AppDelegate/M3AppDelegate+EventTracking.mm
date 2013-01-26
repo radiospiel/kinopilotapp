@@ -10,7 +10,7 @@
 #ifdef DEBUG
   NSLog(@"Ignoring trackEvent: %@", event);
 #else
-  [FlurryAnalytics logEvent:event withParameters:properties];
+  [Flurry logEvent:event withParameters:properties];
 #endif
 }
 
