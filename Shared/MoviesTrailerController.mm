@@ -70,9 +70,14 @@ static BCMediaAPI *bc = nil;
 
   [app.topMostController presentModalViewController: self animated:NO];
   
-  self.player.controlStyle = MPMovieControlStyleFullscreen;  
+  [app.window  addSubview:self.player.view];
+
+  /* 
+    Note: the extend and order of the player configuration here and in -(void)close
+    is important. It is easy to change this and break closing the trailer view.
+   */ 
   self.player.shouldAutoplay = YES;
-  [app.window  addSubview:self.player.view];  
+  self.player.controlStyle = MPMovieControlStyleFullscreen;
   [self.player setFullscreen:YES animated:YES];
 }
 
@@ -80,6 +85,9 @@ static BCMediaAPI *bc = nil;
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self ];
   
+  [self.player setControlStyle:MPMovieControlStyleNone];
+  [self.player setFullscreen:NO animated:NO];
+
   [self.player.view removeFromSuperview];
   [self dismissModalViewControllerAnimated:YES];
   self.view.hidden = YES;
