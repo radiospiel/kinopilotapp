@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9D0D8A461563B23E00EC5A86 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D0D8A451563B23E00EC5A86 /* SVProgressHUD.bundle */; };
+		9D57BD2616B348C900F908A9 /* libBrightcoveMediaAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D57BD2516B348C900F908A9 /* libBrightcoveMediaAPI.a */; };
+		9D57BD2816B348D600F908A9 /* libBrightcovePlayerKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D57BD2716B348D600F908A9 /* libBrightcovePlayerKit.a */; };
 		9D6FD83715628A020059AD79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD83615628A020059AD79 /* UIKit.framework */; };
 		9D6FD83915628A020059AD79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD83815628A020059AD79 /* Foundation.framework */; };
 		9D6FD83B15628A020059AD79 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD83A15628A020059AD79 /* CoreGraphics.framework */; };
@@ -47,8 +49,6 @@
 		9D6FD93315628C870059AD79 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD93215628C870059AD79 /* MediaPlayer.framework */; };
 		9D6FD93515628C9F0059AD79 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD93415628C9F0059AD79 /* EventKit.framework */; };
 		9D6FD93715628CB40059AD79 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD93615628CB40059AD79 /* MessageUI.framework */; };
-		9D6FD93915628D260059AD79 /* libBrightcoveMediaAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD93815628D260059AD79 /* libBrightcoveMediaAPI.a */; };
-		9D6FD93B15628D360059AD79 /* libBrightcovePlayerKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD93A15628D360059AD79 /* libBrightcovePlayerKit.a */; };
 		9D6FD93D15628D500059AD79 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD93C15628D500059AD79 /* libstdc++.dylib */; };
 		9D6FD93F15628D580059AD79 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD93E15628D580059AD79 /* libicucore.dylib */; };
 		9D6FD94115628D5F0059AD79 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD94015628D5F0059AD79 /* CFNetwork.framework */; };
@@ -103,6 +103,8 @@
 
 /* Begin PBXFileReference section */
 		9D0D8A451563B23E00EC5A86 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = ../vendor/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
+		9D57BD2516B348C900F908A9 /* libBrightcoveMediaAPI.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBrightcoveMediaAPI.a; path = "../vendor/bc-media-api-2.3/lib/libBrightcoveMediaAPI.a"; sourceTree = "<group>"; };
+		9D57BD2716B348D600F908A9 /* libBrightcovePlayerKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBrightcovePlayerKit.a; path = "../vendor/bc-ipad-iphone-kit-2.3/lib/libBrightcovePlayerKit.a"; sourceTree = "<group>"; };
 		9D6FD83215628A020059AD79 /* Kinopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kinopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D6FD83615628A020059AD79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9D6FD83815628A020059AD79 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -149,8 +151,6 @@
 		9D6FD93215628C870059AD79 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		9D6FD93415628C9F0059AD79 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		9D6FD93615628CB40059AD79 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		9D6FD93815628D260059AD79 /* libBrightcoveMediaAPI.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBrightcoveMediaAPI.a; path = "../vendor/bc-media-api-2.1/lib/libBrightcoveMediaAPI.a"; sourceTree = "<group>"; };
-		9D6FD93A15628D360059AD79 /* libBrightcovePlayerKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBrightcovePlayerKit.a; path = "../vendor/bc-ipad-iphone-kit-2.1/lib/libBrightcovePlayerKit.a"; sourceTree = "<group>"; };
 		9D6FD93C15628D500059AD79 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		9D6FD93E15628D580059AD79 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		9D6FD94015628D5F0059AD79 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -209,8 +209,6 @@
 				9D6FD94115628D5F0059AD79 /* CFNetwork.framework in Frameworks */,
 				9D6FD93F15628D580059AD79 /* libicucore.dylib in Frameworks */,
 				9D6FD93D15628D500059AD79 /* libstdc++.dylib in Frameworks */,
-				9D6FD93B15628D360059AD79 /* libBrightcovePlayerKit.a in Frameworks */,
-				9D6FD93915628D260059AD79 /* libBrightcoveMediaAPI.a in Frameworks */,
 				9D6FD92F15628C730059AD79 /* libsqlite3.dylib in Frameworks */,
 				9D6FD92D15628C6B0059AD79 /* libPilot.a in Frameworks */,
 				9D6FD83B15628A020059AD79 /* CoreGraphics.framework in Frameworks */,
@@ -220,6 +218,8 @@
 				9D6FD93715628CB40059AD79 /* MessageUI.framework in Frameworks */,
 				9D6FD93115628C7D0059AD79 /* Twitter.framework in Frameworks */,
 				9D6FD83715628A020059AD79 /* UIKit.framework in Frameworks */,
+				9D57BD2616B348C900F908A9 /* libBrightcoveMediaAPI.a in Frameworks */,
+				9D57BD2816B348D600F908A9 /* libBrightcovePlayerKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,8 +253,8 @@
 		9D6FD83515628A020059AD79 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9D6FD93A15628D360059AD79 /* libBrightcovePlayerKit.a */,
-				9D6FD93815628D260059AD79 /* libBrightcoveMediaAPI.a */,
+				9D57BD2516B348C900F908A9 /* libBrightcoveMediaAPI.a */,
+				9D57BD2716B348D600F908A9 /* libBrightcovePlayerKit.a */,
 				9D6FD93E15628D580059AD79 /* libicucore.dylib */,
 				9D6FD92E15628C730059AD79 /* libsqlite3.dylib */,
 				9D6FD93C15628D500059AD79 /* libstdc++.dylib */,
@@ -427,6 +427,9 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				English,
+				Japanese,
+				Spanish,
 			);
 			mainGroup = 9D6FD82715628A020059AD79;
 			productRefGroup = 9D6FD83315628A020059AD79 /* Products */;
@@ -598,15 +601,16 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Kinopilot/Kinopilot-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					"../vendor/bc-media-api-2.1/lib/**",
-					"../vendor/bc-ipad-iphone-kit-2.1/lib/**",
+					"../vendor/bc-media-api-2.3/lib/**",
+					"../vendor/bc-ipad-iphone-kit-2.3/lib/**",
 				);
 				INFOPLIST_FILE = "Kinopilot/Kinopilot-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../vendor/bc-media-api-2.1/lib\"",
-					"\"$(SRCROOT)/../vendor/bc-ipad-iphone-kit-2.1/lib\"",
+					"\"$(SRCROOT)/../vendor/bc-ipad-iphone-kit-2.3/lib\"",
+					"\"$(SRCROOT)/../vendor/bc-ipad-iphone-kit-2.3/OAuthConsumer\"",
+					"\"$(SRCROOT)/../vendor/bc-media-api-2.3/lib\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -623,15 +627,16 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Kinopilot/Kinopilot-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					"../vendor/bc-media-api-2.1/lib/**",
-					"../vendor/bc-ipad-iphone-kit-2.1/lib/**",
+					"../vendor/bc-media-api-2.3/lib/**",
+					"../vendor/bc-ipad-iphone-kit-2.3/lib/**",
 				);
 				INFOPLIST_FILE = "Kinopilot/Kinopilot-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../vendor/bc-media-api-2.1/lib\"",
-					"\"$(SRCROOT)/../vendor/bc-ipad-iphone-kit-2.1/lib\"",
+					"\"$(SRCROOT)/../vendor/bc-ipad-iphone-kit-2.3/lib\"",
+					"\"$(SRCROOT)/../vendor/bc-ipad-iphone-kit-2.3/OAuthConsumer\"",
+					"\"$(SRCROOT)/../vendor/bc-media-api-2.3/lib\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
