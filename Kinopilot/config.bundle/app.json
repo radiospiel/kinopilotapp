@@ -36,7 +36,7 @@
     }
   },
   
-  "update_url":        "http://kinopilotupdates2.heroku.com/db/images,berlin.sql",
+  "update_url":        "http://updates.kinopilotapp.de/db/images,berlin.sql",
   "debug_update_url":  "http://localhost:3000/db/images,berlin.sql",
 
   "name": "Kinopilot Berlin",
@@ -52,7 +52,7 @@
     {
       "header":  "Dein Kinopilot",
       "content": [
-        ["Kinopilot im Netz", "http://kinopilotapp.de"],
+        ["Kinopilot im Netz", "http://www.kinopilotapp.de"],
         ["Aktualisiert",      "updated_at"],
         ["Vorführungen",      "schedules_count"]
       ]
