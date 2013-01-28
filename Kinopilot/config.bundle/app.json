@@ -28,7 +28,7 @@
     },
     "vicinity": {
       "title":      "Was läuft jetzt?!",
-      "actionURL":  "/vicinity/show"
+      "actionURL":  "/vicinity"
     },
     "today": {
       "title":      "Kalender",

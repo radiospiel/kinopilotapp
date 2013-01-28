@@ -10,6 +10,11 @@
 
 #pragma mark -- VicinityShowController
 
+/* 
+ * The VicinityController asks the M3LocationManager to determine
+ * the location and then to open /vicinity/show; i.e. to run the 
+ * VicinityShowController.
+ */
 @interface VicinityController: M3ListViewController
 @end
 
