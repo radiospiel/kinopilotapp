@@ -62,7 +62,7 @@
 		9D6FDA9A1562D0540059AD79 /* M3Http.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D6FDA031562D0540059AD79 /* M3Http.h */; };
 		9D6FDA9B1562D0540059AD79 /* M3Http.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FDA041562D0540059AD79 /* M3Http.mm */; };
 		9D6FDA9C1562D0540059AD79 /* M3LocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D6FDA051562D0540059AD79 /* M3LocationManager.h */; };
-		9D6FDA9D1562D0540059AD79 /* M3LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FDA061562D0540059AD79 /* M3LocationManager.m */; };
+		9D6FDA9D1562D0540059AD79 /* M3LocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FDA061562D0540059AD79 /* M3LocationManager.mm */; };
 		9D6FDA9E1562D0540059AD79 /* M3Rotator.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D6FDA071562D0540059AD79 /* M3Rotator.h */; };
 		9D6FDA9F1562D0540059AD79 /* M3Rotator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FDA081562D0540059AD79 /* M3Rotator.m */; };
 		9D6FDAA01562D0540059AD79 /* M3StopWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D6FDA091562D0540059AD79 /* M3StopWatch.h */; };
@@ -191,7 +191,7 @@
 		9D6FDA031562D0540059AD79 /* M3Http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Http.h; sourceTree = "<group>"; };
 		9D6FDA041562D0540059AD79 /* M3Http.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3Http.mm; sourceTree = "<group>"; };
 		9D6FDA051562D0540059AD79 /* M3LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3LocationManager.h; sourceTree = "<group>"; };
-		9D6FDA061562D0540059AD79 /* M3LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3LocationManager.m; sourceTree = "<group>"; };
+		9D6FDA061562D0540059AD79 /* M3LocationManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3LocationManager.mm; sourceTree = "<group>"; };
 		9D6FDA071562D0540059AD79 /* M3Rotator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3Rotator.h; sourceTree = "<group>"; };
 		9D6FDA081562D0540059AD79 /* M3Rotator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3Rotator.m; sourceTree = "<group>"; };
 		9D6FDA091562D0540059AD79 /* M3StopWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3StopWatch.h; sourceTree = "<group>"; };
@@ -339,7 +339,7 @@
 				9D6FDA031562D0540059AD79 /* M3Http.h */,
 				9D6FDA041562D0540059AD79 /* M3Http.mm */,
 				9D6FDA051562D0540059AD79 /* M3LocationManager.h */,
-				9D6FDA061562D0540059AD79 /* M3LocationManager.m */,
+				9D6FDA061562D0540059AD79 /* M3LocationManager.mm */,
 				9D6FDA071562D0540059AD79 /* M3Rotator.h */,
 				9D6FDA081562D0540059AD79 /* M3Rotator.m */,
 				9D6FDA091562D0540059AD79 /* M3StopWatch.h */,
@@ -687,7 +687,7 @@
 				9D6FDA971562D0540059AD79 /* M3EventCenter.mm in Sources */,
 				9D6FDA991562D0540059AD79 /* M3Exception.m in Sources */,
 				9D6FDA9B1562D0540059AD79 /* M3Http.mm in Sources */,
-				9D6FDA9D1562D0540059AD79 /* M3LocationManager.m in Sources */,
+				9D6FDA9D1562D0540059AD79 /* M3LocationManager.mm in Sources */,
 				9D6FDA9F1562D0540059AD79 /* M3Rotator.m in Sources */,
 				9D6FDAA11562D0540059AD79 /* M3StopWatch.m in Sources */,
 				9D6FDAA31562D0540059AD79 /* M3Timer.m in Sources */,
