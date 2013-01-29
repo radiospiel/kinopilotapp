@@ -109,16 +109,20 @@ inline const RS::Logger& operator << (const RS::Logger& logger, CGRect rect) {
   return logger;
 }
 
-// 
-// inline const RS::Logger& operator << (const RS::Logger& logger, CGPoint point) { 
-//   logger.append([NSString stringWithFormat: @"%d,%d", (int)point.x, (int)point.y]);
-//   return logger;
-// }
-// 
-// inline const RS::Logger& operator << (const RS::Logger& logger, CGSize size) { 
-//   logger.append([NSString stringWithFormat: @"+%d+%d", (int)size.width, (int)size.height]);
-//   return logger;
-// }
-// 
+inline const RS::Logger& operator << (const RS::Logger& logger, CGPoint point) {
+  logger.append([NSString stringWithFormat: @"%d,%d", (int)point.x, (int)point.y]);
+  return logger;
+}
+
+inline const RS::Logger& operator << (const RS::Logger& logger, CGSize size) {
+  logger.append([NSString stringWithFormat: @"+%d+%d", (int)size.width, (int)size.height]);
+  return logger;
+}
+
+inline const RS::Logger& operator << (const RS::Logger& logger, BOOL f) {
+  logger.append(f ? @"YES" : @"NO");
+  return logger;
+}
+
 
 #endif

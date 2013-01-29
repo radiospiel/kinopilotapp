@@ -114,7 +114,7 @@ static NSInteger key_sort(id key1, id key2, void* _)
 
 -(NSString*)inspect
 {
-  return [NSString stringWithFormat: @"<NSThread 0x%08x>", self ];
+  return [NSString stringWithFormat: @"<NSThread 0x%08x>", (int)self ];
 }
 @end
 
