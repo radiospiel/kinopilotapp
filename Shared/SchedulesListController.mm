@@ -108,8 +108,8 @@
 @implementation SchedulesListController
 
 -(NSString*)title
-{ 
-  return nil; 
+{
+  return @"";
 }
 
 -(void)reloadURL

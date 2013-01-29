@@ -20,12 +20,51 @@
 
 M3AppDelegate* app;
 
+@interface M3NavigationController: UINavigationController
+@end
+
+@implementation M3NavigationController
+
+- (BOOL)shouldAutorotate {
+  return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+  UIViewController* vc = self.topViewController;
+  if(vc)
+    return vc.supportedInterfaceOrientations;
+  
+  return UIInterfaceOrientationMaskAllButUpsideDown;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+  return UIInterfaceOrientationPortrait;
+}
+
+// set navigation bar title from top controller
+
+-(void)updateNavigationBar
+{
+  UIViewController* vc = self.topViewController;
+  
+  if(vc.title) {
+    self.navigationBar.topItem.title = vc.title;
+    self.navigationBarHidden = NO;
+  }
+  else {
+    self.navigationBarHidden = YES;
+  }
+}
+
+
+@end
+
 @interface M3AppDelegate()
 @end
 
 @implementation M3AppDelegate
 
-@synthesize window, tabBarController, withheldViewControllers;
+@synthesize window, withheldViewControllers;
 
 -(id)init
 {
@@ -36,7 +75,6 @@ M3AppDelegate* app;
 - (void)dealloc
 {
   self.window = nil;
-  self.tabBarController = nil;
   
   [super dealloc];
 }
@@ -64,16 +102,7 @@ M3AppDelegate* app;
 -(UINavigationController*)topMostController
 {
   // Get top-most controller.
-  UINavigationController* nc;
-  if(!self.tabBarController) {
-    nc = (UINavigationController*)self.window.rootViewController;
-  }
-  else {
-    nc = (UINavigationController*) self.tabBarController.selectedViewController;
-    if(!nc)
-      nc = (UINavigationController*) [self.tabBarController.viewControllers objectAtIndex:0];
-  }
-  
+  UINavigationController* nc = (UINavigationController*)self.window.rootViewController;
   M3AssertKindOf(nc, UINavigationController);
   return nc;
 }
@@ -90,42 +119,14 @@ M3AppDelegate* app;
      willShowViewController:(UIViewController *) vc 
                    animated:(BOOL)anmated
 {
-  UITabBarController* tbc = self.tabBarController;
-
-  // find the tab bars content view.
-  NSArray* subviews = tbc.view.subviews;
-  UIView *contentView = [subviews.first isKindOfClass:[UITabBar class]] ?
-    subviews.second : subviews.first;
-  
-  if([vc isFullscreen]) {
-    [nc setNavigationBarHidden: YES animated: YES];
-    
-    CGRect frame = [[UIScreen mainScreen]bounds];
-    contentView.frame = frame;
-    
-    tbc.tabBar.hidden = YES;
-  }
-  else {
-    [nc setNavigationBarHidden: NO animated: YES];
-    tbc.tabBar.hidden = NO;
-    
-    CGRect frame = [[UIScreen mainScreen]bounds];
-    frame.size.height -= tbc.tabBar.frame.size.height;
-    contentView.frame = frame;
-    
-    tbc.tabBar.hidden = NO;
-  }
+  M3NavigationController* mc = (M3NavigationController*)nc;
+  M3AssertKindOf(mc, M3NavigationController);
+  [mc updateNavigationBar];
 }
 
--(void)navigationController:(UINavigationController *) nc 
-      didShowViewController:(UIViewController *) vc 
-                   animated:(BOOL)anmated
+-(UINavigationController*)navigationControllerForURL: (NSString*)url
 {
-}
-
--(UINavigationController*)navigationControllerForTab: (NSDictionary*)tab
-{
-  NSString* url = [tab objectForKey: @"url"];
+  M3AssertKindOf(url, NSString);
   
   // get portrait view controller for URL and Data
   UIViewController* vc = [self controllerForURL: url];
@@ -133,22 +134,9 @@ M3AppDelegate* app;
   
   //
   // Build navigation controller
-  UINavigationController* nc = [[[UINavigationController alloc]initWithRootViewController:vc]autorelease];
+  UINavigationController* nc = [[[M3NavigationController alloc]initWithRootViewController:vc]autorelease];
   nc.delegate = self;
-
-  // set navigation controller title
-  
-  if([tab objectForKey: @"title"])
-    nc.navigationBar.topItem.title = [tab objectForKey: @"title"];
-  else if(vc.title)
-    nc.navigationBar.topItem.title = vc.title;
-  else
-    nc.navigationBarHidden = YES;
-  
-  // set navigation controller's tab properties
-  
-  nc.tabBarItem.image = [UIImage imageNamed:[tab objectForKey: @"icon"]];
-  nc.tabBarItem.title = [tab objectForKey: @"label"];
+  nc.navigationBarHidden = YES;
 
   return nc;
 }
@@ -170,43 +158,6 @@ M3AppDelegate* app;
 {
   imageName = [NSString stringWithFormat: @"config.bundle/%@", imageName];
   return [UIImage imageNamed: imageName];
-}
-
--(void)loadTabs
-{
-  NSArray* tabs = [[self config] objectForKey: @"tabs"];
-
-  NSString* __block initialURL;
-  
-  NSMutableArray* navigationControllers = [tabs mapUsingBlock:^id(NSDictionary* tab) {
-    NSString* url = [tab objectForKey: @"url"];
-    if(!url) return nil;
-
-    dlog << "loading tab: " << url;
-
-    UINavigationController* nc = [self navigationControllerForTab:tab];
-    if(!nc) return nil;
-    
-    initialURL = url;
-    return nc;
-  }];
-  
-  navigationControllers = [navigationControllers selectUsingBlock:^BOOL(UINavigationController* nc) {
-    return nc != nil;
-  }];
-
-  if(navigationControllers.count > 1) {
-    UITabBarController* tbc = [[[UITabBarController alloc] init] autorelease];
-    tbc.view.frame = [[UIScreen mainScreen] bounds];
-    // tabBarController.wantsFullScreenLayout = YES;
-    tbc.viewControllers = navigationControllers;
-    
-    self.window.rootViewController = self.tabBarController = tbc;
-  }
-  else {
-    dlog << "opened tab: " << initialURL;
-    self.window.rootViewController = navigationControllers.first;
-  }
 }
 
 #pragma twitter support
@@ -298,19 +249,18 @@ static void uncaughtExceptionHandler(NSException *exception) {
   
   UIWindow* wnd = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]; 
   self.window = [wnd autorelease];  
-    
-  [self loadTabs];
+  
+  // The tabs key contains an array of dictionaries describing the requested
+  // tabs for the UI. We only show the first entry (which must contain
+  // a valid URL)
+  NSString* startUrl = [[self config] objectForKey: @"start_url"];
+  self.window.rootViewController = [self navigationControllerForURL:startUrl];
+                                          
   [self.window makeKeyAndVisible];
     
   [self trackEvent: @"start"];          // track a start event
   
   return YES;
-}
-
-- (UINavigationController*)currentTab
-{
-  return [ self.tabBarController.viewControllers objectAtIndex:0];
-  //  return (UINavigationController*)[self.tabBarController selectedViewController];
 }
 
 #pragma mark livecycle callbacks

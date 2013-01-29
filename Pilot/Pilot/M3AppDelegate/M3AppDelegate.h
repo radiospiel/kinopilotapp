@@ -27,7 +27,6 @@ extern M3AppDelegate* app;
                                            UINavigationControllerDelegate>
 
 @property (retain, nonatomic) UIWindow *window;
-@property (retain, nonatomic) UITabBarController *tabBarController;
 @property (retain, nonatomic) NSArray *withheldViewControllers;
 
 /*

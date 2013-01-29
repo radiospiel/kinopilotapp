@@ -203,9 +203,9 @@
 
 #pragma mark - enable rotation
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+-(NSUInteger)supportedInterfaceOrientations
 {
-  return YES;
+  return UIInterfaceOrientationMaskAll;
 }
 
 #pragma mark - mapView delegate

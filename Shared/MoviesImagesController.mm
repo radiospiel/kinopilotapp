@@ -195,9 +195,9 @@
   return YES;
 }
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+-(NSUInteger)supportedInterfaceOrientations
 {
-  return YES;
+  return UIInterfaceOrientationMaskAll;
 }
 
 #pragma mark - Low memory management

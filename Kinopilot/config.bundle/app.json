@@ -40,14 +40,7 @@
   "debug_update_url":  "http://localhost:3000/db/images,berlin.sql",
 
   "name": "Kinopilot Berlin",
-  "tabs": [
-    {
-      "url": "/dashboard",
-      "label": "Jetzt",
-      "ntitle": "Was läuft jetzt?",
-      "icon": "tab_tage.png"
-    }
-  ],
+  "start_url": "/dashboard",
   "info": [
     {
       "header":  "Dein Kinopilot",

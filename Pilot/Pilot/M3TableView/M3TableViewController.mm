@@ -75,6 +75,11 @@
 #endif
 #endif
 
+-(NSUInteger) supportedInterfaceOrientations
+{
+  return UIInterfaceOrientationMaskPortrait;
+}
+
 -(M3TableViewDataSource*) dataSource
 { 
   M3AssertKindOf(self.tableView, UITableView);
