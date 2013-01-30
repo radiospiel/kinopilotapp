@@ -29,6 +29,34 @@ M3AppDelegate* app;
   return YES;
 }
 
+// This method is called on iOS < 6 only. It returns the expected value
+// from the iOS6 compatible implementation.
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+  UIViewController* vc = self.topViewController;
+  if([vc respondsToSelector:@selector(supportedInterfaceOrientations)]) {
+    switch(toInterfaceOrientation) {
+      case UIInterfaceOrientationLandscapeLeft:
+        return vc.supportedInterfaceOrientations & UIInterfaceOrientationMaskLandscapeLeft;
+      case UIInterfaceOrientationLandscapeRight:
+        return vc.supportedInterfaceOrientations & UIInterfaceOrientationMaskLandscapeRight;
+      case UIInterfaceOrientationPortrait:
+        return vc.supportedInterfaceOrientations & UIInterfaceOrientationMaskPortrait;
+      case UIInterfaceOrientationPortraitUpsideDown:
+        return vc.supportedInterfaceOrientations & UIInterfaceOrientationMaskPortraitUpsideDown;
+      default:
+        break;
+    }
+  
+    return NO;
+  }
+
+  if(vc)
+    return [vc shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
+  
+  return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
+}
+
 - (NSUInteger)supportedInterfaceOrientations {
   UIViewController* vc = self.topViewController;
   if(vc)
@@ -41,21 +69,20 @@ M3AppDelegate* app;
   return UIInterfaceOrientationPortrait;
 }
 
-// set navigation bar title from top controller
+-(void)viewWillLayoutSubviews {
+  [super viewWillLayoutSubviews];
 
--(void)updateNavigationBar
-{
+  // When a controller is popped which supports a rotation that the new
+  // topViewController does not support, the will/didAppear callbacks
+  // will NOT BE CALLED. We still have to update the navigationBar visibility
+  // though.
+  //
+  // This is a workaround for a) probably a bug in iOS and b) for the way
+  // we have some view controllers that are full screen and therefore
+  // handle closing by theselves.
   UIViewController* vc = self.topViewController;
-  
-  if(vc.title) {
-    self.navigationBar.topItem.title = vc.title;
-    self.navigationBarHidden = NO;
-  }
-  else {
-    self.navigationBarHidden = YES;
-  }
+  self.navigationBarHidden = vc.title ? NO : YES;
 }
-
 
 @end
 
@@ -110,18 +137,27 @@ M3AppDelegate* app;
 -(void)presentControllerOnTop: (UIViewController*)viewController
 {
   UINavigationController* nc = [self topMostController];
-  [nc.navigationBar setBarStyle:UIBarStyleBlackOpaque];
   [nc pushViewController:viewController animated:YES];
 }
 
-
--(void)navigationController:(UINavigationController *) nc 
-     willShowViewController:(UIViewController *) vc 
-                   animated:(BOOL)anmated
+//
+// Update nav bar when top controller changes.
+//
+// It somehow seems important to update the nav bar both before
+// and after the new vc appears, for reasons unknown.
+//
+-(void)navigationController:(UINavigationController *) nc
+     willShowViewController:(UIViewController *)vc
+                   animated:(BOOL)animated
 {
-  M3NavigationController* mc = (M3NavigationController*)nc;
-  M3AssertKindOf(mc, M3NavigationController);
-  [mc updateNavigationBar];
+  [nc setNavigationBarHidden: vc.title == nil animated:animated];
+}
+
+-(void)navigationController:(UINavigationController *) nc
+      didShowViewController:(UIViewController *)vc
+                   animated:(BOOL)animated
+{
+  [nc setNavigationBarHidden: vc.title == nil animated:animated];
 }
 
 -(UINavigationController*)navigationControllerForURL: (NSString*)url
@@ -136,6 +172,7 @@ M3AppDelegate* app;
   // Build navigation controller
   UINavigationController* nc = [[[M3NavigationController alloc]initWithRootViewController:vc]autorelease];
   nc.delegate = self;
+  [nc.navigationBar setBarStyle:UIBarStyleBlackOpaque];
   nc.navigationBarHidden = YES;
 
   return nc;
@@ -354,16 +391,6 @@ static void uncaughtExceptionHandler(NSException *exception) {
   */
 }
 
-// Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
-{
-}
-
-// Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers 
-                                                                                         changed:(BOOL)changed
-{
-}
 @end
 
 #endif
