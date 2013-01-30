@@ -47,7 +47,6 @@
 		9D6FDA8B1562D0540059AD79 /* M3-Internals.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD9F41562D0540059AD79 /* M3-Internals.m */; };
 		9D6FDA8C1562D0540059AD79 /* M3.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D6FD9F51562D0540059AD79 /* M3.h */; };
 		9D6FDA8D1562D0540059AD79 /* M3.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD9F61562D0540059AD79 /* M3.m */; };
-		9D6FDA8E1562D0540059AD79 /* M3AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D6FD9F71562D0540059AD79 /* M3AppDelegate.h */; };
 		9D6FDA8F1562D0540059AD79 /* M3AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD9F81562D0540059AD79 /* M3AppDelegate.mm */; };
 		9D6FDA901562D0540059AD79 /* M3CachedFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D6FD9F91562D0540059AD79 /* M3CachedFactory.h */; };
 		9D6FDA911562D0540059AD79 /* M3CachedFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD9FA1562D0540059AD79 /* M3CachedFactory.m */; };
@@ -176,7 +175,6 @@
 		9D6FD9F41562D0540059AD79 /* M3-Internals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "M3-Internals.m"; sourceTree = "<group>"; };
 		9D6FD9F51562D0540059AD79 /* M3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3.h; sourceTree = "<group>"; };
 		9D6FD9F61562D0540059AD79 /* M3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3.m; sourceTree = "<group>"; };
-		9D6FD9F71562D0540059AD79 /* M3AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3AppDelegate.h; sourceTree = "<group>"; };
 		9D6FD9F81562D0540059AD79 /* M3AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = M3AppDelegate.mm; sourceTree = "<group>"; };
 		9D6FD9F91562D0540059AD79 /* M3CachedFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3CachedFactory.h; sourceTree = "<group>"; };
 		9D6FD9FA1562D0540059AD79 /* M3CachedFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3CachedFactory.m; sourceTree = "<group>"; };
@@ -324,7 +322,6 @@
 				9D6FD9F41562D0540059AD79 /* M3-Internals.m */,
 				9D6FD9F51562D0540059AD79 /* M3.h */,
 				9D6FD9F61562D0540059AD79 /* M3.m */,
-				9D6FD9F71562D0540059AD79 /* M3AppDelegate.h */,
 				9D6FD9F81562D0540059AD79 /* M3AppDelegate.mm */,
 				9D6FD9F91562D0540059AD79 /* M3CachedFactory.h */,
 				9D6FD9FA1562D0540059AD79 /* M3CachedFactory.m */,
@@ -561,7 +558,6 @@
 				9D6FDA881562D0540059AD79 /* M3+RuntimeError.h in Headers */,
 				9D6FDA8A1562D0540059AD79 /* M3-Internals.h in Headers */,
 				9D6FDA8C1562D0540059AD79 /* M3.h in Headers */,
-				9D6FDA8E1562D0540059AD79 /* M3AppDelegate.h in Headers */,
 				9D6FDA901562D0540059AD79 /* M3CachedFactory.h in Headers */,
 				9D6FDA921562D0540059AD79 /* M3Etest.h in Headers */,
 				9D6FDA961562D0540059AD79 /* M3EventCenter.h in Headers */,

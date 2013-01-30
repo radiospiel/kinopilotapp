@@ -4,8 +4,6 @@
 
 #import "../../M3/M3.h"
 
-#define KINOPILOT_FB_SCHEME @"fb323168154384101"
-
 @interface NSString (IM3ExampleExtensions)
 
 /*
@@ -48,7 +46,6 @@ extern M3AppDelegate* app;
 
 -(NSString*)configPathFor: (NSString*)file;
 -(UIImage*)imageNamed: (NSString*)imageName;
-
 
 @end
 
