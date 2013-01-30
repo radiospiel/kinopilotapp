@@ -202,9 +202,16 @@
 
 #pragma mark - Low memory management
 
+#define max(x,y) ((x) > (y) ? (x) : (y))
+#define min(x,y) ((x) < (y) ? (x) : (y))
+
 -(void)loadView
 {
-  MoviesImagesView* moviesImagesView = [[MoviesImagesView alloc]initWithFrame: CGRectMake(0, 0, 320, 460)];
+  CGRect screenBounds = [[UIScreen mainScreen] bounds];
+  int longSide = max(screenBounds.size.height, screenBounds.size.width);
+  int shortSide = min(screenBounds.size.height, screenBounds.size.width);
+  
+  MoviesImagesView* moviesImagesView = [[MoviesImagesView alloc]initWithFrame: CGRectMake(0, 0, shortSide, longSide - 20)];
   [moviesImagesView.closeButton addTarget:self 
                                    action:@selector(popNavigationController) 
                          forControlEvents:UIControlEventTouchUpInside];
@@ -250,7 +257,10 @@
   M3CachedFactory* factory = [UIImage cachedImagesWithURL]; 
   
   [app runLater:^() {
-    CGSize imageSize = CGSizeMake(480, 460);
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    int longSide = max(screenBounds.size.height, screenBounds.size.width);
+
+    CGSize imageSize = CGSizeMake(longSide, longSide - 20);
     
     for(NSString* url in imageURLs) {
       [factory buildAsync:[M3 imageURL: url forSize: imageSize]
