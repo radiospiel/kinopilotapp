@@ -107,9 +107,28 @@
 
 @implementation SchedulesListController
 
+// returns YES if the header view contains movie information
+
+-(BOOL)movieMode
+{
+  NSString* important = [self.url.to_url param: @"important"];
+  return [important isEqualToString: @"movie"];
+}
+
 -(NSString*)title
 {
-  return @"";
+  if([self movieMode]) {
+    id theater_id = [self.url.to_url.params objectForKey: @"theater_id"];
+    NSDictionary* theater = [app.sqliteDB.theaters get: theater_id];
+    
+    return [theater objectForKey:@"name"];
+  }
+  else {
+    id movie_id = [self.url.to_url.params objectForKey: @"movie_id"];
+    NSDictionary* movie = [app.sqliteDB.movies get: movie_id];
+
+    return [movie objectForKey:@"title"];
+  }
 }
 
 -(void)reloadURL
@@ -133,15 +152,12 @@
                                                    onDay: day.to_number.to_date];
 
   [ds addFallbackSectionIfNeeded];
-
-  // The "important" key defines the content of the top cell or the header view.
-                     
-  NSString* important = [self.url.to_url param: @"important"];
-  if(![important isEqualToString: @"movie"]) {
-    self.tableView.tableHeaderView = [M3ProfileView profileViewForTheater: theater];
+  
+  if([self movieMode]) {
+    [ds prependCellOfClass: @"MovieShortActionsCell" withKey: movie_id];
   }
   else {
-    [ds prependCellOfClass: @"MovieShortActionsCell" withKey: movie_id]; 
+    self.tableView.tableHeaderView = [M3ProfileView profileViewForTheater: theater];
   }
 
   self.dataSource = [ds autorelease];
