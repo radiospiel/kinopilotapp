@@ -624,6 +624,8 @@
 		9D6FD84C15628A020059AD79 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: radiospiel UG (haftungsbeschrankt)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: radiospiel UG (haftungsbeschrankt)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Kinopilot/Kinopilot-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -643,6 +645,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "F8050AFE-3F3D-4B21-98E9-72D726F75DF2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F8050AFE-3F3D-4B21-98E9-72D726F75DF2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
