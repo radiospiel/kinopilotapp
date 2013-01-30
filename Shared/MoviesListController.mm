@@ -199,7 +199,8 @@
   if(!movie) return;
 
   [self setImageForMovie: movie];
-  [self setText: [movie objectForKey: @"title"]];
+  
+  self.textLabel.text = [movie objectForKey: @"title"];
   
   NSArray* theaterNames = [self theaterNamesForMovie: movie];
   [self setDetailText: [theaterNames componentsJoinedByString: @", "]];
@@ -229,7 +230,7 @@
   [super setKey:movie];
   
   [self setImageForMovie: movie];
-  [self setText: [movie objectForKey: @"title"]];
+  self.textLabel.text = [movie objectForKey: @"title"];
   
   if(app.isFlk) {
     NSString* time = [movie objectForKey:@"time"];

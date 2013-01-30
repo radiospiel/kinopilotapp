@@ -74,8 +74,8 @@
   NSDate* startTime = startTimeAsNumber.to_date;
   NSString* title = [movie objectForKey: @"title"];
   
-  [self setText:        [NSString stringWithFormat: @"%@ %@", [startTime stringWithFormat:@"HH:mm"], title] ];
-  [self setDetailText:  [movie objectForKey: @"theater_name"]];
+  self.textLabel.text       = [NSString stringWithFormat: @"%@ %@", [startTime stringWithFormat:@"HH:mm"], title];
+  self.detailTextLabel.text = [movie objectForKey: @"theater_name"];
   
   self.url = _.join(@"/theaters/list?movie_id=", [movie objectForKey:@"movie_id"]);
 }

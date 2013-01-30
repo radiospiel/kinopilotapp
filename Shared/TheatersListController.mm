@@ -200,7 +200,7 @@
     [super setFlagged: [app isFlagged: [self theater_id]]];
   }
   
-  [self setText: [theater objectForKey: @"name"]];
+  self.textLabel.text = [theater objectForKey: @"name"];
 
   NSArray* titles = [self movieTitlesForTheater: theater];
   hasSchedules = titles.count > 0;
@@ -291,7 +291,7 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
   
   NSDictionary* theater = [app.sqliteDB.theaters get: theater_id];
   
-  [self setText: [theater objectForKey: @"name"]];
+  self.textLabel.text = [theater objectForKey: @"name"];
   
   NSArray* schedules = [self schedules];
   schedules = [schedules sortByKey:@"time"];
