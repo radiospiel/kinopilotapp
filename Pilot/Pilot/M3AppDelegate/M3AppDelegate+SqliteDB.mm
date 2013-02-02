@@ -68,13 +68,11 @@
   if(revision.to_i <= 0 || !uuid) 
     return baseUrl;
   
-  if(app.isKinopilot) {
-    // legacy
-    return [NSString stringWithFormat: @"%@?uuid=%@&since=%@", baseUrl, uuid, revision];
-  }
+  // legacy
+  return [NSString stringWithFormat: @"%@?uuid=%@&since=%@", baseUrl, uuid, revision];
 
   // build update URL as "{baseUrl}/{uuid}/{revision}"
-  return [NSString stringWithFormat: @"%@/%@/%@", baseUrl, uuid, revision];
+  // return [NSString stringWithFormat: @"%@/%@/%@", baseUrl, uuid, revision];
 }
 
 -(NSArray*)fetchDiffFromURL: (NSString*)baseUrl
@@ -147,9 +145,7 @@
 
 -(M3SqliteDatabase*)buildSqliteDatabase
 {
-  NSString* sqlitePath;
-  sqlitePath = [NSString stringWithFormat: @"$documents/%@.sqlite3", app.identifier];
-  sqlitePath = [M3 expandPath: sqlitePath];
+  NSString* sqlitePath = [M3 expandPath: @"$documents/kinopilot.sqlite3"];
 
   if(![M3 fileExists: sqlitePath]) {
     [M3 copyFrom:[app configPathFor: @"seed.sqlite3"] 

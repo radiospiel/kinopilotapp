@@ -140,13 +140,7 @@
   
   if(schedules.count == 0) return self;
   
-  if(app.isFlk) {
-    schedules = [schedules sortByBlock:^id(NSDictionary* dict) {
-      return [dict objectForKey:@"time"];
-    }];
-    [self addSection: schedules];
-  }
-  else {
+  {
     // group schedules by *day* into sectionsHash
     NSMutableDictionary* sectionsHash = [schedules groupUsingBlock:^id(NSDictionary* schedule) {
       NSNumber* time = [schedule objectForKey:@"time"];
@@ -232,13 +226,7 @@
   [self setImageForMovie: movie];
   self.textLabel.text = [movie objectForKey: @"title"];
   
-  if(app.isFlk) {
-    NSString* time = [movie objectForKey:@"time"];
-    NSString* timeAsString = [time.to_date stringWithFormat:@"dd.MM. HH:mm"];
-
-    [self setDetailText: timeAsString];
-  }
-  else {
+  {
     NSArray* schedules = [self schedules];
     schedules = [schedules sortByKey:@"time"];
 
@@ -277,12 +265,10 @@
 {
   self = [super init];
 
-  if(app.isKinopilot) {
-    [self addSegment: @"Alle" withFilter: @"all" andTitle: @"Alle Filme"];
-    [self addSegment: @"Neu"  withFilter: @"new" andTitle: @"Neue Filme"];
-    [self addSegment: @"Art"  withFilter: @"art" andTitle: @"Klassiker"];
-  }
-  
+  [self addSegment: @"Alle" withFilter: @"all" andTitle: @"Alle Filme"];
+  [self addSegment: @"Neu"  withFilter: @"new" andTitle: @"Neue Filme"];
+  [self addSegment: @"Art"  withFilter: @"art" andTitle: @"Klassiker"];
+
   return self;
 }
 

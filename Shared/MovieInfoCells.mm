@@ -107,7 +107,7 @@
 {
   self = [super init];
 
-  self.textLabel.text = app.isKinopilot ? @"moviepilot.de Rating" : @"Community-Rating";
+  self.textLabel.text = @"moviepilot.de Rating";
   
   if(self) {
     ratingBackground_ = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"unstars.png"]];
@@ -145,11 +145,9 @@
   ratingForeground_.contentMode = UIViewContentModeLeft;
   ratingForeground_.clipsToBounds = YES;
 
-  if(app.isKinopilot) {
-    self.url = [self.movie objectForKey:@"url"];         // Link to movie URL.
-    if(self.url)
-      self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-  }
+  self.url = [self.movie objectForKey:@"url"];         // Link to movie URL.
+  if(self.url)
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 @end
 
@@ -183,10 +181,6 @@
   theater_ids = [theater_ids mapUsingSelector:@selector(first)];
 
   NSString* currentlyLabel = @"Zur Zeit";
-  
-  if(app.isFlk) {
-    currentlyLabel = @"Läuft";
-  }
   
   if(!theater_ids.count) {
     self.textLabel.text = @"Für diesen Film liegen uns keine Vorführungen vor.";

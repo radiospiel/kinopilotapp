@@ -30,15 +30,7 @@
 {
   self = [super initWithCellClass: @"TheatersListCell"]; 
   
-  if(app.isFlk) {
-    NSString* sql =  @"SELECT theaters._id, theaters.name FROM theaters "
-    "ORDER BY theaters.name ";
-    
-    NSArray* theaters = [app.sqliteDB all: sql];
-    [self addSection: theaters];
-  }
-  
-  if(app.isKinopilot) {
+  {
     NSString* sql;
     
     if([filter isEqualToString:@"fav"]) {
@@ -196,9 +188,7 @@
   [super setKey:theater];
   if(!theater) return;
   
-  if(app.isKinopilot) {
-    [super setFlagged: [app isFlagged: [self theater_id]]];
-  }
+  [super setFlagged: [app isFlagged: [self theater_id]]];
   
   self.textLabel.text = [theater objectForKey: @"name"];
 
@@ -336,9 +326,7 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 -(NSString*)title
 {
   NSString* title = [self.movie objectForKey:@"title"];
-  if(title) return title;
-  
-  return app.isFlk ? @"Freiluftkinos" : [super title];
+  return title ? title : [super title];
 }
 
 -(NSString*) movie_id
@@ -362,7 +350,7 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 {
   NSString* movie_id = self.movie_id;
 
-  if(!movie_id && app.isKinopilot) {
+  if(!movie_id) {
     [self addSegmentedFilters];
     [self setSearchBarEnabled: YES];
   }

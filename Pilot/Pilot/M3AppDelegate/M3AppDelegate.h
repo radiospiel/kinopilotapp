@@ -39,11 +39,6 @@ extern M3AppDelegate* app;
 /** returns @"WIFI", @"CELL", or nil */
 -(NSString*)currentReachability;
 
-@property (readonly) NSString* identifier;
-@property (readonly) BOOL isFlk;
-@property (readonly) BOOL isKinopilot;
-@property (readonly) BOOL isLivegigs;
-
 -(NSString*)configPathFor: (NSString*)file;
 -(UIImage*)imageNamed: (NSString*)imageName;
 

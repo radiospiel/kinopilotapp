@@ -47,10 +47,7 @@
   NSString* url = [self.movie objectForKey:@"url"];
   
   if(url && (teaser.length < description.length - 15)) {
-    if(app.isKinopilot)
-      escapedTeaser = [escapedTeaser stringByAppendingFormat:@"... <a href='%@'>Mehr auf moviepilot.de</a>", url];
-    else
-      escapedTeaser = [escapedTeaser stringByAppendingFormat:@"... <a href='%@'>Weiterlesen</a>", url];
+    escapedTeaser = [escapedTeaser stringByAppendingFormat:@"... <a href='%@'>Mehr auf moviepilot.de</a>", url];
   } 
 
   return escapedTeaser;

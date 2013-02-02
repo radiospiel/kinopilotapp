@@ -33,10 +33,6 @@ static int button_padding = 8;
 
 static void initConstants()
 {
-  if(app.isFlk) {
-    button_height = 128;
-  }
-
   dashboardConfig = [app.config objectForKey: @"dashboard"];
 }
 

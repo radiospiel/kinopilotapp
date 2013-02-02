@@ -106,26 +106,6 @@ M3AppDelegate* app;
   [super dealloc];
 }
 
--(NSString*) identifier
-{
-  return [[NSBundle mainBundle] bundleIdentifier];
-}
-
--(BOOL) isFlk
-{
-  return [self.identifier isEqualToString: @"io.socially.kinopilot-flk"];
-}
-
--(BOOL) isKinopilot
-{
-  return [self.identifier isEqualToString: @"com.radiospiel.kinopilot"];
-}
-
--(BOOL) isLivegigs
-{
-  return NO;
-}
-
 -(UINavigationController*)topMostController
 {
   // Get top-most controller.
@@ -264,7 +244,7 @@ static void uncaughtExceptionHandler(NSException *exception) {
   NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
   
 #if DEBUG
-  NSLog(@"Starting application [%@] in DEBUG mode in %@", self.identifier, [ M3 symbolicDir: @"$root" ]);
+  NSLog(@"Starting application in DEBUG mode in %@", [ M3 symbolicDir: @"$root" ]);
 #else
   NSLog(@"Starting application in %@", [ M3 symbolicDir: @"$root" ]);
 #endif
