@@ -117,8 +117,8 @@
     NSArray* headerArray = entries.first;
     NSDictionary* header = headerArray.second;
 
-    [self saveHeaderValueWithName:@"imgio"        fromHeader:header];
-    [self saveHeaderValueWithName:@"update_url"   fromHeader:header];
+    // [self saveHeaderValueWithName:@"imgio"        fromHeader:header];
+    // [self saveHeaderValueWithName:@"update_url"   fromHeader:header];
     [self saveHeaderValueWithName:@"revision"     fromHeader:header];
     [self saveHeaderValueWithName:@"uuid"         fromHeader:header];
     [self saveHeaderValue:[NSDate now].to_number forKey:@"updated_at"];
