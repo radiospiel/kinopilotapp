@@ -217,6 +217,7 @@
 -(void)reload
 {
   self.dataSource = [[[VicinityShowDataSource alloc]init] autorelease];
+  self.title = @"Was läuft jetzt?";
 }
 
 @end
