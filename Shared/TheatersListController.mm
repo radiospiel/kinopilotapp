@@ -34,14 +34,14 @@
     NSString* sql;
     
     if([filter isEqualToString:@"fav"]) {
-      sql =  @"SELECT theaters._id, theaters.name FROM theaters "
+      sql =  @"SELECT theaters._id, theaters.name, theaters.sortkey FROM theaters "
               "INNER JOIN flags ON flags.key_id=theaters._id "
               "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
               "LEFT JOIN movies ON schedules.movie_id=movies._id "
               "GROUP BY theaters._id ";
     }
     else {
-      sql =  @"SELECT theaters._id, theaters.name FROM theaters "
+      sql =  @"SELECT theaters._id, theaters.name, theaters.sortkey FROM theaters "
               "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
               "LEFT JOIN movies ON schedules.movie_id=movies._id "
               "GROUP BY theaters._id ";
