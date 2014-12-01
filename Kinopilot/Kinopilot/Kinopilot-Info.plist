@@ -48,6 +48,20 @@
 	</array>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleBlackOpaque</string>
+	<key>NSLocationUsageDescription</key>
+	<string>The application uses the device location to list showtimes in cinemas close to you.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>The application uses the device location to list showtimes in cinemas close to you.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>The application uses the device location to list showtimes in cinemas close to you.</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.entertainment</string>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

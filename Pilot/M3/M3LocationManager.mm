@@ -40,9 +40,21 @@
 {
   self = [super init];
 
+  // If Location Services are disabled, restricted or denied.
+  if ((![CLLocationManager locationServicesEnabled])
+      || ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted)
+      || ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied))
+  {
+    NSLog(@"locationServicesEnabled are disabled");
+    // Send the user to the location settings preferences
+    // [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"prefs:root=LOCATION_SERVICES"]];
+    return self;
+  }
+
   self.coordinates = FRIEDRICH_STRASSE;
-  self.locationManager = [[[CLLocationManager alloc] init] autorelease];
+  self.locationManager = [[CLLocationManager alloc] init];
   self.locationManager.delegate = self; // send location updates to myself
+  [ self.locationManager requestWhenInUseAuthorization ];
   
   return self;
 }
@@ -123,6 +135,7 @@
 
 #pragma mark - CLLocationManager delegate callbacks
 
+// Note: this is deprecated since IOS6
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
