@@ -36,9 +36,9 @@
     }
   },
   
-  "update_url":        "http://updates.kinopilotapp.de/db/images,berlin.sql",
-  "debug_update_url":  "http://localhost:3000/db/images,berlin.sql",
-
+  "debug_update_url":        "http://updates.kinopilotapp.de/db/images,berlin.sql",
+  "update_url":  "http://kinopilotupdates3.herokuapp.com/db/images,berlin.sql",
+  
   "name": "Kinopilot Berlin",
   "start_url": "/dashboard",
   "info": [
