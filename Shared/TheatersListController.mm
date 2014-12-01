@@ -38,13 +38,15 @@
               "INNER JOIN flags ON flags.key_id=theaters._id "
               "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
               "LEFT JOIN movies ON schedules.movie_id=movies._id "
-              "GROUP BY theaters._id ";
+              "GROUP BY theaters._id "
+              "ORDER BY theaters.sortkey";
     }
     else {
       sql =  @"SELECT theaters.* FROM theaters "
               "LEFT JOIN schedules ON schedules.theater_id=theaters._id "
               "LEFT JOIN movies ON schedules.movie_id=movies._id "
-              "GROUP BY theaters._id ";
+              "GROUP BY theaters._id "
+              "ORDER BY theaters.sortkey";
     }
     
     NSArray* theaters = [app.sqliteDB all: sql];
