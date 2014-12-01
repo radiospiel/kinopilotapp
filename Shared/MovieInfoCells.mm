@@ -43,15 +43,16 @@
   }
 
   if(imdb_id)
-    return _.join(@"http://www.imdb.de/title/", imdb_id, "/");
+    return _.join(@"http://www.imdb.com/title/", imdb_id, "/");
   else
-    return _.join(@"http://www.imdb.de/?q=", title.urlEscape);
+    return _.join(@"http://www.imdb.com/find?q=", title.urlEscape);
 }
 
 
 -(NSString*)trailerURL
 {  
   id videos = [self.movie objectForKey: @"videos"];
+    
   if([videos isKindOfClass: [NSDictionary class]]) {
     return _.join(@"/movies/trailer?movie_id=", self.movie_id);
   }
