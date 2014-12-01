@@ -23,13 +23,14 @@
   if(!text) return nil;
   
   UIView* header = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22)]autorelease];
-  header.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header-background-dark-22.png"]]; 
+  // header.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header-background-dark-22.png"]];
+  header.backgroundColor = UIColor.whiteColor;
   
   UILabel * label = [[[UILabel alloc] initWithFrame:CGRectMake(7, 0, 308, 22)]autorelease];
-  label.backgroundColor = [UIColor clearColor];
-  label.opaque = NO;
-  label.textColor = [UIColor whiteColor];
-  label.font = [UIFont boldSystemFontOfSize:15];
+  // label.backgroundColor = [UIColor whiteColor];
+  // label.opaque = NO;
+  // label.textColor = [UIColor whiteColor];
+  // label.font = [UIFont boldSystemFontOfSize:15];
   label.lineBreakMode = UILineBreakModeMiddleTruncation;
   label.text = text;
 
@@ -88,9 +89,9 @@
 -(void)setSearchBarEnabled: (BOOL)enabled
 {
   // --- create the search bar.
-  UISearchBar* searchBar = [[UISearchBar alloc]initWithFrame: CGRectMake(0, 0, 290, 44)];
+  UISearchBar* searchBar = [[UISearchBar alloc]initWithFrame: CGRectMake(0, 0, 305, 44)];
   searchBar.delegate = self;
-  searchBar.barStyle = UIBarStyleBlackOpaque;
+  // searchBar.barStyle = UIBarStyleBlackOpaque;
   
   // --- create a navigation bar dummy, which covers the space between pixels 290 and 20.
   UINavigationBar *dummyNavigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];

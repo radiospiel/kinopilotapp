@@ -107,7 +107,7 @@
 {
   self = [super init];
 
-  self.textLabel.text = @"moviepilot.de Rating";
+  self.textLabel.text = @"IMDB Rating";
   
   if(self) {
     ratingBackground_ = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"unstars.png"]];
@@ -577,7 +577,7 @@
           "<head>"
             "<meta name='viewport' content='initial-scale=1.0, user-scalable=no, width={{videoWidth}}'/>"
           "</head>"
-          "<body style='background:#F00;margin-top:0px;margin-left:0px'>"
+          "<body style='background:#fff;margin-top:0px;margin-left:auto;margin-right:auto'>"
             "<div>"
               "<object width='{{videoWidth}}' height='{{videoHeight}}'>"
                 "<param name='movie' value='{{youtubeURL}}'></param> "

@@ -73,13 +73,17 @@ static UIImage* stretchableImageNamed(NSString* name) {
 
   // set background images, colors and font.
 
-  btn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
-  [btn setTitleColor: [UIColor colorWithName: @"4c4b4b"] forState: UIControlStateNormal];
-  [btn setTitleShadowColor: [UIColor whiteColor] forState: UIControlStateNormal];
-  btn.titleLabel.shadowOffset = CGSizeMake(1.0, 1.0);
+  btn.titleLabel.font = [UIFont systemFontOfSize:15];
+  btn.borderWidth = 1.5;
+  btn.borderColor = [UIColor colorWithName: @"007aff"];
+  btn.layer.cornerRadius = 3;
+  
+  [btn setTitleColor: [UIColor colorWithName: @"007aff"] forState: UIControlStateNormal];
+//  [btn setTitleShadowColor: [UIColor whiteColor] forState: UIControlStateNormal];
+//  btn.titleLabel.shadowOffset = CGSizeMake(1.0, 1.0);
 
-  [btn setBackgroundImage: stretchableImageNamed(@"button_grey_normal.png") forState: UIControlStateNormal];
-  [btn setBackgroundImage: stretchableImageNamed(@"button_grey_pushed.png") forState: UIControlStateSelected];
+//  [btn setBackgroundImage: stretchableImageNamed(@"button_grey_normal.png") forState: UIControlStateNormal];
+//  [btn setBackgroundImage: stretchableImageNamed(@"button_grey_pushed.png") forState: UIControlStateSelected];
 
   // set URL
   

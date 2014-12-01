@@ -152,7 +152,7 @@ M3AppDelegate* app;
   // Build navigation controller
   UINavigationController* nc = [[[M3NavigationController alloc]initWithRootViewController:vc]autorelease];
   nc.delegate = self;
-  [nc.navigationBar setBarStyle:UIBarStyleBlackOpaque];
+  // [nc.navigationBar setBarStyle:UIBarStyleBlackOpaque];
   nc.navigationBarHidden = YES;
 
   return nc;

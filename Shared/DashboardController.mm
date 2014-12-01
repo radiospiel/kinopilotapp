@@ -422,9 +422,10 @@ static void initConstants()
 
 -(void)setBackgroundView
 {
-  UIImage* background = [app imageNamed: @"Dashboard/flk_dashboard.png"];
-  if(background)
-    self.tableView.backgroundView = [[[UIImageView alloc]initWithImage:background] autorelease];
+  self.tableView.backgroundColor = [UIColor whiteColor];
+//  UIImage* background = [app imageNamed: @"Dashboard/flk_dashboard.png"];
+//  if(background)
+//    self.tableView.backgroundView = [[[UIImageView alloc]initWithImage:background] autorelease];
 }
 
 -(void)reload
