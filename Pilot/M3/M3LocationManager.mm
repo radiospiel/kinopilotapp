@@ -141,7 +141,7 @@
            fromLocation:(CLLocation *)oldLocation
 {
   // Not yet good enough?
-  if([newLocation horizontalAccuracy] > ACCURACY) 
+  if([newLocation horizontalAccuracy] > ACCURACY)
     return;
   
   // Got update

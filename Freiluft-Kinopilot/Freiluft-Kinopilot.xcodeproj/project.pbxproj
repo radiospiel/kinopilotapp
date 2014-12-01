@@ -424,6 +424,11 @@
 				CLASSPREFIX = RS;
 				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = n/a;
+				TargetAttributes = {
+					9D6FD83115628A020059AD79 = {
+						DevelopmentTeam = XP9483B94J;
+					};
+				};
 			};
 			buildConfigurationList = 9D6FD82C15628A020059AD79 /* Build configuration list for PBXProject "Freiluft-Kinopilot" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -600,6 +605,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Freiluft-Kinopilot/Freiluft-Kinopilot-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -626,8 +632,8 @@
 		9D6FD84C15628A020059AD79 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: radiospiel UG (haftungsbeschrankt)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: radiospiel UG (haftungsbeschrankt)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Freiluft-Kinopilot/Freiluft-Kinopilot-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -646,7 +652,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "CC006D99-0E94-4EAF-B306-1B0464752B7B";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CC006D99-0E94-4EAF-B306-1B0464752B7B";
 				WRAPPER_EXTENSION = app;
 			};

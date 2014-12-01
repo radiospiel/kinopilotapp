@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9D0D8A461563B23E00EC5A86 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D0D8A451563B23E00EC5A86 /* SVProgressHUD.bundle */; };
-		9D57BD2616B348C900F908A9 /* libBrightcoveMediaAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D57BD2516B348C900F908A9 /* libBrightcoveMediaAPI.a */; };
-		9D57BD2816B348D600F908A9 /* libBrightcovePlayerKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D57BD2716B348D600F908A9 /* libBrightcovePlayerKit.a */; };
 		9D6FD83715628A020059AD79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD83615628A020059AD79 /* UIKit.framework */; };
 		9D6FD83915628A020059AD79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD83815628A020059AD79 /* Foundation.framework */; };
 		9D6FD83B15628A020059AD79 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD83A15628A020059AD79 /* CoreGraphics.framework */; };
@@ -33,7 +31,6 @@
 		9D6FD8E215628AE60059AD79 /* MoviesImagesController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD87B15628AE60059AD79 /* MoviesImagesController.mm */; };
 		9D6FD8E315628AE60059AD79 /* MoviesListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD87C15628AE60059AD79 /* MoviesListController.mm */; };
 		9D6FD8E415628AE60059AD79 /* MoviesShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD87E15628AE60059AD79 /* MoviesShowController.mm */; };
-		9D6FD8E515628AE60059AD79 /* MoviesTrailerController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD87F15628AE60059AD79 /* MoviesTrailerController.mm */; };
 		9D6FD92115628AE60059AD79 /* SchedulesActionsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8C315628AE60059AD79 /* SchedulesActionsController.mm */; };
 		9D6FD92215628AE60059AD79 /* SchedulesListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8C415628AE60059AD79 /* SchedulesListController.mm */; };
 		9D6FD92315628AE60059AD79 /* SearchController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8C515628AE60059AD79 /* SearchController.mm */; };
@@ -49,7 +46,6 @@
 		9D6FD93315628C870059AD79 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD93215628C870059AD79 /* MediaPlayer.framework */; };
 		9D6FD93515628C9F0059AD79 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD93415628C9F0059AD79 /* EventKit.framework */; };
 		9D6FD93715628CB40059AD79 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD93615628CB40059AD79 /* MessageUI.framework */; };
-		9D6FD93D15628D500059AD79 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD93C15628D500059AD79 /* libstdc++.dylib */; };
 		9D6FD93F15628D580059AD79 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD93E15628D580059AD79 /* libicucore.dylib */; };
 		9D6FD94115628D5F0059AD79 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD94015628D5F0059AD79 /* CFNetwork.framework */; };
 		9D6FD94315628D6F0059AD79 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD94215628D6F0059AD79 /* CoreLocation.framework */; };
@@ -88,6 +84,9 @@
 		9D6FD9AD156292400059AD79 /* unstars.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6FD96E156292400059AD79 /* unstars.png */; };
 		9D6FD9AE156292400059AD79 /* unstars@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6FD96F156292400059AD79 /* unstars@2x.png */; };
 		9D6FDB531562E2080059AD79 /* config.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D6FDB521562E2080059AD79 /* config.bundle */; };
+		9DAA41471A2CFFE500213193 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DAA41461A2CFFE500213193 /* Security.framework */; };
+		9DAA414D1A2D033900213193 /* dummy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA414C1A2D033900213193 /* dummy.mm */; };
+		9DAA414E1A2D039F00213193 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6FD93C15628D500059AD79 /* libstdc++.dylib */; };
 		9DC1C3D516B31F1300EDAC74 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DC1C3D416B31F1300EDAC74 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -103,8 +102,6 @@
 
 /* Begin PBXFileReference section */
 		9D0D8A451563B23E00EC5A86 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = ../vendor/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
-		9D57BD2516B348C900F908A9 /* libBrightcoveMediaAPI.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBrightcoveMediaAPI.a; path = "../vendor/bc-media-api-2.3/lib/libBrightcoveMediaAPI.a"; sourceTree = "<group>"; };
-		9D57BD2716B348D600F908A9 /* libBrightcovePlayerKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBrightcovePlayerKit.a; path = "../vendor/bc-ipad-iphone-kit-2.3/lib/libBrightcovePlayerKit.a"; sourceTree = "<group>"; };
 		9D6FD83215628A020059AD79 /* Kinopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kinopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D6FD83615628A020059AD79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9D6FD83815628A020059AD79 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -134,7 +131,6 @@
 		9D6FD87B15628AE60059AD79 /* MoviesImagesController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesImagesController.mm; sourceTree = "<group>"; };
 		9D6FD87C15628AE60059AD79 /* MoviesListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesListController.mm; sourceTree = "<group>"; };
 		9D6FD87E15628AE60059AD79 /* MoviesShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesShowController.mm; sourceTree = "<group>"; };
-		9D6FD87F15628AE60059AD79 /* MoviesTrailerController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesTrailerController.mm; sourceTree = "<group>"; };
 		9D6FD8C315628AE60059AD79 /* SchedulesActionsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SchedulesActionsController.mm; sourceTree = "<group>"; };
 		9D6FD8C415628AE60059AD79 /* SchedulesListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SchedulesListController.mm; sourceTree = "<group>"; };
 		9D6FD8C515628AE60059AD79 /* SearchController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchController.mm; sourceTree = "<group>"; };
@@ -193,6 +189,10 @@
 		9D6FD971156292400059AD79 /* share_movie_email.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = share_movie_email.html; sourceTree = "<group>"; };
 		9D6FD972156292400059AD79 /* share_schedule_email.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = share_schedule_email.html; sourceTree = "<group>"; };
 		9D6FDB521562E2080059AD79 /* config.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = config.bundle; sourceTree = "<group>"; };
+		9DAA41441A2CFF7200213193 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry.a; path = ../vendor/Flurry/libFlurry.a; sourceTree = "<group>"; };
+		9DAA41461A2CFFE500213193 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		9DAA41481A2D015E00213193 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		9DAA414C1A2D033900213193 /* dummy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = dummy.mm; path = ../../Shared/dummy.mm; sourceTree = "<group>"; };
 		9DC1C3D416B31F1300EDAC74 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -201,16 +201,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DAA414E1A2D039F00213193 /* libstdc++.dylib in Frameworks */,
+				9D6FD93F15628D580059AD79 /* libicucore.dylib in Frameworks */,
+				9D6FD92F15628C730059AD79 /* libsqlite3.dylib in Frameworks */,
+				9D6FD92D15628C6B0059AD79 /* libPilot.a in Frameworks */,
+				9DAA41471A2CFFE500213193 /* Security.framework in Frameworks */,
 				9D6FD94D15628DA20059AD79 /* SystemConfiguration.framework in Frameworks */,
 				9D6FD94B15628D960059AD79 /* QuartzCore.framework in Frameworks */,
 				9D6FD94715628D830059AD79 /* MapKit.framework in Frameworks */,
 				9D6FD94515628D770059AD79 /* CoreText.framework in Frameworks */,
 				9D6FD94315628D6F0059AD79 /* CoreLocation.framework in Frameworks */,
 				9D6FD94115628D5F0059AD79 /* CFNetwork.framework in Frameworks */,
-				9D6FD93F15628D580059AD79 /* libicucore.dylib in Frameworks */,
-				9D6FD93D15628D500059AD79 /* libstdc++.dylib in Frameworks */,
-				9D6FD92F15628C730059AD79 /* libsqlite3.dylib in Frameworks */,
-				9D6FD92D15628C6B0059AD79 /* libPilot.a in Frameworks */,
 				9D6FD83B15628A020059AD79 /* CoreGraphics.framework in Frameworks */,
 				9D6FD93515628C9F0059AD79 /* EventKit.framework in Frameworks */,
 				9D6FD83915628A020059AD79 /* Foundation.framework in Frameworks */,
@@ -218,8 +219,6 @@
 				9D6FD93715628CB40059AD79 /* MessageUI.framework in Frameworks */,
 				9D6FD93115628C7D0059AD79 /* Twitter.framework in Frameworks */,
 				9D6FD83715628A020059AD79 /* UIKit.framework in Frameworks */,
-				9D57BD2616B348C900F908A9 /* libBrightcoveMediaAPI.a in Frameworks */,
-				9D57BD2816B348D600F908A9 /* libBrightcovePlayerKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,8 +252,9 @@
 		9D6FD83515628A020059AD79 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9D57BD2516B348C900F908A9 /* libBrightcoveMediaAPI.a */,
-				9D57BD2716B348D600F908A9 /* libBrightcovePlayerKit.a */,
+				9DAA41481A2D015E00213193 /* libc++.dylib */,
+				9DAA41461A2CFFE500213193 /* Security.framework */,
+				9DAA41441A2CFF7200213193 /* libFlurry.a */,
 				9D6FD93E15628D580059AD79 /* libicucore.dylib */,
 				9D6FD92E15628C730059AD79 /* libsqlite3.dylib */,
 				9D6FD93C15628D500059AD79 /* libstdc++.dylib */,
@@ -281,6 +281,7 @@
 				9D6FD83E15628A020059AD79 /* Kinopilot-Info.plist */,
 				9D6FD83F15628A020059AD79 /* InfoPlist.strings */,
 				9D6FD84415628A020059AD79 /* Kinopilot-Prefix.pch */,
+				9DAA414C1A2D033900213193 /* dummy.mm */,
 				9D6FD87415628AE60059AD79 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -314,7 +315,6 @@
 				9D6FD87B15628AE60059AD79 /* MoviesImagesController.mm */,
 				9D6FD87C15628AE60059AD79 /* MoviesListController.mm */,
 				9D6FD87E15628AE60059AD79 /* MoviesShowController.mm */,
-				9D6FD87F15628AE60059AD79 /* MoviesTrailerController.mm */,
 				9D6FD8C315628AE60059AD79 /* SchedulesActionsController.mm */,
 				9D6FD8C415628AE60059AD79 /* SchedulesListController.mm */,
 				9D6FD8C515628AE60059AD79 /* SearchController.mm */,
@@ -418,7 +418,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = RS;
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = n/a;
 			};
 			buildConfigurationList = 9D6FD82C15628A020059AD79 /* Build configuration list for PBXProject "Kinopilot" */;
@@ -525,13 +525,13 @@
 				9D6FD8E215628AE60059AD79 /* MoviesImagesController.mm in Sources */,
 				9D6FD8E315628AE60059AD79 /* MoviesListController.mm in Sources */,
 				9D6FD8E415628AE60059AD79 /* MoviesShowController.mm in Sources */,
-				9D6FD8E515628AE60059AD79 /* MoviesTrailerController.mm in Sources */,
 				9D6FD92115628AE60059AD79 /* SchedulesActionsController.mm in Sources */,
 				9D6FD92215628AE60059AD79 /* SchedulesListController.mm in Sources */,
 				9D6FD92315628AE60059AD79 /* SearchController.mm in Sources */,
 				9D6FD92415628AE60059AD79 /* ShareController.mm in Sources */,
 				9D6FD92515628AE60059AD79 /* ShareMovieController.mm in Sources */,
 				9D6FD92615628AE60059AD79 /* ShareScheduleController.mm in Sources */,
+				9DAA414D1A2D033900213193 /* dummy.mm in Sources */,
 				9D6FD92715628AE60059AD79 /* TheatersListController.mm in Sources */,
 				9D6FD92915628AE60059AD79 /* VicinityShowController.mm in Sources */,
 				9D6FD92A15628AE60059AD79 /* WebViewController.mm in Sources */,
@@ -556,8 +556,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -571,7 +571,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "b089c615-6bb6-4cce-ae25-aa974ef02a94";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -580,16 +582,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iOS Distribution: radiospiel UG (haftungsbeschrankt)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Distribution: radiospiel UG (haftungsbeschrankt)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "d90bfebb-92f7-4007-b0b6-a56d54c2af48";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -598,19 +601,16 @@
 		9D6FD84B15628A020059AD79 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LIBRARY = "libstdc++";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Kinopilot/Kinopilot-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"../vendor/bc-media-api-2.3/lib/**",
-					"../vendor/bc-ipad-iphone-kit-2.3/lib/**",
-				);
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Kinopilot/Kinopilot-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../vendor/bc-ipad-iphone-kit-2.3/lib\"",
-					"\"$(SRCROOT)/../vendor/bc-ipad-iphone-kit-2.3/OAuthConsumer\"",
-					"\"$(SRCROOT)/../vendor/bc-media-api-2.3/lib\"",
+					/Users/eno/projects/apps/kinopilot/m3/vendor/Flurry,
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -624,29 +624,25 @@
 		9D6FD84C15628A020059AD79 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: radiospiel UG (haftungsbeschrankt)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: radiospiel UG (haftungsbeschrankt)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Kinopilot/Kinopilot-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"../vendor/bc-media-api-2.3/lib/**",
-					"../vendor/bc-ipad-iphone-kit-2.3/lib/**",
-				);
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Kinopilot/Kinopilot-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../vendor/bc-ipad-iphone-kit-2.3/lib\"",
-					"\"$(SRCROOT)/../vendor/bc-ipad-iphone-kit-2.3/OAuthConsumer\"",
-					"\"$(SRCROOT)/../vendor/bc-media-api-2.3/lib\"",
+					/Users/eno/projects/apps/kinopilot/m3/vendor/Flurry,
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F8050AFE-3F3D-4B21-98E9-72D726F75DF2";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F8050AFE-3F3D-4B21-98E9-72D726F75DF2";
+				PROVISIONING_PROFILE = "d90bfebb-92f7-4007-b0b6-a56d54c2af48";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "d90bfebb-92f7-4007-b0b6-a56d54c2af48";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

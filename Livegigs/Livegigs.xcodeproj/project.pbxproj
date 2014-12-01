@@ -34,7 +34,6 @@
 		9D6FD8E215628AE60059AD79 /* MoviesImagesController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD87B15628AE60059AD79 /* MoviesImagesController.mm */; };
 		9D6FD8E315628AE60059AD79 /* MoviesListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD87C15628AE60059AD79 /* MoviesListController.mm */; };
 		9D6FD8E415628AE60059AD79 /* MoviesShowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD87E15628AE60059AD79 /* MoviesShowController.mm */; };
-		9D6FD8E515628AE60059AD79 /* MoviesTrailerController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD87F15628AE60059AD79 /* MoviesTrailerController.mm */; };
 		9D6FD92115628AE60059AD79 /* SchedulesActionsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8C315628AE60059AD79 /* SchedulesActionsController.mm */; };
 		9D6FD92215628AE60059AD79 /* SchedulesListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8C415628AE60059AD79 /* SchedulesListController.mm */; };
 		9D6FD92315628AE60059AD79 /* SearchController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D6FD8C515628AE60059AD79 /* SearchController.mm */; };
@@ -138,7 +137,6 @@
 		9D6FD87B15628AE60059AD79 /* MoviesImagesController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesImagesController.mm; sourceTree = "<group>"; };
 		9D6FD87C15628AE60059AD79 /* MoviesListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesListController.mm; sourceTree = "<group>"; };
 		9D6FD87E15628AE60059AD79 /* MoviesShowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesShowController.mm; sourceTree = "<group>"; };
-		9D6FD87F15628AE60059AD79 /* MoviesTrailerController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviesTrailerController.mm; sourceTree = "<group>"; };
 		9D6FD8C315628AE60059AD79 /* SchedulesActionsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SchedulesActionsController.mm; sourceTree = "<group>"; };
 		9D6FD8C415628AE60059AD79 /* SchedulesListController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SchedulesListController.mm; sourceTree = "<group>"; };
 		9D6FD8C515628AE60059AD79 /* SearchController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchController.mm; sourceTree = "<group>"; };
@@ -331,7 +329,6 @@
 				9D6FD87B15628AE60059AD79 /* MoviesImagesController.mm */,
 				9D6FD87C15628AE60059AD79 /* MoviesListController.mm */,
 				9D6FD87E15628AE60059AD79 /* MoviesShowController.mm */,
-				9D6FD87F15628AE60059AD79 /* MoviesTrailerController.mm */,
 				9D6FD8C315628AE60059AD79 /* SchedulesActionsController.mm */,
 				9D6FD8C415628AE60059AD79 /* SchedulesListController.mm */,
 				9D6FD8C515628AE60059AD79 /* SearchController.mm */,
@@ -438,6 +435,11 @@
 				CLASSPREFIX = RS;
 				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = n/a;
+				TargetAttributes = {
+					9D6FD83115628A020059AD79 = {
+						DevelopmentTeam = XP9483B94J;
+					};
+				};
 			};
 			buildConfigurationList = 9D6FD82C15628A020059AD79 /* Build configuration list for PBXProject "Livegigs" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -539,7 +541,6 @@
 				9D6FD8E215628AE60059AD79 /* MoviesImagesController.mm in Sources */,
 				9D6FD8E315628AE60059AD79 /* MoviesListController.mm in Sources */,
 				9D6FD8E415628AE60059AD79 /* MoviesShowController.mm in Sources */,
-				9D6FD8E515628AE60059AD79 /* MoviesTrailerController.mm in Sources */,
 				9D6FD92115628AE60059AD79 /* SchedulesActionsController.mm in Sources */,
 				9D6FD92215628AE60059AD79 /* SchedulesListController.mm in Sources */,
 				9D6FD92315628AE60059AD79 /* SearchController.mm in Sources */,
@@ -615,6 +616,8 @@
 		9D6FD84B15628A020059AD79 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Livegigs/Livegigs-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -633,6 +636,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -640,6 +644,8 @@
 		9D6FD84C15628A020059AD79 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Livegigs/Livegigs-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -658,6 +664,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

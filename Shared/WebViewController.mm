@@ -32,6 +32,7 @@
 -(void)viewDidUnload
 {
   webView = nil;
+  [super viewDidUnload];
 }
 
 -(void)setUrl:(NSString *)url

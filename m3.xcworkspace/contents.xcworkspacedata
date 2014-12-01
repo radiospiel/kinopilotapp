@@ -10,10 +10,4 @@
    <FileRef
       location = "group:Kinopilot/Kinopilot.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:Freiluft-Kinopilot/Freiluft-Kinopilot.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Livegigs/Livegigs.xcodeproj">
-   </FileRef>
 </Workspace>

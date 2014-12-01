@@ -53,10 +53,6 @@
 {  
   id videos = [self.movie objectForKey: @"videos"];
     
-  if([videos isKindOfClass: [NSDictionary class]]) {
-    return _.join(@"/movies/trailer?movie_id=", self.movie_id);
-  }
-  
   if([videos isKindOfClass: [NSArray class]]) {
     return [videos first];
   }

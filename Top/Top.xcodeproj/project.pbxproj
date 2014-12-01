@@ -14,8 +14,6 @@
 			);
 			dependencies = (
 				9D0D8A8A1563B3CF00EC5A86 /* PBXTargetDependency */,
-				9D0D8A8C1563B3CF00EC5A86 /* PBXTargetDependency */,
-				9D0D8A8E1563B3CF00EC5A86 /* PBXTargetDependency */,
 			);
 			name = Top;
 			productName = Top;
@@ -23,26 +21,12 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXContainerItemProxy section */
-		9D0D8A811563B3B700EC5A86 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9D0D8A781563B3B700EC5A86 /* Freiluft-Kinopilot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9D6FD83215628A020059AD79;
-			remoteInfo = "Freiluft-Kinopilot";
-		};
 		9D0D8A841563B3B700EC5A86 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9D0D8A771563B3B700EC5A86 /* Kinopilot.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 9D6FD83215628A020059AD79;
 			remoteInfo = Kinopilot;
-		};
-		9D0D8A871563B3B700EC5A86 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9D0D8A791563B3B700EC5A86 /* Livegigs.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9D6FD83215628A020059AD79;
-			remoteInfo = Livegigs;
 		};
 		9D0D8A891563B3CF00EC5A86 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -51,26 +35,10 @@
 			remoteGlobalIDString = 9D6FD83115628A020059AD79;
 			remoteInfo = Kinopilot;
 		};
-		9D0D8A8B1563B3CF00EC5A86 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9D0D8A791563B3B700EC5A86 /* Livegigs.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 9D6FD83115628A020059AD79;
-			remoteInfo = Livegigs;
-		};
-		9D0D8A8D1563B3CF00EC5A86 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9D0D8A781563B3B700EC5A86 /* Freiluft-Kinopilot.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 9D6FD83115628A020059AD79;
-			remoteInfo = "Freiluft-Kinopilot";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9D0D8A771563B3B700EC5A86 /* Kinopilot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Kinopilot.xcodeproj; path = ../Kinopilot/Kinopilot.xcodeproj; sourceTree = "<group>"; };
-		9D0D8A781563B3B700EC5A86 /* Freiluft-Kinopilot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Freiluft-Kinopilot.xcodeproj"; path = "../Freiluft-Kinopilot/Freiluft-Kinopilot.xcodeproj"; sourceTree = "<group>"; };
-		9D0D8A791563B3B700EC5A86 /* Livegigs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Livegigs.xcodeproj; path = ../Livegigs/Livegigs.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -78,8 +46,6 @@
 			isa = PBXGroup;
 			children = (
 				9D0D8A771563B3B700EC5A86 /* Kinopilot.xcodeproj */,
-				9D0D8A781563B3B700EC5A86 /* Freiluft-Kinopilot.xcodeproj */,
-				9D0D8A791563B3B700EC5A86 /* Livegigs.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -87,22 +53,6 @@
 			isa = PBXGroup;
 			children = (
 				9D0D8A851563B3B700EC5A86 /* Kinopilot.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		9D0D8A7C1563B3B700EC5A86 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9D0D8A821563B3B700EC5A86 /* Freiluft-Kinopilot.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		9D0D8A7E1563B3B700EC5A86 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9D0D8A881563B3B700EC5A86 /* Livegigs.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,16 +77,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 9D0D8A7C1563B3B700EC5A86 /* Products */;
-					ProjectRef = 9D0D8A781563B3B700EC5A86 /* Freiluft-Kinopilot.xcodeproj */;
-				},
-				{
 					ProductGroup = 9D0D8A7A1563B3B700EC5A86 /* Products */;
 					ProjectRef = 9D0D8A771563B3B700EC5A86 /* Kinopilot.xcodeproj */;
-				},
-				{
-					ProductGroup = 9D0D8A7E1563B3B700EC5A86 /* Products */;
-					ProjectRef = 9D0D8A791563B3B700EC5A86 /* Livegigs.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -147,25 +89,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		9D0D8A821563B3B700EC5A86 /* Freiluft-Kinopilot.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "Freiluft-Kinopilot.app";
-			remoteRef = 9D0D8A811563B3B700EC5A86 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		9D0D8A851563B3B700EC5A86 /* Kinopilot.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = Kinopilot.app;
 			remoteRef = 9D0D8A841563B3B700EC5A86 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9D0D8A881563B3B700EC5A86 /* Livegigs.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = Livegigs.app;
-			remoteRef = 9D0D8A871563B3B700EC5A86 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -175,16 +103,6 @@
 			isa = PBXTargetDependency;
 			name = Kinopilot;
 			targetProxy = 9D0D8A891563B3CF00EC5A86 /* PBXContainerItemProxy */;
-		};
-		9D0D8A8C1563B3CF00EC5A86 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Livegigs;
-			targetProxy = 9D0D8A8B1563B3CF00EC5A86 /* PBXContainerItemProxy */;
-		};
-		9D0D8A8E1563B3CF00EC5A86 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Freiluft-Kinopilot";
-			targetProxy = 9D0D8A8D1563B3CF00EC5A86 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
