@@ -135,12 +135,12 @@
   {
     NSMutableArray* actions = _.array();
     
-    NSString* address = [theater objectForKey:@"address"];
-    
-    if(address) {
-      NSString* addressURL = _.join(@"fahrinfo-berlin://connection?to=", address.urlEscape);
-      [actions addObject: _.array(@"Fahrinfo", addressURL)];
-    }
+//    NSString* address = [theater objectForKey:@"address"];
+//    
+//    if(address) {
+//      NSString* addressURL = _.join(@"fahrinfo-berlin://connection?to=", address.urlEscape);
+//      [actions addObject: _.array(@"Fahrinfo", addressURL)];
+//    }
     
     NSString* fon = [theater objectForKey:@"telephone"];
     if(fon) {
