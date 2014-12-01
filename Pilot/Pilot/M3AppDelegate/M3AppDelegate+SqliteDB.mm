@@ -175,7 +175,7 @@
       [db importDatabaseFromRemote];
     
       dispatch_async(dispatch_get_main_queue(), ^{
-        [self emit:@selector(updated)];
+        [self emit:@selector(db_updated)];
         if(feedback)
           [SVProgressHUD dismissWithSuccess:@"Aktualisierung erfolgreich!" ];
       });

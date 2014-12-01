@@ -295,7 +295,7 @@ static void uncaughtExceptionHandler(NSException *exception) {
    Use this method to pause ongoing tasks, disable timers, and throttle down 
    OpenGL ES frame rates. Games should use this method to pause the game.
   */
-  [app emit:@selector(paused)];
+  [app emit:@selector(app_paused)];
   
 }
 

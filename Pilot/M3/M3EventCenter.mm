@@ -458,8 +458,8 @@ ETest(M3EventCenter)
   TestClass2* obj1 = [[[TestClass2 alloc ]init]autorelease];
   TestClass2* obj2 = [[[TestClass2 alloc ]init]autorelease];
   
-  [ obj1 on: @selector(updated) notify: obj2 with: @selector(setUpdate:)];
-  [ obj1 emit: @selector(updated) withParameter: _.hash("a", 1)];
+  [ obj1 on: @selector(db_updated) notify: obj2 with: @selector(setUpdate:)];
+  [ obj1 emit: @selector(db_updated) withParameter: _.hash("a", 1)];
   assert_equal(_.hash("a", 1), obj2.update);
 }
 

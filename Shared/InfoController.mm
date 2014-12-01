@@ -176,7 +176,7 @@
 -(id)init
 { 
   self = [super initWithStyle: UITableViewStyleGrouped];
-  [app on: @selector(updated) notify:self with:@selector(reload)];
+  [app on: @selector(db_updated) notify:self with:@selector(reload)];
   return self;
 }
 
