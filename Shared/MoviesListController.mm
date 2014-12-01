@@ -38,7 +38,8 @@
               "INNER JOIN schedules ON schedules.movie_id=movies._id "
               "INNER JOIN theaters ON schedules.theater_id=theaters._id "
               "WHERE schedules.time > ? AND cinema_start_date > ? "
-              "GROUP BY movies._id ",
+              "GROUP BY movies._id "
+              "ORDER BY sortkey ",
               [NSDate today],
               [NSNumber numberWithInt: two_weeks_ago] 
               ];
@@ -48,7 +49,8 @@
               "INNER JOIN schedules ON schedules.movie_id=movies._id "
               "INNER JOIN theaters ON schedules.theater_id=theaters._id "
               "WHERE schedules.time > ? AND production_year < 1995 "
-              "GROUP BY movies._id ",
+              "GROUP BY movies._id "
+              "ORDER BY sortkey ",
               [NSDate today]
               ];
   }
@@ -57,7 +59,8 @@
               "INNER JOIN schedules ON schedules.movie_id=movies._id  "
               "INNER JOIN theaters ON schedules.theater_id=theaters._id "
               "WHERE schedules.time > ? "
-              "GROUP BY movies._id ",
+              "GROUP BY movies._id "
+              "ORDER BY sortkey ",
               [NSDate today]
               ];
   }
