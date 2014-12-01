@@ -84,7 +84,11 @@ static CGFloat textHeight = 0, detailTextHeight = 0;
 -(void)setImageForMovie: (NSDictionary*)movie
 {
   UIImage* img = [app thumbnailForMovie: movie];
-  self.image = img ? img : [UIImage imageNamed:@"no_poster.png"];
+  if(!img)
+    img = [UIImage imageNamed:@"no_poster.png"];
+  
+  self.image = img;
+  self.imageView.image = img;
   self.imageView.contentMode = UIViewContentModeScaleAspectFill;
   self.imageView.clipsToBounds = YES;
 }
