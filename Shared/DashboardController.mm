@@ -420,21 +420,12 @@ static void initConstants()
   return self;
 }
 
--(void)setBackgroundView
-{
-  self.tableView.backgroundColor = [UIColor whiteColor];
-//  UIImage* background = [app imageNamed: @"Dashboard/flk_dashboard.png"];
-//  if(background)
-//    self.tableView.backgroundView = [[[UIImageView alloc]initWithImage:background] autorelease];
-}
-
 -(void)reload
 {
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   self.tableView.backgroundColor = [UIColor blackColor];
   self.tableView.scrollEnabled = NO;
-
-  [self setBackgroundView];
+  self.tableView.backgroundColor = [UIColor whiteColor];
   
   self.dataSource = [[[DashboardDataSource alloc]init]autorelease];
 }
