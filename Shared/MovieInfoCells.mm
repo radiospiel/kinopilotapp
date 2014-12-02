@@ -9,7 +9,7 @@
 
 @property (nonatomic,readonly) NSString* imdbURL;
 @property (nonatomic,readonly) NSString* trailerURL;
-@property (nonatomic,readonly) NSString* youtubeURL;
+@property (nonatomic,readonly) NSString* youtubeID;
 
 @end
 
@@ -60,12 +60,12 @@
   return nil;
 }
 
--(NSString*)youtubeURL
-{  
-  NSString* trailerURL = self.trailerURL;
-  if([trailerURL containsString:@".youtube."]) return trailerURL;
+-(NSString*)youtubeID
+{
+  if(![self.trailerURL containsString:@".youtube."]) return nil;
   
-  return nil;
+  NSURL* url = [NSURL URLWithString:self.trailerURL];
+  return [url param: @"v"];
 }
 
 @end
@@ -385,11 +385,10 @@
 {
   NSMutableArray* actions = [NSMutableArray array];
 
-  if(self.trailerURL && !self.youtubeURL) {
+  [actions addObject: _.array(@"IMDB", self.imdbURL)];
+  if(self.trailerURL) {
     [actions addObject: _.array(@"Trailer", self.trailerURL)];
   }
-  
-  [actions addObject: _.array(@"IMDB", self.imdbURL)];
   
   return actions;
 }
@@ -541,12 +540,14 @@
 {
   [super setKey:class_and_movie];
   
-  if(!self.youtubeURL) return;
+  if(!self.youtubeID) return;
   
   self.textLabel.text = @" ";
 
   if(!trailerWebView) {
     trailerWebView = [[UIWebView alloc]initWithFrame: CGRectMake(0, 0, self.videoWidth, self.videoHeight)];
+    trailerWebView.scrollView.scrollEnabled = NO;
+    trailerWebView.scrollView.bounces = NO;
     [self addSubview: trailerWebView];
   }
   
@@ -556,17 +557,8 @@
 
 -(CGFloat)wantsHeight
 {
-  return self.youtubeURL ? self.videoHeight : 0;
+  return self.youtubeID ? self.videoHeight : 0;
 }
-
-#if TARGET_IPHONE_SIMULATOR
-
--(NSString*)htmlTemplate
-{
-  return @"On a real device this should show a youtube video from {{youtubeURL}}";
-}
-
-#else
 
 -(NSString*)htmlTemplate
 {
@@ -574,20 +566,12 @@
           "<head>"
             "<meta name='viewport' content='initial-scale=1.0, user-scalable=no, width={{videoWidth}}'/>"
           "</head>"
-          "<body style='background:#fff;margin-top:0px;margin-left:auto;margin-right:auto'>"
-            "<div>"
-              "<object width='{{videoWidth}}' height='{{videoHeight}}'>"
-                "<param name='movie' value='{{youtubeURL}}'></param> "
-                "<param name='wmode' value='transparent'></param> "
-                "<embed src='{{youtubeURL}}' "
-                  "type='application/x-shockwave-flash' wmode='transparent' width='{{videoWidth}}' height='{{videoHeight}}'></embed>" 
-              "</object>"
-            "</div>"
+          "<body style='background:transparent;margin-top:0px;margin-left:auto;margin-right:auto;overflow: hidden;'>"
+            "<iframe src='http://www.youtube.com/embed/{{youtubeID}}?showinfo=0' frameborder='0' width='{{videoWidth}}' height='{{videoHeight}}'></iframe>"
           "</body>"
           "</html>";
 }
 
-#endif
 
 @end
 
