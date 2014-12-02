@@ -75,10 +75,10 @@ static UIImage* stretchableImageNamed(NSString* name) {
 
   btn.titleLabel.font = [UIFont systemFontOfSize:15];
   btn.borderWidth = 1.5;
-  btn.borderColor = [UIColor colorWithName: @"007aff"];
-  btn.layer.cornerRadius = 3;
+  btn.borderColor = [UIColor colorWithName: @"1183ff"];
+  btn.layer.cornerRadius = 4;
   
-  [btn setTitleColor: [UIColor colorWithName: @"007aff"] forState: UIControlStateNormal];
+  [btn setTitleColor: [UIColor colorWithName: @"1183ff"] forState: UIControlStateNormal];
 //  [btn setTitleShadowColor: [UIColor whiteColor] forState: UIControlStateNormal];
 //  btn.titleLabel.shadowOffset = CGSizeMake(1.0, 1.0);
 
